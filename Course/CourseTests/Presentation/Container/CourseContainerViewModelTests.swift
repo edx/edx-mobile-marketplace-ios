@@ -103,6 +103,9 @@ final class CourseContainerViewModelTests: XCTestCase {
             certificate: nil,
             org: "",
             isSelfPaced: true,
+            isUpgradeable: false,
+            sku: nil, 
+            coursewareAccessDetails: nil,
             courseProgress: nil
         )
         
@@ -172,6 +175,9 @@ final class CourseContainerViewModelTests: XCTestCase {
             certificate: nil,
             org: "",
             isSelfPaced: true,
+            isUpgradeable: false,
+            sku: nil,
+            coursewareAccessDetails: nil,
             courseProgress: nil
         )
         
@@ -437,7 +443,10 @@ final class CourseContainerViewModelTests: XCTestCase {
             )),
             certificate: nil,
             org: "",
-            isSelfPaced: true, 
+            isSelfPaced: true,
+            isUpgradeable: false,
+            sku: nil,
+            coursewareAccessDetails: nil,
             courseProgress: nil
         )
 
@@ -579,6 +588,9 @@ final class CourseContainerViewModelTests: XCTestCase {
             certificate: nil,
             org: "",
             isSelfPaced: true,
+            isUpgradeable: false,
+            sku: nil,
+            coursewareAccessDetails: nil,
             courseProgress: nil
         )
 
@@ -705,6 +717,9 @@ final class CourseContainerViewModelTests: XCTestCase {
             certificate: nil,
             org: "",
             isSelfPaced: true,
+            isUpgradeable: false,
+            sku: nil,
+            coursewareAccessDetails: nil,
             courseProgress: nil
         )
 
@@ -832,6 +847,9 @@ final class CourseContainerViewModelTests: XCTestCase {
             certificate: nil,
             org: "",
             isSelfPaced: true,
+            isUpgradeable: false,
+            sku: nil,
+            coursewareAccessDetails: nil,
             courseProgress: nil
         )
 
@@ -952,6 +970,9 @@ final class CourseContainerViewModelTests: XCTestCase {
             certificate: nil,
             org: "",
             isSelfPaced: true,
+            isUpgradeable: false,
+            sku: nil,
+            coursewareAccessDetails: nil,
             courseProgress: nil
         )
 
@@ -1087,6 +1108,9 @@ final class CourseContainerViewModelTests: XCTestCase {
             certificate: nil,
             org: "",
             isSelfPaced: true,
+            isUpgradeable: false,
+            sku: nil,
+            coursewareAccessDetails: nil,
             courseProgress: nil
         )
 
@@ -1243,6 +1267,9 @@ final class CourseContainerViewModelTests: XCTestCase {
             certificate: nil,
             org: "",
             isSelfPaced: true,
+            isUpgradeable: false,
+            sku: nil,
+            coursewareAccessDetails: nil,
             courseProgress: nil
         )
 

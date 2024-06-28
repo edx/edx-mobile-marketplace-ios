@@ -20,10 +20,19 @@ struct CourseHeaderView: View {
     @Binding private var isAnimatingForTap: Bool
     @Environment(\.isHorizontal) private var isHorizontal
     
-    private let collapsedHorizontalHeight: CGFloat = 230
-    private let collapsedVerticalHeight: CGFloat = 260
-    private let expandedHeight: CGFloat = 300
+    private var collapsedHorizontalHeight: CGFloat {
+        186 + (!viewModel.shouldHideMenuBar ? 44 : 0)
+    }
+    private var collapsedVerticalHeight: CGFloat {
+        216 + (!viewModel.shouldHideMenuBar ? 44 : 0)
+    }
+
+    private var expandedHeight: CGFloat {
+        220 + (!viewModel.shouldHideMenuBar ? 80 : 0) + (viewModel.shouldShowUpgradeButton ? 42+20 : 0)
+    }
     
+    private var upgradeAction: (() -> Void)?
+    private let courseRawImage: String?
     private enum GeometryName {
         case backButton
         case topTabBar
@@ -31,14 +40,18 @@ struct CourseHeaderView: View {
         case blurPrimaryBg
         case blurBg
     }
+    private let org: String?
     
     init(
         viewModel: CourseContainerViewModel,
         title: String,
+        org: String?,
         collapsed: Binding<Bool>,
         containerWidth: CGFloat,
         animationNamespace: Namespace.ID,
-        isAnimatingForTap: Binding<Bool>
+        isAnimatingForTap: Binding<Bool>,
+        courseRawImage: String?,
+        upgradeAction: (() -> Void)? = nil
     ) {
         self.viewModel = viewModel
         self.title = title
@@ -46,12 +59,15 @@ struct CourseHeaderView: View {
         self.containerWidth = containerWidth
         self.animationNamespace = animationNamespace
         self._isAnimatingForTap = isAnimatingForTap
+        self.courseRawImage = courseRawImage
+        self.upgradeAction = upgradeAction
+        self.org = org
     }
     
     var body: some View {
         ZStack(alignment: .bottomLeading) {
             ScrollView {
-                if let banner = viewModel.courseStructure?.media.image.raw
+                if let banner = (viewModel.courseStructure?.media.image.raw ?? courseRawImage)?
                     .addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
                     KFImage(URL(string: viewModel.config.baseURL.absoluteString + banner))
                         .onFailureImage(CoreAssets.noCourseImage.image)
@@ -88,9 +104,15 @@ struct CourseHeaderView: View {
                         }
                         .padding(.top, 46)
                         .padding(.leading, 12)
-                        courseMenuBar(containerWidth: containerWidth)
-                            .matchedGeometryEffect(id: GeometryName.topTabBar, in: animationNamespace)
-                            .padding(.bottom, 12)
+                        if !viewModel.shouldHideMenuBar {
+                            courseMenuBar(containerWidth: containerWidth)
+                                .matchedGeometryEffect(id: GeometryName.topTabBar, in: animationNamespace)
+                                .padding(.bottom, 12)
+                        } else {
+                            Spacer()
+                                .frame(height: 10)
+                                .padding(.bottom, 12)
+                        }
                     }.background {
                         ZStack(alignment: .bottom) {
                             Rectangle()
@@ -108,7 +130,7 @@ struct CourseHeaderView: View {
                 } else {
                     ZStack(alignment: .bottomLeading) {
                         VStack {
-                            if let org = viewModel.courseStructure?.org {
+                            if let org = viewModel.courseStructure?.org ?? org {
                                 Text(org)
                                     .font(Theme.Fonts.labelLarge)
                                     .foregroundStyle(Theme.Colors.textPrimary)
@@ -128,9 +150,20 @@ struct CourseHeaderView: View {
                                 .padding(.horizontal, 24)
                                 .allowsHitTesting(false)
                                 .frameLimit(width: containerWidth)
-                            courseMenuBar(containerWidth: containerWidth)
-                                .matchedGeometryEffect(id: GeometryName.topTabBar, in: animationNamespace)
-                                .padding(.bottom, 12)
+                            if viewModel.shouldShowUpgradeButton {
+                                upgradeButton
+                                    .padding(.horizontal, 24)
+                                    .frameLimit(width: containerWidth)
+                            }
+                            if !viewModel.shouldHideMenuBar {
+                                courseMenuBar(containerWidth: containerWidth)
+                                    .matchedGeometryEffect(id: GeometryName.topTabBar, in: animationNamespace)
+                                    .padding(.bottom, 12)
+                            } else {
+                                Spacer()
+                                    .frame(height: 10)
+                                    .padding(.bottom, 12)
+                            }
                         }.background {
                             ZStack(alignment: .bottom) {
                                 Rectangle()
@@ -171,5 +204,20 @@ struct CourseHeaderView: View {
                 isAnimatingForTap = false
             }
         }
+    }
+    
+    var upgradeButton: some View {
+        StyledButton(
+            CoreLocalization.CourseUpgrade.Button.upgrade,
+            action: {
+                upgradeAction?()
+            },
+            color: Theme.Colors.accentColor,
+            textColor: Theme.Colors.primaryButtonTextColor,
+            leftImage: Image(systemName: "lock.fill"),
+            imagesStyle: .attachedToText,
+            isTitleTracking: false,
+            isLimitedOnPad: false
+        )
     }
 }

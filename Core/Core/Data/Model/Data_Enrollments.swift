@@ -11,13 +11,24 @@ public extension DataLayer {
     // MARK: - CourseEnrollments
     struct CourseEnrollments: Codable {
         public let enrollments: Enrollments
+        public let configs: ServerConfigs?
 
         enum CodingKeys: String, CodingKey {
             case enrollments
+            case configs
         }
 
-        public init(enrollments: Enrollments) {
+        public init(enrollments: Enrollments, configs: ServerConfigs?) {
             self.enrollments = enrollments
+            self.configs = configs
+        }
+    }
+    
+    struct ServerConfigs: Codable {
+        public let config: String?
+        
+        public init(config: String?) {
+            self.config = config
         }
     }
 
@@ -116,7 +127,7 @@ public extension DataLayer {
         public let courseAbout: String
         public let courseSharingUtmParameters: CourseSharingUtmParameters
         public let videoOutline: String?
-        public let isSelfPaced: Bool
+        public let isSelfPaced: Bool?
 
         enum CodingKeys: String, CodingKey {
             case id
@@ -178,20 +189,17 @@ public extension DataLayer {
     struct CourseMode: Codable {
         public let slug: Mode?
         public let sku: String?
-        public let androidSku: String?
         public let iosSku: String?
 
         enum CodingKeys: String, CodingKey {
             case slug
             case sku
-            case androidSku = "android_sku"
             case iosSku = "ios_sku"
         }
 
-        public init(slug: Mode?, sku: String?, androidSku: String?, iosSku: String?) {
+        public init(slug: Mode?, sku: String?, iosSku: String?) {
             self.slug = slug
             self.sku = sku
-            self.androidSku = androidSku
             self.iosSku = iosSku
         }
     }
@@ -217,7 +225,7 @@ public extension DataLayer {
     // MARK: - CoursewareAccess
     struct CoursewareAccess: Codable {
         public let hasAccess: Bool
-        public let errorCode: String?
+        public let errorCode: CourseAccessError?
         public let developerMessage: String?
         public let userMessage: String?
         public let additionalContextUserMessage: String?
@@ -231,17 +239,73 @@ public extension DataLayer {
             case additionalContextUserMessage = "additional_context_user_message"
             case userFragment = "user_fragment"
         }
+        
+        public init(
+            hasAccess: Bool,
+            errorCode: CourseAccessError?,
+            developerMessage: String?,
+            userMessage: String?,
+            additionalContextUserMessage: String?,
+            userFragment: String?
+        ) {
+            self.hasAccess = hasAccess
+            self.errorCode = errorCode
+            self.developerMessage = developerMessage
+            self.userMessage = userMessage
+            self.additionalContextUserMessage = additionalContextUserMessage
+            self.userFragment = userFragment
+        }
+    }
+    
+    enum CourseAccessError: String, Codable {
+        case notStarted = "course_not_started"
+        case auditExpired = "audit_expired"
+        case visibilityError = "not_visible_to_user"
+        case milestoneError = "unfulfilled_milestones"
+        case unknown
+        
+        public init(from decoder: Decoder) throws {
+            let rawValue = try decoder.singleValueContainer().decode(RawValue.self)
+            self = CourseAccessError(rawValue: rawValue) ?? .unknown
+        }
     }
 }
 
 public extension DataLayer.CourseEnrollments {
-    func domain(baseURL: String) -> [CourseItem] {
-        return enrollments.results.map { result in
+    func domain(baseURL: String) -> ([CourseItem], DataLayer.ServerConfigs?) {
+        return (enrollments.results.map { result in
             let course = result.course
             
             let imageUrl = course.media.courseImage?.url ?? ""
             let encodedUrl = imageUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
             let fullImageURL = baseURL + encodedUrl
+            var sku = ""
+            
+            for mode in result.courseModes where mode.slug == DataLayer.Mode.verified {
+                sku = mode.iosSku ?? ""
+            }
+            
+            var dynamicUpgradeDeadline: Date?
+            
+            if let dynamicDeadline = course.dynamicUpgradeDeadline {
+                dynamicUpgradeDeadline = Date(iso8601: dynamicDeadline)
+            }
+            
+            var coursewareError: CourseAccessError?
+            
+            let access = course.coursewareAccess
+            if let error = access.errorCode {
+                coursewareError = CourseAccessError(rawValue: error.rawValue) ?? .unknown
+            }
+            
+            let coursewareAccess = CoursewareAccess(
+                hasAccess: access.hasAccess,
+                errorCode: coursewareError,
+                developerMessage: access.developerMessage,
+                userMessage: access.userMessage,
+                additionalContextUserMessage: access.additionalContextUserMessage,
+                userFragment: access.userFragment
+            )
             
             return CourseItem(
                 name: course.name,
@@ -260,9 +324,15 @@ public extension DataLayer.CourseEnrollments {
                 courseID: course.id,
                 numPages: enrollments.numPages ?? 1,
                 coursesCount: enrollments.count ?? 0,
+                sku: sku,
+                dynamicUpgradeDeadline: dynamicUpgradeDeadline,
+                mode: result.mode,
+                isSelfPaced: course.isSelfPaced,
+                courseRawImage: course.media.courseImage?.url,
+                coursewareAccess: coursewareAccess,
                 progressEarned: 0,
                 progressPossible: 0
             )
-        }
+        }, configs)
     }
 }

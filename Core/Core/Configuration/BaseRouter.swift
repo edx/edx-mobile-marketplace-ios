@@ -58,7 +58,26 @@ public protocol BaseRouter {
     func presentView(transitionStyle: UIModalTransitionStyle, view: any View, completion: (() -> Void)?)
     
     func presentView(transitionStyle: UIModalTransitionStyle, animated: Bool, content: () -> any View)
-
+    func presentNativeAlert(title: String?, message: String?, actions: [UIAlertAction])
+    @MainActor
+    func showUpgradeInfo(
+        productName: String,
+        message: String,
+        sku: String,
+        courseID: String,
+        screen: CourseUpgradeScreen,
+        pacing: String
+    ) async
+    @MainActor
+    func hideUpgradeInfo(animated: Bool) async
+    @MainActor
+    func showUpgradeLoaderView(animated: Bool) async
+    @MainActor
+    func hideUpgradeLoaderView(animated: Bool) async
+    @MainActor
+    func showRestoreProgressView()
+    @MainActor
+    func hideRestoreProgressView()
 }
 
 extension BaseRouter {
@@ -125,5 +144,25 @@ open class BaseRouterMock: BaseRouter {
 
     public func presentView(transitionStyle: UIModalTransitionStyle, animated: Bool, content: () -> any View) {}
     
+    public func presentNativeAlert(title: String?, message: String?, actions: [UIAlertAction]) {}
+    @MainActor
+    public func showUpgradeInfo(
+        productName: String,
+        message: String,
+        sku: String,
+        courseID: String,
+        screen: CourseUpgradeScreen,
+        pacing: String
+    ) async {}
+    @MainActor
+    public func hideUpgradeInfo(animated: Bool) async {}
+    @MainActor
+    public func showUpgradeLoaderView(animated: Bool) async {}
+    @MainActor
+    public func hideUpgradeLoaderView(animated: Bool) async {}
+    @MainActor
+    public func showRestoreProgressView() {}
+    @MainActor
+    public func hideRestoreProgressView() {}
 }
 #endif

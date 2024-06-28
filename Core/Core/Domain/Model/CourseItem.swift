@@ -20,6 +20,12 @@ public struct CourseItem: Hashable {
     public let courseID: String
     public let numPages: Int
     public let coursesCount: Int
+    public let sku: String
+    public let dynamicUpgradeDeadline: Date?
+    public let mode: DataLayer.Mode
+    public let isSelfPaced: Bool?
+    public let courseRawImage: String?
+    public let coursewareAccess: CoursewareAccess?
     public let progressEarned: Int
     public let progressPossible: Int
     
@@ -35,8 +41,15 @@ public struct CourseItem: Hashable {
                 courseID: String,
                 numPages: Int,
                 coursesCount: Int,
+                sku: String = "",
+                dynamicUpgradeDeadline: Date? = nil,
+                mode: DataLayer.Mode = .audit,
+                isSelfPaced: Bool?,
+                courseRawImage: String?,
+                coursewareAccess: CoursewareAccess?,
                 progressEarned: Int,
-                progressPossible: Int) {
+                progressPossible: Int
+    ) {
         self.name = name
         self.org = org
         self.shortDescription = shortDescription
@@ -49,7 +62,24 @@ public struct CourseItem: Hashable {
         self.courseID = courseID
         self.numPages = numPages
         self.coursesCount = coursesCount
+        self.sku = sku
+        self.dynamicUpgradeDeadline = dynamicUpgradeDeadline
+        self.mode = mode
+        self.isSelfPaced = isSelfPaced
+        self.courseRawImage = courseRawImage
+        self.coursewareAccess = coursewareAccess
         self.progressEarned = progressEarned
         self.progressPossible = progressPossible
+    }
+}
+
+extension CourseItem {
+    public var isUpgradeable: Bool {
+        guard let upgradeDeadline = dynamicUpgradeDeadline, mode == .audit else {
+            return false
+        }
+        return !upgradeDeadline.isInPast()
+        && !sku.isEmpty
+        && courseStart?.isInPast() ?? false
     }
 }

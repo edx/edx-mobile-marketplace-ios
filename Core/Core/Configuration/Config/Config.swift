@@ -31,6 +31,7 @@ public protocol ConfigProtocol {
     var segment: SegmentConfig { get }
     var program: DiscoveryConfig { get }
     var URIScheme: String { get }
+    var ecommerceURL: String? { get }
 }
 
 public enum TokenType: String {
@@ -49,6 +50,7 @@ private enum ConfigKeys: String {
     case appstoreID = "APP_STORE_ID"
     case faq = "FAQ_URL"
     case URIScheme = "URI_SCHEME"
+    case ecommerceURL = "ECOMMERCE_URL"
 }
 
 public class Config {
@@ -159,6 +161,10 @@ extension Config: ConfigProtocol {
     
     public var URIScheme: String {
         return string(for: ConfigKeys.URIScheme.rawValue) ?? ""
+    }
+    
+    public var ecommerceURL: String? {
+        string(for: ConfigKeys.ecommerceURL.rawValue)
     }
 }
 

@@ -21,6 +21,12 @@ public extension DataLayer {
         public let certificate: Certificate?
         public let org: String?
         public let isSelfPaced: Bool
+        public let courseModes: [CourseMode]?
+        public let enrollmentDetails: EnrollmentDetail?
+        public let courseStart: String?
+        public var courseSKU: String?
+        public var courseMode: Mode?
+        public let coursewareAccessDetails: CoursewareAccessDetails?
         public let courseProgress: CourseProgress?
         
         enum CodingKeys: String, CodingKey {
@@ -31,6 +37,10 @@ public extension DataLayer {
             case certificate
             case org
             case isSelfPaced = "is_self_paced"
+            case enrollmentDetails = "enrollment_details"
+            case courseStart = "start"
+            case courseModes = "course_modes"
+            case coursewareAccessDetails = "course_access_details"
             case courseProgress = "course_progress"
         }
         
@@ -42,6 +52,12 @@ public extension DataLayer {
             certificate: Certificate?,
             org: String?,
             isSelfPaced: Bool,
+            courseModes: [CourseMode]? = nil,
+            enrollmentDetails: EnrollmentDetail? = nil,
+            courseStart: String? = nil,
+            courseSKU: String? = nil,
+            courseMode: Mode? = .unknown,
+            coursewareAccessDetails: CoursewareAccessDetails? = nil,
             courseProgress: CourseProgress?
         ) {
             self.rootItem = rootItem
@@ -51,7 +67,17 @@ public extension DataLayer {
             self.certificate = certificate
             self.org = org
             self.isSelfPaced = isSelfPaced
+            self.courseModes = courseModes
+            self.enrollmentDetails = enrollmentDetails
+            self.courseStart = courseStart
+            self.coursewareAccessDetails = coursewareAccessDetails
+            
+            if enrollmentDetails?.mode != nil {
+                self.courseMode = enrollmentDetails?.mode
+            }
             self.courseProgress = courseProgress
+            
+            populateCourseSKU()
         }
         
         public init(from decoder: Decoder) throws {
@@ -64,7 +90,44 @@ public extension DataLayer {
             certificate = try values.decode(Certificate.self, forKey: .certificate)
             org = try values.decode(String.self, forKey: .org)
             isSelfPaced = try values.decode(Bool.self, forKey: .isSelfPaced)
+            courseModes = try? values.decode([CourseMode].self, forKey: .courseModes)
+            enrollmentDetails = try? values.decode(EnrollmentDetail.self, forKey: .enrollmentDetails)
+            courseStart = try? values.decode(String.self, forKey: .courseStart)
+            coursewareAccessDetails = try? values.decode(CoursewareAccessDetails.self, forKey: .coursewareAccessDetails)
             courseProgress = try? values.decode(DataLayer.CourseProgress.self, forKey: .courseProgress)
+            populateCourseSKU()
+        }
+        
+        mutating func populateCourseSKU() {
+            for mode in courseModes ?? [] where mode.slug == .verified {
+                courseSKU = mode.iosSku ?? ""
+            }
+        }
+    }
+    
+    struct CoursewareAccessDetails: Codable {
+        public let hasUNMETPrerequisites: Bool
+        public let isTooEarly: Bool
+        public let auditAccessExpires: String?
+        public let coursewareAccess: CoursewareAccess?
+        
+        public init(
+            hasUNMETPrerequisites: Bool,
+            isTooEarly: Bool,
+            auditAccessExpires: String?,
+            coursewareAccess: CoursewareAccess?
+        ) {
+            self.hasUNMETPrerequisites = hasUNMETPrerequisites
+            self.isTooEarly = isTooEarly
+            self.auditAccessExpires = auditAccessExpires
+            self.coursewareAccess = coursewareAccess
+        }
+        
+        public enum CodingKeys: String, CodingKey {
+            case hasUNMETPrerequisites = "has_unmet_prerequisites"
+            case isTooEarly = "is_too_early"
+            case auditAccessExpires = "audit_access_expires"
+            case coursewareAccess = "courseware_access"
         }
     }
 }
@@ -160,6 +223,27 @@ public extension DataLayer {
         }
     }
     
+    struct EnrollmentDetail: Codable {
+        let created: String
+        let isActive: Bool
+        let mode: Mode
+        let upgradeDeadline: String?
+        
+        public enum CodingKeys: String, CodingKey {
+            case created
+            case isActive = "is_active"
+            case mode
+            case upgradeDeadline = "upgrade_deadline"
+        }
+        
+        init(created: String, isActive: Bool, mode: Mode, upgradeDeadline: String?) {
+            self.created = created
+            self.isActive = isActive
+            self.mode = mode
+            self.upgradeDeadline = upgradeDeadline
+        }
+    }
+    
     struct CourseDetailUserViewData: Decodable {
         public let transcripts: [String: String]?
         public let encodedVideo: CourseDetailEncodedVideoData?
@@ -232,5 +316,21 @@ public extension DataLayer {
             case fileSize = "file_size"
             case streamPriority = "stream_priority"
         }
+    }
+}
+
+extension DataLayer.CourseStructure {
+    var isUpgradeable: Bool {
+        guard let start = courseStart,
+              let upgradeDeadline = enrollmentDetails?.upgradeDeadline,
+              enrollmentDetails?.mode == .audit
+        else { return false }
+        
+        let startDate = Date(iso8601: start)
+        let dynamicUpgradeDeadline = Date(iso8601: upgradeDeadline)
+        
+        return startDate.isInPast()
+        && courseSKU?.isEmpty == false
+        && !dynamicUpgradeDeadline.isInPast()
     }
 }

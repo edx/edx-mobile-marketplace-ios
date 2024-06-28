@@ -147,6 +147,14 @@ public enum ProfileLocalization {
     /// Courses to Sync
     public static let title = ProfileLocalization.tr("Localizable", "COURSES_TO_SYNC.TITLE", fallback: "Courses to Sync")
   }
+  public enum Courseupgrade {
+    /// Purchases
+    public static let purchases = ProfileLocalization.tr("Localizable", "COURSEUPGRADE.PURCHASES", fallback: "Purchases")
+    /// Restore purchases
+    public static let restorePurchases = ProfileLocalization.tr("Localizable", "COURSEUPGRADE.RESTORE_PURCHASES", fallback: "Restore purchases")
+    /// Sign into the app store to restore access to courses you have previously paid to upgrade
+    public static let restorePurchasesText = ProfileLocalization.tr("Localizable", "COURSEUPGRADE.RESTORE_PURCHASES_TEXT", fallback: "Sign into the app store to restore access to courses you have previously paid to upgrade")
+  }
   public enum CourseCalendarSync {
     /// Course Calendar Sync
     public static let title = ProfileLocalization.tr("Localizable", "COURSE_CALENDAR_SYNC.TITLE", fallback: "Course Calendar Sync")

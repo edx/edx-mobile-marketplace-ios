@@ -68,7 +68,9 @@ public struct CourseOutlineView: View {
                     }) {
                         DynamicOffsetView(
                             coordinate: $coordinate,
-                            collapsed: $collapsed
+                            collapsed: $collapsed,
+                            shouldShowUpgradeButton: $viewModel.shouldShowUpgradeButton,
+                            shouldHideMenuBar: $viewModel.shouldHideMenuBar
                         )
                         RefreshProgressView(isShowRefresh: $viewModel.isShowRefresh)
                         VStack(alignment: .leading) {
@@ -124,6 +126,7 @@ public struct CourseOutlineView: View {
                                 if let courseStart = viewModel.courseStart {
                                     Text(courseStart > Date() ? CourseLocalization.Outline.courseHasntStarted : "")
                                         .frame(maxWidth: .infinity)
+                                        .frame(maxHeight: .infinity)
                                         .padding(.top, 100)
                                 }
                             }
@@ -186,6 +189,7 @@ public struct CourseOutlineView: View {
                             maxHeight: .infinity)
                 }
             }
+            .paymentSnackbar()
         }
         .onAppear {
             Task {

@@ -16,6 +16,7 @@ import Discussion
 import WhatsNew
 import Swinject
 
+// swiftlint:disable file_length type_body_length
 protocol AnalyticsService {
     func identify(id: String, username: String?, email: String?)
     func logEvent(_ event: AnalyticsEvent, parameters: [String: Any]?)
@@ -293,7 +294,7 @@ class AnalyticsManager: AuthorizationAnalytics,
             EventParamKey.name: EventBIValue.cookiePolicyClicked.rawValue,
             EventParamKey.category: EventCategory.profile
         ]
-        logEvent(.cookiePolicyClicked)
+        logEvent(.cookiePolicyClicked, parameters: parameters)
     }
     
     public func emailSupportClicked() {
@@ -329,7 +330,7 @@ class AnalyticsManager: AuthorizationAnalytics,
     }
     
     public func userLogout(force: Bool) {
-        let parameters = [
+        let parameters: [String: Any] = [
             EventParamKey.name: EventBIValue.userLogout.rawValue,
             EventParamKey.category: EventCategory.profile,
             EventParamKey.force: "\(force)"
@@ -781,5 +782,176 @@ class AnalyticsManager: AuthorizationAnalytics,
         
         logEvent(.whatnewClose, parameters: parameters)
     }
+    
+    // MARK: Course Upgrade
+    
+    public func trackCourseUpgradePaymentError(
+        _ event: AnalyticsEvent,
+        biValue: EventBIValue,
+        courseID: String,
+        blockID: String? = nil,
+        pacing: String,
+        coursePrice: String,
+        screen: CourseUpgradeScreen,
+        error: String
+    ) {
+        var parameters: [String: Any] = [
+            EventParamKey.pacing: pacing,
+            EventParamKey.courseID: courseID,
+            EventParamKey.screenName: screen.rawValue,
+            EventParamKey.price: coursePrice,
+            EventParamKey.error: error,
+            EventParamKey.category: EventCategory.inAppPurchases,
+            EventParamKey.name: biValue.rawValue
+        ]
+        
+        parameters.setObjectOrNil(blockID, forKey: EventParamKey.blockID)
+        
+        logEvent(event, parameters: parameters)
+    }
+    
+    public func trackCourseUpgradeError(
+        courseID: String,
+        blockID: String? = nil,
+        pacing: String,
+        coursePrice: String? = nil,
+        screen: CourseUpgradeScreen,
+        error: String,
+        flowType: UpgradeMode
+    ) {
+        var parameters: [String: Any] = [
+            EventParamKey.pacing: pacing,
+            EventParamKey.name: EventBIValue.courseUpgradeError.rawValue,
+            EventParamKey.courseID: courseID,
+            EventParamKey.screenName: screen.rawValue,
+            EventParamKey.error: error,
+            EventParamKey.flowType: flowType.rawValue,
+            EventParamKey.category: EventCategory.inAppPurchases
+        ]
+        
+        parameters.setObjectOrNil(blockID, forKey: EventParamKey.blockID)
+        parameters.setObjectOrNil(coursePrice, forKey: EventParamKey.price)
+        
+        logEvent(.courseUpgradeError, parameters: parameters)
+    }
+    
+    public func trackCourseUpgradeErrorAction(
+        courseID: String,
+        blockID: String? = nil,
+        pacing: String,
+        coursePrice: String? = nil,
+        screen: CourseUpgradeScreen,
+        alertType: UpgradeAlertType,
+        errorAction: String,
+        error: String,
+        flowType: UpgradeMode
+    ) {
+        var parameters: [String: Any] = [
+            EventParamKey.pacing: pacing,
+            EventParamKey.name: EventBIValue.courseUpgradeErrorAction.rawValue,
+            EventParamKey.courseID: courseID,
+            EventParamKey.screenName: screen.rawValue,
+            EventParamKey.error: error,
+            EventParamKey.errorAction: errorAction,
+            EventParamKey.flowType: flowType.rawValue,
+            EventParamKey.category: EventCategory.inAppPurchases,
+            EventParamKey.alertType: alertType.rawValue
+        ]
+        
+        parameters.setObjectOrNil(blockID, forKey: EventParamKey.blockID)
+        parameters.setObjectOrNil(coursePrice, forKey: EventParamKey.price)
+        
+        logEvent(.courseUpgradeErrorAction, parameters: parameters)
+    }
+    
+    public func trackCourseUpgradeSuccess(
+        courseID: String,
+        blockID: String? = nil,
+        pacing: String,
+        coursePrice: String,
+        screen: CourseUpgradeScreen,
+        flowType: UpgradeMode
+    ) {
+        var parameters: [String: Any] = [
+            EventParamKey.pacing: pacing,
+            EventParamKey.name: EventBIValue.courseUpgradeSuccess.rawValue,
+            EventParamKey.courseID: courseID,
+            EventParamKey.price: coursePrice,
+            EventParamKey.screenName: screen.rawValue,
+            EventParamKey.flowType: flowType.rawValue,
+            EventParamKey.category: EventCategory.inAppPurchases
+        ]
+        
+        parameters.setObjectOrNil(blockID, forKey: EventParamKey.blockID)
+        
+        logEvent(.courseUpgradeSuccess, parameters: parameters)
+    }
+    
+    public func trackUpgradeNow(
+        courseID: String,
+        blockID: String? = nil,
+        pacing: String,
+        screen: CourseUpgradeScreen,
+        coursePrice: String
+    ) {
+        var parameters: [String: Any] = [
+            EventParamKey.pacing: pacing,
+            EventParamKey.name: EventBIValue.upgradeNowClicked.rawValue,
+            EventParamKey.courseID: courseID,
+            EventParamKey.screenName: screen.rawValue,
+            EventParamKey.price: coursePrice,
+            EventParamKey.category: EventCategory.inAppPurchases
+        ]
+        parameters.setObjectOrNil(blockID, forKey: EventParamKey.blockID)
+        
+        logEvent(.upgradeNowClicked, parameters: parameters)
+    }
+    
+    public func trackCourseUpgradeLoadError(
+        courseID: String,
+        blockID: String? = nil,
+        pacing: String,
+        screen: CourseUpgradeScreen
+    ) {
+        var parameters: [String: Any] = [
+            EventParamKey.pacing: pacing,
+            EventParamKey.name: EventBIValue.courseUpgradePriceLoadError.rawValue,
+            EventParamKey.courseID: courseID,
+            EventParamKey.screenName: screen.rawValue,
+            EventParamKey.category: EventCategory.inAppPurchases
+        ]
+        
+        parameters.setObjectOrNil(blockID, forKey: EventParamKey.blockID)
+        
+        logEvent(.courseUpgradePriceLoadError, parameters: parameters)
+    }
+    
+    public func trackCourseUnfulfilledPurchaseInitiated(
+        courseID: String,
+        pacing: String,
+        screen: CourseUpgradeScreen,
+        flowType: UpgradeMode
+    ) {
+        let parameters = [
+            EventParamKey.pacing: pacing,
+            EventParamKey.name: EventBIValue.courseUpgradeUnfulfilledPurchaseInitiated.rawValue,
+            EventParamKey.courseID: courseID,
+            EventParamKey.screenName: screen.rawValue,
+            EventParamKey.flowType: flowType.rawValue,
+            EventParamKey.category: EventCategory.inAppPurchases
+        ]
+        
+        logEvent(.courseUpgradeUnfulfilledPurchaseInitiated, parameters: parameters)
+    }
+    
+    public func trackRestorePurchaseClicked() {
+        let parameters = [
+            EventParamKey.name: EventBIValue.courseUpgradeRestorePurchaseClicked.rawValue,
+            EventParamKey.category: EventCategory.inAppPurchases
+        ]
+        
+        logEvent(.courseUpgradeRestorePurchaseClicked, parameters: parameters)
+    }
 }
-// swiftlint:enable type_body_length file_length
+
+// swiftlint:enable file_length type_body_length

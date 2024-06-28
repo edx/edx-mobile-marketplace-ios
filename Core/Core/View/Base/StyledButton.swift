@@ -8,13 +8,12 @@
 import SwiftUI
 import Theme
 
-public enum IconImagePosition {
-    case left
-    case right
-    case none
-}
-
 public struct StyledButton: View {
+    public enum ImagesStyle {
+        case onSides
+        case attachedToText
+    }
+
     private let title: String
     private let action: () -> Void
     private let isTransparent: Bool
@@ -24,8 +23,12 @@ public struct StyledButton: View {
     private let isActive: Bool
     private let horizontalPadding: Bool
     private let borderColor: Color
-    private let iconImage: Image?
-    private let iconPosition: IconImagePosition
+    private let leftImage: Image?
+    private let rightImage: Image?
+    private let imagesStyle: ImagesStyle
+    private let isTitleTracking: Bool
+    private let isLimitedOnPad: Bool
+    private let shape: RoundedCorners
     
     public init(_ title: String,
                 action: @escaping () -> Void,
@@ -33,10 +36,15 @@ public struct StyledButton: View {
                 color: Color = Theme.Colors.accentButtonColor,
                 textColor: Color = Theme.Colors.styledButtonText,
                 borderColor: Color = .clear,
-                iconImage: Image? = nil,
-                iconPosition: IconImagePosition = .none,
+                leftImage: Image? = nil,
+                rightImage: Image? = nil,
+                imagesStyle: ImagesStyle = .attachedToText,
                 isActive: Bool = true,
-                horizontalPadding: Bool = false) {
+                isTitleTracking: Bool = true,
+                isLimitedOnPad: Bool = true,
+                shape: RoundedCorners = Theme.Shapes.buttonShape,
+                horizontalPadding: Bool = false
+    ) {
         self.title = title
         self.action = action
         self.isTransparent = isTransparent
@@ -44,45 +52,59 @@ public struct StyledButton: View {
         self.borderColor = borderColor
         self.buttonColor = color
         self.isActive = isActive
-        self.iconImage = iconImage
-        self.iconPosition = iconPosition
+        self.leftImage = leftImage
+        self.rightImage = rightImage
+        self.imagesStyle = imagesStyle
+        self.isTitleTracking = isTitleTracking
+        self.isLimitedOnPad = isLimitedOnPad
+        self.shape = shape
         self.horizontalPadding = horizontalPadding
     }
     
     public var body: some View {
         Button(action: action) {
             HStack {
-                Spacer()
-                if let icon = iconImage,
-                    iconPosition == .left {
+                if imagesStyle == .attachedToText {
+                    Spacer()
+                }
+
+                if let icon = leftImage {
                     icon
                         .renderingMode(.template)
                         .foregroundStyle(textColor)
                 }
                 Text(title)
-                    .tracking(isTransparent ? 0 : 1.3)
+                    .tracking(isTitleTracking ? 1.3 : 0)
                     .foregroundColor(textColor)
                     .font(Theme.Fonts.labelLarge)
                     .opacity(isActive ? 1.0 : 0.6)
-                if let icon = iconImage,
-                    iconPosition == .right {
+
+                if imagesStyle == .onSides {
+                    Spacer()
+                }
+
+                if let icon = rightImage {
                     icon
                         .renderingMode(.template)
                         .foregroundStyle(textColor)
                 }
-                Spacer()
+                
+                if imagesStyle == .attachedToText {
+                    Spacer()
+                }
             }
-            .padding(.horizontal, horizontalPadding ? 20 : 0)
+            .padding(.horizontal, imagesStyle == .onSides ? 10 : horizontalPadding ? 20 : 0)
+            
         }
         .disabled(!isActive)
-        .frame(maxWidth: idiom == .pad ? 260: .infinity, minHeight: isTransparent ? 36 : 42)
+        .frame(maxWidth: idiom == .pad && isLimitedOnPad ? 260: .infinity, minHeight: isTransparent ? 36 : 42)
         .background(
-            Theme.Shapes.buttonShape
+            shape
                 .fill(isTransparent ? .clear : buttonColor)
                 .opacity(isActive ? 1.0 : 0.3)
         )
         .overlay(
-            Theme.Shapes.buttonShape
+            shape
                 .stroke(style: .init(lineWidth: 1, lineCap: .round, lineJoin: .round, miterLimit: 1))
                 .foregroundColor(isTransparent ? Theme.Colors.white : borderColor)
                 .opacity(isActive ? 1.0 : 0.6)
@@ -101,8 +123,7 @@ struct StyledButton_Previews: PreviewProvider {
             StyledButton(
                 "Back Button",
                 action: {},
-                iconImage: CoreAssets.arrowLeft.swiftUIImage,
-                iconPosition: .left,
+                leftImage: CoreAssets.arrowLeft.swiftUIImage,
                 isActive: true
             )
         }

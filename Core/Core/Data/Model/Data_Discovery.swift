@@ -55,11 +55,11 @@ public extension DataLayer {
         public let start: String?
         public let startDisplay: String?
         public let startType: String?
-        public let pacing: Pacing?
         public let mobileAvailable: Bool?
         public let hidden: Bool?
         public let invitationOnly: Bool?
         public let courseID: String?
+        public let isSelfPaced: Bool?
         
         enum CodingKeys: String, CodingKey {
             case blocksURL = "blocks_url"
@@ -76,17 +76,12 @@ public extension DataLayer {
             case start = "start"
             case startDisplay = "start_display"
             case startType = "start_type"
-            case pacing = "pacing"
             case mobileAvailable = "mobile_available"
             case hidden = "hidden"
             case invitationOnly = "invitation_only"
             case courseID = "course_id"
+            case isSelfPaced = "is_self_paced"
         }
-    }
-    
-    enum Pacing: String, Codable {
-        case instructor = "instructor"
-        case pacingSelf = "self"
     }
     
     enum StartType: String, Codable {
@@ -116,8 +111,12 @@ public extension DataLayer.DiscoveryResponce {
                        courseID: $0.courseID ?? "",
                        numPages: pagination.numPages,
                        coursesCount: pagination.count,
+                       isSelfPaced: $0.isSelfPaced,
+                       courseRawImage: $0.media.image?.raw,
+                       coursewareAccess: nil,
                        progressEarned: 0,
-                       progressPossible: 0)
+                       progressPossible: 0
+            )
         })
         return listReady
     }

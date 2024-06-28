@@ -17,8 +17,12 @@ public protocol DashboardRouter: BaseRouter {
                            enrollmentStart: Date?,
                            enrollmentEnd: Date?,
                            title: String,
+                           org: String?,
+                           courseRawImage: String?,
+                           coursewareAccess: CoursewareAccess?,
                            showDates: Bool,
-                           lastVisitedBlockID: String?)
+                           lastVisitedBlockID: String?
+    )
     
     func showAllCourses(courses: [CourseItem])
     
@@ -31,7 +35,6 @@ public protocol DashboardRouter: BaseRouter {
 // Mark - For testing and SwiftUI preview
 #if DEBUG
 public class DashboardRouterMock: BaseRouterMock, DashboardRouter {
-    
     public override init() {}
     
     public func showCourseScreens(courseID: String,
@@ -41,6 +44,9 @@ public class DashboardRouterMock: BaseRouterMock, DashboardRouter {
                                   enrollmentStart: Date?,
                                   enrollmentEnd: Date?,
                                   title: String,
+                                  org: String?,
+                                  courseRawImage: String?,
+                                  coursewareAccess: CoursewareAccess?,
                                   showDates: Bool,
                                   lastVisitedBlockID: String?) {}
     

@@ -365,6 +365,9 @@ public class Router: AuthorizationRouter,
         enrollmentStart: Date?,
         enrollmentEnd: Date?,
         title: String,
+        org: String?,
+        courseRawImage: String?,
+        coursewareAccess: CoursewareAccess?,
         showDates: Bool,
         lastVisitedBlockID: String?
     ) {
@@ -376,6 +379,9 @@ public class Router: AuthorizationRouter,
             enrollmentStart: enrollmentStart,
             enrollmentEnd: enrollmentEnd,
             title: title,
+            org: org,
+            courseRawImage: courseRawImage,
+            coursewareAccess: coursewareAccess,
             showDates: showDates,
             lastVisitedBlockID: lastVisitedBlockID
         )
@@ -390,6 +396,9 @@ public class Router: AuthorizationRouter,
         enrollmentStart: Date?,
         enrollmentEnd: Date?,
         title: String,
+        org: String?,
+        courseRawImage: String?,
+        coursewareAccess: CoursewareAccess?,
         showDates: Bool,
         lastVisitedBlockID: String?
     ) -> UIHostingController<CourseContainerView> {
@@ -414,7 +423,10 @@ public class Router: AuthorizationRouter,
             viewModel: vm,
             courseDatesViewModel: datesVm,
             courseID: courseID,
-            title: title
+            title: title,
+            org: org,
+            courseRawImage: courseRawImage,
+            coursewareAccess: coursewareAccess
         )
         
         return UIHostingController(rootView: screensView)
@@ -852,6 +864,116 @@ extension Router {
     public func navigateTo(item: BackNavigationMenuItem) {
         let viewControllers = Array(navigationController.viewControllers[0 ... item.id])
         navigationController.setViewControllers(viewControllers, animated: true)
+    }
+}
+
+// MARK: Native alerts
+extension Router {
+    public func presentNativeAlert(title: String?, message: String?, actions: [UIAlertAction]) {
+        guard let topController = UIApplication.topViewController() else { return }
+        
+        let alertController = UIAlertController().showAlert(
+            withTitle: title,
+            message: message,
+            onViewController: topController) { _, _, _ in }
+        for action in actions {
+            alertController.addAction(action)
+        }
+    }
+}
+
+// MARK: Payments
+extension Router {
+    @MainActor
+    public func showUpgradeInfo(
+        productName: String,
+        message: String,
+        sku: String,
+        courseID: String,
+        screen: CourseUpgradeScreen,
+        pacing: String
+    ) async {
+        await withCheckedContinuation { continuation in
+            let view = UpgradeInfoSheetView(
+                viewModel: Container.shared.resolve(
+                    UpgradeInfoViewModel.self,
+                    arguments: productName, message, sku, courseID, screen, pacing
+                )!
+            )
+            let controller = UIHostingController(rootView: view)
+            if let sheet = controller.sheetPresentationController {
+                sheet.detents = [.large()]
+                sheet.prefersEdgeAttachedInCompactHeight = true
+                sheet.widthFollowsPreferredContentSizeWhenEdgeAttached = true
+                sheet.prefersGrabberVisible = true
+            }
+            navigationController.present(controller, animated: true) {
+                continuation.resume()
+            }
+        }
+    }
+    
+    @MainActor
+    public func hideUpgradeInfo(animated: Bool) async {
+        await withCheckedContinuation { continuation in
+            if let controller = navigationController.presentedViewController as? UIHostingController<UpgradeInfoSheetView> {
+                controller.dismiss(animated: animated) {
+                    continuation.resume()
+                }
+            } else {
+                continuation.resume()
+            }
+        }
+    }
+    
+    @MainActor
+    public func showUpgradeLoaderView(animated: Bool) async {
+        await withCheckedContinuation { continuation in
+            let unlockView = CourseUpgradeUnlockView()
+            let controller = UIHostingController(rootView: unlockView)
+            controller.modalTransitionStyle = .crossDissolve
+            controller.modalPresentationStyle = .overFullScreen
+            navigationController.present(controller, animated: animated) {
+                continuation.resume()
+            }
+        }
+    }
+    
+    @MainActor
+    public func hideUpgradeLoaderView(animated: Bool) async {
+        await withCheckedContinuation { continuation in
+            let presentedController = navigationController.presentedViewController
+            if let controller = presentedController as? UIHostingController<CourseUpgradeUnlockView> {
+                controller.dismiss(animated: animated) {
+                    continuation.resume()
+                }
+            } else {
+                continuation.resume()
+            }
+        }
+    }
+    
+    @MainActor
+    public func showRestoreProgressView() {
+        let unlockView = RestoreInProgressView()
+        let controller = UIHostingController(rootView: unlockView)
+        
+        controller.view.frame = CGRect(
+            x: 0,
+            y: 0,
+            width: UIScreen.main.bounds.width,
+            height: UIScreen.main.bounds.height
+        )
+        controller.view.backgroundColor = .black.withAlphaComponent(0.8)
+        controller.view.tag = 10010
+        UIApplication.shared.window?.addSubview(controller.view)
+    }
+    
+    @MainActor
+    public func hideRestoreProgressView() {
+        guard let view = UIApplication.shared.window?.viewWithTag(10010) else { return }
+        
+        view.removeFromSuperview()
     }
 }
 // swiftlint:enable file_length type_body_length

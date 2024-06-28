@@ -62,8 +62,15 @@ public final class API {
         encoding: ParameterEncoding = URLEncoding.default
     ) async throws -> Data {
         var url = config.baseURL
-        if !route.path.isEmpty {
-            url = url.appendingPathComponent(route.path)
+        
+        if !route.baseURL.isEmpty {
+            if let baseURL = URL(string: route.baseURL) {
+                url = baseURL
+            }
+        }
+        
+        if !route.path.isEmpty, let urlWithPath = URL(string: url.absoluteString + route.path) {
+            url = urlWithPath
         }
         
         let result = session.request(
@@ -233,10 +240,27 @@ extension DataRequest {
                 let reason: AFError.ResponseValidationFailureReason = .unacceptableStatusCode(code: response.statusCode)
                 return .failure(AFError.responseValidationFailed(reason: reason))
             default:
+                if let errorReason = self.errorReason(response: response, data: data) {
+                    return .failure(errorReason)
+                }
+                
                 let reason: AFError.ResponseValidationFailureReason = .unacceptableStatusCode(code: response.statusCode)
                 return .failure(AFError.responseValidationFailed(reason: reason))
             }
         }
+    }
+    
+    func errorReason(response: HTTPURLResponse, data: Data?) -> LocalizedError? {
+        guard let data = data,
+              let dataString = String(data: data, encoding: .utf8),
+              dataString.first == "{" && dataString.last == "}" else {
+            return nil
+        }
+        
+        let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+        
+        return CustomValidationError(statusCode: response.statusCode, data: json)
+        
     }
     
     func validateContentType() -> Self {

@@ -147,3 +147,7 @@
 
 "SYNC_SELECTOR.SYNCED" = "Synced";
 "SYNC_SELECTOR.NOT_SYNCED" = "Not Synced";
+
+"COURSEUPGRADE.PURCHASES" = "Purchases";
+"COURSEUPGRADE.RESTORE_PURCHASES" = "Restore purchases";
+"COURSEUPGRADE.RESTORE_PURCHASES_TEXT" = "Sign into the app store to restore access to courses you have previously paid to upgrade";

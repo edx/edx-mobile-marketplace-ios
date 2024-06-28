@@ -68,6 +68,7 @@ public class CourseContainerViewModel: BaseCourseViewModel {
     @Published var userSettings: UserSettings?
     @Published var isInternetAvaliable: Bool = true
     @Published var dueDatesShifted: Bool = false
+    @Published var shouldHideMenuBar: Bool = false
     @Published var updateCourseProgress: Bool = false
     
     let completionPublisher = NotificationCenter.default.publisher(for: .onblockCompletionRequested)
@@ -78,6 +79,12 @@ public class CourseContainerViewModel: BaseCourseViewModel {
                 showError = errorMessage != nil
             }
         }
+    }
+    
+    @Published var shouldShowUpgradeButton: Bool = false
+        
+    var sku: String? {
+        courseStructure?.sku
     }
     
     let router: CourseRouter
@@ -99,7 +106,8 @@ public class CourseContainerViewModel: BaseCourseViewModel {
     let analytics: CourseAnalytics
     let coreAnalytics: CoreAnalytics
     private(set) var storage: CourseStorage
-
+    private var courseID: String?
+    
     public init(
         interactor: CourseInteractorProtocol,
         authInteractor: AuthInteractorProtocol,
@@ -177,14 +185,43 @@ public class CourseContainerViewModel: BaseCourseViewModel {
     }
     
     @MainActor
+    func reload(courseID: String) async {
+        updateMenuBarVisibility()
+        self.courseID = courseID
+        await withTaskGroup(of: Void.self) {[weak self] group in
+            guard let self = self else { return }
+            group.addTask {
+                await self.getCourseBlocks(courseID: courseID)
+            }
+            group.addTask {
+                await self.getCourseDeadlineInfo(courseID: courseID, withProgress: false)
+            }
+        }
+    }
+    
+    @MainActor
+    func updateMenuBarVisibility() {
+        shouldHideMenuBar =
+            courseStructure == nil ||
+            courseStructure?.coursewareAccessDetails?.coursewareAccess?.hasAccess == false
+    }
+    
+    @MainActor
     func getCourseBlocks(courseID: String, withProgress: Bool = true) async {
-        guard let courseStart, courseStart < Date() else { return }
+        guard let courseStart, courseStart < Date() else {
+            isShowProgress = false
+            isShowRefresh = false
+            return
+        }
         
         isShowProgress = withProgress
         isShowRefresh = !withProgress
         do {
             if isInternetAvaliable {
                 courseStructure = try await interactor.getCourseBlocks(courseID: courseID)
+                let type = type(for: courseStructure?.coursewareAccessDetails?.coursewareAccess)
+                shouldShowUpgradeButton = type == nil && courseStructure?.isUpgradeable ?? false
+                updateMenuBarVisibility()
                 NotificationCenter.default.post(name: .getCourseDates, object: courseID)
                 isShowProgress = false
                 isShowRefresh = false
@@ -196,6 +233,7 @@ public class CourseContainerViewModel: BaseCourseViewModel {
                 }
             } else {
                 courseStructure = try await interactor.getLoadedCourseBlocks(courseID: courseID)
+                shouldShowUpgradeButton = courseStructure?.isUpgradeable ?? false
             }
             courseVideosStructure = interactor.getCourseVideoBlocks(fullStructure: courseStructure!)
             await setDownloadsStates()
@@ -205,6 +243,7 @@ public class CourseContainerViewModel: BaseCourseViewModel {
         } catch let error {
             isShowProgress = false
             isShowRefresh = false
+            shouldShowUpgradeButton = false
             if error.isInternetError || error is NoCachedDataError {
                 errorMessage = CoreLocalization.Error.slowOrNoInternetConnection
             } else {
@@ -215,6 +254,7 @@ public class CourseContainerViewModel: BaseCourseViewModel {
     
     @MainActor
     func getCourseDeadlineInfo(courseID: String, withProgress: Bool = true) async {
+        guard let courseStart, courseStart < Date() else { return }
         do {
             let courseDeadlineInfo = try await interactor.getCourseDeadlineInfo(courseID: courseID)
             withAnimation {
@@ -264,6 +304,58 @@ public class CourseContainerViewModel: BaseCourseViewModel {
                 errorMessage = CoreLocalization.Error.slowOrNoInternetConnection
             } else {
                 errorMessage = CoreLocalization.Error.unknownError
+            }
+        }
+    }
+    
+    private func date(from stringDate: String?) -> Date? {
+        guard let stringDate else { return nil }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        return dateFormatter.date(from: stringDate)
+    }
+    
+    func type(for access: CoursewareAccess?) -> CourseAccessErrorHelperType? {
+        guard let access, !access.hasAccess else { return nil }
+        
+        if let courseEnd, courseEnd.isInPast() {
+            if courseStructure?.isUpgradeable == true {
+                guard let courseStructure, let courseID else { return nil }
+                return .upgradeable(
+                    date: courseEnd,
+                    sku: courseStructure.sku ?? "",
+                    courseID: courseID,
+                    pacing: courseStructure.isSelfPaced ? Pacing.selfPace.rawValue : Pacing.instructor.rawValue,
+                    screen: .courseDashboard
+                )
+            } else {
+                return .isEndDateOld(date: courseEnd)
+            }
+        } else {
+            guard let errorCode = access.errorCode else { return nil }
+            
+            switch errorCode {
+            case .notStarted:
+                return .startDateError(date: courseStart)
+            case .auditExpired:
+                guard
+                    let courseStructure,
+                    let courseID,
+                    let dateString = courseStructure.coursewareAccessDetails?.auditAccessExpires,
+                    let date = date(from: dateString)
+                else { return nil }
+                return .auditExpired(
+                    date: date,
+                    sku: courseStructure.sku ?? "",
+                    courseID: courseID,
+                    pacing: courseStructure.isSelfPaced ? Pacing.selfPace.rawValue : Pacing.instructor.rawValue,
+                    screen: .courseDashboard
+                )
+            
+            default:
+                return nil
             }
         }
     }
@@ -329,6 +421,20 @@ public class CourseContainerViewModel: BaseCourseViewModel {
         await download(state: state, blocks: blocks)
     }
 
+    func showPaymentsInfo() {
+        guard let structure = courseStructure, let sku = courseStructure?.sku else { return }
+        Task {@MainActor in
+            await router.showUpgradeInfo(
+                productName: structure.displayName,
+                message: "",
+                sku: sku,
+                courseID: structure.id,
+                screen: .courseDashboard,
+                pacing: structure.isSelfPaced ? Pacing.selfPace.rawValue : Pacing.instructor.rawValue
+            )
+        }
+    }
+    
     func verticalsBlocksDownloadable(by courseSequential: CourseSequential) -> [CourseBlock] {
         let verticals = downloadableVerticals.filter { verticalState in
             courseSequential.childs.contains(where: { item in
@@ -617,6 +723,20 @@ public class CourseContainerViewModel: BaseCourseViewModel {
             selector: #selector(handleShiftDueDates),
             name: .shiftCourseDates, object: nil
         )
+        
+        NotificationCenter.default
+            .publisher(for: .courseUpgradeCompletionNotification)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    Task {
+                        if let courseID = self.courseID {
+                            await self.reload(courseID: courseID)
+                        }
+                    }
+                }
+            }
+            .store(in: &cancellables)
         
         completionPublisher
               .sink { [weak self] _ in

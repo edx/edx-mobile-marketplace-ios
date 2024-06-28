@@ -154,7 +154,8 @@ class ScreenAssembly: Assembly {
                 api: r.resolve(API.self)!,
                 storage: r.resolve(CoreStorage.self)!,
                 config: r.resolve(ConfigProtocol.self)!,
-                persistence: r.resolve(DashboardPersistenceProtocol.self)!
+                persistence: r.resolve(DashboardPersistenceProtocol.self)!,
+                serverConfig: r.resolve(ServerConfigProtocol.self)!
             )
         }
         container.register(DashboardInteractorProtocol.self) { r in
@@ -166,7 +167,9 @@ class ScreenAssembly: Assembly {
             ListDashboardViewModel(
                 interactor: r.resolve(DashboardInteractorProtocol.self)!,
                 connectivity: r.resolve(ConnectivityProtocol.self)!,
-                analytics: r.resolve(DashboardAnalytics.self)!
+                analytics: r.resolve(DashboardAnalytics.self)!,
+                upgradehandler: r.resolve(CourseUpgradeHandlerProtocol.self)!,
+                coreAnalytics: r.resolve(CoreAnalytics.self)!
             )
         }
         
@@ -229,7 +232,10 @@ class ScreenAssembly: Assembly {
                 router: r.resolve(ProfileRouter.self)!,
                 analytics: r.resolve(ProfileAnalytics.self)!,
                 coreAnalytics: r.resolve(CoreAnalytics.self)!,
-                config: r.resolve(ConfigProtocol.self)!
+                config: r.resolve(ConfigProtocol.self)!,
+                serverConfig: r.resolve(ServerConfigProtocol.self)!,
+                upgradeHandler: r.resolve(CourseUpgradeHandlerProtocol.self)!,
+                upgradeHelper: r.resolve(CourseUpgradeHelperProtocol.self)!
             )
         }
         
@@ -547,6 +553,57 @@ class ScreenAssembly: Assembly {
         
         container.register(BackNavigationProtocol.self) { r in
             r.resolve(Router.self)!
+        }
+        
+        container.register(StoreKitHandlerProtocol.self) { _ in
+            StorekitHandler()
+        }.inObjectScope(.container)
+        
+        container.register(CourseUpgradeRepositoryProtocol.self) { r in
+            CourseUpgradeRepository(
+                api: r.resolve(API.self)!,
+                config: r.resolve(ConfigProtocol.self)!
+            )
+        }
+        
+        container.register(CourseUpgradeInteractorProtocol.self) { r in
+            CourseUpgradeInteractor(
+                repository: r.resolve(CourseUpgradeRepositoryProtocol.self)!
+            )
+        }
+        
+        container.register(CourseUpgradeHandlerProtocol.self) { r in
+            CourseUpgradeHandler(
+                config: r.resolve(ConfigProtocol.self)!,
+                interactor: r.resolve(CourseUpgradeInteractorProtocol.self)!,
+                storeKitHandler: r.resolve(StoreKitHandlerProtocol.self)!,
+                helper: r.resolve(CourseUpgradeHelperProtocol.self)!
+            )
+        }.inObjectScope(.container)
+        
+        container.register(CourseUpgradeHelperProtocol.self) { r in
+            CourseUpgradeHelper(
+                config: r.resolve(ConfigProtocol.self)!,
+                analytics: r.resolve(CoreAnalytics.self)!,
+                router: r.resolve(CourseRouter.self)!
+            )
+        }.inObjectScope(.container)
+        
+        // MARK: Upgrade info
+        container.register(
+            UpgradeInfoViewModel.self
+        ) { r, productName, message, sku, courseID, screen, pacing in
+            UpgradeInfoViewModel(
+                productName: productName,
+                message: message,
+                sku: sku,
+                courseID: courseID,
+                screen: screen,
+                handler: r.resolve(CourseUpgradeHandlerProtocol.self)!,
+                pacing: pacing,
+                analytics: r.resolve(CoreAnalytics.self)!,
+                router: r.resolve(CourseRouter.self)!
+            )
         }
     }
 }

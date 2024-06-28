@@ -409,6 +409,9 @@ struct CustomDisclosureGroup_Previews: PreviewProvider {
                         certificate: nil,
                         org: "org",
                         isSelfPaced: false,
+                        isUpgradeable: false,
+                        sku: nil,
+                        coursewareAccessDetails: nil,
                         courseProgress: nil
                     ),
                     proxy: proxy,
