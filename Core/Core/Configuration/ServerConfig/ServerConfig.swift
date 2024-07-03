@@ -37,6 +37,7 @@ public class ServerConfig: ServerConfigProtocol {
 }
 
 // Mark - For testing and SwiftUI preview
+// swiftlint:disable all
 #if DEBUG
 public class ServerConfigProtocolMock: ServerConfigProtocol {
     
@@ -59,3 +60,4 @@ public class ServerConfigProtocolMock: ServerConfigProtocol {
     }
 }
 #endif
+// swiftlint:enable all

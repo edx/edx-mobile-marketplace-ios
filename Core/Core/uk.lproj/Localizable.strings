@@ -116,6 +116,9 @@
 
 "OPEN_IN_BROWSER"="View in Safari";
 
+"ERROR.CANNOT_SEND_EMAIL" = "Cannot send email. It seems your email client is not set up.";
+"FEEDBACK_EMAIL_SUBJECT" = "Feedback";
+
 "COURSE_UPGRADE.LEARN_HOW_TO_UNLOCK"= "Unlock graded assignments";
 "COURSE_UPGRADE.EMAIL_NOT_SETUP_TITLE"= "Email not set up";
 "COURSE_UPGRADE.EMAIL_NOT_SETUP_MESSAGE"= "Your email is not set up on this device. Please reach out to {email} for support processing your payment.";

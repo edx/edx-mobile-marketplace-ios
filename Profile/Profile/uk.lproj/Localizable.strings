@@ -79,8 +79,6 @@
 "SETTINGS.TAP_TO_UPDATE" = "Клацніть, щоб оновити до версії";
 "SETTINGS.TAP_TO_INSTALL" = "Клацніть, щоб встановити обов'язкове оновлення програми";
 
-"ERROR.CANNOT_SEND_EMAIL" = "Cannot send email. It seems your email client is not set up.";
-
 "CALENDAR.NEW_CALENDAR" = "Новий календар";
 "CALENDAR.CHANGE_SYNC_OPTIONS" = "Змінити параметри синхронізації";
 "CALENDAR.ACCOUNT" = "Обліковий запис";

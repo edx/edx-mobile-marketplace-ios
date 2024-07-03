@@ -13,6 +13,7 @@ public class IAPConfig: NSObject {
         case enabled = "enabled"
         case disabledVersions = "ios_disabled_versions"
         case restoreEnabled = "restore_enabled"
+        case bundelVersionString = "CFBundleShortVersionString"
     }
 
     public var enabled: Bool = false
@@ -25,7 +26,7 @@ public class IAPConfig: NSObject {
         restoreEnabled = dictionary[Keys.restoreEnabled] as? Bool ?? false
         
         if let info = Bundle.main.infoDictionary,
-           let currentVersion = info["CFBundleShortVersionString"] as? String,
+           let currentVersion = info[Keys.bundelVersionString] as? String,
            disabledVersions.contains(currentVersion) {
             enabled = false
         }
