@@ -43,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             configureDeepLinkServices(launchOptions: launchOptions)
         
-            // IAP enabled is server configureable and feteched in enrollments API
+            // IAP enabled is server configureable and fetched in enrollments API
             // IAP config isn't available on app launch so that's why checking for
             // e-commerce URL, e-commerce URL is being used for IAP
             if let storekitHandler = Container.shared.resolve(StoreKitHandlerProtocol.self),

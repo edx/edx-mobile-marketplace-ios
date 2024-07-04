@@ -40,6 +40,8 @@ public class Router: AuthorizationRouter,
     init(navigationController: UINavigationController, container: Container) {
         self.navigationController = navigationController
         self.container = container
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(orientationChanged), name: UIDevice.orientationDidChangeNotification, object: nil)
     }
 
     public func backToRoot(animated: Bool) {
@@ -916,7 +918,8 @@ extension Router {
     @MainActor
     public func hideUpgradeInfo(animated: Bool) async {
         await withCheckedContinuation { continuation in
-            if let controller = navigationController.presentedViewController as? UIHostingController<UpgradeInfoSheetView> {
+            if let controller = navigationController.presentedViewController as?
+                UIHostingController<UpgradeInfoSheetView> {
                 controller.dismiss(animated: animated) {
                     continuation.resume()
                 }
@@ -964,7 +967,7 @@ extension Router {
             width: UIScreen.main.bounds.width,
             height: UIScreen.main.bounds.height
         )
-        controller.view.backgroundColor = .black.withAlphaComponent(0.8)
+        controller.view.backgroundColor = .black.withAlphaComponent(0.6)
         controller.view.tag = 10010
         UIApplication.shared.window?.addSubview(controller.view)
     }
@@ -975,5 +978,18 @@ extension Router {
         
         view.removeFromSuperview()
     }
+    
+    @MainActor
+    @objc func orientationChanged() {
+        if let view = UIApplication.shared.window?.viewWithTag(10010) {
+            view.frame = CGRect(
+                x: 0,
+                y: 0,
+                width: UIScreen.main.bounds.height,
+                height: UIScreen.main.bounds.width
+            )
+        }
+    }
+    
 }
 // swiftlint:enable file_length type_body_length

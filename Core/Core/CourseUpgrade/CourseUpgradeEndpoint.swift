@@ -67,7 +67,6 @@ enum CourseUpgradeEndpoint: EndPointType {
             currencyCode: currencyCode,
             receipt: receipt
         ):
-            
             let params: Parameters = [
                 "basket_id": basketID,
                 "price": price,

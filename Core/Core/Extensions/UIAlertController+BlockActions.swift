@@ -164,19 +164,19 @@ public extension UIAlertController {
             _ action: UIAlertAction,
             _ buttonIndex: Int
         ) -> Void)?) -> UIAlertController {
-        
-        return showIn(
-            viewController: viewController,
-            title: title,
-            message: message,
-            preferredStyle: UIAlertController.Style.alert,
-            cancelButtonTitle: cancelButtonTitle,
-            destructiveButtonTitle: nil,
-            otherButtonsTitle: nil,
-            tapBlock: tapBlock
-        )
-    }
-
+            
+            return showIn(
+                viewController: viewController,
+                title: title,
+                message: message,
+                preferredStyle: UIAlertController.Style.alert,
+                cancelButtonTitle: cancelButtonTitle,
+                destructiveButtonTitle: nil,
+                otherButtonsTitle: nil,
+                tapBlock: tapBlock
+            )
+        }
+    
     @discardableResult func alert(
         withTitle title: String?,
         message: String?,
