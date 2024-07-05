@@ -23,6 +23,9 @@ public struct PrimaryCardView: View {
     private let progressPossible: Int
     private let canResume: Bool
     private let resumeTitle: String?
+    public let auditAccessExpires: Date?
+    public let startDisplay: Date?
+    public let startType: DisplayStartType?
     private var assignmentAction: (String?) -> Void
     private var openCourseAction: () -> Void
     private var resumeAction: () -> Void
@@ -39,6 +42,9 @@ public struct PrimaryCardView: View {
         progressPossible: Int,
         canResume: Bool,
         resumeTitle: String?,
+        auditAccessExpires: Date?,
+        startDisplay: Date?,
+        startType: DisplayStartType?,
         assignmentAction: @escaping (String?) -> Void,
         openCourseAction: @escaping () -> Void,
         resumeAction: @escaping () -> Void
@@ -57,6 +63,9 @@ public struct PrimaryCardView: View {
         self.assignmentAction = assignmentAction
         self.openCourseAction = openCourseAction
         self.resumeAction = resumeAction
+        self.auditAccessExpires = auditAccessExpires
+        self.startDisplay = startDisplay
+        self.startType = startType
     }
     
     public var body: some View {
@@ -234,14 +243,15 @@ public struct PrimaryCardView: View {
                 .font(Theme.Fonts.titleLarge)
                 .foregroundStyle(Theme.Colors.textPrimary)
                 .lineLimit(3)
-            if let courseEndDate {
-                Text(courseEndDate.dateToString(style: .courseEndsMonthDDYear))
-                    .font(Theme.Fonts.labelMedium)
-                    .foregroundStyle(Theme.Colors.textSecondaryLight)
-            } else if let courseStartDate {
-                Text(courseStartDate.dateToString(style: .courseStartsMonthDDYear))
-                    .font(Theme.Fonts.labelMedium)
-                    .foregroundStyle(Theme.Colors.textSecondaryLight)
+           
+            if courseStartDate != nil || courseEndDate != nil || auditAccessExpires != nil {
+                CourseAccessMessageView(
+                    startDate: courseStartDate,
+                    endDate: courseEndDate,
+                    auditAccessExpires: auditAccessExpires,
+                    startDisplay: startDisplay,
+                    startType: startType
+                )
             }
         }
         .padding(.top, 10)
@@ -267,6 +277,9 @@ struct PrimaryCardView_Previews: PreviewProvider {
                 progressPossible: 45,
                 canResume: true,
                 resumeTitle: "Course Chapter 1",
+                auditAccessExpires: nil,
+                startDisplay: nil,
+                startType: .unknown,
                 assignmentAction: {_ in },
                 openCourseAction: {},
                 resumeAction: {}

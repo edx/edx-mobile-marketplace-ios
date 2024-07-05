@@ -50,7 +50,10 @@ final class DiscoveryViewModelTests: XCTestCase {
                        courseRawImage: nil,
                        coursewareAccess: nil,
                        progressEarned: 0,
-                       progressPossible: 0),
+                       progressPossible: 0,
+                       auditAccessExpires: nil,
+                       startDisplay: nil,
+                       startType: nil),
 
             CourseItem(name: "Test2",
                        org: "org2",
@@ -68,7 +71,10 @@ final class DiscoveryViewModelTests: XCTestCase {
                        courseRawImage: nil,
                        coursewareAccess: nil,
                        progressEarned: 0,
-                       progressPossible: 0)
+                       progressPossible: 0,
+                       auditAccessExpires: nil,
+                       startDisplay: nil,
+                       startType: nil)
         ]
         viewModel.courses = items + items + items
         viewModel.totalPages = 2
@@ -110,7 +116,10 @@ final class DiscoveryViewModelTests: XCTestCase {
                        courseRawImage: nil,
                        coursewareAccess: nil,
                        progressEarned: 0,
-                       progressPossible: 0),
+                       progressPossible: 0,
+                       auditAccessExpires: nil,
+                       startDisplay: nil,
+                       startType: nil),
             
             CourseItem(name: "Test2",
                        org: "org2",
@@ -128,7 +137,10 @@ final class DiscoveryViewModelTests: XCTestCase {
                        courseRawImage: nil,
                        coursewareAccess: nil,
                        progressEarned: 0,
-                       progressPossible: 0)
+                       progressPossible: 0,
+                       auditAccessExpires: nil,
+                       startDisplay: nil,
+                       startType: nil)
         ]
 
         Given(interactor, .discovery(page: 1, willReturn: items))
@@ -169,7 +181,10 @@ final class DiscoveryViewModelTests: XCTestCase {
                        courseRawImage: nil,
                        coursewareAccess: nil,
                        progressEarned: 0,
-                       progressPossible: 0),
+                       progressPossible: 0,
+                       auditAccessExpires: nil,
+                       startDisplay: nil,
+                       startType: nil),
 
             CourseItem(name: "Test2",
                        org: "org2",
@@ -187,7 +202,10 @@ final class DiscoveryViewModelTests: XCTestCase {
                        courseRawImage: nil,
                        coursewareAccess: nil,
                        progressEarned: 0,
-                       progressPossible: 0)
+                       progressPossible: 0,
+                       auditAccessExpires: nil,
+                       startDisplay: nil,
+                       startType: nil)
         ]
         
         Given(connectivity, .isInternetAvaliable(getter: false))

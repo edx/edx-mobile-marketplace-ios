@@ -20,6 +20,9 @@ struct CourseCardView: View {
     private let courseEndDate: Date?
     private let hasAccess: Bool
     private let showProgress: Bool
+    public let auditAccessExpires: Date?
+    public let startDisplay: Date?
+    public let startType: DisplayStartType?
     
     init(
         courseName: String,
@@ -29,7 +32,10 @@ struct CourseCardView: View {
         courseStartDate: Date?,
         courseEndDate: Date?,
         hasAccess: Bool,
-        showProgress: Bool
+        showProgress: Bool,
+        auditAccessExpires: Date?,
+        startDisplay: Date?,
+        startType: DisplayStartType?
     ) {
         self.courseName = courseName
         self.courseImage = courseImage
@@ -39,6 +45,9 @@ struct CourseCardView: View {
         self.courseEndDate = courseEndDate
         self.hasAccess = hasAccess
         self.showProgress = showProgress
+        self.auditAccessExpires = auditAccessExpires
+        self.startDisplay = startDisplay
+        self.startType = startType
     }
     
     var body: some View {
@@ -84,16 +93,15 @@ struct CourseCardView: View {
     
     private var courseTitle: some View {
         VStack(alignment: .leading, spacing: 3) {
-            if let courseEndDate {
-                Text(courseEndDate.dateToString(style: .courseEndsMonthDDYear))
-                    .font(Theme.Fonts.labelSmall)
-                    .foregroundStyle(Theme.Colors.textSecondaryLight)
-                    .multilineTextAlignment(.leading)
-            } else if let courseStartDate {
-                Text(courseStartDate.dateToString(style: .courseStartsMonthDDYear))
-                    .font(Theme.Fonts.labelSmall)
-                    .foregroundStyle(Theme.Colors.textSecondaryLight)
-                    .multilineTextAlignment(.leading)
+            if courseStartDate != nil || courseEndDate != nil || auditAccessExpires != nil {
+                CourseAccessMessageView(
+                    startDate: courseStartDate,
+                    endDate: courseEndDate,
+                    auditAccessExpires: auditAccessExpires,
+                    startDisplay: startDisplay,
+                    startType: startType,
+                    font: Theme.Fonts.labelSmall
+                )
             }
             Text(courseName)
                 .font(Theme.Fonts.labelMedium)
@@ -119,7 +127,10 @@ struct CourseCardView: View {
         courseStartDate: nil,
         courseEndDate: Date(),
         hasAccess: true,
-        showProgress: true
+        showProgress: true,
+        auditAccessExpires: nil,
+        startDisplay: nil,
+        startType: .unknown
     ).frame(width: 170)
 }
 #endif

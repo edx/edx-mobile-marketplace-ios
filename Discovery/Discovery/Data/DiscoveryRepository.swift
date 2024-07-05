@@ -142,7 +142,10 @@ class DiscoveryRepositoryMock: DiscoveryRepositoryProtocol {
                     courseRawImage: nil,
                     coursewareAccess: nil,
                     progressEarned: 0,
-                    progressPossible: 0
+                    progressPossible: 0,
+                    auditAccessExpires: nil,
+                    startDisplay: nil,
+                    startType: nil
                 )
             )
         }
@@ -170,7 +173,10 @@ class DiscoveryRepositoryMock: DiscoveryRepositoryProtocol {
                     courseRawImage: nil,
                     coursewareAccess: nil,
                     progressEarned: 0,
-                    progressPossible: 0
+                    progressPossible: 0,
+                    auditAccessExpires: nil,
+                    startDisplay: nil,
+                    startType: nil
                 )
             )
         }
@@ -198,7 +204,10 @@ class DiscoveryRepositoryMock: DiscoveryRepositoryProtocol {
                     courseRawImage: nil,
                     coursewareAccess: nil,
                     progressEarned: 0,
-                    progressPossible: 0
+                    progressPossible: 0,
+                    auditAccessExpires: nil,
+                    startDisplay: nil,
+                    startType: nil
                 )
             )
         }

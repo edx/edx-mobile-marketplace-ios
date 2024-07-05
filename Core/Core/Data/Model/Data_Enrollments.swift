@@ -128,6 +128,7 @@ public extension DataLayer {
         public let courseSharingUtmParameters: CourseSharingUtmParameters
         public let videoOutline: String?
         public let isSelfPaced: Bool?
+        public let startDisplay: String?
 
         enum CodingKeys: String, CodingKey {
             case id
@@ -146,6 +147,7 @@ public extension DataLayer {
             case courseSharingUtmParameters = "course_sharing_utm_parameters"
             case videoOutline = "video_outline"
             case isSelfPaced = "is_self_paced"
+            case startDisplay = "start_display"
         }
 
         public init(
@@ -164,7 +166,8 @@ public extension DataLayer {
             courseAbout: String,
             courseSharingUtmParameters: CourseSharingUtmParameters,
             videoOutline: String?,
-            isSelfPaced: Bool
+            isSelfPaced: Bool,
+            startDisplay: String?
         ) {
             self.id = id
             self.name = name
@@ -182,6 +185,7 @@ public extension DataLayer {
             self.courseSharingUtmParameters = courseSharingUtmParameters
             self.videoOutline = videoOutline
             self.isSelfPaced = isSelfPaced
+            self.startDisplay = startDisplay
         }
     }
 
@@ -331,7 +335,10 @@ public extension DataLayer.CourseEnrollments {
                 courseRawImage: course.media.courseImage?.url,
                 coursewareAccess: coursewareAccess,
                 progressEarned: 0,
-                progressPossible: 0
+                progressPossible: 0,
+                auditAccessExpires: result.auditAccessExpires.flatMap { Date(iso8601: $0) },
+                startDisplay: result.course.startDisplay.flatMap { Date(iso8601: $0) },
+                startType: DisplayStartType(value: result.course.startType.rawValue)
             )
         }, configs)
     }

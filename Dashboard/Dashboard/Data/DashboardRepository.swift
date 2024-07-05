@@ -125,7 +125,10 @@ class DashboardRepositoryMock: DashboardRepositoryProtocol {
                     courseRawImage: nil,
                     coursewareAccess: nil,
                     progressEarned: 0,
-                    progressPossible: 0
+                    progressPossible: 0,
+                    auditAccessExpires: nil,
+                    startDisplay: nil,
+                    startType: nil
                 )
             )
         }
@@ -156,7 +159,10 @@ class DashboardRepositoryMock: DashboardRepositoryProtocol {
                     courseRawImage: nil,
                     coursewareAccess: nil,
                     progressEarned: 4,
-                    progressPossible: 10
+                    progressPossible: 10,
+                    auditAccessExpires: nil,
+                    startDisplay: nil,
+                    startType: nil
                 )
             )
         }
@@ -183,7 +189,10 @@ class DashboardRepositoryMock: DashboardRepositoryProtocol {
             progressEarned: 2,
             progressPossible: 5, 
             lastVisitedBlockID: nil, 
-            resumeTitle: nil
+            resumeTitle: nil,
+            auditAccessExpires: nil,
+            startDisplay: nil,
+            startType: .unknown
         )
         return PrimaryEnrollment(primaryCourse: primaryCourse, courses: courses, totalPages: 1, count: 1)
     }
@@ -213,7 +222,10 @@ class DashboardRepositoryMock: DashboardRepositoryProtocol {
                     courseRawImage: nil,
                     coursewareAccess: nil,
                     progressEarned: 4,
-                    progressPossible: 10
+                    progressPossible: 10,
+                    auditAccessExpires: nil,
+                    startDisplay: nil,
+                    startType: nil
                 )
             )
         }

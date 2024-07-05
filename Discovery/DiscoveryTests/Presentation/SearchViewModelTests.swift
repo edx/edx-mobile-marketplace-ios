@@ -52,7 +52,10 @@ final class SearchViewModelTests: XCTestCase {
                        courseRawImage: nil,
                        coursewareAccess: nil,
                        progressEarned: 0,
-                       progressPossible: 0),
+                       progressPossible: 0,
+                       auditAccessExpires: nil,
+                       startDisplay: nil,
+                       startType: nil),
             
             CourseItem(name: "Test2",
                        org: "org2",
@@ -70,7 +73,10 @@ final class SearchViewModelTests: XCTestCase {
                        courseRawImage: nil,
                        coursewareAccess: nil,
                        progressEarned: 0,
-                       progressPossible: 0)
+                       progressPossible: 0,
+                       auditAccessExpires: nil,
+                       startDisplay: nil,
+                       startType: nil)
         ]
 
         Given(interactor, .search(page: 1, searchTerm: .any, willReturn: items))

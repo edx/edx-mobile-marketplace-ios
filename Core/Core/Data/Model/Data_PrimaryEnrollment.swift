@@ -213,7 +213,10 @@ public extension DataLayer.PrimaryEnrollment {
             progressEarned: primary.progress?.assignmentsCompleted ?? 0,
             progressPossible: primary.progress?.totalAssignmentsCount ?? 0,
             lastVisitedBlockID: primary.courseStatus?.lastVisitedBlockID,
-            resumeTitle: primary.courseStatus?.lastVisitedUnitDisplayName
+            resumeTitle: primary.courseStatus?.lastVisitedUnitDisplayName,
+            auditAccessExpires: primary.auditAccessExpires,
+            startDisplay: primary.course?.startDisplay.flatMap { Date(iso8601: $0) },
+            startType: DisplayStartType(value: primary.course?.startType.rawValue)
         )
     }
     
@@ -281,7 +284,10 @@ public extension DataLayer.PrimaryEnrollment {
             courseRawImage: enrollment.course.media.image?.raw,
             coursewareAccess: coursewareAccess,
             progressEarned: enrollment.progress?.assignmentsCompleted ?? 0,
-            progressPossible: enrollment.progress?.totalAssignmentsCount ?? 0
+            progressPossible: enrollment.progress?.totalAssignmentsCount ?? 0,
+            auditAccessExpires: enrollment.auditAccessExpires.flatMap { Date(iso8601: $0) },
+            startDisplay: enrollment.course.startDisplay.flatMap { Date(iso8601: $0) },
+            startType: DisplayStartType(value: enrollment.course.startType.rawValue)
         )
     }
 }

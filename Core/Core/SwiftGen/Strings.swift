@@ -50,6 +50,44 @@ public enum CoreLocalization {
     /// Remove
     public static let remove = CoreLocalization.tr("Localizable", "ALERT.REMOVE", fallback: "Remove")
   }
+  public enum Course {
+    /// Ended on %@
+    public static func ended(_ p1: Any) -> String {
+      return CoreLocalization.tr("Localizable", "COURSE.ENDED", String(describing: p1), fallback: "Ended on %@")
+    }
+    /// Ends %@
+    public static func ending(_ p1: Any) -> String {
+      return CoreLocalization.tr("Localizable", "COURSE.ENDING", String(describing: p1), fallback: "Ends %@")
+    }
+    /// Soon
+    public static let soon = CoreLocalization.tr("Localizable", "COURSE.SOON", fallback: "Soon")
+    /// Starts %@
+    public static func starting(_ p1: Any) -> String {
+      return CoreLocalization.tr("Localizable", "COURSE.STARTING", String(describing: p1), fallback: "Starts %@")
+    }
+    public enum Audit {
+      /// Access expired %@
+      public static func expiredAgo(_ p1: Any) -> String {
+        return CoreLocalization.tr("Localizable", "COURSE.AUDIT.EXPIRED_AGO", String(describing: p1), fallback: "Access expired %@")
+      }
+      /// Access expired %@ days ago
+      public static func expiredDaysAgo(_ p1: Any) -> String {
+        return CoreLocalization.tr("Localizable", "COURSE.AUDIT.EXPIRED_DAYS_AGO", String(describing: p1), fallback: "Access expired %@ days ago")
+      }
+      /// Expired on %@
+      public static func expiredOn(_ p1: Any) -> String {
+        return CoreLocalization.tr("Localizable", "COURSE.AUDIT.EXPIRED_ON", String(describing: p1), fallback: "Expired on %@")
+      }
+      /// Access expires in %@
+      public static func expiresIn(_ p1: Any) -> String {
+        return CoreLocalization.tr("Localizable", "COURSE.AUDIT.EXPIRES_IN", String(describing: p1), fallback: "Access expires in %@")
+      }
+      /// Access expires %@
+      public static func expiresOn(_ p1: Any) -> String {
+        return CoreLocalization.tr("Localizable", "COURSE.AUDIT.EXPIRES_ON", String(describing: p1), fallback: "Access expires %@")
+      }
+    }
+  }
   public enum Courseware {
     /// Back to outline
     public static let backToOutline = CoreLocalization.tr("Localizable", "COURSEWARE.BACK_TO_OUTLINE", fallback: "Back to outline")

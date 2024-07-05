@@ -43,7 +43,10 @@ final class ListDashboardViewModelTests: XCTestCase {
                        courseRawImage: nil,
                        coursewareAccess: nil,
                        progressEarned: 0,
-                       progressPossible: 0),
+                       progressPossible: 0,
+                       auditAccessExpires: nil,
+                       startDisplay: nil,
+                       startType: nil),
             
             CourseItem(name: "Test2",
                        org: "org2",
@@ -61,7 +64,10 @@ final class ListDashboardViewModelTests: XCTestCase {
                        courseRawImage: nil,
                        coursewareAccess: nil,
                        progressEarned: 0,
-                       progressPossible: 0)
+                       progressPossible: 0,
+                       auditAccessExpires: nil,
+                       startDisplay: nil,
+                       startType: nil)
         ]
 
         Given(connectivity, .isInternetAvaliable(getter: true))
@@ -105,7 +111,10 @@ final class ListDashboardViewModelTests: XCTestCase {
                        courseRawImage: nil,
                        coursewareAccess: nil,
                        progressEarned: 0,
-                       progressPossible: 0),
+                       progressPossible: 0,
+                       auditAccessExpires: nil,
+                       startDisplay: nil,
+                       startType: nil),
             
             CourseItem(name: "Test2",
                        org: "org2",
@@ -123,7 +132,10 @@ final class ListDashboardViewModelTests: XCTestCase {
                        courseRawImage: nil,
                        coursewareAccess: nil,
                        progressEarned: 0,
-                       progressPossible: 0)
+                       progressPossible: 0,
+                       auditAccessExpires: nil,
+                       startDisplay: nil,
+                       startType: nil)
         ]
         
         Given(connectivity, .isInternetAvaliable(getter: false))

@@ -91,7 +91,10 @@ public struct AllCoursesView: View {
                                             courseStartDate: course.courseStart,
                                             courseEndDate: course.courseEnd,
                                             hasAccess: course.hasAccess,
-                                            showProgress: true
+                                            showProgress: true,
+                                            auditAccessExpires: course.auditAccessExpires,
+                                            startDisplay: course.startDisplay,
+                                            startType: course.startType
                                         ).padding(8)
                                     })
                                     .accessibilityIdentifier("course_item")

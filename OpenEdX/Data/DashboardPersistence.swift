@@ -56,7 +56,10 @@ public class DashboardPersistence: DashboardPersistenceProtocol {
                                   courseRawImage: $0.courseRawImage,
                                   coursewareAccess: coursewareAccess,
                                   progressEarned: 0,
-                                  progressPossible: 0)}
+                                  progressPossible: 0,
+                                  auditAccessExpires: $0.auditAccessExpires,
+                                  startDisplay: $0.startDisplay,
+                                  startType: DisplayStartType(value: $0.startType))}
         if let result, !result.isEmpty {
             return result
         } else {
@@ -148,7 +151,10 @@ public class DashboardPersistence: DashboardPersistenceProtocol {
                     progressEarned: Int(cdPrimaryCourse.progressEarned),
                     progressPossible: Int(cdPrimaryCourse.progressPossible),
                     lastVisitedBlockID: cdPrimaryCourse.lastVisitedBlockID ?? "",
-                    resumeTitle: cdPrimaryCourse.resumeTitle
+                    resumeTitle: cdPrimaryCourse.resumeTitle,
+                    auditAccessExpires: cdPrimaryCourse.auditAccessExpires,
+                    startDisplay: cdPrimaryCourse.startDisplay,
+                    startType: DisplayStartType(value: cdPrimaryCourse.startType)
                 )
             }
             
@@ -191,7 +197,10 @@ public class DashboardPersistence: DashboardPersistenceProtocol {
                         courseRawImage: cdCourse.courseRawImage,
                         coursewareAccess: coursewareAccess,
                         progressEarned: Int(cdCourse.progressEarned),
-                        progressPossible: Int(cdCourse.progressPossible)
+                        progressPossible: Int(cdCourse.progressPossible),
+                        auditAccessExpires: cdCourse.auditAccessExpires,
+                        startDisplay: cdCourse.startDisplay,
+                        startType: DisplayStartType(value: cdCourse.startType)
                     )
                 }
             

@@ -17,24 +17,33 @@ public enum CellType {
 public struct CourseCellView: View {
     
     @State private var showView = false
+    private var model: CourseItem
     private var courseImage: String
     private var courseName: String
     private var courseOrg: String
-    private var courseStart: String
-    private var courseEnd: String
+    private var courseStart: Date?
+    private var courseEnd: Date?
     private var type: CellType
     private var index: Double
     private var cellsCount: Int
+    
     private var idiom: UIUserInterfaceIdiom { UIDevice.current.userInterfaceIdiom }
     private var isUpgradeable: Bool
     private var upgradeAction: (() -> Void)?
     
-    public init(model: CourseItem, type: CellType, index: Int, cellsCount: Int, upgradeAction: (() -> Void)? = nil) {
+    public init(
+        model: CourseItem,
+        type: CellType,
+        index: Int,
+        cellsCount: Int,
+        upgradeAction: (() -> Void)? = nil
+    ) {
+        self.model = model
         self.type = type
         self.courseImage = model.imageURL
         self.courseName = model.name
-        self.courseStart = model.courseStart?.dateToString(style: .startDDMonthYear) ?? ""
-        self.courseEnd = model.courseEnd?.dateToString(style: .endedMonthDay) ?? ""
+        self.courseStart = model.courseStart
+        self.courseEnd = model.courseEnd
         self.courseOrg =  model.org
         self.index = Double(index) + 1
         self.cellsCount = cellsCount
@@ -79,16 +88,15 @@ public struct CourseCellView: View {
                     Spacer()
                     if type == .dashboard {
                         HStack {
-                            if courseEnd != "" {
-                                Text(courseEnd)
-                                    .font(Theme.Fonts.labelMedium)
-                                    .foregroundColor(Theme.Colors.textSecondary)
-                                    .accessibilityIdentifier("course_end_text")
-                            } else {
-                                Text(courseStart)
-                                    .font(Theme.Fonts.labelMedium)
-                                    .foregroundColor(Theme.Colors.textSecondary)
-                                    .accessibilityIdentifier("course_start_text")
+                            if courseStart != nil || courseEnd != nil || model.auditAccessExpires != nil {
+                                CourseAccessMessageView(
+                                    startDate: courseStart,
+                                    endDate: courseEnd,
+                                    auditAccessExpires: model.auditAccessExpires,
+                                    startDisplay: model.startDisplay,
+                                    startType: model.startType,
+                                    dateStyle: .monthDay
+                                )
                             }
                             Spacer()
                             CoreAssets.arrowRight16.swiftUIImage.renderingMode(.template)
@@ -131,7 +139,17 @@ public struct CourseCellView: View {
         .opacity(showView ? 1 : 0)
         .offset(y: showView ? 0 : 20)
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(courseName + " " + (type == .dashboard ? (courseEnd == "" ? courseStart : courseEnd) : ""))
+        .accessibilityLabel(
+            courseName + " " +
+            (type == .dashboard ? CourseItem.nextRelevantDateMessage(
+                startDate: model.courseStart,
+                endDate: model.courseEnd,
+                auditAccessExpires: model.auditAccessExpires,
+                startDisplay: model.startDisplay,
+                startType: model.startType,
+                dateStyle: .monthDay) ?? ""
+             : "")
+        )
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now()) {
                 withAnimation(.easeInOut(duration: (index <= 5 ? 0.3 : 0.1))
@@ -174,7 +192,10 @@ struct CourseCellView_Previews: PreviewProvider {
         courseRawImage: nil,
         coursewareAccess: nil,
         progressEarned: 4,
-        progressPossible: 10
+        progressPossible: 10,
+        auditAccessExpires: nil,
+        startDisplay: nil,
+        startType: nil
     )
     
     static var previews: some View {

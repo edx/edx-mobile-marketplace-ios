@@ -55,7 +55,10 @@ public class DiscoveryPersistence: DiscoveryPersistenceProtocol {
                     courseRawImage: $0.courseRawImage,
                     coursewareAccess: coursewareAccess,
                     progressEarned: 0,
-                    progressPossible: 0
+                    progressPossible: 0,
+                    auditAccessExpires: nil,
+                    startDisplay: nil,
+                    startType: nil
                 )
             }
         if let result, !result.isEmpty {

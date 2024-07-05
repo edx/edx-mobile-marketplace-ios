@@ -167,3 +167,13 @@
 "COURSE_UPGRADE.VIEW.AUDIT_MESSAGE" = "Your free audit access to this course expired on #####. Please upgrade to continue learning and receive a verified certificate.";
 "COURSE_UPGRADE.VIEW.START_DATE_MESSAGE" = "This course will begin on #####. Come back then to start learning!";
 "COURSE_UPGRADE.VIEW.END_DATE_MESSAGE" = "Your free audit access to this course expired on #####.";
+
+"COURSE.STARTING" = "Starts %@";
+"COURSE.ENDING" = "Ends %@";
+"COURSE.ENDED"="Ended on %@";
+"COURSE.AUDIT.EXPIRES_ON" = "Access expires %@";
+"COURSE.AUDIT.EXPIRES_IN" = "Access expires in %@";
+"COURSE.AUDIT.EXPIRED_DAYS_AGO" = "Access expired %@ days ago";
+"COURSE.AUDIT.EXPIRED_AGO" = "Access expired %@";
+"COURSE.AUDIT.EXPIRED_ON" = "Expired on %@";
+"COURSE.SOON" = "Soon";

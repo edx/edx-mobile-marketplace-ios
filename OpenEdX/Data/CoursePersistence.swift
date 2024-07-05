@@ -54,7 +54,10 @@ public class CoursePersistence: CoursePersistenceProtocol {
                     courseRawImage: $0.courseRawImage,
                     coursewareAccess: coursewareAccess,
                     progressEarned: 0,
-                    progressPossible: 0
+                    progressPossible: 0,
+                    auditAccessExpires: $0.auditAccessExpires,
+                    startDisplay: $0.startDisplay,
+                    startType: DisplayStartType(value: $0.startType)
                 )
             }
 

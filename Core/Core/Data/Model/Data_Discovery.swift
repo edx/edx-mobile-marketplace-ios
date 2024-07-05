@@ -115,7 +115,10 @@ public extension DataLayer.DiscoveryResponce {
                        courseRawImage: $0.media.image?.raw,
                        coursewareAccess: nil,
                        progressEarned: 0,
-                       progressPossible: 0
+                       progressPossible: 0,
+                       auditAccessExpires: nil,
+                       startDisplay: nil,
+                       startType: nil
             )
         })
         return listReady
