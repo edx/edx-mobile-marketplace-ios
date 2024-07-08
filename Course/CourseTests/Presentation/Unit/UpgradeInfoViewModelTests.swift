@@ -215,15 +215,14 @@ final class UpgradeInfoViewModelTests: XCTestCase {
         let _ = try prepareSuccessFlow(for: viewModel.sku, product: product)
         await viewModel.purchase()
         
-        guard let localizedPrice = product.localizedPrice else { throw UpgradeInfoViewModelTestsError.incorrectValuesReturned }
         Verify(
             helper,
             1,
             .setData(courseID: .value(viewModel.courseID),
                      pacing: .value(viewModel.pacing),
                      blockID: .value(nil),
-                     localizedPrice: .value(NSDecimalNumber(string: localizedPrice)),
-                     localizedCurrencyCode: .value("$"),
+                     localizedPrice: .value(product.price),
+                     localizedCurrencyCode: .value(product.currencySymbol),
                      lmsPrice: .value(.zero),
                      screen: .value(viewModel.screen)
                     )
