@@ -50,7 +50,8 @@ final class CourseDateViewModelTests: XCTestCase {
             isUpgradeable: false,
             sku: nil,
             coursewareAccessDetails: nil,
-            courseProgress: nil
+            courseProgress: nil,
+            lmsPrice: .zero
         )
         
         Given(interactor, .getCourseDates(courseID: .any, willReturn: courseDates))

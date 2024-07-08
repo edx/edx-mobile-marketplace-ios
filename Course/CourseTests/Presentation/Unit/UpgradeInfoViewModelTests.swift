@@ -83,7 +83,8 @@ final class UpgradeInfoViewModelTests: XCTestCase {
             handler: handler,
             pacing: Pacing.selfPace.rawValue,
             analytics: CoreAnalyticsMock(),
-            router: router ?? BaseRouterMock()
+            router: router ?? BaseRouterMock(),
+            lmsPrice: .zero
         )
     }
     
@@ -221,7 +222,9 @@ final class UpgradeInfoViewModelTests: XCTestCase {
             .setData(courseID: .value(viewModel.courseID),
                      pacing: .value(viewModel.pacing),
                      blockID: .value(nil),
-                     localizedCoursePrice: .value(localizedPrice),
+                     localizedPrice: .value(NSDecimalNumber(string: localizedPrice)),
+                     localizedCurrencyCode: .value("$"),
+                     lmsPrice: .value(.zero),
                      screen: .value(viewModel.screen)
                     )
         )
