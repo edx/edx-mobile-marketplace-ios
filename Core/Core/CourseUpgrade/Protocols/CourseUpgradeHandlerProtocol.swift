@@ -17,6 +17,7 @@ public protocol CourseUpgradeHandlerProtocol {
         productInfo: StoreProductInfo?,
         pacing: String,
         courseID: String,
+        lmsPrice: Double,
         componentID: String?,
         screen: CourseUpgradeScreen,
         completion: UpgradeCompletionHandler?
@@ -35,9 +36,11 @@ public class CourseUpgradeHandlerProtocolMock: CourseUpgradeHandlerProtocol {
         productInfo: StoreProductInfo?,
         pacing: String,
         courseID: String,
+        lmsPrice: Double,
         componentID: String?,
         screen: CourseUpgradeScreen,
-        completion: UpgradeCompletionHandler?) async {}
+        completion: UpgradeCompletionHandler?
+    ) async {}
     
     public func fetchProduct(sku: String) async throws -> StoreProductInfo {
         StoreProductInfo(price: .zero)

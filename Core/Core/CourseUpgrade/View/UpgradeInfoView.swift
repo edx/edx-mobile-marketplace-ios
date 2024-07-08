@@ -125,7 +125,8 @@ public struct UpgradeInfoView<Content>: View where Content: View {
             handler: CourseUpgradeHandlerProtocolMock(),
             pacing: "self",
             analytics: CoreAnalyticsMock(),
-            router: BaseRouterMock()
+            router: BaseRouterMock(),
+            lmsPrice: .zero
         ),
         findAction: nil
     )

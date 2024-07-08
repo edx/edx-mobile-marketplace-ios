@@ -42,6 +42,7 @@ public class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
     private var storeKitHandler: StoreKitHandlerProtocol
     private let helper: CourseUpgradeHelperProtocol
     private var courseID: String = ""
+    private var lmsPrice: Double?
     private var componentID: String?
 
     private(set) var state: UpgradeState = .initial {
@@ -88,6 +89,7 @@ public class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
         productInfo: StoreProductInfo?,
         pacing: String,
         courseID: String,
+        lmsPrice: Double,
         componentID: String?,
         screen: CourseUpgradeScreen,
         completion: UpgradeCompletionHandler?
@@ -98,6 +100,7 @@ public class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
         self.componentID = componentID
         self.productInfo = productInfo
         courseSku = sku
+        self.lmsPrice = lmsPrice
         guard let sku = sku, !sku.isEmpty else {
             state = .error(.generalError(error(message: "course sku is missing")))
             return
@@ -112,7 +115,9 @@ public class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
             courseID: courseID,
             pacing: pacing,
             blockID: componentID,
-            localizedCoursePrice: productInfo.localizedPrice ?? "",
+            localizedPrice: productInfo.price,
+            localizedCurrencyCode: productInfo.currencySymbol,
+            lmsPrice: lmsPrice,
             screen: screen
         )
         state = .initial

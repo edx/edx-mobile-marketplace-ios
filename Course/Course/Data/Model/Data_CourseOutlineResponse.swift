@@ -25,6 +25,7 @@ public extension DataLayer {
         public let enrollmentDetails: EnrollmentDetail?
         public let courseStart: String?
         public var courseSKU: String?
+        public var lmsPrice: Double?
         public var courseMode: Mode?
         public let coursewareAccessDetails: CoursewareAccessDetails?
         public let courseProgress: CourseProgress?
@@ -101,6 +102,7 @@ public extension DataLayer {
         mutating func populateCourseSKU() {
             for mode in courseModes ?? [] where mode.slug == .verified {
                 courseSKU = mode.iosSku ?? ""
+                lmsPrice = mode.lmsPrice
             }
         }
     }

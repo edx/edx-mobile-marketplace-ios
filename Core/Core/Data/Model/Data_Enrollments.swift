@@ -194,17 +194,20 @@ public extension DataLayer {
         public let slug: Mode?
         public let sku: String?
         public let iosSku: String?
+        public let lmsPrice: Double?
 
         enum CodingKeys: String, CodingKey {
             case slug
             case sku
             case iosSku = "ios_sku"
+            case lmsPrice = "min_price"
         }
 
-        public init(slug: Mode?, sku: String?, iosSku: String?) {
+        public init(slug: Mode?, sku: String?, iosSku: String?, lmsPrice: Double?) {
             self.slug = slug
             self.sku = sku
             self.iosSku = iosSku
+            self.lmsPrice = lmsPrice
         }
     }
 
@@ -284,9 +287,11 @@ public extension DataLayer.CourseEnrollments {
             let encodedUrl = imageUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
             let fullImageURL = baseURL + encodedUrl
             var sku = ""
+            var lmsPrice: Double?
             
             for mode in result.courseModes where mode.slug == DataLayer.Mode.verified {
                 sku = mode.iosSku ?? ""
+                lmsPrice = mode.lmsPrice
             }
             
             var dynamicUpgradeDeadline: Date?
@@ -338,7 +343,8 @@ public extension DataLayer.CourseEnrollments {
                 progressPossible: 0,
                 auditAccessExpires: result.auditAccessExpires.flatMap { Date(iso8601: $0) },
                 startDisplay: result.course.startDisplay.flatMap { Date(iso8601: $0) },
-                startType: DisplayStartType(value: result.course.startType.rawValue)
+                startType: DisplayStartType(value: result.course.startType.rawValue),
+                lmsPrice: lmsPrice
             )
         }, configs)
     }

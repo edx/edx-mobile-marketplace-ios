@@ -28,6 +28,7 @@ public struct CourseStructure: Equatable {
     public let sku: String?
     public let coursewareAccessDetails: CoursewareAccessDetails?
     public let courseProgress: CourseProgress?
+    public let lmsPrice: Double?
     
     public init(
         id: String,
@@ -45,7 +46,8 @@ public struct CourseStructure: Equatable {
         isUpgradeable: Bool,
         sku: String?,
         coursewareAccessDetails: CoursewareAccessDetails?,
-        courseProgress: CourseProgress?
+        courseProgress: CourseProgress?,
+        lmsPrice: Double?
     ) {
         self.id = id
         self.graded = graded
@@ -63,6 +65,7 @@ public struct CourseStructure: Equatable {
         self.sku = sku
         self.coursewareAccessDetails = coursewareAccessDetails
         self.courseProgress = courseProgress
+        self.lmsPrice = lmsPrice
     }
 
     public func totalVideosSizeInBytes(downloadQuality: DownloadQuality) -> Int {

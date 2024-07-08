@@ -25,7 +25,9 @@ public protocol CoreAnalytics {
         courseID: String,
         blockID: String?,
         pacing: String,
-        coursePrice: String,
+        localizedPrice: NSDecimalNumber?,
+        localizedCurrencyCode: String?,
+        lmsPrice: Double?,
         screen: CourseUpgradeScreen,
         error: String
     )
@@ -34,7 +36,9 @@ public protocol CoreAnalytics {
         courseID: String,
         blockID: String?,
         pacing: String,
-        coursePrice: String?,
+        localizedPrice: NSDecimalNumber?,
+        localizedCurrencyCode: String?,
+        lmsPrice: Double?,
         screen: CourseUpgradeScreen,
         error: String,
         flowType: UpgradeMode
@@ -44,7 +48,9 @@ public protocol CoreAnalytics {
         courseID: String,
         blockID: String?,
         pacing: String,
-        coursePrice: String?,
+        localizedPrice: NSDecimalNumber?,
+        localizedCurrencyCode: String?,
+        lmsPrice: Double?,
         screen: CourseUpgradeScreen,
         alertType: UpgradeAlertType,
         errorAction: String,
@@ -56,7 +62,9 @@ public protocol CoreAnalytics {
         courseID: String,
         blockID: String?,
         pacing: String,
-        coursePrice: String,
+        localizedPrice: NSDecimalNumber?,
+        localizedCurrencyCode: String?,
+        lmsPrice: Double?,
         screen: CourseUpgradeScreen,
         flowType: UpgradeMode
     )
@@ -66,7 +74,9 @@ public protocol CoreAnalytics {
         blockID: String?,
         pacing: String,
         screen: CourseUpgradeScreen,
-        coursePrice: String
+        localizedPrice: NSDecimalNumber?,
+        localizedCurrencyCode: String?,
+        lmsPrice: Double?
     )
     
     func trackCourseUpgradeLoadError(
@@ -115,7 +125,9 @@ public class CoreAnalyticsMock: CoreAnalytics {
         courseID: String,
         blockID: String? = nil,
         pacing: String,
-        coursePrice: String,
+        localizedPrice: NSDecimalNumber? = nil,
+        localizedCurrencyCode: String? = nil,
+        lmsPrice: Double? = 0.0,
         screen: CourseUpgradeScreen,
         error: String
     ) {}
@@ -124,7 +136,9 @@ public class CoreAnalyticsMock: CoreAnalytics {
         courseID: String,
         blockID: String? = nil,
         pacing: String,
-        coursePrice: String? = nil,
+        localizedPrice: NSDecimalNumber? = nil,
+        localizedCurrencyCode: String? = nil,
+        lmsPrice: Double? = 0.0,
         screen: CourseUpgradeScreen,
         error: String,
         flowType: UpgradeMode
@@ -134,7 +148,9 @@ public class CoreAnalyticsMock: CoreAnalytics {
         courseID: String,
         blockID: String? = nil,
         pacing: String,
-        coursePrice: String? = nil,
+        localizedPrice: NSDecimalNumber? = nil,
+        localizedCurrencyCode: String? = nil,
+        lmsPrice: Double? = 0.0,
         screen: CourseUpgradeScreen,
         alertType: UpgradeAlertType,
         errorAction: String,
@@ -146,7 +162,9 @@ public class CoreAnalyticsMock: CoreAnalytics {
         courseID: String,
         blockID: String? = nil,
         pacing: String,
-        coursePrice: String,
+        localizedPrice: NSDecimalNumber? = nil,
+        localizedCurrencyCode: String? = nil,
+        lmsPrice: Double? = 0.0,
         screen: CourseUpgradeScreen,
         flowType: UpgradeMode) {}
     
@@ -155,7 +173,9 @@ public class CoreAnalyticsMock: CoreAnalytics {
         blockID: String? = nil,
         pacing: String,
         screen: CourseUpgradeScreen,
-        coursePrice: String
+        localizedPrice: NSDecimalNumber? = nil,
+        localizedCurrencyCode: String? = nil,
+        lmsPrice: Double? = 0.0
     ) {}
     
     public func trackCourseUpgradeLoadError(
@@ -391,7 +411,9 @@ public struct EventParamKey {
     public static let pacing = "pacing"
     public static let dialog = "dialog"
     public static let snackbar = "snackbar"
-    public static let price = "price"
+    public static let localizedPrice = "localized_price"
+    public static let localizedCurrencyCode = "localized_currency_code"
+    public static let lmsPrice = "lms_usd_price"
     public static let error = "error"
     public static let errorAction = "error_action"
     public static let flowType = "flow_type"

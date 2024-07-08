@@ -68,7 +68,8 @@ public protocol BaseRouter {
         sku: String,
         courseID: String,
         screen: CourseUpgradeScreen,
-        pacing: String
+        pacing: String,
+        lmsPrice: Double
     ) async
     
     @MainActor
@@ -160,7 +161,8 @@ open class BaseRouterMock: BaseRouter {
         sku: String,
         courseID: String,
         screen: CourseUpgradeScreen,
-        pacing: String
+        pacing: String,
+        lmsPrice: Double
     ) async {}
     
     @MainActor

@@ -412,7 +412,8 @@ struct CustomDisclosureGroup_Previews: PreviewProvider {
                         isUpgradeable: false,
                         sku: nil,
                         coursewareAccessDetails: nil,
-                        courseProgress: nil
+                        courseProgress: nil,
+                        lmsPrice: .zero
                     ),
                     proxy: proxy,
                     viewModel: viewModel

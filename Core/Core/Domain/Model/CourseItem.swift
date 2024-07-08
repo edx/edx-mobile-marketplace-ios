@@ -31,6 +31,7 @@ public struct CourseItem: Hashable {
     public let auditAccessExpires: Date?
     public let startDisplay: Date?
     public let startType: DisplayStartType?
+    public let lmsPrice: Double?
     
     public init(name: String,
                 org: String,
@@ -54,7 +55,8 @@ public struct CourseItem: Hashable {
                 progressPossible: Int,
                 auditAccessExpires: Date?,
                 startDisplay: Date?,
-                startType: DisplayStartType?
+                startType: DisplayStartType?,
+                lmsPrice: Double? = .zero
     ) {
         self.name = name
         self.org = org
@@ -79,6 +81,7 @@ public struct CourseItem: Hashable {
         self.auditAccessExpires = auditAccessExpires
         self.startDisplay = startDisplay
         self.startType = startType
+        self.lmsPrice = lmsPrice
     }
 }
 

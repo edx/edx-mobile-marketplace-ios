@@ -62,7 +62,8 @@ public class CourseInteractor: CourseInteractorProtocol {
             courseProgress: course.courseProgress == nil ? nil : CourseProgress(
                 totalAssignmentsCount: course.courseProgress?.totalAssignmentsCount ?? 0,
                 assignmentsCompleted: course.courseProgress?.assignmentsCompleted ?? 0
-            )
+            ),
+            lmsPrice: course.lmsPrice
         )
     }
     

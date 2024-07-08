@@ -789,9 +789,11 @@ class AnalyticsManager: AuthorizationAnalytics,
         _ event: AnalyticsEvent,
         biValue: EventBIValue,
         courseID: String,
-        blockID: String? = nil,
+        blockID: String?,
         pacing: String,
-        coursePrice: String,
+        localizedPrice: NSDecimalNumber?,
+        localizedCurrencyCode: String?,
+        lmsPrice: Double?,
         screen: CourseUpgradeScreen,
         error: String
     ) {
@@ -799,12 +801,14 @@ class AnalyticsManager: AuthorizationAnalytics,
             EventParamKey.pacing: pacing,
             EventParamKey.courseID: courseID,
             EventParamKey.screenName: screen.rawValue,
-            EventParamKey.price: coursePrice,
             EventParamKey.error: error,
             EventParamKey.category: EventCategory.inAppPurchases,
             EventParamKey.name: biValue.rawValue
         ]
         
+        parameters.setObjectOrNil(localizedPrice, forKey: EventParamKey.localizedPrice)
+        parameters.setObjectOrNil(localizedCurrencyCode, forKey: EventParamKey.localizedCurrencyCode)
+        parameters.setObjectOrNil(lmsPrice, forKey: EventParamKey.lmsPrice)
         parameters.setObjectOrNil(blockID, forKey: EventParamKey.blockID)
         
         logEvent(event, parameters: parameters)
@@ -812,9 +816,11 @@ class AnalyticsManager: AuthorizationAnalytics,
     
     public func trackCourseUpgradeError(
         courseID: String,
-        blockID: String? = nil,
+        blockID: String?,
         pacing: String,
-        coursePrice: String? = nil,
+        localizedPrice: NSDecimalNumber?,
+        localizedCurrencyCode: String?,
+        lmsPrice: Double?,
         screen: CourseUpgradeScreen,
         error: String,
         flowType: UpgradeMode
@@ -830,16 +836,20 @@ class AnalyticsManager: AuthorizationAnalytics,
         ]
         
         parameters.setObjectOrNil(blockID, forKey: EventParamKey.blockID)
-        parameters.setObjectOrNil(coursePrice, forKey: EventParamKey.price)
+        parameters.setObjectOrNil(localizedPrice, forKey: EventParamKey.localizedPrice)
+        parameters.setObjectOrNil(localizedCurrencyCode, forKey: EventParamKey.localizedCurrencyCode)
+        parameters.setObjectOrNil(lmsPrice, forKey: EventParamKey.lmsPrice)
         
         logEvent(.courseUpgradeError, parameters: parameters)
     }
     
     public func trackCourseUpgradeErrorAction(
         courseID: String,
-        blockID: String? = nil,
+        blockID: String?,
         pacing: String,
-        coursePrice: String? = nil,
+        localizedPrice: NSDecimalNumber?,
+        localizedCurrencyCode: String?,
+        lmsPrice: Double?,
         screen: CourseUpgradeScreen,
         alertType: UpgradeAlertType,
         errorAction: String,
@@ -859,16 +869,20 @@ class AnalyticsManager: AuthorizationAnalytics,
         ]
         
         parameters.setObjectOrNil(blockID, forKey: EventParamKey.blockID)
-        parameters.setObjectOrNil(coursePrice, forKey: EventParamKey.price)
+        parameters.setObjectOrNil(localizedPrice, forKey: EventParamKey.localizedPrice)
+        parameters.setObjectOrNil(localizedCurrencyCode, forKey: EventParamKey.localizedCurrencyCode)
+        parameters.setObjectOrNil(lmsPrice, forKey: EventParamKey.lmsPrice)
         
         logEvent(.courseUpgradeErrorAction, parameters: parameters)
     }
     
     public func trackCourseUpgradeSuccess(
         courseID: String,
-        blockID: String? = nil,
+        blockID: String?,
         pacing: String,
-        coursePrice: String,
+        localizedPrice: NSDecimalNumber?,
+        localizedCurrencyCode: String?,
+        lmsPrice: Double?,
         screen: CourseUpgradeScreen,
         flowType: UpgradeMode
     ) {
@@ -876,12 +890,14 @@ class AnalyticsManager: AuthorizationAnalytics,
             EventParamKey.pacing: pacing,
             EventParamKey.name: EventBIValue.courseUpgradeSuccess.rawValue,
             EventParamKey.courseID: courseID,
-            EventParamKey.price: coursePrice,
             EventParamKey.screenName: screen.rawValue,
             EventParamKey.flowType: flowType.rawValue,
             EventParamKey.category: EventCategory.inAppPurchases
         ]
         
+        parameters.setObjectOrNil(localizedPrice, forKey: EventParamKey.localizedPrice)
+        parameters.setObjectOrNil(localizedCurrencyCode, forKey: EventParamKey.localizedCurrencyCode)
+        parameters.setObjectOrNil(lmsPrice, forKey: EventParamKey.lmsPrice)
         parameters.setObjectOrNil(blockID, forKey: EventParamKey.blockID)
         
         logEvent(.courseUpgradeSuccess, parameters: parameters)
@@ -889,19 +905,24 @@ class AnalyticsManager: AuthorizationAnalytics,
     
     public func trackUpgradeNow(
         courseID: String,
-        blockID: String? = nil,
+        blockID: String?,
         pacing: String,
         screen: CourseUpgradeScreen,
-        coursePrice: String
+        localizedPrice: NSDecimalNumber?,
+        localizedCurrencyCode: String?,
+        lmsPrice: Double?
     ) {
         var parameters: [String: Any] = [
             EventParamKey.pacing: pacing,
             EventParamKey.name: EventBIValue.upgradeNowClicked.rawValue,
             EventParamKey.courseID: courseID,
             EventParamKey.screenName: screen.rawValue,
-            EventParamKey.price: coursePrice,
             EventParamKey.category: EventCategory.inAppPurchases
         ]
+        
+        parameters.setObjectOrNil(localizedPrice, forKey: EventParamKey.localizedPrice)
+        parameters.setObjectOrNil(localizedCurrencyCode, forKey: EventParamKey.localizedCurrencyCode)
+        parameters.setObjectOrNil(lmsPrice, forKey: EventParamKey.lmsPrice)
         parameters.setObjectOrNil(blockID, forKey: EventParamKey.blockID)
         
         logEvent(.upgradeNowClicked, parameters: parameters)

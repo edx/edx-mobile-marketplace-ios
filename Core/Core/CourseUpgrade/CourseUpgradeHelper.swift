@@ -75,7 +75,9 @@ public class CourseUpgradeHelper: CourseUpgradeHelperProtocol {
     private var courseID: String?
     private var blockID: String?
     private var screen: CourseUpgradeScreen = .unknown
-    private var localizedCoursePrice: String?
+    private var localizedPrice: NSDecimalNumber?
+    private var localizedCurrencyCode: String?
+    private var lmsPrice: Double?
     weak private(set) var upgradeHadler: CourseUpgradeHandler?
     private let router: BaseRouter
     
@@ -93,14 +95,18 @@ public class CourseUpgradeHelper: CourseUpgradeHelperProtocol {
         courseID: String,
         pacing: String,
         blockID: String? = nil,
-        localizedCoursePrice: String,
+        localizedPrice: NSDecimalNumber?,
+        localizedCurrencyCode: String?,
+        lmsPrice: Double?,
         screen: CourseUpgradeScreen
     ) {
         self.courseID = courseID
         self.pacing = pacing
         self.blockID = blockID
-        self.localizedCoursePrice = localizedCoursePrice
+        self.localizedPrice = localizedPrice
         self.screen = screen
+        self.localizedCurrencyCode = localizedCurrencyCode
+        self.lmsPrice = lmsPrice
     }
     
     public func handleCourseUpgrade(
@@ -135,7 +141,9 @@ public class CourseUpgradeHelper: CourseUpgradeHelperProtocol {
                         courseID: courseID ?? "",
                         blockID: blockID,
                         pacing: pacing ?? "",
-                        coursePrice: localizedCoursePrice ?? "",
+                        localizedPrice: localizedPrice,
+                        localizedCurrencyCode: localizedCurrencyCode,
+                        lmsPrice: lmsPrice,
                         screen: screen,
                         error: error.formattedError
                     )
@@ -146,7 +154,9 @@ public class CourseUpgradeHelper: CourseUpgradeHelperProtocol {
                         courseID: courseID ?? "",
                         blockID: blockID,
                         pacing: pacing ?? "",
-                        coursePrice: localizedCoursePrice ?? "",
+                        localizedPrice: localizedPrice,
+                        localizedCurrencyCode: localizedCurrencyCode,
+                        lmsPrice: lmsPrice,
                         screen: screen,
                         error: error.formattedError
                     )
@@ -156,7 +166,9 @@ public class CourseUpgradeHelper: CourseUpgradeHelperProtocol {
                     courseID: courseID ?? "",
                     blockID: blockID,
                     pacing: pacing ?? "",
-                    coursePrice: localizedCoursePrice ?? "",
+                    localizedPrice: localizedPrice,
+                    localizedCurrencyCode: localizedCurrencyCode,
+                    lmsPrice: lmsPrice,
                     screen: screen,
                     error: error.formattedError,
                     flowType: upgradeHadler.upgradeMode
@@ -187,7 +199,7 @@ public class CourseUpgradeHelper: CourseUpgradeHelperProtocol {
         
         switch state {
         case .basket:
-            saveInProgressIAP(courseID: courseID, sku: sku)
+            saveInProgressIAP(courseID: courseID, sku: sku, lmsPrice: lmsPrice ?? 0.0)
         case .complete:
             removeInProgressIAP()
         case .error(let upgradeError):
@@ -220,7 +232,7 @@ public class CourseUpgradeHelper: CourseUpgradeHelperProtocol {
         pacing = nil
         courseID = nil
         blockID = nil
-        localizedCoursePrice = nil
+        localizedPrice = nil
         screen = .unknown
         resetUpgradeModel()
     }
@@ -232,7 +244,9 @@ extension CourseUpgradeHelper {
             courseID: courseID ?? "",
             blockID: blockID,
             pacing: pacing ?? "",
-            coursePrice: localizedCoursePrice ?? "",
+            localizedPrice: localizedPrice,
+            localizedCurrencyCode: localizedCurrencyCode,
+            lmsPrice: lmsPrice,
             screen: screen,
             flowType: upgradeHadler?.upgradeMode ?? .userInitiated
         )
@@ -456,7 +470,9 @@ extension CourseUpgradeHelper {
             courseID: courseID ?? "",
             blockID: blockID,
             pacing: pacing ?? "",
-            coursePrice: localizedCoursePrice,
+            localizedPrice: localizedPrice,
+            localizedCurrencyCode: localizedCurrencyCode,
+            lmsPrice: lmsPrice,
             screen: screen,
             alertType: alertType,
             errorAction: errorAction.rawValue,
@@ -493,8 +509,8 @@ extension CourseUpgradeHelper {
 // Enrollments API is paginated so it's not sure the course will be available in first response
 
 extension CourseUpgradeHelper {
-    private func saveInProgressIAP(courseID: String, sku: String) {
-        let IAP = InProgressIAP(courseID: courseID, sku: sku, pacing: pacing ?? "")
+    private func saveInProgressIAP(courseID: String, sku: String, lmsPrice: Double) {
+        let IAP = InProgressIAP(courseID: courseID, sku: sku, pacing: pacing ?? "", lmsPrice: lmsPrice)
         
         if let data = try? NSKeyedArchiver.archivedData(withRootObject: IAP, requiringSecureCoding: true) {
             UserDefaults.standard.set(data, forKey: InProgressIAPKey)
@@ -523,23 +539,27 @@ public class InProgressIAP: NSObject, NSCoding, NSSecureCoding {
     public var courseID: String = ""
     public var sku: String = ""
     public var pacing: String = ""
+    public var lmsPrice: Double = 0.0
     
-    init(courseID: String, sku: String, pacing: String) {
+    init(courseID: String, sku: String, pacing: String, lmsPrice: Double) {
         self.courseID = courseID
         self.sku = sku
         self.pacing = pacing
+        self.lmsPrice = lmsPrice
     }
     
     public func encode(with coder: NSCoder) {
         coder.encode(courseID, forKey: "courseID")
         coder.encode(sku, forKey: "sku")
         coder.encode(pacing, forKey: "pacing")
+        coder.encode(lmsPrice, forKey: "lmsPrice")
     }
     
     public required init?(coder: NSCoder) {
         courseID = coder.decodeObject(forKey: "courseID") as? String ?? ""
         sku = coder.decodeObject(forKey: "sku") as? String ?? ""
         pacing = coder.decodeObject(forKey: "pacing") as? String ?? ""
+        lmsPrice = coder.decodeObject(forKey: "lmsPrice") as? Double ?? 0.0
     }
     
     public static var supportsSecureCoding: Bool {

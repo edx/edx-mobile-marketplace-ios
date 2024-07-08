@@ -422,7 +422,11 @@ public class CourseContainerViewModel: BaseCourseViewModel {
     }
 
     func showPaymentsInfo() {
-        guard let structure = courseStructure, let sku = courseStructure?.sku else { return }
+        guard let structure = courseStructure,
+              let sku = courseStructure?.sku,
+              let lmsPrice = courseStructure?.lmsPrice
+        else { return }
+        
         Task {@MainActor in
             await router.showUpgradeInfo(
                 productName: structure.displayName,
@@ -430,7 +434,8 @@ public class CourseContainerViewModel: BaseCourseViewModel {
                 sku: sku,
                 courseID: structure.id,
                 screen: .courseDashboard,
-                pacing: structure.isSelfPaced ? Pacing.selfPace.rawValue : Pacing.instructor.rawValue
+                pacing: structure.isSelfPaced ? Pacing.selfPace.rawValue : Pacing.instructor.rawValue,
+                lmsPrice: lmsPrice
             )
         }
     }

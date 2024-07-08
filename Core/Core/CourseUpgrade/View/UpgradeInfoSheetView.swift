@@ -57,7 +57,8 @@ public struct UpgradeInfoSheetView: View {
             handler: CourseUpgradeHandlerProtocolMock(),
             pacing: "self",
             analytics: CoreAnalyticsMock(),
-            router: BaseRouterMock()
+            router: BaseRouterMock(),
+            lmsPrice: .zero
         )
     )
 }

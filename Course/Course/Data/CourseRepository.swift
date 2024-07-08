@@ -172,7 +172,8 @@ public class CourseRepository: CourseRepositoryProtocol {
             courseProgress: course.courseProgress == nil ? nil : CourseProgress(
                 totalAssignmentsCount: course.courseProgress?.totalAssignmentsCount ?? 0,
                 assignmentsCompleted: course.courseProgress?.assignmentsCompleted ?? 0
-            )
+            ),
+            lmsPrice: course.lmsPrice
         )
     }
     
@@ -423,7 +424,8 @@ And there are various ways of describing it-- call it oral poetry or
             courseProgress: course.courseProgress == nil ? nil : CourseProgress(
                 totalAssignmentsCount: course.courseProgress?.totalAssignmentsCount ?? 0,
                 assignmentsCompleted: course.courseProgress?.assignmentsCompleted ?? 0
-            )
+            ),
+            lmsPrice: course.lmsPrice
         )
     }
     

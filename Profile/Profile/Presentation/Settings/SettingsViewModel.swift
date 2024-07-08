@@ -213,6 +213,7 @@ public class SettingsViewModel: ObservableObject {
             productInfo: product,
             pacing: inprogressIAP.pacing,
             courseID: inprogressIAP.courseID,
+            lmsPrice: inprogressIAP.lmsPrice,
             componentID: nil,
             screen: .dashboard,
             completion: {[weak self] state in

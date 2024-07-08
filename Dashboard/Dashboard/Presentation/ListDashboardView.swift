@@ -70,7 +70,8 @@ public struct ListDashboardView: View {
                                                         courseID: course.courseID,
                                                         screen: .dashboard,
                                                         pacing: course.isSelfPaced != false ? Pacing.selfPace.rawValue
-                                                        : Pacing.instructor.rawValue
+                                                        : Pacing.instructor.rawValue,
+                                                        lmsPrice: course.lmsPrice ?? .zero
                                                     )
                                                 }
                                             }

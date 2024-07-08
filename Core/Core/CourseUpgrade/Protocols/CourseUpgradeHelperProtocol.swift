@@ -13,7 +13,9 @@ public protocol CourseUpgradeHelperProtocol {
         courseID: String,
         pacing: String,
         blockID: String?,
-        localizedCoursePrice: String,
+        localizedPrice: NSDecimalNumber?,
+        localizedCurrencyCode: String?,
+        lmsPrice: Double?,
         screen: CourseUpgradeScreen
     )
     

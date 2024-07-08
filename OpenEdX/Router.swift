@@ -893,13 +893,14 @@ extension Router {
         sku: String,
         courseID: String,
         screen: CourseUpgradeScreen,
-        pacing: String
+        pacing: String,
+        lmsPrice: Double
     ) async {
         await withCheckedContinuation { continuation in
             let view = UpgradeInfoSheetView(
                 viewModel: Container.shared.resolve(
                     UpgradeInfoViewModel.self,
-                    arguments: productName, message, sku, courseID, screen, pacing
+                    arguments: productName, message, sku, courseID, screen, pacing, lmsPrice
                 )!
             )
             let controller = UIHostingController(rootView: view)

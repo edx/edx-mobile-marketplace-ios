@@ -59,7 +59,8 @@ public class DashboardPersistence: DashboardPersistenceProtocol {
                                   progressPossible: 0,
                                   auditAccessExpires: $0.auditAccessExpires,
                                   startDisplay: $0.startDisplay,
-                                  startType: DisplayStartType(value: $0.startType))}
+                                  startType: DisplayStartType(value: $0.startType),
+                                  lmsPrice: $0.lmsPrice)}
         if let result, !result.isEmpty {
             return result
         } else {
@@ -87,6 +88,7 @@ public class DashboardPersistence: DashboardPersistenceProtocol {
                 newItem.dynamicUpgradeDeadline = item.dynamicUpgradeDeadline
                 newItem.mode = item.mode.rawValue
                 newItem.courseRawImage = item.courseRawImage
+                newItem.lmsPrice = item.lmsPrice ?? .zero
                 
                 if let access = item.coursewareAccess {
                     let newAccess = CDDashboardCoursewareAccess(context: self.context)
@@ -200,7 +202,8 @@ public class DashboardPersistence: DashboardPersistenceProtocol {
                         progressPossible: Int(cdCourse.progressPossible),
                         auditAccessExpires: cdCourse.auditAccessExpires,
                         startDisplay: cdCourse.startDisplay,
-                        startType: DisplayStartType(value: cdCourse.startType)
+                        startType: DisplayStartType(value: cdCourse.startType),
+                        lmsPrice: cdCourse.lmsPrice
                     )
                 }
             

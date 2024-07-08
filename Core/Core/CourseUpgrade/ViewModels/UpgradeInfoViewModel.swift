@@ -17,6 +17,7 @@ public class UpgradeInfoViewModel: ObservableObject {
     let pacing: String
     let analytics: CoreAnalytics
     let router: BaseRouter
+    let lmsPrice: Double
     
     @Published var isLoading: Bool = false
     @Published var product: StoreProductInfo?
@@ -36,7 +37,8 @@ public class UpgradeInfoViewModel: ObservableObject {
         handler: CourseUpgradeHandlerProtocol,
         pacing: String,
         analytics: CoreAnalytics,
-        router: BaseRouter
+        router: BaseRouter,
+        lmsPrice: Double
     ) {
         self.productName = productName
         self.sku = sku
@@ -47,6 +49,7 @@ public class UpgradeInfoViewModel: ObservableObject {
         self.analytics = analytics
         self.router = router
         self.message = message
+        self.lmsPrice = lmsPrice
     }
     
     @MainActor
@@ -92,7 +95,9 @@ public class UpgradeInfoViewModel: ObservableObject {
                         courseID: self.courseID,
                         blockID: "",
                         pacing: pacing,
-                        coursePrice: "",
+                        localizedPrice: nil,
+                        localizedCurrencyCode: nil,
+                        lmsPrice: lmsPrice,
                         screen: self.screen,
                         alertType: .priceFetch,
                         errorAction: UpgradeErrorAction.reloadPrice.rawValue,
@@ -116,7 +121,9 @@ public class UpgradeInfoViewModel: ObservableObject {
                     courseID: self.courseID,
                     blockID: "",
                     pacing: pacing,
-                    coursePrice: nil,
+                    localizedPrice: nil,
+                    localizedCurrencyCode: product?.currencySymbol,
+                    lmsPrice: lmsPrice,
                     screen: self.screen,
                     alertType: .priceFetch,
                     errorAction: UpgradeErrorAction.close.rawValue,
@@ -140,7 +147,9 @@ public class UpgradeInfoViewModel: ObservableObject {
             blockID: "",
             pacing: pacing,
             screen: screen,
-            coursePrice: product?.localizedPrice ?? ""
+            localizedPrice: product?.price,
+            localizedCurrencyCode: product?.currencySymbol,
+            lmsPrice: lmsPrice
         )
         await handler.upgradeCourse(
             sku: sku,
@@ -148,6 +157,7 @@ public class UpgradeInfoViewModel: ObservableObject {
             productInfo: product,
             pacing: pacing,
             courseID: courseID,
+            lmsPrice: lmsPrice,
             componentID: nil,
             screen: screen,
             completion: {[weak self] state in
