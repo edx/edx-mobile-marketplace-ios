@@ -60,7 +60,9 @@ public class DashboardPersistence: DashboardPersistenceProtocol {
                                   auditAccessExpires: $0.auditAccessExpires,
                                   startDisplay: $0.startDisplay,
                                   startType: DisplayStartType(value: $0.startType),
-                                  lmsPrice: $0.lmsPrice)}
+                                  lmsPrice: $0.lmsPrice
+                )
+            }
         if let result, !result.isEmpty {
             return result
         } else {

@@ -199,7 +199,7 @@ public class CourseUpgradeHelper: CourseUpgradeHelperProtocol {
         
         switch state {
         case .basket:
-            saveInProgressIAP(courseID: courseID, sku: sku, lmsPrice: lmsPrice ?? 0.0)
+            saveInProgressIAP(courseID: courseID, sku: sku, lmsPrice: lmsPrice ?? .zero)
         case .complete:
             removeInProgressIAP()
         case .error(let upgradeError):
