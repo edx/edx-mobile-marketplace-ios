@@ -8,37 +8,18 @@
 import UIKit
 import Theme
 
-extension UIApplication {
+public extension UIApplication {
     
-    public var window: UIWindow? {
-        if Thread.isMainThread {
-            return UIApplication
-                .shared
-                .connectedScenes
-                .compactMap { $0 as? UIWindowScene }
-                .flatMap { $0.windows }
-                .first { $0.isKeyWindow }
-        } else {
-            var win: UIWindow?
-            DispatchQueue.main.sync {
-                win = UIApplication
-                    .shared
-                    .connectedScenes
-                    .compactMap { $0 as? UIWindowScene }
-                    .flatMap { $0.windows }
-                    .first { $0.isKeyWindow }
-            }
-            
-            return win
-        }
+    var keyWindow: UIWindow? {
+        UIApplication.shared.windows.first { $0.isKeyWindow }
     }
     
-    public func endEditing(force: Bool = true) {
+    func endEditing(force: Bool = true) {
         windows.forEach { $0.endEditing(force) }
     }
     
-    public class func topViewController(
-        controller: UIViewController? = UIApplication.shared.window?.rootViewController
+    class func topViewController(
+        controller: UIViewController? = UIApplication.shared.keyWindow?.rootViewController
     ) -> UIViewController? {
         if let navigationController = controller as? UINavigationController {
             return topViewController(controller: navigationController.visibleViewController)
@@ -52,6 +33,15 @@ extension UIApplication {
             return topViewController(controller: presented)
         }
         return controller
+    }
+    
+    var windowInsets: UIEdgeInsets {
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                let window = windowScene.windows.first else {
+            return .zero
+        }
+
+        return window.safeAreaInsets
     }
 }
 

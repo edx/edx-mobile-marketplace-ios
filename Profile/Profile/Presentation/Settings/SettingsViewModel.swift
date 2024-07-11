@@ -143,6 +143,11 @@ public class SettingsViewModel: ObservableObject {
         try? await downloadManager.cancelAllDownloading()
         router.showStartupScreen()
         analytics.userLogout(force: false)
+        NotificationCenter.default.post(
+            name: .userLoggedOut,
+            object: nil,
+            userInfo: [Notification.UserInfoKey.isForced: false]
+        )
     }
     
     func trackProfileVideoSettingsClicked() {
@@ -178,7 +183,7 @@ public class SettingsViewModel: ObservableObject {
     }
     
     func trackLogoutClickedClicked() {
-        analytics.profileEvent(.userLogoutClicked, biValue: .userLogoutClicked)
+        analytics.profileTrackEvent(.userLogoutClicked, biValue: .userLogoutClicked)
     }
     
     @MainActor

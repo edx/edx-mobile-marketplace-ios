@@ -32,6 +32,7 @@ public protocol ConfigProtocol {
     var program: DiscoveryConfig { get }
     var URIScheme: String { get }
     var ecommerceURL: String? { get }
+    var fullStory: FullStoryConfig { get }
 }
 
 public enum TokenType: String {

@@ -61,13 +61,16 @@ struct HandoutsView: View {
                                         announcements: nil,
                                         router: viewModel.router,
                                         cssInjector: viewModel.cssInjector)
-                                    viewModel.analytics.trackCourseEvent(
+                                    viewModel.analytics.trackCourseScreenEvent(
                                         .courseHandouts,
                                         biValue: .courseHandouts,
                                         courseID: courseID
                                     )
                                 })
                                 Divider()
+                                    .frame(height: 1)
+                                    .overlay(Theme.Colors.cardViewStroke)
+                                    .accessibilityIdentifier("divider")
                                 HandoutsItemCell(type: .announcements, onTapAction: {
                                     if !viewModel.updates.isEmpty {
                                         viewModel.router.showHandoutsUpdatesView(
@@ -75,7 +78,7 @@ struct HandoutsView: View {
                                             announcements: viewModel.updates,
                                             router: viewModel.router,
                                             cssInjector: viewModel.cssInjector)
-                                        viewModel.analytics.trackCourseEvent(
+                                        viewModel.analytics.trackCourseScreenEvent(
                                             .courseAnnouncement,
                                             biValue: .courseAnnouncement,
                                             courseID: courseID

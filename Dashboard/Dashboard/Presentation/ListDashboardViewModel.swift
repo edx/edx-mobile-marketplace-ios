@@ -33,6 +33,8 @@ public class ListDashboardViewModel: ObservableObject {
     private var cancellations: [AnyCancellable] = []
     private let upgradehandler: CourseUpgradeHandlerProtocol
     private let coreAnalytics: CoreAnalytics
+    private var onCourseEnrolledCancellable: AnyCancellable?
+    private var refreshEnrollmentsCancellable: AnyCancellable?
     
     public init(interactor: DashboardInteractorProtocol,
                 connectivity: ConnectivityProtocol,
@@ -70,6 +72,15 @@ public class ListDashboardViewModel: ObservableObject {
                 }
             }
             .store(in: &cancellations)
+        
+        refreshEnrollmentsCancellable = NotificationCenter.default
+            .publisher(for: .refreshEnrollments)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                Task {
+                    await self.getMyCourses(page: 1, refresh: true)
+                }
+            }
     }
     
     @MainActor
@@ -97,7 +108,7 @@ public class ListDashboardViewModel: ObservableObject {
                 fetchInProgress = false
                 self.showLoader = false
             } else {
-                courses = try interactor.getEnrollmentsOffline()
+                courses = try await interactor.getEnrollmentsOffline()
                 self.nextPage += 1
                 fetchInProgress = false
                 self.showLoader = false

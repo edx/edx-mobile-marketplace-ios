@@ -134,7 +134,9 @@ extension Router: DeepLinkRouter {
             .courseHandout,
             .courseAnnouncement,
             .courseDashboard,
-            .courseComponent:
+            .courseComponent,
+            .enroll,
+            .addBetaTester:
             popToCourseContainerView(animated: false)
         default:
             break
