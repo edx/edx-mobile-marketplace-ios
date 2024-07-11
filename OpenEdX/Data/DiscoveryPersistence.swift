@@ -19,27 +19,52 @@ public class DiscoveryPersistence: DiscoveryPersistenceProtocol {
     }
     
     public func loadDiscovery() async throws -> [CourseItem] {
-        try await context.perform {[context] in
-            let result = try? context.fetch(CDDiscoveryCourse.fetchRequest())
-                .map { CourseItem(name: $0.name ?? "",
-                                  org: $0.org ?? "",
-                                  shortDescription: $0.desc ?? "",
-                                  imageURL: $0.imageURL ?? "",
-                                  hasAccess: $0.hasAccess,
-                                  courseStart: $0.courseStart,
-                                  courseEnd: $0.courseEnd,
-                                  enrollmentStart: $0.enrollmentStart,
-                                  enrollmentEnd: $0.enrollmentEnd,
-                                  courseID: $0.courseID ?? "",
-                                  numPages: Int($0.numPages),
-                                  coursesCount: Int($0.courseCount),
-                                  progressEarned: 0,
-                                  progressPossible: 0)}
-            if let result, !result.isEmpty {
-                return result
-            } else {
-                throw NoCachedDataError()
+        let result = try? context.fetch(CDDiscoveryCourse.fetchRequest())
+            .map {
+                var coursewareAccess: CoursewareAccess?
+                if let access = $0.coursewareAccess {
+                    var coursewareError: CourseAccessError?
+                    if let error = access.errorCode {
+                        coursewareError = CourseAccessError(rawValue: error) ?? .unknown
+                    }
+                    
+                    coursewareAccess = CoursewareAccess(
+                        hasAccess: access.hasAccess,
+                        errorCode: coursewareError,
+                        developerMessage: access.developerMessage,
+                        userMessage: access.userMessage,
+                        additionalContextUserMessage: access.additionalContextUserMessage,
+                        userFragment: access.userFragment
+                    )
+                }
+                
+                return CourseItem(
+                    name: $0.name ?? "",
+                    org: $0.org ?? "",
+                    shortDescription: $0.desc ?? "",
+                    imageURL: $0.imageURL ?? "",
+                    hasAccess: $0.hasAccess,
+                    courseStart: $0.courseStart,
+                    courseEnd: $0.courseEnd,
+                    enrollmentStart: $0.enrollmentStart,
+                    enrollmentEnd: $0.enrollmentEnd,
+                    courseID: $0.courseID ?? "",
+                    numPages: Int($0.numPages),
+                    coursesCount: Int($0.courseCount),
+                    isSelfPaced: $0.isSelfPaced,
+                    courseRawImage: $0.courseRawImage,
+                    coursewareAccess: coursewareAccess,
+                    progressEarned: 0,
+                    progressPossible: 0,
+                    auditAccessExpires: nil,
+                    startDisplay: nil,
+                    startType: nil
+                )
             }
+        if let result, !result.isEmpty {
+            return result
+        } else {
+            throw NoCachedDataError()
         }
     }
     
@@ -97,7 +122,8 @@ public class DiscoveryPersistence: DiscoveryPersistenceProtocol {
                 isEnrolled: courseDetails.isEnrolled,
                 overviewHTML: courseDetails.overviewHTML ?? "",
                 courseBannerURL: courseDetails.courseBannerURL ?? "",
-                courseVideoURL: nil
+                courseVideoURL: courseDetails.courseVideoURL,
+                courseRawImage: courseDetails.courseRawImage
             )
         }
     }

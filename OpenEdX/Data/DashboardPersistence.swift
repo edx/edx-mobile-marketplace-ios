@@ -21,7 +21,25 @@ public class DashboardPersistence: DashboardPersistenceProtocol {
     public func loadEnrollments() async throws -> [CourseItem] {
         try await context.perform {[context] in
             let result = try? context.fetch(CDDashboardCourse.fetchRequest())
-                .map { CourseItem(name: $0.name ?? "",
+                .map {
+                    var coursewareAccess: CoursewareAccess?
+                    if let access = $0.coursewareAccess {
+                        var coursewareError: CourseAccessError?
+                        if let error = access.errorCode {
+                            coursewareError = CourseAccessError(rawValue: error) ?? .unknown
+                        }
+                        
+                        coursewareAccess = CoursewareAccess(
+                            hasAccess: access.hasAccess,
+                            errorCode: coursewareError,
+                            developerMessage: access.developerMessage,
+                            userMessage: access.userMessage,
+                            additionalContextUserMessage: access.additionalContextUserMessage,
+                            userFragment: access.userFragment
+                        )
+                    }
+                    
+                    return CourseItem(name: $0.name ?? "",
                                   org: $0.org ?? "",
                                   shortDescription: $0.desc ?? "",
                                   imageURL: $0.imageURL ?? "",
@@ -248,12 +266,32 @@ public class DashboardPersistence: DashboardPersistenceProtocol {
                         progressEarned: Int(cdPrimaryCourse.progressEarned),
                         progressPossible: Int(cdPrimaryCourse.progressPossible),
                         lastVisitedBlockID: cdPrimaryCourse.lastVisitedBlockID ?? "",
-                        resumeTitle: cdPrimaryCourse.resumeTitle
+                        resumeTitle: cdPrimaryCourse.resumeTitle,
+                        auditAccessExpires: cdPrimaryCourse.auditAccessExpires,
+                        startDisplay: cdPrimaryCourse.startDisplay,
+                        startType: DisplayStartType(value: cdPrimaryCourse.startType)
                     )
                 }
                 
                 let courses = (result.courses as? Set<CDDashboardCourse> ?? [])
                     .map { cdCourse in
+                        var coursewareAccess: CoursewareAccess?
+                        if let access = cdCourse.coursewareAccess {
+                            var coursewareError: CourseAccessError?
+                            if let error = access.errorCode {
+                                coursewareError = CourseAccessError(rawValue: error) ?? .unknown
+                            }
+                            
+                            coursewareAccess = CoursewareAccess(
+                                hasAccess: access.hasAccess,
+                                errorCode: coursewareError,
+                                developerMessage: access.developerMessage,
+                                userMessage: access.userMessage,
+                                additionalContextUserMessage: access.additionalContextUserMessage,
+                                userFragment: access.userFragment
+                            )
+                        }
+                        
                         return CourseItem(
                             name: cdCourse.name ?? "",
                             org: cdCourse.org ?? "",
@@ -267,8 +305,18 @@ public class DashboardPersistence: DashboardPersistenceProtocol {
                             courseID: cdCourse.courseID ?? "",
                             numPages: Int(cdCourse.numPages),
                             coursesCount: Int(cdCourse.courseCount),
+                            sku: cdCourse.courseSku ?? "",
+                            dynamicUpgradeDeadline: cdCourse.dynamicUpgradeDeadline,
+                            mode: DataLayer.Mode(rawValue: cdCourse.mode ?? "") ?? .unknown,
+                            isSelfPaced: cdCourse.isSelfPaced,
+                            courseRawImage: cdCourse.courseRawImage,
+                            coursewareAccess: coursewareAccess,
                             progressEarned: Int(cdCourse.progressEarned),
-                            progressPossible: Int(cdCourse.progressPossible)
+                            progressPossible: Int(cdCourse.progressPossible),
+                            auditAccessExpires: cdCourse.auditAccessExpires,
+                            startDisplay: cdCourse.startDisplay,
+                            startType: DisplayStartType(value: cdCourse.startType),
+                            lmsPrice: cdCourse.lmsPrice
                         )
                     }
                 

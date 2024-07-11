@@ -22,7 +22,24 @@ public class CoursePersistence: CoursePersistenceProtocol {
         try await context.perform { [context] in
             let result = try? context.fetch(CDCourseItem.fetchRequest())
                 .map {
-                    CourseItem(name: $0.name ?? "",
+                    var coursewareAccess: CoursewareAccess?
+                    if let access = $0.coursewareAccess {
+                        var coursewareError: CourseAccessError?
+                        if let error = access.errorCode {
+                            coursewareError = CourseAccessError(rawValue: error) ?? .unknown
+                        }
+                        
+                        coursewareAccess = CoursewareAccess(
+                            hasAccess: access.hasAccess,
+                            errorCode: coursewareError,
+                            developerMessage: access.developerMessage,
+                            userMessage: access.userMessage,
+                            additionalContextUserMessage: access.additionalContextUserMessage,
+                            userFragment: access.userFragment
+                        )
+                    }
+                    
+                    return CourseItem(name: $0.name ?? "",
                                org: $0.org ?? "",
                                shortDescription: $0.desc ?? "",
                                imageURL: $0.imageURL ?? "",
@@ -34,6 +51,9 @@ public class CoursePersistence: CoursePersistenceProtocol {
                                courseID: $0.courseID ?? "",
                                numPages: Int($0.numPages),
                                coursesCount: Int($0.courseCount),
+                               isSelfPaced: $0.isSelfPaced,
+                               courseRawImage: $0.courseRawImage,
+                               coursewareAccess: coursewareAccess,
                                progressEarned: 0,
                                progressPossible: 0,
                                auditAccessExpires: $0.auditAccessExpires,
@@ -65,19 +85,6 @@ public class CoursePersistence: CoursePersistenceProtocol {
                 newItem.numPages = Int32(item.numPages)
                 newItem.courseID = item.courseID
                 newItem.courseCount = Int32(item.coursesCount)
-                
-                newItem.courseRawImage = item.courseRawImage
-                
-                if let access = item.coursewareAccess {
-                    let newAccess = CDCoursewareAccess(context: self.context)
-                    newAccess.hasAccess = access.hasAccess
-                    newAccess.errorCode = access.errorCode?.rawValue
-                    newAccess.developerMessage = access.developerMessage
-                    newAccess.userMessage = access.userMessage
-                    newAccess.additionalContextUserMessage = access.additionalContextUserMessage
-                    newAccess.userFragment = access.userFragment
-                    newItem.coursewareAccess = newAccess
-                }
                 
                 do {
                     try context.save()
@@ -175,86 +182,6 @@ public class CoursePersistence: CoursePersistenceProtocol {
             )
         }
         
-        let dictionary = blocks?.reduce(into: [:]) { result, block in
-            result[block.id] = block
-        } ?? [:]
-        
-        return courseStructure(from: structure, blocks: dictionary)
-    }
-    
-    private func courseStructure(
-        from structure: CDCourseStructure,
-        blocks dictionary: [String : DataLayer.CourseBlock]
-    ) -> DataLayer.CourseStructure {
-        var coursewareAccessDetails: DataLayer.CoursewareAccessDetails?
-        if let accessDetails = structure.coursewareAccessDetails {
-            var coursewareAccess: DataLayer.CoursewareAccess?
-            if let access = accessDetails.coursewareAccess {
-                var errorCode: DataLayer.CourseAccessError?
-                if let error = access.errorCode {
-                    errorCode = DataLayer.CourseAccessError(rawValue: error) ?? .unknown
-                }
-                coursewareAccess = DataLayer.CoursewareAccess(
-                    hasAccess: access.hasAccess,
-                    errorCode: errorCode,
-                    developerMessage: access.developerMessage,
-                    userMessage: access.userMessage,
-                    additionalContextUserMessage: access.additionalContextUserMessage,
-                    userFragment: access.userFragment
-                )
-            }
-            coursewareAccessDetails = DataLayer.CoursewareAccessDetails(
-                hasUNMETPrerequisites: accessDetails.hasUNMETPrerequisites,
-                isTooEarly: accessDetails.isTooEarly,
-                auditAccessExpires: accessDetails.auditAccessExpires,
-                coursewareAccess: coursewareAccess
-            )
-        }
-        
-        return DataLayer.CourseStructure(
-            rootItem: structure.rootItem ?? "",
-            dict: dictionary,
-            id: structure.id ?? "",
-            media: DataLayer.CourseMedia(
-                image: DataLayer.Image(
-                    raw: structure.mediaRaw ?? "",
-                    small: structure.mediaSmall ?? "",
-                    large: structure.mediaLarge ?? ""
-                )
-            ),
-            certificate: DataLayer.Certificate(url: structure.certificate),
-            org: structure.org ?? "",
-            isSelfPaced: structure.isSelfPaced,
-            courseStart: structure.courseStart,
-            courseSKU: structure.courseSKU,
-            courseMode: DataLayer.Mode(rawValue: structure.mode ?? ""),
-            coursewareAccessDetails: coursewareAccessDetails,
-            courseProgress: DataLayer.CourseProgress(
-                assignmentsCompleted: Int(structure.assignmentsCompleted),
-                totalAssignmentsCount: Int(structure.totalAssignmentsCount)
-            )
-        )
-    }
-    
-    private func accessDetails(from structure: DataLayer.CourseStructure) -> CDCoursewareAccessDetails? {
-        if let accessDetails = structure.coursewareAccessDetails {
-            let newAccessDetails = CDCoursewareAccessDetails(context: self.context)
-            newAccessDetails.hasUNMETPrerequisites = accessDetails.hasUNMETPrerequisites
-            newAccessDetails.isTooEarly = accessDetails.isTooEarly
-            newAccessDetails.auditAccessExpires = accessDetails.auditAccessExpires
-            if let access = accessDetails.coursewareAccess {
-                let newAccess = CDCoursewareAccess(context: self.context)
-                newAccess.hasAccess = access.hasAccess
-                newAccess.errorCode = access.errorCode?.rawValue
-                newAccess.developerMessage = access.developerMessage
-                newAccess.userMessage = access.userMessage
-                newAccess.additionalContextUserMessage = access.additionalContextUserMessage
-                newAccess.userFragment = access.userFragment
-                newAccessDetails.coursewareAccess = newAccess
-            }
-            return newAccessDetails
-        }
-        return nil
     }
     
     public func saveCourseStructure(structure: DataLayer.CourseStructure) {
@@ -268,15 +195,8 @@ public class CoursePersistence: CoursePersistenceProtocol {
             newStructure.id = structure.id
             newStructure.rootItem = structure.rootItem
             newStructure.isSelfPaced = structure.isSelfPaced
-            newStructure.courseStart = structure.courseStart
-            newStructure.courseSKU = structure.courseSKU
-            newStructure.mode = structure.courseMode?.rawValue
             newStructure.totalAssignmentsCount = Int32(structure.courseProgress?.totalAssignmentsCount ?? 0)
             newStructure.assignmentsCompleted = Int32(structure.courseProgress?.assignmentsCompleted ?? 0)
-            
-            if let details = accessDetails(from: structure) {
-                newStructure.coursewareAccessDetails = details
-            }
             
             for block in Array(structure.dict.values) {
                 let courseDetail = CDCourseBlock(context: self.context)

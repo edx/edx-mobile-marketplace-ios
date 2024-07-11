@@ -943,6 +943,8 @@
 				14DE13DB2BDF83350059168F /* ServerConfig.swift */,
 			);
 			path = ServerConfig;
+            sourceTree = "<group>";
+        };
 		9784D47C2BF7761F00AFEFFF /* FullScreenErrorView */ = {
 			isa = PBXGroup;
 			children = (

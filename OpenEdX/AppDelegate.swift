@@ -46,7 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 )
             }
             configureDeepLinkServices(launchOptions: launchOptions)
-        
+            
             // IAP enabled is server configureable and fetched in enrollments API
             // IAP config isn't available on app launch so that's why checking for
             // e-commerce URL, e-commerce URL is being used for IAP
@@ -54,19 +54,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                config.ecommerceURL?.isEmpty == false {
                 
                 storekitHandler.completeTransactions()
-            
-            let pushManager = Container.shared.resolve(PushNotificationsManager.self)
-            
-            if config.firebase.enabled {
-                FirebaseApp.configure()
-                if config.firebase.cloudMessagingEnabled {
-                    Messaging.messaging().delegate = pushManager
-                    UNUserNotificationCenter.current().delegate = pushManager
+                
+                let pushManager = Container.shared.resolve(PushNotificationsManager.self)
+                
+                if config.firebase.enabled {
+                    FirebaseApp.configure()
+                    if config.firebase.cloudMessagingEnabled {
+                        Messaging.messaging().delegate = pushManager
+                        UNUserNotificationCenter.current().delegate = pushManager
+                    }
                 }
-            }
-            
-            if pushManager?.hasProviders == true {
-                UIApplication.shared.registerForRemoteNotifications()
+                
+                if pushManager?.hasProviders == true {
+                    UIApplication.shared.registerForRemoteNotifications()
+                }
             }
         }
         
@@ -75,7 +76,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = RouteController()
         window?.makeKeyAndVisible()
         window?.tintColor = Theme.UIColors.accentColor
-          
+        
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(didUserAuthorize),
@@ -89,7 +90,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             name: .userLoggedOut,
             object: nil
         )
-
+        
         return true
     }
 

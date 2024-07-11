@@ -8,17 +8,17 @@
 import UIKit
 import Theme
 
-public extension UIApplication {
+extension UIApplication {
     
-    var keyWindow: UIWindow? {
+    public var window: UIWindow? {
         UIApplication.shared.windows.first { $0.isKeyWindow }
     }
     
-    func endEditing(force: Bool = true) {
+    public func endEditing(force: Bool = true) {
         windows.forEach { $0.endEditing(force) }
     }
     
-    class func topViewController(
+    public class func topViewController(
         controller: UIViewController? = UIApplication.shared.keyWindow?.rootViewController
     ) -> UIViewController? {
         if let navigationController = controller as? UINavigationController {
@@ -33,15 +33,6 @@ public extension UIApplication {
             return topViewController(controller: presented)
         }
         return controller
-    }
-    
-    var windowInsets: UIEdgeInsets {
-        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-                let window = windowScene.windows.first else {
-            return .zero
-        }
-
-        return window.safeAreaInsets
     }
 }
 
