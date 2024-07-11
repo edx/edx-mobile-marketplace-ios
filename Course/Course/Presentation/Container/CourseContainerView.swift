@@ -31,7 +31,14 @@ public struct CourseContainerView: View {
     private let courseRawImage: String?
     private let org: String?
     private let coursewareAccess: CoursewareAccess?
-    private let coordinateBoundaryHigher: CGFloat = 40
+    private var coordinateBoundaryHigher: CGFloat {
+        let topInset = UIApplication.shared.windowInsets.top
+        guard topInset > 0 else {
+            return 40
+        }
+        
+        return topInset
+    }
     
     private struct GeometryName {
         static let backButton = "backButton"
