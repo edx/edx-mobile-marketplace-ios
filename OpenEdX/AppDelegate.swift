@@ -52,22 +52,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // e-commerce URL, e-commerce URL is being used for IAP
             if let storekitHandler = Container.shared.resolve(StoreKitHandlerProtocol.self),
                config.ecommerceURL?.isEmpty == false {
-                
                 storekitHandler.completeTransactions()
-                
-                let pushManager = Container.shared.resolve(PushNotificationsManager.self)
-                
-                if config.firebase.enabled {
-                    FirebaseApp.configure()
-                    if config.firebase.cloudMessagingEnabled {
-                        Messaging.messaging().delegate = pushManager
-                        UNUserNotificationCenter.current().delegate = pushManager
-                    }
+            }
+            
+            let pushManager = Container.shared.resolve(PushNotificationsManager.self)
+            
+            if config.firebase.enabled {
+                FirebaseApp.configure()
+                if config.firebase.cloudMessagingEnabled {
+                    Messaging.messaging().delegate = pushManager
+                    UNUserNotificationCenter.current().delegate = pushManager
                 }
-                
-                if pushManager?.hasProviders == true {
-                    UIApplication.shared.registerForRemoteNotifications()
-                }
+            }
+            
+            if pushManager?.hasProviders == true {
+                UIApplication.shared.registerForRemoteNotifications()
             }
         }
         
