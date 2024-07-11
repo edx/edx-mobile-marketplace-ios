@@ -559,7 +559,7 @@ public class InProgressIAP: NSObject, NSCoding, NSSecureCoding {
         courseID = coder.decodeObject(forKey: "courseID") as? String ?? ""
         sku = coder.decodeObject(forKey: "sku") as? String ?? ""
         pacing = coder.decodeObject(forKey: "pacing") as? String ?? ""
-        lmsPrice = coder.decodeObject(forKey: "lmsPrice") as? Double ?? 0.0
+        lmsPrice = coder.decodeObject(forKey: "lmsPrice") as? Double ?? .zero
     }
     
     public static var supportsSecureCoding: Bool {
