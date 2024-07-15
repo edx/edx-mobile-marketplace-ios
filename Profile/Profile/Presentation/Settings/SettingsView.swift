@@ -71,7 +71,8 @@ public struct SettingsView: View {
                                     viewModel.serverConfig.iapConfig.restoreEnabled {
                                     restorePurchases
                                 }
-                                datesAndCalendar
+                                // Commenting this for MVP, LEARNER-10102
+//                                datesAndCalendar
                                 ProfileSupportInfoView(viewModel: viewModel)
                                 logOutButton
                             }

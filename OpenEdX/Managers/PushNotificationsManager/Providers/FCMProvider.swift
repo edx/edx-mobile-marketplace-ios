@@ -51,8 +51,9 @@ class FCMProvider: NSObject, PushNotificationsProvider, MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         storage.pushToken = fcmToken
         
-        guard let fcmToken, storage.user != nil else { return }
-        sendFCMToken(fcmToken)
+        // Commenting this for MVP, LEARNER-10102
+//        guard let fcmToken, storage.user != nil else { return }
+//        sendFCMToken(fcmToken)
     }
     
     private func sendFCMToken(_ token: String) {
