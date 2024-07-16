@@ -21,11 +21,7 @@ public extension Dictionary {
     mutating func setSafeObject(_ object: Value?, forKey: Key) {
         setObjectOrNil(object, forKey: forKey)
         if object == nil {
-            #if DEBUG
-                assert(false, "Expecting object for key: \(forKey)");
-            #else
-                Logger.logError("FOUNDATION", "Expecting object for key: \(forKey)");
-            #endif
+            assert(false, "Expecting object for key: \(forKey)");
         }
     }
 }
