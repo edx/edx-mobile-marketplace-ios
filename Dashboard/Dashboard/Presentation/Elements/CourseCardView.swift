@@ -65,18 +65,21 @@ struct CourseCardView: View {
             }
             
             // Commenting this for MVP, LEARNER-10102
-//            if !hasAccess {
-//                ZStack(alignment: .center) {
-//                    Circle()
-//                        .foregroundStyle(Theme.Colors.primaryHeaderColor)
-//                        .opacity(0.7)
-//                        .frame(width: 24, height: 24)
-//                    CoreAssets.lockIcon.swiftUIImage
-//                        .foregroundStyle(Theme.Colors.textPrimary)
-//                }
-//                .padding(8)
-//            }
+            /*
+            if !hasAccess {
+                ZStack(alignment: .center) {
+                    Circle()
+                        .foregroundStyle(Theme.Colors.primaryHeaderColor)
+                        .opacity(0.7)
+                        .frame(width: 24, height: 24)
+                    CoreAssets.lockIcon.swiftUIImage
+                        .foregroundStyle(Theme.Colors.textPrimary)
+                }
+                .padding(8)
+            }
+            */
         }
+             
         .background(Theme.Colors.courseCardBackground)
         .cornerRadius(8)
         .shadow(color: Theme.Colors.courseCardShadow, radius: 6, x: 2, y: 2)
