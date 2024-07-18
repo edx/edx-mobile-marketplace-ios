@@ -392,7 +392,8 @@ struct CourseScreensView_Previews: PreviewProvider {
                 enrollmentStart: nil,
                 enrollmentEnd: nil,
                 lastVisitedBlockID: nil,
-                coreAnalytics: CoreAnalyticsMock()
+                coreAnalytics: CoreAnalyticsMock(),
+                serverConfig: ServerConfigProtocolMock()
             ),
             courseDatesViewModel: CourseDatesViewModel(
                 interactor: CourseInteractor.mock,

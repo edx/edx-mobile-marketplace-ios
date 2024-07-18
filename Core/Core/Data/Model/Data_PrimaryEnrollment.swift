@@ -12,17 +12,25 @@ public extension DataLayer {
         public let userTimezone: String?
         public let enrollments: Enrollments?
         public let primary: ActiveEnrollment?
+        public let configs: ServerConfigs?
         
         enum CodingKeys: String, CodingKey {
             case userTimezone = "user_timezone"
             case enrollments
             case primary
+            case configs
         }
         
-        public init(userTimezone: String?, enrollments: Enrollments?, primary: ActiveEnrollment?) {
+        public init(
+            userTimezone: String?,
+            enrollments: Enrollments?,
+            primary: ActiveEnrollment?,
+            configs: ServerConfigs?
+        ) {
             self.userTimezone = userTimezone
             self.enrollments = enrollments
             self.primary = primary
+            self.configs = configs
         }
     }
     
@@ -205,16 +213,16 @@ public extension DataLayer {
 
 public extension DataLayer.PrimaryEnrollment {
     
-    func domain(baseURL: String) -> PrimaryEnrollment {
+    func domain(baseURL: String) -> (PrimaryEnrollment, DataLayer.ServerConfigs?) {
         let primaryCourse = createPrimaryCourse(from: self.primary, baseURL: baseURL)
         let courses = createCourseItems(from: self.enrollments, baseURL: baseURL)
         
-        return PrimaryEnrollment(
+        return (PrimaryEnrollment(
             primaryCourse: primaryCourse,
             courses: courses,
             totalPages: enrollments?.numPages ?? 1,
             count: enrollments?.count ?? 1
-        )
+        ), configs)
     }
     
     private func createPrimaryCourse(from primary: DataLayer.ActiveEnrollment?, baseURL: String) -> PrimaryCourse? {

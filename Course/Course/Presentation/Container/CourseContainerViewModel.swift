@@ -107,6 +107,7 @@ public class CourseContainerViewModel: BaseCourseViewModel {
     let coreAnalytics: CoreAnalytics
     private(set) var storage: CourseStorage
     private var courseID: String?
+    let serverConfig: ServerConfigProtocol
     
     public init(
         interactor: CourseInteractorProtocol,
@@ -124,7 +125,8 @@ public class CourseContainerViewModel: BaseCourseViewModel {
         enrollmentEnd: Date?,
         lastVisitedBlockID: String?,
         coreAnalytics: CoreAnalytics,
-        selection: CourseTab = CourseTab.course
+        selection: CourseTab = CourseTab.course,
+        serverConfig: ServerConfigProtocol
     ) {
         self.interactor = interactor
         self.authInteractor = authInteractor
@@ -143,7 +145,8 @@ public class CourseContainerViewModel: BaseCourseViewModel {
         self.lastVisitedBlockID = lastVisitedBlockID
         self.coreAnalytics = coreAnalytics
         self.selection = selection.rawValue
-
+        self.serverConfig = serverConfig
+        
         super.init(manager: manager)
         addObservers()
     }
@@ -230,7 +233,10 @@ public class CourseContainerViewModel: BaseCourseViewModel {
             await setDownloadsStates(courseStructure: courseStructure)
             self.courseStructure = courseStructure
             let type = type(for: courseStructure?.coursewareAccessDetails?.coursewareAccess)
-            shouldShowUpgradeButton = type == nil && courseStructure?.isUpgradeable ?? false
+            shouldShowUpgradeButton = type == nil 
+            && courseStructure?.isUpgradeable ?? false
+            && serverConfig.iapConfig.enabled
+            
             updateMenuBarVisibility()
 
             if isInternetAvaliable {

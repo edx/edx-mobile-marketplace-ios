@@ -126,7 +126,8 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
                                                             lastVisitedBlockID: primary.lastVisitedBlockID
                                                         )
                                                     },
-                                                    isUpgradeable: primary.isUpgradeable,
+                                                    isUpgradeable: primary.isUpgradeable &&
+                                                    viewModel.serverConfig.iapConfig.enabled,
                                                     upgradeAction: {
                                                         Task {@MainActor in
                                                             await self.router.showUpgradeInfo(
@@ -362,7 +363,8 @@ struct PrimaryCourseDashboardView_Previews: PreviewProvider {
             interactor: DashboardInteractor.mock,
             connectivity: Connectivity(),
             analytics: DashboardAnalyticsMock(),
-            config: ConfigMock()
+            config: ConfigMock(),
+            serverConfig: ServerConfigProtocolMock()
         )
         
         PrimaryCourseDashboardView(

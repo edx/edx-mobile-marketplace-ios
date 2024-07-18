@@ -75,7 +75,8 @@ public struct ListDashboardView: View {
                                                         lmsPrice: course.lmsPrice ?? .zero
                                                     )
                                                 }
-                                            }
+                                            },
+                                            serverConfig: viewModel.serverConfig
                                         )
                                         .padding(.horizontal, 20)
                                         .listRowBackground(Color.clear)
@@ -178,7 +179,8 @@ struct ListDashboardView_Previews: PreviewProvider {
             connectivity: Connectivity(),
             analytics: DashboardAnalyticsMock(),
             upgradehandler: CourseUpgradeHandlerProtocolMock(),
-            coreAnalytics: CoreAnalyticsMock()
+            coreAnalytics: CoreAnalyticsMock(),
+            serverConfig: ServerConfigProtocolMock()
         )
         let router = DashboardRouterMock()
         

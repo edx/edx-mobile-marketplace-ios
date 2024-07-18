@@ -30,6 +30,7 @@ public class PrimaryCourseDashboardViewModel: ObservableObject {
     private let interactor: DashboardInteractorProtocol
     private let analytics: DashboardAnalytics
     let config: ConfigProtocol
+    let serverConfig: ServerConfigProtocol
     private var cancellables = Set<AnyCancellable>()
 
     private let ipadPageSize = 7
@@ -39,12 +40,14 @@ public class PrimaryCourseDashboardViewModel: ObservableObject {
         interactor: DashboardInteractorProtocol,
         connectivity: ConnectivityProtocol,
         analytics: DashboardAnalytics,
-        config: ConfigProtocol
+        config: ConfigProtocol,
+        serverConfig: ServerConfigProtocol
     ) {
         self.interactor = interactor
         self.connectivity = connectivity
         self.analytics = analytics
         self.config = config
+        self.serverConfig = serverConfig
         
         let enrollmentPublisher = NotificationCenter.default.publisher(for: .onCourseEnrolled)
         let completionPublisher = NotificationCenter.default.publisher(for: .onblockCompletionRequested)
