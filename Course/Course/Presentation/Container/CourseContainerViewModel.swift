@@ -268,13 +268,7 @@ public class CourseContainerViewModel: BaseCourseViewModel {
             withAnimation {
                 self.courseDeadlineInfo = courseDeadlineInfo
             }
-        } catch let error {
-            if error.isInternetError || error is NoCachedDataError {
-                errorMessage = CoreLocalization.Error.slowOrNoInternetConnection
-            } else {
-                errorMessage = CoreLocalization.Error.unknownError
-            }
-        }
+        } catch {}
     }
 
     @MainActor
