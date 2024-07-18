@@ -3489,6 +3489,10 @@ open class CourseUpgradeInteractorProtocolMock: CourseUpgradeInteractorProtocol,
 // MARK: - DownloadManagerProtocol
 
 open class DownloadManagerProtocolMock: DownloadManagerProtocol, Mock {
+    public func delete(blocks: [Core.CourseBlock], courseId: String) async {
+        <#code#>
+    }
+    
     public init(sequencing sequencingPolicy: SequencingPolicy = .lastWrittenResolvedFirst, stubbing stubbingPolicy: StubbingPolicy = .wrap, file: StaticString = #file, line: UInt = #line) {
         SwiftyMockyTestObserver.setup()
         self.sequencingPolicy = sequencingPolicy
@@ -3662,7 +3666,7 @@ open class DownloadManagerProtocolMock: DownloadManagerProtocol, Mock {
 		perform?(`blocks`)
     }
 
-    open func deleteAllFiles() {
+    open func deleteAll() {
         addInvocation(.m_deleteAllFiles)
 		let perform = methodPerformValue(.m_deleteAllFiles) as? () -> Void
 		perform?()

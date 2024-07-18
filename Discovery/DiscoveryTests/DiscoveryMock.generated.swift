@@ -3430,7 +3430,7 @@ open class DownloadManagerProtocolMock: DownloadManagerProtocol, Mock {
 		perform?(`blocks`)
     }
 
-    open func deleteAllFiles() {
+    open func deleteAll() {
         addInvocation(.m_deleteAllFiles)
 		let perform = methodPerformValue(.m_deleteAllFiles) as? () -> Void
 		perform?()

@@ -392,32 +392,32 @@ public class CourseContainerViewModel: BaseCourseViewModel {
     }
 
     @MainActor
-    func onDownloadViewTap(chapter: CourseChapter, blockId: String, state: DownloadViewState) async {
-        guard let sequential = chapter.childs
-            .first(where: { $0.id == blockId }) else {
-            return
-        }
-
-        let blocks =  sequential.childs.flatMap { $0.childs }
+    func onDownloadViewTap(chapter: CourseChapter, state: DownloadViewState) async {
+        let blocks = chapter.childs
+            .flatMap { $0.childs }
+            .flatMap { $0.childs }
             .filter { $0.isDownloadable }
 
         if state == .available, isShowedAllowLargeDownloadAlert(blocks: blocks) {
             return
         }
-        
-        if state == .available {
-            analytics.bulkDownloadVideosSubsection(
-                courseID: courseStructure?.id ?? "",
-                sectionID: chapter.id,
-                subSectionID: sequential.id,
-                videos: blocks.count
-            )
-        } else if state == .finished {
-            analytics.bulkDeleteVideosSubsection(
-                courseID: courseStructure?.id ?? "",
-                subSectionID: sequential.id,
-                videos: blocks.count
-            )
+
+        // TODO: change events we don't have ability to download sequential, only chapter
+        for sequential in chapter.childs {
+            if state == .available {
+                analytics.bulkDownloadVideosSubsection(
+                    courseID: courseStructure?.id ?? "",
+                    sectionID: chapter.id,
+                    subSectionID: sequential.id,
+                    videos: blocks.count
+                )
+            } else if state == .finished {
+                analytics.bulkDeleteVideosSubsection(
+                    courseID: courseStructure?.id ?? "",
+                    subSectionID: sequential.id,
+                    videos: blocks.count
+                )
+            }
         }
 
         await download(state: state, blocks: blocks)
@@ -598,7 +598,7 @@ public class CourseContainerViewModel: BaseCourseViewModel {
             case .downloading:
                 try await manager.cancelDownloading(courseId: courseStructure?.id ?? "", blocks: blocks)
             case .finished:
-                await manager.deleteFile(blocks: blocks)
+                await manager.delete(blocks: blocks, courseId: courseID!)
             }
         } catch let error {
             if error is NoWiFiError {

@@ -116,8 +116,7 @@ public protocol DownloadManagerProtocol {
     func cancelDownloading(courseId: String) async throws
     func cancelAllDownloading() async throws
 
-    func deleteFile(blocks: [CourseBlock]) async
-    func deleteAllFiles() async
+    func deleteAll() async
 
     func fileUrl(for blockId: String) -> URL?
 
@@ -125,6 +124,7 @@ public protocol DownloadManagerProtocol {
     func isLargeVideosSize(blocks: [CourseBlock]) -> Bool
     
     func removeAppSupportDirectoryUnusedContent()
+    func delete(blocks: [CourseBlock], courseId: String) async
 }
 
 public enum DownloadManagerEvent {
@@ -157,6 +157,7 @@ public class DownloadManager: DownloadManagerProtocol {
         appStorage.userSettings?.downloadQuality ?? .auto
     }
 
+    private var queue: [DownloadDataTask] = []
     // MARK: - Init
 
     public init(
@@ -224,34 +225,20 @@ public class DownloadManager: DownloadManagerProtocol {
 
     public func cancelDownloading(courseId: String, blocks: [CourseBlock]) async throws {
         downloadRequest?.cancel()
-        let downloaded = await getDownloadTasksForCourse(courseId)
-        let blocksForDelete = blocks.filter {  block in
-            downloaded.first(where: { $0.blockId == block.id }) != nil
-        }
-        await deleteFile(blocks: blocksForDelete)
-        downloaded.forEach {
-            currentDownloadEventPublisher.send(.canceled($0))
-        }
+        await delete(blocks: blocks, courseId: courseId)
         try await newDownload()
     }
 
     public func cancelDownloading(task: DownloadDataTask) async throws {
         downloadRequest?.cancel()
-        do {
-            if let fileUrl = fileUrl(for: task.id) {
-                try FileManager.default.removeItem(at: fileUrl)
-            }
-            try await persistence.deleteDownloadDataTask(id: task.id)
-            currentDownloadEventPublisher.send(.canceled(task))
-        } catch {
-            NSLog("Error deleting file: \(error.localizedDescription)")
-        }
+        await delete(tasks: [task])
+        currentDownloadEventPublisher.send(.canceled(task))
         try await newDownload()
     }
 
     public func cancelDownloading(courseId: String) async throws {
         let tasks = await getDownloadTasksForCourse(courseId)
-        await cancel(tasks: tasks)
+        await delete(tasks: tasks)
         currentDownloadEventPublisher.send(.courseCanceled(courseId))
         downloadRequest?.cancel()
         try await newDownload()
@@ -259,38 +246,26 @@ public class DownloadManager: DownloadManagerProtocol {
 
     public func cancelAllDownloading() async throws {
         let tasks = await getDownloadTasks().filter { $0.state != .finished }
-        await cancel(tasks: tasks)
+        await delete(tasks: tasks)
         currentDownloadEventPublisher.send(.allCanceled)
         downloadRequest?.cancel()
         try await newDownload()
     }
 
-    public func deleteFile(blocks: [CourseBlock]) async {
-        for block in blocks {
-            do {
-                if let fileURL = fileUrl(for: block.id),
-                    FileManager.default.fileExists(atPath: fileURL.path) {
-                    try FileManager.default.removeItem(at: fileURL)
-                }
-                try await persistence.deleteDownloadDataTask(id: block.id)
-                currentDownloadEventPublisher.send(.deletedFile(block.id))
-            } catch {
-                debugLog("Error deleting file: \(error.localizedDescription)")
-            }
+    public func delete(blocks: [CourseBlock], courseId: String) async {
+        let tasks = await getDownloadTasksForCourse(courseId)
+        let tasksForDelete = tasks.filter {  task in
+            blocks.first(where: { $0.id == task.blockId }) != nil
+        }
+        await delete(tasks: tasksForDelete)
+        tasks.forEach { task in
+            currentDownloadEventPublisher.send(.deletedFile(task.blockId))
         }
     }
 
-    public func deleteAllFiles() async {
+    public func deleteAll() async {
         let downloadsData = await getDownloadTasks()
-        for downloadData in downloadsData {
-            if let fileURL = fileUrl(for: downloadData.id) {
-                do {
-                    try FileManager.default.removeItem(at: fileURL)
-                } catch {
-                    debugLog("Error deleting All files: \(error.localizedDescription)")
-                }
-            }
-        }
+        await delete(tasks: downloadsData)
         currentDownloadEventPublisher.send(.clearedAll)
     }
 
@@ -312,6 +287,7 @@ public class DownloadManager: DownloadManagerProtocol {
         guard userCanDownload() else {
             throw NoWiFiError()
         }
+        guard downloadRequest?.state != .resumed else { return }
         guard let downloadTask = await persistence.nextBlockForDownloading() else {
             isDownloadingInProgress = false
             return
@@ -392,15 +368,28 @@ public class DownloadManager: DownloadManagerProtocol {
         self.downloadRequest?.cancel()
     }
 
-    private func cancel(tasks: [DownloadDataTask]) async {
-        for task in tasks {
-            do {
-                if let fileUrl = fileUrl(for: task.id) {
-                    try FileManager.default.removeItem(at: fileUrl)
+    private func delete(tasks: [DownloadDataTask]) async {
+        let ids = tasks.map { $0.id }
+        let names = tasks.map { $0.fileName }
+
+        await deleteTasks(with: ids, and: names)
+    }
+    
+    private func deleteTasks(with ids: [String], and names: [String]) async {
+        removeFiles(names: names)
+        await persistence.deleteDownloadDataTasks(ids: ids)
+    }
+    
+    private func removeFiles(names: [String]) {
+        guard let folderURL = videosFolderUrl else { return }
+        for name in names {
+            let fileURL = folderURL.appendingPathComponent(name)
+            if FileManager.default.fileExists(atPath: fileURL.path) {
+                do {
+                    try FileManager.default.removeItem(at: fileURL)
+                } catch {
+                    debugLog("Error deleting file: \(error.localizedDescription)")
                 }
-                try await persistence.deleteDownloadDataTask(id: task.id)
-            } catch {
-                debugLog("Error deleting file: \(error.localizedDescription)")
             }
         }
     }
@@ -593,6 +582,10 @@ public final class BackgroundTaskProvider {
 // swiftlint:disable file_length
 #if DEBUG
 public class DownloadManagerMock: DownloadManagerProtocol {
+    public func delete(blocks: [CourseBlock], courseId: String) async {
+        
+    }
+    
 
     public init() {
         
@@ -665,7 +658,7 @@ public class DownloadManagerMock: DownloadManagerProtocol {
         
     }
     
-    public func deleteAllFiles() {
+    public func deleteAll() {
         
     }
     
