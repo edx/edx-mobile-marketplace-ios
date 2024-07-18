@@ -41,7 +41,8 @@ final class CourseContainerViewModelTests: XCTestCase {
             enrollmentStart: nil,
             enrollmentEnd: nil,
             lastVisitedBlockID: nil,
-            coreAnalytics: CoreAnalyticsMock()
+            coreAnalytics: CoreAnalyticsMock(),
+            serverConfig: ServerConfigProtocolMock()
         )
         
         let block = CourseBlock(
@@ -158,7 +159,8 @@ final class CourseContainerViewModelTests: XCTestCase {
             enrollmentStart: nil,
             enrollmentEnd: nil,
             lastVisitedBlockID: nil,
-            coreAnalytics: CoreAnalyticsMock()
+            coreAnalytics: CoreAnalyticsMock(),
+            serverConfig: ServerConfigProtocolMock()
         )
         
         let courseStructure = CourseStructure(
@@ -223,7 +225,8 @@ final class CourseContainerViewModelTests: XCTestCase {
             enrollmentStart: nil,
             enrollmentEnd: nil,
             lastVisitedBlockID: nil,
-            coreAnalytics: CoreAnalyticsMock()
+            coreAnalytics: CoreAnalyticsMock(),
+            serverConfig: ServerConfigProtocolMock()
         )
         
         let noInternetError = AFError.sessionInvalidated(error: URLError(.notConnectedToInternet))
@@ -267,7 +270,8 @@ final class CourseContainerViewModelTests: XCTestCase {
             enrollmentStart: nil,
             enrollmentEnd: nil,
             lastVisitedBlockID: nil,
-            coreAnalytics: CoreAnalyticsMock()
+            coreAnalytics: CoreAnalyticsMock(),
+            serverConfig: ServerConfigProtocolMock()
         )
         
         Given(interactor, .getCourseBlocks(courseID: "123",
@@ -308,7 +312,8 @@ final class CourseContainerViewModelTests: XCTestCase {
             enrollmentStart: nil,
             enrollmentEnd: nil,
             lastVisitedBlockID: nil,
-            coreAnalytics: CoreAnalyticsMock()
+            coreAnalytics: CoreAnalyticsMock(),
+            serverConfig: ServerConfigProtocolMock()
         )
         
         Given(interactor, .getCourseBlocks(courseID: "123",
@@ -349,7 +354,8 @@ final class CourseContainerViewModelTests: XCTestCase {
             enrollmentStart: nil,
             enrollmentEnd: nil,
             lastVisitedBlockID: nil,
-            coreAnalytics: CoreAnalyticsMock()
+            coreAnalytics: CoreAnalyticsMock(),
+            serverConfig: ServerConfigProtocolMock()
         )
         
         viewModel.trackSelectedTab(selection: .course, courseId: "1", courseName: "name")
@@ -490,7 +496,8 @@ final class CourseContainerViewModelTests: XCTestCase {
             enrollmentStart: nil,
             enrollmentEnd: nil,
             lastVisitedBlockID: nil,
-            coreAnalytics: CoreAnalyticsMock()
+            coreAnalytics: CoreAnalyticsMock(),
+            serverConfig: ServerConfigProtocolMock()
         )
         viewModel.courseStructure = courseStructure
         await viewModel.setDownloadsStates(courseStructure: courseStructure)
@@ -620,7 +627,8 @@ final class CourseContainerViewModelTests: XCTestCase {
             enrollmentStart: nil,
             enrollmentEnd: nil,
             lastVisitedBlockID: nil,
-            coreAnalytics: CoreAnalyticsMock()
+            coreAnalytics: CoreAnalyticsMock(),
+            serverConfig: ServerConfigProtocolMock()
         )
         viewModel.courseStructure = courseStructure
         await viewModel.setDownloadsStates(courseStructure: courseStructure)
@@ -750,7 +758,8 @@ final class CourseContainerViewModelTests: XCTestCase {
             enrollmentStart: nil,
             enrollmentEnd: nil,
             lastVisitedBlockID: nil,
-            coreAnalytics: CoreAnalyticsMock()
+            coreAnalytics: CoreAnalyticsMock(),
+            serverConfig: ServerConfigProtocolMock()
         )
         viewModel.courseStructure = courseStructure
         await viewModel.setDownloadsStates(courseStructure: courseStructure)
@@ -881,7 +890,8 @@ final class CourseContainerViewModelTests: XCTestCase {
             enrollmentStart: nil,
             enrollmentEnd: nil,
             lastVisitedBlockID: nil,
-            coreAnalytics: CoreAnalyticsMock()
+            coreAnalytics: CoreAnalyticsMock(),
+            serverConfig: ServerConfigProtocolMock()
         )
         viewModel.courseStructure = courseStructure
         await viewModel.setDownloadsStates(courseStructure: courseStructure)
@@ -1020,7 +1030,8 @@ final class CourseContainerViewModelTests: XCTestCase {
             enrollmentStart: nil,
             enrollmentEnd: nil,
             lastVisitedBlockID: nil,
-            coreAnalytics: CoreAnalyticsMock()
+            coreAnalytics: CoreAnalyticsMock(),
+            serverConfig: ServerConfigProtocolMock()
         )
         viewModel.courseStructure = courseStructure
         await viewModel.setDownloadsStates(courseStructure: courseStructure)
@@ -1159,7 +1170,8 @@ final class CourseContainerViewModelTests: XCTestCase {
             enrollmentStart: nil,
             enrollmentEnd: nil,
             lastVisitedBlockID: nil,
-            coreAnalytics: CoreAnalyticsMock()
+            coreAnalytics: CoreAnalyticsMock(),
+            serverConfig: ServerConfigProtocolMock()
         )
         viewModel.courseStructure = courseStructure
         await viewModel.setDownloadsStates(courseStructure: courseStructure)
@@ -1319,7 +1331,8 @@ final class CourseContainerViewModelTests: XCTestCase {
             enrollmentStart: nil,
             enrollmentEnd: nil,
             lastVisitedBlockID: nil,
-            coreAnalytics: CoreAnalyticsMock()
+            coreAnalytics: CoreAnalyticsMock(),
+            serverConfig: ServerConfigProtocolMock()
         )
         viewModel.courseStructure = courseStructure
         await viewModel.setDownloadsStates(courseStructure: courseStructure)
