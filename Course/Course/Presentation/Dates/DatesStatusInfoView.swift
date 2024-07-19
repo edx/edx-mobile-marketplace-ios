@@ -27,7 +27,7 @@ struct DatesStatusInfoView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             let header = datesBannerInfo.status?.header ?? ""
-            let button = datesBannerInfo.status?.buttonTitle ?? ""
+            let buttonTitle = datesBannerInfo.status?.buttonTitle ?? ""
             Spacer()
             if !header.isEmpty {
                 Text(header)
@@ -43,34 +43,40 @@ struct DatesStatusInfoView: View {
                 .foregroundColor(Theme.Colors.textPrimary)
                 .padding(.horizontal, 16)
             
-            if !button.isEmpty {
-                UnitButtonView(type: .custom(button)) {
-                    guard !isLoading else { return }
-                    isLoading = true
-                    courseDatesViewModel?.trackPLSEvent(
-                        .plsShiftDatesClicked,
-                        bivalue: .plsShiftDatesClicked,
-                        courseID: courseID,
-                        screenName: screen.rawValue,
-                        type: datesBannerInfo.status?.analyticsBannerType ?? ""
-                    )
-                    Task {
-                        if courseDatesViewModel != nil {
-                            await courseDatesViewModel?.shiftDueDates(
-                                courseID: courseID,
-                                screen: screen,
-                                type: datesBannerInfo.status?.analyticsBannerType ?? ""
-                            )
-                        } else if courseContainerViewModel != nil {
-                            await courseContainerViewModel?.shiftDueDates(
-                                courseID: courseID,
-                                screen: screen,
-                                type: datesBannerInfo.status?.analyticsBannerType ?? ""
-                            )
+            if !buttonTitle.isEmpty {
+                StyledButton(
+                    buttonTitle,
+                    action: {
+                        guard !isLoading else { return }
+                        isLoading = true
+                        courseDatesViewModel?.trackPLSEvent(
+                            .plsShiftDatesClicked,
+                            bivalue: .plsShiftDatesClicked,
+                            courseID: courseID,
+                            screenName: screen.rawValue,
+                            type: datesBannerInfo.status?.analyticsBannerType ?? ""
+                        )
+                        Task {
+                            if courseDatesViewModel != nil {
+                                await courseDatesViewModel?.shiftDueDates(
+                                    courseID: courseID,
+                                    screen: screen,
+                                    type: datesBannerInfo.status?.analyticsBannerType ?? ""
+                                )
+                            } else if courseContainerViewModel != nil {
+                                await courseContainerViewModel?.shiftDueDates(
+                                    courseID: courseID,
+                                    screen: screen,
+                                    type: datesBannerInfo.status?.analyticsBannerType ?? ""
+                                )
+                            }
+                            isLoading = false
                         }
-                         isLoading = false
-                    }
-                }
+                        
+                    },
+                    color: Theme.Colors.accentColor,
+                    textColor: Theme.Colors.primaryButtonTextColor
+                )
                 .padding([.leading, .trailing], 16)
                 .disabled(isLoading)
             }

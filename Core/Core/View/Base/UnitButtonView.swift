@@ -145,7 +145,9 @@ public struct UnitButtonView: View {
                     case .continueLesson, .nextSection:
                         HStack {
                             Text(type.stringValue())
-                                .foregroundColor(Theme.Colors.styledButtonText)
+                                .foregroundColor(
+                                    type == .continueLesson ? Theme.Colors.accentColor :
+                                    Theme.Colors.styledButtonText)
                                 .padding(.leading, 20)
                                 .font(Theme.Fonts.labelLarge)
                             CoreAssets.arrowLeft.swiftUIImage.renderingMode(.template)
@@ -180,7 +182,9 @@ public struct UnitButtonView: View {
                                 
                         case .continueLesson, .nextSection, .reload, .finish, .custom:
                             Theme.Shapes.buttonShape
-                                .fill(bgColor ?? Theme.Colors.accentButtonColor)
+                                .fill(
+                                    type == .continueLesson ? Theme.Colors.background :
+                                    bgColor ?? Theme.Colors.accentButtonColor)
                             
                                 .shadow(color: (type == .first
                                                 || type == .next
@@ -199,7 +203,7 @@ public struct UnitButtonView: View {
                                         ))
                                         .foregroundColor(
                                             type == .continueLesson
-                                            ? Theme.Colors.accentButtonColor
+                                            ? Theme.Colors.accentColor
                                             : Theme.Colors.secondaryButtonBorderColor
                                         )
                                 )
