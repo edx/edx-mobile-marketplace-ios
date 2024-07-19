@@ -212,8 +212,8 @@ struct CourseHeaderView: View {
             action: {
                 upgradeAction?()
             },
-            color: Theme.Colors.accentColor,
-            textColor: Theme.Colors.primaryButtonTextColor,
+            color: Theme.Colors.accentButtonColor,
+            textColor: Theme.Colors.styledButtonText,
             leftImage: Image(systemName: "lock.fill"),
             imagesStyle: .attachedToText,
             isTitleTracking: false,

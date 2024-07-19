@@ -27,7 +27,7 @@ public struct CourseProgressView: View {
                     if let total = progress.totalAssignmentsCount,
                        let completed = progress.assignmentsCompleted {
                         RoundedCorners(tl: 5, tr: 0, bl: 5, br: 0)
-                            .fill(Theme.Colors.accentColor)
+                            .fill(Theme.Colors.accentButtonColor)
                             .frame(width: geometry.size.width * CGFloat(completed) / CGFloat(total), height: 10)
                     }
                 }
