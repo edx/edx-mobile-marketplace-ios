@@ -268,7 +268,9 @@ public class CourseContainerViewModel: BaseCourseViewModel {
             withAnimation {
                 self.courseDeadlineInfo = courseDeadlineInfo
             }
-        } catch {}
+        } catch let error {
+            debugLog(error.localizedDescription)
+        }
     }
 
     @MainActor
