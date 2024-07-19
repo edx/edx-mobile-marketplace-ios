@@ -151,7 +151,9 @@ public class CourseContainerViewModel: BaseCourseViewModel {
     func updateCourseIfNeeded(courseID: String) async {
         if updateCourseProgress {
             await getCourseBlocks(courseID: courseID, withProgress: false)
-            updateCourseProgress = false
+            await MainActor.run {
+                updateCourseProgress = false
+            }
         }
     }
 
@@ -748,11 +750,12 @@ public class CourseContainerViewModel: BaseCourseViewModel {
             .store(in: &cancellables)
         
         completionPublisher
-              .sink { [weak self] _ in
-                  guard let self = self else { return }
-                  updateCourseProgress = true
-              }
-              .store(in: &cancellables)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                updateCourseProgress = true
+            }
+            .store(in: &cancellables)
     }
     
     deinit {
