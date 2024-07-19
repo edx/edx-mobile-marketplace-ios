@@ -277,10 +277,13 @@ public class DownloadManager: DownloadManagerProtocol {
         try await newDownload()
     }
 
+    private func cancelCurrentTask() {
+        downloadRequest?.cancel()
+        currentDownloadTask = nil
+    }
     public func cancelDownloading(courseId: String, blocks: [CourseBlock]) async throws {
         if blocks.contains(where: { $0.id == currentDownloadTask?.blockId }) {
-            downloadRequest?.cancel()
-            currentDownloadTask = nil
+            cancelCurrentTask()
         }
         await delete(blocks: blocks, courseId: courseId)
         try await newDownload()
@@ -288,8 +291,7 @@ public class DownloadManager: DownloadManagerProtocol {
 
     public func cancelDownloading(task: DownloadDataTask) async throws {
         if task.id == currentDownloadTask?.id {
-            downloadRequest?.cancel()
-            currentDownloadTask = nil
+            cancelCurrentTask()
         }
 
         await delete(tasks: [task])
@@ -298,8 +300,7 @@ public class DownloadManager: DownloadManagerProtocol {
 
     public func cancelDownloading(courseId: String) async throws {
         if currentDownloadTask?.courseId == courseId {
-            downloadRequest?.cancel()
-            currentDownloadTask = nil
+            cancelCurrentTask()
         }
 
         let tasks = await getDownloadTasksForCourse(courseId)
@@ -309,8 +310,7 @@ public class DownloadManager: DownloadManagerProtocol {
     }
 
     public func cancelAllDownloading() async throws {
-        downloadRequest?.cancel()
-        currentDownloadTask = nil
+        cancelCurrentTask()
 
         let tasks = await getDownloadTasks().filter { $0.state != .finished }
         await delete(tasks: tasks)
@@ -436,8 +436,7 @@ public class DownloadManager: DownloadManagerProtocol {
     }
 
     private func waitingAll() async {
-        self.downloadRequest?.cancel()
-        self.currentDownloadTask = nil
+        cancelCurrentTask()
 
         _ = await getDownloadTasks()
         for i in 0 ..< queue.count where queue[i].state == .inProgress {
