@@ -169,7 +169,8 @@ class ScreenAssembly: Assembly {
                 connectivity: r.resolve(ConnectivityProtocol.self)!,
                 analytics: r.resolve(DashboardAnalytics.self)!,
                 upgradehandler: r.resolve(CourseUpgradeHandlerProtocol.self)!,
-                coreAnalytics: r.resolve(CoreAnalytics.self)!
+                coreAnalytics: r.resolve(CoreAnalytics.self)!,
+                serverConfig: r.resolve(ServerConfigProtocol.self)!
             )
         }
         
@@ -178,7 +179,8 @@ class ScreenAssembly: Assembly {
                 interactor: r.resolve(DashboardInteractorProtocol.self)!,
                 connectivity: r.resolve(ConnectivityProtocol.self)!,
                 analytics: r.resolve(DashboardAnalytics.self)!,
-                config: r.resolve(ConfigProtocol.self)!
+                config: r.resolve(ConfigProtocol.self)!,
+                serverConfig: r.resolve(ServerConfigProtocol.self)!
             )
         }
         
@@ -314,7 +316,8 @@ class ScreenAssembly: Assembly {
                 enrollmentEnd: enrollmentEnd,
                 lastVisitedBlockID: lastVisitedBlockID,
                 coreAnalytics: r.resolve(CoreAnalytics.self)!,
-                selection: selection
+                selection: selection,
+                serverConfig: r.resolve(ServerConfigProtocol.self)!
             )
         }
         

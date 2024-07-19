@@ -12,23 +12,31 @@ public extension DataLayer {
         public let userTimezone: String?
         public let enrollments: Enrollments?
         public let primary: ActiveEnrollment?
+        public let configs: ServerConfigs?
         
         enum CodingKeys: String, CodingKey {
             case userTimezone = "user_timezone"
             case enrollments
             case primary
+            case configs
         }
         
-        public init(userTimezone: String?, enrollments: Enrollments?, primary: ActiveEnrollment?) {
+        public init(
+            userTimezone: String?,
+            enrollments: Enrollments?,
+            primary: ActiveEnrollment?,
+            configs: ServerConfigs?
+        ) {
             self.userTimezone = userTimezone
             self.enrollments = enrollments
             self.primary = primary
+            self.configs = configs
         }
     }
     
     // MARK: - Primary
     struct ActiveEnrollment: Codable {
-        public let auditAccessExpires: Date?
+        public let auditAccessExpires: String?
         public let created: String?
         public let mode: String?
         public let isActive: Bool?
@@ -76,7 +84,7 @@ public extension DataLayer {
         }
 
         public init(
-            auditAccessExpires: Date?,
+            auditAccessExpires: String?,
             created: String?,
             mode: String?,
             isActive: Bool?,
@@ -205,16 +213,16 @@ public extension DataLayer {
 
 public extension DataLayer.PrimaryEnrollment {
     
-    func domain(baseURL: String) -> PrimaryEnrollment {
+    func domain(baseURL: String) -> (PrimaryEnrollment, DataLayer.ServerConfigs?) {
         let primaryCourse = createPrimaryCourse(from: self.primary, baseURL: baseURL)
         let courses = createCourseItems(from: self.enrollments, baseURL: baseURL)
         
-        return PrimaryEnrollment(
+        return (PrimaryEnrollment(
             primaryCourse: primaryCourse,
             courses: courses,
             totalPages: enrollments?.numPages ?? 1,
             count: enrollments?.count ?? 1
-        )
+        ), configs)
     }
     
     private func createPrimaryCourse(from primary: DataLayer.ActiveEnrollment?, baseURL: String) -> PrimaryCourse? {
@@ -237,7 +245,7 @@ public extension DataLayer.PrimaryEnrollment {
             progressPossible: primary.progress?.totalAssignmentsCount ?? 0,
             lastVisitedBlockID: primary.courseStatus?.lastVisitedBlockID,
             resumeTitle: primary.courseStatus?.lastVisitedUnitDisplayName,
-            auditAccessExpires: primary.auditAccessExpires,
+            auditAccessExpires: primary.auditAccessExpires.flatMap { Date(iso8601: $0) },
             startDisplay: primary.course?.startDisplay.flatMap { Date(iso8601: $0) },
             startType: DisplayStartType(value: primary.course?.startType.rawValue),
             isUpgradeable: primary.isUpgradeable,

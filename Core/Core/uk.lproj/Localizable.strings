@@ -79,7 +79,8 @@
 "SETTINGS.DOWNLOAD_QUALITY_720_DESCRIPTION" = "Best quality";
 
 "DONE" = "Зберегти";
-"VIEW " = "View";
+"VIEW" = "View";
+"BACK" = "Back";
 "OK" = "Так";
 "CLOSE" = "Close";
 

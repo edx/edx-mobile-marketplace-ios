@@ -36,7 +36,8 @@ public struct CourseCellView: View {
         type: CellType,
         index: Int,
         cellsCount: Int,
-        upgradeAction: (() -> Void)? = nil
+        upgradeAction: (() -> Void)? = nil,
+        serverConfig: ServerConfigProtocol? = nil
     ) {
         self.model = model
         self.type = type
@@ -47,7 +48,7 @@ public struct CourseCellView: View {
         self.courseOrg =  model.org
         self.index = Double(index) + 1
         self.cellsCount = cellsCount
-        self.isUpgradeable = model.isUpgradeable
+        self.isUpgradeable = model.isUpgradeable && serverConfig?.iapConfig.enabled ?? false
         self.upgradeAction = upgradeAction
     }
     

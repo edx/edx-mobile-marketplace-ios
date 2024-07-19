@@ -66,8 +66,12 @@ public class DashboardRepository: DashboardRepositoryProtocol {
         )
             .mapResponse(DataLayer.PrimaryEnrollment.self)
             .domain(baseURL: config.baseURL.absoluteString)
-        persistence.savePrimaryEnrollment(enrollments: result)
-        return result
+        persistence.savePrimaryEnrollment(enrollments: result.0)
+        persistence.saveServerConfig(configs: result.1)
+        
+        serverConfig.initialize(serverConfig: result.1?.config)
+        
+        return result.0
     }
     
     public func getPrimaryEnrollmentOffline() async throws -> PrimaryEnrollment {
@@ -84,7 +88,7 @@ public class DashboardRepository: DashboardRepositoryProtocol {
         )
             .mapResponse(DataLayer.PrimaryEnrollment.self)
             .domain(baseURL: config.baseURL.absoluteString)
-        return result
+        return result.0
     }
 }
 

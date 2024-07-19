@@ -35,17 +35,21 @@ public class ListDashboardViewModel: ObservableObject {
     private let coreAnalytics: CoreAnalytics
     private var onCourseEnrolledCancellable: AnyCancellable?
     private var refreshEnrollmentsCancellable: AnyCancellable?
+    let serverConfig: ServerConfigProtocol
     
     public init(interactor: DashboardInteractorProtocol,
                 connectivity: ConnectivityProtocol,
                 analytics: DashboardAnalytics,
                 upgradehandler: CourseUpgradeHandlerProtocol,
-                coreAnalytics: CoreAnalytics) {
+                coreAnalytics: CoreAnalytics,
+                serverConfig: ServerConfigProtocol
+    ) {
         self.interactor = interactor
         self.connectivity = connectivity
         self.analytics = analytics
         self.upgradehandler = upgradehandler
         self.coreAnalytics = coreAnalytics
+        self.serverConfig = serverConfig
         
         addObservers()
     }
