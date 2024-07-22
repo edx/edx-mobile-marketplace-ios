@@ -70,7 +70,9 @@ public struct SubtitlesView: View {
                                         }, label: {
                                         Text(subtitle.text)
                                             .padding(.vertical, 16)
-                                            .font(Theme.Fonts.bodyMedium)
+                                            .font(subtitle.fromTo.contains(Date(milliseconds: currentTime))
+                                                  ? Theme.Fonts.titleSmall
+                                                  : Theme.Fonts.bodyMedium)
                                             .multilineTextAlignment(.leading)
                                             .foregroundColor(subtitle.fromTo.contains(Date(milliseconds: currentTime))
                                                              ? Theme.Colors.textPrimary
