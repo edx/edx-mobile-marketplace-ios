@@ -151,7 +151,7 @@ public struct CourseOutlineView: View {
                                             .padding(.top, 100)
                                     }
                                 }
-                                Spacer(minLength: 200)
+                                Spacer(minLength: viewHeight < 200 ? 200 : viewHeight)
                             }
                         }
                         .frameLimit(width: proxy.size.width)
