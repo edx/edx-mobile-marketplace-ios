@@ -118,7 +118,7 @@ public struct DynamicOffsetView: View {
     }
     
     private func expandedHeight(shouldShowUpgradeButton: Bool, shouldHideMenuBar: Bool) -> CGFloat {
-        240 + (shouldShowUpgradeButton ? 63 : 0) - (shouldHideMenuBar ? 80 : 0)
+        expandedHeight + (shouldShowUpgradeButton ? 63 : 0) - (shouldHideMenuBar ? 80 : 0)
     }
 
     private func changeCollapsedHeight(
