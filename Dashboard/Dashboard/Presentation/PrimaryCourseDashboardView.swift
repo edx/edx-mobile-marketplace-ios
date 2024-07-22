@@ -88,7 +88,7 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
                                                             enrollmentEnd: nil,
                                                             title: primary.name,
                                                             org: primary.org,
-                                                            courseRawImage: nil,
+                                                            courseRawImage: primary.courseBanner,
                                                             coursewareAccess: nil,
                                                             showDates: lastVisitedBlockID == nil,
                                                             lastVisitedBlockID: lastVisitedBlockID
@@ -104,7 +104,7 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
                                                             enrollmentEnd: nil,
                                                             title: primary.name,
                                                             org: primary.org,
-                                                            courseRawImage: nil,
+                                                            courseRawImage: primary.courseBanner,
                                                             coursewareAccess: nil,
                                                             showDates: false,
                                                             lastVisitedBlockID: nil
@@ -120,7 +120,7 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
                                                             enrollmentEnd: nil,
                                                             title: primary.name,
                                                             org: primary.org,
-                                                            courseRawImage: nil,
+                                                            courseRawImage: primary.courseBanner,
                                                             coursewareAccess: nil,
                                                             showDates: false,
                                                             lastVisitedBlockID: primary.lastVisitedBlockID
@@ -136,7 +136,9 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
                                                                 sku: primary.sku ?? "",
                                                                 courseID: primary.courseID,
                                                                 screen: .dashboard,
-                                                                pacing: primary.isSelfPaced ? Pacing.selfPace.rawValue : Pacing.instructor.rawValue,
+                                                                pacing: primary.isSelfPaced ? 
+                                                                    Pacing.selfPace.rawValue :
+                                                                    Pacing.instructor.rawValue,
                                                                 lmsPrice: primary.lmsPrice ?? .zero
                                                             )
                                                         }
@@ -244,7 +246,7 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
                     enrollmentEnd: course.enrollmentEnd,
                     title: course.name,
                     org: course.org,
-                    courseRawImage: course.courseRawImage,
+                    courseRawImage: course.imageURL,
                     coursewareAccess: course.coursewareAccess,
                     showDates: false,
                     lastVisitedBlockID: nil
