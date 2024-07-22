@@ -96,7 +96,7 @@ public class CourseContainerViewModel: BaseCourseViewModel {
     let courseEnd: Date?
     let enrollmentStart: Date?
     let enrollmentEnd: Date?
-    let lastVisitedBlockID: String?
+    private var lastVisitedBlockID: String?
 
     var courseDownloadTasks: [DownloadDataTask] = []
     private(set) var waitingDownloads: [CourseBlock]?
@@ -185,6 +185,8 @@ public class CourseContainerViewModel: BaseCourseViewModel {
             chapterIndex: continueWith.chapterIndex,
             sequentialIndex: continueWith.sequentialIndex
         )
+        
+        self.lastVisitedBlockID = nil
     }
     
     @MainActor
