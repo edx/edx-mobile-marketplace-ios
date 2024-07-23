@@ -35,7 +35,7 @@ public struct OfflineSnackBarView: View {
                         withAnimation {
                             dismiss = true
                         }
-                    }, label: {
+                    },label: {
                         Text(CoreLocalization.NoInternet.dismiss)
                             .foregroundColor(Theme.Colors.snackbarTextColor)
                     })
