@@ -35,7 +35,7 @@ public struct OfflineSnackBarView: View {
                         withAnimation {
                             dismiss = true
                         }
-                    },label: {
+                    }, label: {
                         Text(CoreLocalization.NoInternet.dismiss)
                             .foregroundColor(Theme.Colors.snackbarTextColor)
                     })
@@ -47,7 +47,7 @@ public struct OfflineSnackBarView: View {
                         withAnimation {
                             dismiss = true
                         }
-                    },label: {
+                    }, label: {
                         Text(CoreLocalization.NoInternet.reload)
                             .foregroundColor(Theme.Colors.snackbarTextColor)
                     }
