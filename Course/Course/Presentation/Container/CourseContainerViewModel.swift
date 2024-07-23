@@ -479,7 +479,9 @@ public class CourseContainerViewModel: BaseCourseViewModel {
             try await manager.addToDownloadQueue(blocks: blocks)
         } catch let error {
             if error is NoWiFiError {
-                errorMessage = CoreLocalization.Error.wifi
+                await MainActor.run {
+                    errorMessage = CoreLocalization.Error.wifi
+                }
             }
         }
     }
@@ -725,8 +727,8 @@ public class CourseContainerViewModel: BaseCourseViewModel {
             .sink { [weak self] state in
                 guard let self else { return }
                 if case .progress = state { return }
-                Task(priority: .background) {
-                    debugLog(state, "--- state ---")
+                debugLog(state, "--- state ---")
+                Task {
                     await self.setDownloadsStates(courseStructure: self.courseStructure)
                 }
             }
