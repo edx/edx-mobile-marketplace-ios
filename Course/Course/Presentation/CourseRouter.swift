@@ -62,6 +62,8 @@ public protocol CourseRouter: BaseRouter {
     )
     
     func showTabScreen(tab: MainTab)
+    
+    func showGatedContentError(url: String)
 }
 
 // Mark - For testing and SwiftUI preview
@@ -121,6 +123,8 @@ public class CourseRouterMock: BaseRouterMock, CourseRouter {
         manager: Core.DownloadManagerProtocol
     ) {}
     
-    public func showTabScreen(tab: MainTab){}
+    public func showTabScreen(tab: MainTab) {}
+    
+    public func showGatedContentError(url: String) {}
 }
 #endif

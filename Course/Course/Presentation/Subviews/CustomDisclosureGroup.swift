@@ -95,7 +95,10 @@ struct CustomDisclosureGroup: View {
                                                 guard let chapterIndex = chapterIndex else { return }
                                                 guard let sequentialIndex else { return }
                                                 guard let courseVertical = sequential.childs.first else { return }
-                                                guard let block = courseVertical.childs.first else { return }
+                                                guard let block = courseVertical.childs.first else {
+                                                    viewModel.router.showGatedContentError(url: courseVertical.webUrl)
+                                                    return
+                                                }
 
                                                 viewModel.trackSequentialClicked(sequential)
                                                 if viewModel.config.uiComponents.courseDropDownNavigationEnabled {
@@ -278,7 +281,8 @@ struct CustomDisclosureGroup_Previews: PreviewProvider {
                                 displayName: "Vertical 1",
                                 type: .vertical,
                                 completion: 0,
-                                childs: []
+                                childs: [],
+                                webUrl: ""
                             ),
                             CourseVertical(
                                 blockId: "1-1-2",
@@ -287,7 +291,8 @@ struct CustomDisclosureGroup_Previews: PreviewProvider {
                                 displayName: "Vertical 2",
                                 type: .vertical,
                                 completion: 1.0,
-                                childs: []
+                                childs: [],
+                                webUrl: ""
                             )
                         ],
                         sequentialProgress: SequentialProgress(
@@ -311,7 +316,8 @@ struct CustomDisclosureGroup_Previews: PreviewProvider {
                                 displayName: "Vertical 3",
                                 type: .vertical,
                                 completion: 1.0,
-                                childs: []
+                                childs: [],
+                                webUrl: ""
                             )
                         ],
                         sequentialProgress: SequentialProgress(
@@ -343,7 +349,8 @@ struct CustomDisclosureGroup_Previews: PreviewProvider {
                                 displayName: "Vertical 4",
                                 type: .vertical,
                                 completion: 1.0,
-                                childs: []
+                                childs: [],
+                                webUrl: ""
                             ),
                             CourseVertical(
                                 blockId: "2-1-2",
@@ -352,7 +359,8 @@ struct CustomDisclosureGroup_Previews: PreviewProvider {
                                 displayName: "Vertical 5",
                                 type: .vertical,
                                 completion: 1.0,
-                                childs: []
+                                childs: [],
+                                webUrl: ""
                             )
                         ],
                         sequentialProgress: SequentialProgress(

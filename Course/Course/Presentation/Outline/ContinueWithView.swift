@@ -123,7 +123,8 @@ struct ContinueWithView_Previews: PreviewProvider {
                 displayName: "Second Unit",
                 type: .vertical,
                 completion: 1,
-                childs: blocks
+                childs: blocks,
+                webUrl: ""
             )
         ) { }
     }

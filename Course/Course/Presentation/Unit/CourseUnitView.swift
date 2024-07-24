@@ -242,10 +242,8 @@ public struct CourseUnitView: View {
                     case .unknown(let url):
                         if index >= viewModel.index - 1 && index <= viewModel.index + 1 {
                             if viewModel.connectivity.isInternetAvaliable {
-                                UnknownView(url: url, viewModel: viewModel)
+                                UnknownView(url: url)
                                     .frameLimit(width: reader.size.width)
-                                Spacer()
-                                    .frame(minHeight: 100)
                             } else {
                                 FullScreenErrorView(type: .noInternet)
                             }
@@ -519,7 +517,8 @@ struct CourseUnitView_Previews: PreviewProvider {
                                 displayName: "6",
                                 type: .vertical,
                                 completion: 0,
-                                childs: blocks
+                                childs: blocks,
+                                webUrl: ""
                             )
                         ],
                         sequentialProgress: SequentialProgress(
@@ -552,7 +551,8 @@ struct CourseUnitView_Previews: PreviewProvider {
                                 displayName: "4",
                                 type: .vertical,
                                 completion: 0,
-                                childs: blocks
+                                childs: blocks,
+                                webUrl: ""
                             )
                         ],
                         sequentialProgress: SequentialProgress(

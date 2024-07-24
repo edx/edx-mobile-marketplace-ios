@@ -232,7 +232,8 @@ public class CourseRepository: CourseRepositoryProtocol {
             displayName: sequential.displayName,
             type: BlockType(rawValue: sequential.type) ?? .unknown,
             completion: sequential.completion ?? 0,
-            childs: childs
+            childs: childs,
+            webUrl: sequential.webUrl
         )
     }
     
@@ -485,7 +486,8 @@ And there are various ways of describing it-- call it oral poetry or
             displayName: sequential.displayName,
             type: BlockType(rawValue: sequential.type) ?? .unknown,
             completion: sequential.completion ?? 0,
-            childs: childs
+            childs: childs,
+            webUrl: sequential.webUrl
         )
     }
     

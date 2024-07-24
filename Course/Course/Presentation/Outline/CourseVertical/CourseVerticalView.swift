@@ -202,8 +202,10 @@ struct CourseVerticalView_Previews: PreviewProvider {
                                 displayName: "Vertical",
                                 type: .vertical,
                                 completion: 0,
-                                childs: [])
-                        ], 
+                                childs: [],
+                                webUrl: ""
+                            )
+                        ],
                         sequentialProgress: SequentialProgress(
                             assignmentType: "Advanced Assessment Tools",
                             numPointsEarned: 1,
