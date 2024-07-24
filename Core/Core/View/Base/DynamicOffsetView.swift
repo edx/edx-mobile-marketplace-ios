@@ -136,7 +136,7 @@ public struct DynamicOffsetView: View {
         shouldHideMenuBar: Bool
     ) {
         if idiom == .pad {
-            collapseHeight = padHeight
+            collapseHeight = padHeight + (shouldShowUpgradeButton ? 63 : 0) - (shouldHideMenuBar ? 80 : 0)
         } else if collapsed {
             if isHorizontal {
                 collapseHeight = collapsedHorizontalHeight(shouldHideMenuBar: shouldHideMenuBar)
