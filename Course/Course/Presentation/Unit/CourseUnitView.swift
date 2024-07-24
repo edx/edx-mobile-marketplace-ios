@@ -242,7 +242,7 @@ public struct CourseUnitView: View {
                     case .unknown(let url):
                         if index >= viewModel.index - 1 && index <= viewModel.index + 1 {
                             if viewModel.connectivity.isInternetAvaliable {
-                                UnknownView(url: url)
+                                NotAvailableOnMobileView(url: url)
                                     .frameLimit(width: reader.size.width)
                             } else {
                                 FullScreenErrorView(type: .noInternet)

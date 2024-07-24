@@ -559,7 +559,7 @@ public class Router: AuthorizationRouter,
         }
     
     public func showGatedContentError(url: String) {
-        let view = UnknownView(url: url)
+        let view = NotAvailableOnMobileView(url: url)
         
         let controller = UIHostingController(rootView: view)
         navigationController.pushViewController(controller, animated: true)

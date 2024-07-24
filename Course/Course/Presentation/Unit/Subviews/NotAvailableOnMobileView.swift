@@ -1,5 +1,5 @@
 //
-//  UnknownView.swift
+//  NotAvailableOnMobileView.swift
 //  Course
 //
 //  Created by  Stepanok Ivan on 30.05.2023.
@@ -9,7 +9,7 @@ import SwiftUI
 import Core
 import Theme
 
-public struct UnknownView: View {
+public struct NotAvailableOnMobileView: View {
     let url: String
     
     public init(url: String) {
@@ -30,7 +30,7 @@ public struct UnknownView: View {
                     .multilineTextAlignment(.center)
                     .padding(.top, 12)
                 StyledButton(CourseLocalization.NotAvaliable.button, action: {
-                    if let url = URL(string: url) {
+                    if let url = URL(string: url), UIApplication.shared.canOpenURL(url) {
                         UIApplication.shared.open(url)
                     }
                 })
