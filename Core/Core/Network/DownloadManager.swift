@@ -383,10 +383,6 @@ public class DownloadManager: DownloadManagerProtocol {
             throw NoWiFiError()
         }
         guard downloadRequest?.state != .resumed else { return }
-        if downloadRequest?.isSuspended == true {
-            downloadRequest?.resume()
-            return
-        }
         guard let downloadTask = queue.first(where: {$0.state != .finished}) else {
             downloadRequest = nil
             currentDownloadTask = nil
