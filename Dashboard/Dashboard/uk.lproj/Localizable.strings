@@ -17,6 +17,7 @@
 
 "LEARN.TITLE" = "Навчання";
 "LEARN.VIEW_ALL" = "Переглянути все (%@)";
+"LEARN.VIEW_ALL_COURSES" = "View All My Courses (%@)";
 "LEARN.ALL_COURSES" = "Усі курси";
 
 "LEARN.PRIMARY_CARD.ONE_PAST_ASSIGNMENT" = "1 прострочене завдання";
