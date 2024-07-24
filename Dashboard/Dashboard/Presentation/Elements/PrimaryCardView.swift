@@ -202,7 +202,7 @@ public struct PrimaryCardView: View {
                 courseButton(
                     title: CoreLocalization.CourseUpgrade.Button.upgrade,
                     description: nil,
-                    icon: Image(systemName: "trophy"),
+                    icon: CoreAssets.trophy.swiftUIImage,
                     selected: false,
                     action: upgradeAction
                 )
