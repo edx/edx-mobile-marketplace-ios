@@ -70,11 +70,13 @@ public struct SubtitlesView: View {
                                         }, label: {
                                         Text(subtitle.text)
                                             .padding(.vertical, 16)
-                                            .font(Theme.Fonts.bodyMedium)
+                                            .font(subtitle.fromTo.contains(Date(milliseconds: currentTime))
+                                                  ? Theme.Fonts.titleMedium
+                                                  : Theme.Fonts.bodyMedium)
                                             .multilineTextAlignment(.leading)
                                             .foregroundColor(subtitle.fromTo.contains(Date(milliseconds: currentTime))
                                                              ? Theme.Colors.textPrimary
-                                                             : Theme.Colors.textSecondary)
+                                                             : Theme.Colors.accentButtonColor)
                                             
                                             .onChange(of: currentTime, perform: { _ in
                                                 if subtitle.fromTo.contains(Date(milliseconds: currentTime)) {

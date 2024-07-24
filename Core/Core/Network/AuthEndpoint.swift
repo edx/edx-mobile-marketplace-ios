@@ -35,7 +35,7 @@ enum AuthEndpoint: EndPointType {
         case .validateRegistrationFields:
             return "/api/user/v1/validation/registration"
         case .resetPassword:
-            return "password_reset/"
+            return "/password_reset/"
         }
     }
 
