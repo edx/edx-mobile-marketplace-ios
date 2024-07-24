@@ -28,8 +28,8 @@ public enum DashboardLocalization {
     public static let welcomeBack = DashboardLocalization.tr("Localizable", "HEADER.WELCOME_BACK", fallback: "Welcome back. Let's keep learning.")
   }
   public enum Learn {
-    /// All Courses
-    public static let allCourses = DashboardLocalization.tr("Localizable", "LEARN.ALL_COURSES", fallback: "All Courses")
+    /// All My Courses
+    public static let allCourses = DashboardLocalization.tr("Localizable", "LEARN.ALL_COURSES", fallback: "All My Courses")
     /// Learn
     public static let title = DashboardLocalization.tr("Localizable", "LEARN.TITLE", fallback: "Learn")
     /// View All
