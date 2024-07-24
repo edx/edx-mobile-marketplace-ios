@@ -31,6 +31,7 @@ public struct DynamicOffsetView: View {
     @Environment(\.isHorizontal) private var isHorizontal
     @Binding private var shouldHideMenuBar: Bool
     
+    @State private var isOnTheScreen: Bool = false
     public init(
         coordinate: Binding<CGFloat>,
         collapsed: Binding<Bool>,
@@ -51,6 +52,9 @@ public struct DynamicOffsetView: View {
         .frame(height: collapseHeight)
         .overlay(
             GeometryReader { geometry -> Color in
+                if !isOnTheScreen {
+                    return .clear
+                }
                 guard idiom != .pad else {
                     return .clear
                 }
@@ -67,12 +71,16 @@ public struct DynamicOffsetView: View {
             }
         )
         .onAppear {
+            isOnTheScreen = true
             changeCollapsedHeight(
                 collapsed: collapsed,
                 isHorizontal: isHorizontal,
                 shouldShowUpgradeButton: shouldShowUpgradeButton,
                 shouldHideMenuBar: shouldHideMenuBar
             )
+        }
+        .onDisappear {
+            isOnTheScreen = false
         }
         .onChange(of: shouldHideMenuBar) { shouldHideMenuBar in
             changeCollapsedHeight(
