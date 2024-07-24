@@ -54,69 +54,71 @@ public struct AllCoursesView: View {
                     RefreshableScrollViewCompat(action: {
                         await viewModel.getCourses(page: 1, refresh: true)
                     }) {
-                        CategoryFilterView(selectedOption: $viewModel.selectedMenu)
-                            .disabled(viewModel.fetchInProgress)
-                            .frameLimit(width: proxy.size.width)
-                        if let myEnrollments = viewModel.myEnrollments {
-                            LazyVGrid(columns: columns(), spacing: 15) {
-                                ForEach(
-                                    Array(myEnrollments.courses.enumerated()),
-                                    id: \.offset
-                                ) { index, course in
-                                    Button(action: {
-                                        viewModel.trackDashboardCourseClicked(
-                                            courseID: course.courseID,
-                                            courseName: course.name
-                                        )
-                                        router.showCourseScreens(
-                                            courseID: course.courseID,
-                                            hasAccess: course.hasAccess,
-                                            courseStart: course.courseStart,
-                                            courseEnd: course.courseEnd,
-                                            enrollmentStart: course.enrollmentStart,
-                                            enrollmentEnd: course.enrollmentEnd,
-                                            title: course.name,
-                                            org: course.org,
-                                            courseRawImage: course.courseRawImage,
-                                            coursewareAccess: course.coursewareAccess,
-                                            showDates: false,
-                                            lastVisitedBlockID: nil
-                                        )
-                                    }, label: {
-                                        CourseCardView(
-                                            courseName: course.name,
-                                            courseImage: course.imageURL,
-                                            progressEarned: course.progressEarned,
-                                            progressPossible: course.progressPossible,
-                                            courseStartDate: course.courseStart,
-                                            courseEndDate: course.courseEnd,
-                                            hasAccess: course.hasAccess,
-                                            showProgress: true,
-                                            auditAccessExpires: course.auditAccessExpires,
-                                            startDisplay: course.startDisplay,
-                                            startType: course.startType
-                                        ).padding(8)
-                                    })
-                                    .accessibilityIdentifier("course_item")
-                                    .onAppear {
-                                        Task {
-                                            await viewModel.getMyCoursesPagination(index: index)
+                        VStack(spacing: 0) {
+                            CategoryFilterView(selectedOption: $viewModel.selectedMenu)
+                                .disabled(viewModel.fetchInProgress)
+                                .frameLimit(width: proxy.size.width)
+                            if let myEnrollments = viewModel.myEnrollments {
+                                LazyVGrid(columns: columns(), spacing: 15) {
+                                    ForEach(
+                                        Array(myEnrollments.courses.enumerated()),
+                                        id: \.offset
+                                    ) { index, course in
+                                        Button(action: {
+                                            viewModel.trackDashboardCourseClicked(
+                                                courseID: course.courseID,
+                                                courseName: course.name
+                                            )
+                                            router.showCourseScreens(
+                                                courseID: course.courseID,
+                                                hasAccess: course.hasAccess,
+                                                courseStart: course.courseStart,
+                                                courseEnd: course.courseEnd,
+                                                enrollmentStart: course.enrollmentStart,
+                                                enrollmentEnd: course.enrollmentEnd,
+                                                title: course.name,
+                                                org: course.org,
+                                                courseRawImage: course.courseRawImage,
+                                                coursewareAccess: course.coursewareAccess,
+                                                showDates: false,
+                                                lastVisitedBlockID: nil
+                                            )
+                                        }, label: {
+                                            CourseCardView(
+                                                courseName: course.name,
+                                                courseImage: course.imageURL,
+                                                progressEarned: course.progressEarned,
+                                                progressPossible: course.progressPossible,
+                                                courseStartDate: course.courseStart,
+                                                courseEndDate: course.courseEnd,
+                                                hasAccess: course.hasAccess,
+                                                showProgress: true,
+                                                auditAccessExpires: course.auditAccessExpires,
+                                                startDisplay: course.startDisplay,
+                                                startType: course.startType
+                                            ).padding(8)
+                                        })
+                                        .accessibilityIdentifier("course_item")
+                                        .onAppear {
+                                            Task {
+                                                await viewModel.getMyCoursesPagination(index: index)
+                                            }
                                         }
                                     }
                                 }
+                                .padding(10)
+                                .frameLimit(width: proxy.size.width)
                             }
-                            .padding(10)
-                            .frameLimit(width: proxy.size.width)
+                            // MARK: - ProgressBar
+                            if viewModel.nextPage <= viewModel.totalPages, !viewModel.refresh {
+                                VStack(alignment: .center) {
+                                    ProgressBar(size: 40, lineWidth: 8)
+                                        .padding(.top, 20)
+                                }.frame(maxWidth: .infinity,
+                                        maxHeight: .infinity)
+                            }
+                            VStack {}.frame(height: 40)
                         }
-                        // MARK: - ProgressBar
-                        if viewModel.nextPage <= viewModel.totalPages, !viewModel.refresh {
-                            VStack(alignment: .center) {
-                                ProgressBar(size: 40, lineWidth: 8)
-                                    .padding(.top, 20)
-                            }.frame(maxWidth: .infinity,
-                                    maxHeight: .infinity)
-                        }
-                        VStack {}.frame(height: 40)
                     }
                     .accessibilityAction {}
                 }
