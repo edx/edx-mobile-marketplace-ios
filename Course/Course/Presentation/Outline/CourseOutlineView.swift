@@ -90,6 +90,7 @@ public struct CourseOutlineView: View {
                                         screen: .courseDashbaord
                                     )
                                     .padding(.horizontal, 16)
+                                    .padding(.top, 16)
                                 }
                                 
                                 if isVideo,
