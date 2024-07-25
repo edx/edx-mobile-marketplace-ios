@@ -315,9 +315,12 @@ public struct CourseContainerView: View {
                 }
             }
         }
-        .tabViewStyle(.page(indexDisplayMode: .never))
+        .versionedTabStyle()
         .introspect(.scrollView, on: .iOS(.v15, .v16, .v17), customize: { tabView in
             tabView.isScrollEnabled = false
+        })
+        .introspect(.viewController, on: .iOS(.v15), customize: { controller in
+            controller.navigationController?.setNavigationBarHidden(true, animated: false)
         })
         .onFirstAppear {
             Task {
@@ -381,6 +384,24 @@ public struct CourseContainerView: View {
         }
         
         return true
+    }
+}
+
+struct TabViewStyleModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        if #available(iOS 16.0, *) {
+            content
+                .tabViewStyle(.page(indexDisplayMode: .never))
+        } else {
+            content
+                .tabViewStyle(.automatic)
+        }
+    }
+}
+
+extension View {
+    func versionedTabStyle() -> some View {
+        modifier(TabViewStyleModifier())
     }
 }
 
