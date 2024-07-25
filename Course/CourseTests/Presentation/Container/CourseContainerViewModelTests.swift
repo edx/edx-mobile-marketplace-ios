@@ -504,7 +504,6 @@ final class CourseContainerViewModelTests: XCTestCase {
 
         await viewModel.onDownloadViewTap(
              chapter: chapter,
-             blockId: blockId,
              state: .available
          )
 
@@ -635,7 +634,6 @@ final class CourseContainerViewModelTests: XCTestCase {
 
         await viewModel.onDownloadViewTap(
              chapter: chapter,
-             blockId: blockId,
              state: .downloading
          )
 
@@ -766,7 +764,6 @@ final class CourseContainerViewModelTests: XCTestCase {
 
         await viewModel.onDownloadViewTap(
              chapter: chapter,
-             blockId: blockId,
              state: .finished
          )
 

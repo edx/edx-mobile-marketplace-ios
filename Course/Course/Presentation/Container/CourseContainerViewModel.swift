@@ -612,7 +612,9 @@ public class CourseContainerViewModel: BaseCourseViewModel {
             case .downloading:
                 try await manager.cancelDownloading(courseId: courseStructure?.id ?? "", blocks: blocks)
             case .finished:
-                await manager.delete(blocks: blocks, courseId: courseID!)
+                if let courseID {
+                    await manager.delete(blocks: blocks, courseId: courseID)
+                }
             }
         } catch let error {
             if error is NoWiFiError {
