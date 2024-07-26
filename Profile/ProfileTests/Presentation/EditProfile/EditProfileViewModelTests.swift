@@ -29,7 +29,8 @@ final class EditProfileViewModelTests: XCTestCase {
             spokenLanguage: "UA",
             shortBiography: "Bio",
             isFullProfile: false,
-            email: ""
+            email: "",
+            requiresParentalConsent: false
         )
         
         Given(interactor, .getSpokenLanguages(willReturn: []))
@@ -67,7 +68,8 @@ final class EditProfileViewModelTests: XCTestCase {
             spokenLanguage: "UA",
             shortBiography: "Bio",
             isFullProfile: false,
-            email: ""
+            email: "",
+            requiresParentalConsent: false
         )
         
         Given(interactor, .getSpokenLanguages(willReturn: []))
@@ -105,7 +107,8 @@ final class EditProfileViewModelTests: XCTestCase {
             spokenLanguage: "UA",
             shortBiography: "Bio",
             isFullProfile: false,
-            email: ""
+            email: "",
+            requiresParentalConsent: false
         )
         
         Given(interactor, .getSpokenLanguages(willReturn: []))
@@ -138,7 +141,8 @@ final class EditProfileViewModelTests: XCTestCase {
             spokenLanguage: "UA",
             shortBiography: "Bio",
             isFullProfile: true,
-            email: ""
+            email: "",
+            requiresParentalConsent: false
         )
         
         Given(interactor, .getSpokenLanguages(willReturn: []))
@@ -171,7 +175,8 @@ final class EditProfileViewModelTests: XCTestCase {
             spokenLanguage: "UA",
             shortBiography: "Bio",
             isFullProfile: true,
-            email: ""
+            email: "",
+            requiresParentalConsent: false
         )
         
         Given(interactor, .getSpokenLanguages(willReturn: []))
@@ -204,7 +209,8 @@ final class EditProfileViewModelTests: XCTestCase {
             spokenLanguage: "UA",
             shortBiography: "Bio",
             isFullProfile: true,
-            email: ""
+            email: "",
+            requiresParentalConsent: false
         )
         
         Given(interactor, .getSpokenLanguages(willReturn: []))
@@ -237,7 +243,8 @@ final class EditProfileViewModelTests: XCTestCase {
             spokenLanguage: "UA",
             shortBiography: "Bio",
             isFullProfile: true,
-            email: ""
+            email: "",
+            requiresParentalConsent: false
         )
         
         Given(interactor, .getSpokenLanguages(willReturn: []))
@@ -270,7 +277,8 @@ final class EditProfileViewModelTests: XCTestCase {
             spokenLanguage: "UA",
             shortBiography: "Bio",
             isFullProfile: true,
-            email: ""
+            email: "",
+            requiresParentalConsent: false
         )
         
         Given(interactor, .getSpokenLanguages(willReturn: []))
@@ -303,7 +311,8 @@ final class EditProfileViewModelTests: XCTestCase {
             spokenLanguage: "UA",
             shortBiography: "Bio",
             isFullProfile: true,
-            email: ""
+            email: "",
+            requiresParentalConsent: false
         )
         
         Given(interactor, .getSpokenLanguages(willReturn: []))
@@ -340,7 +349,8 @@ final class EditProfileViewModelTests: XCTestCase {
             spokenLanguage: "UA",
             shortBiography: "Bio",
             isFullProfile: true,
-            email: ""
+            email: "",
+            requiresParentalConsent: false
         )
         
         Given(interactor, .getSpokenLanguages(willReturn: []))
@@ -377,7 +387,8 @@ final class EditProfileViewModelTests: XCTestCase {
             spokenLanguage: "UA",
             shortBiography: "Bio",
             isFullProfile: true,
-            email: ""
+            email: "",
+            requiresParentalConsent: false
         )
         
         Given(interactor, .getSpokenLanguages(willReturn: []))
@@ -413,7 +424,8 @@ final class EditProfileViewModelTests: XCTestCase {
             spokenLanguage: "UA",
             shortBiography: "Bio",
             isFullProfile: true,
-            email: ""
+            email: "",
+            requiresParentalConsent: false
         )
         
         Given(interactor, .getSpokenLanguages(willReturn: []))
@@ -449,7 +461,8 @@ final class EditProfileViewModelTests: XCTestCase {
             spokenLanguage: "UA",
             shortBiography: "Bio",
             isFullProfile: true,
-            email: ""
+            email: "",
+            requiresParentalConsent: false
         )
         
         Given(interactor, .getSpokenLanguages(willReturn: []))
@@ -498,7 +511,8 @@ final class EditProfileViewModelTests: XCTestCase {
             spokenLanguage: "UA",
             shortBiography: "Bio",
             isFullProfile: true,
-            email: ""
+            email: "",
+            requiresParentalConsent: false
         )
         
         Given(interactor, .getSpokenLanguages(willReturn: []))
@@ -542,7 +556,8 @@ final class EditProfileViewModelTests: XCTestCase {
             spokenLanguage: "UA",
             shortBiography: "Bio",
             isFullProfile: true,
-            email: ""
+            email: "",
+            requiresParentalConsent: false
         )
         
         Given(interactor, .getSpokenLanguages(willReturn: []))
@@ -599,7 +614,8 @@ final class EditProfileViewModelTests: XCTestCase {
             spokenLanguage: "UA",
             shortBiography: "Bio",
             isFullProfile: true,
-            email: ""
+            email: "",
+            requiresParentalConsent: false
         )
         
         Given(interactor, .getSpokenLanguages(willReturn: []))
@@ -654,7 +670,8 @@ final class EditProfileViewModelTests: XCTestCase {
             spokenLanguage: "UA",
             shortBiography: "Bio",
             isFullProfile: true,
-            email: ""
+            email: "",
+            requiresParentalConsent: false
         )
         
         Given(interactor, .getSpokenLanguages(willReturn: []))
@@ -693,7 +710,8 @@ final class EditProfileViewModelTests: XCTestCase {
             spokenLanguage: "UA",
             shortBiography: "Bio",
             isFullProfile: true,
-            email: ""
+            email: "",
+            requiresParentalConsent: false
         )
         
         Given(interactor, .getSpokenLanguages(willReturn: []))
@@ -726,7 +744,8 @@ final class EditProfileViewModelTests: XCTestCase {
             spokenLanguage: "UA",
             shortBiography: "Bio",
             isFullProfile: false,
-            email: ""
+            email: "",
+            requiresParentalConsent: false
         )
         
         Given(interactor, .getSpokenLanguages(willReturn: []))
@@ -758,7 +777,8 @@ final class EditProfileViewModelTests: XCTestCase {
             spokenLanguage: "UA",
             shortBiography: "Bio",
             isFullProfile: true,
-            email: ""
+            email: "",
+            requiresParentalConsent: false
         )
         
         let languages = [
@@ -796,7 +816,8 @@ final class EditProfileViewModelTests: XCTestCase {
             spokenLanguage: "UA",
             shortBiography: "Bio",
             isFullProfile: false,
-            email: ""
+            email: "",
+            requiresParentalConsent: false
         )
         
         Given(interactor, .getSpokenLanguages(willReturn: []))
@@ -828,7 +849,8 @@ final class EditProfileViewModelTests: XCTestCase {
             spokenLanguage: "UA",
             shortBiography: "Bio",
             isFullProfile: false,
-            email: ""
+            email: "",
+            requiresParentalConsent: false
         )
         
         Given(interactor, .getSpokenLanguages(willReturn: []))
