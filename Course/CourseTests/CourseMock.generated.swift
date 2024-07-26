@@ -1987,6 +1987,18 @@ open class CourseAnalyticsMock: CourseAnalytics, Mock {
 		perform?(`courseID`, `subSectionID`, `videos`)
     }
 
+    open func bulkDownloadVideosSection(courseID: String, sectionID: String, videos: Int) {
+        addInvocation(.m_bulkDownloadVideosSection__courseID_courseIDsectionID_sectionIDvideos_videos(Parameter<String>.value(`courseID`), Parameter<String>.value(`sectionID`), Parameter<Int>.value(`videos`)))
+		let perform = methodPerformValue(.m_bulkDownloadVideosSection__courseID_courseIDsectionID_sectionIDvideos_videos(Parameter<String>.value(`courseID`), Parameter<String>.value(`sectionID`), Parameter<Int>.value(`videos`))) as? (String, String, Int) -> Void
+		perform?(`courseID`, `sectionID`, `videos`)
+    }
+
+    open func bulkDeleteVideosSection(courseID: String, sectionId: String, videos: Int) {
+        addInvocation(.m_bulkDeleteVideosSection__courseID_courseIDsectionId_sectionIdvideos_videos(Parameter<String>.value(`courseID`), Parameter<String>.value(`sectionId`), Parameter<Int>.value(`videos`)))
+		let perform = methodPerformValue(.m_bulkDeleteVideosSection__courseID_courseIDsectionId_sectionIdvideos_videos(Parameter<String>.value(`courseID`), Parameter<String>.value(`sectionId`), Parameter<Int>.value(`videos`))) as? (String, String, Int) -> Void
+		perform?(`courseID`, `sectionId`, `videos`)
+    }
+
 
     fileprivate enum MethodType {
         case m_resumeCourseClicked__courseId_courseIdcourseName_courseNameblockId_blockId(Parameter<String>, Parameter<String>, Parameter<String>)
@@ -2013,6 +2025,8 @@ open class CourseAnalyticsMock: CourseAnalytics, Mock {
         case m_bulkDownloadVideosToggle__courseID_courseIDaction_action(Parameter<String>, Parameter<Bool>)
         case m_bulkDownloadVideosSubsection__courseID_courseIDsectionID_sectionIDsubSectionID_subSectionIDvideos_videos(Parameter<String>, Parameter<String>, Parameter<String>, Parameter<Int>)
         case m_bulkDeleteVideosSubsection__courseID_courseIDsubSectionID_subSectionIDvideos_videos(Parameter<String>, Parameter<String>, Parameter<Int>)
+        case m_bulkDownloadVideosSection__courseID_courseIDsectionID_sectionIDvideos_videos(Parameter<String>, Parameter<String>, Parameter<Int>)
+        case m_bulkDeleteVideosSection__courseID_courseIDsectionId_sectionIdvideos_videos(Parameter<String>, Parameter<String>, Parameter<Int>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
@@ -2193,6 +2207,20 @@ open class CourseAnalyticsMock: CourseAnalytics, Mock {
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsSubsectionid, rhs: rhsSubsectionid, with: matcher), lhsSubsectionid, rhsSubsectionid, "subSectionID"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsVideos, rhs: rhsVideos, with: matcher), lhsVideos, rhsVideos, "videos"))
 				return Matcher.ComparisonResult(results)
+
+            case (.m_bulkDownloadVideosSection__courseID_courseIDsectionID_sectionIDvideos_videos(let lhsCourseid, let lhsSectionid, let lhsVideos), .m_bulkDownloadVideosSection__courseID_courseIDsectionID_sectionIDvideos_videos(let rhsCourseid, let rhsSectionid, let rhsVideos)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseID"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsSectionid, rhs: rhsSectionid, with: matcher), lhsSectionid, rhsSectionid, "sectionID"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsVideos, rhs: rhsVideos, with: matcher), lhsVideos, rhsVideos, "videos"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_bulkDeleteVideosSection__courseID_courseIDsectionId_sectionIdvideos_videos(let lhsCourseid, let lhsSectionid, let lhsVideos), .m_bulkDeleteVideosSection__courseID_courseIDsectionId_sectionIdvideos_videos(let rhsCourseid, let rhsSectionid, let rhsVideos)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseID"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsSectionid, rhs: rhsSectionid, with: matcher), lhsSectionid, rhsSectionid, "sectionId"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsVideos, rhs: rhsVideos, with: matcher), lhsVideos, rhsVideos, "videos"))
+				return Matcher.ComparisonResult(results)
             default: return .none
             }
         }
@@ -2223,6 +2251,8 @@ open class CourseAnalyticsMock: CourseAnalytics, Mock {
             case let .m_bulkDownloadVideosToggle__courseID_courseIDaction_action(p0, p1): return p0.intValue + p1.intValue
             case let .m_bulkDownloadVideosSubsection__courseID_courseIDsectionID_sectionIDsubSectionID_subSectionIDvideos_videos(p0, p1, p2, p3): return p0.intValue + p1.intValue + p2.intValue + p3.intValue
             case let .m_bulkDeleteVideosSubsection__courseID_courseIDsubSectionID_subSectionIDvideos_videos(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
+            case let .m_bulkDownloadVideosSection__courseID_courseIDsectionID_sectionIDvideos_videos(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
+            case let .m_bulkDeleteVideosSection__courseID_courseIDsectionId_sectionIdvideos_videos(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
             }
         }
         func assertionName() -> String {
@@ -2251,6 +2281,8 @@ open class CourseAnalyticsMock: CourseAnalytics, Mock {
             case .m_bulkDownloadVideosToggle__courseID_courseIDaction_action: return ".bulkDownloadVideosToggle(courseID:action:)"
             case .m_bulkDownloadVideosSubsection__courseID_courseIDsectionID_sectionIDsubSectionID_subSectionIDvideos_videos: return ".bulkDownloadVideosSubsection(courseID:sectionID:subSectionID:videos:)"
             case .m_bulkDeleteVideosSubsection__courseID_courseIDsubSectionID_subSectionIDvideos_videos: return ".bulkDeleteVideosSubsection(courseID:subSectionID:videos:)"
+            case .m_bulkDownloadVideosSection__courseID_courseIDsectionID_sectionIDvideos_videos: return ".bulkDownloadVideosSection(courseID:sectionID:videos:)"
+            case .m_bulkDeleteVideosSection__courseID_courseIDsectionId_sectionIdvideos_videos: return ".bulkDeleteVideosSection(courseID:sectionId:videos:)"
             }
         }
     }
@@ -2293,6 +2325,8 @@ open class CourseAnalyticsMock: CourseAnalytics, Mock {
         public static func bulkDownloadVideosToggle(courseID: Parameter<String>, action: Parameter<Bool>) -> Verify { return Verify(method: .m_bulkDownloadVideosToggle__courseID_courseIDaction_action(`courseID`, `action`))}
         public static func bulkDownloadVideosSubsection(courseID: Parameter<String>, sectionID: Parameter<String>, subSectionID: Parameter<String>, videos: Parameter<Int>) -> Verify { return Verify(method: .m_bulkDownloadVideosSubsection__courseID_courseIDsectionID_sectionIDsubSectionID_subSectionIDvideos_videos(`courseID`, `sectionID`, `subSectionID`, `videos`))}
         public static func bulkDeleteVideosSubsection(courseID: Parameter<String>, subSectionID: Parameter<String>, videos: Parameter<Int>) -> Verify { return Verify(method: .m_bulkDeleteVideosSubsection__courseID_courseIDsubSectionID_subSectionIDvideos_videos(`courseID`, `subSectionID`, `videos`))}
+        public static func bulkDownloadVideosSection(courseID: Parameter<String>, sectionID: Parameter<String>, videos: Parameter<Int>) -> Verify { return Verify(method: .m_bulkDownloadVideosSection__courseID_courseIDsectionID_sectionIDvideos_videos(`courseID`, `sectionID`, `videos`))}
+        public static func bulkDeleteVideosSection(courseID: Parameter<String>, sectionId: Parameter<String>, videos: Parameter<Int>) -> Verify { return Verify(method: .m_bulkDeleteVideosSection__courseID_courseIDsectionId_sectionIdvideos_videos(`courseID`, `sectionId`, `videos`))}
     }
 
     public struct Perform {
@@ -2370,6 +2404,12 @@ open class CourseAnalyticsMock: CourseAnalytics, Mock {
         }
         public static func bulkDeleteVideosSubsection(courseID: Parameter<String>, subSectionID: Parameter<String>, videos: Parameter<Int>, perform: @escaping (String, String, Int) -> Void) -> Perform {
             return Perform(method: .m_bulkDeleteVideosSubsection__courseID_courseIDsubSectionID_subSectionIDvideos_videos(`courseID`, `subSectionID`, `videos`), performs: perform)
+        }
+        public static func bulkDownloadVideosSection(courseID: Parameter<String>, sectionID: Parameter<String>, videos: Parameter<Int>, perform: @escaping (String, String, Int) -> Void) -> Perform {
+            return Perform(method: .m_bulkDownloadVideosSection__courseID_courseIDsectionID_sectionIDvideos_videos(`courseID`, `sectionID`, `videos`), performs: perform)
+        }
+        public static func bulkDeleteVideosSection(courseID: Parameter<String>, sectionId: Parameter<String>, videos: Parameter<Int>, perform: @escaping (String, String, Int) -> Void) -> Perform {
+            return Perform(method: .m_bulkDeleteVideosSection__courseID_courseIDsectionId_sectionIdvideos_videos(`courseID`, `sectionId`, `videos`), performs: perform)
         }
     }
 

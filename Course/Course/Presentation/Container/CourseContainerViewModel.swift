@@ -414,22 +414,18 @@ public class CourseContainerViewModel: BaseCourseViewModel {
             return
         }
 
-        // TODO: change events we don't have ability to download sequential, only chapter
-        for sequential in chapter.childs {
-            if state == .available {
-                analytics.bulkDownloadVideosSubsection(
-                    courseID: courseStructure?.id ?? "",
-                    sectionID: chapter.id,
-                    subSectionID: sequential.id,
-                    videos: blocks.count
-                )
-            } else if state == .finished {
-                analytics.bulkDeleteVideosSubsection(
-                    courseID: courseStructure?.id ?? "",
-                    subSectionID: sequential.id,
-                    videos: blocks.count
-                )
-            }
+        if state == .available {
+            analytics.bulkDownloadVideosSection(
+                courseID: courseStructure?.id ?? "",
+                sectionID: chapter.id,
+                videos: blocks.count
+            )
+        } else if state == .finished {
+            analytics.bulkDeleteVideosSection(
+                courseID: courseStructure?.id ?? "",
+                sectionId: chapter.id,
+                videos: blocks.count
+            )
         }
 
         await download(state: state, blocks: blocks)
