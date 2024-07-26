@@ -341,17 +341,6 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
                     }
                 }
                     .frameLimit(width: proxy.size.width)
-                HStack {
-                    Spacer()
-                    Button(action: {
-                        router.showSettings()
-                    }, label: {
-                        CoreAssets.settings.swiftUIImage.renderingMode(.template)
-                            .foregroundColor(Theme.Colors.accentColor)
-                    })
-                }
-                .padding(.top, 8)
-                .offset(x: idiom == .pad ? 1 : 5, y: idiom == .pad ? 4 : -5)
             }
             
             .listRowBackground(Color.clear)
