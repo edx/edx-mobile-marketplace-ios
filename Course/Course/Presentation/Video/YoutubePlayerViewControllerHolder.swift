@@ -76,7 +76,9 @@ public class YoutubePlayerViewControllerHolder: PlayerViewControllerHolderProtoc
         timePublisher
             .sink {[weak self] _ in
                 guard let strongSelf = self else { return }
-                if strongSelf.playerTracker.progress > 0.8 && !strongSelf.isViewedOnce {
+                if strongSelf.playerTracker.progress != .infinity
+                    && strongSelf.playerTracker.progress > 0.8
+                    && !strongSelf.isViewedOnce {
                     strongSelf.isViewedOnce = true
                     Task {
                         await strongSelf.sendCompletion()
