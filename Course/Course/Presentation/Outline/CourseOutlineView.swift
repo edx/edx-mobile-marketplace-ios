@@ -288,7 +288,7 @@ public struct CourseOutlineView: View {
                     }
                 }
             }
-        } else {
+        } else if viewModel.courseVideosStructure == nil {
             FullScreenErrorView(
                 type: .noContent(
                     CourseLocalization.Error.videosUnavailable,
