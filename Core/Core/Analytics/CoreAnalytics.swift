@@ -315,6 +315,7 @@ public enum AnalyticsEvent: String {
     case logistrationSignIn = "Logistration:Sign In"
     case logistrationRegister = "Logistration:Register"
     case profileEdit = "Profile:Edit Profile"
+    case profilehelpUsImprove = "Profile:Feedback Form Clicked"
 }
 
 public enum EventBIValue: String {
@@ -410,6 +411,7 @@ public enum EventBIValue: String {
     case logistrationSignIn = "edx.bi.app.logistration.signin"
     case logistrationRegister = "edx.bi.app.logistration.register"
     case profileEdit = "edx.bi.app.profile.edit"
+    case profilehelpUsImprove = "edx.bi.app.profile.feedback_form.clicked"
 }
 
 public struct EventParamKey {

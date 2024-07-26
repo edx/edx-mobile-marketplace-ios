@@ -10,7 +10,7 @@ import Theme
 import Core
 
 private enum SupportType {
-    case contactSupport, tos, privacyPolicy, cookiesPolicy, sellData, faq
+    case contactSupport, tos, privacyPolicy, cookiesPolicy, sellData, faq, helpUsImprove
 }
 
 struct ProfileSupportInfoView: View {
@@ -31,6 +31,7 @@ struct ProfileSupportInfoView: View {
             .padding(.top, 12)
         
         VStack(alignment: .leading, spacing: 24) {
+            viewModel.serverConfig.feedbackURL.map(helpUsImprove)
             viewModel.contactSupport().map(supportInfo)
             viewModel.config.agreement.tosURL.map(terms)
             viewModel.config.agreement.privacyPolicyURL.map(privacy)
@@ -46,13 +47,23 @@ struct ProfileSupportInfoView: View {
         )
     }
 
+    private func helpUsImprove(url: URL) -> some View {
+        button(
+            linkViewModel: .init(
+                url: url,
+                title: ProfileLocalization.helpUsImprove
+            ),
+            supportType: .helpUsImprove,
+            identifier: "contact_support"
+        )
+    }
+    
     private func supportInfo(url: URL) -> some View {
         button(
             linkViewModel: .init(
                 url: url,
                 title: ProfileLocalization.contact
             ),
-            isEmailSupport: true,
             supportType: .contactSupport,
             identifier: "contact_support"
         )
@@ -158,15 +169,15 @@ struct ProfileSupportInfoView: View {
     @ViewBuilder
     private func button(
         linkViewModel: LinkViewModel,
-        isEmailSupport: Bool = false,
         supportType: SupportType,
         identifier: String
     ) -> some View {
         Button {
             guard UIApplication.shared.canOpenURL(linkViewModel.url) else {
-                viewModel.errorMessage = isEmailSupport ?
-                CoreLocalization.Error.cannotSendEmail :
-                CoreLocalization.Error.unknownError
+                viewModel.errorMessage = supportType == .contactSupport
+                ? CoreLocalization.Error.cannotSendEmail
+                : CoreLocalization.Error.unknownError
+                
                 return
             }
             
@@ -175,6 +186,8 @@ struct ProfileSupportInfoView: View {
                 viewModel.trackEmailSupportClicked()
             case .faq:
                 viewModel.trackFAQClicked()
+            case .helpUsImprove:
+                viewModel.trackHelpUsImprove()
             default:
                 break
             }
@@ -186,7 +199,13 @@ struct ProfileSupportInfoView: View {
                     .foregroundColor(Theme.Colors.textPrimary)
                     .font(Theme.Fonts.titleMedium)
                 Spacer()
-                Image(systemName: "chevron.right")
+                if supportType == .faq || supportType == .helpUsImprove {
+                    CoreAssets.calendarAccess.swiftUIImage
+                        .renderingMode(.template)
+                        .foregroundStyle(Theme.Colors.textPrimary)
+                } else {
+                    Image(systemName: "chevron.right")
+                }
             }
         }
         .foregroundColor(.primary)

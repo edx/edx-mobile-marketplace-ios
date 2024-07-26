@@ -28,6 +28,8 @@ public enum ProfileLocalization {
   public static let faqTitle = ProfileLocalization.tr("Localizable", "FAQ_TITLE", fallback: "View FAQ")
   /// full profile
   public static let fullProfile = ProfileLocalization.tr("Localizable", "FULL_PROFILE", fallback: "full profile")
+  /// Help us Improve
+  public static let helpUsImprove = ProfileLocalization.tr("Localizable", "HELP_US_IMPROVE", fallback: "Help us Improve")
   /// Profile info
   public static let info = ProfileLocalization.tr("Localizable", "INFO", fallback: "Profile info")
   /// limited profile

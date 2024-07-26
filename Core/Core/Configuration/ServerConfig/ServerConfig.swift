@@ -9,12 +9,14 @@ import Foundation
 
 private enum Keys: String, RawStringExtractable {
     case valuePropEnabled = "value_prop_enabled"
+    case feedbackFormURL = "feedback_form_url"
 }
 
 public protocol ServerConfigProtocol {
     var valuePropEnabled: Bool { get }
     var iapConfig: IAPConfig { get }
     func initialize(serverConfig: String?)
+    var feedbackURL: URL? { get }
 }
 
 public class ServerConfig: ServerConfigProtocol {
@@ -32,7 +34,11 @@ public class ServerConfig: ServerConfigProtocol {
     }
     
     public var valuePropEnabled: Bool {
-        return config[Keys.valuePropEnabled] as? Bool ?? false
+        config[Keys.valuePropEnabled] as? Bool ?? false
+    }
+    
+    public var feedbackURL: URL? {
+        (config[Keys.feedbackFormURL] as? String).flatMap { URL(string: $0)}
     }
 }
 
@@ -52,6 +58,8 @@ public class ServerConfigProtocolMock: ServerConfigProtocol {
     public func initialize(serverConfig: String?) {
         
     }
+    
+    public var feedbackURL: URL?
     
     public init() {
         valuePropEnabled = false

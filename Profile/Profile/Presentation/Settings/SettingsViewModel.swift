@@ -186,6 +186,10 @@ public class SettingsViewModel: ObservableObject {
         analytics.profileTrackEvent(.userLogoutClicked, biValue: .userLogoutClicked)
     }
     
+    func trackHelpUsImprove() {
+        analytics.profileTrackEvent(.profilehelpUsImprove, biValue: .profilehelpUsImprove)
+    }
+    
     @MainActor
     func restorePurchases() async {
         coreAnalytics.trackRestorePurchaseClicked()
