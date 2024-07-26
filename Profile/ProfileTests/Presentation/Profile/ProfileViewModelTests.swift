@@ -31,7 +31,8 @@ final class ProfileViewModelTests: XCTestCase {
             country: "Ua",
             shortBiography: "Bio",
             isFullProfile: false, 
-            email: ""
+            email: "",
+            requiresParentalConsent: false
         )
         
         Given(interactor, .getUserProfile(username: .value("Steve"), willReturn: user))
@@ -108,7 +109,8 @@ final class ProfileViewModelTests: XCTestCase {
             country: "Ua",
             shortBiography: "Bio",
             isFullProfile: false,
-            email: ""
+            email: "",
+            requiresParentalConsent: false
         )
         
         Given(connectivity, .isInternetAvaliable(getter: true))
@@ -147,7 +149,8 @@ final class ProfileViewModelTests: XCTestCase {
             country: "Ua",
             shortBiography: "Bio",
             isFullProfile: false,
-            email: ""
+            email: "",
+            requiresParentalConsent: false
         )
         
         Given(connectivity, .isInternetAvaliable(getter: false))
@@ -185,7 +188,8 @@ final class ProfileViewModelTests: XCTestCase {
             country: "Ua",
             shortBiography: "Bio",
             isFullProfile: false,
-            email: ""
+            email: "",
+            requiresParentalConsent: false
         )
         
         let noInternetError = AFError.sessionInvalidated(error: URLError(.notConnectedToInternet))

@@ -46,40 +46,70 @@ public struct EditProfileView: View {
                                 .padding(.top, 30)
                                 .overlay(
                                     ZStack {
-                                        Circle().frame(width: 36, height: 36)
-                                            .foregroundColor(Theme.Colors.accentXColor)
-                                        CoreAssets.addPhoto.swiftUIImage.renderingMode(.template)
-                                            .foregroundColor(Theme.Colors.primaryButtonTextColor)
+                                        if !viewModel.userModel.requiresParentalConsent {
+                                            Circle().frame(width: 36, height: 36)
+                                                .foregroundColor(Theme.Colors.accentXColor)
+                                            
+                                            CoreAssets.addPhoto.swiftUIImage.renderingMode(.template)
+                                                .foregroundColor(Theme.Colors.primaryButtonTextColor)
+                                        }
                                     }.offset(x: 36, y: 50)
                                 )
                         })
+                        .disabled(viewModel.userModel.requiresParentalConsent)
                         .accessibilityIdentifier("change_profile_image_button")
                         
                         Text(viewModel.userModel.name)
                             .font(Theme.Fonts.headlineSmall)
                             .accessibilityIdentifier("username_text")
                         
-                        Button(ProfileLocalization.switchTo + " " +
-                               viewModel.profileChanges.profileType.switchToButtonTitle,
-                               action: {
-                            viewModel.switchProfile()
-                        })
-                        .padding(.vertical, 24)
-                        .font(Theme.Fonts.labelLarge)
-                        .accessibilityIdentifier("switch_profile_button")
+                        if !viewModel.userModel.requiresParentalConsent {
+                            Button(ProfileLocalization.switchTo + " " +
+                                   viewModel.profileChanges.profileType.switchToButtonTitle,
+                                   action: {
+                                viewModel.switchProfile()
+                            })
+                            .padding(.vertical, 24)
+                            .font(Theme.Fonts.labelLarge)
+                            .accessibilityIdentifier("switch_profile_button")
+                        }
+                        
+                        HStack(alignment: .center) {
+                            let infoMessage = viewModel.userModel.requiresParentalConsent
+                            ? ProfileLocalization.Edit.limitedProfileRequireConsentInfo
+                            : ProfileLocalization.Edit.limitedProfileInfo
+                            if viewModel.userModel.requiresParentalConsent {
+                                Image(systemName: "eye.slash")
+                                    .accentColor(Theme.Colors.textSecondaryLight)
+                            }
+                            
+                            Text(infoMessage)
+                                .font(Theme.Fonts.bodyMedium)
+                                .foregroundColor(Theme.Colors.textSecondaryLight)
+                                .multilineTextAlignment(.center)
+                        }
+                        .padding(.top, viewModel.userModel.requiresParentalConsent ? 10 : 0)
                         
                         Group {
-                            PickerView(
-                                config: viewModel.yearsConfiguration,
-                                router: viewModel.router
-                            )
-                            if viewModel.isEditable {
+//                            PickerView(
+//                                config: viewModel.yearsConfiguration,
+//                                router: viewModel.router
+//                            )
+//                            if viewModel.isEditable {
+                            
                                 VStack(alignment: .leading) {
-                                    PickerView(config: viewModel.countriesConfiguration,
-                                               router: viewModel.router)
                                     
-                                    PickerView(config: viewModel.spokenLanguageConfiguration,
-                                               router: viewModel.router)
+                                    PickerView(
+                                        config: viewModel.countriesConfiguration,
+                                        router: viewModel.router,
+                                        enabled: viewModel.isEditable
+                                    )
+                                    
+                                    PickerView(
+                                        config: viewModel.spokenLanguageConfiguration,
+                                        router: viewModel.router,
+                                        enabled: viewModel.isEditable
+                                    )
                                     
                                     Text(ProfileLocalization.Edit.Fields.aboutMe)
                                         .font(Theme.Fonts.titleMedium)
@@ -91,9 +121,14 @@ public struct EditProfileView: View {
                                         .padding(.vertical, 4)
                                         .frame(height: 200)
                                         .hideScrollContentBackground()
+                                        .disabled(!viewModel.isEditable)
                                         .background(
                                             Theme.Shapes.textInputShape
-                                                .fill(Theme.Colors.textInputBackground)
+                                                .fill(
+                                                    viewModel.isEditable
+                                                    ? Theme.Colors.textInputBackground
+                                                    : Theme.Colors.textInputUnfocusedBackground
+                                                )
                                         )
                                         .overlay(
                                             Theme.Shapes.textInputShape
@@ -102,9 +137,10 @@ public struct EditProfileView: View {
                                                     Theme.Colors.textInputStroke
                                                 )
                                         )
+                                        .opacity(viewModel.isEditable ? 1 : 0.5)
                                         .accessibilityIdentifier("short_bio_textarea")
                                 }
-                            }
+//                            }
                         }
                         .onReceive(viewModel.yearsConfiguration.$text
                             .combineLatest(viewModel.countriesConfiguration.$text,
@@ -255,7 +291,8 @@ struct EditProfileView_Previews: PreviewProvider {
             country: "Ukraine",
             shortBiography: "",
             isFullProfile: true,
-            email: "peter@example.org"
+            email: "peter@example.org",
+            requiresParentalConsent: false
         )
         
         EditProfileView(

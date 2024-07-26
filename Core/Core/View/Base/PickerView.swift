@@ -13,10 +13,16 @@ public struct PickerView: View {
     @ObservedObject
     private var config: FieldConfiguration
     private var router: BaseRouter
+    private var enabled: Bool
     
-    public init(config: FieldConfiguration, router: BaseRouter) {
+    public init(
+        config: FieldConfiguration,
+        router: BaseRouter,
+        enabled: Bool = true
+    ) {
         self.config = config
         self.router = router
+        self.enabled = enabled
     }
     
     public var body: some View {
@@ -52,12 +58,17 @@ public struct PickerView: View {
                         Spacer()
                         Image(systemName: "chevron.down")
                     })
+                    .disabled(!enabled)
                     .accessibilityIdentifier("\(config.field.name)_picker_button")
                 }.padding(.all, 14)
                     .foregroundColor(Theme.Colors.textInputTextColor)
                     .background(
                         Theme.Shapes.textInputShape
-                            .fill(Theme.Colors.textInputBackground)
+                            .fill(
+                                enabled
+                                ? Theme.Colors.textInputBackground
+                                : Theme.Colors.textInputUnfocusedBackground
+                            )
                     )
                     .overlay(
                         Theme.Shapes.textInputShape
@@ -67,6 +78,7 @@ public struct PickerView: View {
                                   : Theme.Colors.irreversibleAlert)
                     )
                     .shake($config.shake)
+                    .opacity(enabled ? 1 : 0.5)
                 Text(config.error == "" ? config.field.instructions
                      : config.error)
                 .font(Theme.Fonts.labelMedium)

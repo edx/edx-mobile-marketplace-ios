@@ -157,15 +157,18 @@ public class ProfileRepository: ProfileRepositoryProtocol {
 class ProfileRepositoryMock: ProfileRepositoryProtocol {
     
     public func getUserProfile(username: String) async throws -> Core.UserProfile {
-        return Core.UserProfile(avatarUrl: "",
-                                name: "",
-                                username: "",
-                                dateJoined: Date(),
-                                yearOfBirth: 0,
-                                country: "",
-                                shortBiography: "",
-                                isFullProfile: false,
-                                email: "")
+        return Core.UserProfile(
+            avatarUrl: "",
+            name: "",
+            username: "",
+            dateJoined: Date(),
+            yearOfBirth: 0,
+            country: "",
+            shortBiography: "",
+            isFullProfile: false,
+            email: "",
+            requiresParentalConsent: false
+        )
     }
     
     func getMyProfileOffline() -> Core.UserProfile? {
@@ -184,7 +187,8 @@ class ProfileRepositoryMock: ProfileRepositoryProtocol {
             remains the most successful in history
             """,
             isFullProfile: true,
-            email: ""
+            email: "",
+            requiresParentalConsent: false
         )
     }
     
@@ -204,7 +208,8 @@ class ProfileRepositoryMock: ProfileRepositoryProtocol {
             remains the most successful in history
             """,
             isFullProfile: true,
-            email: ""
+            email: "",
+            requiresParentalConsent: false
         )
     }
     
@@ -228,7 +233,8 @@ class ProfileRepositoryMock: ProfileRepositoryProtocol {
             country: "USA",
             shortBiography: "Bio",
             isFullProfile: true,
-            email: ""
+            email: "",
+            requiresParentalConsent: false
         )
     }
     

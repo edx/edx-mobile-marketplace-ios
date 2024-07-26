@@ -42,6 +42,8 @@
 "EDIT.TOO_YONG_USER" = "You must be over 13 years old to have a profile with full access to information.";
 "EDIT.LIMITED_PROFILE_DESCRIPTION" = "A limited profile only shares your username and profile photo.";
 "EDIT.DELETE_ACCOUNT" = "Delete Account";
+"EDIT.LIMITED_PROFILE_INFO" = "A limited profile only shares your username and photo";
+"EDIT.LIMITED_PROFILE_REQUIRE_CONSENT_INFO" = "Your profile information is only visible to you. Only your username is visible to others.";
 
 "EDIT.FIELDS.YEAR_OF_BIRTH" = "Year of birth";
 "EDIT.FIELDS.LOCATION" = "Location";

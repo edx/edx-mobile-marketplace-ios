@@ -214,6 +214,10 @@ public enum ProfileLocalization {
     public static let deleteAccount = ProfileLocalization.tr("Localizable", "EDIT.DELETE_ACCOUNT", fallback: "Delete Account")
     /// A limited profile only shares your username and profile photo.
     public static let limitedProfileDescription = ProfileLocalization.tr("Localizable", "EDIT.LIMITED_PROFILE_DESCRIPTION", fallback: "A limited profile only shares your username and profile photo.")
+    /// A limited profile only shares your username and photo
+    public static let limitedProfileInfo = ProfileLocalization.tr("Localizable", "EDIT.LIMITED_PROFILE_INFO", fallback: "A limited profile only shares your username and photo")
+    /// Your profile information is only visible to you. Only your username is visible to others.
+    public static let limitedProfileRequireConsentInfo = ProfileLocalization.tr("Localizable", "EDIT.LIMITED_PROFILE_REQUIRE_CONSENT_INFO", fallback: "Your profile information is only visible to you. Only your username is visible to others.")
     /// You must be over 13 years old to have a profile with full access to information.
     public static let tooYongUser = ProfileLocalization.tr("Localizable", "EDIT.TOO_YONG_USER", fallback: "You must be over 13 years old to have a profile with full access to information.")
     public enum BottomSheet {
