@@ -316,7 +316,7 @@ public struct CourseContainerView: View {
             }
         }
         .versionedTabStyle()
-        .introspect(.scrollView, on: .iOS(.v15, .v16, .v17), customize: { tabView in
+        .introspect(.scrollView, on: .iOS(.v16, .v17), customize: { tabView in
             tabView.isScrollEnabled = false
         })
         .introspect(.viewController, on: .iOS(.v15), customize: { controller in
