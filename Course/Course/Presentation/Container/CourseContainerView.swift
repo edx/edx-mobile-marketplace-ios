@@ -10,6 +10,7 @@ import Core
 import Discussion
 import Swinject
 import Theme
+@_spi(Advanced) import SwiftUIIntrospect
 
 public struct CourseContainerView: View {
     @ObservedObject
@@ -316,7 +317,7 @@ public struct CourseContainerView: View {
             }
         }
         .versionedTabStyle()
-        .introspect(.scrollView, on: .iOS(.v16, .v17), customize: { tabView in
+        .introspect(.scrollView, on: .iOS(.v16...), customize: { tabView in
             tabView.isScrollEnabled = false
         })
         .introspect(.viewController, on: .iOS(.v15), customize: { controller in
