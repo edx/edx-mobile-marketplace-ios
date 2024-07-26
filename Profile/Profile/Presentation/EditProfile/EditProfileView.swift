@@ -79,8 +79,8 @@ public struct EditProfileView: View {
                             ? ProfileLocalization.Edit.limitedProfileRequireConsentInfo
                             : ProfileLocalization.Edit.limitedProfileInfo
                             if viewModel.userModel.requiresParentalConsent {
-                                Image(systemName: "eye.slash")
-                                    .accentColor(Theme.Colors.textSecondaryLight)
+                                Image(systemName: "eye.slash").renderingMode(.template)
+                                    .foregroundColor(Theme.Colors.textSecondaryLight)
                             }
                             
                             Text(infoMessage)
@@ -257,7 +257,7 @@ public struct EditProfileView: View {
                         }
                     }, label: {
                         HStack(spacing: 2) {
-                            CoreAssets.done.swiftUIImage.renderingMode(.template)
+                            CoreAssets.done.swiftUIImage
                                 .foregroundColor(Theme.Colors.accentXColor)
                             Text(CoreLocalization.done)
                                 .font(Theme.Fonts.labelLarge)
