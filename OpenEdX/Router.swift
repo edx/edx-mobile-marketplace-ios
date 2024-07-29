@@ -41,7 +41,12 @@ public class Router: AuthorizationRouter,
         self.navigationController = navigationController
         self.container = container
         
-        NotificationCenter.default.addObserver(self, selector: #selector(orientationChanged), name: UIDevice.orientationDidChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(orientationChanged),
+            name: UIDevice.orientationDidChangeNotification,
+            object: nil
+        )
     }
 
     public func backToRoot(animated: Bool) {
@@ -516,7 +521,6 @@ public class Router: AuthorizationRouter,
         courseStructure: CourseStructure,
         blockLink: String) {
             var courseBlock: CourseBlock?
-            var courseName: String?
             var chapterPosition: Int?
             var sequentialPosition: Int?
             var verticalPosition: Int?
@@ -527,7 +531,6 @@ public class Router: AuthorizationRouter,
                         vertical.childs.forEach { block in
                             if block.id == componentID {
                                 courseBlock = block
-                                courseName = sequential.displayName
                                 chapterPosition = chapterIndex
                                 sequentialPosition = sequentialIndex
                                 verticalPosition = verticalIndex
@@ -548,7 +551,8 @@ public class Router: AuthorizationRouter,
                         verticalIndex: verticalPosition ?? 0,
                         chapters: courseStructure.childs,
                         chapterIndex: chapterPosition ?? 0,
-                        sequentialIndex: sequentialPosition ?? 0)
+                        sequentialIndex: sequentialPosition ?? 0
+                    )
                 }
             } else if !blockLink.isEmpty, let blockURL = URL(string: blockLink) {
                 DispatchQueue.main.async { [weak self] in
