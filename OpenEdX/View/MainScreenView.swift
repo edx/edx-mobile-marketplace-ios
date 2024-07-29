@@ -188,7 +188,9 @@ struct MainScreenView: View {
         }
         .accentColor(Theme.Colors.accentXColor)
         .introspect(.viewController, on: .iOS(.v15)) { controller in
-            controller.navigationController?.setNavigationBarHidden(true, animated: false)
+            if viewModel.selection != .profile {
+                controller.navigationController?.setNavigationBarHidden(true, animated: false)
+            }
         }
     }
     
