@@ -78,37 +78,41 @@ public class CorePersistence: CorePersistenceProtocol {
         downloadQuality: DownloadQuality
     ) async {
         let userId = getUserId32() ?? 0
-        for block in blocks {
+
+        let objects: [[String: Any]] = blocks.compactMap { block -> [String: Any]? in
             let downloadDataId = downloadDataId(from: block.id)
-            await context.perform {[context] in
-                let data = try? CorePersistenceHelper.fetchCDDownloadData(
-                    predicate: CDPredicate.id(downloadDataId),
-                    context: context,
-                    userId: userId
+            guard let video = block.encodedVideo?.video(downloadQuality: downloadQuality),
+                  let url = video.url,
+                  let fileExtension = URL(string: url)?.pathExtension
+            else { return nil }
+            let fileName = "\(block.id).\(fileExtension)"
+            
+            return [
+                "id": downloadDataId,
+                "blockId": block.id,
+                "userId": userId,
+                "courseId": block.courseId,
+                "url": url,
+                "fileName": fileName,
+                "displayName": block.displayName,
+                "progress": Double.zero,
+                "state": DownloadState.waiting.rawValue,
+                "type": DownloadType.video.rawValue,
+                "fileSize": Int32(video.fileSize ?? 0)
+            ]
+        }
+        let batchInsertRequest = NSBatchInsertRequest(entityName: "CDDownloadData", objects: objects)
+        batchInsertRequest.resultType = .objectIDs
+        do {
+            let batchInsertResult = try context.execute(batchInsertRequest) as? NSBatchInsertResult
+            if let objectIDs = batchInsertResult?.result as? [NSManagedObjectID] {
+                NSManagedObjectContext.mergeChanges(
+                    fromRemoteContextSave: [NSInsertedObjectsKey: objectIDs],
+                    into: [context]
                 )
-                guard data?.first == nil else { return }
-                
-                guard let video = block.encodedVideo?.video(downloadQuality: downloadQuality),
-                      let url = video.url,
-                      let fileExtension = URL(string: url)?.pathExtension
-                else { return }
-                
-                let fileName = "\(block.id).\(fileExtension)"
-                let newDownloadData = CDDownloadData(context: context)
-                context.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
-                newDownloadData.id = downloadDataId
-                newDownloadData.blockId = block.id
-                newDownloadData.userId = userId
-                newDownloadData.courseId = block.courseId
-                newDownloadData.url = url
-                newDownloadData.fileName = fileName
-                newDownloadData.displayName = block.displayName
-                newDownloadData.progress = .zero
-                newDownloadData.resumeData = nil
-                newDownloadData.state = DownloadState.waiting.rawValue
-                newDownloadData.type = DownloadType.video.rawValue
-                newDownloadData.fileSize = Int32(video.fileSize ?? 0)
             }
+        } catch {
+            debugLog("Can't insert new elements")
         }
     }
 
@@ -220,25 +224,25 @@ public class CorePersistence: CorePersistenceProtocol {
         }
     }
 
-    public func deleteDownloadDataTask(id: String) async throws {
-        let dataId = downloadDataId(from: id)
-        let userId = getUserId32()
-        return await context.perform {[context] in
+    public func deleteDownloadDataTasks(ids: [String]) async {
+        await context.perform {[context] in
+            let request: NSFetchRequest<any NSFetchRequestResult> = CDDownloadData.fetchRequest()
+            request.predicate = NSPredicate(format: "id IN %@", ids)
+            let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: request)
+            batchDeleteRequest.resultType = .resultTypeObjectIDs
+            
             do {
-                let records = try CorePersistenceHelper.fetchCDDownloadData(
-                    predicate: .id(dataId),
-                    context: context,
-                    userId: userId
-                )
-
-                for record in records {
-                    context.delete(record)
-                    try context.save()
-                    debugLog("File erased successfully")
+                let deleteResult = try context.execute(batchDeleteRequest) as? NSBatchDeleteResult
+                
+                if let objectIDs = deleteResult?.result as? [NSManagedObjectID] {
+                    NSManagedObjectContext.mergeChanges(
+                        fromRemoteContextSave: [NSDeletedObjectsKey: objectIDs],
+                        into: [context]
+                    )
                 }
-
+                debugLog("Tasks erased successfully")
             } catch {
-                debugLog("Error fetching records: \(error.localizedDescription)")
+                debugLog("Error deleting tasks: \(error.localizedDescription)")
             }
         }
     }

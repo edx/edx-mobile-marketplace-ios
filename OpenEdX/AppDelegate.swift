@@ -166,7 +166,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             Container.shared.resolve(CoreStorage.self)?.clear()
             Task {
-                await Container.shared.resolve(DownloadManagerProtocol.self)?.deleteAllFiles()
+                await Container.shared.resolve(DownloadManagerProtocol.self)?.deleteAll()
             }
             Container.shared.resolve(CoreDataHandlerProtocol.self)?.clear()
             window?.rootViewController = RouteController()

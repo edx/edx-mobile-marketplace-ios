@@ -155,7 +155,9 @@ public class CourseContainerViewModel: BaseCourseViewModel {
     func updateCourseIfNeeded(courseID: String) async {
         if updateCourseProgress {
             await getCourseBlocks(courseID: courseID, withProgress: false)
-            updateCourseProgress = false
+            await MainActor.run {
+                updateCourseProgress = false
+            }
         }
     }
 
@@ -400,30 +402,26 @@ public class CourseContainerViewModel: BaseCourseViewModel {
     }
 
     @MainActor
-    func onDownloadViewTap(chapter: CourseChapter, blockId: String, state: DownloadViewState) async {
-        guard let sequential = chapter.childs
-            .first(where: { $0.id == blockId }) else {
-            return
-        }
-
-        let blocks =  sequential.childs.flatMap { $0.childs }
+    func onDownloadViewTap(chapter: CourseChapter, state: DownloadViewState) async {
+        let blocks = chapter.childs
+            .flatMap { $0.childs }
+            .flatMap { $0.childs }
             .filter { $0.isDownloadable }
 
         if state == .available, isShowedAllowLargeDownloadAlert(blocks: blocks) {
             return
         }
-        
+
         if state == .available {
-            analytics.bulkDownloadVideosSubsection(
+            analytics.bulkDownloadVideosSection(
                 courseID: courseStructure?.id ?? "",
                 sectionID: chapter.id,
-                subSectionID: sequential.id,
                 videos: blocks.count
             )
         } else if state == .finished {
-            analytics.bulkDeleteVideosSubsection(
+            analytics.bulkDeleteVideosSection(
                 courseID: courseStructure?.id ?? "",
-                subSectionID: sequential.id,
+                sectionId: chapter.id,
                 videos: blocks.count
             )
         }
@@ -475,7 +473,9 @@ public class CourseContainerViewModel: BaseCourseViewModel {
             try await manager.addToDownloadQueue(blocks: blocks)
         } catch let error {
             if error is NoWiFiError {
-                errorMessage = CoreLocalization.Error.wifi
+                await MainActor.run {
+                    errorMessage = CoreLocalization.Error.wifi
+                }
             }
         }
     }
@@ -606,7 +606,9 @@ public class CourseContainerViewModel: BaseCourseViewModel {
             case .downloading:
                 try await manager.cancelDownloading(courseId: courseStructure?.id ?? "", blocks: blocks)
             case .finished:
-                await manager.deleteFile(blocks: blocks)
+                if let courseID {
+                    await manager.delete(blocks: blocks, courseId: courseID)
+                }
             }
         } catch let error {
             if error is NoWiFiError {
@@ -721,8 +723,8 @@ public class CourseContainerViewModel: BaseCourseViewModel {
             .sink { [weak self] state in
                 guard let self else { return }
                 if case .progress = state { return }
-                Task(priority: .background) {
-                    debugLog(state, "--- state ---")
+                debugLog(state, "--- state ---")
+                Task {
                     await self.setDownloadsStates(courseStructure: self.courseStructure)
                 }
             }
@@ -756,13 +758,12 @@ public class CourseContainerViewModel: BaseCourseViewModel {
             .store(in: &cancellables)
         
         completionPublisher
-              .sink { [weak self] _ in
-                  guard let self = self else { return }
-                  DispatchQueue.main.async {
-                      self.updateCourseProgress = true
-                  }
-              }
-              .store(in: &cancellables)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                updateCourseProgress = true
+            }
+            .store(in: &cancellables)
     }
     
     deinit {

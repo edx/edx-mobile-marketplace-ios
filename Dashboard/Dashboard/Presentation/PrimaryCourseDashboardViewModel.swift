@@ -86,7 +86,9 @@ public class PrimaryCourseDashboardViewModel: ObservableObject {
         guard updateNeeded else { return }
         Task {
             await getEnrollments()
-            updateNeeded = false
+            await MainActor.run {
+                updateNeeded = false
+            }
         }
     }
     

@@ -50,7 +50,9 @@ final class CourseVideoDownloadBarViewModel: ObservableObject {
         courseViewModel.courseDownloadTasks[index].progress = currentDownloadTask.progress
         return courseViewModel
             .courseDownloadTasks
-            .reduce(0) { $0 + $1.progress } / Double(courseViewModel.courseDownloadTasks.count)
+            .reduce(0) {
+                $0 + ($1.state == .finished ? 1 : $1.progress)
+            } / Double(courseViewModel.courseDownloadTasks.count)
     }
 
     var downloadableVerticals: Set<VerticalsDownloadState> {

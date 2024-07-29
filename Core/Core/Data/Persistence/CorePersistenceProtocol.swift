@@ -15,11 +15,11 @@ public protocol CorePersistenceProtocol {
     func addToDownloadQueue(blocks: [CourseBlock], downloadQuality: DownloadQuality) async
     func nextBlockForDownloading() async -> DownloadDataTask?
     func updateDownloadState(id: String, state: DownloadState, resumeData: Data?)
-    func deleteDownloadDataTask(id: String) async throws
     func saveDownloadDataTask(_ task: DownloadDataTask)
     func downloadDataTask(for blockId: String) -> DownloadDataTask?
     func getDownloadDataTasks() async -> [DownloadDataTask]
     func getDownloadDataTasksForCourse(_ courseId: String) async -> [DownloadDataTask]
+    func deleteDownloadDataTasks(ids: [String]) async
 }
 
 public final class CoreBundle {

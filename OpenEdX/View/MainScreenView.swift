@@ -145,14 +145,16 @@ struct MainScreenView: View {
         .navigationTitle(titleBar())
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing, content: {
-                Button(action: {
-                    let router = Container.shared.resolve(ProfileRouter.self)!
-                    router.showSettings()
-                }, label: {
-                    CoreAssets.settings.swiftUIImage.renderingMode(.template)
-                        .foregroundColor(Theme.Colors.accentColor)
-                })
-                .accessibilityIdentifier("edit_profile_button")
+                if viewModel.selection == .profile {
+                    Button(action: {
+                        let router = Container.shared.resolve(ProfileRouter.self)!
+                        router.showSettings()
+                    }, label: {
+                        CoreAssets.settings.swiftUIImage.renderingMode(.template)
+                            .foregroundColor(Theme.Colors.accentColor)
+                    })
+                    .accessibilityIdentifier("edit_profile_button")
+                }
             })
         }
         .onReceive(NotificationCenter.default.publisher(for: .onAppUpgradeAccountSettingsTapped)) { _ in
