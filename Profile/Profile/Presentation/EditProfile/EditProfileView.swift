@@ -71,6 +71,7 @@ public struct EditProfileView: View {
                             })
                             .padding(.vertical, 24)
                             .font(Theme.Fonts.labelLarge)
+                            .foregroundColor(Theme.Colors.infoColor)
                             .accessibilityIdentifier("switch_profile_button")
                         }
                         
