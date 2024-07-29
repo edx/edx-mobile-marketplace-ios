@@ -82,7 +82,8 @@ public struct CourseOutlineView: View {
                                 if let courseDeadlineInfo = viewModel.courseDeadlineInfo,
                                    courseDeadlineInfo.datesBannerInfo.status == .resetDatesBanner,
                                    !courseDeadlineInfo.hasEnded,
-                                   !isVideo {
+                                   !isVideo,
+                                   !viewModel.isShowProgress {
                                     DatesStatusInfoView(
                                         datesBannerInfo: courseDeadlineInfo.datesBannerInfo,
                                         courseID: courseID,
