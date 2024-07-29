@@ -203,7 +203,11 @@ struct MainScreenView: View {
     private var registerBanner: some View {
         if viewModel.showRegisterBanner {
             VStack {
-                SnackBarView(message: viewModel.registerBannerText, bgColor: Theme.Colors.accentColor)
+                SnackBarView(
+                    message: viewModel.registerBannerText,
+                    textColor: Theme.Colors.primaryButtonTextColor,
+                    bgColor: Theme.Colors.accentColor
+                )
                 Spacer()
             }.transition(.move(edge: .top))
                 .onAppear {
