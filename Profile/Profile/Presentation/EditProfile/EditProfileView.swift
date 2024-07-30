@@ -248,25 +248,28 @@ public struct EditProfileView: View {
                         .offset(x: -8, y: -1.5)
                     }
                 )
+                
                 ToolbarItem(placement: .navigationBarTrailing, content: {
-                    Button(action: {
-                        if viewModel.isChanged {
-                            Task {
-                                viewModel.trackProfileEditDoneClicked()
-                                await viewModel.saveProfileUpdates()
+                    if !viewModel.userModel.requiresParentalConsent {
+                        Button(action: {
+                            if viewModel.isChanged {
+                                Task {
+                                    viewModel.trackProfileEditDoneClicked()
+                                    await viewModel.saveProfileUpdates()
+                                }
                             }
-                        }
-                    }, label: {
-                        HStack(spacing: 2) {
-                            CoreAssets.done.swiftUIImage
-                                .foregroundColor(Theme.Colors.accentXColor)
-                            Text(CoreLocalization.done)
-                                .font(Theme.Fonts.labelLarge)
-                                .foregroundColor(Theme.Colors.accentXColor)
-                        }
-                    })
-                    .opacity(viewModel.isChanged ? 1 : 0.3)
-                    .accessibilityIdentifier("done_button")
+                        }, label: {
+                            HStack(spacing: 2) {
+                                CoreAssets.done.swiftUIImage
+                                    .foregroundColor(Theme.Colors.accentXColor)
+                                Text(CoreLocalization.done)
+                                    .font(Theme.Fonts.labelLarge)
+                                    .foregroundColor(Theme.Colors.accentXColor)
+                            }
+                        })
+                        .opacity(viewModel.isChanged ? 1 : 0.3)
+                        .accessibilityIdentifier("done_button")
+                    }
                 })
             }
             .background(
