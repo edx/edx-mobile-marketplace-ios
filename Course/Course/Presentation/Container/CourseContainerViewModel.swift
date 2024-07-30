@@ -261,8 +261,10 @@ public class CourseContainerViewModel: BaseCourseViewModel {
             isShowProgress = false
             isShowRefresh = false
             shouldShowUpgradeButton = false
-            courseStructure = nil
-            courseVideosStructure = nil
+            if courseStructure?.coursewareAccessDetails?.coursewareAccess?.errorCode == .unknown {
+                courseStructure = nil
+                courseVideosStructure = nil
+            }
         }
     }
     
