@@ -146,7 +146,7 @@ public struct WebView: UIViewRepresentable {
             
             let baseURL = await parent.viewModel.baseURL
             switch navigationAction.navigationType {
-            case .other, .formSubmitted, .formResubmitted:
+            case .formSubmitted, .formResubmitted:
                 return .allow
             case .linkActivated:
                 await MainActor.run {
