@@ -47,6 +47,7 @@
 		07A7D79028F5C9060000BE81 /* Core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 07A7D78E28F5C9060000BE81 /* Core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		07D5DA3528D075AA00752FD9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D5DA3428D075AA00752FD9 /* AppDelegate.swift */; };
 		07D5DA3E28D075AB00752FD9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07D5DA3D28D075AB00752FD9 /* Assets.xcassets */; };
+		149B52D92C5FE5AB00C7BF5D /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 149B52D82C5FE5AB00C7BF5D /* FirebaseCrashlytics */; };
 		149FF39E2B9F1AB50034B33F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 149FF39C2B9F1AB50034B33F /* LaunchScreen.storyboard */; };
 		14D912D32C25483F0077CCCE /* FullStory in Frameworks */ = {isa = PBXBuildFile; productRef = 14D912D22C25483F0077CCCE /* FullStory */; };
 		14D912D72C2551F60077CCCE /* FullStoryAnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D912D62C2551F60077CCCE /* FullStoryAnalyticsService.swift */; };
@@ -177,6 +178,7 @@
 				0780ABE32BFBA2E40093A4A6 /* FirebaseAnalytics in Frameworks */,
 				027DB33028D8A063002B6862 /* Dashboard.framework in Frameworks */,
 				A5BD3E302B83B0F7006A8983 /* SegmentFirebase in Frameworks */,
+				149B52D92C5FE5AB00C7BF5D /* FirebaseCrashlytics in Frameworks */,
 				A51CDBED2B6D2BEE009B6D4E /* SegmentBraze in Frameworks */,
 				14D912D32C25483F0077CCCE /* FullStory in Frameworks */,
 				A51CDBEF2B6D2BEE009B6D4E /* SegmentBrazeUI in Frameworks */,
@@ -442,6 +444,7 @@
 				0780ABE22BFBA2E40093A4A6 /* FirebaseAnalytics */,
 				0780ABE42BFBA2E40093A4A6 /* FirebaseMessaging */,
 				14D912D22C25483F0077CCCE /* FullStory */,
+				149B52D82C5FE5AB00C7BF5D /* FirebaseCrashlytics */,
 			);
 			productName = OpenEdX;
 			productReference = 07D5DA3128D075AA00752FD9 /* OpenEdX.app */;
@@ -526,7 +529,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
-			shellScript = "plistPath=\"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/GoogleService-Info.plist\"\n\ngoogleAppID=$(/usr/libexec/PlistBuddy -c \"Print :GOOGLE_APP_ID\" \"$plistPath\")\n\nif [ -z \"$googleAppID\" ]\nthen\n    echo \"GoogleAppID is empty. The FirebaseCrashlytics script will be skipped.\"\nelse\n    \"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\nfi\n";
+			shellScript = "\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
 		};
 		0770DE2328D08647006D8A5D /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1277,8 +1280,8 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 10.26.0;
-            };
-        };
+			};
+		};
 		14D912D12C25483F0077CCCE /* XCRemoteSwiftPackageReference "fullstory-swift-package-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/fullstorydev/fullstory-swift-package-ios";
@@ -1331,7 +1334,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0780ABE12BFBA2E40093A4A6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
-        };
+		};
+		149B52D82C5FE5AB00C7BF5D /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FirebaseCrashlytics;
+		};
 		14D912D22C25483F0077CCCE /* FullStory */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 14D912D12C25483F0077CCCE /* XCRemoteSwiftPackageReference "fullstory-swift-package-ios" */;
