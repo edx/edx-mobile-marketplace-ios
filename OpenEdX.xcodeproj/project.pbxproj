@@ -529,7 +529,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
-			shellScript = "\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
+			shellScript = "plistPath=\"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/GoogleService-Info.plist\"\n\ngoogleAppID=$(/usr/libexec/PlistBuddy -c \"Print :GOOGLE_APP_ID\" \"$plistPath\")\n\nif [ -z \"$googleAppID\" ]\nthen\n    echo \"GoogleAppID is empty. The FirebaseCrashlytics script will be skipped.\"\nelse\n    \"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\nfi\n";
 		};
 		0770DE2328D08647006D8A5D /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
