@@ -427,8 +427,8 @@
 				07D5DA2F28D075AA00752FD9 /* Resources */,
 				0770DE1528D07845006D8A5D /* Embed Frameworks */,
 				DB97C0542B002EF00035C36F /* Process Config */,
-				02F175442A4E3B320019CD70 /* FirebaseCrashlytics */,
 				14D912D42C25493C0077CCCE /* Run FullStory Asset Uploader */,
+				02F175442A4E3B320019CD70 /* FirebaseCrashlytics */,
 			);
 			buildRules = (
 			);
