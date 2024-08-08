@@ -72,11 +72,11 @@ public struct UpgradeInfoView<Content>: View where Content: View {
                     action: {
                         findAction?()
                     },
-                    isTransparent: true,
-                    isTitleTracking: false
+                    color: Theme.Colors.background,
+                    textColor: Theme.Colors.accentButtonColor,
+                    borderColor: Theme.Colors.accentButtonColor
                 )
                 .frame(height: 42)
-                .colorMultiply(Theme.Colors.accentColor)
                 .padding(.horizontal, 20)
                 .padding(.bottom, 20)
             }
