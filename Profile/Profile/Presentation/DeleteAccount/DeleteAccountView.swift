@@ -136,8 +136,8 @@ public struct DeleteAccountView: View {
                         .accessibilityIdentifier("back_button")
                     }
                     .frameLimit(width: proxy.size.width)
+                    .padding(.horizontal, 24)
                 }
-                .padding(.horizontal, 24)
                 .frame(minHeight: 0,
                        maxHeight: .infinity,
                        alignment: .top)
