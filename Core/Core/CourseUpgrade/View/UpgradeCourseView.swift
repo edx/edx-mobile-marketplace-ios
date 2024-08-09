@@ -91,9 +91,8 @@ public struct UpgradeCourseView: View {
                             )
                             if !isHorizontal {
                                 VStack {
-                                    CoreAssets.trophy.swiftUIImage.renderingMode(.template)
+                                    CoreAssets.trophyCircular.swiftUIImage
                                         .resizable()
-                                        .foregroundColor(Theme.Colors.accentColor)
                                         .frame(width: 96, height: 96)
                                         .padding(.bottom, 4)
                                 }
