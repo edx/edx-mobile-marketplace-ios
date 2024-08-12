@@ -66,6 +66,7 @@ public class YoutubePlayerViewControllerHolder: PlayerViewControllerHolderProtoc
         let youtubePlayer = playerTracker.player as? YouTubePlayer
         var configuration = youtubePlayer?.configuration
         configuration?.autoPlay = !pipManager.isPipActive
+        configuration?.fullscreenMode = .web
         if let configuration = configuration {
             youtubePlayer?.update(configuration: configuration)
         }
