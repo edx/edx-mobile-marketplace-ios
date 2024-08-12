@@ -232,9 +232,8 @@ public class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, CourseSto
     
     public var videoPlaybackSpeed: Float? {
         get {
-            return userDefaults.float(forKey: KEY_VIDEO_PLAYBACK_SPEED) > 0.0 ?
-            userDefaults.float(forKey: KEY_VIDEO_PLAYBACK_SPEED)
-            : nil
+            let value = userDefaults.float(forKey: KEY_VIDEO_PLAYBACK_SPEED) 
+            return value > 0.0 ? value : nil
         }
         set(newValue) {
             if let newValue {
