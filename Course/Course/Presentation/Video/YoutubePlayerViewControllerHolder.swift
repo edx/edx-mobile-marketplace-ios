@@ -53,7 +53,8 @@ public class YoutubePlayerViewControllerHolder: PlayerViewControllerHolderProtoc
         pipManager: PipManagerProtocol,
         playerTracker: any PlayerTrackerProtocol,
         playerDelegate: PlayerDelegateProtocol?,
-        playerService: PlayerServiceProtocol
+        playerService: PlayerServiceProtocol,
+        appStorage: CourseStorage?
     ) {
         self.url = url
         self.blockID = blockID
@@ -181,7 +182,8 @@ extension YoutubePlayerViewControllerHolder {
                 blockID: "",
                 interactor: CourseInteractor.mock,
                 router: CourseRouterMock()
-            )
+            ),
+            appStorage: nil
         )
     }
 }

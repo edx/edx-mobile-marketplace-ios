@@ -7,7 +7,6 @@
 
 import AVKit
 import Combine
-import Swinject
 
 public protocol PlayerViewControllerHolderProtocol: AnyObject {
     var url: URL? { get }
@@ -28,7 +27,8 @@ public protocol PlayerViewControllerHolderProtocol: AnyObject {
         pipManager: PipManagerProtocol,
         playerTracker: any PlayerTrackerProtocol,
         playerDelegate: PlayerDelegateProtocol?,
-        playerService: PlayerServiceProtocol
+        playerService: PlayerServiceProtocol,
+        appStorage: CourseStorage?
     )
     func getTimePublisher() -> AnyPublisher<Double, Never>
     func getErrorPublisher() -> AnyPublisher<Error, Never>
@@ -74,6 +74,7 @@ public class PlayerViewControllerHolder: PlayerViewControllerHolderProtocol {
     private let errorPublisher = PassthroughSubject<Error, Never>()
     private var isViewedOnce: Bool = false
     private var cancellations: [AnyCancellable] = []
+    private var appStorage: CourseStorage?
 
     let pipManager: PipManagerProtocol
 
@@ -86,10 +87,9 @@ public class PlayerViewControllerHolder: PlayerViewControllerHolderProtocol {
         playerController.player = playerTracker.player as? AVPlayer
         playerController.player?.currentItem?.preferredMaximumResolution = videoResolution
 
-        let storage = Container.shared.resolve(CourseStorage.self)
-        if let speed = storage?.videoPlaybackSpeed {
+        if let speed = appStorage?.videoPlaybackSpeed {
             if #available(iOS 16.0, *) {
-                if let playbackSpeed = playerController.speeds.first (where: { $0.rate == speed }) {
+                if let playbackSpeed = playerController.speeds.first(where: { $0.rate == speed }) {
                     playerController.selectSpeed(playbackSpeed)
                 }
             } else {
@@ -110,7 +110,8 @@ public class PlayerViewControllerHolder: PlayerViewControllerHolderProtocol {
         pipManager: PipManagerProtocol,
         playerTracker: any PlayerTrackerProtocol,
         playerDelegate: PlayerDelegateProtocol?,
-        playerService: PlayerServiceProtocol
+        playerService: PlayerServiceProtocol,
+        appStorage: CourseStorage?
     ) {
         self.url = url
         self.blockID = blockID
@@ -121,6 +122,7 @@ public class PlayerViewControllerHolder: PlayerViewControllerHolderProtocol {
         self.playerTracker = playerTracker
         self.playerDelegate = playerDelegate
         self.playerService = playerService
+        self.appStorage = appStorage
         addObservers()
     }
     
@@ -157,8 +159,7 @@ public class PlayerViewControllerHolder: PlayerViewControllerHolderProtocol {
     }
 
     private func saveSelectedRate(rate: Float) {
-        guard var storage = Container.shared.resolve(CourseStorage.self) else { return }
-        if storage.videoPlaybackSpeed != rate {
+        if var storage = appStorage, storage.videoPlaybackSpeed != rate {
             storage.videoPlaybackSpeed = rate
         }
     }
@@ -235,7 +236,8 @@ extension PlayerViewControllerHolder {
                 blockID: "",
                 interactor: CourseInteractor.mock,
                 router: CourseRouterMock()
-            )
+            ),
+            appStorage: CourseStorageMock()
         )
     }
 }

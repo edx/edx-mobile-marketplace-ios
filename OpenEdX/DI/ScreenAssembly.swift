@@ -419,7 +419,8 @@ class ScreenAssembly: Assembly {
                 pipManager: r.resolve(PipManagerProtocol.self)!,
                 playerTracker: r.resolve(YoutubePlayerTracker.self, argument: url)!,
                 playerDelegate: nil,
-                playerService: r.resolve(PlayerServiceProtocol.self, arguments: courseID, blockID)!
+                playerService: r.resolve(PlayerServiceProtocol.self, arguments: courseID, blockID)!,
+                appStorage: nil
             )
         }
 
@@ -449,7 +450,8 @@ class ScreenAssembly: Assembly {
                 pipManager: pipManager,
                 playerTracker: tracker,
                 playerDelegate: delegate,
-                playerService: r.resolve(PlayerServiceProtocol.self, arguments: courseID, blockID)!
+                playerService: r.resolve(PlayerServiceProtocol.self, arguments: courseID, blockID)!,
+                appStorage: r.resolve(CourseStorage.self)!
             )
             delegate.playerHolder = holder
             return holder
