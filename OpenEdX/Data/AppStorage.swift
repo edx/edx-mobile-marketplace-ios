@@ -230,6 +230,21 @@ public class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, CourseSto
         }
     }
     
+    public var videoPlaybackSpeed: Float? {
+        get {
+            return userDefaults.float(forKey: KEY_VIDEO_PLAYBACK_SPEED) > 0.0 ?
+            userDefaults.float(forKey: KEY_VIDEO_PLAYBACK_SPEED)
+            : nil
+        }
+        set(newValue) {
+            if let newValue {
+                userDefaults.set(newValue, forKey: KEY_VIDEO_PLAYBACK_SPEED)
+            } else {
+                userDefaults.removeObject(forKey: KEY_VIDEO_PLAYBACK_SPEED)
+            }
+        }
+    }
+    
     public func clear() {
         accessToken = nil
         refreshToken = nil
@@ -258,4 +273,5 @@ public class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, CourseSto
     private let KEY_APPLE_SIGN_EMAIL = "appleSignEmail"
     private let KEY_ALLOWED_DOWNLOAD_LARGE_FILE = "allowedDownloadLargeFile"
     private let KEY_RESET_APP_SUPPORT_DIRECTORY_USER_DATA = "resetAppSupportDirectoryUserData"
+    private let KEY_VIDEO_PLAYBACK_SPEED = "videosPlaybackSpeed"
 }
