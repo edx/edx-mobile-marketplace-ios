@@ -7,6 +7,7 @@
 
 import AVKit
 import Combine
+import Swinject
 
 public protocol PlayerViewControllerHolderProtocol: AnyObject {
     var url: URL? { get }
@@ -84,6 +85,19 @@ public class PlayerViewControllerHolder: PlayerViewControllerHolderProtocol {
         playerController.delegate = playerDelegate
         playerController.player = playerTracker.player as? AVPlayer
         playerController.player?.currentItem?.preferredMaximumResolution = videoResolution
+
+        let storage = Container.shared.resolve(CourseStorage.self)
+        if let speed = storage?.videoPlaybackSpeed {
+            if #available(iOS 16.0, *) {
+                if let playbackSpeed = playerController.speeds.first (where: { $0.rate == speed }) {
+                    playerController.selectSpeed(playbackSpeed)
+                }
+            } else {
+                // Fallback on earlier versions
+                playerController.player?.rate = speed
+            }
+        }
+
         return playerController
     }()
 
@@ -131,6 +145,7 @@ public class PlayerViewControllerHolder: PlayerViewControllerHolderProtocol {
             .sink {[weak self] rate in
                 guard rate > 0 else { return }
                 self?.pausePipIfNeed()
+                self?.saveSelectedRate(rate: rate)
             }
             .store(in: &cancellations)
         pipManager.pipRatePublisher()?
@@ -139,6 +154,13 @@ public class PlayerViewControllerHolder: PlayerViewControllerHolderProtocol {
                 self?.playerController?.pause()
             }
             .store(in: &cancellations)
+    }
+
+    private func saveSelectedRate(rate: Float) {
+        guard var storage = Container.shared.resolve(CourseStorage.self) else { return }
+        if storage.videoPlaybackSpeed != rate {
+            storage.videoPlaybackSpeed = rate
+        }
     }
 
     public func pausePipIfNeed() {
