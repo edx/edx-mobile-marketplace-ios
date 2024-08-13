@@ -207,8 +207,8 @@ class AppAssembly: Assembly {
             FirebaseAnalyticsService()
         }.inObjectScope(.container)
         
-        container.register(FullStoryAnalyticsService.self) { r in
-            FullStoryAnalyticsService()
+        container.register(FullStoryAnalyticsService.self) { _, firebaseEnabled in
+            FullStoryAnalyticsService(firebaseEnabled)
         }.inObjectScope(.container)
         
         container.register(PipManagerProtocol.self) { r in

@@ -56,7 +56,10 @@ class AnalyticsManager: AuthorizationAnalytics,
         }
         
         if config.fullStory.enabled,
-           let fullStoryService = Container.shared.resolve(FullStoryAnalyticsService.self) {
+           let fullStoryService = Container.shared.resolve(
+            FullStoryAnalyticsService.self,
+            argument: config.firebase.enabled
+           ) {
             analyticsServices.append(fullStoryService)
         }
         
