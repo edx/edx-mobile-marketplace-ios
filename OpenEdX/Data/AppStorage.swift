@@ -163,15 +163,22 @@ public class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, CourseSto
 
     public var userSettings: UserSettings? {
         get {
-            guard let userSettings = userDefaults.data(forKey: KEY_SETTINGS) else {
-                let defaultSettings = UserSettings(wifiOnly: true, streamingQuality: .auto, downloadQuality: .auto)
+            if let userSettings = userDefaults.data(forKey: KEY_SETTINGS),
+                let settings = try? JSONDecoder().decode(UserSettings.self, from: userSettings) {
+                return settings
+            } else {
+                let defaultSettings = UserSettings(
+                    wifiOnly: true,
+                    streamingQuality: .auto,
+                    downloadQuality: .auto,
+                    playbackSpeed: 1.0
+                )
                 let encoder = JSONEncoder()
                 if let encoded = try? encoder.encode(defaultSettings) {
                     userDefaults.set(encoded, forKey: KEY_SETTINGS)
                 }
                 return defaultSettings
             }
-            return try? JSONDecoder().decode(UserSettings.self, from: userSettings)
         }
         set(newValue) {
             if let settings = newValue {
@@ -230,20 +237,6 @@ public class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, CourseSto
         }
     }
     
-    public var videoPlaybackSpeed: Float? {
-        get {
-            let value = userDefaults.float(forKey: KEY_VIDEO_PLAYBACK_SPEED)
-            return value > 0.0 ? value : nil
-        }
-        set(newValue) {
-            if let newValue {
-                userDefaults.set(newValue, forKey: KEY_VIDEO_PLAYBACK_SPEED)
-            } else {
-                userDefaults.removeObject(forKey: KEY_VIDEO_PLAYBACK_SPEED)
-            }
-        }
-    }
-    
     public func clear() {
         accessToken = nil
         refreshToken = nil
@@ -272,5 +265,4 @@ public class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, CourseSto
     private let KEY_APPLE_SIGN_EMAIL = "appleSignEmail"
     private let KEY_ALLOWED_DOWNLOAD_LARGE_FILE = "allowedDownloadLargeFile"
     private let KEY_RESET_APP_SUPPORT_DIRECTORY_USER_DATA = "resetAppSupportDirectoryUserData"
-    private let KEY_VIDEO_PLAYBACK_SPEED = "videosPlaybackSpeed"
 }
