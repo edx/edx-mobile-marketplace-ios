@@ -135,6 +135,7 @@ public enum CoreAssets {
   public static let star = ImageAsset(name: "star")
   public static let starOutline = ImageAsset(name: "star_outline")
   public static let trophy = ImageAsset(name: "trophy")
+  public static let trophyCircular = ImageAsset(name: "trophy_circular")
   public static let viewAll = ImageAsset(name: "viewAll")
   public static let warning = ImageAsset(name: "warning")
   public static let warningFilled = ImageAsset(name: "warning_filled")

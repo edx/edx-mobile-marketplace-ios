@@ -415,7 +415,7 @@ public class DashboardPersistence: DashboardPersistenceProtocol {
                 cdPrimaryCourse.sku = primaryCourse.sku
                 cdPrimaryCourse.lmsPrice = lmsPrice
                 cdPrimaryCourse.isUpgradeable = primaryCourse.isUpgradeable
-                cdPrimaryCourse.isSelfPaced = primaryCourse.isSelfPaced ?? false
+                cdPrimaryCourse.isSelfPaced = primaryCourse.isSelfPaced
                 
                 newEnrollment.primaryCourse = cdPrimaryCourse
             }
