@@ -72,7 +72,11 @@ public class VideoPlayerViewModel: ObservableObject {
         
         playerHolder.getTimePublisher()
             .sink {[weak self] time in
-                self?.currentTime = time
+                if time.isNaN {
+                    self?.currentTime = 0.0
+                } else {
+                    self?.currentTime = time
+                }
             }
             .store(in: &subscription)
         playerHolder.getErrorPublisher()
@@ -103,7 +107,7 @@ public class VideoPlayerViewModel: ObservableObject {
 
             subtitles = result
         } catch {
-            print(">>>>> ⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️", error)
+            debugLog(">>>>> ⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️", error)
         }
     }
     
