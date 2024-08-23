@@ -40,9 +40,9 @@
     </scenes>
     <color key="tintColor" name="SplashBackground"/>
     <resources>
-        <image name="appLogo" width="171" height="48"/>
+        <image name="appLogo" width="199" height="112"/>
         <namedColor name="SplashBackground">
-            <color red="0.31764705882352939" green="0.4823529411764706" blue="0.99607843137254903" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.98431372549019602" green="0.98039215686274506" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
