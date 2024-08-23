@@ -252,16 +252,9 @@ class ConfigurationManager:
         fullstory = config.get('FULLSTORY', {})
         enabled = fullstory.get('ENABLED')
         orgID = fullstory.get('ORG_ID')
-        swiftUIEnabled = fullstory.get('SWIFTUI_ENABLED')
-        swiftUISelectorVersion = fullstory.get('SWIFTUI_SELECTOR_VERSION')
-        swiftUIPreviewVersion = fullstory.get('SWIFTUI_PREVIEW_VERSION')
-        
+
         if enabled and orgID:
-            plist["FullStory"] = {"orgID": orgID,
-                                  "SwiftUIEnabled": swiftUIEnabled,
-                                  "SwiftUISelectorVersion": swiftUISelectorVersion,
-                                  "SwiftUISelectorPreview": swiftUIPreviewVersion
-                                  }
+            plist["FullStory"] = {"orgID": orgID}
 
     def update_info_plist(self, plist_data, plist_path):
         if not plist_path:
