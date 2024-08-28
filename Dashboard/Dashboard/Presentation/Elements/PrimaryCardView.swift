@@ -32,6 +32,9 @@ public struct PrimaryCardView: View {
     private var upgradeAction: () -> Void
     private var isUpgradeable: Bool
     @Environment(\.isHorizontal) var isHorizontal
+    private var canShowFutureAssignments: Bool {
+        return !isUpgradeable || pastAssignments.count <= 0
+    }
     
     public init(
         courseName: String,
@@ -160,7 +163,7 @@ public struct PrimaryCardView: View {
             }
             
             // futureAssignment
-            if !futureAssignments.isEmpty {
+            if !futureAssignments.isEmpty && canShowFutureAssignments {
                 if futureAssignments.count == 1, let futureAssignment = futureAssignments.first {
                     let daysRemaining = Calendar.current.dateComponents(
                         [.day],
@@ -179,7 +182,7 @@ public struct PrimaryCardView: View {
                             assignmentAction(futureAssignments.first?.firstComponentBlockId)
                         }
                     )
-                } else if futureAssignments.count > 1 {
+                } else if futureAssignments.count > 1 && canShowFutureAssignments {
                     if let firtsData = futureAssignments.sorted(by: { $0.date < $1.date }).first {
                         courseButton(
                             title: DashboardLocalization.Learn.PrimaryCard.futureAssignments(
