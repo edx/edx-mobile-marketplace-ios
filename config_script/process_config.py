@@ -21,7 +21,7 @@ class PlistManager:
 
     def get_info_plist_path(self):
         return os.getenv('INFOPLIST_PATH')
-        
+
     def get_wrapper_name(self):
         return os.getenv('WRAPPER_NAME')
 
@@ -34,12 +34,12 @@ class PlistManager:
     def get_app_info_plist_path(self):
         built_products_path = self.get_built_products_path()
         info_plist_path = self.get_info_plist_path()
-        
+
         if built_products_path and info_plist_path:
             return os.path.join(built_products_path, info_plist_path)
         else:
             return None
-            
+
     def get_firebase_info_plist_path(self):
         built_products_path = self.get_built_products_path()
         wrapper_name = self.get_wrapper_name()
@@ -138,27 +138,27 @@ class ConfigurationManager:
             'CFBundleTypeRole': 'Editor',
             'CFBundleURLSchemes': scheme
         }
-        
+
         if addBundleURL:
             bundle_identifier = self.plist_manager.get_bundle_identifier()
             body['CFBundleURLName'] = bundle_identifier
-            
+
         existing = plist.get('CFBundleURLTypes', [])
         found = any(scheme in entry.get('CFBundleURLSchemes', []) for entry in existing)
-        
+
         if not found:
             existing.append(body)
             plist['CFBundleURLTypes'] = existing
-    
+
     def add_custom_array(self, key, array, plist):
         existing = plist.get(key, [])
-        
+
         for element in array:
             if element not in existing:
                 existing.append(element)
-                
+
             plist[key] = existing
-            
+
     def add_application_query_schemes(self, schemes, plist):
         existing = plist.get('LSApplicationQueriesSchemes', [])
         for scheme in schemes:
@@ -170,7 +170,7 @@ class ConfigurationManager:
     def add_firebase_config(self, config, firebase_info_plist_path):
         plist = {}
         firebase = config.get('FIREBASE', {})
-        
+
         if firebase_info_plist_path and firebase:
             plist['BUNDLE_ID'] = self.plist_manager.get_bundle_identifier()
             plist['API_KEY'] = firebase.get('API_KEY', '')
@@ -191,31 +191,31 @@ class ConfigurationManager:
             self.plist_manager.write_to_plist_file(plist, self.plist_manager.get_firebase_info_plist_path())
         else:
             print("Firebase config is empty. Skipping")
-   
+
     def add_branch_config(self, config, plist):
         branch = config.get('BRANCH', {})
         enabled = branch.get('ENABLED')
         uriScheme = branch.get('URI_SCHEME')
         prefix = branch.get('DEEPLINK_PREFIX')
-        
+
         if not prefix:
             prefix = "edx"
-        
+
         if enabled:
             if uriScheme:
                 scheme = [uriScheme]
             else:
                 bundle_identifier = self.plist_manager.get_bundle_identifier()
                 scheme = [bundle_identifier]
-                
+
             self.add_custom_array("branch_universal_link_domains", [
                 prefix+".app.link",
                 prefix+"-alternate.app.link",
                 prefix+".test-app.link",
                 prefix+"-alternate.test-app.link"
                 ], plist)
-            self.add_url_scheme(scheme, plist, True)    
-            
+            self.add_url_scheme(scheme, plist, True)
+
     def add_facebook_config(self, config, plist):
         facebook = config.get('FACEBOOK', {})
         key = facebook.get('FACEBOOK_APP_ID')
@@ -247,14 +247,22 @@ class ConfigurationManager:
             scheme = ["msauth." + bundle_identifier]
             self.add_url_scheme(scheme, plist, False)
             self.add_application_query_schemes(["msauthv2", "msauthv3"], plist)
-            
+
     def add_fullstory_config(self, config, plist):
         fullstory = config.get('FULLSTORY', {})
         enabled = fullstory.get('ENABLED')
         orgID = fullstory.get('ORG_ID')
+        swiftUIEnabled = fullstory.get('SWIFTUI_ENABLED')
+        swiftUISelectorVersion = fullstory.get('SWIFTUI_SELECTOR_VERSION')
+        swiftUIPreviewVersion = fullstory.get('SWIFTUI_PREVIEW_VERSION')
 
         if enabled and orgID:
-            plist["FullStory"] = {"orgID": orgID}
+            plist["FullStory"] = {
+            "orgID": orgID,
+            "SwiftUIEnabled": swiftUIEnabled,
+            "SwiftUISelectorVersion": swiftUISelectorVersion,
+            "SwiftUISelectorPreview": swiftUIPreviewVersion
+            }
 
     def update_info_plist(self, plist_data, plist_path):
         if not plist_path:
@@ -321,13 +329,13 @@ def process_plist_files(configuration_manager, plist_manager, config):
 
 def main(configuration, scheme_mappings):
     current_config = get_current_config(configuration, scheme_mappings)
-    
+
     if current_config is None:
         print("Config not found in mappings. Exiting.")
         sys.exit(1)
 
     config_settings = parse_yaml(CONFIG_SETTINGS_YAML_FILENAME)
-    
+
     if not config_settings:
         print("Parsing default config.")
         config_settings = parse_yaml(DEFAULT_CONFIG_PATH)
@@ -339,7 +347,7 @@ def main(configuration, scheme_mappings):
         path = os.path.join(config_directory, config_name)
         mappings_path = os.path.join(path, MAPPINGS_FILENAME)
         data = parse_yaml(mappings_path)
-        
+
         if data:
             ios_files = data.get('ios', {}).get('files', [])
             plist_manager = PlistManager(path, ios_files)
