@@ -179,6 +179,7 @@ extension DiscoveryWebviewViewModel: WebViewNavigationDelegate {
             }
         case .courseDetail:
             guard let pathID = detailPathID(from: url) else { return false }
+            analytics.discoveryScreenEvent(event: .viewCourseClicked, biValue: .viewCourseClicked)
             router.showWebDiscoveryDetails(
                 pathID: pathID,
                 discoveryType: .courseDetail(pathID),

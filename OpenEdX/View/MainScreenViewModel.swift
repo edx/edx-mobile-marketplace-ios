@@ -59,14 +59,21 @@ final class MainScreenViewModel: ObservableObject {
     func trackMainDiscoveryTabClicked() {
         analytics.mainDiscoveryTabClicked()
     }
-    func trackMainDashboardTabClicked() {
-        analytics.mainDashboardTabClicked()
+    
+    func trackMainDashboardLearnTabClicked() {
+        analytics.mainLearnTabClicked()
     }
+    
     func trackMainProgramsTabClicked() {
         analytics.mainProgramsTabClicked()
     }
+    
     func trackMainProfileTabClicked() {
         analytics.mainProfileTabClicked()
+    }
+    
+    func trackMainDashboardMyCoursesClicked() {
+        analytics.mainCoursesClicked()
     }
 
     public func checkIfNeedToShowRegisterBanner() {

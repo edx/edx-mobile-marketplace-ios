@@ -178,7 +178,7 @@ struct MainScreenView: View {
             case .discovery:
                 viewModel.trackMainDiscoveryTabClicked()
             case .dashboard:
-                viewModel.trackMainDashboardTabClicked()
+                viewModel.trackMainDashboardLearnTabClicked()
             case .programs:
                 viewModel.trackMainProgramsTabClicked()
             case .profile:
@@ -192,6 +192,8 @@ struct MainScreenView: View {
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 viewModel.checkIfNeedToShowRegisterBanner()
             }
+            viewModel.trackMainDashboardLearnTabClicked()
+            viewModel.trackMainDashboardMyCoursesClicked()
         }
         .accentColor(Theme.Colors.accentXColor)
     }

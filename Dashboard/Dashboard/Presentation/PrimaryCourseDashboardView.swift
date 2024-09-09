@@ -136,7 +136,7 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
                                                                 sku: primary.sku ?? "",
                                                                 courseID: primary.courseID,
                                                                 screen: .dashboard,
-                                                                pacing: primary.isSelfPaced ? 
+                                                                pacing: primary.isSelfPaced ?
                                                                     Pacing.selfPace.rawValue :
                                                                     Pacing.instructor.rawValue,
                                                                 lmsPrice: primary.lmsPrice ?? .zero
@@ -235,10 +235,6 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
             id: \.offset
         ) { _, course in
             Button(action: {
-                viewModel.trackDashboardCourseClicked(
-                    courseID: course.courseID,
-                    courseName: course.name
-                )
                 router.showCourseScreens(
                     courseID: course.courseID,
                     hasAccess: course.hasAccess,
@@ -335,7 +331,7 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
                     }
                     if showDropdown {
                         HStack(alignment: .center) {
-                            DropDownMenu(selectedOption: $selectedMenu)
+                            DropDownMenu(selectedOption: $selectedMenu, analytics: viewModel.analytics)
                             Spacer()
                         }
                     }

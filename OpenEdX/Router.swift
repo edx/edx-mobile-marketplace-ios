@@ -397,6 +397,10 @@ public class Router: AuthorizationRouter,
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             Container.shared.resolve(PushNotificationsManager.self)?.performRegistration()
         }
+        
+        if let analytics = Container.shared.resolve(DashboardAnalytics.self) {
+            analytics.dashboardCourseClicked(courseID: courseID, courseName: title)
+        }
     }
     
     public func getCourseScreensController(

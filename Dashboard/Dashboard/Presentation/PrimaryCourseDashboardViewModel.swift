@@ -28,7 +28,7 @@ public class PrimaryCourseDashboardViewModel: ObservableObject {
     
     let connectivity: ConnectivityProtocol
     private let interactor: DashboardInteractorProtocol
-    private let analytics: DashboardAnalytics
+    let analytics: DashboardAnalytics
     let config: ConfigProtocol
     let serverConfig: ServerConfigProtocol
     private var cancellables = Set<AnyCancellable>()
