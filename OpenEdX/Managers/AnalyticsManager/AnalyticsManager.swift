@@ -55,6 +55,7 @@ class AnalyticsManager: AuthorizationAnalytics,
             analyticsServices.append(segmentService)
         }
         
+        #if PROD
         if config.fullStory.enabled,
            let fullStoryService = Container.shared.resolve(
             FullStoryAnalyticsService.self,
@@ -62,6 +63,7 @@ class AnalyticsManager: AuthorizationAnalytics,
            ) {
             analyticsServices.append(fullStoryService)
         }
+        #endif
         
         return analyticsServices
     }

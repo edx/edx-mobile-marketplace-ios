@@ -17,6 +17,7 @@ class FullStoryAnalyticsService: NSObject, AnalyticsService, FSDelegate {
         self.firebaseEnabled = firebaseEnabled
         super.init()
         FS.delegate = self
+        FS.restart()
     }
     
     func identify(id: String, username: String?, email: String?) {

@@ -73,6 +73,34 @@
 		E0D6E6A42B1626D60089F9C9 /* Theme.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E0D6E6A22B1626B10089F9C9 /* Theme.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
+/* Begin PBXBuildRule section */
+		97C7D9712C7E115E00C1BDC0 /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			fileType = sourcecode.swift;
+			inputFiles = (
+			);
+			isEditable = 1;
+			outputFiles = (
+				"$(DERIVED_FILE_DIR)/$(INPUT_FILE_BASE)_transformed.swift",
+			);
+			runOncePerArchitecture = 0;
+			script = "\"${BUILD_DIR%Build/*}/SourcePackages/artifacts/fullstory-swift-package-ios/fullstory/tools/FullStorySwiftUITransformer\" \"$SCRIPT_INPUT_FILE\" \"$DERIVED_FILE_DIR/${INPUT_FILE_BASE}_transformed.swift\"\n";
+		};
+		97C7D9722C7E571800C1BDC0 /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.xcode.tools.swift.compiler;
+			filePatterns = "*_transformed.swift";
+			fileType = pattern.proxy;
+			inputFiles = (
+			);
+			isEditable = 1;
+			outputFiles = (
+			);
+			script = "# Type a script or drag a script file from your workspace to insert its path.\n";
+		};
+/* End PBXBuildRule section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		0770DE1528D07845006D8A5D /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -431,6 +459,8 @@
 				02F175442A4E3B320019CD70 /* FirebaseCrashlytics */,
 			);
 			buildRules = (
+				97C7D9722C7E571800C1BDC0 /* PBXBuildRule */,
+				97C7D9712C7E115E00C1BDC0 /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
@@ -565,7 +595,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [\"$ FULLSTORY_ENABLED\" = \"YES\"]; then\n    \"${PODS_ROOT}/FullStory/tools/FullStoryCommandLine\" \"${CONFIGURATION_BUILD_DIR}/${WRAPPER_NAME}\"\nfi\n";
+			shellScript = "\"${BUILD_DIR%Build/*}/SourcePackages/artifacts/fullstory-swift-package-ios/fullstory/tools/FullStoryCommandLine\" \"${CONFIGURATION_BUILD_DIR}/${WRAPPER_NAME}\"\n";
 		};
 		B9442FD26CE9A85A43FC2CFA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -868,6 +898,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = STAGE;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1052,6 +1083,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEV;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1236,6 +1268,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = PROD;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1287,7 +1320,7 @@
 			repositoryURL = "https://github.com/fullstorydev/fullstory-swift-package-ios";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.49.0;
+				minimumVersion = 1.51.1;
 			};
 		};
 		A51CDBEB2B6D2BEE009B6D4E /* XCRemoteSwiftPackageReference "braze-segment-swift" */ = {
