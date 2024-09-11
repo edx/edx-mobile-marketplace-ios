@@ -267,7 +267,7 @@ class ConfigurationManager:
             }
         else:
             plist["FullStory"] = {
-            "orgID": 'o-1XJF5N-na1',
+            "orgID": '00000',
             "RecordOnStart": False,
             "SwiftUIEnabled": True,
             "SwiftUISelectorVersion": 3,
