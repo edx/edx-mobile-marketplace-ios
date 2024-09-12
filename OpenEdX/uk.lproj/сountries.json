@@ -920,11 +920,6 @@
     "default": false
   },
   {
-    "value": "RU",
-    "name": "Росія",
-    "default": false
-  },
-  {
     "value": "RW",
     "name": "Руанда",
     "default": false

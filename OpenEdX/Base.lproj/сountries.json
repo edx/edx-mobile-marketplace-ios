@@ -920,11 +920,6 @@
     "default": false
   },
   {
-    "value": "RU",
-    "name": "Russia",
-    "default": false
-  },
-  {
     "value": "RW",
     "name": "Rwanda",
     "default": false
