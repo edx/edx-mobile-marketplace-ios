@@ -245,15 +245,7 @@ public class CourseRepository: CourseRepositoryProtocol {
                 .replacingOccurrences(of: "?lang=\($0.key)", with: "")
             return SubtitleUrl(language: $0.key, url: url)
         }
-        
-        let type: BlockType = {
-            let initialType = BlockType(rawValue: block.type) ?? .unknown
-            if initialType == .html, let multiDevice = block.multiDevice {
-                return multiDevice ? initialType : .unknown
-            }
-            return initialType
-        }()
-        
+            
         return CourseBlock(
             blockId: block.blockId,
             id: block.id,
@@ -262,7 +254,7 @@ public class CourseRepository: CourseRepositoryProtocol {
             graded: block.graded,
             due: block.due == nil ? nil : Date(iso8601: block.due!),
             completion: block.completion ?? 0,
-            type: type,
+            type: BlockType(rawValue: block.type) ?? .unknown,
             displayName: block.displayName,
             studentUrl: block.studentUrl,
             webUrl: block.webUrl,
@@ -505,15 +497,7 @@ And there are various ways of describing it-- call it oral poetry or
             let url = $0.value
             return SubtitleUrl(language: $0.key, url: url)
         }
-        
-        let type: BlockType = {
-            let initialType = BlockType(rawValue: block.type) ?? .unknown
-            if initialType == .html, let multiDevice = block.multiDevice {
-                return multiDevice ? initialType : .unknown
-            }
-            return initialType
-        }()
-        
+            
         return CourseBlock(
             blockId: block.blockId,
             id: block.id,
@@ -522,7 +506,7 @@ And there are various ways of describing it-- call it oral poetry or
             graded: block.graded,
             due: block.due == nil ? nil : Date(iso8601: block.due!),
             completion: block.completion ?? 0,
-            type: type,
+            type: BlockType(rawValue: block.type) ?? .unknown,
             displayName: block.displayName,
             studentUrl: block.studentUrl,
             webUrl: block.webUrl,
