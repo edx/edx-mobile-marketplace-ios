@@ -20,12 +20,14 @@ public enum LessonType: Equatable {
         switch block.type {
         case .course, .chapter, .vertical, .sequential:
             return .unknown(block.studentUrl)
-        case .html, .unknown:
+        case .unknown:
             if let multiDevice = block.multiDevice, multiDevice {
                 return .web(url: block.studentUrl, injections: mandatoryInjections)
             } else {
                 return .unknown(block.studentUrl)
             }
+        case .html:
+            return .web(url: block.studentUrl, injections: mandatoryInjections)
         case .discussion:
             return .discussion(block.topicId ?? "", block.id, block.displayName)
         case .video:
