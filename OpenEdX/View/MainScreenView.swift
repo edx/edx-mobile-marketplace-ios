@@ -95,7 +95,11 @@ struct MainScreenView: View {
                     registerBanner
                 }
                 .tabItem {
-                    CoreAssets.learn.swiftUIImage.renderingMode(.template)
+                    if viewModel.selection == .dashboard {
+                        CoreAssets.learnActive.swiftUIImage.renderingMode(.template)
+                    } else {
+                        CoreAssets.learnInactive.swiftUIImage.renderingMode(.template)
+                    }
                     Text(CoreLocalization.Mainscreen.learn)
                 }
                 .tag(MainTab.dashboard)
@@ -125,7 +129,11 @@ struct MainScreenView: View {
                     }
                 }
                 .tabItem {
-                    CoreAssets.discovery.swiftUIImage.renderingMode(.template)
+                    if viewModel.selection == .discovery {
+                        CoreAssets.discoverActive.swiftUIImage.renderingMode(.template)
+                    } else {
+                        CoreAssets.discoverInactive.swiftUIImage.renderingMode(.template)
+                    }
                     Text(CoreLocalization.Mainscreen.discovery)
                 }
                 .tag(MainTab.discovery)
@@ -138,7 +146,11 @@ struct MainScreenView: View {
                 )
             }
             .tabItem {
-                CoreAssets.profile.swiftUIImage.renderingMode(.template)
+                if viewModel.selection == .profile {
+                    CoreAssets.profileActive.swiftUIImage.renderingMode(.template)
+                } else {
+                    CoreAssets.profileInactive.swiftUIImage.renderingMode(.template)
+                }
                 Text(CoreLocalization.Mainscreen.profile)
             }
             .tag(MainTab.profile)
