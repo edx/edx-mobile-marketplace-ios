@@ -228,7 +228,7 @@ public struct EditProfileView: View {
                         }
                     },
                     removePhoto: {
-                        viewModel.inputImage = nil
+                        viewModel.inputImage = CoreAssets.noAvatar.image
                         viewModel.profileChanges.isAvatarDeleted = true
                         showingBottomSheet = false
                     })
