@@ -202,7 +202,7 @@ struct UserAvatar: View {
     private var url: URL?
     private var borderColor: Color
     @Binding private var image: UIImage?
-    init(url: String, image: Binding<UIImage?>, borderColor: Color = .clear) {
+    init(url: String, image: Binding<UIImage?>, borderColor: Color = Theme.Colors.avatarStroke) {
         if let rightUrl = URL(string: url) {
             self.url = rightUrl
         } else {

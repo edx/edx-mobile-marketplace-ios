@@ -42,12 +42,7 @@ public struct EditProfileView: View {
                                 showingBottomSheet.toggle()
                             }
                         }, label: {
-                            UserAvatar(
-                                url: viewModel.userModel.avatarUrl,
-                                image: $viewModel.inputImage,
-                                borderColor: Theme.Colors.accentColor
-                                    
-                            )
+                            UserAvatar(url: viewModel.userModel.avatarUrl, image: $viewModel.inputImage)
                             .padding(.top, 30)
                             .overlay(
                                 ZStack {
