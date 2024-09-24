@@ -42,19 +42,24 @@ public struct EditProfileView: View {
                                 showingBottomSheet.toggle()
                             }
                         }, label: {
-                            UserAvatar(url: viewModel.userModel.avatarUrl, image: $viewModel.inputImage)
-                                .padding(.top, 30)
-                                .overlay(
-                                    ZStack {
-                                        if !viewModel.userModel.requiresParentalConsent {
-                                            Circle().frame(width: 36, height: 36)
-                                                .foregroundColor(Theme.Colors.accentXColor)
-                                            
-                                            CoreAssets.addPhoto.swiftUIImage.renderingMode(.template)
-                                                .foregroundColor(Theme.Colors.primaryButtonTextColor)
-                                        }
-                                    }.offset(x: 36, y: 50)
-                                )
+                            UserAvatar(
+                                url: viewModel.userModel.avatarUrl,
+                                image: $viewModel.inputImage,
+                                borderColor: Theme.Colors.accentColor
+                                    
+                            )
+                            .padding(.top, 30)
+                            .overlay(
+                                ZStack {
+                                    if !viewModel.userModel.requiresParentalConsent {
+                                        Circle().frame(width: 36, height: 36)
+                                            .foregroundColor(Theme.Colors.accentXColor)
+                                        
+                                        CoreAssets.addPhoto.swiftUIImage.renderingMode(.template)
+                                            .foregroundColor(Theme.Colors.primaryButtonTextColor)
+                                    }
+                                }.offset(x: 36, y: 50)
+                            )
                         })
                         .disabled(viewModel.userModel.requiresParentalConsent)
                         .accessibilityIdentifier("change_profile_image_button")
@@ -223,7 +228,7 @@ public struct EditProfileView: View {
                         }
                     },
                     removePhoto: {
-                        viewModel.inputImage = CoreAssets.noAvatar.image
+                        viewModel.inputImage = nil
                         viewModel.profileChanges.isAvatarDeleted = true
                         showingBottomSheet = false
                     })
