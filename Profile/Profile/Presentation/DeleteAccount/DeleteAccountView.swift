@@ -27,7 +27,7 @@ public struct DeleteAccountView: View {
                         Group {
                             ZStack {
                                 Circle()
-                                    .foregroundColor(Theme.Colors.accentColor)
+                                    .foregroundColor(Theme.Colors.deleteAccountBG)
                                     .frame(width: 104, height: 104)
                                 CoreAssets.deleteChar.swiftUIImage.renderingMode(.template)
                                     .resizable()
