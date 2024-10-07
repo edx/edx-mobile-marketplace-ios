@@ -39,7 +39,8 @@ struct CustomDisclosureGroup: View {
                                     .rotationEffect(.degrees(expandedSections[chapter.id] ?? false ? -90 : 90))
                                     .foregroundColor(Theme.Colors.textPrimary)
                                 if chapter.childs.allSatisfy({ $0.completion == 1 }) {
-                                    CoreAssets.finishedSequence.swiftUIImage
+                                    CoreAssets.finishedSequence.swiftUIImage.renderingMode(.template)
+                                        .foregroundColor(Theme.Colors.success)
                                 }
                                 Text(chapter.displayName)
                                     .font(Theme.Fonts.titleMedium)
@@ -126,8 +127,9 @@ struct CustomDisclosureGroup: View {
                                                 VStack(alignment: .leading) {
                                                     HStack {
                                                         if sequential.completion == 1 {
-                                                            CoreAssets.finishedSequence.swiftUIImage
+                                                            CoreAssets.finishedSequence.swiftUIImage.renderingMode(.template)
                                                                 .resizable()
+                                                                .foregroundColor(Theme.Colors.success)
                                                                 .frame(width: 20, height: 20)
                                                         } else {
                                                             sequential.type.image
