@@ -59,9 +59,6 @@ public struct Theme {
         public private(set) static var secondaryButtonTextColor = ThemeAssets.secondaryButtonTextColor.swiftUIColor
         public private(set) static var secondaryButtonBGColor = ThemeAssets.secondaryButtonBGColor.swiftUIColor
         public private(set) static var success = ThemeAssets.success.swiftUIColor
-        public private(set) static var tabbarActiveColor = ThemeAssets.tabbarActiveColor.swiftUIColor
-        public private(set) static var tabbarInactiveColor = ThemeAssets.tabbarInactiveColor.swiftUIColor
-        public private(set) static var tabbarBGColor = ThemeAssets.tabbarBGColor.swiftUIColor
         public private(set) static var primaryButtonTextColor = ThemeAssets.primaryButtonTextColor.swiftUIColor
         public private(set) static var toggleSwitchColor = ThemeAssets.toggleSwitchColor.swiftUIColor
         public private(set) static var textInputTextColor = ThemeAssets.textInputTextColor.swiftUIColor
@@ -116,7 +113,6 @@ public struct Theme {
             secondaryButtonBorderColor: Color = ThemeAssets.secondaryButtonBorderColor.swiftUIColor,
             secondaryButtonTextColor: Color = ThemeAssets.secondaryButtonTextColor.swiftUIColor,
             success: Color = ThemeAssets.success.swiftUIColor,
-            tabbarActiveColor: Color = ThemeAssets.tabbarActiveColor.swiftUIColor,
             primaryButtonTextColor: Color = ThemeAssets.primaryButtonTextColor.swiftUIColor,
             toggleSwitchColor: Color = ThemeAssets.toggleSwitchColor.swiftUIColor,
             textInputTextColor: Color = ThemeAssets.textInputTextColor.swiftUIColor,
@@ -162,7 +158,6 @@ public struct Theme {
             self.secondaryButtonBorderColor = secondaryButtonBorderColor
             self.secondaryButtonTextColor = secondaryButtonTextColor
             self.success = success
-            self.tabbarActiveColor = tabbarActiveColor
             self.primaryButtonTextColor = primaryButtonTextColor
             self.toggleSwitchColor = toggleSwitchColor
             self.textInputTextColor = textInputTextColor
@@ -179,7 +174,10 @@ public struct Theme {
         public private(set) static var accentColor = ThemeAssets.accentColor.color
         public private(set) static var accentXColor = ThemeAssets.accentXColor.color
         public private(set) static var navigationBarTintColor = ThemeAssets.navigationBarTintColor.color
-
+        public private(set) static var tabbarActiveColor = ThemeAssets.tabbarActiveColor.color
+        public private(set) static var tabbarBGColor = ThemeAssets.tabbarBGColor.color
+        public private(set) static var tabbarInactiveColor = ThemeAssets.tabbarInactiveColor.color
+        
         public static func update(
             textPrimary: UIColor = ThemeAssets.textPrimary.color,
             accentColor: UIColor = ThemeAssets.accentColor.color,
