@@ -76,7 +76,7 @@ public struct Theme {
         public private(set) static var courseCardShadow = ThemeAssets.courseCardShadow.swiftUIColor
         public private(set) static var courseCardBackground = ThemeAssets.courseCardBackground.swiftUIColor
         public private(set) static var deleteAccountBG = ThemeAssets.deleteAccountBG.swiftUIColor
-        public private(set) static var courseProgressGB = ThemeAssets.courseProgressGB.swiftUIColor
+        public private(set) static var courseProgressBG = ThemeAssets.courseProgressBG.swiftUIColor
 
         public static func update(
             accentColor: Color = ThemeAssets.accentColor.swiftUIColor,
