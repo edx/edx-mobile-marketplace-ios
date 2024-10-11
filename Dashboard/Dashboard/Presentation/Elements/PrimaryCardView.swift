@@ -142,7 +142,7 @@ public struct PrimaryCardView: View {
     }
     
     private var assignments: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 0) {
             // pastAssignments
             if pastAssignments.count == 1, let pastAssignment = pastAssignments.first {
                 courseButton(
@@ -276,6 +276,7 @@ public struct PrimaryCardView: View {
                             .padding(.top, 2)
                         }
                     }
+                    .padding(.bottom, 8)
                     Spacer()
                     CoreAssets.chevronRight.swiftUIImage
                         .foregroundStyle(foregroundColor(selected))
