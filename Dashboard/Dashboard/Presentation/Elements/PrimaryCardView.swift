@@ -207,7 +207,7 @@ public struct PrimaryCardView: View {
                     description: nil,
                     icon: CoreAssets.trophy.swiftUIImage,
                     selected: false,
-                    bgColor: Theme.Colors.primarycardUpgradeBG,
+                    bgColor: Theme.Colors.primaryCardUpgradeBG,
                     action: upgradeAction
                 )
             }
@@ -240,7 +240,7 @@ public struct PrimaryCardView: View {
         description: String?,
         icon: Image,
         selected: Bool,
-        bgColor: Color = Theme.Colors.primarycardCautionBG,
+        bgColor: Color = Theme.Colors.primaryCardCautionBG,
         action: @escaping () -> Void
     ) -> some View {
         Button(action: {
