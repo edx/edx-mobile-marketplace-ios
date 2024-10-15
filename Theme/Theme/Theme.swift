@@ -76,6 +76,7 @@ public struct Theme {
         public private(set) static var primarycardCautionBG = ThemeAssets.primaryCardCautionBG.swiftUIColor
         public private(set) static var primarycardUpgradeBG = ThemeAssets.primaryCardCourseUpgradeBG.swiftUIColor
         public private(set) static var primarycardProgressBG = ThemeAssets.primaryCardProgressBG.swiftUIColor
+        public private(set) static var courseProgressBG = ThemeAssets.courseProgressBG.swiftUIColor
 
         public static func update(
             accentColor: Color = ThemeAssets.accentColor.swiftUIColor,
