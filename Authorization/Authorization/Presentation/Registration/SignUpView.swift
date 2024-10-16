@@ -8,13 +8,14 @@
 import SwiftUI
 import Core
 import Theme
+import Swinject
 
 public struct SignUpView: View {
     
     @State
     private var disclosureGroupOpen: Bool = false
     
-    @Environment (\.isHorizontal) private var isHorizontal
+    @Environment(\.isHorizontal) private var isHorizontal
     
     @ObservedObject
     private var viewModel: SignUpViewModel
@@ -27,7 +28,7 @@ public struct SignUpView: View {
     }
     
     public var body: some View {
-        ZStack(alignment: .top) {
+        ZStack(alignment: .bottomTrailing) {
             VStack {
                 ThemeAssets.headerBackground.swiftUIImage
                     .resizable()
@@ -192,11 +193,16 @@ public struct SignUpView: View {
                         }
                     }
             }
+            // Chat Icon
+            LaunchChatView(
+                router: Container.shared.resolve(AuthorizationRouter.self)!,
+                connectivity: Container.shared.resolve(ConnectivityProtocol.self)!
+            )
         }
         .ignoresSafeArea(.all, edges: .horizontal)
         .background(Theme.Colors.background.ignoresSafeArea(.all))
         .hideNavigationBar()
-        .onFirstAppear{
+        .onFirstAppear {
             viewModel.trackScreenEvent()
         }
     }

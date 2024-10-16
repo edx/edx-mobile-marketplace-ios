@@ -18,6 +18,7 @@ import Dashboard
 import Profile
 import WhatsNew
 import Combine
+import XpertFive9Chat
 
 // swiftlint:disable file_length type_body_length
 public class Router: AuthorizationRouter,
@@ -901,6 +902,26 @@ extension Router {
             onViewController: topController) { _, _, _ in }
         for action in actions {
             alertController.addAction(action)
+        }
+    }
+}
+
+// MARK: LiveChat
+extension Router {
+    @MainActor
+    public func showLiveChat(animated: Bool) {
+        let config = Container.shared.resolve(ConfigProtocol.self)!
+        if config.liveChat.enabled {
+            let xpertConfig = XpertChatConfiguration(
+                xpertKey: config.liveChat.xpertKey,
+                useCase: config.liveChat.useCase,
+                segmentKey: config.liveChat.segmentKey,
+                baseURL: config.baseURL
+            )
+            XpertFive9Chat.show(
+                xpertConfig: xpertConfig,
+                animated: true
+            )
         }
     }
 }

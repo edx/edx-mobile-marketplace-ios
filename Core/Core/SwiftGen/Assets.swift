@@ -107,6 +107,7 @@ public enum CoreAssets {
   public static let calendarSyncIcon = ImageAsset(name: "calendarSyncIcon")
   public static let certificate = ImageAsset(name: "certificate")
   public static let certificateBadge = ImageAsset(name: "certificateBadge")
+  public static let chatIcon = ImageAsset(name: "chatIcon")
   public static let check = ImageAsset(name: "check")
   public static let checkEmail = ImageAsset(name: "checkEmail")
   public static let chevronRight = ImageAsset(name: "chevron_right")

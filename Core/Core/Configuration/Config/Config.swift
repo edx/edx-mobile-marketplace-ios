@@ -33,6 +33,7 @@ public protocol ConfigProtocol {
     var URIScheme: String { get }
     var ecommerceURL: String? { get }
     var fullStory: FullStoryConfig { get }
+    var liveChat: LiveChatConfig { get }
 }
 
 public enum TokenType: String {
@@ -200,6 +201,9 @@ public class ConfigMock: Config {
             "APP_ID": "appId"
         ],
         "APPLE_SIGNIN": [
+            "ENABLED": true
+        ],
+        "XPERT_FIVE9": [
             "ENABLED": true
         ]
     ]

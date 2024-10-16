@@ -79,7 +79,7 @@ struct MainScreenView: View {
                     .tag(MainTab.programs)
                 }
             case .gallery:
-                ZStack {
+                ZStack(alignment: .bottomTrailing) {
                     PrimaryCourseDashboardView(
                         viewModel: Container.shared.resolve(PrimaryCourseDashboardViewModel.self)!,
                         router: Container.shared.resolve(DashboardRouter.self)!,
@@ -93,6 +93,11 @@ struct MainScreenView: View {
                         UpdateNotificationView(config: viewModel.config)
                     }
                     registerBanner
+                    // Chat Icon
+                    LaunchChatView(
+                        router: Container.shared.resolve(DashboardRouter.self)!,
+                        connectivity: Container.shared.resolve(ConnectivityProtocol.self)!
+                    )
                 }
                 .tabItem {
                     if viewModel.selection == .dashboard {
