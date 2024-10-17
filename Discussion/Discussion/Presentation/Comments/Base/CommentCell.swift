@@ -68,15 +68,15 @@ public struct CommentCell: View {
                     onReportTap()
                 }, label: {
                     comment.abuseFlagged
-                    ? CoreAssets.reported.swiftUIImage
-                    : CoreAssets.report.swiftUIImage
+                    ? (CoreAssets.reported.swiftUIImage.renderingMode(.template))
+                    : CoreAssets.report.swiftUIImage.renderingMode(.template)
                     Text(comment.abuseFlagged
                          ? DiscussionLocalization.Comment.unreport
                          : DiscussionLocalization.Comment.report)
                     .font(Theme.Fonts.labelMedium)
                 }).foregroundColor(comment.abuseFlagged
-                                   ? Theme.Colors.alert
-                                      : Theme.Colors.textSecondary)
+                                   ? Theme.Colors.irreversibleAlert
+                                      : Theme.Colors.textSecondaryLight)
             }
             Text(comment.postBodyHtml.hideHtmlTagsAndUrls())
                 .font(Theme.Fonts.bodyMedium)
@@ -122,15 +122,16 @@ public struct CommentCell: View {
                     : CoreAssets.vote.swiftUIImage.renderingMode(.template)
                     Text("\(comment.votesCount)")
                     Text(DiscussionLocalization.votesCount(comment.votesCount))
-                        .font(Theme.Fonts.labelLarge)
                 }).foregroundColor(comment.voted
                                    ? Theme.Colors.accentColor
                                    : Theme.Colors.textSecondaryLight)
+                .font(Theme.Fonts.labelLarge)
 
                 Spacer()
                 if addCommentAvailable {
                         HStack {
                             Image(systemName: "message.fill")
+                                .renderingMode(.template)
                             Text("\(comment.responsesCount)")
                             Text(DiscussionLocalization.commentsCount(comment.responsesCount))
                         }

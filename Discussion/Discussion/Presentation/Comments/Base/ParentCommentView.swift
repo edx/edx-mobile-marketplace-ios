@@ -107,7 +107,7 @@ public struct ParentCommentView: View {
                     onLikeTap()
                 }, label: {
                     comments.voted
-                    ? CoreAssets.voted.swiftUIImage.renderingMode(.template)
+                    ? (CoreAssets.voted.swiftUIImage.renderingMode(.template))
                     : CoreAssets.vote.swiftUIImage.renderingMode(.template)
                     
                     Text("\(comments.votesCount)")
@@ -122,15 +122,15 @@ public struct ParentCommentView: View {
                     onReportTap()
                 }, label: {
                     comments.abuseFlagged
-                    ? CoreAssets.reported.swiftUIImage
-                    : CoreAssets.report.swiftUIImage
+                    ? (CoreAssets.reported.swiftUIImage.renderingMode(.template))
+                    : CoreAssets.report.swiftUIImage.renderingMode(.template)
                     Text(comments.abuseFlagged
                          ? DiscussionLocalization.Comment.unreport
                          : DiscussionLocalization.Comment.report)
                 })
             }
             .accentColor(comments.abuseFlagged
-                ? Theme.Colors.alert
+                         ? Theme.Colors.irreversibleAlert
                          : Theme.Colors.textSecondaryLight)
                 .font(Theme.Fonts.labelLarge)
         }
