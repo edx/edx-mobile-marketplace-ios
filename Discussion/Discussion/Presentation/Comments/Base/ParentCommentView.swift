@@ -64,9 +64,7 @@ public struct ParentCommentView: View {
                         onFollowTap()
                     }, label: {
                         Image(systemName: comments.followed ? "star.fill" : "star")
-                            .foregroundStyle(comments.followed
-                                             ? Theme.Colors.accentColor
-                                             : Theme.Colors.textSecondaryLight)
+                            .renderingMode(.template)
                         Text(comments.followed
                              ? DiscussionLocalization.Comment.unfollow
                              : DiscussionLocalization.Comment.follow)
@@ -109,23 +107,15 @@ public struct ParentCommentView: View {
                     onLikeTap()
                 }, label: {
                     comments.voted
-                    ? CoreAssets.voted.swiftUIImage
-                        .renderingMode(.template)
-                        .foregroundStyle(comments.voted
-                                         ? Theme.Colors.accentXColor
-                                         : Theme.Colors.textSecondaryLight)
-                    : CoreAssets.vote.swiftUIImage
-                        .renderingMode(.template)
-                        .foregroundStyle(comments.voted
-                                         ? Theme.Colors.accentXColor
-                                         : Theme.Colors.textSecondaryLight)
+                    ? CoreAssets.voted.swiftUIImage.renderingMode(.template)
+                    : CoreAssets.vote.swiftUIImage.renderingMode(.template)
+                    
                     Text("\(comments.votesCount)")
-                        .foregroundColor(Theme.Colors.textPrimary)
                     Text(DiscussionLocalization.votesCount(comments.votesCount))
                         .font(Theme.Fonts.labelLarge)
-                        .foregroundColor(Theme.Colors.textPrimary)
+                    
                 }).foregroundColor(comments.voted
-                                   ? Theme.Colors.accentXColor
+                                   ? Theme.Colors.accentColor
                                    : Theme.Colors.textSecondaryLight)
                 Spacer()
                 Button(action: {
