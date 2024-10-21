@@ -138,25 +138,37 @@ extension DiscoveryWebviewViewModel: WebViewNavigationDelegate {
         
         if let url = request.url, outsideLink || capturedLink || externalLink, UIApplication.shared.canOpenURL(url) {
             analytics.externalLinkOpen(url: url.absoluteString, screen: sourceScreen.value ?? "")
-            router.presentAlert(
-                alertTitle: DiscoveryLocalization.Alert.leavingAppTitle,
-                alertMessage: DiscoveryLocalization.Alert.leavingAppMessage,
-                positiveAction: CoreLocalization.Webview.Alert.continue,
-                onCloseTapped: { [weak self] in
-                    self?.router.dismiss(animated: true)
-                    self?.analytics.externalLinkOpenAction(
-                        url: url.absoluteString,
-                        screen: self?.sourceScreen.value ?? "",
-                        action: "cancel"
-                    )
-                }, okTapped: { [weak self] in
-                    UIApplication.shared.open(url, options: [:])
-                    self?.analytics.externalLinkOpenAction(
-                        url: url.absoluteString,
-                        screen: self?.sourceScreen.value ?? "",
-                        action: "continue"
-                    )
-                }, type: .default(positiveAction: CoreLocalization.Webview.Alert.continue, image: nil)
+            
+            let actions = [
+                UIAlertAction(
+                    title: CoreLocalization.Webview.Alert.continue,
+                    style: .default,
+                    handler: { [weak self] _ in
+                        UIApplication.shared.open(url, options: [:])
+                        self?.analytics.externalLinkOpenAction(
+                            url: url.absoluteString,
+                            screen: self?.sourceScreen.value ?? "",
+                            action: "continue"
+                        )
+                    }
+                ),
+                UIAlertAction(
+                    title: CoreLocalization.Webview.Alert.cancel,
+                    style: .default,
+                    handler: { [weak self] _ in
+                        self?.analytics.externalLinkOpenAction(
+                            url: url.absoluteString,
+                            screen: self?.sourceScreen.value ?? "",
+                            action: "cancel"
+                        )
+                    }
+                )
+            ]
+            
+            router.presentNativeAlert(
+                title: DiscoveryLocalization.Alert.leavingAppTitle,
+                message: DiscoveryLocalization.Alert.leavingAppMessage,
+                actions: actions
             )
             return true
         }
