@@ -121,9 +121,11 @@ public struct ParentCommentView: View {
                 Button(action: {
                     onReportTap()
                 }, label: {
-                    comments.abuseFlagged
-                    ? (CoreAssets.reported.swiftUIImage.renderingMode(.template))
-                    : CoreAssets.report.swiftUIImage.renderingMode(.template)
+                    let icon = comments.abuseFlagged
+                    ? CoreAssets.reported.swiftUIImage
+                    : CoreAssets.report.swiftUIImage
+                    icon.renderingMode(.template)
+                    
                     Text(comments.abuseFlagged
                          ? DiscussionLocalization.Comment.unreport
                          : DiscussionLocalization.Comment.report)

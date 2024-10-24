@@ -67,9 +67,11 @@ public struct CommentCell: View {
                 Button(action: {
                     onReportTap()
                 }, label: {
-                    comment.abuseFlagged
-                    ? (CoreAssets.reported.swiftUIImage.renderingMode(.template))
-                    : CoreAssets.report.swiftUIImage.renderingMode(.template)
+                    let icon = comment.abuseFlagged
+                    ? CoreAssets.reported.swiftUIImage
+                    : CoreAssets.report.swiftUIImage
+                    icon.renderingMode(.template)
+                        
                     Text(comment.abuseFlagged
                          ? DiscussionLocalization.Comment.unreport
                          : DiscussionLocalization.Comment.report)
