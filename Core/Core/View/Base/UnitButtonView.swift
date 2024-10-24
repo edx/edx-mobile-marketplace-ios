@@ -153,7 +153,7 @@ public struct UnitButtonView: View {
                             CoreAssets.arrowLeft.swiftUIImage.renderingMode(.template)
                                 .foregroundColor(
                                         type == .continueLesson
-                                        ? Theme.Colors.accentColor
+                                        ? Theme.Colors.resumeButtonText
                                         : Theme.Colors.styledButtonText
                                     )
                                 .rotationEffect(Angle.degrees(180))
