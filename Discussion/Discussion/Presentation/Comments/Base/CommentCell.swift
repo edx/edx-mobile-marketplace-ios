@@ -54,6 +54,10 @@ public struct CommentCell: View {
                     .resizable()
                     .frame(width: 32, height: 32)
                     .cornerRadius(16)
+                    .overlay {
+                        Circle()
+                            .stroke(Theme.Colors.avatarStroke, lineWidth: 1)
+                    }
                 })
                 
                 VStack(alignment: .leading) {

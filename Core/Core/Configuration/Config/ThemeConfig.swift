@@ -16,7 +16,6 @@ public final class ThemeConfig: NSObject {
     public var isRoundedCorners: Bool
     public var buttonCornersRadius: Double
     
-
     init(dictionary: [String: AnyObject]) {
         isRoundedCorners = dictionary[ThemeKeys.isRoundedCorners] as? Bool != false
         buttonCornersRadius = dictionary[ThemeKeys.buttonCornersRadius] as? Double ?? 8.0

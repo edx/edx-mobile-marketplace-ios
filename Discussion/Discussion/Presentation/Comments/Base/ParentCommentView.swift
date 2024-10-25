@@ -48,6 +48,11 @@ public struct ParentCommentView: View {
                     .resizable()
                     .frame(width: 48, height: 48)
                     .cornerRadius(24)
+                    .overlay {
+                        Circle()
+                            .stroke(Theme.Colors.avatarStroke, lineWidth: 1)
+                    }
+                    
                 })
                 VStack(alignment: .leading) {
                     Text(comments.authorName)
