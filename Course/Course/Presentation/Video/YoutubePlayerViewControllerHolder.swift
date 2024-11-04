@@ -128,6 +128,10 @@ public class YoutubePlayerViewControllerHolder: PlayerViewControllerHolderProtoc
     public func getReadyPublisher() -> AnyPublisher<Bool, Never> {
         playerTracker.getReadyPublisher()
     }
+    
+    public func getFinishPublisher() -> AnyPublisher<Void, Never> {
+        playerTracker.getFinishPublisher()
+    }
 
     public func getService() -> PlayerServiceProtocol {
         playerService

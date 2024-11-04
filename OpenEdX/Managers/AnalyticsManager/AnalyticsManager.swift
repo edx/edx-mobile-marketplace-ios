@@ -808,6 +808,94 @@ class AnalyticsManager: AuthorizationAnalytics,
         logEvent(.bulkDeleteVideosSection, parameters: parameters)
     }
     
+    public func videoLoaded(courseID: String, blockID: String, videoURL: String) {
+        let parameters: [String: Any] = [
+            EventParamKey.courseID: courseID,
+            EventParamKey.blockID: blockID,
+            EventParamKey.videoURL: videoURL,
+            EventParamKey.category: EventCategory.video,
+            EventParamKey.name: EventBIValue.videoLoaded.rawValue
+        ]
+        
+        logEvent(.videoLoaded, parameters: parameters)
+    }
+    
+    public func videoPlayed(courseID: String, blockID: String, videoURL: String) {
+        let parameters: [String: Any] = [
+            EventParamKey.courseID: courseID,
+            EventParamKey.blockID: blockID,
+            EventParamKey.videoURL: videoURL,
+            EventParamKey.category: EventCategory.video,
+            EventParamKey.name: EventBIValue.videoPlayed.rawValue
+        ]
+        
+        logEvent(.videoPlayed, parameters: parameters)
+    }
+    
+    public func videoChangeSpeed(
+        courseID: String,
+        blockID: String,
+        videoURL: String,
+        oldSpeed: Float,
+        newSpeed: Float,
+        currentTime: Double,
+        duration: Double
+    ) {
+        let parameters: [String: Any] = [
+            EventParamKey.courseID: courseID,
+            EventParamKey.blockID: blockID,
+            EventParamKey.videoURL: videoURL,
+            EventParamKey.oldSpeed: oldSpeed,
+            EventParamKey.newSpeed: newSpeed,
+            EventParamKey.currentTime: currentTime,
+            EventParamKey.duration: duration,
+            EventParamKey.category: EventCategory.video,
+            EventParamKey.name: EventBIValue.videoChangeSpeed.rawValue
+        ]
+        
+        logEvent(.videoChangeSpeed, parameters: parameters)
+    }
+    
+    public func videoPaused(
+        courseID: String,
+        blockID: String,
+        videoURL: String,
+        currentTime: Double,
+        duration: Double
+    ) {
+        let parameters: [String: Any] = [
+            EventParamKey.courseID: courseID,
+            EventParamKey.blockID: blockID,
+            EventParamKey.videoURL: videoURL,
+            EventParamKey.currentTime: currentTime,
+            EventParamKey.duration: duration,
+            EventParamKey.category: EventCategory.video,
+            EventParamKey.name: EventBIValue.videoPaused.rawValue
+        ]
+        
+        logEvent(.videoPaused, parameters: parameters)
+    }
+    
+    public func videoCompleted(
+        courseID: String,
+        blockID: String,
+        videoURL: String,
+        currentTime: Double,
+        duration: Double
+    ) {
+        let parameters: [String: Any] = [
+            EventParamKey.courseID: courseID,
+            EventParamKey.blockID: blockID,
+            EventParamKey.videoURL: videoURL,
+            EventParamKey.currentTime: currentTime,
+            EventParamKey.duration: duration,
+            EventParamKey.category: EventCategory.video,
+            EventParamKey.name: EventBIValue.videoCompleted.rawValue
+        ]
+        
+        logEvent(.videoCompleted, parameters: parameters)
+    }
+    
     // MARK: Discussion
     public func discussionAllPostsClicked(courseId: String, courseName: String) {
         let parameters = [

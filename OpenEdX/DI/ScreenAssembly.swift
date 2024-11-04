@@ -373,7 +373,9 @@ class ScreenAssembly: Assembly {
                     blockID,
                     courseID,
                     router.currentCourseTabSelection
-                )!
+                )!,
+                appStorage: r.resolve(CoreStorage.self)!,
+                analytics: r.resolve(CourseAnalytics.self)!
             )
         }
         
@@ -391,7 +393,9 @@ class ScreenAssembly: Assembly {
                 languages: languages,
                 playerStateSubject: playerStateSubject,
                 connectivity: r.resolve(ConnectivityProtocol.self)!,
-                playerHolder: holder
+                playerHolder: holder,
+                appStorage: r.resolve(CoreStorage.self)!,
+                analytics: r.resolve(CourseAnalytics.self)!
             )
         }
         
