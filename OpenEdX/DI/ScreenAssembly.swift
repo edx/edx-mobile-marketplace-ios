@@ -535,16 +535,19 @@ class ScreenAssembly: Assembly {
                 interactor: r.resolve(DiscussionInteractorProtocol.self)!,
                 router: r.resolve(DiscussionRouter.self)!,
                 config: r.resolve(ConfigProtocol.self)!,
-                postStateSubject: subject
+                postStateSubject: subject,
+                analytics: r.resolve(DiscussionAnalytics.self)!
             )
         }
         
-        container.register(ResponsesViewModel.self) { r, subject in
+        container.register(ResponsesViewModel.self) { r, subject, courseID in
             ResponsesViewModel(
+                courseID: courseID,
                 interactor: r.resolve(DiscussionInteractorProtocol.self)!,
                 router: r.resolve(DiscussionRouter.self)!,
                 config: r.resolve(ConfigProtocol.self)!,
-                threadStateSubject: subject
+                threadStateSubject: subject,
+                analytics: r.resolve(DiscussionAnalytics.self)!
             )
         }
         
@@ -552,7 +555,9 @@ class ScreenAssembly: Assembly {
             CreateNewThreadViewModel(
                 interactor: r.resolve(DiscussionInteractorProtocol.self)!,
                 router: r.resolve(DiscussionRouter.self)!,
-                config: r.resolve(ConfigProtocol.self)!
+                config: r.resolve(ConfigProtocol.self)!,
+                analytics: r.resolve(DiscussionAnalytics.self)!,
+                storage: r.resolve(CoreStorage.self)!
             )
         }
         

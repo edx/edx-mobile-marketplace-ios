@@ -325,6 +325,13 @@ public enum AnalyticsEvent: String {
     case logistrationRegister = "Logistration:Register"
     case profileEdit = "Profile:Edit Profile"
     case profilehelpUsImprove = "Profile:Feedback Form Clicked"
+    case discussionPostCreated = "Discussion:Post Created"
+    case discussionResponseAdded = "Discussion:Response Added"
+    case discussionCommentAdded = "Discussion:Comment Added"
+    case discussionFollowToggle = "Dicussion:Post Follow Toggle"
+    case discussionLikeToggle = "Discussion:Like Toggle"
+    case discussionReportToggle = "Discussion:Report Toggle"
+    
 }
 
 public enum EventBIValue: String {
@@ -430,6 +437,12 @@ public enum EventBIValue: String {
     case logistrationRegister = "edx.bi.app.logistration.register"
     case profileEdit = "edx.bi.app.profile.edit"
     case profilehelpUsImprove = "edx.bi.app.profile.feedback_form.clicked"
+    case discussionPostCreated = "edx.bi.app.discussion.post_created"
+    case discussionResponseAdded = "edx.bi.app.discussion.response_added"
+    case discussionCommentAdded = "edx.bi.app.discussion.comment_added"
+    case discussionFollowToggle = "edx.bi.app.discussion.follow_toggle"
+    case discussionLikeToggle = "edx.bi.app.discussion.like_toggle"
+    case discussionReportToggle = "edx.bi.app.discussion.report_toggle"
 }
 
 public struct EventParamKey {
@@ -478,6 +491,16 @@ public struct EventParamKey {
     public static let newSpeed = "new_speed"
     public static let currentTime = "current_time"
     public static let duration = "duration"
+    public static let postType = "post_type"
+    public static let followPost = "follow_post"
+    public static let threadID = "thread_id"
+    public static let responseID = "response_id"
+    public static let commentID = "comment_id"
+    public static let author = "author"
+    public static let follow = "follow"
+    public static let like = "like"
+    public static let report = "report"
+    public static let discussionType = "discussion_type"
 }
 
 public struct EventCategory {
