@@ -212,7 +212,8 @@ final class ThreadViewModelTests: XCTestCase {
         let viewModel = ThreadViewModel(interactor: interactor,
                                         router: router,
                                         config: config,
-                                        postStateSubject: .init(.readed(id: "1")))
+                                        postStateSubject: .init(.readed(id: "1")),
+                                        analytics: DiscussionAnalyticsMock())
                 
         Given(interactor, .readBody(threadID: .any, willProduce: {_ in}))
         Given(interactor,   .getQuestionComments(threadID: .any, page: .any,
@@ -241,7 +242,8 @@ final class ThreadViewModelTests: XCTestCase {
         let viewModel = ThreadViewModel(interactor: interactor,
                                         router: router,
                                         config: config,
-                                        postStateSubject: .init(.readed(id: "1")))
+                                        postStateSubject: .init(.readed(id: "1")),
+                                        analytics: DiscussionAnalyticsMock())
                 
         Given(interactor, .readBody(threadID: .any, willProduce: {_ in}))
         Given(interactor, .getDiscussionComments(threadID: .any, page: .any,
@@ -270,7 +272,8 @@ final class ThreadViewModelTests: XCTestCase {
         let viewModel = ThreadViewModel(interactor: interactor,
                                         router: router,
                                         config: config,
-                                        postStateSubject: .init(.readed(id: "1")))
+                                        postStateSubject: .init(.readed(id: "1")),
+                                        analytics: DiscussionAnalyticsMock())
         
         let noInternetError = AFError.sessionInvalidated(error: URLError(.notConnectedToInternet))
                 
@@ -301,7 +304,8 @@ final class ThreadViewModelTests: XCTestCase {
         let viewModel = ThreadViewModel(interactor: interactor,
                                         router: router,
                                         config: config,
-                                        postStateSubject: .init(.readed(id: "1")))
+                                        postStateSubject: .init(.readed(id: "1")),
+                                        analytics: DiscussionAnalyticsMock())
                         
         Given(interactor, .readBody(threadID: .any, willThrow: NSError()))
         Given(interactor, .getQuestionComments(threadID: .any, page: .any, willThrow: NSError()))
@@ -328,7 +332,8 @@ final class ThreadViewModelTests: XCTestCase {
         let viewModel = ThreadViewModel(interactor: interactor,
                                         router: router,
                                         config: config,
-                                        postStateSubject: .init(.readed(id: "1")))
+                                        postStateSubject: .init(.readed(id: "1")),
+                                        analytics: DiscussionAnalyticsMock())
         
         let post = Post(authorName: "",
                         authorAvatar: "",
@@ -350,7 +355,7 @@ final class ThreadViewModelTests: XCTestCase {
                 
         Given(interactor, .addCommentTo(threadID: .any, rawBody: .any, parentID: .any, willReturn: post) )
                 
-        await viewModel.postComment(threadID: "1", rawBody: "1", parentID: nil)
+        await viewModel.postComment(courseID: "CourseID", threadID: "1", rawBody: "1", parentID: nil)
         
         Verify(interactor, .addCommentTo(threadID: .value("1"), rawBody: .value("1"), parentID: .value(nil)))
         
@@ -368,13 +373,14 @@ final class ThreadViewModelTests: XCTestCase {
         let viewModel = ThreadViewModel(interactor: interactor,
                                         router: router,
                                         config: config,
-                                        postStateSubject: .init(.readed(id: "1")))
+                                        postStateSubject: .init(.readed(id: "1")),
+                                        analytics: DiscussionAnalyticsMock())
         
         let noInternetError = AFError.sessionInvalidated(error: URLError(.notConnectedToInternet))
                 
         Given(interactor, .addCommentTo(threadID: .any, rawBody: .any, parentID: .any, willThrow: noInternetError) )
                 
-        await viewModel.postComment(threadID: "1", rawBody: "1", parentID: nil)
+        await viewModel.postComment(courseID: "CourseID", threadID: "1", rawBody: "1", parentID: nil)
         
         Verify(interactor, .addCommentTo(threadID: .value("1"), rawBody: .value("1"), parentID: .value(nil)))
 
@@ -392,11 +398,12 @@ final class ThreadViewModelTests: XCTestCase {
         let viewModel = ThreadViewModel(interactor: interactor,
                                         router: router,
                                         config: config,
-                                        postStateSubject: .init(.readed(id: "1")))
+                                        postStateSubject: .init(.readed(id: "1")),
+                                        analytics: DiscussionAnalyticsMock())
                         
         Given(interactor, .addCommentTo(threadID: .any, rawBody: .any, parentID: .any, willThrow: NSError()) )
                 
-        await viewModel.postComment(threadID: "1", rawBody: "1", parentID: nil)
+        await viewModel.postComment(courseID: "CourseID", threadID: "1", rawBody: "1", parentID: nil)
         
         Verify(interactor, .addCommentTo(threadID: .value("1"), rawBody: .value("1"), parentID: .value(nil)))
 
@@ -415,7 +422,8 @@ final class ThreadViewModelTests: XCTestCase {
         let viewModel = ThreadViewModel(interactor: interactor,
                                         router: router,
                                         config: config,
-                                        postStateSubject: .init(.readed(id: "1")))
+                                        postStateSubject: .init(.readed(id: "1")),
+                                        analytics: DiscussionAnalyticsMock())
         
         viewModel.totalPages = 2
         viewModel.comments = userComments + userComments

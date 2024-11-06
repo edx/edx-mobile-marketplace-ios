@@ -270,5 +270,5 @@ public class ThreadViewModel: BaseResponsesViewModel, ObservableObject {
             responseID: responseID,
             author: author
         )
-    }    
+    }
 }

@@ -214,7 +214,7 @@ public class VideoPlayerViewModel: ObservableObject {
     }
     
     private func trackVideoPlayed() {
-        analytics?.videoLoaded(
+        analytics?.videoPlayed(
             courseID: playerHolder.courseID,
             blockID: playerHolder.blockID,
             videoURL: playerHolder.url?.absoluteString ?? ""
