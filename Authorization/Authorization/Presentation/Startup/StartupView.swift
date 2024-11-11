@@ -90,7 +90,7 @@ public struct StartupView: View {
                                 searchQuery: searchQuery,
                                 sourceScreen: .startup
                             )
-                            viewModel.logAnalytics(searchQuery: nil)
+                            viewModel.logAnalytics()
                         } label: {
                             Text(AuthLocalization.Startup.exploreAllCourses)
                                 .underline()

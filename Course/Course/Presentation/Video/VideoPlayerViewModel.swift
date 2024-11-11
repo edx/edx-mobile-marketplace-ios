@@ -101,7 +101,7 @@ public class VideoPlayerViewModel: ObservableObject {
         playerHolder.getRatePublisher()
             .sink {[weak self] rate in
                 guard self?.isLoading == false else { return }
-                self?.trackVideoChangeSpeed(rate: rate)
+                self?.trackVideoSpeedChange(rate: rate)
             }
             .store(in: &subscription)
         
@@ -221,7 +221,7 @@ public class VideoPlayerViewModel: ObservableObject {
         )
     }
     
-    private func trackVideoChangeSpeed(rate: Float) {
+    private func trackVideoSpeedChange(rate: Float) {
         if rate == 0 {
             analytics?.videoPaused(
                 courseID: playerHolder.courseID,
@@ -244,7 +244,7 @@ public class VideoPlayerViewModel: ObservableObject {
                     videoURL: playerHolder.url?.absoluteString ?? ""
                 )
             } else {
-                analytics?.videoChangeSpeed(
+                analytics?.videoSpeedChange(
                     courseID: playerHolder.courseID,
                     blockID: playerHolder.blockID,
                     videoURL: playerHolder.url?.absoluteString ?? "",

@@ -22,7 +22,7 @@ public class StartupViewModel: ObservableObject {
         self.analytics = analytics
     }
     
-    func logAnalytics(searchQuery: String?) {
+    func logAnalytics(searchQuery: String? = nil) {
         if let searchQuery {
             analytics.trackEvent(
                 .logistrationCoursesSearch,

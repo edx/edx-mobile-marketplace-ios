@@ -2032,9 +2032,9 @@ open class CourseAnalyticsMock: CourseAnalytics, Mock {
 		perform?(`courseID`, `blockID`, `videoURL`)
     }
 
-    open func videoChangeSpeed(courseID: String, blockID: String, videoURL: String, oldSpeed: Float, newSpeed: Float, currentTime: Double, duration: Double) {
-        addInvocation(.m_videoChangeSpeed__courseID_courseIDblockID_blockIDvideoURL_videoURLoldSpeed_oldSpeednewSpeed_newSpeedcurrentTime_currentTimeduration_duration(Parameter<String>.value(`courseID`), Parameter<String>.value(`blockID`), Parameter<String>.value(`videoURL`), Parameter<Float>.value(`oldSpeed`), Parameter<Float>.value(`newSpeed`), Parameter<Double>.value(`currentTime`), Parameter<Double>.value(`duration`)))
-		let perform = methodPerformValue(.m_videoChangeSpeed__courseID_courseIDblockID_blockIDvideoURL_videoURLoldSpeed_oldSpeednewSpeed_newSpeedcurrentTime_currentTimeduration_duration(Parameter<String>.value(`courseID`), Parameter<String>.value(`blockID`), Parameter<String>.value(`videoURL`), Parameter<Float>.value(`oldSpeed`), Parameter<Float>.value(`newSpeed`), Parameter<Double>.value(`currentTime`), Parameter<Double>.value(`duration`))) as? (String, String, String, Float, Float, Double, Double) -> Void
+    open func videoSpeedChange(courseID: String, blockID: String, videoURL: String, oldSpeed: Float, newSpeed: Float, currentTime: Double, duration: Double) {
+        addInvocation(.m_videoSpeedChange__courseID_courseIDblockID_blockIDvideoURL_videoURLoldSpeed_oldSpeednewSpeed_newSpeedcurrentTime_currentTimeduration_duration(Parameter<String>.value(`courseID`), Parameter<String>.value(`blockID`), Parameter<String>.value(`videoURL`), Parameter<Float>.value(`oldSpeed`), Parameter<Float>.value(`newSpeed`), Parameter<Double>.value(`currentTime`), Parameter<Double>.value(`duration`)))
+		let perform = methodPerformValue(.m_videoSpeedChange__courseID_courseIDblockID_blockIDvideoURL_videoURLoldSpeed_oldSpeednewSpeed_newSpeedcurrentTime_currentTimeduration_duration(Parameter<String>.value(`courseID`), Parameter<String>.value(`blockID`), Parameter<String>.value(`videoURL`), Parameter<Float>.value(`oldSpeed`), Parameter<Float>.value(`newSpeed`), Parameter<Double>.value(`currentTime`), Parameter<Double>.value(`duration`))) as? (String, String, String, Float, Float, Double, Double) -> Void
 		perform?(`courseID`, `blockID`, `videoURL`, `oldSpeed`, `newSpeed`, `currentTime`, `duration`)
     }
 
@@ -2080,7 +2080,7 @@ open class CourseAnalyticsMock: CourseAnalytics, Mock {
         case m_bulkDeleteVideosSection__courseID_courseIDsectionId_sectionIdvideos_videos(Parameter<String>, Parameter<String>, Parameter<Int>)
         case m_videoLoaded__courseID_courseIDblockID_blockIDvideoURL_videoURL(Parameter<String>, Parameter<String>, Parameter<String>)
         case m_videoPlayed__courseID_courseIDblockID_blockIDvideoURL_videoURL(Parameter<String>, Parameter<String>, Parameter<String>)
-        case m_videoChangeSpeed__courseID_courseIDblockID_blockIDvideoURL_videoURLoldSpeed_oldSpeednewSpeed_newSpeedcurrentTime_currentTimeduration_duration(Parameter<String>, Parameter<String>, Parameter<String>, Parameter<Float>, Parameter<Float>, Parameter<Double>, Parameter<Double>)
+        case m_videoSpeedChange__courseID_courseIDblockID_blockIDvideoURL_videoURLoldSpeed_oldSpeednewSpeed_newSpeedcurrentTime_currentTimeduration_duration(Parameter<String>, Parameter<String>, Parameter<String>, Parameter<Float>, Parameter<Float>, Parameter<Double>, Parameter<Double>)
         case m_videoPaused__courseID_courseIDblockID_blockIDvideoURL_videoURLcurrentTime_currentTimeduration_duration(Parameter<String>, Parameter<String>, Parameter<String>, Parameter<Double>, Parameter<Double>)
         case m_videoCompleted__courseID_courseIDblockID_blockIDvideoURL_videoURLcurrentTime_currentTimeduration_duration(Parameter<String>, Parameter<String>, Parameter<String>, Parameter<Double>, Parameter<Double>)
 
@@ -2292,7 +2292,7 @@ open class CourseAnalyticsMock: CourseAnalytics, Mock {
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsVideourl, rhs: rhsVideourl, with: matcher), lhsVideourl, rhsVideourl, "videoURL"))
 				return Matcher.ComparisonResult(results)
 
-            case (.m_videoChangeSpeed__courseID_courseIDblockID_blockIDvideoURL_videoURLoldSpeed_oldSpeednewSpeed_newSpeedcurrentTime_currentTimeduration_duration(let lhsCourseid, let lhsBlockid, let lhsVideourl, let lhsOldspeed, let lhsNewspeed, let lhsCurrenttime, let lhsDuration), .m_videoChangeSpeed__courseID_courseIDblockID_blockIDvideoURL_videoURLoldSpeed_oldSpeednewSpeed_newSpeedcurrentTime_currentTimeduration_duration(let rhsCourseid, let rhsBlockid, let rhsVideourl, let rhsOldspeed, let rhsNewspeed, let rhsCurrenttime, let rhsDuration)):
+            case (.m_videoSpeedChange__courseID_courseIDblockID_blockIDvideoURL_videoURLoldSpeed_oldSpeednewSpeed_newSpeedcurrentTime_currentTimeduration_duration(let lhsCourseid, let lhsBlockid, let lhsVideourl, let lhsOldspeed, let lhsNewspeed, let lhsCurrenttime, let lhsDuration), .m_videoSpeedChange__courseID_courseIDblockID_blockIDvideoURL_videoURLoldSpeed_oldSpeednewSpeed_newSpeedcurrentTime_currentTimeduration_duration(let rhsCourseid, let rhsBlockid, let rhsVideourl, let rhsOldspeed, let rhsNewspeed, let rhsCurrenttime, let rhsDuration)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseID"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsBlockid, rhs: rhsBlockid, with: matcher), lhsBlockid, rhsBlockid, "blockID"))
@@ -2354,7 +2354,7 @@ open class CourseAnalyticsMock: CourseAnalytics, Mock {
             case let .m_bulkDeleteVideosSection__courseID_courseIDsectionId_sectionIdvideos_videos(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
             case let .m_videoLoaded__courseID_courseIDblockID_blockIDvideoURL_videoURL(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
             case let .m_videoPlayed__courseID_courseIDblockID_blockIDvideoURL_videoURL(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
-            case let .m_videoChangeSpeed__courseID_courseIDblockID_blockIDvideoURL_videoURLoldSpeed_oldSpeednewSpeed_newSpeedcurrentTime_currentTimeduration_duration(p0, p1, p2, p3, p4, p5, p6): return p0.intValue + p1.intValue + p2.intValue + p3.intValue + p4.intValue + p5.intValue + p6.intValue
+            case let .m_videoSpeedChange__courseID_courseIDblockID_blockIDvideoURL_videoURLoldSpeed_oldSpeednewSpeed_newSpeedcurrentTime_currentTimeduration_duration(p0, p1, p2, p3, p4, p5, p6): return p0.intValue + p1.intValue + p2.intValue + p3.intValue + p4.intValue + p5.intValue + p6.intValue
             case let .m_videoPaused__courseID_courseIDblockID_blockIDvideoURL_videoURLcurrentTime_currentTimeduration_duration(p0, p1, p2, p3, p4): return p0.intValue + p1.intValue + p2.intValue + p3.intValue + p4.intValue
             case let .m_videoCompleted__courseID_courseIDblockID_blockIDvideoURL_videoURLcurrentTime_currentTimeduration_duration(p0, p1, p2, p3, p4): return p0.intValue + p1.intValue + p2.intValue + p3.intValue + p4.intValue
             }
@@ -2389,7 +2389,7 @@ open class CourseAnalyticsMock: CourseAnalytics, Mock {
             case .m_bulkDeleteVideosSection__courseID_courseIDsectionId_sectionIdvideos_videos: return ".bulkDeleteVideosSection(courseID:sectionId:videos:)"
             case .m_videoLoaded__courseID_courseIDblockID_blockIDvideoURL_videoURL: return ".videoLoaded(courseID:blockID:videoURL:)"
             case .m_videoPlayed__courseID_courseIDblockID_blockIDvideoURL_videoURL: return ".videoPlayed(courseID:blockID:videoURL:)"
-            case .m_videoChangeSpeed__courseID_courseIDblockID_blockIDvideoURL_videoURLoldSpeed_oldSpeednewSpeed_newSpeedcurrentTime_currentTimeduration_duration: return ".videoChangeSpeed(courseID:blockID:videoURL:oldSpeed:newSpeed:currentTime:duration:)"
+            case .m_videoSpeedChange__courseID_courseIDblockID_blockIDvideoURL_videoURLoldSpeed_oldSpeednewSpeed_newSpeedcurrentTime_currentTimeduration_duration: return ".videoSpeedChange(courseID:blockID:videoURL:oldSpeed:newSpeed:currentTime:duration:)"
             case .m_videoPaused__courseID_courseIDblockID_blockIDvideoURL_videoURLcurrentTime_currentTimeduration_duration: return ".videoPaused(courseID:blockID:videoURL:currentTime:duration:)"
             case .m_videoCompleted__courseID_courseIDblockID_blockIDvideoURL_videoURLcurrentTime_currentTimeduration_duration: return ".videoCompleted(courseID:blockID:videoURL:currentTime:duration:)"
             }
@@ -2438,7 +2438,7 @@ open class CourseAnalyticsMock: CourseAnalytics, Mock {
         public static func bulkDeleteVideosSection(courseID: Parameter<String>, sectionId: Parameter<String>, videos: Parameter<Int>) -> Verify { return Verify(method: .m_bulkDeleteVideosSection__courseID_courseIDsectionId_sectionIdvideos_videos(`courseID`, `sectionId`, `videos`))}
         public static func videoLoaded(courseID: Parameter<String>, blockID: Parameter<String>, videoURL: Parameter<String>) -> Verify { return Verify(method: .m_videoLoaded__courseID_courseIDblockID_blockIDvideoURL_videoURL(`courseID`, `blockID`, `videoURL`))}
         public static func videoPlayed(courseID: Parameter<String>, blockID: Parameter<String>, videoURL: Parameter<String>) -> Verify { return Verify(method: .m_videoPlayed__courseID_courseIDblockID_blockIDvideoURL_videoURL(`courseID`, `blockID`, `videoURL`))}
-        public static func videoChangeSpeed(courseID: Parameter<String>, blockID: Parameter<String>, videoURL: Parameter<String>, oldSpeed: Parameter<Float>, newSpeed: Parameter<Float>, currentTime: Parameter<Double>, duration: Parameter<Double>) -> Verify { return Verify(method: .m_videoChangeSpeed__courseID_courseIDblockID_blockIDvideoURL_videoURLoldSpeed_oldSpeednewSpeed_newSpeedcurrentTime_currentTimeduration_duration(`courseID`, `blockID`, `videoURL`, `oldSpeed`, `newSpeed`, `currentTime`, `duration`))}
+        public static func videoSpeedChange(courseID: Parameter<String>, blockID: Parameter<String>, videoURL: Parameter<String>, oldSpeed: Parameter<Float>, newSpeed: Parameter<Float>, currentTime: Parameter<Double>, duration: Parameter<Double>) -> Verify { return Verify(method: .m_videoSpeedChange__courseID_courseIDblockID_blockIDvideoURL_videoURLoldSpeed_oldSpeednewSpeed_newSpeedcurrentTime_currentTimeduration_duration(`courseID`, `blockID`, `videoURL`, `oldSpeed`, `newSpeed`, `currentTime`, `duration`))}
         public static func videoPaused(courseID: Parameter<String>, blockID: Parameter<String>, videoURL: Parameter<String>, currentTime: Parameter<Double>, duration: Parameter<Double>) -> Verify { return Verify(method: .m_videoPaused__courseID_courseIDblockID_blockIDvideoURL_videoURLcurrentTime_currentTimeduration_duration(`courseID`, `blockID`, `videoURL`, `currentTime`, `duration`))}
         public static func videoCompleted(courseID: Parameter<String>, blockID: Parameter<String>, videoURL: Parameter<String>, currentTime: Parameter<Double>, duration: Parameter<Double>) -> Verify { return Verify(method: .m_videoCompleted__courseID_courseIDblockID_blockIDvideoURL_videoURLcurrentTime_currentTimeduration_duration(`courseID`, `blockID`, `videoURL`, `currentTime`, `duration`))}
     }
@@ -2531,8 +2531,8 @@ open class CourseAnalyticsMock: CourseAnalytics, Mock {
         public static func videoPlayed(courseID: Parameter<String>, blockID: Parameter<String>, videoURL: Parameter<String>, perform: @escaping (String, String, String) -> Void) -> Perform {
             return Perform(method: .m_videoPlayed__courseID_courseIDblockID_blockIDvideoURL_videoURL(`courseID`, `blockID`, `videoURL`), performs: perform)
         }
-        public static func videoChangeSpeed(courseID: Parameter<String>, blockID: Parameter<String>, videoURL: Parameter<String>, oldSpeed: Parameter<Float>, newSpeed: Parameter<Float>, currentTime: Parameter<Double>, duration: Parameter<Double>, perform: @escaping (String, String, String, Float, Float, Double, Double) -> Void) -> Perform {
-            return Perform(method: .m_videoChangeSpeed__courseID_courseIDblockID_blockIDvideoURL_videoURLoldSpeed_oldSpeednewSpeed_newSpeedcurrentTime_currentTimeduration_duration(`courseID`, `blockID`, `videoURL`, `oldSpeed`, `newSpeed`, `currentTime`, `duration`), performs: perform)
+        public static func videoSpeedChange(courseID: Parameter<String>, blockID: Parameter<String>, videoURL: Parameter<String>, oldSpeed: Parameter<Float>, newSpeed: Parameter<Float>, currentTime: Parameter<Double>, duration: Parameter<Double>, perform: @escaping (String, String, String, Float, Float, Double, Double) -> Void) -> Perform {
+            return Perform(method: .m_videoSpeedChange__courseID_courseIDblockID_blockIDvideoURL_videoURLoldSpeed_oldSpeednewSpeed_newSpeedcurrentTime_currentTimeduration_duration(`courseID`, `blockID`, `videoURL`, `oldSpeed`, `newSpeed`, `currentTime`, `duration`), performs: perform)
         }
         public static func videoPaused(courseID: Parameter<String>, blockID: Parameter<String>, videoURL: Parameter<String>, currentTime: Parameter<Double>, duration: Parameter<Double>, perform: @escaping (String, String, String, Double, Double) -> Void) -> Perform {
             return Perform(method: .m_videoPaused__courseID_courseIDblockID_blockIDvideoURL_videoURLcurrentTime_currentTimeduration_duration(`courseID`, `blockID`, `videoURL`, `currentTime`, `duration`), performs: perform)

@@ -135,7 +135,7 @@ public protocol CourseAnalytics {
     
     func videoPlayed(courseID: String, blockID: String, videoURL: String)
     
-    func videoChangeSpeed(
+    func videoSpeedChange(
         courseID: String,
         blockID: String,
         videoURL: String,
@@ -255,7 +255,7 @@ class CourseAnalyticsMock: CourseAnalytics {
     
     public func videoPlayed(courseID: String, blockID: String, videoURL: String) {}
     
-    public func videoChangeSpeed(
+    public func videoSpeedChange(
         courseID: String,
         blockID: String,
         videoURL: String,

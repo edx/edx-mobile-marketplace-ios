@@ -832,7 +832,7 @@ class AnalyticsManager: AuthorizationAnalytics,
         logEvent(.videoPlayed, parameters: parameters)
     }
     
-    public func videoChangeSpeed(
+    public func videoSpeedChange(
         courseID: String,
         blockID: String,
         videoURL: String,
@@ -850,10 +850,10 @@ class AnalyticsManager: AuthorizationAnalytics,
             EventParamKey.currentTime: currentTime,
             EventParamKey.duration: duration,
             EventParamKey.category: EventCategory.video,
-            EventParamKey.name: EventBIValue.videoChangeSpeed.rawValue
+            EventParamKey.name: EventBIValue.videoSpeedChange.rawValue
         ]
         
-        logEvent(.videoChangeSpeed, parameters: parameters)
+        logEvent(.videoSpeedChange, parameters: parameters)
     }
     
     public func videoPaused(
