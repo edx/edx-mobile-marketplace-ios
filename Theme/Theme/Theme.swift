@@ -79,6 +79,7 @@ public struct Theme {
         public private(set) static var courseProgressBG = ThemeAssets.courseProgressBG.swiftUIColor
         public private(set) static var resumeButtonBG = ThemeAssets.resumeButtonBG.swiftUIColor
         public private(set) static var resumeButtonText = ThemeAssets.resumeButtonText.swiftUIColor
+        public private(set) static var socialAuthColor = ThemeAssets.socialAuthColor.swiftUIColor
 
         public static func update(
             accentColor: Color = ThemeAssets.accentColor.swiftUIColor,

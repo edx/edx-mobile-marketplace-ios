@@ -19,6 +19,7 @@ public protocol CoreStorage {
     var user: DataLayer.User? {get set}
     var userSettings: UserSettings? {get set}
     var resetAppSupportDirectoryUserData: Bool? {get set}
+    var lastUsedSocialAuth: String? {get set}
     func clear()
 }
 
@@ -35,6 +36,7 @@ public class CoreStorageMock: CoreStorage {
     public var user: DataLayer.User?
     public var userSettings: UserSettings?
     public var resetAppSupportDirectoryUserData: Bool?
+    public var lastUsedSocialAuth: String?
     public func clear() {}
     
     public init() {}

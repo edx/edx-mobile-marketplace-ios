@@ -55,6 +55,7 @@ public class SignUpViewModel: ObservableObject {
     private let analytics: AuthorizationAnalytics
     private let validator: Validator
     var authMethod: AuthMethod = .password
+    let storage: CoreStorage
 
     public init(
         interactor: AuthInteractorProtocol,
@@ -63,6 +64,7 @@ public class SignUpViewModel: ObservableObject {
         config: ConfigProtocol,
         cssInjector: CSSInjector,
         validator: Validator,
+        storage: CoreStorage,
         sourceScreen: LogistrationSourceScreen
     ) {
         self.interactor = interactor
@@ -71,6 +73,7 @@ public class SignUpViewModel: ObservableObject {
         self.config = config
         self.cssInjector = cssInjector
         self.validator = validator
+        self.storage = storage
         self.sourceScreen = sourceScreen
     }
 
@@ -135,7 +138,14 @@ public class SignUpViewModel: ObservableObject {
             analytics.identify(id: "\(user.id)", username: user.username, email: user.email)
             analytics.registrationSuccess(method: authMetod.analyticsValue)
             isShowProgress = false
-            router.showMainOrWhatsNewScreen(sourceScreen: sourceScreen)
+            var socialAuthMethod: String? = nil
+            if case AuthMethod.socailAuth(let method) = authMethod {
+                socialAuthMethod = method.rawValue
+            }
+            router.showMainOrWhatsNewScreen(
+                sourceScreen: sourceScreen,
+                authMethod: socialAuthMethod
+            )
             NotificationCenter.default.post(name: .userAuthorized, object: nil)
         } catch let error {
             isShowProgress = false
@@ -192,7 +202,15 @@ public class SignUpViewModel: ObservableObject {
             analytics.identify(id: "\(user.id)", username: user.username, email: user.email)
             analytics.userLogin(method: authMethod)
             isShowProgress = false
-            router.showMainOrWhatsNewScreen(sourceScreen: sourceScreen)
+            var socialAuthMethod: String? = nil
+            if case AuthMethod.socailAuth(let method) = authMethod {
+                socialAuthMethod = method.rawValue
+            }
+            router.showMainOrWhatsNewScreen(
+                sourceScreen: sourceScreen,
+                authMethod: socialAuthMethod
+            )
+            setUsedAuthMethodOption(authMethod: authMethod)
             NotificationCenter.default.post(
                 name: .userAuthorized,
                 object: [
@@ -208,9 +226,20 @@ public class SignUpViewModel: ObservableObject {
             isShowProgress = false
             self.authMethod = authMethod
             await registerUser(authMetod: authMethod)
+            setUsedAuthMethodOption(authMethod: authMethod)
         }
     }
 
+    private func setUsedAuthMethodOption(authMethod: AuthMethod) {
+        switch authMethod {
+        case .socailAuth(let auth):
+            UserDefaults.standard.set(auth.rawValue, forKey: "lastSocialAuthUsedOption")
+            UserDefaults.standard.synchronize()
+        default:
+            break
+        }
+    }
+    
     private func update(fullName: String?, email: String?) {
         fields.first(where: { $0.field.type == .email })?.text = email ?? ""
         fields.first(where: { $0.field.name == "name" })?.text = fullName ?? ""

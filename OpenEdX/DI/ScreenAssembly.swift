@@ -59,6 +59,7 @@ class ScreenAssembly: Assembly {
                 config: r.resolve(ConfigProtocol.self)!,
                 analytics: r.resolve(AuthorizationAnalytics.self)!,
                 validator: r.resolve(Validator.self)!,
+                storage: r.resolve(CoreStorage.self)!,
                 sourceScreen: sourceScreen
             )
         }
@@ -70,6 +71,7 @@ class ScreenAssembly: Assembly {
                 config: r.resolve(ConfigProtocol.self)!,
                 cssInjector: r.resolve(CSSInjector.self)!,
                 validator: r.resolve(Validator.self)!,
+                storage: r.resolve(CoreStorage.self)!,
                 sourceScreen: sourceScreen
             )
         }
