@@ -119,7 +119,7 @@ class ConfigTests: XCTestCase {
         let config = Config(properties: properties)
 
         XCTAssertTrue(config.microsoft.enabled)
-        XCTAssertEqual(config.microsoft.appID, "appId")
+        XCTAssertEqual(config.microsoft.clientID, "appId")
     }
 
     func testAppleConfigInitialization() {
