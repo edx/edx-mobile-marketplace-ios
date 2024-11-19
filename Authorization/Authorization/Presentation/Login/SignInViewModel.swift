@@ -116,7 +116,7 @@ public class SignInViewModel: ObservableObject {
             let user = try await interactor.login(externalToken: externalToken, backend: backend)
             analytics.identify(id: "\(user.id)", username: user.username, email: user.email)
             analytics.userLogin(method: authMethod)
-            var socialAuthMethod: String? = nil
+            var socialAuthMethod: String?
             if case AuthMethod.socailAuth(let method) = authMethod {
                 socialAuthMethod = method.rawValue
             }

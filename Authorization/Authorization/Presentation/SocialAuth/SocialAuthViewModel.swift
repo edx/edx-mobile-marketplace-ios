@@ -116,7 +116,6 @@ final public class SocialAuthViewModel: ObservableObject {
     }
     
     func configureEnabledOptions() {
-        
         if googleEnabled {
             enabledOptions.append(.google)
         }

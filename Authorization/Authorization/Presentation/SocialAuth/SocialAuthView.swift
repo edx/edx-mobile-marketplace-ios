@@ -68,6 +68,7 @@ struct SocialAuthView: View {
                 Text(AuthLocalization.lastSignIn)
                     .font(Theme.Fonts.bodySmall)
                     .foregroundStyle(Theme.Colors.textPrimary)
+                
                 socialAuthButton(lastOption)
                     .padding(.leading, 10)
                 
@@ -75,14 +76,14 @@ struct SocialAuthView: View {
                     .frame(width: 1)
                     .overlay(Theme.Colors.socialAuthColor)
                     .padding(.horizontal, 20)
+                    .opacity(viewModel.enabledOptions.count == 1 ? 0 : 1)
                 
                 Spacer()
             }
             
             HStack {
                 ForEach(viewModel.enabledOptions, id: \.self) { option in
-                    if option == viewModel.lastUsedOption, authType == .signIn {
-                    } else {
+                    if option != viewModel.lastUsedOption || authType != .signIn {
                         socialAuthButton(option)
                             .padding(.trailing, 16)
                     }

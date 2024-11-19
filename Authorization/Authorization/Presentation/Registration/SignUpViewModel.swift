@@ -138,7 +138,7 @@ public class SignUpViewModel: ObservableObject {
             analytics.identify(id: "\(user.id)", username: user.username, email: user.email)
             analytics.registrationSuccess(method: authMetod.analyticsValue)
             isShowProgress = false
-            var socialAuthMethod: String? = nil
+            var socialAuthMethod: String?
             if case AuthMethod.socailAuth(let method) = authMethod {
                 socialAuthMethod = method.rawValue
             }
@@ -210,7 +210,6 @@ public class SignUpViewModel: ObservableObject {
                 sourceScreen: sourceScreen,
                 authMethod: socialAuthMethod
             )
-            setUsedAuthMethodOption(authMethod: authMethod)
             NotificationCenter.default.post(
                 name: .userAuthorized,
                 object: [
@@ -226,17 +225,6 @@ public class SignUpViewModel: ObservableObject {
             isShowProgress = false
             self.authMethod = authMethod
             await registerUser(authMetod: authMethod)
-            setUsedAuthMethodOption(authMethod: authMethod)
-        }
-    }
-
-    private func setUsedAuthMethodOption(authMethod: AuthMethod) {
-        switch authMethod {
-        case .socailAuth(let auth):
-            UserDefaults.standard.set(auth.rawValue, forKey: "lastSocialAuthUsedOption")
-            UserDefaults.standard.synchronize()
-        default:
-            break
         }
     }
     
