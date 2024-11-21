@@ -136,14 +136,23 @@ struct CourseVideoDownloadBarView: View {
             .toggleStyle(SwitchToggleStyle(tint: Theme.Colors.toggleSwitchColor))
             .padding(.trailing, 15)
             .highPriorityGesture(
+                DragGesture(minimumDistance: 20, coordinateSpace: .local).onEnded { _ in
+                    toggleAction()
+                }
+            )
+            .highPriorityGesture(
                 TapGesture().onEnded {
-                    if !viewModel.isInternetAvaliable {
-                        onNotInternetAvaliable?()
-                        return
-                    }
-                    Task { await viewModel.onToggle()  }
+                    toggleAction()
                 }
             )
             .accessibilityIdentifier("download_toggle")
+    }
+
+    private func toggleAction() {
+        if !viewModel.isInternetAvaliable {
+            onNotInternetAvaliable?()
+            return
+        }
+        Task { await viewModel.onToggle()  }
     }
 }
