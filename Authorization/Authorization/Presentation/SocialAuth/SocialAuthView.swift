@@ -75,7 +75,7 @@ struct SocialAuthView: View {
                 Divider()
                     .frame(width: 1)
                     .overlay(Theme.Colors.socialAuthColor)
-                    .padding(.horizontal, 20)
+                    .padding(.horizontal, 16)
                     .opacity(viewModel.enabledOptions.count == 1 ? 0 : 1)
                 
                 Spacer()
@@ -85,7 +85,7 @@ struct SocialAuthView: View {
                 ForEach(viewModel.enabledOptions, id: \.self) { option in
                     if option != viewModel.lastUsedOption || authType != .signIn {
                         socialAuthButton(option)
-                            .padding(.trailing, 16)
+                            .padding(.trailing, option == viewModel.enabledOptions.last ? 0 : 12)
                     }
                 }
                 Spacer()
@@ -146,9 +146,8 @@ struct SocialSignView_Previews: PreviewProvider {
         let vm = SocialAuthViewModel(
             config: ConfigMock(),
             lastUsedOption: nil,
-            completion: {
-                _ in
-            })
+            completion: { _ in }
+        )
         SocialAuthView(viewModel: vm).padding()
     }
 }
