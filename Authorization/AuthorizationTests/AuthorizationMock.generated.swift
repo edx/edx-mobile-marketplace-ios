@@ -999,6 +999,13 @@ open class AuthorizationRouterMock: AuthorizationRouter, Mock {
 		perform?()
     }
 
+    @MainActor
+	open func showLiveChat(animated: Bool) {
+        addInvocation(.m_showLiveChat__animated_animated(Parameter<Bool>.value(`animated`)))
+		let perform = methodPerformValue(.m_showLiveChat__animated_animated(Parameter<Bool>.value(`animated`))) as? (Bool) -> Void
+		perform?(`animated`)
+    }
+
 
     fileprivate enum MethodType {
         case m_showUpdateRequiredView__showAccountLink_showAccountLink(Parameter<Bool>)
@@ -1025,6 +1032,7 @@ open class AuthorizationRouterMock: AuthorizationRouter, Mock {
         case m_hideUpgradeLoaderView__animated_animated(Parameter<Bool>)
         case m_showRestoreProgressView
         case m_hideRestoreProgressView
+        case m_showLiveChat__animated_animated(Parameter<Bool>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
@@ -1159,6 +1167,11 @@ open class AuthorizationRouterMock: AuthorizationRouter, Mock {
             case (.m_showRestoreProgressView, .m_showRestoreProgressView): return .match
 
             case (.m_hideRestoreProgressView, .m_hideRestoreProgressView): return .match
+
+            case (.m_showLiveChat__animated_animated(let lhsAnimated), .m_showLiveChat__animated_animated(let rhsAnimated)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsAnimated, rhs: rhsAnimated, with: matcher), lhsAnimated, rhsAnimated, "animated"))
+				return Matcher.ComparisonResult(results)
             default: return .none
             }
         }
@@ -1189,6 +1202,7 @@ open class AuthorizationRouterMock: AuthorizationRouter, Mock {
             case let .m_hideUpgradeLoaderView__animated_animated(p0): return p0.intValue
             case .m_showRestoreProgressView: return 0
             case .m_hideRestoreProgressView: return 0
+            case let .m_showLiveChat__animated_animated(p0): return p0.intValue
             }
         }
         func assertionName() -> String {
@@ -1217,6 +1231,7 @@ open class AuthorizationRouterMock: AuthorizationRouter, Mock {
             case .m_hideUpgradeLoaderView__animated_animated: return ".hideUpgradeLoaderView(animated:)"
             case .m_showRestoreProgressView: return ".showRestoreProgressView()"
             case .m_hideRestoreProgressView: return ".hideRestoreProgressView()"
+            case .m_showLiveChat__animated_animated: return ".showLiveChat(animated:)"
             }
         }
     }
@@ -1265,6 +1280,8 @@ open class AuthorizationRouterMock: AuthorizationRouter, Mock {
 		public static func showRestoreProgressView() -> Verify { return Verify(method: .m_showRestoreProgressView)}
         @MainActor
 		public static func hideRestoreProgressView() -> Verify { return Verify(method: .m_hideRestoreProgressView)}
+        @MainActor
+		public static func showLiveChat(animated: Parameter<Bool>) -> Verify { return Verify(method: .m_showLiveChat__animated_animated(`animated`))}
     }
 
     public struct Perform {
@@ -1348,6 +1365,10 @@ open class AuthorizationRouterMock: AuthorizationRouter, Mock {
         @MainActor
 		public static func hideRestoreProgressView(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_hideRestoreProgressView, performs: perform)
+        }
+        @MainActor
+		public static func showLiveChat(animated: Parameter<Bool>, perform: @escaping (Bool) -> Void) -> Perform {
+            return Perform(method: .m_showLiveChat__animated_animated(`animated`), performs: perform)
         }
     }
 
@@ -1612,6 +1633,13 @@ open class BaseRouterMock: BaseRouter, Mock {
 		perform?()
     }
 
+    @MainActor
+	open func showLiveChat(animated: Bool) {
+        addInvocation(.m_showLiveChat__animated_animated(Parameter<Bool>.value(`animated`)))
+		let perform = methodPerformValue(.m_showLiveChat__animated_animated(Parameter<Bool>.value(`animated`))) as? (Bool) -> Void
+		perform?(`animated`)
+    }
+
 
     fileprivate enum MethodType {
         case m_backToRoot__animated_animated(Parameter<Bool>)
@@ -1637,6 +1665,7 @@ open class BaseRouterMock: BaseRouter, Mock {
         case m_hideUpgradeLoaderView__animated_animated(Parameter<Bool>)
         case m_showRestoreProgressView
         case m_hideRestoreProgressView
+        case m_showLiveChat__animated_animated(Parameter<Bool>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
@@ -1766,6 +1795,11 @@ open class BaseRouterMock: BaseRouter, Mock {
             case (.m_showRestoreProgressView, .m_showRestoreProgressView): return .match
 
             case (.m_hideRestoreProgressView, .m_hideRestoreProgressView): return .match
+
+            case (.m_showLiveChat__animated_animated(let lhsAnimated), .m_showLiveChat__animated_animated(let rhsAnimated)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsAnimated, rhs: rhsAnimated, with: matcher), lhsAnimated, rhsAnimated, "animated"))
+				return Matcher.ComparisonResult(results)
             default: return .none
             }
         }
@@ -1795,6 +1829,7 @@ open class BaseRouterMock: BaseRouter, Mock {
             case let .m_hideUpgradeLoaderView__animated_animated(p0): return p0.intValue
             case .m_showRestoreProgressView: return 0
             case .m_hideRestoreProgressView: return 0
+            case let .m_showLiveChat__animated_animated(p0): return p0.intValue
             }
         }
         func assertionName() -> String {
@@ -1822,6 +1857,7 @@ open class BaseRouterMock: BaseRouter, Mock {
             case .m_hideUpgradeLoaderView__animated_animated: return ".hideUpgradeLoaderView(animated:)"
             case .m_showRestoreProgressView: return ".showRestoreProgressView()"
             case .m_hideRestoreProgressView: return ".hideRestoreProgressView()"
+            case .m_showLiveChat__animated_animated: return ".showLiveChat(animated:)"
             }
         }
     }
@@ -1869,6 +1905,8 @@ open class BaseRouterMock: BaseRouter, Mock {
 		public static func showRestoreProgressView() -> Verify { return Verify(method: .m_showRestoreProgressView)}
         @MainActor
 		public static func hideRestoreProgressView() -> Verify { return Verify(method: .m_hideRestoreProgressView)}
+        @MainActor
+		public static func showLiveChat(animated: Parameter<Bool>) -> Verify { return Verify(method: .m_showLiveChat__animated_animated(`animated`))}
     }
 
     public struct Perform {
@@ -1949,6 +1987,10 @@ open class BaseRouterMock: BaseRouter, Mock {
         @MainActor
 		public static func hideRestoreProgressView(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_hideRestoreProgressView, performs: perform)
+        }
+        @MainActor
+		public static func showLiveChat(animated: Parameter<Bool>, perform: @escaping (Bool) -> Void) -> Perform {
+            return Perform(method: .m_showLiveChat__animated_animated(`animated`), performs: perform)
         }
     }
 

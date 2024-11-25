@@ -317,16 +317,16 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
     
     private func learnTitleAndSearch(proxy: GeometryProxy) -> some View {
         let showDropdown = viewModel.config.program.enabled && viewModel.config.program.isWebViewConfigured
-       return ZStack(alignment: .top) {
+        return ZStack(alignment: .top) {
             Theme.Colors.background
                 .frame(height: showDropdown ? 70 : 50)
             ZStack(alignment: .topTrailing) {
                 VStack {
                     HStack(alignment: .center) {
                         Text(DashboardLocalization.Learn.title)
-                            .font(Theme.Fonts.displaySmall)
-                            .foregroundColor(Theme.Colors.textPrimary)
-                            .accessibilityIdentifier("courses_header_text")
+                        .font(Theme.Fonts.displaySmall)
+                        .foregroundColor(Theme.Colors.textPrimary)
+                        .accessibilityIdentifier("courses_header_text")
                         Spacer()
                     }
                     if showDropdown {
@@ -336,9 +336,8 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
                         }
                     }
                 }
-                    .frameLimit(width: proxy.size.width)
+                .frameLimit(width: proxy.size.width)
             }
-            
             .listRowBackground(Color.clear)
             .padding(.horizontal, 20)
             .accessibilityElement(children: .ignore)

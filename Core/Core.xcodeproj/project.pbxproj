@@ -183,7 +183,10 @@
 		9784D47E2BF7762800AFEFFF /* FullScreenErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9784D47D2BF7762800AFEFFF /* FullScreenErrorView.swift */; };
 		A51CDBE72B6D21F2009B6D4E /* SegmentConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51CDBE62B6D21F2009B6D4E /* SegmentConfig.swift */; };
 		A53A32352B233DEC005FE38A /* ThemeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53A32342B233DEC005FE38A /* ThemeConfig.swift */; };
+		A5713D9E2CB83D4F00881A62 /* LaunchChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5713D9D2CB83D4F00881A62 /* LaunchChatView.swift */; };
+		A5713DA02CB83DB900881A62 /* LaunchChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5713D9F2CB83DB900881A62 /* LaunchChatViewModel.swift */; };
 		A595689B2B6173DF00ED4F90 /* BranchConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A595689A2B6173DF00ED4F90 /* BranchConfig.swift */; };
+		A5986EF72C9C647600CF4B5D /* LiveChatConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5986EF62C9C647600CF4B5D /* LiveChatConfig.swift */; };
 		A5CAA1EC2C526901007690D9 /* SecureInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CAA1EB2C526901007690D9 /* SecureInputView.swift */; };
 		A5F4E7B52B61544A00ACD166 /* BrazeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F4E7B42B61544A00ACD166 /* BrazeConfig.swift */; };
 		BA30427F2B20B320009B64B7 /* SocialAuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA30427D2B20B299009B64B7 /* SocialAuthError.swift */; };
@@ -416,7 +419,10 @@
 		9D5B06CAA99EA5CD49CBE2BB /* Pods-App-Core.debugdev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Core.debugdev.xcconfig"; path = "Target Support Files/Pods-App-Core/Pods-App-Core.debugdev.xcconfig"; sourceTree = "<group>"; };
 		A51CDBE62B6D21F2009B6D4E /* SegmentConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentConfig.swift; sourceTree = "<group>"; };
 		A53A32342B233DEC005FE38A /* ThemeConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeConfig.swift; sourceTree = "<group>"; };
+		A5713D9D2CB83D4F00881A62 /* LaunchChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchChatView.swift; sourceTree = "<group>"; };
+		A5713D9F2CB83DB900881A62 /* LaunchChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchChatViewModel.swift; sourceTree = "<group>"; };
 		A595689A2B6173DF00ED4F90 /* BranchConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BranchConfig.swift; sourceTree = "<group>"; };
+		A5986EF62C9C647600CF4B5D /* LiveChatConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveChatConfig.swift; sourceTree = "<group>"; };
 		A5CAA1EB2C526901007690D9 /* SecureInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SecureInputView.swift; path = Core/View/Base/SecureInputView.swift; sourceTree = SOURCE_ROOT; };
 		A5F4E7B42B61544A00ACD166 /* BrazeConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrazeConfig.swift; sourceTree = "<group>"; };
 		BA30427D2B20B299009B64B7 /* SocialAuthError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialAuthError.swift; sourceTree = "<group>"; };
@@ -846,6 +852,7 @@
 		0770DE7728D0C49E006D8A5D /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				A5713D9C2CB83D1900881A62 /* LaunchChatButton */,
 				9784D47C2BF7761F00AFEFFF /* FullScreenErrorView */,
 				064987882B4D69FE0071642A /* Webview */,
 				A5CAA1EB2C526901007690D9 /* SecureInputView.swift */,
@@ -956,6 +963,15 @@
 			path = FullScreenErrorView;
 			sourceTree = "<group>";
 		};
+		A5713D9C2CB83D1900881A62 /* LaunchChatButton */ = {
+			isa = PBXGroup;
+			children = (
+				A5713D9D2CB83D4F00881A62 /* LaunchChatView.swift */,
+				A5713D9F2CB83DB900881A62 /* LaunchChatViewModel.swift */,
+			);
+			path = LaunchChatButton;
+			sourceTree = "<group>";
+		};
 		BA30427C2B20B235009B64B7 /* SocialAuth */ = {
 			isa = PBXGroup;
 			children = (
@@ -1047,6 +1063,7 @@
 				A53A32342B233DEC005FE38A /* ThemeConfig.swift */,
 				E0D586192B2FF74C009B4BA7 /* DiscoveryConfig.swift */,
 				14D912D82C2553C70077CCCE /* FullStoryConfig.swift */,
+				A5986EF62C9C647600CF4B5D /* LiveChatConfig.swift */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -1300,6 +1317,7 @@
 				BA981BD02B91ED50005707C2 /* FullScreenProgressView.swift in Sources */,
 				0236961F28F9A2F600EEF206 /* AuthEndpoint.swift in Sources */,
 				02B3E3B32930198600A50475 /* AVPlayerViewControllerExtension.swift in Sources */,
+				A5713DA02CB83DB900881A62 /* LaunchChatViewModel.swift in Sources */,
 				BAD9CA332B28A8F300DE790A /* AjaxProvider.swift in Sources */,
 				0295C885299B99DD00ABE571 /* RefreshableScrollView.swift in Sources */,
 				A51CDBE72B6D21F2009B6D4E /* SegmentConfig.swift in Sources */,
@@ -1386,6 +1404,7 @@
 				071009D028D1E3A600344290 /* Constants.swift in Sources */,
 				0770DE1928D0847D006D8A5D /* BaseRouter.swift in Sources */,
 				BA30427F2B20B320009B64B7 /* SocialAuthError.swift in Sources */,
+				A5713D9E2CB83D4F00881A62 /* LaunchChatView.swift in Sources */,
 				06EA8A532BFE006F005DFB90 /* StoreKitHandlerProtocol.swift in Sources */,
 				0284DBFE28D48C5300830893 /* CourseItem.swift in Sources */,
 				0248C92329C075EF00DC8402 /* CourseBlockModel.swift in Sources */,
@@ -1426,6 +1445,7 @@
 				062C69BB2C199C2A002BD311 /* MainTab.swift in Sources */,
 				02CA59842BD7DDBE00D517AA /* DashboardConfig.swift in Sources */,
 				0727877B28D24A1D002E9142 /* HeadersRedirectHandler.swift in Sources */,
+				A5986EF72C9C647600CF4B5D /* LiveChatConfig.swift in Sources */,
 				0236961B28F9A28B00EEF206 /* AuthInteractor.swift in Sources */,
 				A5CAA1EC2C526901007690D9 /* SecureInputView.swift in Sources */,
 				0770DE3028D09793006D8A5D /* EndPointType.swift in Sources */,
