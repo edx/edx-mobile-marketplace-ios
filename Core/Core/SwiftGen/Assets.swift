@@ -94,7 +94,6 @@ public enum CoreAssets {
   public static let removePhoto = ImageAsset(name: "removePhoto")
   public static let iconApple = ImageAsset(name: "icon_apple")
   public static let iconFacebook = ImageAsset(name: "icon_facebook")
-  public static let iconFacebookWhite = ImageAsset(name: "icon_facebook_white")
   public static let iconGoogleWhite = ImageAsset(name: "icon_google_white")
   public static let iconMicrosoftWhite = ImageAsset(name: "icon_microsoft_white")
   public static let upgradeArrowImage = ImageAsset(name: "UpgradeArrowImage")

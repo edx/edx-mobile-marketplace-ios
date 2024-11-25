@@ -266,4 +266,8 @@ public class VideoPlayerViewModel: ObservableObject {
             duration: playerHolder.duration
         )
     }
+    
+    func findSubtitle(at currentTime: Date) -> Subtitle? {
+        return subtitles.first { $0.fromTo.contains(currentTime) }
+    }
 }

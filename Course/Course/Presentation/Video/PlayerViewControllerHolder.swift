@@ -80,7 +80,7 @@ public class PlayerViewControllerHolder: PlayerViewControllerHolderProtocol {
     let pipManager: PipManagerProtocol
 
     public lazy var playerController: PlayerControllerProtocol? = {
-        let playerController = AVPlayerViewController()
+        let playerController = CustomAVPlayerViewController()
         playerController.modalPresentationStyle = .fullScreen
         playerController.allowsPictureInPicturePlayback = true
         playerController.canStartPictureInPictureAutomaticallyFromInline = true

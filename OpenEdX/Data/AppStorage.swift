@@ -237,6 +237,19 @@ public class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, CourseSto
         }
     }
     
+    public var lastUsedSocialAuth: String? {
+        get {
+            return userDefaults.string(forKey: KEY_LAST_USED_SOCIAL_AUTH)
+        }
+        set(newValue) {
+            if let newValue {
+                userDefaults.set(newValue, forKey: KEY_LAST_USED_SOCIAL_AUTH)
+            } else {
+                userDefaults.removeObject(forKey: KEY_LAST_USED_SOCIAL_AUTH)
+            }
+        }
+    }
+    
     public func clear() {
         accessToken = nil
         refreshToken = nil
@@ -265,4 +278,5 @@ public class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, CourseSto
     private let KEY_APPLE_SIGN_EMAIL = "appleSignEmail"
     private let KEY_ALLOWED_DOWNLOAD_LARGE_FILE = "allowedDownloadLargeFile"
     private let KEY_RESET_APP_SUPPORT_DIRECTORY_USER_DATA = "resetAppSupportDirectoryUserData"
+    private let KEY_LAST_USED_SOCIAL_AUTH = "lastUsedSocialAuth"
 }
