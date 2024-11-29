@@ -240,11 +240,10 @@ struct CustomDisclosureGroup: View {
     }
     
     private func canDownloadAllSections(in chapter: CourseChapter) -> Bool {
-        for sequential in chapter.childs {
-            if let _ = viewModel.sequentialsDownloadState[sequential.id] {
-                return true
-            }
+        for sequential in chapter.childs where viewModel.sequentialsDownloadState[sequential.id] != nil {
+            return true
         }
+        
         return false
     }
     
