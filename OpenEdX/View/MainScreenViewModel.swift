@@ -36,7 +36,10 @@ final class MainScreenViewModel: ObservableObject {
         self.profileInteractor = profileInteractor
         self.sourceScreen = sourceScreen
         addObservers()
-        
+        trackSettingPermissionStatus()
+    }
+    
+    private func trackSettingPermissionStatus() {
         UNUserNotificationCenter.current().getNotificationSettings(completionHandler: { (settings) in
             if settings.authorizationStatus == .notDetermined {
                 analytics.notificationPermissionStatus(status: "notDetermined")

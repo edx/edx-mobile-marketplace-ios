@@ -444,7 +444,7 @@ public enum EventBIValue: String {
     case discussionFollowToggle = "edx.bi.app.discussion.follow_toggle"
     case discussionLikeToggle = "edx.bi.app.discussion.like_toggle"
     case discussionReportToggle = "edx.bi.app.discussion.report_toggle"
-    case notificationSettingPermissionStatus = "edx.bi.app.notification.permission_settings.status"
+    case notificationSettingPermissionStatus = "edx.bi.app.notification.setting_permission.status"
 }
 
 public struct EventParamKey {
