@@ -42,7 +42,7 @@ final class MainScreenViewModel: ObservableObject {
     private func trackSettingPermissionStatus() {
         UNUserNotificationCenter.current().getNotificationSettings(completionHandler: { (settings) in
             if settings.authorizationStatus == .notDetermined {
-                analytics.notificationPermissionStatus(status: "notDetermined")
+                analytics.notificationPermissionStatus(status: "not_determined")
             } else if settings.authorizationStatus == .denied {
                 analytics.notificationPermissionStatus(status: "denied")
             } else if settings.authorizationStatus == .authorized {
