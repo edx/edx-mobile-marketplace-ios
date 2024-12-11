@@ -15,3 +15,5 @@ cd ../Profile
 ./../Pods/SwiftyMocky/bin/swiftymocky generate
 cd ../WhatsNew
 ./../Pods/SwiftyMocky/bin/swiftymocky generate
+cd ../Notifications
+./../Pods/SwiftyMocky/bin/swiftymocky generate

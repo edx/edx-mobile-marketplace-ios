@@ -1,0 +1,9 @@
+/*
+  Localizable.strings
+  Notifications
+
+  Created by Saeed Bashir on 11.12.2024.
+  
+*/
+
+NOTIFICATIONS.SETTINGS.TITLE="Push Notifications";

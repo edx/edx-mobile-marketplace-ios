@@ -32,6 +32,9 @@
       location = "group:Theme/Theme.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:Notifications/Notifications.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>

@@ -49,6 +49,8 @@
 		07D5DA3E28D075AB00752FD9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07D5DA3D28D075AB00752FD9 /* Assets.xcassets */; };
 		149B52D92C5FE5AB00C7BF5D /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 149B52D82C5FE5AB00C7BF5D /* FirebaseCrashlytics */; };
 		149FF39E2B9F1AB50034B33F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 149FF39C2B9F1AB50034B33F /* LaunchScreen.storyboard */; };
+		14BAE68E2D0974B700EAF0E4 /* Notifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14BAE68D2D0974B700EAF0E4 /* Notifications.framework */; };
+		14BAE68F2D0974B700EAF0E4 /* Notifications.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 14BAE68D2D0974B700EAF0E4 /* Notifications.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		14D912D32C25483F0077CCCE /* FullStory in Frameworks */ = {isa = PBXBuildFile; productRef = 14D912D22C25483F0077CCCE /* FullStory */; };
 		14D912D72C2551F60077CCCE /* FullStoryAnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D912D62C2551F60077CCCE /* FullStoryAnalyticsService.swift */; };
 		1924EDE8164C7AB17AD4946B /* Pods_App_OpenEdX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC49621A0942E5EE74BDC895 /* Pods_App_OpenEdX.framework */; };
@@ -109,6 +111,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				E0D6E6A42B1626D60089F9C9 /* Theme.framework in Embed Frameworks */,
+				14BAE68F2D0974B700EAF0E4 /* Notifications.framework in Embed Frameworks */,
 				072787B228D34D83002E9142 /* Discovery.framework in Embed Frameworks */,
 				0218196528F734FA00202564 /* Discussion.framework in Embed Frameworks */,
 				07A7D79028F5C9060000BE81 /* Core.framework in Embed Frameworks */,
@@ -164,6 +167,7 @@
 		07D5DA3428D075AA00752FD9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		07D5DA3D28D075AB00752FD9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		149FF39D2B9F1AB50034B33F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		14BAE68D2D0974B700EAF0E4 /* Notifications.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Notifications.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		14D912D62C2551F60077CCCE /* FullStoryAnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullStoryAnalyticsService.swift; sourceTree = "<group>"; };
 		1BB1F1D0FABF8788646FBAF2 /* Pods-App-OpenEdX.debugstage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-OpenEdX.debugstage.xcconfig"; path = "Target Support Files/Pods-App-OpenEdX/Pods-App-OpenEdX.debugstage.xcconfig"; sourceTree = "<group>"; };
 		37C50995093E34142FDE0ED9 /* Pods-App-OpenEdX.releasedev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-OpenEdX.releasedev.xcconfig"; path = "Target Support Files/Pods-App-OpenEdX/Pods-App-OpenEdX.releasedev.xcconfig"; sourceTree = "<group>"; };
@@ -193,6 +197,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E0D6E6A32B1626B10089F9C9 /* Theme.framework in Frameworks */,
+				14BAE68E2D0974B700EAF0E4 /* Notifications.framework in Frameworks */,
 				07A7D78F28F5C9060000BE81 /* Core.framework in Frameworks */,
 				028A37362ADFF404008CA604 /* WhatsNew.framework in Frameworks */,
 				025DE1A428DB4DAE0053E0F4 /* Profile.framework in Frameworks */,
@@ -308,6 +313,7 @@
 		4E6FB43543890E90BB88D64D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				14BAE68D2D0974B700EAF0E4 /* Notifications.framework */,
 				E0D6E6A22B1626B10089F9C9 /* Theme.framework */,
 				028A37352ADFF404008CA604 /* WhatsNew.framework */,
 				0218196328F734FA00202564 /* Discussion.framework */,

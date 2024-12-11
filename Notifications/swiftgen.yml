@@ -1,0 +1,18 @@
+strings:
+  inputs:
+    - Notifications/en.lproj
+  outputs:
+    - templateName: structured-swift5
+      params:
+        publicAccess: true
+        enumName: NotificationsLocalization
+      output: Notifications/SwiftGen/Strings.swift
+#xcassets:
+#  inputs:
+#    - Notifications/Assets.xcassets
+#  outputs:
+#    templateName: swift5
+#    params:
+#        publicAccess: true
+#        enumName: NotificationsAssets
+#    output: Notifications/SwiftGen/Assets.swift

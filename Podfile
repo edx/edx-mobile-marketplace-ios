@@ -99,4 +99,13 @@ abstract_target "App" do
     end
   end
   
+  target "Notifications" do
+    project './Notifications/Notifications.xcodeproj'
+    workspace './Notifications/Notifications.xcodeproj'
+    
+    target 'NotificationsTests' do
+      pod 'SwiftyMocky', :git => 'https://github.com/MakeAWishFoundation/SwiftyMocky.git', :tag => '4.2.0'
+    end
+  end
+  
 end
