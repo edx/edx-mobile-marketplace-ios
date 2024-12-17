@@ -15,6 +15,7 @@ import Course
 import Discussion
 import WhatsNew
 import Swinject
+import Notifications
 
 // swiftlint:disable file_length type_body_length
 protocol AnalyticsService {
@@ -32,7 +33,8 @@ class AnalyticsManager: AuthorizationAnalytics,
                         CourseAnalytics,
                         DiscussionAnalytics,
                         CoreAnalytics,
-                        WhatsNewAnalytics {
+                        WhatsNewAnalytics,
+                        NotificationsAnalytics {
     
     private var services: [AnalyticsService] = []
     
@@ -1315,6 +1317,20 @@ class AnalyticsManager: AuthorizationAnalytics,
         
         parameters.setObjectOrNil(lmsPrice, forKey: EventParamKey.lmsPrice)
         logScreenEvent(.courseUpgradeValuePropViewed, parameters: parameters)
+    }
+    
+    public func notificationsScreenEvent(event: AnalyticsEvent, biValue: EventBIValue) {
+        
+    }
+    
+    public func notificationsDiscussionPermissionToggleEvent(action: Bool) {
+        var parameters: [String: Any] = [
+            EventParamKey.action: action,
+            EventParamKey.category: EventCategory.notifications,
+            EventParamKey.name: EventBIValue.notificationDiscussionPermissionToggle.rawValue
+        ]
+        
+        logEvent(.notificationDiscussionPermissionToggle, parameters: parameters)
     }
 }
 

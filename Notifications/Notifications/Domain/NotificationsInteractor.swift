@@ -23,8 +23,8 @@ public class NotificationsInteractor: NotificationsInteractorProtocol {
 }
 
 // Mark - For testing and SwiftUI preview
-//#if DEBUG
-//public extension NotificationsInteractor {
-//    static let mock = NotificationsInteractor(repository: NotificationsRepositoryMock())
-//}
-//#endif
+#if DEBUG
+public extension NotificationsInteractor {
+    static let mock = NotificationsInteractor(repository: NotificationsRepositoryMock())
+}
+#endif

@@ -33,6 +33,7 @@ public protocol ConfigProtocol {
     var URIScheme: String { get }
     var ecommerceURL: String? { get }
     var fullStory: FullStoryConfig { get }
+    var pushNotificationsEnabled: Bool { get }
 }
 
 public enum TokenType: String {
@@ -52,6 +53,7 @@ private enum ConfigKeys: String {
     case faq = "FAQ_URL"
     case URIScheme = "URI_SCHEME"
     case ecommerceURL = "ECOMMERCE_URL"
+    case pushNotificationsEnabled = "PUSH_NOTIFICATIONS_ENABLED"
 }
 
 public class Config {
@@ -166,6 +168,10 @@ extension Config: ConfigProtocol {
     
     public var ecommerceURL: String? {
         string(for: ConfigKeys.ecommerceURL.rawValue)
+    }
+    
+    public var pushNotificationsEnabled: Bool {
+        bool(for: ConfigKeys.pushNotificationsEnabled.rawValue)
     }
 }
 

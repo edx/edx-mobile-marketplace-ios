@@ -15,7 +15,6 @@ public protocol NotificationsRouter: BaseRouter {
 // Mark - For testing and SwiftUI preview
 #if DEBUG
 public class NotificationsRouterMock: BaseRouterMock, NotificationsRouter {
-    
     public override init() {}
 }
 #endif

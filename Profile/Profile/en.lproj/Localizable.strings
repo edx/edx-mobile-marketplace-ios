@@ -66,6 +66,7 @@
 "DELETE_ACCOUNT.INCORRECT_PASSWORD" = "The password is incorrect. Please try again.";
 
 "SETTINGS.VIDEO_SETTINGS_TITLE" = "Video settings";
+"SETTINGS.PUSH_SETTINGS_TITLE" = "Push Notifications";
 "SETTINGS.WIFI_TITLE" = "Wi-fi only download";
 "SETTINGS.WIFI_DESCRIPTION" = "Only download content when wi-fi is turned on";
 "SETTINGS.VIDEO_QUALITY_TITLE" = "Video streaming quality";

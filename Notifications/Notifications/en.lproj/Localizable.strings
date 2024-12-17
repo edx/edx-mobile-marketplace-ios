@@ -6,4 +6,8 @@
   
 */
 
-NOTIFICATIONS.SETTINGS.TITLE="Push Notifications";
+SETTINGS.TITLE="Push Notifications";
+SETTINGS.PREFERENCE_TITLE="Discussions Activity";
+SETTINGS.PREFERENCE_DESCRIPTION="Notifications for course discussions you post, comment, or follow.";
+
+

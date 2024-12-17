@@ -10,11 +10,13 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 public enum NotificationsLocalization {
-  public enum Notifications {
-    public enum Settings {
-      /// Push Notifications
-      public static let title = NotificationsLocalization.tr("Localizable", "NOTIFICATIONS.SETTINGS.TITLE", fallback: "Push Notifications")
-    }
+  public enum Settings {
+    /// Notifications for course discussions you post, comment, or follow.
+    public static let preferenceDescription = NotificationsLocalization.tr("Localizable", "SETTINGS.PREFERENCE_DESCRIPTION", fallback: "Notifications for course discussions you post, comment, or follow.")
+    /// Discussions Activity
+    public static let preferenceTitle = NotificationsLocalization.tr("Localizable", "SETTINGS.PREFERENCE_TITLE", fallback: "Discussions Activity")
+    /// Push Notifications
+    public static let title = NotificationsLocalization.tr("Localizable", "SETTINGS.TITLE", fallback: "Push Notifications")
   }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length

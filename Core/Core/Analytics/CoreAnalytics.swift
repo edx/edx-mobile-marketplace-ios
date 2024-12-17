@@ -258,6 +258,7 @@ public enum AnalyticsEvent: String {
     case videoStreamQualityChanged = "Video:Streaming Quality Changed"
     case videoDownloadQualityChanged = "Video:Download Quality Changed"
     case profileVideoSettingsClicked = "Profile:Video Setting Clicked"
+    case profilePushSettingsClicked = "Profile:Push Notifications Setting Clicked"
     case privacyPolicyClicked = "Profile:Privacy Policy Clicked"
     case cookiePolicyClicked = "Profile:Cookie Policy Clicked"
     case emailSupportClicked = "Profile:Contact Support Clicked"
@@ -332,6 +333,7 @@ public enum AnalyticsEvent: String {
     case discussionLikeToggle = "Discussion:Like Toggle"
     case discussionReportToggle = "Discussion:Report Toggle"
     case notificationSettingPermissionStatus = "Notification:Setting Permission Status"
+    case notificationDiscussionPermissionToggle = "Notification:Discussion Permission Toggle"
     
 }
 
@@ -363,6 +365,7 @@ public enum EventBIValue: String {
     case profileEditClicked = "edx.bi.app.profile.edit.clicked"
     case profileEditDoneClicked = "edx.bi.app.profile.edit_done.clicked"
     case profileVideoSettingsClicked = "edx.bi.app.profile.video_setting.clicked"
+    case profilePushSettingsClicked = "edx.bi.app.profile.push_notifications_setting.clicked"
     case emailSupportClicked = "edx.bi.app.profile.email_support.clicked"
     case faqClicked = "edx.bi.app.profile.faq.clicked"
     case tosClicked = "edx.bi.app.profile.terms_of_use.clicked"
@@ -445,6 +448,7 @@ public enum EventBIValue: String {
     case discussionLikeToggle = "edx.bi.app.discussion.like_toggle"
     case discussionReportToggle = "edx.bi.app.discussion.report_toggle"
     case notificationSettingPermissionStatus = "edx.bi.app.notification.setting_permission.status"
+    case notificationDiscussionPermissionToggle = "edx.bi.app.notification.discussion.permission.toggle"
 }
 
 public struct EventParamKey {
@@ -515,4 +519,5 @@ public struct EventCategory {
     public static let video = "video"
     public static let course = "course"
     public static let inAppPurchases = "in_app_purchases"
+    public static let notifications = "notifications"
 }

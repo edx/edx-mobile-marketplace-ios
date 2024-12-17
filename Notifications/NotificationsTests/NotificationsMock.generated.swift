@@ -3224,34 +3224,49 @@ open class NotificationsAnalyticsMock: NotificationsAnalytics, Mock {
 
 
 
-    open func NotificationsScreenEvent(event: AnalyticsEvent, biValue: EventBIValue) {
-        addInvocation(.m_NotificationsScreenEvent__event_eventbiValue_biValue(Parameter<AnalyticsEvent>.value(`event`), Parameter<EventBIValue>.value(`biValue`)))
-		let perform = methodPerformValue(.m_NotificationsScreenEvent__event_eventbiValue_biValue(Parameter<AnalyticsEvent>.value(`event`), Parameter<EventBIValue>.value(`biValue`))) as? (AnalyticsEvent, EventBIValue) -> Void
+    open func notificationsScreenEvent(event: AnalyticsEvent, biValue: EventBIValue) {
+        addInvocation(.m_notificationsScreenEvent__event_eventbiValue_biValue(Parameter<AnalyticsEvent>.value(`event`), Parameter<EventBIValue>.value(`biValue`)))
+		let perform = methodPerformValue(.m_notificationsScreenEvent__event_eventbiValue_biValue(Parameter<AnalyticsEvent>.value(`event`), Parameter<EventBIValue>.value(`biValue`))) as? (AnalyticsEvent, EventBIValue) -> Void
 		perform?(`event`, `biValue`)
+    }
+
+    open func notificationsDiscussionPermissionToggleEvent(action: Bool) {
+        addInvocation(.m_notificationsDiscussionPermissionToggleEvent__action_action(Parameter<Bool>.value(`action`)))
+		let perform = methodPerformValue(.m_notificationsDiscussionPermissionToggleEvent__action_action(Parameter<Bool>.value(`action`))) as? (Bool) -> Void
+		perform?(`action`)
     }
 
 
     fileprivate enum MethodType {
-        case m_NotificationsScreenEvent__event_eventbiValue_biValue(Parameter<AnalyticsEvent>, Parameter<EventBIValue>)
+        case m_notificationsScreenEvent__event_eventbiValue_biValue(Parameter<AnalyticsEvent>, Parameter<EventBIValue>)
+        case m_notificationsDiscussionPermissionToggleEvent__action_action(Parameter<Bool>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
-            case (.m_NotificationsScreenEvent__event_eventbiValue_biValue(let lhsEvent, let lhsBivalue), .m_NotificationsScreenEvent__event_eventbiValue_biValue(let rhsEvent, let rhsBivalue)):
+            case (.m_notificationsScreenEvent__event_eventbiValue_biValue(let lhsEvent, let lhsBivalue), .m_notificationsScreenEvent__event_eventbiValue_biValue(let rhsEvent, let rhsBivalue)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsEvent, rhs: rhsEvent, with: matcher), lhsEvent, rhsEvent, "event"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsBivalue, rhs: rhsBivalue, with: matcher), lhsBivalue, rhsBivalue, "biValue"))
 				return Matcher.ComparisonResult(results)
+
+            case (.m_notificationsDiscussionPermissionToggleEvent__action_action(let lhsAction), .m_notificationsDiscussionPermissionToggleEvent__action_action(let rhsAction)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsAction, rhs: rhsAction, with: matcher), lhsAction, rhsAction, "action"))
+				return Matcher.ComparisonResult(results)
+            default: return .none
             }
         }
 
         func intValue() -> Int {
             switch self {
-            case let .m_NotificationsScreenEvent__event_eventbiValue_biValue(p0, p1): return p0.intValue + p1.intValue
+            case let .m_notificationsScreenEvent__event_eventbiValue_biValue(p0, p1): return p0.intValue + p1.intValue
+            case let .m_notificationsDiscussionPermissionToggleEvent__action_action(p0): return p0.intValue
             }
         }
         func assertionName() -> String {
             switch self {
-            case .m_NotificationsScreenEvent__event_eventbiValue_biValue: return ".NotificationsScreenEvent(event:biValue:)"
+            case .m_notificationsScreenEvent__event_eventbiValue_biValue: return ".notificationsScreenEvent(event:biValue:)"
+            case .m_notificationsDiscussionPermissionToggleEvent__action_action: return ".notificationsDiscussionPermissionToggleEvent(action:)"
             }
         }
     }
@@ -3270,15 +3285,19 @@ open class NotificationsAnalyticsMock: NotificationsAnalytics, Mock {
     public struct Verify {
         fileprivate var method: MethodType
 
-        public static func NotificationsScreenEvent(event: Parameter<AnalyticsEvent>, biValue: Parameter<EventBIValue>) -> Verify { return Verify(method: .m_NotificationsScreenEvent__event_eventbiValue_biValue(`event`, `biValue`))}
+        public static func notificationsScreenEvent(event: Parameter<AnalyticsEvent>, biValue: Parameter<EventBIValue>) -> Verify { return Verify(method: .m_notificationsScreenEvent__event_eventbiValue_biValue(`event`, `biValue`))}
+        public static func notificationsDiscussionPermissionToggleEvent(action: Parameter<Bool>) -> Verify { return Verify(method: .m_notificationsDiscussionPermissionToggleEvent__action_action(`action`))}
     }
 
     public struct Perform {
         fileprivate var method: MethodType
         var performs: Any
 
-        public static func NotificationsScreenEvent(event: Parameter<AnalyticsEvent>, biValue: Parameter<EventBIValue>, perform: @escaping (AnalyticsEvent, EventBIValue) -> Void) -> Perform {
-            return Perform(method: .m_NotificationsScreenEvent__event_eventbiValue_biValue(`event`, `biValue`), performs: perform)
+        public static func notificationsScreenEvent(event: Parameter<AnalyticsEvent>, biValue: Parameter<EventBIValue>, perform: @escaping (AnalyticsEvent, EventBIValue) -> Void) -> Perform {
+            return Perform(method: .m_notificationsScreenEvent__event_eventbiValue_biValue(`event`, `biValue`), performs: perform)
+        }
+        public static func notificationsDiscussionPermissionToggleEvent(action: Parameter<Bool>, perform: @escaping (Bool) -> Void) -> Perform {
+            return Perform(method: .m_notificationsDiscussionPermissionToggleEvent__action_action(`action`), performs: perform)
         }
     }
 

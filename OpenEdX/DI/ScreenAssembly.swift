@@ -15,6 +15,7 @@ import Profile
 import Course
 import Discussion
 import Combine
+import Notifications
 
 // swiftlint:disable function_body_length type_body_length
 class ScreenAssembly: Assembly {
@@ -240,6 +241,33 @@ class ScreenAssembly: Assembly {
                 serverConfig: r.resolve(ServerConfigProtocol.self)!,
                 upgradeHandler: r.resolve(CourseUpgradeHandlerProtocol.self)!,
                 upgradeHelper: r.resolve(CourseUpgradeHelperProtocol.self)!
+            )
+        }
+        
+        container.register(NotificationsPersistenceProtocol.self) { r in
+            NotificationsPersistence(context: r.resolve(DatabaseManager.self)!.context)
+        }
+        
+        container.register(NotificationsRepositoryProtocol.self) { r in
+            NotificationsRepository(
+                api: r.resolve(API.self)!,
+                appStorage: r.resolve(AppStorage.self)!,
+                config: r.resolve(ConfigProtocol.self)!,
+                persistence: r.resolve(NotificationsPersistenceProtocol.self)!
+            )
+        }
+        
+        container.register(NotificationsInteractorProtocol.self) { r in
+            NotificationsInteractor(
+                repository: r.resolve(NotificationsRepositoryProtocol.self)!
+            )
+        }
+        
+        container.register(NotificationsSettingsViewModel.self) { r in
+            NotificationsSettingsViewModel(
+                interactor: r.resolve(NotificationsInteractorProtocol.self)!,
+                router: r.resolve(NotificationsRouter.self)!,
+                analytics: r.resolve(NotificationsAnalytics.self)!
             )
         }
         

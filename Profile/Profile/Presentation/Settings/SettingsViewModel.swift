@@ -154,6 +154,13 @@ public class SettingsViewModel: ObservableObject {
         analytics.profileVideoSettingsClicked()
     }
     
+    func trackProfilePushSettingsClicked() {
+        analytics.profileTrackEvent(
+            .profilePushSettingsClicked,
+            biValue: .profilePushSettingsClicked
+        )
+    }
+    
     func trackEmailSupportClicked() {
         analytics.emailSupportClicked()
     }

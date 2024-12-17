@@ -47,6 +47,7 @@
 		07A7D79028F5C9060000BE81 /* Core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 07A7D78E28F5C9060000BE81 /* Core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		07D5DA3528D075AA00752FD9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D5DA3428D075AA00752FD9 /* AppDelegate.swift */; };
 		07D5DA3E28D075AB00752FD9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07D5DA3D28D075AB00752FD9 /* Assets.xcassets */; };
+		146CF94C2D0C0248000955B2 /* NotificationsPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146CF94B2D0C0248000955B2 /* NotificationsPersistence.swift */; };
 		149B52D92C5FE5AB00C7BF5D /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 149B52D82C5FE5AB00C7BF5D /* FirebaseCrashlytics */; };
 		149FF39E2B9F1AB50034B33F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 149FF39C2B9F1AB50034B33F /* LaunchScreen.storyboard */; };
 		14BAE68E2D0974B700EAF0E4 /* Notifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14BAE68D2D0974B700EAF0E4 /* Notifications.framework */; };
@@ -166,6 +167,7 @@
 		07D5DA3128D075AA00752FD9 /* OpenEdX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenEdX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07D5DA3428D075AA00752FD9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		07D5DA3D28D075AB00752FD9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		146CF94B2D0C0248000955B2 /* NotificationsPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsPersistence.swift; sourceTree = "<group>"; };
 		149FF39D2B9F1AB50034B33F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		14BAE68D2D0974B700EAF0E4 /* Notifications.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Notifications.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		14D912D62C2551F60077CCCE /* FullStoryAnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullStoryAnalyticsService.swift; sourceTree = "<group>"; };
@@ -231,6 +233,7 @@
 				0293A2042A6FCD430090A336 /* CoursePersistence.swift */,
 				0293A2062A6FCDA30090A336 /* DiscoveryPersistence.swift */,
 				0293A2082A6FCDE50090A336 /* DashboardPersistence.swift */,
+				146CF94B2D0C0248000955B2 /* NotificationsPersistence.swift */,
 				020CA5D82AA0A25300970AAF /* AppStorage.swift */,
 			);
 			path = Data;
@@ -675,6 +678,7 @@
 				0770DE2028D0858A006D8A5D /* Router.swift in Sources */,
 				14D912D72C2551F60077CCCE /* FullStoryAnalyticsService.swift in Sources */,
 				0293A2092A6FCDE50090A336 /* DashboardPersistence.swift in Sources */,
+				146CF94C2D0C0248000955B2 /* NotificationsPersistence.swift in Sources */,
 				0770DE1728D080A1006D8A5D /* RouteController.swift in Sources */,
 				A59568952B61630500ED4F90 /* DeepLinkManager.swift in Sources */,
 				A50066952B614DEF0024680B /* BrazeListener.swift in Sources */,

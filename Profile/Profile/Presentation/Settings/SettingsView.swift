@@ -192,6 +192,22 @@ public struct SettingsView: View {
             })
             .accessibilityIdentifier("video_settings_button")
             
+            if viewModel.config.pushNotificationsEnabled {
+                Divider()
+                
+                Button(action: {
+                    viewModel.trackProfilePushSettingsClicked()
+                    viewModel.router.showPushSettings()
+                }, label: {
+                    HStack {
+                        Text(ProfileLocalization.Settings.pushSettingsTitle)
+                            .font(Theme.Fonts.titleMedium)
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                    }
+                })
+                .accessibilityIdentifier("push_notifications_settings_button")
+            }
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(ProfileLocalization.settingsVideo)

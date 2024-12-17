@@ -10,11 +10,13 @@ import Core
 
 //sourcery: AutoMockable
 public protocol NotificationsAnalytics {
-    func NotificationsScreenEvent(event: AnalyticsEvent, biValue: EventBIValue)
+    func notificationsScreenEvent(event: AnalyticsEvent, biValue: EventBIValue)
+    func notificationsDiscussionPermissionToggleEvent(action: Bool)
 }
 
 #if DEBUG
 class NotificationsAnalyticsMock: NotificationsAnalytics {
-    public func NotificationsScreenEvent(event: AnalyticsEvent, biValue: EventBIValue) {}
+    public func notificationsScreenEvent(event: AnalyticsEvent, biValue: EventBIValue) {}
+    public func notificationsDiscussionPermissionToggleEvent(action: Bool) {}
 }
 #endif

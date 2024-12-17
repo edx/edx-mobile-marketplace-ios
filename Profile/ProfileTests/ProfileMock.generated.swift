@@ -4246,6 +4246,12 @@ open class ProfileRouterMock: ProfileRouter, Mock {
 		perform?()
     }
 
+    open func showPushSettings() {
+        addInvocation(.m_showPushSettings)
+		let perform = methodPerformValue(.m_showPushSettings) as? () -> Void
+		perform?()
+    }
+
     open func showManageAccount() {
         addInvocation(.m_showManageAccount)
 		let perform = methodPerformValue(.m_showManageAccount) as? () -> Void
@@ -4437,6 +4443,7 @@ open class ProfileRouterMock: ProfileRouter, Mock {
         case m_showEditProfile__userModel_userModelavatar_avatarprofileDidEdit_profileDidEdit(Parameter<Core.UserProfile>, Parameter<UIImage?>, Parameter<((UserProfile?, UIImage?)) -> Void>)
         case m_showSettings
         case m_showVideoSettings
+        case m_showPushSettings
         case m_showManageAccount
         case m_showDatesAndCalendar
         case m_showSyncCalendarOptions
@@ -4480,6 +4487,8 @@ open class ProfileRouterMock: ProfileRouter, Mock {
             case (.m_showSettings, .m_showSettings): return .match
 
             case (.m_showVideoSettings, .m_showVideoSettings): return .match
+
+            case (.m_showPushSettings, .m_showPushSettings): return .match
 
             case (.m_showManageAccount, .m_showManageAccount): return .match
 
@@ -4638,6 +4647,7 @@ open class ProfileRouterMock: ProfileRouter, Mock {
             case let .m_showEditProfile__userModel_userModelavatar_avatarprofileDidEdit_profileDidEdit(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
             case .m_showSettings: return 0
             case .m_showVideoSettings: return 0
+            case .m_showPushSettings: return 0
             case .m_showManageAccount: return 0
             case .m_showDatesAndCalendar: return 0
             case .m_showSyncCalendarOptions: return 0
@@ -4675,6 +4685,7 @@ open class ProfileRouterMock: ProfileRouter, Mock {
             case .m_showEditProfile__userModel_userModelavatar_avatarprofileDidEdit_profileDidEdit: return ".showEditProfile(userModel:avatar:profileDidEdit:)"
             case .m_showSettings: return ".showSettings()"
             case .m_showVideoSettings: return ".showVideoSettings()"
+            case .m_showPushSettings: return ".showPushSettings()"
             case .m_showManageAccount: return ".showManageAccount()"
             case .m_showDatesAndCalendar: return ".showDatesAndCalendar()"
             case .m_showSyncCalendarOptions: return ".showSyncCalendarOptions()"
@@ -4726,6 +4737,7 @@ open class ProfileRouterMock: ProfileRouter, Mock {
         public static func showEditProfile(userModel: Parameter<Core.UserProfile>, avatar: Parameter<UIImage?>, profileDidEdit: Parameter<((UserProfile?, UIImage?)) -> Void>) -> Verify { return Verify(method: .m_showEditProfile__userModel_userModelavatar_avatarprofileDidEdit_profileDidEdit(`userModel`, `avatar`, `profileDidEdit`))}
         public static func showSettings() -> Verify { return Verify(method: .m_showSettings)}
         public static func showVideoSettings() -> Verify { return Verify(method: .m_showVideoSettings)}
+        public static func showPushSettings() -> Verify { return Verify(method: .m_showPushSettings)}
         public static func showManageAccount() -> Verify { return Verify(method: .m_showManageAccount)}
         public static func showDatesAndCalendar() -> Verify { return Verify(method: .m_showDatesAndCalendar)}
         public static func showSyncCalendarOptions() -> Verify { return Verify(method: .m_showSyncCalendarOptions)}
@@ -4776,6 +4788,9 @@ open class ProfileRouterMock: ProfileRouter, Mock {
         }
         public static func showVideoSettings(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_showVideoSettings, performs: perform)
+        }
+        public static func showPushSettings(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_showPushSettings, performs: perform)
         }
         public static func showManageAccount(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_showManageAccount, performs: perform)

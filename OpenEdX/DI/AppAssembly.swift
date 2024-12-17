@@ -16,6 +16,7 @@ import Discussion
 import Authorization
 import Profile
 import WhatsNew
+import Notifications
 
 // swiftlint:disable function_body_length
 class AppAssembly: Assembly {
@@ -77,6 +78,10 @@ class AppAssembly: Assembly {
             r.resolve(AnalyticsManager.self)!
         }.inObjectScope(.container)
         
+        container.register(NotificationsAnalytics.self) { r in
+            r.resolve(AnalyticsManager.self)!
+        }.inObjectScope(.container)
+        
         container.register(ConnectivityProtocol.self) { _ in
             Connectivity()
         }
@@ -124,6 +129,10 @@ class AppAssembly: Assembly {
         }.inObjectScope(.container)
         
         container.register(WhatsNewRouter.self) { r in
+            r.resolve(Router.self)!
+        }.inObjectScope(.container)
+        
+        container.register(NotificationsRouter.self) { r in
             r.resolve(Router.self)!
         }.inObjectScope(.container)
         

@@ -18,6 +18,7 @@ import Dashboard
 import Profile
 import WhatsNew
 import Combine
+import Notifications
 
 // swiftlint:disable file_length type_body_length
 public class Router: AuthorizationRouter,
@@ -27,7 +28,8 @@ public class Router: AuthorizationRouter,
                      DashboardRouter,
                      CourseRouter,
                      DiscussionRouter,
-                     BackNavigationProtocol {
+                     BackNavigationProtocol,
+                     NotificationsRouter {
 
     public var container: Container
 
@@ -767,6 +769,13 @@ public class Router: AuthorizationRouter,
     public func showVideoSettings() {
         let viewModel = Container.shared.resolve(SettingsViewModel.self)!
         let view = VideoSettingsView(viewModel: viewModel)
+        let controller = UIHostingController(rootView: view)
+        navigationController.pushViewController(controller, animated: true)
+    }
+    
+    public func showPushSettings() {
+        let viewModel = Container.shared.resolve(NotificationsSettingsViewModel.self)!
+        let view = NotificationsSettingsView(viewModel: viewModel)
         let controller = UIHostingController(rootView: view)
         navigationController.pushViewController(controller, animated: true)
     }

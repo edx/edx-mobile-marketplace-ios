@@ -256,6 +256,8 @@ public enum ProfileLocalization {
     public static let useRelativeDates = ProfileLocalization.tr("Localizable", "OPTIONS.USE_RELATIVE_DATES", fallback: "Use relative dates")
   }
   public enum Settings {
+    /// Push Notifications
+    public static let pushSettingsTitle = ProfileLocalization.tr("Localizable", "SETTINGS.PUSH_SETTINGS_TITLE", fallback: "Push Notifications")
     /// Lower data usage
     public static let quality360Description = ProfileLocalization.tr("Localizable", "SETTINGS.QUALITY_360_DESCRIPTION", fallback: "Lower data usage")
     /// 360p
