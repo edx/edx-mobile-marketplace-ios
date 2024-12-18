@@ -266,7 +266,6 @@ class ScreenAssembly: Assembly {
         container.register(NotificationsSettingsViewModel.self) { r in
             NotificationsSettingsViewModel(
                 interactor: r.resolve(NotificationsInteractorProtocol.self)!,
-                router: r.resolve(NotificationsRouter.self)!,
                 analytics: r.resolve(NotificationsAnalytics.self)!
             )
         }

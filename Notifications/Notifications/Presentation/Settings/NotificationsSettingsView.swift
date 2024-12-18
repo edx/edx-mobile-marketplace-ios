@@ -31,16 +31,9 @@ public struct NotificationsSettingsView: View {
                             .toggleStyle(SwitchToggleStyle(tint: Theme.Colors.toggleSwitchColor))
                             .frame(width: 50)
                             .accessibilityIdentifier("discussion_switch")
-                            .highPriorityGesture(
-                                DragGesture(minimumDistance: 20, coordinateSpace: .local).onEnded { _ in
-                                    viewModel.toggleNotificationsPermissionAction()
-                                }
-                            )
-                            .highPriorityGesture(
-                                TapGesture().onEnded {
-                                    viewModel.toggleNotificationsPermissionAction()
-                                }
-                            )
+                            .onTapGesture {
+                                viewModel.toggleNotificationsPermissionAction()
+                            }
                         
                     }
                     Text(NotificationsLocalization.Settings.preferenceDescription)
@@ -75,6 +68,7 @@ public struct NotificationsSettingsView: View {
                 .ignoresSafeArea()
         )
         .ignoresSafeArea(.all, edges: .horizontal)
+        .animation(.default, value: viewModel.showError)
     }
 }
 
@@ -84,7 +78,6 @@ struct NotificationsSettingsView_Previews: PreviewProvider {
         NotificationsSettingsView(
             viewModel: NotificationsSettingsViewModel(
                 interactor: NotificationsInteractor.mock,
-                router: NotificationsRouterMock(),
                 analytics: NotificationsAnalyticsMock()
             )
         )
