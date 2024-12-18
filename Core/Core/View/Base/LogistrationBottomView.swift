@@ -34,6 +34,11 @@ public struct PostLoginData: Sendable {
         self.authMethod = authMethod
         self.showSocialRegisterBanner = showSocialRegisterBanner
     }
+    
+    public init() {
+        self.authMethod = ""
+        self.showSocialRegisterBanner = false
+    }
 }
 
 public struct LogistrationBottomView: View {
