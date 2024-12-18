@@ -21,10 +21,7 @@ public protocol BaseRouter {
     
     func removeLastView(controllers: Int)
 
-    func showMainOrWhatsNewScreen(
-        sourceScreen: LogistrationSourceScreen,
-        authMethod: String?
-    )
+    func showMainOrWhatsNewScreen(sourceScreen: LogistrationSourceScreen, postLoginData: PostLoginData?)
     
     func showStartupScreen()
     
@@ -109,10 +106,7 @@ open class BaseRouterMock: BaseRouter {
 
     public func dismiss(animated: Bool) {}
 
-    public func showMainOrWhatsNewScreen(
-        sourceScreen: LogistrationSourceScreen,
-        authMethod: String?
-    ) {}
+    public func showMainOrWhatsNewScreen(sourceScreen: LogistrationSourceScreen, postLoginData: PostLoginData?) {}
     
     public func showStartupScreen() {}
 
