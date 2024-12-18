@@ -117,15 +117,11 @@ public class SignInViewModel: ObservableObject {
             analytics.identify(id: "\(user.id)", username: user.username, email: user.email)
             analytics.userLogin(method: authMethod)
             
-            var socialAuthMethod: String?
-            if case AuthMethod.socailAuth(let method) = authMethod {
-                socialAuthMethod = method.rawValue
+            var postLoginData: PostLoginData?
+            if case .socailAuth(let socialMethod) = authMethod {
+                postLoginData = PostLoginData(authMethod: socialMethod.rawValue, showSocialRegisterBanner: false)
             }
-            router.showMainOrWhatsNewScreen(
-                sourceScreen: sourceScreen,
-                authMethod: socialAuthMethod
-            )
-            router.showMainOrWhatsNewScreen(sourceScreen: sourceScreen, postLoginData: nil)
+            router.showMainOrWhatsNewScreen(sourceScreen: sourceScreen, postLoginData: postLoginData)
             NotificationCenter.default.post(name: .userAuthorized, object: nil)
         } catch let error {
             failure(error, authMethod: authMethod)

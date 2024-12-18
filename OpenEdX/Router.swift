@@ -83,7 +83,7 @@ public class Router: AuthorizationRouter,
             persistence.set(userId: userId)
         }
         
-        if let authMethod = authMethod {
+        if let authMethod = postLoginData?.authMethod {
             coreStorage.lastUsedSocialAuth = authMethod
         }
 

@@ -202,8 +202,6 @@ public class SignUpViewModel: ObservableObject {
             var postLoginData: PostLoginData?
             if case .socailAuth(let socialMethod) = authMethod {
                 postLoginData = PostLoginData(authMethod: socialMethod.rawValue, showSocialRegisterBanner: true)
-            } else {
-                postLoginData = nil
             }
             router.showMainOrWhatsNewScreen(sourceScreen: sourceScreen, postLoginData: postLoginData)
             NotificationCenter.default.post(name: .userAuthorized, object: nil)
