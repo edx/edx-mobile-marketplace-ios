@@ -35,7 +35,7 @@ class ScreenAssembly: Assembly {
         }
         
         // MARK: MainScreenView
-        container.register(MainScreenViewModel.self) { @MainActor r, sourceScreen, postLoginData in
+        container.register(MainScreenViewModel.self) { r, sourceScreen, postLoginData in
             MainScreenViewModel(
                 analytics: r.resolve(MainScreenAnalytics.self)!,
                 config: r.resolve(ConfigProtocol.self)!,
