@@ -14,6 +14,7 @@ public class NotificationsSettingsViewModel: ObservableObject {
     public var hasPermission: Bool = false
     private var interactor: NotificationsInteractorProtocol
     private var analytics: NotificationsAnalytics
+    var router: NotificationsRouter
     
     var errorMessage: String? {
         didSet {
@@ -23,10 +24,12 @@ public class NotificationsSettingsViewModel: ObservableObject {
     
     public init(
         interactor: NotificationsInteractorProtocol,
-        analytics: NotificationsAnalytics
+        analytics: NotificationsAnalytics,
+        router: NotificationsRouter
     ) {
         self.interactor = interactor
         self.analytics = analytics
+        self.router = router
     }
     
     public func toggleNotificationsPermissionAction() {
