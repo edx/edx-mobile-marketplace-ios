@@ -18,7 +18,7 @@ public class NotificationsSettingsViewModel: ObservableObject {
     
     var errorMessage: String? {
         didSet {
-                showError = errorMessage != nil
+            showError = errorMessage != nil
         }
     }
     
