@@ -183,7 +183,8 @@ class ScreenAssembly: Assembly {
                 connectivity: r.resolve(ConnectivityProtocol.self)!,
                 analytics: r.resolve(DashboardAnalytics.self)!,
                 config: r.resolve(ConfigProtocol.self)!,
-                serverConfig: r.resolve(ServerConfigProtocol.self)!
+                serverConfig: r.resolve(ServerConfigProtocol.self)!,
+                notificationsInteractor: r.resolve(NotificationsInteractorProtocol.self)!
             )
         }
         

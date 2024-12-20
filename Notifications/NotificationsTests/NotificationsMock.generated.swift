@@ -3418,11 +3418,42 @@ open class NotificationsInteractorProtocolMock: NotificationsInteractorProtocol,
 
 
 
+    open func getAppNotificationsCount() throws -> NotificationsCountByApp {
+        addInvocation(.m_getAppNotificationsCount)
+		let perform = methodPerformValue(.m_getAppNotificationsCount) as? () -> Void
+		perform?()
+		var __value: NotificationsCountByApp
+		do {
+		    __value = try methodReturnValue(.m_getAppNotificationsCount).casted()
+		} catch MockError.notStubed {
+			onFatalFailure("Stub return value not specified for getAppNotificationsCount(). Use given")
+			Failure("Stub return value not specified for getAppNotificationsCount(). Use given")
+		} catch {
+		    throw error
+		}
+		return __value
+    }
 
-    fileprivate struct MethodType {
-        static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult { return .match }
-        func intValue() -> Int { return 0 }
-        func assertionName() -> String { return "" }
+
+    fileprivate enum MethodType {
+        case m_getAppNotificationsCount
+
+        static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
+            switch (lhs, rhs) {
+            case (.m_getAppNotificationsCount, .m_getAppNotificationsCount): return .match
+            }
+        }
+
+        func intValue() -> Int {
+            switch self {
+            case .m_getAppNotificationsCount: return 0
+            }
+        }
+        func assertionName() -> String {
+            switch self {
+            case .m_getAppNotificationsCount: return ".getAppNotificationsCount()"
+            }
+        }
     }
 
     open class Given: StubbedMethod {
@@ -3434,17 +3465,34 @@ open class NotificationsInteractorProtocolMock: NotificationsInteractorProtocol,
         }
 
 
+        public static func getAppNotificationsCount(willReturn: NotificationsCountByApp...) -> MethodStub {
+            return Given(method: .m_getAppNotificationsCount, products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func getAppNotificationsCount(willThrow: Error...) -> MethodStub {
+            return Given(method: .m_getAppNotificationsCount, products: willThrow.map({ StubProduct.throw($0) }))
+        }
+        public static func getAppNotificationsCount(willProduce: (StubberThrows<NotificationsCountByApp>) -> Void) -> MethodStub {
+            let willThrow: [Error] = []
+			let given: Given = { return Given(method: .m_getAppNotificationsCount, products: willThrow.map({ StubProduct.throw($0) })) }()
+			let stubber = given.stubThrows(for: (NotificationsCountByApp).self)
+			willProduce(stubber)
+			return given
+        }
     }
 
     public struct Verify {
         fileprivate var method: MethodType
 
+        public static func getAppNotificationsCount() -> Verify { return Verify(method: .m_getAppNotificationsCount)}
     }
 
     public struct Perform {
         fileprivate var method: MethodType
         var performs: Any
 
+        public static func getAppNotificationsCount(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_getAppNotificationsCount, performs: perform)
+        }
     }
 
     public func given(_ method: Given) {

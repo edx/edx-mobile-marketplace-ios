@@ -9,6 +9,7 @@ import SwiftUI
 import Core
 import Theme
 import Swinject
+import Notifications
 
 public struct PrimaryCourseDashboardView<ProgramView: View>: View {
     
@@ -213,6 +214,7 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
             .onFirstAppear {
                 Task {
                     await viewModel.getEnrollments()
+                    await viewModel.getNotificaitonsCount()
                 }
             }
             .onAppear {
@@ -328,6 +330,26 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
                             .foregroundColor(Theme.Colors.textPrimary)
                             .accessibilityIdentifier("courses_header_text")
                         Spacer()
+                        Button(action: {
+                            // router
+                        }, label: {
+                            CoreAssets.notificationsIcon.swiftUIImage
+                                .renderingMode(.template)
+                                .foregroundColor(Theme.Colors.accentColor)
+                        })
+                        .frame(width: 24, height: 24)
+                        .overlay {
+                            if viewModel.hasUnreadNotifications {
+                                Circle()
+                                    .strokeBorder(Theme.Colors.background, lineWidth: 2)
+                                    .frame(width: 10, height: 10)
+                                    .background(
+                                        Circle()
+                                            .foregroundColor(Theme.Colors.accentButtonColor)
+                                    )
+                                    .offset(x: 5, y: -6)
+                            }
+                        }
                     }
                     if showDropdown {
                         HStack(alignment: .center) {
@@ -355,7 +377,8 @@ struct PrimaryCourseDashboardView_Previews: PreviewProvider {
             connectivity: Connectivity(),
             analytics: DashboardAnalyticsMock(),
             config: ConfigMock(),
-            serverConfig: ServerConfigProtocolMock()
+            serverConfig: ServerConfigProtocolMock(),
+            notificationsInteractor: NotificationsInteractor.mock
         )
         
         PrimaryCourseDashboardView(

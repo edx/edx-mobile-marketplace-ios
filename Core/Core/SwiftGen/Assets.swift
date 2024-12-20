@@ -129,6 +129,7 @@ public enum CoreAssets {
   public static let noWifi = ImageAsset(name: "noWifi")
   public static let noWifiMini = ImageAsset(name: "noWifiMini")
   public static let notAvaliable = ImageAsset(name: "notAvaliable")
+  public static let notificationsIcon = ImageAsset(name: "notifications_icon")
   public static let playVideo = ImageAsset(name: "playVideo")
   public static let resumeCourse = ImageAsset(name: "resumeCourse")
   public static let settings = ImageAsset(name: "settings")
