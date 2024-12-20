@@ -52,6 +52,7 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
                     case .courses:
                     RefreshableScrollViewCompat(action: {
                         await viewModel.getEnrollments(showProgress: false)
+                        await viewModel.getNotificaitonsCount()
                     }) {
                         ZStack(alignment: .topLeading) {
                             if viewModel.fetchInProgress {
@@ -331,7 +332,7 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
                             .accessibilityIdentifier("courses_header_text")
                         Spacer()
                         Button(action: {
-                            // router
+                            router.showNotificationsScreen()
                         }, label: {
                             CoreAssets.notificationsIcon.swiftUIImage
                                 .renderingMode(.template)

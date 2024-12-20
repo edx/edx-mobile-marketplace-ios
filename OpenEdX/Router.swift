@@ -766,6 +766,10 @@ public class Router: AuthorizationRouter,
         navigationController.pushViewController(controller, animated: true)
     }
     
+    public func showNotificationsScreen() {
+        // show notifications inbox screen
+    }
+    
     public func showVideoSettings() {
         let viewModel = Container.shared.resolve(SettingsViewModel.self)!
         let view = VideoSettingsView(viewModel: viewModel)
