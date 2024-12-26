@@ -126,7 +126,7 @@ public class PrimaryCourseDashboardViewModel: ObservableObject {
     
     @MainActor
     func getNotificaitonsCount() async {
-        let appNotificationCount = try? await notificationsInteractor.getAppNotificationsCount()
+        let appNotificationCount = try? await notificationsInteractor.getNotificationsCount()
         hasUnreadNotifications = appNotificationCount?.discussion ?? 0 > 0
     }
 }

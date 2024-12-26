@@ -10,18 +10,18 @@ import Core
 import Alamofire
 
 enum NotificationsEndpoint: EndPointType {
-    case getAppNotificationsCount
+    case getNotificationsCount
     
     var path: String {
         switch self {
-        case .getAppNotificationsCount:
+        case .getNotificationsCount:
             "/api/notifications/count"
         }
     }
     
     var httpMethod: HTTPMethod {
         switch self {
-        case .getAppNotificationsCount:
+        case .getNotificationsCount:
             .get
         }
     }
@@ -32,7 +32,7 @@ enum NotificationsEndpoint: EndPointType {
     
     var task: HTTPTask {
         switch self {
-        case .getAppNotificationsCount:
+        case .getNotificationsCount:
                 .request
         }
     }

@@ -11,7 +11,7 @@ import CoreData
 import Alamofire
 
 public protocol NotificationsRepositoryProtocol {
-    func getAppNotificationsCount() async throws -> NotificationsCountByApp
+    func getNotificationsCount() async throws -> NotificationsCount
 }
 
 public class NotificationsRepository: NotificationsRepositoryProtocol {
@@ -30,10 +30,10 @@ public class NotificationsRepository: NotificationsRepositoryProtocol {
         self.persistence = persistence
     }
     
-    public func getAppNotificationsCount() async throws -> NotificationsCountByApp {
+    public func getNotificationsCount() async throws -> NotificationsCount {
         let response = try await api.requestData(
-            NotificationsEndpoint.getAppNotificationsCount
-        ).mapResponse(DataLayer.NotificationsCountByAppResponse.self)
+            NotificationsEndpoint.getNotificationsCount
+        ).mapResponse(DataLayer.NotificationsCountResponse.self)
             .domain
         
         return response
@@ -44,8 +44,8 @@ public class NotificationsRepository: NotificationsRepositoryProtocol {
 // Mark - For testing and SwiftUI preview
 #if DEBUG
 class NotificationsRepositoryMock: NotificationsRepositoryProtocol {
-    func getAppNotificationsCount() async throws -> NotificationsCountByApp {
-        return NotificationsCountByApp(discussion: 1, updates: 0, grading: 0)
+    func getNotificationsCount() async throws -> NotificationsCount {
+        return NotificationsCount(discussion: 1)
     }
 }
 #endif

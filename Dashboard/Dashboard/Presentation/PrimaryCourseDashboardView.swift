@@ -341,7 +341,14 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
                         .frame(width: 24, height: 24)
                         .overlay {
                             if viewModel.hasUnreadNotifications {
-                                Circle()
+                                if #available(iOS 17.0, *) {
+                                    Circle()
+                                        .stroke(Theme.Colors.background, lineWidth: 5)
+                                        .fill(Theme.Colors.accentButtonColor)
+                                        .frame(width: 8, height: 8)
+                                        .offset(x: 7, y: -6)
+                                } else {
+                                    Circle()
                                     .strokeBorder(Theme.Colors.background, lineWidth: 2)
                                     .frame(width: 10, height: 10)
                                     .background(
@@ -349,6 +356,7 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
                                             .foregroundColor(Theme.Colors.accentButtonColor)
                                     )
                                     .offset(x: 5, y: -6)
+                                }
                             }
                         }
                     }
