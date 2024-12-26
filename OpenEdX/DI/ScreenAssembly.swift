@@ -35,12 +35,13 @@ class ScreenAssembly: Assembly {
         }
         
         // MARK: MainScreenView
-        container.register(MainScreenViewModel.self) { r, sourceScreen in
+        container.register(MainScreenViewModel.self) { r, sourceScreen, postLoginData in
             MainScreenViewModel(
                 analytics: r.resolve(MainScreenAnalytics.self)!,
                 config: r.resolve(ConfigProtocol.self)!,
                 profileInteractor: r.resolve(ProfileInteractorProtocol.self)!,
-                sourceScreen: sourceScreen
+                sourceScreen: sourceScreen,
+                postLoginData: postLoginData
             )
         }
         // MARK: Startup screen

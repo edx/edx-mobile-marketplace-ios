@@ -138,14 +138,11 @@ public class SignUpViewModel: ObservableObject {
             analytics.identify(id: "\(user.id)", username: user.username, email: user.email)
             analytics.registrationSuccess(method: authMetod.analyticsValue)
             isShowProgress = false
-            var socialAuthMethod: String?
-            if case AuthMethod.socailAuth(let method) = authMethod {
-                socialAuthMethod = method.rawValue
+            var postLoginData: PostLoginData?
+            if case .socailAuth(let socialMethod) = authMethod {
+                postLoginData = PostLoginData(authMethod: socialMethod.rawValue, showSocialRegisterBanner: false)
             }
-            router.showMainOrWhatsNewScreen(
-                sourceScreen: sourceScreen,
-                authMethod: socialAuthMethod
-            )
+            router.showMainOrWhatsNewScreen(sourceScreen: sourceScreen, postLoginData: postLoginData)
             NotificationCenter.default.post(name: .userAuthorized, object: nil)
         } catch let error {
             isShowProgress = false
@@ -202,21 +199,12 @@ public class SignUpViewModel: ObservableObject {
             analytics.identify(id: "\(user.id)", username: user.username, email: user.email)
             analytics.userLogin(method: authMethod)
             isShowProgress = false
-            var socialAuthMethod: String? = nil
-            if case AuthMethod.socailAuth(let method) = authMethod {
-                socialAuthMethod = method.rawValue
+            var postLoginData: PostLoginData?
+            if case .socailAuth(let socialMethod) = authMethod {
+                postLoginData = PostLoginData(authMethod: socialMethod.rawValue, showSocialRegisterBanner: true)
             }
-            router.showMainOrWhatsNewScreen(
-                sourceScreen: sourceScreen,
-                authMethod: socialAuthMethod
-            )
-            NotificationCenter.default.post(
-                name: .userAuthorized,
-                object: [
-                    "authMethod": authMethod,
-                    "showSocialRegisterBanner": true
-                    ]
-            )
+            router.showMainOrWhatsNewScreen(sourceScreen: sourceScreen, postLoginData: postLoginData)
+            NotificationCenter.default.post(name: .userAuthorized, object: nil)
         } catch {
             update(fullName: response.name, email: response.email)
             self.externalToken = response.token
