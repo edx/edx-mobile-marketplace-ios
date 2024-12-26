@@ -462,12 +462,12 @@ struct CalendarSyncView: View {
                 Toggle("", isOn: .constant(viewModel.isOn))
                     .toggleStyle(SwitchToggleStyle(tint: Theme.Colors.accentButtonColor))
                     .padding(.trailing, 0)
-                    .highPriorityGesture(
+                    .simultaneousGesture(
                         TapGesture().onEnded {
                             viewModel.calendarState = !viewModel.isOn
                         }
                     )
-                    .highPriorityGesture(
+                    .simultaneousGesture(
                         DragGesture(minimumDistance: 20, coordinateSpace: .local).onEnded { _ in
                             viewModel.calendarState = !viewModel.isOn
                         }
