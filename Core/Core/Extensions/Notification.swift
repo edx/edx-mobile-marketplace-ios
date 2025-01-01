@@ -24,10 +24,12 @@ public extension Notification.Name {
     static let courseUpgradeCompletionNotification = Notification.Name("CourseUpgradeCompletionNotification")
     static let getCourseDates = Notification.Name("getCourseDates")
     static let refreshEnrollments = Notification.Name("refreshEnrollments")
+    static let notificationRegistration = Notification.Name("notificationRegistration")
 }
 
 public extension Notification {
     enum UserInfoKey: String {
         case isForced
+        case status
     }
 }

@@ -653,6 +653,13 @@ open class BaseRouterMock: BaseRouter, Mock {
 		perform?()
     }
 
+    @MainActor
+	open func performNotificationRegistration() {
+        addInvocation(.m_performNotificationRegistration)
+		let perform = methodPerformValue(.m_performNotificationRegistration) as? () -> Void
+		perform?()
+    }
+
 
     fileprivate enum MethodType {
         case m_backToRoot__animated_animated(Parameter<Bool>)
@@ -678,6 +685,7 @@ open class BaseRouterMock: BaseRouter, Mock {
         case m_hideUpgradeLoaderView__animated_animated(Parameter<Bool>)
         case m_showRestoreProgressView
         case m_hideRestoreProgressView
+        case m_performNotificationRegistration
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
@@ -807,6 +815,8 @@ open class BaseRouterMock: BaseRouter, Mock {
             case (.m_showRestoreProgressView, .m_showRestoreProgressView): return .match
 
             case (.m_hideRestoreProgressView, .m_hideRestoreProgressView): return .match
+
+            case (.m_performNotificationRegistration, .m_performNotificationRegistration): return .match
             default: return .none
             }
         }
@@ -836,6 +846,7 @@ open class BaseRouterMock: BaseRouter, Mock {
             case let .m_hideUpgradeLoaderView__animated_animated(p0): return p0.intValue
             case .m_showRestoreProgressView: return 0
             case .m_hideRestoreProgressView: return 0
+            case .m_performNotificationRegistration: return 0
             }
         }
         func assertionName() -> String {
@@ -863,6 +874,7 @@ open class BaseRouterMock: BaseRouter, Mock {
             case .m_hideUpgradeLoaderView__animated_animated: return ".hideUpgradeLoaderView(animated:)"
             case .m_showRestoreProgressView: return ".showRestoreProgressView()"
             case .m_hideRestoreProgressView: return ".hideRestoreProgressView()"
+            case .m_performNotificationRegistration: return ".performNotificationRegistration()"
             }
         }
     }
@@ -910,6 +922,8 @@ open class BaseRouterMock: BaseRouter, Mock {
 		public static func showRestoreProgressView() -> Verify { return Verify(method: .m_showRestoreProgressView)}
         @MainActor
 		public static func hideRestoreProgressView() -> Verify { return Verify(method: .m_hideRestoreProgressView)}
+        @MainActor
+		public static func performNotificationRegistration() -> Verify { return Verify(method: .m_performNotificationRegistration)}
     }
 
     public struct Perform {
@@ -990,6 +1004,10 @@ open class BaseRouterMock: BaseRouter, Mock {
         @MainActor
 		public static func hideRestoreProgressView(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_hideRestoreProgressView, performs: perform)
+        }
+        @MainActor
+		public static func performNotificationRegistration(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_performNotificationRegistration, performs: perform)
         }
     }
 

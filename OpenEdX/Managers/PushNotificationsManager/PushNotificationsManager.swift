@@ -78,6 +78,11 @@ class PushNotificationsManager: NSObject {
     // Register for push notifications
     public func performRegistration() {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
+            NotificationCenter.default.post(
+                name: .notificationRegistration,
+                object: nil,
+                userInfo: [Notification.UserInfoKey.status: granted]
+            )
             if granted {
                 debugLog("Permission for push notifications granted.")
             } else if let error = error {

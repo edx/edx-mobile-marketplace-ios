@@ -51,7 +51,6 @@ public struct NotificationsSettingsView: View {
                                 maxWidth: .infinity,
                                 alignment: .topLeading)
                     }
-                    
                     VStack(alignment: .leading) {
                         HStack {
                             Text(NotificationsLocalization.Settings.preferenceTitle)
@@ -64,10 +63,19 @@ public struct NotificationsSettingsView: View {
                                 .toggleStyle(SwitchToggleStyle(tint: Theme.Colors.toggleSwitchColor))
                                 .frame(width: 50)
                                 .accessibilityIdentifier("discussion_switch")
-                                .onTapGesture {
-                                    viewModel.toggleNotificationsPermissionAction()
-                                }
-                            
+                                .simultaneousGesture(
+                                    TapGesture().onEnded {
+                                        Task {
+                                            await viewModel.toggleNotificationsPermissionAction()
+                                        }
+                                    }
+                                )
+                                .simultaneousGesture(
+                                    DragGesture(minimumDistance: 20, coordinateSpace: .local).onEnded { _ in
+                                        Task {
+                                            await viewModel.toggleNotificationsPermissionAction()
+                                        }
+                                    })
                         }
                         
                         Text(NotificationsLocalization.Settings.preferenceDescription)
@@ -83,8 +91,8 @@ public struct NotificationsSettingsView: View {
                     }
                     .padding(20)
                     .roundedBackground(Theme.Colors.background)
+                    .frameLimit(width: proxy.size.width)
                 }
-                .frameLimit(width: proxy.size.width)
                 
                 if viewModel.showError {
                     VStack {
@@ -110,6 +118,11 @@ public struct NotificationsSettingsView: View {
         )
         .ignoresSafeArea(.all, edges: .horizontal)
         .animation(.default, value: viewModel.showError)
+        .onFirstAppear {
+            Task {
+                await viewModel.getNotificaionsPreferences()
+            }
+        }
     }
 }
 
@@ -120,7 +133,8 @@ struct NotificationsSettingsView_Previews: PreviewProvider {
             viewModel: NotificationsSettingsViewModel(
                 interactor: NotificationsInteractor.mock,
                 analytics: NotificationsAnalyticsMock(),
-                router: NotificationsRouterMock()
+                router: NotificationsRouterMock(),
+                storage: CoreStorageMock()
             )
         )
     }
