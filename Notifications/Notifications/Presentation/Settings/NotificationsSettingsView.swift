@@ -59,7 +59,7 @@ public struct NotificationsSettingsView: View {
                                 .accessibilityIdentifier("preference_title_text")
                             
                             Spacer()
-                            Toggle(isOn: $viewModel.hasPermission, label: {})
+                            Toggle("", isOn: .constant(viewModel.hasPermission))
                                 .toggleStyle(SwitchToggleStyle(tint: Theme.Colors.toggleSwitchColor))
                                 .frame(width: 50)
                                 .accessibilityIdentifier("discussion_switch")

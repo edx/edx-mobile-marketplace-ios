@@ -78,11 +78,12 @@ public class NotificationsSettingsViewModel: ObservableObject {
         }
         
         if isUpdating {
-            hasPermission.toggle()
             return
         }
         
         isUpdating = true
+        hasPermission.toggle()
+        
         do {
             let update = try await interactor.updateNotificationsPreferences(value: hasPermission)
             analytics.notificationsDiscussionPermissionToggleEvent(action: hasPermission)
