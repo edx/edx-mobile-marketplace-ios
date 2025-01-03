@@ -27,7 +27,7 @@ public class NotificationsSettingsViewModel: ObservableObject {
     private var preferences: NotificationsPreferences?
     private var isUpdating: Bool = false
     private var authorizationStatus: AuthorizationStatus?
-    private var requestPermissions: Bool = false
+    private var openSettings: Bool = false
     var router: NotificationsRouter
     var errorMessage: String? {
         didSet {
@@ -99,7 +99,7 @@ public class NotificationsSettingsViewModel: ObservableObject {
     }
     
     @objc private func refreshOSSettingsPermissionStatus() {
-        getOSSettingsPermissionStatus(autoUpdate: requestPermissions)
+        getOSSettingsPermissionStatus(autoUpdate: true)
     }
     
     private func getOSSettingsPermissionStatus(autoUpdate: Bool = false) {
@@ -111,9 +111,6 @@ public class NotificationsSettingsViewModel: ObservableObject {
             } else if settings.authorizationStatus == .authorized {
                 self?.authorizationStatus = .authorized
                 if autoUpdate {
-                    DispatchQueue.main.async {
-                        self?.hasPermission = true
-                    }
                     Task {
                         await self?.toggleNotificationsPermissionAction()
                     }
@@ -129,14 +126,13 @@ public class NotificationsSettingsViewModel: ObservableObject {
                 style: .default,
                 handler: { [weak self] _ in
                     if self?.authorizationStatus == .notDetermined {
-                        self?.requestPermissions = true
                         Task {
                             await self?.router.performNotificationRegistration()
                         }
                     } else {
                         if let appSettings = URL(string: UIApplication.openSettingsURLString),
                            UIApplication.shared.canOpenURL(appSettings) {
-                            self?.requestPermissions = true
+                            self?.openSettings = true
                             UIApplication.shared.open(appSettings)
                         }
                     }
@@ -176,7 +172,7 @@ public class NotificationsSettingsViewModel: ObservableObject {
     
     @objc func didBecomeActive() {
         // refresh the settings status
-        getOSSettingsPermissionStatus(autoUpdate: requestPermissions)
+        getOSSettingsPermissionStatus(autoUpdate: openSettings)
     }
     
     deinit {
