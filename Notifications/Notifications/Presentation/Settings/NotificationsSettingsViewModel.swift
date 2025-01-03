@@ -111,7 +111,8 @@ public class NotificationsSettingsViewModel: ObservableObject {
                 self?.authorizationStatus = .authorized
                 if autoUpdate {
                     DispatchQueue.main.async {
-                        self?.hasPermission.toggle()                    }
+                        self?.hasPermission = true
+                    }
                     Task {
                         await self?.toggleNotificationsPermissionAction()
                     }
