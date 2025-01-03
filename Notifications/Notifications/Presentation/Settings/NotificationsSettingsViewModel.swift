@@ -17,19 +17,18 @@ public class NotificationsSettingsViewModel: ObservableObject {
     @Published var showError: Bool = false
     @Published var hasPermission: Bool {
         didSet {
-            storage.notificationsSettingStatus = hasPermission
+            storage.discussionNotificationsSettingStatus = hasPermission
         }
     }
     
     private var interactor: NotificationsInteractorProtocol
     private var analytics: NotificationsAnalytics
-    var router: NotificationsRouter
-    var storage: CoreStorage
-    var preferences: NotificationsPreferences?
-    var isUpdating: Bool = false
+    private var storage: CoreStorage
+    private var preferences: NotificationsPreferences?
+    private var isUpdating: Bool = false
     private var authorizationStatus: AuthorizationStatus?
     private var requestPermissions: Bool = false
-    
+    var router: NotificationsRouter
     var errorMessage: String? {
         didSet {
             showError = errorMessage != nil
@@ -46,7 +45,7 @@ public class NotificationsSettingsViewModel: ObservableObject {
         self.analytics = analytics
         self.router = router
         self.storage = storage
-        hasPermission = storage.notificationsSettingStatus ?? false
+        hasPermission = storage.discussionNotificationsSettingStatus ?? false
         getOSSettingsPermissionStatus()
         addObservers()
     }
@@ -67,11 +66,11 @@ public class NotificationsSettingsViewModel: ObservableObject {
     public func toggleNotificationsPermissionAction() async {
         switch authorizationStatus {
         case .notDetermined:
-            hasPermission.toggle()
+            hasPermission = false
             showPermissionNeededAlert()
             return
         case .denied:
-            hasPermission.toggle()
+            hasPermission = false
             showPermissionNeededAlert()
             return
         default:
@@ -128,8 +127,8 @@ public class NotificationsSettingsViewModel: ObservableObject {
                 style: .default,
                 handler: { [weak self] _ in
                     if self?.authorizationStatus == .notDetermined {
+                        self?.requestPermissions = true
                         Task {
-                            self?.requestPermissions = true
                             await self?.router.performNotificationRegistration()
                         }
                     } else {

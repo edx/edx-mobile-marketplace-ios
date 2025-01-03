@@ -20,7 +20,7 @@ public protocol CoreStorage {
     var userSettings: UserSettings? {get set}
     var resetAppSupportDirectoryUserData: Bool? {get set}
     var lastUsedSocialAuth: String? {get set}
-    var notificationsSettingStatus: Bool? {get set}
+    var discussionNotificationsSettingStatus: Bool? {get set}
     func clear()
 }
 
@@ -38,7 +38,7 @@ public class CoreStorageMock: CoreStorage {
     public var userSettings: UserSettings?
     public var resetAppSupportDirectoryUserData: Bool?
     public var lastUsedSocialAuth: String?
-    public var notificationsSettingStatus: Bool?
+    public var discussionNotificationsSettingStatus: Bool?
     public func clear() {}
     
     public init() {}
