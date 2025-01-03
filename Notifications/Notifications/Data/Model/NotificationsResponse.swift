@@ -44,3 +44,11 @@ public struct NotificationsPreferencesUpdate {
         self.app = app
     }
 }
+
+public struct NotificationsSeenRead {
+    public var message: String
+    
+    public init(message: String) {
+        self.message = message
+    }
+}

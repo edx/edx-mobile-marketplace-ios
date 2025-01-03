@@ -3484,11 +3484,62 @@ open class NotificationsInteractorProtocolMock: NotificationsInteractorProtocol,
 		return __value
     }
 
+    open func markNotifiocansAsSeen() throws -> NotificationsSeenRead {
+        addInvocation(.m_markNotifiocansAsSeen)
+		let perform = methodPerformValue(.m_markNotifiocansAsSeen) as? () -> Void
+		perform?()
+		var __value: NotificationsSeenRead
+		do {
+		    __value = try methodReturnValue(.m_markNotifiocansAsSeen).casted()
+		} catch MockError.notStubed {
+			onFatalFailure("Stub return value not specified for markNotifiocansAsSeen(). Use given")
+			Failure("Stub return value not specified for markNotifiocansAsSeen(). Use given")
+		} catch {
+		    throw error
+		}
+		return __value
+    }
+
+    open func markNotifiocanAsRead(notificationId: String) throws -> NotificationsSeenRead {
+        addInvocation(.m_markNotifiocanAsRead__notificationId_notificationId(Parameter<String>.value(`notificationId`)))
+		let perform = methodPerformValue(.m_markNotifiocanAsRead__notificationId_notificationId(Parameter<String>.value(`notificationId`))) as? (String) -> Void
+		perform?(`notificationId`)
+		var __value: NotificationsSeenRead
+		do {
+		    __value = try methodReturnValue(.m_markNotifiocanAsRead__notificationId_notificationId(Parameter<String>.value(`notificationId`))).casted()
+		} catch MockError.notStubed {
+			onFatalFailure("Stub return value not specified for markNotifiocanAsRead(notificationId: String). Use given")
+			Failure("Stub return value not specified for markNotifiocanAsRead(notificationId: String). Use given")
+		} catch {
+		    throw error
+		}
+		return __value
+    }
+
+    open func markAllNotifiocansAsRead() throws -> NotificationsSeenRead {
+        addInvocation(.m_markAllNotifiocansAsRead)
+		let perform = methodPerformValue(.m_markAllNotifiocansAsRead) as? () -> Void
+		perform?()
+		var __value: NotificationsSeenRead
+		do {
+		    __value = try methodReturnValue(.m_markAllNotifiocansAsRead).casted()
+		} catch MockError.notStubed {
+			onFatalFailure("Stub return value not specified for markAllNotifiocansAsRead(). Use given")
+			Failure("Stub return value not specified for markAllNotifiocansAsRead(). Use given")
+		} catch {
+		    throw error
+		}
+		return __value
+    }
+
 
     fileprivate enum MethodType {
         case m_getNotificationsCount
         case m_getNotificationsPreferences
         case m_updateNotificationsPreferences__value_value(Parameter<Bool>)
+        case m_markNotifiocansAsSeen
+        case m_markNotifiocanAsRead__notificationId_notificationId(Parameter<String>)
+        case m_markAllNotifiocansAsRead
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
@@ -3500,6 +3551,15 @@ open class NotificationsInteractorProtocolMock: NotificationsInteractorProtocol,
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsValue, rhs: rhsValue, with: matcher), lhsValue, rhsValue, "value"))
 				return Matcher.ComparisonResult(results)
+
+            case (.m_markNotifiocansAsSeen, .m_markNotifiocansAsSeen): return .match
+
+            case (.m_markNotifiocanAsRead__notificationId_notificationId(let lhsNotificationid), .m_markNotifiocanAsRead__notificationId_notificationId(let rhsNotificationid)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsNotificationid, rhs: rhsNotificationid, with: matcher), lhsNotificationid, rhsNotificationid, "notificationId"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_markAllNotifiocansAsRead, .m_markAllNotifiocansAsRead): return .match
             default: return .none
             }
         }
@@ -3509,6 +3569,9 @@ open class NotificationsInteractorProtocolMock: NotificationsInteractorProtocol,
             case .m_getNotificationsCount: return 0
             case .m_getNotificationsPreferences: return 0
             case let .m_updateNotificationsPreferences__value_value(p0): return p0.intValue
+            case .m_markNotifiocansAsSeen: return 0
+            case let .m_markNotifiocanAsRead__notificationId_notificationId(p0): return p0.intValue
+            case .m_markAllNotifiocansAsRead: return 0
             }
         }
         func assertionName() -> String {
@@ -3516,6 +3579,9 @@ open class NotificationsInteractorProtocolMock: NotificationsInteractorProtocol,
             case .m_getNotificationsCount: return ".getNotificationsCount()"
             case .m_getNotificationsPreferences: return ".getNotificationsPreferences()"
             case .m_updateNotificationsPreferences__value_value: return ".updateNotificationsPreferences(value:)"
+            case .m_markNotifiocansAsSeen: return ".markNotifiocansAsSeen()"
+            case .m_markNotifiocanAsRead__notificationId_notificationId: return ".markNotifiocanAsRead(notificationId:)"
+            case .m_markAllNotifiocansAsRead: return ".markAllNotifiocansAsRead()"
             }
         }
     }
@@ -3537,6 +3603,15 @@ open class NotificationsInteractorProtocolMock: NotificationsInteractorProtocol,
         }
         public static func updateNotificationsPreferences(value: Parameter<Bool>, willReturn: NotificationsPreferencesUpdate...) -> MethodStub {
             return Given(method: .m_updateNotificationsPreferences__value_value(`value`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func markNotifiocansAsSeen(willReturn: NotificationsSeenRead...) -> MethodStub {
+            return Given(method: .m_markNotifiocansAsSeen, products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func markNotifiocanAsRead(notificationId: Parameter<String>, willReturn: NotificationsSeenRead...) -> MethodStub {
+            return Given(method: .m_markNotifiocanAsRead__notificationId_notificationId(`notificationId`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func markAllNotifiocansAsRead(willReturn: NotificationsSeenRead...) -> MethodStub {
+            return Given(method: .m_markAllNotifiocansAsRead, products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
         public static func getNotificationsCount(willThrow: Error...) -> MethodStub {
             return Given(method: .m_getNotificationsCount, products: willThrow.map({ StubProduct.throw($0) }))
@@ -3568,6 +3643,36 @@ open class NotificationsInteractorProtocolMock: NotificationsInteractorProtocol,
 			willProduce(stubber)
 			return given
         }
+        public static func markNotifiocansAsSeen(willThrow: Error...) -> MethodStub {
+            return Given(method: .m_markNotifiocansAsSeen, products: willThrow.map({ StubProduct.throw($0) }))
+        }
+        public static func markNotifiocansAsSeen(willProduce: (StubberThrows<NotificationsSeenRead>) -> Void) -> MethodStub {
+            let willThrow: [Error] = []
+			let given: Given = { return Given(method: .m_markNotifiocansAsSeen, products: willThrow.map({ StubProduct.throw($0) })) }()
+			let stubber = given.stubThrows(for: (NotificationsSeenRead).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func markNotifiocanAsRead(notificationId: Parameter<String>, willThrow: Error...) -> MethodStub {
+            return Given(method: .m_markNotifiocanAsRead__notificationId_notificationId(`notificationId`), products: willThrow.map({ StubProduct.throw($0) }))
+        }
+        public static func markNotifiocanAsRead(notificationId: Parameter<String>, willProduce: (StubberThrows<NotificationsSeenRead>) -> Void) -> MethodStub {
+            let willThrow: [Error] = []
+			let given: Given = { return Given(method: .m_markNotifiocanAsRead__notificationId_notificationId(`notificationId`), products: willThrow.map({ StubProduct.throw($0) })) }()
+			let stubber = given.stubThrows(for: (NotificationsSeenRead).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func markAllNotifiocansAsRead(willThrow: Error...) -> MethodStub {
+            return Given(method: .m_markAllNotifiocansAsRead, products: willThrow.map({ StubProduct.throw($0) }))
+        }
+        public static func markAllNotifiocansAsRead(willProduce: (StubberThrows<NotificationsSeenRead>) -> Void) -> MethodStub {
+            let willThrow: [Error] = []
+			let given: Given = { return Given(method: .m_markAllNotifiocansAsRead, products: willThrow.map({ StubProduct.throw($0) })) }()
+			let stubber = given.stubThrows(for: (NotificationsSeenRead).self)
+			willProduce(stubber)
+			return given
+        }
     }
 
     public struct Verify {
@@ -3576,6 +3681,9 @@ open class NotificationsInteractorProtocolMock: NotificationsInteractorProtocol,
         public static func getNotificationsCount() -> Verify { return Verify(method: .m_getNotificationsCount)}
         public static func getNotificationsPreferences() -> Verify { return Verify(method: .m_getNotificationsPreferences)}
         public static func updateNotificationsPreferences(value: Parameter<Bool>) -> Verify { return Verify(method: .m_updateNotificationsPreferences__value_value(`value`))}
+        public static func markNotifiocansAsSeen() -> Verify { return Verify(method: .m_markNotifiocansAsSeen)}
+        public static func markNotifiocanAsRead(notificationId: Parameter<String>) -> Verify { return Verify(method: .m_markNotifiocanAsRead__notificationId_notificationId(`notificationId`))}
+        public static func markAllNotifiocansAsRead() -> Verify { return Verify(method: .m_markAllNotifiocansAsRead)}
     }
 
     public struct Perform {
@@ -3590,6 +3698,15 @@ open class NotificationsInteractorProtocolMock: NotificationsInteractorProtocol,
         }
         public static func updateNotificationsPreferences(value: Parameter<Bool>, perform: @escaping (Bool) -> Void) -> Perform {
             return Perform(method: .m_updateNotificationsPreferences__value_value(`value`), performs: perform)
+        }
+        public static func markNotifiocansAsSeen(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_markNotifiocansAsSeen, performs: perform)
+        }
+        public static func markNotifiocanAsRead(notificationId: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
+            return Perform(method: .m_markNotifiocanAsRead__notificationId_notificationId(`notificationId`), performs: perform)
+        }
+        public static func markAllNotifiocansAsRead(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_markAllNotifiocansAsRead, performs: perform)
         }
     }
 

@@ -165,3 +165,23 @@ public extension DataLayer.NotificationsPreferencesUpdateResponse {
         )
     }
 }
+
+public extension DataLayer {
+    struct NotificationsSeenReadResponse: Decodable {
+        let message: String
+        
+        enum CodingKeys: String, CodingKey {
+            case message
+        }
+        
+        public init(message: String) {
+            self.message = message
+        }
+    }
+}
+
+public extension DataLayer.NotificationsSeenReadResponse {
+    var domain: NotificationsSeenRead {
+        return NotificationsSeenRead(message: message)
+    }
+}

@@ -13,6 +13,9 @@ public protocol NotificationsInteractorProtocol {
     func getNotificationsCount() async throws -> NotificationsCount
     func getNotificationsPreferences() async throws -> NotificationsPreferences
     func updateNotificationsPreferences(value: Bool) async throws -> NotificationsPreferencesUpdate
+    func markNotifiocansAsSeen() async throws -> NotificationsSeenRead
+    func markNotifiocanAsRead(notificationId: String) async throws -> NotificationsSeenRead
+    func markAllNotifiocansAsRead() async throws -> NotificationsSeenRead
 }
 
 public class NotificationsInteractor: NotificationsInteractorProtocol {
@@ -33,6 +36,18 @@ public class NotificationsInteractor: NotificationsInteractorProtocol {
     
     public func updateNotificationsPreferences(value: Bool) async throws -> NotificationsPreferencesUpdate {
         try await repository.updateNotificationsPreferences(value: value)
+    }
+    
+    public func markNotifiocansAsSeen() async throws -> NotificationsSeenRead {
+        try await repository.markNotifiocansAsSeen()
+    }
+    
+    public func markNotifiocanAsRead(notificationId: String) async throws -> NotificationsSeenRead {
+        try await repository.markNotifiocanAsRead(notificationId: notificationId)
+    }
+    
+    public func markAllNotifiocansAsRead() async throws -> NotificationsSeenRead {
+        try await repository.markAllNotifiocansAsRead()
     }
 }
 
