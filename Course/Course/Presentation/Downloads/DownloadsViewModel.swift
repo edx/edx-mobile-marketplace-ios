@@ -14,6 +14,7 @@ final class DownloadsViewModel: ObservableObject {
     // MARK: - Properties
 
     @Published private(set) var downloads: [DownloadDataTask] = []
+    @Published private(set) var shouldDismiss: Bool = false
     private let courseId: String?
     
     let router: CourseRouter
@@ -80,6 +81,10 @@ final class DownloadsViewModel: ObservableObject {
                     }
                 case .finished(let downloadData):
                     downloads.removeAll(where: { $0.id == downloadData.id })
+                    
+                    if downloads.isEmpty {
+                        shouldDismiss = true
+                    }
                 default:
                     break
                 }

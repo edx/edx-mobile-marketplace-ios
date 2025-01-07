@@ -71,6 +71,9 @@ public struct DownloadsView: View {
                     dismiss()
                 }
                 .padding(.top, isSheet ? 0 : 40)
+                .onChange(of: viewModel.shouldDismiss) { _ in
+                    dismiss()
+                }
         }
     }
 
