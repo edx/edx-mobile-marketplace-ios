@@ -93,9 +93,14 @@ public struct SubtitlesView: View {
                     .onChange(of: currentTime) { _ in
                         refreshID()
                     }
+                    .onChange(of: viewModel.isPlaying) { isPlaying in
+                        if !pause && isPlaying {
+                            scroll.scrollTo(id, anchor: .top)
+                        }
+                    }
                     .onChange(of: id) { newID in
                         if !pause {
-                            withAnimation {
+                            withAnimation(viewModel.isPlaying ? .default : nil) {
                                 scroll.scrollTo(newID, anchor: .top)
                             }
                         }
