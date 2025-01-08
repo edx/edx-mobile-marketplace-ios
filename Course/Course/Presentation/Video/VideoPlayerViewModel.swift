@@ -101,8 +101,9 @@ public class VideoPlayerViewModel: ObservableObject {
         
         playerHolder.getRatePublisher()
             .sink {[weak self] rate in
-                guard self?.isLoading == false else { return }
                 self?.isPlaying = rate != 0
+                
+                guard self?.isLoading == false else { return }
                 self?.trackVideoSpeedChange(rate: rate)
             }
             .store(in: &subscription)

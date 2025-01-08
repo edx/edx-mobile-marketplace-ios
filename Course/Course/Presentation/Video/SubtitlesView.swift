@@ -28,6 +28,9 @@ public struct SubtitlesView: View {
     @State var pause: Bool = false
     @State var languages: [SubtitleUrl]
     
+    @State private var isAnimating = false
+    @State private var syncBlock: (() -> Void)?
+    
     @State private var autoScrollPublisher = PassthroughSubject<Void, Never>()
     
     public init(languages: [SubtitleUrl],
@@ -94,16 +97,12 @@ public struct SubtitlesView: View {
                         refreshID()
                     }
                     .onChange(of: viewModel.isPlaying) { isPlaying in
-                        if !pause && isPlaying {
-                            scroll.scrollTo(id, anchor: .top)
+                        if isPlaying {
+                            scrollTo(id, in: scroll)
                         }
                     }
                     .onChange(of: id) { newID in
-                        if !pause {
-                            withAnimation(viewModel.isPlaying ? .default : nil) {
-                                scroll.scrollTo(newID, anchor: .top)
-                            }
-                        }
+                        scrollTo(newID, in: scroll)
                     }
                     .onReceive(autoScrollPublisher.debounce(for: .seconds(3), scheduler: DispatchQueue.main)) { _ in
                         if pause {
@@ -121,6 +120,37 @@ public struct SubtitlesView: View {
     private func refreshID() {
         if let subtitle = viewModel.findSubtitle(at: Date(milliseconds: currentTime)) {
             id = subtitle.id
+        }
+    }
+    
+    private func scrollTo(_ viewID: Int, in scrollView: ScrollViewProxy) {
+        if !pause {
+            let scrollBlock = {
+                if viewModel.isPlaying {
+                    isAnimating = true
+                    
+                    withAnimation(.linear(duration: 0.3)) {
+                        scrollView.scrollTo(viewID, anchor: .top)
+                    }
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                        isAnimating = false
+                        
+                        if let nextBlock = syncBlock {
+                            syncBlock = nil
+                            nextBlock()
+                        }
+                    }
+                } else {
+                    scrollView.scrollTo(viewID, anchor: .top)
+                }
+            }
+            
+            if isAnimating {
+                syncBlock = scrollBlock
+            } else {
+                scrollBlock()
+            }
         }
     }
 }
