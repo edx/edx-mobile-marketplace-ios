@@ -464,7 +464,7 @@
 				07D5DA2F28D075AA00752FD9 /* Resources */,
 				0770DE1528D07845006D8A5D /* Embed Frameworks */,
 				DB97C0542B002EF00035C36F /* Process Config */,
-				14D912D42C25493C0077CCCE /* Run FullStory Asset Uploader */,
+				14D912D42C25493C0077CCCE /* Run FullStory Asset Uploader_no */,
 				02F175442A4E3B320019CD70 /* FirebaseCrashlytics */,
 			);
 			buildRules = (
@@ -588,7 +588,7 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 		};
-		14D912D42C25493C0077CCCE /* Run FullStory Asset Uploader */ = {
+		14D912D42C25493C0077CCCE /* Run FullStory Asset Uploader_no */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -597,14 +597,14 @@
 			);
 			inputPaths = (
 			);
-			name = "Run FullStory Asset Uploader";
+			name = "Run FullStory Asset Uploader_no";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${BUILD_DIR%Build/*}/SourcePackages/artifacts/fullstory-swift-package-ios/fullstory/tools/FullStoryCommandLine\" \"${CONFIGURATION_BUILD_DIR}/${WRAPPER_NAME}\"\n";
+			shellScript = "#\"${BUILD_DIR%Build/*}/SourcePackages/artifacts/fullstory-swift-package-ios/fullstory/tools/FullStoryCommandLine\" \"${CONFIGURATION_BUILD_DIR}/${WRAPPER_NAME}\"\n";
 		};
 		B9442FD26CE9A85A43FC2CFA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

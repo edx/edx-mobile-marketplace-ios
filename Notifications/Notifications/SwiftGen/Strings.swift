@@ -10,12 +10,17 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 public enum NotificationsLocalization {
+  /// Notifications
+  public static let notifications = NotificationsLocalization.tr("Localizable", "NOTIFICATIONS", fallback: "Notifications")
   public enum Settings {
     /// Notifications for course discussions you post, comment, or follow.
     public static let preferenceDescription = NotificationsLocalization.tr("Localizable", "SETTINGS.PREFERENCE_DESCRIPTION", fallback: "Notifications for course discussions you post, comment, or follow.")
     /// Discussions Activity
     public static let preferenceTitle = NotificationsLocalization.tr("Localizable", "SETTINGS.PREFERENCE_TITLE", fallback: "Discussions Activity")
-    /// Push Notifications
+    /// Localizable.strings
+    ///   Notifications
+    /// 
+    ///   Created by Saeed Bashir on 11.12.2024.
     public static let title = NotificationsLocalization.tr("Localizable", "SETTINGS.TITLE", fallback: "Push Notifications")
   }
 }
