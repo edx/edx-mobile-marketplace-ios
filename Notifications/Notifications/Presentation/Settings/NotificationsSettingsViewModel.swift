@@ -67,7 +67,7 @@ public class NotificationsSettingsViewModel: ObservableObject {
         switch authorizationStatus {
         case .notDetermined:
             hasPermission = false
-            showPermissionNeededAlert()
+            router.performNotificationRegistration()
             return
         case .denied:
             hasPermission = false
