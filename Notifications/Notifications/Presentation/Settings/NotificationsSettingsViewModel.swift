@@ -141,9 +141,7 @@ public class NotificationsSettingsViewModel: ObservableObject {
             UIAlertAction(
                 title: NotificationsLocalization.Alert.cancel,
                 style: .default,
-                handler: { _ in
-                    
-                }
+                handler: nil
             )
         ]
         
