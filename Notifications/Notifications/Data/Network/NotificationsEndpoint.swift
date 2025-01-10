@@ -37,17 +37,17 @@ enum NotificationsEndpoint: EndPointType {
     var httpMethod: HTTPMethod {
         switch self {
         case .getNotificationsCount:
-                .get
+            .get
         case .getPreferences:
-                .get
+            .get
         case .updatePreferences:
-                .post
+            .post
         case .markSeen:
-                .put
+            .put
         case .markRead:
-                .patch
+            .patch
         case .markAllRead:
-                .patch
+            .patch
         }
     }
     
