@@ -14,9 +14,9 @@ public protocol NotificationsRepositoryProtocol {
     func getNotificationsCount() async throws -> NotificationsCount
     func getNotificationsPreferences() async throws -> NotificationsPreferences
     func updateNotificationsPreferences(value: Bool) async throws -> NotificationsPreferencesUpdate
-    func markNotifiocansAsSeen() async throws -> NotificationsSeenRead
-    func markNotifiocanAsRead(notificationId: String) async throws -> NotificationsSeenRead
-    func markAllNotifiocansAsRead() async throws -> NotificationsSeenRead
+    func markNotificationsAsSeen() async throws -> NotificationsSeenRead
+    func markNotificationAsRead(notificationId: String) async throws -> NotificationsSeenRead
+    func markAllNotificationsAsRead() async throws -> NotificationsSeenRead
 }
 
 public class NotificationsRepository: NotificationsRepositoryProtocol {
@@ -63,7 +63,7 @@ public class NotificationsRepository: NotificationsRepositoryProtocol {
         return response
     }
     
-    public func markNotifiocansAsSeen() async throws -> NotificationsSeenRead {
+    public func markNotificationsAsSeen() async throws -> NotificationsSeenRead {
         let response = try await api.requestData(
             NotificationsEndpoint.markSeen
         ).mapResponse(DataLayer.NotificationsSeenReadResponse.self)
@@ -72,7 +72,7 @@ public class NotificationsRepository: NotificationsRepositoryProtocol {
         return response
     }
     
-    public func markNotifiocanAsRead(notificationId: String) async throws -> NotificationsSeenRead {
+    public func markNotificationAsRead(notificationId: String) async throws -> NotificationsSeenRead {
         let response = try await api.requestData(
             NotificationsEndpoint.markRead(notificationId: notificationId)
         ).mapResponse(DataLayer.NotificationsSeenReadResponse.self)
@@ -81,7 +81,7 @@ public class NotificationsRepository: NotificationsRepositoryProtocol {
         return response
     }
     
-    public func markAllNotifiocansAsRead() async throws -> NotificationsSeenRead {
+    public func markAllNotificationsAsRead() async throws -> NotificationsSeenRead {
         let response = try await api.requestData(
             NotificationsEndpoint.markAllRead
         ).mapResponse(DataLayer.NotificationsSeenReadResponse.self)
@@ -115,15 +115,15 @@ class NotificationsRepositoryMock: NotificationsRepositoryProtocol {
         )
     }
     
-    func markNotifiocansAsSeen() async throws -> NotificationsSeenRead {
+    func markNotificationsAsSeen() async throws -> NotificationsSeenRead {
         return NotificationsSeenRead(message: "success")
     }
     
-    func markNotifiocanAsRead(notificationId: String) async throws -> NotificationsSeenRead {
+    func markNotificationAsRead(notificationId: String) async throws -> NotificationsSeenRead {
         return NotificationsSeenRead(message: "success")
     }
     
-    func markAllNotifiocansAsRead() async throws -> NotificationsSeenRead {
+    func markAllNotificationsAsRead() async throws -> NotificationsSeenRead {
         return NotificationsSeenRead(message: "success")
     }
 }
