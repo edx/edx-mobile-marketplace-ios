@@ -436,7 +436,7 @@
 				CE0BF0B82CD9203A00D10289 /* XCRemoteSwiftPackageReference "microsoft-authentication-library-for-objc" */,
 				A50926CF2D1D8C9C0013F967 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */,
 				A538B55E2D1D8CD300216179 /* XCRemoteSwiftPackageReference "openedx-app-firebase-analytics-ios" */,
-				A5B174F32D1ECAF800C96C92 /* XCRemoteSwiftPackageReference "edx-mobile-app-analytics-ios" */,
+				A5DB687D2D3170850096CBF8 /* XCRemoteSwiftPackageReference "edx-mobile-app-analytics-ios" */,
 			);
 			productRefGroup = 07D5DA3228D075AA00752FD9 /* Products */;
 			projectDirPath = "";
@@ -1242,11 +1242,11 @@
 				kind = branch;
 			};
 		};
-		A5B174F32D1ECAF800C96C92 /* XCRemoteSwiftPackageReference "edx-mobile-app-analytics-ios" */ = {
+		A5DB687D2D3170850096CBF8 /* XCRemoteSwiftPackageReference "edx-mobile-app-analytics-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/rnr/edx-mobile-app-analytics-ios";
+			repositoryURL = "https://github.com/edx/edx-mobile-app-analytics-ios";
 			requirement = {
-				branch = "anton/analytics-plugin";
+				branch = develop;
 				kind = branch;
 			};
 		};
