@@ -13,9 +13,14 @@ import Theme
 public struct ProfileView: View {
     
     @StateObject private var viewModel: ProfileViewModel
+    private var supportsElevatedTabBar: Bool
     
-    public init(viewModel: ProfileViewModel) {
+    public init(
+        viewModel: ProfileViewModel,
+        supportsElevatedTabBar: Bool = false
+    ) {
         self._viewModel = StateObject(wrappedValue: { viewModel }())
+        self.supportsElevatedTabBar = supportsElevatedTabBar
     }
     
     public var body: some View {
@@ -35,7 +40,7 @@ public struct ProfileView: View {
                 .padding(.top, 8)
                 .hideNavigationBar(false)
                 .navigationBarBackButtonHidden(false)
-                .navigationTitle(ProfileLocalization.title)
+                .navigationTitle(supportsElevatedTabBar ? "" : ProfileLocalization.title)
                 
                 // MARK: - Offline mode SnackBar
                 OfflineSnackBarView(

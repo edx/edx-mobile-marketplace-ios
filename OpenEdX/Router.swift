@@ -264,6 +264,7 @@ public class Router: AuthorizationRouter,
                 DiscoveryWebviewViewModel.self,
                 argument: sourceScreen)!,
             router: Container.shared.resolve(DiscoveryRouter.self)!,
+            supportsElevatedTabBar: false,
             discoveryType: discoveryType,
             pathID: pathID
         )
@@ -314,6 +315,7 @@ public class Router: AuthorizationRouter,
                     argument: sourceScreen
                 )!,
                 router: Container.shared.resolve(DiscoveryRouter.self)!,
+                supportsElevatedTabBar: false,
                 searchQuery: searchQuery
             )
             

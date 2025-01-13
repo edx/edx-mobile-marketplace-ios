@@ -22,6 +22,17 @@ struct MainScreenView: View {
     
     @ObservedObject private(set) var viewModel: MainScreenViewModel
     
+    @Environment(\.horizontalSizeClass) private var sizeClass
+    private var idiom: UIUserInterfaceIdiom { UIDevice.current.userInterfaceIdiom }
+    
+    private var supportsElevatedTabBar: Bool {
+        if #available(iOS 18.0, *) {
+            return idiom == .pad && sizeClass == .regular
+        }
+        
+        return false
+    }
+    
     init(viewModel: MainScreenViewModel) {
         self.viewModel = viewModel
         UITabBar.appearance().isTranslucent = false
@@ -116,11 +127,14 @@ struct MainScreenView: View {
                             sourceScreen: viewModel.sourceScreen
                         )
                     } else if viewModel.config.discovery.type == .webview {
-                        DiscoveryWebview(
-                            viewModel: Container.shared.resolve(
-                                DiscoveryWebviewViewModel.self,
-                                argument: viewModel.sourceScreen)!,
-                            router: Container.shared.resolve(DiscoveryRouter.self)!
+                        mainTab(
+                            DiscoveryWebview(
+                                viewModel: Container.shared.resolve(
+                                    DiscoveryWebviewViewModel.self,
+                                    argument: viewModel.sourceScreen)!,
+                                router: Container.shared.resolve(DiscoveryRouter.self)!,
+                                supportsElevatedTabBar: supportsElevatedTabBar
+                            )
                         )
                     }
                     
@@ -137,8 +151,11 @@ struct MainScreenView: View {
             }
             
             VStack {
-                ProfileView(
-                    viewModel: Container.shared.resolve(ProfileViewModel.self)!
+                mainTab(
+                    ProfileView(
+                        viewModel: Container.shared.resolve(ProfileViewModel.self)!,
+                        supportsElevatedTabBar: supportsElevatedTabBar
+                    )
                 )
             }
             .tabItem {
@@ -152,23 +169,13 @@ struct MainScreenView: View {
             .tag(MainTab.profile)
             .accessibilityIdentifier("profile_tabitem")
         }
-        .hideNavigationBar(viewModel.selection == .dashboard)
+        .hideNavigationBar(
+            supportsElevatedTabBar ? true :
+                viewModel.selection == .dashboard
+        )
         .navigationBarBackButtonHidden(viewModel.selection == .dashboard)
         .navigationTitle(titleBar())
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing, content: {
-                if viewModel.selection == .profile {
-                    Button(action: {
-                        let router = Container.shared.resolve(ProfileRouter.self)!
-                        router.showSettings()
-                    }, label: {
-                        CoreAssets.settings.swiftUIImage.renderingMode(.template)
-                            .foregroundColor(Theme.Colors.accentColor)
-                    })
-                    .accessibilityIdentifier("edit_profile_button")
-                }
-            })
-        }
+        .toolbar { toolbarContent }
         .onReceive(NotificationCenter.default.publisher(for: .onAppUpgradeAccountSettingsTapped)) { _ in
             viewModel.selection = .profile
             disableAllTabs = true
@@ -204,6 +211,36 @@ struct MainScreenView: View {
             viewModel.trackMainDashboardMyCoursesClicked()
         }
         .accentColor(Theme.Colors.accentXColor)
+    }
+    
+    @ViewBuilder
+    private func mainTab<Content: View>(
+        _ content: Content
+    ) -> some View {
+        if #available(iOS 16.0, *), supportsElevatedTabBar {
+            NavigationStack {
+                content
+                    .toolbar { toolbarContent }
+            }
+        } else {
+            content
+        }
+    }
+    
+    @ToolbarContentBuilder
+    private var toolbarContent: some ToolbarContent {
+        ToolbarItem(placement: .navigationBarTrailing, content: {
+            if viewModel.selection == .profile {
+                Button(action: {
+                    let router = Container.shared.resolve(ProfileRouter.self)!
+                    router.showSettings()
+                }, label: {
+                    CoreAssets.settings.swiftUIImage.renderingMode(.template)
+                        .foregroundColor(Theme.Colors.accentColor)
+                })
+                .accessibilityIdentifier("edit_profile_button")
+            }
+        })
     }
     
     @ViewBuilder
