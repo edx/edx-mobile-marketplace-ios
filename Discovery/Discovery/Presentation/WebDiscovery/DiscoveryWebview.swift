@@ -33,6 +33,7 @@ public struct DiscoveryWebview: View {
     
     @StateObject private var viewModel: DiscoveryWebviewViewModel
     private var router: DiscoveryRouter
+    private var supportsElevatedTabBar: Bool
     private var discoveryType: DiscoveryWebviewType
     public var pathID: String
     
@@ -77,12 +78,14 @@ public struct DiscoveryWebview: View {
     public init(
         viewModel: DiscoveryWebviewViewModel,
         router: DiscoveryRouter,
+        supportsElevatedTabBar: Bool,
         searchQuery: String? = nil,
         discoveryType: DiscoveryWebviewType = .discovery,
         pathID: String = ""
     ) {
         self._viewModel = .init(wrappedValue: viewModel)
         self.router = router
+        self.supportsElevatedTabBar = supportsElevatedTabBar
         self._searchQuery = State<String>(initialValue: searchQuery ?? "")
         self.discoveryType = discoveryType
         self.pathID = pathID
@@ -162,8 +165,11 @@ public struct DiscoveryWebview: View {
                 }
             }
         }
-        .hideNavigationBar(viewModel.sourceScreen == .default && discoveryType == .discovery)
-        .navigationTitle(CoreLocalization.Mainscreen.discovery)
+        .hideNavigationBar(
+            supportsElevatedTabBar ? false :
+                (viewModel.sourceScreen == .default && discoveryType == .discovery)
+        )
+        .navigationTitle(supportsElevatedTabBar ? "" : CoreLocalization.Mainscreen.discovery)
         .background(Theme.Colors.background.ignoresSafeArea())
         .onFirstAppear {
             if case let .courseDetail(pathID, _) = viewModel.sourceScreen {
