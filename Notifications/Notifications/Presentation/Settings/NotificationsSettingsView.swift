@@ -89,7 +89,7 @@ public struct NotificationsSettingsView: View {
         .animation(.default, value: viewModel.showError)
         .onFirstAppear {
             Task {
-                await viewModel.getNotificaionsPreferences()
+                await viewModel.getNotificationsPreferences()
             }
         }
     }
@@ -105,21 +105,21 @@ public struct NotificationsSettingsView: View {
                 
                 Spacer()
                 
-                Toggle("", isOn: .constant(viewModel.hasPermission))
+                Toggle("", isOn: .constant(viewModel.discussionNotificationsEnabled))
                     .toggleStyle(SwitchToggleStyle(tint: Theme.Colors.toggleSwitchColor))
                     .frame(width: 50)
                     .accessibilityIdentifier("discussion_switch")
                     .simultaneousGesture(
                         TapGesture().onEnded {
                             Task {
-                                await viewModel.toggleNotificationsPermissionAction()
+                                await viewModel.toggleDiscussionNotifications()
                             }
                         }
                     )
                     .simultaneousGesture(
                         DragGesture(minimumDistance: 20, coordinateSpace: .local).onEnded { _ in
                             Task {
-                                await viewModel.toggleNotificationsPermissionAction()
+                                await viewModel.toggleDiscussionNotifications()
                             }
                         }
                     )

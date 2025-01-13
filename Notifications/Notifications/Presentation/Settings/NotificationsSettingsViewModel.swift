@@ -15,9 +15,9 @@ private enum AuthorizationStatus {
 
 public class NotificationsSettingsViewModel: ObservableObject {
     @Published var showError: Bool = false
-    @Published var hasPermission: Bool {
+    @Published var discussionNotificationsEnabled: Bool {
         didSet {
-            storage.discussionNotificationsSettingStatus = hasPermission
+            storage.discussionNotificationsSettingStatus = discussionNotificationsEnabled
         }
     }
     
@@ -45,55 +45,61 @@ public class NotificationsSettingsViewModel: ObservableObject {
         self.analytics = analytics
         self.router = router
         self.storage = storage
-        hasPermission = storage.discussionNotificationsSettingStatus ?? false
+        discussionNotificationsEnabled = storage.discussionNotificationsSettingStatus ?? false
         getOSSettingsPermissionStatus()
         addObservers()
     }
     
     @MainActor
-    public func getNotificaionsPreferences() async {
+    public func getNotificationsPreferences() async {
         do {
             preferences = try await interactor.getNotificationsPreferences()
-            hasPermission = preferences?.discussionsEnabled != false
-            && preferences?.coreEnabled != false
-            && authorizationStatus == .authorized
+            if let preferences {
+                discussionNotificationsEnabled = preferences.discussionsEnabled
+                    && preferences.coreEnabled
+                    && authorizationStatus == .authorized
+            }
         } catch {
             debugLog(error)
         }
     }
     
     @MainActor
-    public func toggleNotificationsPermissionAction() async {
+    public func toggleDiscussionNotifications() async {
         switch authorizationStatus {
         case .notDetermined:
-            hasPermission = false
+            discussionNotificationsEnabled = false
             router.performNotificationRegistration()
             return
         case .denied:
-            hasPermission = false
+            discussionNotificationsEnabled = false
             showPermissionNeededAlert()
             return
         default:
             break
         }
         
-        if isUpdating {
-            return
-        }
-        
+        await updateDiscussionNotifications(enabled: !discussionNotificationsEnabled)
+    }
+    
+    @MainActor
+    private func updateDiscussionNotifications(enabled: Bool) async {
+        if isUpdating { return }
         isUpdating = true
-        hasPermission.toggle()
+        
+        let previousValue = discussionNotificationsEnabled
+        discussionNotificationsEnabled = enabled
         
         do {
-            let update = try await interactor.updateNotificationsPreferences(value: hasPermission)
-            analytics.notificationsDiscussionPermissionToggleEvent(action: hasPermission)
-            if update.updatedValue != hasPermission {
-                hasPermission = update.updatedValue
+            let update = try await interactor.updateNotificationsPreferences(value: discussionNotificationsEnabled)
+            analytics.notificationsDiscussionPermissionToggleEvent(action: discussionNotificationsEnabled)
+            if update.updatedValue != discussionNotificationsEnabled {
+                discussionNotificationsEnabled = update.updatedValue
             }
             isUpdating = false
         } catch {
             isUpdating = false
-            hasPermission.toggle()
+            discussionNotificationsEnabled = previousValue
             errorMessage = NotificationsLocalization.Error.generic
         }
     }
@@ -110,9 +116,10 @@ public class NotificationsSettingsViewModel: ObservableObject {
                 self?.authorizationStatus = .denied
             } else if settings.authorizationStatus == .authorized {
                 self?.authorizationStatus = .authorized
+                
                 if autoUpdate {
                     Task {
-                        await self?.toggleNotificationsPermissionAction()
+                        await self?.updateDiscussionNotifications(enabled: true)
                     }
                 }
             }
@@ -168,7 +175,7 @@ public class NotificationsSettingsViewModel: ObservableObject {
         )
     }
     
-    @objc func didBecomeActive() {
+    @objc private func didBecomeActive() {
         // refresh the settings status
         getOSSettingsPermissionStatus(autoUpdate: openSettings)
     }
