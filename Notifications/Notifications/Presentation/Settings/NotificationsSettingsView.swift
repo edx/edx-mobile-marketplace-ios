@@ -46,52 +46,21 @@ public struct NotificationsSettingsView: View {
                             .backViewStyle()
                             .padding(.leading, isHorizontal ? 48 : 0)
                             .accessibilityIdentifier("back_button")
-                            
                         }.frame(minWidth: 0,
                                 maxWidth: .infinity,
                                 alignment: .topLeading)
                     }
-                    VStack(alignment: .leading) {
-                        HStack {
-                            Text(NotificationsLocalization.Settings.preferenceTitle)
-                                .font(Theme.Fonts.titleMedium)
-                                .foregroundStyle(Theme.Colors.textPrimary)
-                                .accessibilityIdentifier("preference_title_text")
-                            
+                    
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: 24) {
+                            discussionsActivity
                             Spacer()
-                            Toggle("", isOn: .constant(viewModel.hasPermission))
-                                .toggleStyle(SwitchToggleStyle(tint: Theme.Colors.toggleSwitchColor))
-                                .frame(width: 50)
-                                .accessibilityIdentifier("discussion_switch")
-                                .simultaneousGesture(
-                                    TapGesture().onEnded {
-                                        Task {
-                                            await viewModel.toggleNotificationsPermissionAction()
-                                        }
-                                    }
-                                )
-                                .simultaneousGesture(
-                                    DragGesture(minimumDistance: 20, coordinateSpace: .local).onEnded { _ in
-                                        Task {
-                                            await viewModel.toggleNotificationsPermissionAction()
-                                        }
-                                    })
                         }
-                        
-                        Text(NotificationsLocalization.Settings.preferenceDescription)
-                            .font(Theme.Fonts.bodyMedium)
-                            .foregroundStyle(Theme.Colors.textSecondary)
-                            .accessibilityIdentifier("preference_description_text")
-                        
-                        Divider()
-                            .padding(20)
-                            .accessibilityIdentifier("preference_divider")
-                        
-                        Spacer()
+                        .frameLimit(width: proxy.size.width)
+                        .padding(.horizontal, 24)
+                        .padding(.top, 24)
                     }
-                    .padding(20)
                     .roundedBackground(Theme.Colors.background)
-                    .frameLimit(width: proxy.size.width)
                 }
                 
                 if viewModel.showError {
@@ -122,6 +91,48 @@ public struct NotificationsSettingsView: View {
             Task {
                 await viewModel.getNotificaionsPreferences()
             }
+        }
+    }
+    
+    @ViewBuilder
+    private var discussionsActivity: some View {
+        VStack(alignment: .leading) {
+            HStack {
+                Text(NotificationsLocalization.Settings.preferenceTitle)
+                    .font(Theme.Fonts.titleMedium)
+                    .foregroundStyle(Theme.Colors.textPrimary)
+                    .accessibilityIdentifier("preference_title_text")
+                
+                Spacer()
+                
+                Toggle("", isOn: .constant(viewModel.hasPermission))
+                    .toggleStyle(SwitchToggleStyle(tint: Theme.Colors.toggleSwitchColor))
+                    .frame(width: 50)
+                    .accessibilityIdentifier("discussion_switch")
+                    .simultaneousGesture(
+                        TapGesture().onEnded {
+                            Task {
+                                await viewModel.toggleNotificationsPermissionAction()
+                            }
+                        }
+                    )
+                    .simultaneousGesture(
+                        DragGesture(minimumDistance: 20, coordinateSpace: .local).onEnded { _ in
+                            Task {
+                                await viewModel.toggleNotificationsPermissionAction()
+                            }
+                        }
+                    )
+            }
+            
+            Text(NotificationsLocalization.Settings.preferenceDescription)
+                .font(Theme.Fonts.bodyMedium)
+                .foregroundStyle(Theme.Colors.textSecondary)
+                .accessibilityIdentifier("preference_description_text")
+            
+            Divider()
+                .padding(.top, 16)
+                .accessibilityIdentifier("preference_divider")
         }
     }
 }
