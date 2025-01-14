@@ -250,6 +250,19 @@ public class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, CourseSto
         }
     }
     
+    public var discussionNotificationsSettingStatus: Bool? {
+        get {
+            return userDefaults.bool(forKey: KEY_DISCUSSION_NOTIFICATIONS_SETTING_STATUS)
+        }
+        set(newValue) {
+            if let newValue {
+                userDefaults.set(newValue, forKey: KEY_DISCUSSION_NOTIFICATIONS_SETTING_STATUS)
+            } else {
+                userDefaults.removeObject(forKey: KEY_DISCUSSION_NOTIFICATIONS_SETTING_STATUS)
+            }
+        }
+    }
+    
     public func clear() {
         accessToken = nil
         refreshToken = nil
@@ -279,4 +292,5 @@ public class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, CourseSto
     private let KEY_ALLOWED_DOWNLOAD_LARGE_FILE = "allowedDownloadLargeFile"
     private let KEY_RESET_APP_SUPPORT_DIRECTORY_USER_DATA = "resetAppSupportDirectoryUserData"
     private let KEY_LAST_USED_SOCIAL_AUTH = "lastUsedSocialAuth"
+    private let KEY_DISCUSSION_NOTIFICATIONS_SETTING_STATUS = "discussionNotificationsSettingStatus"
 }

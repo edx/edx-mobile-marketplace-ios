@@ -269,7 +269,8 @@ class ScreenAssembly: Assembly {
             NotificationsSettingsViewModel(
                 interactor: r.resolve(NotificationsInteractorProtocol.self)!,
                 analytics: r.resolve(NotificationsAnalytics.self)!,
-                router: r.resolve(NotificationsRouter.self)!
+                router: r.resolve(NotificationsRouter.self)!,
+                storage: r.resolve(CoreStorage.self)!
             )
         }
         

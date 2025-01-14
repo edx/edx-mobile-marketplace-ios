@@ -775,6 +775,10 @@ public class Router: AuthorizationRouter,
         // show notifications inbox screen
     }
     
+    public func performNotificationRegistration() {
+        Container.shared.resolve(PushNotificationsManager.self)?.performRegistration()
+    }
+    
     public func showVideoSettings() {
         let viewModel = Container.shared.resolve(SettingsViewModel.self)!
         let view = VideoSettingsView(viewModel: viewModel)

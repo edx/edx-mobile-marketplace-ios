@@ -86,6 +86,9 @@ public protocol BaseRouter {
     
     @MainActor
     func hideRestoreProgressView()
+    
+    @MainActor
+    func performNotificationRegistration()
 }
 
 extension BaseRouter {
@@ -179,5 +182,8 @@ open class BaseRouterMock: BaseRouter {
     
     @MainActor
     public func hideRestoreProgressView() {}
+    
+    @MainActor
+    public func performNotificationRegistration() {}
 }
 #endif
