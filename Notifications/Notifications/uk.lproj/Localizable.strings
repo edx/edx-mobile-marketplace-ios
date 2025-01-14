@@ -10,3 +10,6 @@
 "SETTINGS.PREFERENCE_TITLE"="Discussions Activity";
 "SETTINGS.PREFERENCE_DESCRIPTION"="Notifications for course discussions you post, comment, or follow.";
 "NOTIFICATIONS"="Notifications";
+"INBOX.RECENT" = "Recent";
+"INBOX.THIS_WEEK" = "This Week";
+"INBOX.OLDER" = "Older";

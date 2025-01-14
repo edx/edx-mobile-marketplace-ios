@@ -25,13 +25,12 @@
 		14BAE6912D0978C300EAF0E4 /* NotificationsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BAE6902D0978BC00EAF0E4 /* NotificationsSettingsView.swift */; };
 		87E3F4AB2D8BE4FD628C91C4 /* Pods_App_Notifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAFCD31A42C7E150939829CE /* Pods_App_Notifications.framework */; };
 		9704E8082D2BF8C500B28907 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9704E8072D2BF8C100B28907 /* Notifications.swift */; };
+		973CCD772D3635C000949756 /* SingleNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CCD762D3635C000949756 /* SingleNotificationView.swift */; };
 		978775242D19A20300D1C21E /* NotificationsInboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978775232D19A20300D1C21E /* NotificationsInboxView.swift */; };
 		978775262D19A21D00D1C21E /* NotificationsInboxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978775252D19A21D00D1C21E /* NotificationsInboxViewModel.swift */; };
 		97A222942D2404590067E6D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97A222932D2404590067E6D2 /* Assets.xcassets */; };
 		97A222962D2415EA0067E6D2 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A222952D2415EA0067E6D2 /* Assets.swift */; };
 		97B079422D2BD59400538435 /* Data_Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B079412D2BD58900538435 /* Data_Notifications.swift */; };
-		97B1F4332D2FBB5A00944213 /* AttributedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B1F4312D2FBB5A00944213 /* AttributedText.swift */; };
-		97B1F4342D2FBB5A00944213 /* HTML2TextParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B1F4322D2FBB5A00944213 /* HTML2TextParser.swift */; };
 		FB43867C6484A90253882035 /* Pods_App_Notifications_NotificationsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7FEAD4AF36405458BBBE5AB /* Pods_App_Notifications_NotificationsTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -75,13 +74,12 @@
 		7A8D523EE9F729312DE6718E /* Pods-App-Notifications.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Notifications.debug.xcconfig"; path = "Target Support Files/Pods-App-Notifications/Pods-App-Notifications.debug.xcconfig"; sourceTree = "<group>"; };
 		874E5747C9EC9E35C11CDA15 /* Pods-App-Notifications.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Notifications.release.xcconfig"; path = "Target Support Files/Pods-App-Notifications/Pods-App-Notifications.release.xcconfig"; sourceTree = "<group>"; };
 		9704E8072D2BF8C100B28907 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
+		973CCD762D3635C000949756 /* SingleNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleNotificationView.swift; sourceTree = "<group>"; };
 		978775232D19A20300D1C21E /* NotificationsInboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsInboxView.swift; sourceTree = "<group>"; };
 		978775252D19A21D00D1C21E /* NotificationsInboxViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsInboxViewModel.swift; sourceTree = "<group>"; };
 		97A222932D2404590067E6D2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97A222952D2415EA0067E6D2 /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		97B079412D2BD58900538435 /* Data_Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data_Notifications.swift; sourceTree = "<group>"; };
-		97B1F4312D2FBB5A00944213 /* AttributedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedText.swift; sourceTree = "<group>"; };
-		97B1F4322D2FBB5A00944213 /* HTML2TextParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTML2TextParser.swift; sourceTree = "<group>"; };
 		9837AB207F25EDC411D2DC3F /* Pods-App-Notifications-NotificationsTests.debugprod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Notifications-NotificationsTests.debugprod.xcconfig"; path = "Target Support Files/Pods-App-Notifications-NotificationsTests/Pods-App-Notifications-NotificationsTests.debugprod.xcconfig"; sourceTree = "<group>"; };
 		9BF6AF34619EAAF00A3FFD7A /* Pods-App-Notifications.debugprod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Notifications.debugprod.xcconfig"; path = "Target Support Files/Pods-App-Notifications/Pods-App-Notifications.debugprod.xcconfig"; sourceTree = "<group>"; };
 		AA60551F3F53CDDD8E5E8DC5 /* Pods-App-Notifications-NotificationsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Notifications-NotificationsTests.debug.xcconfig"; path = "Target Support Files/Pods-App-Notifications-NotificationsTests/Pods-App-Notifications-NotificationsTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -174,7 +172,6 @@
 			children = (
 				1402A0C62B61011D00A0A00B /* Settings */,
 				978775222D19A06F00D1C21E /* NotificationsInbox */,
-				97B1F4302D2FBB4700944213 /* AttributedText */,
 				02F3BFDE29252F2F0051930C /* NotificationsRouter.swift */,
 				02F1752E2A4DA3B60019CD70 /* NotificationsAnalytics.swift */,
 			);
@@ -283,17 +280,9 @@
 			children = (
 				978775232D19A20300D1C21E /* NotificationsInboxView.swift */,
 				978775252D19A21D00D1C21E /* NotificationsInboxViewModel.swift */,
+				973CCD762D3635C000949756 /* SingleNotificationView.swift */,
 			);
 			path = NotificationsInbox;
-			sourceTree = "<group>";
-		};
-		97B1F4302D2FBB4700944213 /* AttributedText */ = {
-			isa = PBXGroup;
-			children = (
-				97B1F4312D2FBB5A00944213 /* AttributedText.swift */,
-				97B1F4322D2FBB5A00944213 /* HTML2TextParser.swift */,
-			);
-			path = AttributedText;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -514,11 +503,10 @@
 				9704E8082D2BF8C500B28907 /* Notifications.swift in Sources */,
 				978775242D19A20300D1C21E /* NotificationsInboxView.swift in Sources */,
 				97A222962D2415EA0067E6D2 /* Assets.swift in Sources */,
-				97B1F4332D2FBB5A00944213 /* AttributedText.swift in Sources */,
-				97B1F4342D2FBB5A00944213 /* HTML2TextParser.swift in Sources */,
 				02EF39DC28D86BEF0058F6BD /* Strings.swift in Sources */,
 				149D0E582D1D2EF600985307 /* NotificationsCount.swift in Sources */,
 				14116DB22D1546C300A30AE0 /* Data_NotificationsCount.swift in Sources */,
+				973CCD772D3635C000949756 /* SingleNotificationView.swift in Sources */,
 				02F1752F2A4DA3B60019CD70 /* NotificationsAnalytics.swift in Sources */,
 				149D4A9A2D0BEF7E003A2E1D /* NotificationsSettingsViewModel.swift in Sources */,
 			);

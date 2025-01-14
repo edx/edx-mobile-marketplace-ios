@@ -34,6 +34,8 @@
 		02F6EF4328D9ECC500835477 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 02F6EF4528D9ECC500835477 /* Localizable.strings */; };
 		02F6EF4828D9ED8300835477 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F6EF4728D9ED8300835477 /* Strings.swift */; };
 		214DA1AADABC7BF4FB8EA1D7 /* Pods_App_Dashboard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B008B2F0762EF35CADE3DD4 /* Pods_App_Dashboard.framework */; };
+		97D2CBB92D354DCA006AC2C2 /* Notifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97D2CBB82D354DCA006AC2C2 /* Notifications.framework */; };
+		97D2CBBA2D354DCA006AC2C2 /* Notifications.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 97D2CBB82D354DCA006AC2C2 /* Notifications.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		97E7DF0B2B7A3EAF00A2A09B /* CourseEnrollmentsMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E7DF0A2B7A3EAF00A2A09B /* CourseEnrollmentsMock.swift */; };
 		9AD4A6A1AAF97092CF457FE2 /* Pods_App_Dashboard_DashboardTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22905947A936093AD23D4CF8 /* Pods_App_Dashboard_DashboardTests.framework */; };
 /* End PBXBuildFile section */
@@ -47,6 +49,20 @@
 			remoteInfo = Dashboard;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		97D2CBBB2D354DCA006AC2C2 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				97D2CBBA2D354DCA006AC2C2 /* Notifications.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0277241D2BCE9E1500C2908D /* PrimaryCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryCardView.swift; sourceTree = "<group>"; };
@@ -89,6 +105,7 @@
 		65CD5AB152F3DEC88D48AE2D /* Pods-App-Dashboard.debugdev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Dashboard.debugdev.xcconfig"; path = "Target Support Files/Pods-App-Dashboard/Pods-App-Dashboard.debugdev.xcconfig"; sourceTree = "<group>"; };
 		6BA3D1943CAB859ECDC95C76 /* Pods-App-Dashboard.releasedev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Dashboard.releasedev.xcconfig"; path = "Target Support Files/Pods-App-Dashboard/Pods-App-Dashboard.releasedev.xcconfig"; sourceTree = "<group>"; };
 		89D6F05AC9854DBBAB091D9C /* Pods-App-Dashboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Dashboard.release.xcconfig"; path = "Target Support Files/Pods-App-Dashboard/Pods-App-Dashboard.release.xcconfig"; sourceTree = "<group>"; };
+		97D2CBB82D354DCA006AC2C2 /* Notifications.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Notifications.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		97E7DF0A2B7A3EAF00A2A09B /* CourseEnrollmentsMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseEnrollmentsMock.swift; sourceTree = "<group>"; };
 		BBABB135366FFB1DAEFA0D16 /* Pods-App-Dashboard-DashboardTests.debugprod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Dashboard-DashboardTests.debugprod.xcconfig"; path = "Target Support Files/Pods-App-Dashboard-DashboardTests/Pods-App-Dashboard-DashboardTests.debugprod.xcconfig"; sourceTree = "<group>"; };
 		CCF4C665AD91B6B96F6A11DF /* Pods-App-Dashboard-DashboardTests.debugdev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Dashboard-DashboardTests.debugdev.xcconfig"; path = "Target Support Files/Pods-App-Dashboard-DashboardTests/Pods-App-Dashboard-DashboardTests.debugdev.xcconfig"; sourceTree = "<group>"; };
@@ -112,6 +129,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97D2CBB92D354DCA006AC2C2 /* Notifications.framework in Frameworks */,
 				027DB33F28D8E605002B6862 /* Core.framework in Frameworks */,
 				214DA1AADABC7BF4FB8EA1D7 /* Pods_App_Dashboard.framework in Frameworks */,
 			);
@@ -246,6 +264,7 @@
 		1E3E639E65A1C88EDE136CC9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				97D2CBB82D354DCA006AC2C2 /* Notifications.framework */,
 				027DB33E28D8E605002B6862 /* Core.framework */,
 				0B008B2F0762EF35CADE3DD4 /* Pods_App_Dashboard.framework */,
 				22905947A936093AD23D4CF8 /* Pods_App_Dashboard_DashboardTests.framework */,
@@ -328,6 +347,7 @@
 				02EF39E328D89F560058F6BD /* Sources */,
 				02EF39E428D89F560058F6BD /* Frameworks */,
 				02EF39E528D89F560058F6BD /* Resources */,
+				97D2CBBB2D354DCA006AC2C2 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

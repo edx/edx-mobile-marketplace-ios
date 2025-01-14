@@ -12,6 +12,14 @@ import Foundation
 public enum NotificationsLocalization {
   /// Notifications
   public static let notifications = NotificationsLocalization.tr("Localizable", "NOTIFICATIONS", fallback: "Notifications")
+  public enum Inbox {
+    /// Older
+    public static let older = NotificationsLocalization.tr("Localizable", "INBOX.OLDER", fallback: "Older")
+    /// Recent
+    public static let recent = NotificationsLocalization.tr("Localizable", "INBOX.RECENT", fallback: "Recent")
+    /// This Week
+    public static let thisWeek = NotificationsLocalization.tr("Localizable", "INBOX.THIS_WEEK", fallback: "This Week")
+  }
   public enum Settings {
     /// Notifications for course discussions you post, comment, or follow.
     public static let preferenceDescription = NotificationsLocalization.tr("Localizable", "SETTINGS.PREFERENCE_DESCRIPTION", fallback: "Notifications for course discussions you post, comment, or follow.")

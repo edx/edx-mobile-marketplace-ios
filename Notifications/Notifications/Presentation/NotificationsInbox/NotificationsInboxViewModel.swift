@@ -23,9 +23,7 @@ public class NotificationsInboxViewModel: ObservableObject {
     var router: NotificationsRouter
     var errorMessage: String? {
         didSet {
-            withAnimation {
-                showError = errorMessage != nil
-            }
+            showError = errorMessage != nil
         }
     }
     
@@ -128,7 +126,18 @@ public class NotificationsInboxViewModel: ObservableObject {
 }
 
 public enum NotificationGroup: String, CaseIterable {
-    case recent = "Recent"
-    case thisWeek = "This Week"
-    case older = "Older"
+    case recent
+    case thisWeek
+    case older
+
+    var localizedValue: String {
+        switch self {
+        case .recent:
+            return NotificationsLocalization.Inbox.recent
+        case .thisWeek:
+            return NotificationsLocalization.Inbox.thisWeek
+        case .older:
+            return NotificationsLocalization.Inbox.older
+        }
+    }
 }
