@@ -96,44 +96,42 @@ public struct NotificationsSettingsView: View {
     
     @ViewBuilder
     private var discussionsActivity: some View {
-        VStack(alignment: .leading) {
-            HStack {
+        HStack {
+            VStack(alignment: .leading) {
                 Text(NotificationsLocalization.Settings.preferenceTitle)
                     .font(Theme.Fonts.titleMedium)
-                    .foregroundStyle(Theme.Colors.textPrimary)
+                    .foregroundColor(Theme.Colors.textPrimary)
                     .accessibilityIdentifier("preference_title_text")
                 
-                Spacer()
-                
-                Toggle("", isOn: .constant(viewModel.discussionNotificationsEnabled))
-                    .toggleStyle(SwitchToggleStyle(tint: Theme.Colors.toggleSwitchColor))
-                    .frame(width: 50)
-                    .accessibilityIdentifier("discussion_switch")
-                    .simultaneousGesture(
-                        TapGesture().onEnded {
-                            Task {
-                                await viewModel.toggleDiscussionNotifications()
-                            }
-                        }
-                    )
-                    .simultaneousGesture(
-                        DragGesture(minimumDistance: 20, coordinateSpace: .local).onEnded { _ in
-                            Task {
-                                await viewModel.toggleDiscussionNotifications()
-                            }
-                        }
-                    )
+                Text(NotificationsLocalization.Settings.preferenceDescription)
+                    .font(Theme.Fonts.bodySmall)
+                    .foregroundColor(Theme.Colors.textSecondary)
+                    .accessibilityIdentifier("preference_description_text")
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
             
-            Text(NotificationsLocalization.Settings.preferenceDescription)
-                .font(Theme.Fonts.bodyMedium)
-                .foregroundStyle(Theme.Colors.textSecondary)
-                .accessibilityIdentifier("preference_description_text")
-            
-            Divider()
-                .padding(.top, 16)
-                .accessibilityIdentifier("preference_divider")
+            Toggle("", isOn: .constant(viewModel.discussionNotificationsEnabled))
+                .toggleStyle(SwitchToggleStyle(tint: Theme.Colors.toggleSwitchColor))
+                .frame(width: 50)
+                .accessibilityIdentifier("discussion_switch")
+                .simultaneousGesture(
+                    TapGesture().onEnded {
+                        Task {
+                            await viewModel.toggleDiscussionNotifications()
+                        }
+                    }
+                )
+                .simultaneousGesture(
+                    DragGesture(minimumDistance: 20, coordinateSpace: .local).onEnded { _ in
+                        Task {
+                            await viewModel.toggleDiscussionNotifications()
+                        }
+                    }
+                )
         }
+        
+        Divider()
+            .accessibilityIdentifier("preference_divider")
     }
 }
 
