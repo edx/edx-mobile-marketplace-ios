@@ -10,6 +10,7 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 public enum NotificationsLocalization {
+<<<<<<< HEAD
   /// Notifications
   public static let notifications = NotificationsLocalization.tr("Localizable", "NOTIFICATIONS", fallback: "Notifications")
   public enum Inbox {
@@ -19,10 +20,27 @@ public enum NotificationsLocalization {
     public static let recent = NotificationsLocalization.tr("Localizable", "INBOX.RECENT", fallback: "Recent")
     /// This Week
     public static let thisWeek = NotificationsLocalization.tr("Localizable", "INBOX.THIS_WEEK", fallback: "This Week")
+=======
+  public enum Alert {
+    /// Cancel
+    public static let cancel = NotificationsLocalization.tr("Localizable", "ALERT.CANCEL", fallback: "Cancel")
+    /// Continue
+    public static let `continue` = NotificationsLocalization.tr("Localizable", "ALERT.CONTINUE", fallback: "Continue")
+    /// To use this feature you need to allow notifications in the settings.
+    public static let permissionMessage = NotificationsLocalization.tr("Localizable", "ALERT.PERMISSION_MESSAGE", fallback: "To use this feature you need to allow notifications in the settings.")
+    /// Permission is needed
+    public static let permissionTitle = NotificationsLocalization.tr("Localizable", "ALERT.PERMISSION_TITLE", fallback: "Permission is needed")
+  }
+  public enum Error {
+    /// Service is unavailable. Please try again later.
+    public static let generic = NotificationsLocalization.tr("Localizable", "ERROR.GENERIC", fallback: "Service is unavailable. Please try again later.")
+>>>>>>> 2U/develop
   }
   public enum Settings {
     /// Notifications for course discussions you post, comment, or follow.
     public static let preferenceDescription = NotificationsLocalization.tr("Localizable", "SETTINGS.PREFERENCE_DESCRIPTION", fallback: "Notifications for course discussions you post, comment, or follow.")
+    /// It looks like something went wrong while getting preferences. Please try again.
+    public static let preferenceFetchError = NotificationsLocalization.tr("Localizable", "SETTINGS.PREFERENCE_FETCH_ERROR", fallback: "It looks like something went wrong while getting preferences. Please try again.")
     /// Discussions Activity
     public static let preferenceTitle = NotificationsLocalization.tr("Localizable", "SETTINGS.PREFERENCE_TITLE", fallback: "Discussions Activity")
     /// Localizable.strings

@@ -46,45 +46,22 @@ public struct NotificationsSettingsView: View {
                             .backViewStyle()
                             .padding(.leading, isHorizontal ? 48 : 0)
                             .accessibilityIdentifier("back_button")
-                            
                         }.frame(minWidth: 0,
                                 maxWidth: .infinity,
                                 alignment: .topLeading)
                     }
                     
-                    VStack(alignment: .leading) {
-                        HStack {
-                            Text(NotificationsLocalization.Settings.preferenceTitle)
-                                .font(Theme.Fonts.titleMedium)
-                                .foregroundStyle(Theme.Colors.textPrimary)
-                                .accessibilityIdentifier("preference_title_text")
-                            
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: 24) {
+                            discussionsActivity
                             Spacer()
-                            Toggle(isOn: $viewModel.hasPermission, label: {})
-                                .toggleStyle(SwitchToggleStyle(tint: Theme.Colors.toggleSwitchColor))
-                                .frame(width: 50)
-                                .accessibilityIdentifier("discussion_switch")
-                                .onTapGesture {
-                                    viewModel.toggleNotificationsPermissionAction()
-                                }
-                            
                         }
-                        
-                        Text(NotificationsLocalization.Settings.preferenceDescription)
-                            .font(Theme.Fonts.bodyMedium)
-                            .foregroundStyle(Theme.Colors.textSecondary)
-                            .accessibilityIdentifier("preference_description_text")
-                        
-                        Divider()
-                            .padding(20)
-                            .accessibilityIdentifier("preference_divider")
-                        
-                        Spacer()
+                        .frameLimit(width: proxy.size.width)
+                        .padding(.horizontal, 24)
+                        .padding(.top, 24)
                     }
-                    .padding(20)
                     .roundedBackground(Theme.Colors.background)
                 }
-                .frameLimit(width: proxy.size.width)
                 
                 if viewModel.showError {
                     VStack {
@@ -110,6 +87,51 @@ public struct NotificationsSettingsView: View {
         )
         .ignoresSafeArea(.all, edges: .horizontal)
         .animation(.default, value: viewModel.showError)
+        .onFirstAppear {
+            Task {
+                await viewModel.getNotificationsPreferences()
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private var discussionsActivity: some View {
+        HStack {
+            VStack(alignment: .leading) {
+                Text(NotificationsLocalization.Settings.preferenceTitle)
+                    .font(Theme.Fonts.titleMedium)
+                    .foregroundColor(Theme.Colors.textPrimary)
+                    .accessibilityIdentifier("preference_title_text")
+                
+                Text(NotificationsLocalization.Settings.preferenceDescription)
+                    .font(Theme.Fonts.bodySmall)
+                    .foregroundColor(Theme.Colors.textSecondary)
+                    .accessibilityIdentifier("preference_description_text")
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            
+            Toggle("", isOn: .constant(viewModel.discussionNotificationsEnabled))
+                .toggleStyle(SwitchToggleStyle(tint: Theme.Colors.toggleSwitchColor))
+                .frame(width: 50)
+                .accessibilityIdentifier("discussion_switch")
+                .simultaneousGesture(
+                    TapGesture().onEnded {
+                        Task {
+                            await viewModel.toggleDiscussionNotifications()
+                        }
+                    }
+                )
+                .simultaneousGesture(
+                    DragGesture(minimumDistance: 20, coordinateSpace: .local).onEnded { _ in
+                        Task {
+                            await viewModel.toggleDiscussionNotifications()
+                        }
+                    }
+                )
+        }
+        
+        Divider()
+            .accessibilityIdentifier("preference_divider")
     }
 }
 
@@ -120,7 +142,8 @@ struct NotificationsSettingsView_Previews: PreviewProvider {
             viewModel: NotificationsSettingsViewModel(
                 interactor: NotificationsInteractor.mock,
                 analytics: NotificationsAnalyticsMock(),
-                router: NotificationsRouterMock()
+                router: NotificationsRouterMock(),
+                storage: CoreStorageMock()
             )
         )
     }

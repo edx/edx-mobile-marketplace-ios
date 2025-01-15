@@ -13,6 +13,11 @@ import Alamofire
 public protocol NotificationsRepositoryProtocol {
     func getNotificationsCount() async throws -> NotificationsCount
     func getAllNotifications(page: Int) async throws -> Notifications
+    func getNotificationsPreferences() async throws -> NotificationsPreferences
+    func updateNotificationsPreferences(value: Bool) async throws -> NotificationsPreferencesUpdate
+    func markNotificationsAsSeen() async throws -> NotificationsSeenRead
+    func markNotificationAsRead(notificationId: String) async throws -> NotificationsSeenRead
+    func markAllNotificationsAsRead() async throws -> NotificationsSeenRead
 }
 
 public class NotificationsRepository: NotificationsRepositoryProtocol {
@@ -45,6 +50,49 @@ public class NotificationsRepository: NotificationsRepositoryProtocol {
         let response = try await api.requestData(
             NotificationsEndpoint.getAllNotifications(page: page)
         ).mapResponse(DataLayer.Notifications.self).domain
+    }
+    
+    public func getNotificationsPreferences() async throws -> NotificationsPreferences {
+        let response = try await api.requestData(
+            NotificationsEndpoint.getPreferences
+        ).mapResponse(DataLayer.NotificationsPreferencesResponse.self)
+            .domain
+        
+        return response
+    }
+    
+    public func updateNotificationsPreferences(value: Bool) async throws -> NotificationsPreferencesUpdate {
+        let response = try await api.requestData(
+            NotificationsEndpoint.updatePreferences(value: value)
+        ).mapResponse(DataLayer.NotificationsPreferencesUpdateResponse.self)
+            .domain
+        
+        return response
+    }
+    
+    public func markNotificationsAsSeen() async throws -> NotificationsSeenRead {
+        let response = try await api.requestData(
+            NotificationsEndpoint.markSeen
+        ).mapResponse(DataLayer.NotificationsSeenReadResponse.self)
+            .domain
+        
+        return response
+    }
+    
+    public func markNotificationAsRead(notificationId: String) async throws -> NotificationsSeenRead {
+        let response = try await api.requestData(
+            NotificationsEndpoint.markRead(notificationId: notificationId)
+        ).mapResponse(DataLayer.NotificationsSeenReadResponse.self)
+            .domain
+        
+        return response
+    }
+    
+    public func markAllNotificationsAsRead() async throws -> NotificationsSeenRead {
+        let response = try await api.requestData(
+            NotificationsEndpoint.markAllRead
+        ).mapResponse(DataLayer.NotificationsSeenReadResponse.self)
+            .domain
         
         return response
     }
@@ -82,6 +130,35 @@ class NotificationsRepositoryMock: NotificationsRepositoryProtocol {
                     created: Date(iso8601: "2025-01-06T01:20:58.919612Z")
                 )
             ])
+    }
+    
+    func getNotificationsPreferences() async throws -> NotificationsPreferences {
+        return NotificationsPreferences(
+            discussionsEnabled: false,
+            coreEnabled: false
+        )
+    }
+    
+    func updateNotificationsPreferences(value: Bool) async throws -> NotificationsPreferencesUpdate {
+        return NotificationsPreferencesUpdate(
+            status: "success",
+            updatedValue: false,
+            notificationType: "core",
+            channel: "push",
+            app: "discussion"
+        )
+    }
+    
+    func markNotificationsAsSeen() async throws -> NotificationsSeenRead {
+        return NotificationsSeenRead(message: "success")
+    }
+    
+    func markNotificationAsRead(notificationId: String) async throws -> NotificationsSeenRead {
+        return NotificationsSeenRead(message: "success")
+    }
+    
+    func markAllNotificationsAsRead() async throws -> NotificationsSeenRead {
+        return NotificationsSeenRead(message: "success")
     }
 }
 #endif

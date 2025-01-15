@@ -653,6 +653,13 @@ open class BaseRouterMock: BaseRouter, Mock {
 		perform?()
     }
 
+    @MainActor
+	open func performNotificationRegistration() {
+        addInvocation(.m_performNotificationRegistration)
+		let perform = methodPerformValue(.m_performNotificationRegistration) as? () -> Void
+		perform?()
+    }
+
 
     fileprivate enum MethodType {
         case m_backToRoot__animated_animated(Parameter<Bool>)
@@ -678,6 +685,7 @@ open class BaseRouterMock: BaseRouter, Mock {
         case m_hideUpgradeLoaderView__animated_animated(Parameter<Bool>)
         case m_showRestoreProgressView
         case m_hideRestoreProgressView
+        case m_performNotificationRegistration
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
@@ -807,6 +815,8 @@ open class BaseRouterMock: BaseRouter, Mock {
             case (.m_showRestoreProgressView, .m_showRestoreProgressView): return .match
 
             case (.m_hideRestoreProgressView, .m_hideRestoreProgressView): return .match
+
+            case (.m_performNotificationRegistration, .m_performNotificationRegistration): return .match
             default: return .none
             }
         }
@@ -836,6 +846,7 @@ open class BaseRouterMock: BaseRouter, Mock {
             case let .m_hideUpgradeLoaderView__animated_animated(p0): return p0.intValue
             case .m_showRestoreProgressView: return 0
             case .m_hideRestoreProgressView: return 0
+            case .m_performNotificationRegistration: return 0
             }
         }
         func assertionName() -> String {
@@ -863,6 +874,7 @@ open class BaseRouterMock: BaseRouter, Mock {
             case .m_hideUpgradeLoaderView__animated_animated: return ".hideUpgradeLoaderView(animated:)"
             case .m_showRestoreProgressView: return ".showRestoreProgressView()"
             case .m_hideRestoreProgressView: return ".hideRestoreProgressView()"
+            case .m_performNotificationRegistration: return ".performNotificationRegistration()"
             }
         }
     }
@@ -910,6 +922,8 @@ open class BaseRouterMock: BaseRouter, Mock {
 		public static func showRestoreProgressView() -> Verify { return Verify(method: .m_showRestoreProgressView)}
         @MainActor
 		public static func hideRestoreProgressView() -> Verify { return Verify(method: .m_hideRestoreProgressView)}
+        @MainActor
+		public static func performNotificationRegistration() -> Verify { return Verify(method: .m_performNotificationRegistration)}
     }
 
     public struct Perform {
@@ -990,6 +1004,10 @@ open class BaseRouterMock: BaseRouter, Mock {
         @MainActor
 		public static func hideRestoreProgressView(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_hideRestoreProgressView, performs: perform)
+        }
+        @MainActor
+		public static func performNotificationRegistration(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_performNotificationRegistration, performs: perform)
         }
     }
 
@@ -3434,24 +3452,136 @@ open class NotificationsInteractorProtocolMock: NotificationsInteractorProtocol,
 		return __value
     }
 
+    open func getNotificationsPreferences() throws -> NotificationsPreferences {
+        addInvocation(.m_getNotificationsPreferences)
+		let perform = methodPerformValue(.m_getNotificationsPreferences) as? () -> Void
+		perform?()
+		var __value: NotificationsPreferences
+		do {
+		    __value = try methodReturnValue(.m_getNotificationsPreferences).casted()
+		} catch MockError.notStubed {
+			onFatalFailure("Stub return value not specified for getNotificationsPreferences(). Use given")
+			Failure("Stub return value not specified for getNotificationsPreferences(). Use given")
+		} catch {
+		    throw error
+		}
+		return __value
+    }
+
+    open func updateNotificationsPreferences(value: Bool) throws -> NotificationsPreferencesUpdate {
+        addInvocation(.m_updateNotificationsPreferences__value_value(Parameter<Bool>.value(`value`)))
+		let perform = methodPerformValue(.m_updateNotificationsPreferences__value_value(Parameter<Bool>.value(`value`))) as? (Bool) -> Void
+		perform?(`value`)
+		var __value: NotificationsPreferencesUpdate
+		do {
+		    __value = try methodReturnValue(.m_updateNotificationsPreferences__value_value(Parameter<Bool>.value(`value`))).casted()
+		} catch MockError.notStubed {
+			onFatalFailure("Stub return value not specified for updateNotificationsPreferences(value: Bool). Use given")
+			Failure("Stub return value not specified for updateNotificationsPreferences(value: Bool). Use given")
+		} catch {
+		    throw error
+		}
+		return __value
+    }
+
+    open func markNotificationsAsSeen() throws -> NotificationsSeenRead {
+        addInvocation(.m_markNotificationsAsSeen)
+		let perform = methodPerformValue(.m_markNotificationsAsSeen) as? () -> Void
+		perform?()
+		var __value: NotificationsSeenRead
+		do {
+		    __value = try methodReturnValue(.m_markNotificationsAsSeen).casted()
+		} catch MockError.notStubed {
+			onFatalFailure("Stub return value not specified for markNotificationsAsSeen(). Use given")
+			Failure("Stub return value not specified for markNotificationsAsSeen(). Use given")
+		} catch {
+		    throw error
+		}
+		return __value
+    }
+
+    open func markNotificationAsRead(notificationId: String) throws -> NotificationsSeenRead {
+        addInvocation(.m_markNotificationAsRead__notificationId_notificationId(Parameter<String>.value(`notificationId`)))
+		let perform = methodPerformValue(.m_markNotificationAsRead__notificationId_notificationId(Parameter<String>.value(`notificationId`))) as? (String) -> Void
+		perform?(`notificationId`)
+		var __value: NotificationsSeenRead
+		do {
+		    __value = try methodReturnValue(.m_markNotificationAsRead__notificationId_notificationId(Parameter<String>.value(`notificationId`))).casted()
+		} catch MockError.notStubed {
+			onFatalFailure("Stub return value not specified for markNotificationAsRead(notificationId: String). Use given")
+			Failure("Stub return value not specified for markNotificationAsRead(notificationId: String). Use given")
+		} catch {
+		    throw error
+		}
+		return __value
+    }
+
+    open func markAllNotificationsAsRead() throws -> NotificationsSeenRead {
+        addInvocation(.m_markAllNotificationsAsRead)
+		let perform = methodPerformValue(.m_markAllNotificationsAsRead) as? () -> Void
+		perform?()
+		var __value: NotificationsSeenRead
+		do {
+		    __value = try methodReturnValue(.m_markAllNotificationsAsRead).casted()
+		} catch MockError.notStubed {
+			onFatalFailure("Stub return value not specified for markAllNotificationsAsRead(). Use given")
+			Failure("Stub return value not specified for markAllNotificationsAsRead(). Use given")
+		} catch {
+		    throw error
+		}
+		return __value
+    }
+
 
     fileprivate enum MethodType {
         case m_getNotificationsCount
+        case m_getNotificationsPreferences
+        case m_updateNotificationsPreferences__value_value(Parameter<Bool>)
+        case m_markNotificationsAsSeen
+        case m_markNotificationAsRead__notificationId_notificationId(Parameter<String>)
+        case m_markAllNotificationsAsRead
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
             case (.m_getNotificationsCount, .m_getNotificationsCount): return .match
+
+            case (.m_getNotificationsPreferences, .m_getNotificationsPreferences): return .match
+
+            case (.m_updateNotificationsPreferences__value_value(let lhsValue), .m_updateNotificationsPreferences__value_value(let rhsValue)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsValue, rhs: rhsValue, with: matcher), lhsValue, rhsValue, "value"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_markNotificationsAsSeen, .m_markNotificationsAsSeen): return .match
+
+            case (.m_markNotificationAsRead__notificationId_notificationId(let lhsNotificationid), .m_markNotificationAsRead__notificationId_notificationId(let rhsNotificationid)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsNotificationid, rhs: rhsNotificationid, with: matcher), lhsNotificationid, rhsNotificationid, "notificationId"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_markAllNotificationsAsRead, .m_markAllNotificationsAsRead): return .match
+            default: return .none
             }
         }
 
         func intValue() -> Int {
             switch self {
             case .m_getNotificationsCount: return 0
+            case .m_getNotificationsPreferences: return 0
+            case let .m_updateNotificationsPreferences__value_value(p0): return p0.intValue
+            case .m_markNotificationsAsSeen: return 0
+            case let .m_markNotificationAsRead__notificationId_notificationId(p0): return p0.intValue
+            case .m_markAllNotificationsAsRead: return 0
             }
         }
         func assertionName() -> String {
             switch self {
             case .m_getNotificationsCount: return ".getNotificationsCount()"
+            case .m_getNotificationsPreferences: return ".getNotificationsPreferences()"
+            case .m_updateNotificationsPreferences__value_value: return ".updateNotificationsPreferences(value:)"
+            case .m_markNotificationsAsSeen: return ".markNotificationsAsSeen()"
+            case .m_markNotificationAsRead__notificationId_notificationId: return ".markNotificationAsRead(notificationId:)"
+            case .m_markAllNotificationsAsRead: return ".markAllNotificationsAsRead()"
             }
         }
     }
@@ -3468,6 +3598,21 @@ open class NotificationsInteractorProtocolMock: NotificationsInteractorProtocol,
         public static func getNotificationsCount(willReturn: NotificationsCount...) -> MethodStub {
             return Given(method: .m_getNotificationsCount, products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
+        public static func getNotificationsPreferences(willReturn: NotificationsPreferences...) -> MethodStub {
+            return Given(method: .m_getNotificationsPreferences, products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func updateNotificationsPreferences(value: Parameter<Bool>, willReturn: NotificationsPreferencesUpdate...) -> MethodStub {
+            return Given(method: .m_updateNotificationsPreferences__value_value(`value`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func markNotificationsAsSeen(willReturn: NotificationsSeenRead...) -> MethodStub {
+            return Given(method: .m_markNotificationsAsSeen, products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func markNotificationAsRead(notificationId: Parameter<String>, willReturn: NotificationsSeenRead...) -> MethodStub {
+            return Given(method: .m_markNotificationAsRead__notificationId_notificationId(`notificationId`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func markAllNotificationsAsRead(willReturn: NotificationsSeenRead...) -> MethodStub {
+            return Given(method: .m_markAllNotificationsAsRead, products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
         public static func getNotificationsCount(willThrow: Error...) -> MethodStub {
             return Given(method: .m_getNotificationsCount, products: willThrow.map({ StubProduct.throw($0) }))
         }
@@ -3478,12 +3623,67 @@ open class NotificationsInteractorProtocolMock: NotificationsInteractorProtocol,
 			willProduce(stubber)
 			return given
         }
+        public static func getNotificationsPreferences(willThrow: Error...) -> MethodStub {
+            return Given(method: .m_getNotificationsPreferences, products: willThrow.map({ StubProduct.throw($0) }))
+        }
+        public static func getNotificationsPreferences(willProduce: (StubberThrows<NotificationsPreferences>) -> Void) -> MethodStub {
+            let willThrow: [Error] = []
+			let given: Given = { return Given(method: .m_getNotificationsPreferences, products: willThrow.map({ StubProduct.throw($0) })) }()
+			let stubber = given.stubThrows(for: (NotificationsPreferences).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func updateNotificationsPreferences(value: Parameter<Bool>, willThrow: Error...) -> MethodStub {
+            return Given(method: .m_updateNotificationsPreferences__value_value(`value`), products: willThrow.map({ StubProduct.throw($0) }))
+        }
+        public static func updateNotificationsPreferences(value: Parameter<Bool>, willProduce: (StubberThrows<NotificationsPreferencesUpdate>) -> Void) -> MethodStub {
+            let willThrow: [Error] = []
+			let given: Given = { return Given(method: .m_updateNotificationsPreferences__value_value(`value`), products: willThrow.map({ StubProduct.throw($0) })) }()
+			let stubber = given.stubThrows(for: (NotificationsPreferencesUpdate).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func markNotificationsAsSeen(willThrow: Error...) -> MethodStub {
+            return Given(method: .m_markNotificationsAsSeen, products: willThrow.map({ StubProduct.throw($0) }))
+        }
+        public static func markNotificationsAsSeen(willProduce: (StubberThrows<NotificationsSeenRead>) -> Void) -> MethodStub {
+            let willThrow: [Error] = []
+			let given: Given = { return Given(method: .m_markNotificationsAsSeen, products: willThrow.map({ StubProduct.throw($0) })) }()
+			let stubber = given.stubThrows(for: (NotificationsSeenRead).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func markNotificationAsRead(notificationId: Parameter<String>, willThrow: Error...) -> MethodStub {
+            return Given(method: .m_markNotificationAsRead__notificationId_notificationId(`notificationId`), products: willThrow.map({ StubProduct.throw($0) }))
+        }
+        public static func markNotificationAsRead(notificationId: Parameter<String>, willProduce: (StubberThrows<NotificationsSeenRead>) -> Void) -> MethodStub {
+            let willThrow: [Error] = []
+			let given: Given = { return Given(method: .m_markNotificationAsRead__notificationId_notificationId(`notificationId`), products: willThrow.map({ StubProduct.throw($0) })) }()
+			let stubber = given.stubThrows(for: (NotificationsSeenRead).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func markAllNotificationsAsRead(willThrow: Error...) -> MethodStub {
+            return Given(method: .m_markAllNotificationsAsRead, products: willThrow.map({ StubProduct.throw($0) }))
+        }
+        public static func markAllNotificationsAsRead(willProduce: (StubberThrows<NotificationsSeenRead>) -> Void) -> MethodStub {
+            let willThrow: [Error] = []
+			let given: Given = { return Given(method: .m_markAllNotificationsAsRead, products: willThrow.map({ StubProduct.throw($0) })) }()
+			let stubber = given.stubThrows(for: (NotificationsSeenRead).self)
+			willProduce(stubber)
+			return given
+        }
     }
 
     public struct Verify {
         fileprivate var method: MethodType
 
         public static func getNotificationsCount() -> Verify { return Verify(method: .m_getNotificationsCount)}
+        public static func getNotificationsPreferences() -> Verify { return Verify(method: .m_getNotificationsPreferences)}
+        public static func updateNotificationsPreferences(value: Parameter<Bool>) -> Verify { return Verify(method: .m_updateNotificationsPreferences__value_value(`value`))}
+        public static func markNotificationsAsSeen() -> Verify { return Verify(method: .m_markNotificationsAsSeen)}
+        public static func markNotificationAsRead(notificationId: Parameter<String>) -> Verify { return Verify(method: .m_markNotificationAsRead__notificationId_notificationId(`notificationId`))}
+        public static func markAllNotificationsAsRead() -> Verify { return Verify(method: .m_markAllNotificationsAsRead)}
     }
 
     public struct Perform {
@@ -3492,6 +3692,21 @@ open class NotificationsInteractorProtocolMock: NotificationsInteractorProtocol,
 
         public static func getNotificationsCount(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_getNotificationsCount, performs: perform)
+        }
+        public static func getNotificationsPreferences(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_getNotificationsPreferences, performs: perform)
+        }
+        public static func updateNotificationsPreferences(value: Parameter<Bool>, perform: @escaping (Bool) -> Void) -> Perform {
+            return Perform(method: .m_updateNotificationsPreferences__value_value(`value`), performs: perform)
+        }
+        public static func markNotificationsAsSeen(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_markNotificationsAsSeen, performs: perform)
+        }
+        public static func markNotificationAsRead(notificationId: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
+            return Perform(method: .m_markNotificationAsRead__notificationId_notificationId(`notificationId`), performs: perform)
+        }
+        public static func markAllNotificationsAsRead(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_markAllNotificationsAsRead, performs: perform)
         }
     }
 
