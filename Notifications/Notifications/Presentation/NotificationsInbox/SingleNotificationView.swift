@@ -10,43 +10,61 @@ import Theme
 import Core
 
 struct SingleNotificationView: View {
+    @ObservedObject
     private var viewModel: NotificationsInboxViewModel
     private var notification: Notification
+    private var groupKey: NotificationGroup
     
-    public init(viewModel: NotificationsInboxViewModel, notification: Notification) {
+    public init(viewModel: NotificationsInboxViewModel, groupKey: NotificationGroup, notification: Notification) {
         self.viewModel = viewModel
         self.notification = notification
+        self.groupKey = groupKey
     }
     
     var body: some View {
-        HStack {
-            VStack {
-                NotificationsAssets.discussions.swiftUIImage
-                    .foregroundColor(Theme.Colors.textPrimary)
-                    .accessibilityIdentifier("discussions_icon")
-            }
-            .frame(maxHeight: .infinity, alignment: .top)
-            .padding(.top, 5)
-            
-            VStack(alignment: .leading) {
-                HStack {
-                    AttributedText(notification.contentWithQuotes)
-                    Spacer()
-                    if notification.lastRead == nil {
-                        Circle()
-                            .fill(Theme.Colors.accentButtonColor)
-                            .frame(width: 8, height: 8)
-                            .shadow(radius: 5)
-                    }
+        Button(
+            action: {
+                Task {
+                    await viewModel.markNotificationAsRead(notificationId: String(notification.id))
+                    var updatedNotification = notification
+                    updatedNotification.lastRead = Date()
+                    viewModel.updateNotification(
+                        groupKey: groupKey,
+                        item: updatedNotification
+                    )
                 }
-                Spacer()
-                Text(viewModel.relativeTimeDisplay(date: notification.created))
-                    .font(Theme.Fonts.labelMedium)
-                    .foregroundColor(Theme.Colors.textSecondaryLight)
             }
+        ) {
+            HStack {
+                VStack {
+                    NotificationsAssets.discussions.swiftUIImage
+                        .foregroundColor(Theme.Colors.textPrimary)
+                        .accessibilityIdentifier("discussions_icon")
+                }
+                .frame(maxHeight: .infinity, alignment: .top)
+                .padding(.top, 2)
+                
+                VStack(alignment: .leading) {
+                    HStack {
+                        AttributedText(notification.contentWithQuotes)
+                            .font(Theme.Fonts.bodyMedium)
+                        Spacer()
+                        if notification.lastRead == nil {
+                            Circle()
+                                .fill(Theme.Colors.accentButtonColor)
+                                .frame(width: 8, height: 8)
+                        }
+                    }
+                    Spacer()
+                    Text(viewModel.relativeTimeDisplay(date: notification.created))
+                        .font(Theme.Fonts.bodySmall)
+                        .foregroundColor(Theme.Colors.textSecondaryLight)
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.horizontal, 24)
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.horizontal, 20)
+        .buttonStyle(PlainButtonStyle())
     }
 }
 
@@ -57,6 +75,7 @@ struct SingleNotificationView: View {
             analytics: NotificationsAnalyticsMock(),
             router: NotificationsRouterMock()
         ),
+        groupKey: NotificationGroup.recent,
         notification: Notification(
             id: 123,
             appName: "discussion",

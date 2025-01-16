@@ -10,17 +10,8 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 public enum NotificationsLocalization {
-<<<<<<< HEAD
   /// Notifications
   public static let notifications = NotificationsLocalization.tr("Localizable", "NOTIFICATIONS", fallback: "Notifications")
-  public enum Inbox {
-    /// Older
-    public static let older = NotificationsLocalization.tr("Localizable", "INBOX.OLDER", fallback: "Older")
-    /// Recent
-    public static let recent = NotificationsLocalization.tr("Localizable", "INBOX.RECENT", fallback: "Recent")
-    /// This Week
-    public static let thisWeek = NotificationsLocalization.tr("Localizable", "INBOX.THIS_WEEK", fallback: "This Week")
-=======
   public enum Alert {
     /// Cancel
     public static let cancel = NotificationsLocalization.tr("Localizable", "ALERT.CANCEL", fallback: "Cancel")
@@ -34,7 +25,14 @@ public enum NotificationsLocalization {
   public enum Error {
     /// Service is unavailable. Please try again later.
     public static let generic = NotificationsLocalization.tr("Localizable", "ERROR.GENERIC", fallback: "Service is unavailable. Please try again later.")
->>>>>>> 2U/develop
+  }
+  public enum Inbox {
+    /// Older
+    public static let older = NotificationsLocalization.tr("Localizable", "INBOX.OLDER", fallback: "Older")
+    /// Recent
+    public static let recent = NotificationsLocalization.tr("Localizable", "INBOX.RECENT", fallback: "Recent")
+    /// This Week
+    public static let thisWeek = NotificationsLocalization.tr("Localizable", "INBOX.THIS_WEEK", fallback: "This Week")
   }
   public enum Settings {
     /// Notifications for course discussions you post, comment, or follow.

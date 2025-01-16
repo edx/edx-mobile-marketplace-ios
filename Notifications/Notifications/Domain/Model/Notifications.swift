@@ -33,17 +33,17 @@ public struct Notifications: Hashable {
 }
 
 public struct Notification: Hashable {
-    public let id: Int?
+    public let id: Int
     public let appName: String?
     public let notificationType: String?
     public let contentContext: ContentContext?
     public let content: String?
-    public let lastRead: Date?
+    public var lastRead: Date?
     public let lastSeen: Date?
     public let created: Date
     
     public init(
-        id: Int?,
+        id: Int,
         appName: String?,
         notificationType: String?,
         contentContext: ContentContext?,

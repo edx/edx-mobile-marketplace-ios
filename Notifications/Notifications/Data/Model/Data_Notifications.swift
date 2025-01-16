@@ -223,7 +223,7 @@ public extension DataLayer {
     }
     
     struct Notification: Codable {
-        public let id: Int?
+        public let id: Int
         public let appName: String?
         public let notificationType: String?
         public let contentContext: ContentContext?
@@ -244,7 +244,7 @@ public extension DataLayer {
         }
         
         public init(
-            id: Int?,
+            id: Int,
             appName: String?,
             notificationType: String?,
             contentContext: ContentContext?,

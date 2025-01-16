@@ -44,6 +44,24 @@ public class NotificationsInboxViewModel: ObservableObject {
     }
     
     @MainActor
+    func markNotificationAsRead(notificationId: String) async {
+        do {
+            _ = try await interactor.markNotificationAsRead(notificationId: notificationId)
+        } catch {
+            handleFetchError(error)
+        }
+    }
+    
+    @MainActor
+    func markNotificationsAsSeen() async {
+        do {
+            _ = try await interactor.markNotificationsAsSeen()
+        } catch {
+            handleFetchError(error)
+        }
+    }
+    
+    @MainActor
     func getNotifications(page: Int, refresh: Bool = false) async {
         self.refresh = refresh
         isShowProgress = true
@@ -122,6 +140,24 @@ public class NotificationsInboxViewModel: ObservableObject {
                 return .older
             }
         })
+    }
+    
+    // Update a specific item in the array
+    func updateNotification(groupKey: NotificationGroup, item: Notification) {
+        updateGroupedNotification(groupKey: groupKey, item: item)
+        updateFlatNotification(item: item)
+    }
+
+    private func updateGroupedNotification(groupKey: NotificationGroup, item: Notification) {
+        if let index = groupedNotifications[groupKey]?.firstIndex(where: { $0.id == item.id }) {
+            groupedNotifications[groupKey]?[index] = item
+        }
+    }
+
+    private func updateFlatNotification(item: Notification) {
+        if let index = flatNotifications.firstIndex(where: { $0.id == item.id }) {
+            flatNotifications[index] = item
+        }
     }
 }
 

@@ -65,35 +65,37 @@ public struct NotificationsInboxView: View {
                     ScrollView {
                         LazyVStack(spacing: 20) {
                             ForEach(
-                                NotificationGroup.allCases,
+                                NotificationGroup.allCases.filter { key in
+                                    // Include only non-empty arrays
+                                    !(viewModel.groupedNotifications[key]?.isEmpty ?? true)
+                                },
                                 id: \.self
                             ) { group in
-                                if let items = viewModel.groupedNotifications[group], !items.isEmpty {
-                                    Section(
-                                        header:
-                                            Text(group.localizedValue)
-                                            .font(Theme.Fonts.labelLarge)
-                                            .foregroundColor(Theme.Colors.textSecondary)
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                            .padding(.bottom, 5)
-                                            .padding(.horizontal, 20)
-                                    ) {
-                                        ForEach(
-                                            items.indices,
-                                            id: \.self
-                                        ) { index in
-                                            let item = items[index]
-                                            SingleNotificationView(
-                                                viewModel: viewModel,
-                                                notification: item
-                                            )
-                                            .accessibilityIdentifier("sigle_notification_view_\(index)")
-                                            .frame(maxWidth: .infinity)
-                                            .onAppear {
-                                                let globalIndex = viewModel.flatNotifications.firstIndex(of: item) ?? -1
-                                                Task {
-                                                    await viewModel.getNotificationsPagination(index: globalIndex)
-                                                }
+                                Section(
+                                    header:
+                                        Text(group.localizedValue)
+                                        .font(Theme.Fonts.bodyMedium)
+                                        .foregroundColor(Theme.Colors.textSecondary)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .padding(.bottom, 5)
+                                        .padding(.horizontal, 20)
+                                ) {
+                                    ForEach(
+                                        viewModel.groupedNotifications[group]!.indices,
+                                        id: \.self
+                                    ) { index in
+                                        let item = viewModel.groupedNotifications[group]![index]
+                                        SingleNotificationView(
+                                            viewModel: viewModel,
+                                            groupKey: group,
+                                            notification: item
+                                        )
+                                        .accessibilityIdentifier("sigle_notification_view_\(index)")
+                                        .frame(maxWidth: .infinity)
+                                        .onAppear {
+                                            let globalIndex = viewModel.flatNotifications.firstIndex(of: item) ?? -1
+                                            Task {
+                                                await viewModel.getNotificationsPagination(index: globalIndex)
                                             }
                                         }
                                     }
@@ -118,6 +120,7 @@ public struct NotificationsInboxView: View {
             .onFirstAppear {
                 Task {
                     await viewModel.getNotifications(page: 1)
+                    await viewModel.markNotificationsAsSeen()
                 }
             }
             .hideNavigationBar(true)

@@ -50,6 +50,8 @@ public class NotificationsRepository: NotificationsRepositoryProtocol {
         let response = try await api.requestData(
             NotificationsEndpoint.getAllNotifications(page: page)
         ).mapResponse(DataLayer.Notifications.self).domain
+        
+        return response
     }
     
     public func getNotificationsPreferences() async throws -> NotificationsPreferences {

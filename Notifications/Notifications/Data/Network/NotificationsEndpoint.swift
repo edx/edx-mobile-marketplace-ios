@@ -40,19 +40,19 @@ enum NotificationsEndpoint: EndPointType {
     var httpMethod: HTTPMethod {
         switch self {
         case .getNotificationsCount:
-                .get
+            return .get
         case .getAllNotifications:
-                .get
+            return .get
         case .getPreferences:
-                .get
+            return .get
         case .updatePreferences:
-                .post
+            return .post
         case .markSeen:
-                .put
+            return .put
         case .markRead:
-                .patch
+            return .patch
         case .markAllRead:
-                .patch
+            return .patch
         }
     }
     
