@@ -48,6 +48,7 @@ struct SingleNotificationView: View {
                     HStack {
                         AttributedText(notification.contentWithQuotes)
                             .font(Theme.Fonts.bodyMedium)
+                            .foregroundColor(Theme.Colors.textSecondary)
                         Spacer()
                         if notification.lastRead == nil {
                             Circle()
