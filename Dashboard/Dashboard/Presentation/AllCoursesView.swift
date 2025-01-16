@@ -14,7 +14,7 @@ public struct AllCoursesView: View {
     @ObservedObject
     private var viewModel: AllCoursesViewModel
     private let router: DashboardRouter
-    @Environment (\.isHorizontal) private var isHorizontal
+    @Environment(\.isHorizontal) private var isHorizontal
     private var idiom: UIUserInterfaceIdiom { UIDevice.current.userInterfaceIdiom }
     
     public init(viewModel: AllCoursesViewModel, router: DashboardRouter) {

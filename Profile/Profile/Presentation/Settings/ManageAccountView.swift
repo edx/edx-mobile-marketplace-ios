@@ -14,7 +14,7 @@ public struct ManageAccountView: View {
     @ObservedObject
     private var viewModel: ManageAccountViewModel
     
-    @Environment (\.isHorizontal) private var isHorizontal
+    @Environment(\.isHorizontal) private var isHorizontal
     
     public init(viewModel: ManageAccountViewModel) {
         self.viewModel = viewModel

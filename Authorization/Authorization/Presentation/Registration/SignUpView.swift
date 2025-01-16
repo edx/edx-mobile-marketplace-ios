@@ -14,7 +14,7 @@ public struct SignUpView: View {
     @State
     private var disclosureGroupOpen: Bool = false
     
-    @Environment (\.isHorizontal) private var isHorizontal
+    @Environment(\.isHorizontal) private var isHorizontal
     
     @ObservedObject
     private var viewModel: SignUpViewModel
