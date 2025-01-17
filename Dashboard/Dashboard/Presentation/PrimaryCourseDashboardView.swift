@@ -215,11 +215,13 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
             .onFirstAppear {
                 Task {
                     await viewModel.getEnrollments()
-                    await viewModel.getNotificaitonsCount()
                 }
             }
             .onAppear {
                 viewModel.updateNeeded = true
+                Task {
+                    await viewModel.getNotificaitonsCount()
+                }
             }
             .background(
                 Theme.Colors.background
@@ -333,6 +335,7 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
                         Spacer()
                         if viewModel.config.pushNotificationsEnabled {
                             Button(action: {
+                                viewModel.setNotificationMarkAsRead()
                                 router.showNotificationsScreen()
                             }, label: {
                                 CoreAssets.notificationsIcon.swiftUIImage
