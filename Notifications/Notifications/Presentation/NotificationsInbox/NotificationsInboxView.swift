@@ -28,7 +28,8 @@ public struct NotificationsInboxView: View {
                             // Open three dots menu
                         } label: {
                             NotificationsAssets.threeDotsMenu.swiftUIImage
-                                .padding(.vertical, 10)
+                                .padding(.top, 3)
+                                .padding(.bottom, 17)
                                 .padding(.horizontal, isHorizontal ? 48 : 25)
                                 .foregroundColor(Theme.Colors.textPrimary)
                                 .accessibilityIdentifier("three_dots_menu")
@@ -49,7 +50,7 @@ public struct NotificationsInboxView: View {
                         )
                         .backViewStyle()
                         .frame(width: 30, height: 30)
-                        .offset(y: 10)
+                        .offset(y: 5)
                         .padding(.leading, isHorizontal ? 48 : 10)
                         Spacer()
                     }
@@ -78,7 +79,7 @@ public struct NotificationsInboxView: View {
                                         .foregroundColor(Theme.Colors.textSecondary)
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                         .padding(.bottom, 5)
-                                        .padding(.horizontal, 20)
+                                        .padding(.horizontal, 24)
                                 ) {
                                     ForEach(
                                         viewModel.groupedNotifications[group]!.indices,
