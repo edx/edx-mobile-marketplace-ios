@@ -33,6 +33,12 @@ public struct SubtitlesView: View {
     
     @State private var autoScrollPublisher = PassthroughSubject<Void, Never>()
     
+    private enum Constants {
+        static let autoScrollInterval: TimeInterval = 3.0
+        static let animationDuration: TimeInterval = 0.3
+        static let animationSkipInterval: TimeInterval = animationDuration + 0.05
+    }
+    
     public init(languages: [SubtitleUrl],
                 currentTime: Binding<Double>,
                 viewModel: VideoPlayerViewModel,
@@ -104,12 +110,18 @@ public struct SubtitlesView: View {
                     .onChange(of: id) { newID in
                         scrollTo(newID, in: scroll)
                     }
-                    .onReceive(autoScrollPublisher.debounce(for: .seconds(3), scheduler: DispatchQueue.main)) { _ in
-                        if pause {
-                            refreshID()
-                            pause = false
+                    .onReceive(
+                        autoScrollPublisher.debounce(
+                            for: .seconds(Constants.autoScrollInterval),
+                            scheduler: DispatchQueue.main
+                        ),
+                        perform: { _ in
+                            if pause {
+                                refreshID()
+                                pause = false
+                            }
                         }
-                    }
+                    )
                 }
             }.padding(.horizontal, 24)
                 .padding(.top, 16)
@@ -129,11 +141,11 @@ public struct SubtitlesView: View {
                 if viewModel.isPlaying {
                     isAnimating = true
                     
-                    withAnimation(.linear(duration: 0.3)) {
+                    withAnimation(.linear(duration: Constants.animationDuration)) {
                         scrollView.scrollTo(viewID, anchor: .top)
                     }
                     
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + Constants.animationSkipInterval) {
                         isAnimating = false
                         
                         if let nextBlock = syncBlock {
