@@ -124,6 +124,10 @@ public class PrimaryCourseDashboardViewModel: ObservableObject {
         analytics.dashboardCourseClicked(courseID: courseID, courseName: courseName)
     }
     
+    func setNotificationMarkAsRead() {
+        hasUnreadNotifications = false
+    }
+    
     @MainActor
     func getNotificaitonsCount() async {
         let appNotificationCount = try? await notificationsInteractor.getNotificationsCount()

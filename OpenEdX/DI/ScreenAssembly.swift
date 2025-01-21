@@ -274,6 +274,14 @@ class ScreenAssembly: Assembly {
             )
         }
         
+        container.register(NotificationsInboxViewModel.self) { r in
+            NotificationsInboxViewModel(
+                interactor: r.resolve(NotificationsInteractorProtocol.self)!,
+                analytics: r.resolve(NotificationsAnalytics.self)!,
+                router: r.resolve(NotificationsRouter.self)!
+            )
+        }
+        
         container.register(DatesAndCalendarViewModel.self) { r in
             DatesAndCalendarViewModel(
                 router: r.resolve(ProfileRouter.self)!

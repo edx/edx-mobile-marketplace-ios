@@ -11,6 +11,7 @@ import Alamofire
 
 enum NotificationsEndpoint: EndPointType {
     case getNotificationsCount
+    case getAllNotifications(page: Int)
     case getPreferences
     case updatePreferences(value: Bool)
     case markSeen
@@ -21,6 +22,8 @@ enum NotificationsEndpoint: EndPointType {
         switch self {
         case .getNotificationsCount:
             "/api/notifications/count"
+        case .getAllNotifications:
+            "/api/notifications/"
         case .getPreferences:
             "/api/notifications/configurations"
         case .updatePreferences:
@@ -36,18 +39,14 @@ enum NotificationsEndpoint: EndPointType {
     
     var httpMethod: HTTPMethod {
         switch self {
-        case .getNotificationsCount:
-            .get
-        case .getPreferences:
-            .get
+        case .getNotificationsCount, .getAllNotifications, .getPreferences:
+            return .get
         case .updatePreferences:
-            .post
+            return .post
         case .markSeen:
-            .put
-        case .markRead:
-            .patch
-        case .markAllRead:
-            .patch
+            return .put
+        case .markRead, .markAllRead:
+            return .patch
         }
     }
     
@@ -59,8 +58,16 @@ enum NotificationsEndpoint: EndPointType {
         switch self {
         case .getNotificationsCount:
             return .request
+        case let .getAllNotifications(page):
+            var idiom: UIUserInterfaceIdiom { UIDevice.current.userInterfaceIdiom }
+            let params: Parameters = [
+                "app_name": "discussion",
+                "page": page,
+                "page_size": idiom == .pad ? 24 : 12
+            ]
+            return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
         case .getPreferences:
-                return .request
+            return .request
         case let .updatePreferences(value):
             let params: [String: Any] = [
                 "notification_app": "discussion",
@@ -78,12 +85,11 @@ enum NotificationsEndpoint: EndPointType {
                 "notification_id": notificationId
             ]
             return .requestParameters(parameters: params, encoding: URLEncoding.httpBody)
-        
+            
         case .markAllRead:
             let params: [String: Any] = [
                 "app_name": "discussion"
             ]
-            
             return .requestParameters(parameters: params, encoding: URLEncoding.httpBody)
         }
     }

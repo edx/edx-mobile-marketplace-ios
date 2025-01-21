@@ -772,7 +772,10 @@ public class Router: AuthorizationRouter,
     }
     
     public func showNotificationsScreen() {
-        // show notifications inbox screen
+        let viewModel = Container.shared.resolve(NotificationsInboxViewModel.self)!
+        let view = NotificationsInboxView(viewModel: viewModel)
+        let controller = UIHostingController(rootView: view)
+        navigationController.pushViewController(controller, animated: true)
     }
     
     public func performNotificationRegistration() {

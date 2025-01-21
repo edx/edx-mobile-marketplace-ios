@@ -180,6 +180,8 @@
 		14DE13DA2BDF7E5E0059168F /* IAPConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DE13D92BDF7E5E0059168F /* IAPConfig.swift */; };
 		14DE13DC2BDF83350059168F /* ServerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DE13DB2BDF83350059168F /* ServerConfig.swift */; };
 		14F8E66B2C0F4D1200E4EF69 /* RestoreInProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F8E66A2C0F4D1200E4EF69 /* RestoreInProgressView.swift */; };
+		973CCD7B2D3660D100949756 /* HTML2TextParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CCD792D3660D100949756 /* HTML2TextParser.swift */; };
+		973CCD7C2D3660D100949756 /* AttributedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CCD782D3660D100949756 /* AttributedText.swift */; };
 		9784D47E2BF7762800AFEFFF /* FullScreenErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9784D47D2BF7762800AFEFFF /* FullScreenErrorView.swift */; };
 		A51CDBE72B6D21F2009B6D4E /* SegmentConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51CDBE62B6D21F2009B6D4E /* SegmentConfig.swift */; };
 		A53A32352B233DEC005FE38A /* ThemeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53A32342B233DEC005FE38A /* ThemeConfig.swift */; };
@@ -412,6 +414,8 @@
 		349B90CD6579F7B8D257E515 /* Pods_App_Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_App_Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B74C6685E416657F3C5F5A8 /* Pods-App-Core.releaseprod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Core.releaseprod.xcconfig"; path = "Target Support Files/Pods-App-Core/Pods-App-Core.releaseprod.xcconfig"; sourceTree = "<group>"; };
 		60153262DBC2F9E660D7E11B /* Pods-App-Core.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Core.release.xcconfig"; path = "Target Support Files/Pods-App-Core/Pods-App-Core.release.xcconfig"; sourceTree = "<group>"; };
+		973CCD782D3660D100949756 /* AttributedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedText.swift; sourceTree = "<group>"; };
+		973CCD792D3660D100949756 /* HTML2TextParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTML2TextParser.swift; sourceTree = "<group>"; };
 		9784D47D2BF7762800AFEFFF /* FullScreenErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullScreenErrorView.swift; sourceTree = "<group>"; };
 		9D5B06CAA99EA5CD49CBE2BB /* Pods-App-Core.debugdev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Core.debugdev.xcconfig"; path = "Target Support Files/Pods-App-Core/Pods-App-Core.debugdev.xcconfig"; sourceTree = "<group>"; };
 		A51CDBE62B6D21F2009B6D4E /* SegmentConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentConfig.swift; sourceTree = "<group>"; };
@@ -846,6 +850,7 @@
 		0770DE7728D0C49E006D8A5D /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				973CCD7A2D3660D100949756 /* AttributedText */,
 				9784D47C2BF7761F00AFEFFF /* FullScreenErrorView */,
 				064987882B4D69FE0071642A /* Webview */,
 				A5CAA1EB2C526901007690D9 /* SecureInputView.swift */,
@@ -946,6 +951,15 @@
 				14DE13DB2BDF83350059168F /* ServerConfig.swift */,
 			);
 			path = ServerConfig;
+			sourceTree = "<group>";
+		};
+		973CCD7A2D3660D100949756 /* AttributedText */ = {
+			isa = PBXGroup;
+			children = (
+				973CCD782D3660D100949756 /* AttributedText.swift */,
+				973CCD792D3660D100949756 /* HTML2TextParser.swift */,
+			);
+			path = AttributedText;
 			sourceTree = "<group>";
 		};
 		9784D47C2BF7761F00AFEFFF /* FullScreenErrorView */ = {
@@ -1396,6 +1410,8 @@
 				0236961D28F9A2D200EEF206 /* Data_AuthResponse.swift in Sources */,
 				A5F4E7B52B61544A00ACD166 /* BrazeConfig.swift in Sources */,
 				06DEA4A52BBD66D700110D20 /* BackNavigationButtonViewModel.swift in Sources */,
+				973CCD7B2D3660D100949756 /* HTML2TextParser.swift in Sources */,
+				973CCD7C2D3660D100949756 /* AttributedText.swift in Sources */,
 				02AFCC182AEFDB24000360F0 /* ThirdPartyMailClient.swift in Sources */,
 				0233D5712AF13EC800BAC8BD /* SelectMailClientView.swift in Sources */,
 				14A8325B2BD7615C00E5654D /* CourseUpgradeRepository.swift in Sources */,

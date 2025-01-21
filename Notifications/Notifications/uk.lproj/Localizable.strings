@@ -15,4 +15,7 @@
 "ALERT.CONTINUE"="Continue";
 "ALERT.CANCEL"="Cancel";
 "ERROR.GENERIC"="Service is unavailable. Please try again later.";
-
+"NOTIFICATIONS"="Notifications";
+"INBOX.RECENT" = "Recent";
+"INBOX.THIS_WEEK" = "This Week";
+"INBOX.OLDER" = "Older";
