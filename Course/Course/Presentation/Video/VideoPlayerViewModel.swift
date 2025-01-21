@@ -11,6 +11,7 @@ import _AVKit_SwiftUI
 import Combine
 
 public class VideoPlayerViewModel: ObservableObject {
+    @Published private(set) var isPlaying: Bool = false
     @Published var pause: Bool = false
     @Published var currentTime: Double = 0
     @Published var isLoading: Bool = true
@@ -100,6 +101,8 @@ public class VideoPlayerViewModel: ObservableObject {
         
         playerHolder.getRatePublisher()
             .sink {[weak self] rate in
+                self?.isPlaying = rate != 0
+                
                 guard self?.isLoading == false else { return }
                 self?.trackVideoSpeedChange(rate: rate)
             }
