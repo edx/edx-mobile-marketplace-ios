@@ -38,7 +38,7 @@ struct SingleNotificationView: View {
             HStack {
                 VStack {
                     NotificationsAssets.discussions.swiftUIImage
-                        .foregroundColor(Theme.Colors.textPrimary)
+                        .foregroundColor(Theme.Colors.accentColor)
                         .accessibilityIdentifier("discussions_icon")
                 }
                 .frame(maxHeight: .infinity, alignment: .top)
@@ -48,7 +48,7 @@ struct SingleNotificationView: View {
                     HStack {
                         AttributedText(notification.contentWithQuotes)
                             .font(Theme.Fonts.bodyMedium)
-                            .foregroundColor(Theme.Colors.textSecondary)
+                            .foregroundColor(Theme.Colors.accentColor)
                         Spacer()
                         if notification.lastRead == nil {
                             Circle()
