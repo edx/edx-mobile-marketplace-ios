@@ -33,7 +33,13 @@ public struct ResponsesView: View {
         self.viewModel = viewModel
         self.router = router
         Task {
-            await viewModel.getResponsesData(commentID: commentID, parentComment: parentComment, page: 1)
+            if await viewModel.getResponsesData(commentID: commentID, parentComment: parentComment, page: 1) {
+                viewModel.trackDiscussionResponseViewed(
+                    courseID: viewModel.courseID,
+                    threadID: viewModel.postComments?.threadID ?? "",
+                    responseID: parentComment.commentID
+                )
+            }
         }
         viewModel.addCommentsIsVisible = false
         self.viewModel.isBlackedOut = isBlackedOut

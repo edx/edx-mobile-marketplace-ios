@@ -183,4 +183,16 @@ public class ResponsesViewModel: BaseResponsesViewModel, ObservableObject {
             author: author
         )
     }
+    
+    func trackDiscussionResponseViewed(
+        courseID: String,
+        threadID: String,
+        responseID: String
+    ) {
+        analytics?.discussionResponseViewed(
+            courseID: courseID,
+            threadID: threadID,
+            responseID: responseID
+        )
+    }
 }

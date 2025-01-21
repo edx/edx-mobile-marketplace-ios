@@ -229,6 +229,12 @@ public struct PostsView: View {
                 }
             }
             .onFirstAppear {
+                if viewModel.type != .allPosts && viewModel.type != .followingPosts {
+                    viewModel.trackDiscussionTopicViewed(
+                        courseID: courseID,
+                        topicID: topicID ?? ""
+                    )
+                }
                 Task {
                     await viewModel.getPosts(
                         pageNumber: 1,
@@ -328,7 +334,8 @@ struct PostsView_Previews: PreviewProvider {
         let vm = PostsViewModel(
             interactor: DiscussionInteractor.mock,
             router: router,
-            config: ConfigMock()
+            config: ConfigMock(),
+            analytics: DiscussionAnalyticsMock()
         )
         
         PostsView(courseID: "course_id",

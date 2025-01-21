@@ -559,7 +559,8 @@ class ScreenAssembly: Assembly {
             PostsViewModel(
                 interactor: r.resolve(DiscussionInteractorProtocol.self)!,
                 router: r.resolve(DiscussionRouter.self)!,
-                config: r.resolve(ConfigProtocol.self)!
+                config: r.resolve(ConfigProtocol.self)!,
+                analytics: r.resolve(DiscussionAnalytics.self)!
             )
         }
         

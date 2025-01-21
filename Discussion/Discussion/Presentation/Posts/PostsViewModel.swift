@@ -82,15 +82,18 @@ public class PostsViewModel: ObservableObject {
     private let config: ConfigProtocol
     internal let postStateSubject = CurrentValueSubject<PostState?, Never>(nil)
     private var cancellable: AnyCancellable?
+    private let analytics: DiscussionAnalytics?
     
     public init(
         interactor: DiscussionInteractorProtocol,
         router: DiscussionRouter,
-        config: ConfigProtocol
+        config: ConfigProtocol,
+        analytics: DiscussionAnalytics?
     ) {
         self.interactor = interactor
         self.router = router
         self.config = config
+        self.analytics = analytics
         
         cancellable = postStateSubject
             .receive(on: RunLoop.main)
@@ -270,5 +273,15 @@ public class PostsViewModel: ObservableObject {
         self.threads = ThreadLists(threads: threads)
         discussionPosts = generatePosts(threads: self.threads)
         self.filteredPosts = self.discussionPosts
+    }
+    
+    func trackDiscussionTopicViewed(
+        courseID: String,
+        topicID: String
+    ) {
+        analytics?.discussionTopicViewed(
+            courseID: courseID,
+            topicID: topicID
+        )
     }
 }

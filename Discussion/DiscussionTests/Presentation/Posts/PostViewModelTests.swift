@@ -25,6 +25,7 @@ final class PostViewModelTests: XCTestCase {
                    voted: true,
                    voteCount: 1,
                    courseID: "1",
+                   topicID: "1",
                    type: .question,
                    title: "1",
                    pinned: false,
@@ -46,6 +47,7 @@ final class PostViewModelTests: XCTestCase {
                    voted: false,
                    voteCount: 2,
                    courseID: "2",
+                   topicID: "2",
                    type: .discussion,
                    title: "2",
                    pinned: false,
@@ -67,6 +69,7 @@ final class PostViewModelTests: XCTestCase {
                    voted: false,
                    voteCount: 333,
                    courseID: "3",
+                   topicID: "3",
                    type: .question,
                    title: "3",
                    pinned: false,
@@ -88,6 +91,7 @@ final class PostViewModelTests: XCTestCase {
                    voted: true,
                    voteCount: 4,
                    courseID: "4",
+                   topicID: "4",
                    type: .question,
                    title: "4",
                    pinned: false,
@@ -109,7 +113,7 @@ final class PostViewModelTests: XCTestCase {
         let router = DiscussionRouterMock()
         let config = ConfigMock()
         var result = false
-        let viewModel = PostsViewModel(interactor: interactor, router: router, config: config)
+        let viewModel = PostsViewModel(interactor: interactor, router: router, config: config, analytics: DiscussionAnalyticsMock())
         
         viewModel.courseID = "1"
         viewModel.type = .allPosts
@@ -149,7 +153,7 @@ final class PostViewModelTests: XCTestCase {
         let router = DiscussionRouterMock()
         let config = ConfigMock()
         var result = false
-        let viewModel = PostsViewModel(interactor: interactor, router: router, config: config)
+        let viewModel = PostsViewModel(interactor: interactor, router: router, config: config, analytics: DiscussionAnalyticsMock())
         viewModel.isBlackedOut = false
 
         let noInternetError = AFError.sessionInvalidated(error: URLError(.notConnectedToInternet))
@@ -174,7 +178,7 @@ final class PostViewModelTests: XCTestCase {
         let router = DiscussionRouterMock()
         let config = ConfigMock()
         var result = false
-        let viewModel = PostsViewModel(interactor: interactor, router: router, config: config)
+        let viewModel = PostsViewModel(interactor: interactor, router: router, config: config, analytics: DiscussionAnalyticsMock())
         viewModel.isBlackedOut = false
 
         Given(interactor, .getThreadsList(courseID: .any, type: .any, sort: .any, filter: .any, page: .any, willThrow: NSError()))
@@ -196,7 +200,7 @@ final class PostViewModelTests: XCTestCase {
         let interactor = DiscussionInteractorProtocolMock()
         let router = DiscussionRouterMock()
         let config = ConfigMock()
-        let viewModel = PostsViewModel(interactor: interactor, router: router, config: config)
+        let viewModel = PostsViewModel(interactor: interactor, router: router, config: config, analytics: DiscussionAnalyticsMock())
         
         Given(interactor, .getThreadsList(courseID: .any, type: .any, sort: .any, filter: .any, page: .any,
                                           willReturn: threads))

@@ -41,6 +41,7 @@ public extension DataLayer {
         public let voted: Bool
         public let voteCount: Int
         public let courseID: String
+        public let topicID: String
         public let type: PostType
         public let title: String
         public let pinned: Bool
@@ -64,6 +65,7 @@ public extension DataLayer {
             case voted
             case voteCount = "vote_count"
             case courseID = "course_id"
+            case topicID = "topic_id"
             case type
             case title
             case pinned

@@ -88,12 +88,14 @@ class AnalyticsManager: AuthorizationAnalytics,
     }
     
     private func logEvent(_ event: AnalyticsEvent, parameters: [String: Any]? = nil) {
+        debugLog("Event: \(event.rawValue) & parameters: \(parameters ?? [:])")
         for service in services {
             service.logEvent(event, parameters: parameters)
         }
     }
     
     private func logScreenEvent(_ event: AnalyticsEvent, parameters: [String: Any]? = nil) {
+        debugLog("Screen Event: \(event.rawValue) & parameters: \(parameters ?? [:])")
         for service in services {
             service.logScreenEvent(event, parameters: parameters)
         }
@@ -909,30 +911,26 @@ class AnalyticsManager: AuthorizationAnalytics,
     }
     
     // MARK: Discussion
-    public func discussionAllPostsClicked(courseId: String, courseName: String) {
+    public func discussionAllPostsClicked(courseId: String) {
         let parameters = [
             EventParamKey.courseID: courseId,
-            EventParamKey.courseName: courseName,
             EventParamKey.name: EventBIValue.discussionAllPostsClicked.rawValue
         ]
         logEvent(.discussionAllPostsClicked, parameters: parameters)
     }
     
-    public func discussionFollowingClicked(courseId: String, courseName: String) {
+    public func discussionFollowingClicked(courseId: String) {
         let parameters = [
             EventParamKey.courseID: courseId,
-            EventParamKey.courseName: courseName,
             EventParamKey.name: EventBIValue.discussionFollowingClicked.rawValue
         ]
         logEvent(.discussionFollowingClicked, parameters: parameters)
     }
     
-    public func discussionTopicClicked(courseId: String, courseName: String, topicId: String, topicName: String) {
+    public func discussionTopicClicked(courseId: String, topicId: String) {
         let parameters = [
             EventParamKey.courseID: courseId,
-            EventParamKey.courseName: courseName,
             EventParamKey.topicID: topicId,
-            EventParamKey.topicName: topicName,
             EventParamKey.name: EventBIValue.discussionTopicClicked.rawValue
         ]
         logEvent(.discussionTopicClicked, parameters: parameters)
@@ -1053,6 +1051,49 @@ class AnalyticsManager: AuthorizationAnalytics,
         parameters.setObjectOrNil(commentID, forKey: EventParamKey.commentID)
         
         logEvent(.discussionReportToggle, parameters: parameters)
+    }
+
+    public func discussionTopicViewed(
+        courseID: String,
+        topicID: String
+    ) {
+        var parameters: [String: Any] = [
+            EventParamKey.courseID: courseID,
+            EventParamKey.topicID: topicID,
+            EventParamKey.name: EventBIValue.discussionTopicViewed.rawValue
+        ]
+        
+        logScreenEvent(.discussionTopicViewed, parameters: parameters)
+    }
+    
+    public func discussionPostViewed(
+        courseID: String,
+        topicID: String,
+        threadID: String
+    ) {
+        var parameters: [String: Any] = [
+            EventParamKey.courseID: courseID,
+            EventParamKey.topicID: topicID,
+            EventParamKey.threadID: threadID,
+            EventParamKey.name: EventBIValue.discussionPostViewed.rawValue
+        ]
+        
+        logScreenEvent(.discussionPostViewed, parameters: parameters)
+    }
+    
+    public func discussionResponseViewed(
+        courseID: String,
+        threadID: String,
+        responseID: String
+    ) {
+        var parameters: [String: Any] = [
+            EventParamKey.courseID: courseID,
+            EventParamKey.threadID: threadID,
+            EventParamKey.responseID: responseID,
+            EventParamKey.name: EventBIValue.discussionResponseViewed.rawValue
+        ]
+        
+        logScreenEvent(.discussionResponseViewed, parameters: parameters)
     }
     
     // MARK: app review
