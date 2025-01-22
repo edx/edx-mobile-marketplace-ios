@@ -12,6 +12,7 @@ import Alamofire
 
 public protocol NotificationsRepositoryProtocol {
     func getNotificationsCount() async throws -> NotificationsCount
+    func getAllNotifications(page: Int) async throws -> Notifications
     func getNotificationsPreferences() async throws -> NotificationsPreferences
     func updateNotificationsPreferences(value: Bool) async throws -> NotificationsPreferencesUpdate
     func markNotificationsAsSeen() async throws -> NotificationsSeenRead
@@ -43,6 +44,14 @@ public class NotificationsRepository: NotificationsRepositoryProtocol {
         
         return response
 
+    }
+    
+    public func getAllNotifications(page: Int) async throws -> Notifications {
+        let response = try await api.requestData(
+            NotificationsEndpoint.getAllNotifications(page: page)
+        ).mapResponse(DataLayer.Notifications.self).domain
+        
+        return response
     }
     
     public func getNotificationsPreferences() async throws -> NotificationsPreferences {
@@ -96,6 +105,33 @@ public class NotificationsRepository: NotificationsRepositoryProtocol {
 class NotificationsRepositoryMock: NotificationsRepositoryProtocol {
     func getNotificationsCount() async throws -> NotificationsCount {
         return NotificationsCount(discussion: 1)
+    }
+    
+    func getAllNotifications(page: Int) async throws -> Notifications {
+        return Notifications(
+            next: "",
+            count: 18,
+            numPages: 2,
+            currentPage: 1,
+            start: 0,
+            results: [
+                Notification(
+                    id: 123,
+                    appName: "discussion",
+                    notificationType: "comment_on_followed_post",
+                    contentContext: ContentContext(
+                        topicId: "i4x-edX-demoX1-course-2T2017",
+                        parentId: "6777c03a7febe504707971ab",
+                        threadId: "5d49c25584452a0795000386",
+                        commentId: "677b2ffa7febe50470799585",
+                        postTitle: "How to learn it online?"
+                    ),
+                    content: "Test notification",
+                    lastRead: Date(iso8601: "2025-01-06T01:20:58.919612Z"),
+                    lastSeen: Date(iso8601: "2025-01-06T01:20:58.919612Z"),
+                    created: Date(iso8601: "2025-01-06T01:20:58.919612Z")
+                )
+            ])
     }
     
     func getNotificationsPreferences() async throws -> NotificationsPreferences {

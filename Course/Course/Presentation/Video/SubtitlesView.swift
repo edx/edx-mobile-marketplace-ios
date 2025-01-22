@@ -28,6 +28,17 @@ public struct SubtitlesView: View {
     @State var pause: Bool = false
     @State var languages: [SubtitleUrl]
     
+    @State private var isAnimating = false
+    @State private var syncBlock: (() -> Void)?
+    
+    @State private var autoScrollPublisher = PassthroughSubject<Void, Never>()
+    
+    private enum Constants {
+        static let autoScrollInterval: TimeInterval = 3.0
+        static let animationDuration: TimeInterval = 0.3
+        static let animationSkipInterval: TimeInterval = animationDuration + 0.05
+    }
+    
     public init(languages: [SubtitleUrl],
                 currentTime: Binding<Double>,
                 viewModel: VideoPlayerViewModel,
@@ -76,28 +87,41 @@ public struct SubtitlesView: View {
                                             .foregroundColor(subtitle.fromTo.contains(Date(milliseconds: currentTime))
                                                              ? Theme.Colors.accentButtonColor
                                                              : Theme.Colors.textPrimary)
-                                            
-                                            .onChange(of: currentTime, perform: { _ in
-                                                if subtitle.fromTo.contains(Date(milliseconds: currentTime)) {
-                                                    if id != subtitle.id {
-                                                        withAnimation {
-                                                            if !pause {
-                                                                scroll.scrollTo(subtitle.id, anchor: .top)
-                                                            }
-                                                        }
-                                                    }
-                                                    self.id = subtitle.id
-                                                }
-                                            })
                                         })
                                     }.id(subtitle.id)
                                 }
                             }
                         }
-                    }.simultaneousGesture(
+                    }
+                    .simultaneousGesture(
                         DragGesture().onChanged({ _ in
-                            pauseScrolling()
-                        }))
+                            pause = true
+                            autoScrollPublisher.send()
+                        })
+                    )
+                    .onChange(of: currentTime) { _ in
+                        refreshID()
+                    }
+                    .onChange(of: viewModel.isPlaying) { isPlaying in
+                        if isPlaying {
+                            scrollTo(id, in: scroll)
+                        }
+                    }
+                    .onChange(of: id) { newID in
+                        scrollTo(newID, in: scroll)
+                    }
+                    .onReceive(
+                        autoScrollPublisher.debounce(
+                            for: .seconds(Constants.autoScrollInterval),
+                            scheduler: DispatchQueue.main
+                        ),
+                        perform: { _ in
+                            if pause {
+                                refreshID()
+                                pause = false
+                            }
+                        }
+                    )
                 }
             }.padding(.horizontal, 24)
                 .padding(.top, 16)
@@ -105,10 +129,40 @@ public struct SubtitlesView: View {
         }
     }
     
-    private func pauseScrolling() {
-        pause = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            self.pause = false
+    private func refreshID() {
+        if let subtitle = viewModel.findSubtitle(at: Date(milliseconds: currentTime)) {
+            id = subtitle.id
+        }
+    }
+    
+    private func scrollTo(_ viewID: Int, in scrollView: ScrollViewProxy) {
+        if !pause {
+            let scrollBlock = {
+                if viewModel.isPlaying {
+                    isAnimating = true
+                    
+                    withAnimation(.linear(duration: Constants.animationDuration)) {
+                        scrollView.scrollTo(viewID, anchor: .top)
+                    }
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + Constants.animationSkipInterval) {
+                        isAnimating = false
+                        
+                        if let nextBlock = syncBlock {
+                            syncBlock = nil
+                            nextBlock()
+                        }
+                    }
+                } else {
+                    scrollView.scrollTo(viewID, anchor: .top)
+                }
+            }
+            
+            if isAnimating {
+                syncBlock = scrollBlock
+            } else {
+                scrollBlock()
+            }
         }
     }
 }
