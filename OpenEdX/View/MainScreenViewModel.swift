@@ -13,6 +13,7 @@ import Course
 import Swinject
 import Combine
 import Authorization
+import UserNotifications
 
 public enum MainTab {
     case discovery
@@ -34,13 +35,10 @@ final class MainScreenViewModel: ObservableObject {
     private var appStorage: CoreStorage & ProfileStorage
     private let calendarManager: CalendarManagerProtocol
     private var cancellables = Set<AnyCancellable>()
+    private var postLoginData: PostLoginData?
     
     @Published var selection: MainTab = .dashboard
     @Published var showRegisterBanner: Bool = false
-
-    private var shouldShowRegisterBanner: Bool = false
-    private var authMethod: AuthMethod?
-    private var cancellations: [AnyCancellable] = []
 
     init(analytics: MainScreenAnalytics,
          config: ConfigProtocol,
@@ -50,7 +48,8 @@ final class MainScreenViewModel: ObservableObject {
          courseInteractor: CourseInteractorProtocol,
          appStorage: CoreStorage & ProfileStorage,
          calendarManager: CalendarManagerProtocol,
-         sourceScreen: LogistrationSourceScreen = .default
+         sourceScreen: LogistrationSourceScreen = .default,
+         postLoginData: PostLoginData? = nil
     ) {
         self.analytics = analytics
         self.config = config
@@ -61,6 +60,7 @@ final class MainScreenViewModel: ObservableObject {
         self.appStorage = appStorage
         self.calendarManager = calendarManager
         self.sourceScreen = sourceScreen
+        self.postLoginData = postLoginData
         
         NotificationCenter.default.publisher(for: .shiftCourseDates, object: nil)
             .sink { notification in
@@ -70,21 +70,21 @@ final class MainScreenViewModel: ObservableObject {
                 }
             }
             .store(in: &cancellables)
-        addObservers()
+        trackSettingPermissionStatus()
     }
     
-    private func addObservers() {
-        NotificationCenter.default
-            .publisher(for: .userAuthorized)
-            .sink { [weak self] object in
-                guard let self,
-                      let dict = object.object as? [String: Any],
-                      let authMethod = dict["authMethod"] as? AuthMethod
-                else { return }
-                self.shouldShowRegisterBanner = dict["showSocialRegisterBanner"] as? Bool ?? false
-                self.authMethod = authMethod
-            }
-            .store(in: &cancellations)
+    private func trackSettingPermissionStatus() {
+        DispatchQueue.global(qos: .userInteractive).async {
+            UNUserNotificationCenter.current().getNotificationSettings(completionHandler: { [weak self] (settings) in
+                if settings.authorizationStatus == .notDetermined {
+                    self?.analytics.notificationPermissionStatus(status: "not_determined")
+                } else if settings.authorizationStatus == .denied {
+                    self?.analytics.notificationPermissionStatus(status: "denied")
+                } else if settings.authorizationStatus == .authorized {
+                    self?.analytics.notificationPermissionStatus(status: "authorized")
+                }
+            })
+        }
     }
     
     public func select(tab: MainTab) {
@@ -143,20 +143,19 @@ final class MainScreenViewModel: ObservableObject {
     }
 
     public func checkIfNeedToShowRegisterBanner() {
-        if shouldShowRegisterBanner && !registerBannerText.isEmpty {
+        if postLoginData?.showSocialRegisterBanner == true && !registerBannerText.isEmpty {
             showRegisterBanner = true
         }
     }
     public func registerBannerWasShowed() {
-        shouldShowRegisterBanner = false
+        postLoginData?.showSocialRegisterBanner = false
         showRegisterBanner = false
     }
     public var registerBannerText: String {
-        guard !config.platformName.isEmpty,
-              case .socailAuth(let socialMethod) = authMethod,
-              !socialMethod.rawValue.isEmpty
+        guard let socialAuthMethodName = postLoginData?.authMethod,
+              !socialAuthMethodName.isEmpty
         else { return "" }
-        return CoreLocalization.Mainscreen.socialRegisterBanner(config.platformName, socialMethod.rawValue.capitalized)
+        return CoreLocalization.Mainscreen.socialRegisterBanner(config.platformName, socialAuthMethodName.capitalized)
     }
 
     @MainActor
