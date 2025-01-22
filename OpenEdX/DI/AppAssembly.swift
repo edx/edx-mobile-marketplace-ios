@@ -217,10 +217,10 @@ class AppAssembly: Assembly {
         container.register(SegmentAnalyticsService.self) { r in
             let config = r.resolve(ConfigProtocol.self)!
             let writeKey = config.segment.writeKey
-            let firebaseAnalyticSourceIsSegment = config.firebase.enabled && config.firebase.isAnalyticsSourceSegment
+            let addFirebaseAnalytics = config.firebase.enabled && config.firebase.isAnalyticsSourceSegment
             return SegmentAnalyticsService(
                 writeKey: writeKey,
-                firebaseAnalyticSourceIsSegment: firebaseAnalyticSourceIsSegment
+                addFirebaseAnalytics: addFirebaseAnalytics
             )
         }.inObjectScope(.container)
         

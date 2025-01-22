@@ -153,12 +153,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             pluginManager.addPlugin(
                 pushNotificationsProvider:
                     BrazeProvider(
-                        segmentAnalyticService: Container.shared.resolve(SegmentAnalyticsService.self)
+                        segmentAnalyticsService: Container.shared.resolve(SegmentAnalyticsService.self)!
                     ),
                 pushNotificationsListener:
                     BrazeListener(
                         deepLinkManager: deepLinkManager,
-                        segmentAnalyticService: Container.shared.resolve(SegmentAnalyticsService.self)
+                        segmentAnalyticsService: Container.shared.resolve(SegmentAnalyticsService.self)
                     )
             )
         }
