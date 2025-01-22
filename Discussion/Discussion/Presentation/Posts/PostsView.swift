@@ -229,7 +229,7 @@ public struct PostsView: View {
                 }
             }
             .onFirstAppear {
-                if viewModel.type != .allPosts && viewModel.type != .followingPosts {
+                if viewModel.isNotAllOrFollowingPosts() {
                     viewModel.trackDiscussionTopicViewed(
                         courseID: courseID,
                         topicID: topicID ?? ""

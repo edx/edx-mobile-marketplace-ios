@@ -275,6 +275,10 @@ public class PostsViewModel: ObservableObject {
         self.filteredPosts = self.discussionPosts
     }
     
+    func isNotAllOrFollowingPosts() -> Bool {
+        return type != .allPosts && type != .followingPosts
+    }
+    
     func trackDiscussionTopicViewed(
         courseID: String,
         topicID: String
