@@ -185,13 +185,11 @@ public class ResponsesViewModel: BaseResponsesViewModel, ObservableObject {
     }
     
     func trackDiscussionResponseViewed(
-        courseID: String,
-        threadID: String,
         responseID: String
     ) {
         analytics?.discussionResponseViewed(
             courseID: courseID,
-            threadID: threadID,
+            threadID: postComments?.threadID ?? "",
             responseID: responseID
         )
     }

@@ -35,8 +35,6 @@ public struct ResponsesView: View {
         Task {
             if await viewModel.getResponsesData(commentID: commentID, parentComment: parentComment, page: 1) {
                 viewModel.trackDiscussionResponseViewed(
-                    courseID: viewModel.courseID,
-                    threadID: viewModel.postComments?.threadID ?? "",
                     responseID: parentComment.commentID
                 )
             }
