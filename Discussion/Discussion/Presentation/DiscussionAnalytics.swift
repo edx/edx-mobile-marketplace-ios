@@ -9,9 +9,9 @@ import Foundation
 
 //sourcery: AutoMockable
 public protocol DiscussionAnalytics {
-    func discussionAllPostsClicked(courseId: String, courseName: String)
-    func discussionFollowingClicked(courseId: String, courseName: String)
-    func discussionTopicClicked(courseId: String, courseName: String, topicId: String, topicName: String)
+    func discussionAllPostsClicked(courseId: String)
+    func discussionFollowingClicked(courseId: String)
+    func discussionTopicClicked(courseId: String, topicId: String)
     
     func discussionCreateNewPost(
         courseID: String,
@@ -63,13 +63,29 @@ public protocol DiscussionAnalytics {
         report: Bool
     )
     
+    func discussionTopicViewed(
+        courseID: String,
+        topicID: String
+    )
+    
+    func discussionPostViewed(
+        courseID: String,
+        topicID: String,
+        threadID: String
+    )
+    
+    func discussionResponseViewed(
+        courseID: String,
+        threadID: String,
+        responseID: String
+    )
 }
 
 #if DEBUG
 class DiscussionAnalyticsMock: DiscussionAnalytics {
-    public func discussionAllPostsClicked(courseId: String, courseName: String) {}
-    public func discussionFollowingClicked(courseId: String, courseName: String) {}
-    public func discussionTopicClicked(courseId: String, courseName: String, topicId: String, topicName: String) {}
+    public func discussionAllPostsClicked(courseId: String) {}
+    public func discussionFollowingClicked(courseId: String) {}
+    public func discussionTopicClicked(courseId: String, topicId: String) {}
     
     public func discussionCreateNewPost(
         courseID: String,
@@ -119,6 +135,23 @@ class DiscussionAnalyticsMock: DiscussionAnalytics {
         author: String,
         discussionType: String,
         report: Bool
+    ) {}
+    
+    func discussionTopicViewed(
+        courseID: String,
+        topicID: String
+    ) {}
+    
+    func discussionPostViewed(
+        courseID: String,
+        topicID: String,
+        threadID: String
+    ) {}
+    
+    func discussionResponseViewed(
+        courseID: String,
+        threadID: String,
+        responseID: String
     ) {}
 }
 #endif

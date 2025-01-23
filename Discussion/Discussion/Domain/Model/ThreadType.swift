@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum ThreadType {
+public enum ThreadType: Equatable {
     case allPosts
     case followingPosts
     case nonCourseTopics

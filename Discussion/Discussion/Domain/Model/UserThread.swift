@@ -27,6 +27,7 @@ public struct UserThread {
     public var voted: Bool
     public var voteCount: Int
     public let courseID: String
+    public let topicID: String
     public let type: PostType
     public let title: String
     public let pinned: Bool
@@ -50,6 +51,7 @@ public struct UserThread {
         voted: Bool,
         voteCount: Int,
         courseID: String,
+        topicID: String,
         type: PostType,
         title: String,
         pinned: Bool,
@@ -72,6 +74,7 @@ public struct UserThread {
         self.voted = voted
         self.voteCount = voteCount
         self.courseID = courseID
+        self.topicID = topicID
         self.type = type
         self.title = title
         self.pinned = pinned
@@ -116,6 +119,7 @@ public extension DataLayer.ThreadListsResponse {
                        voted: $0.voted,
                        voteCount: $0.voteCount,
                        courseID: $0.courseID,
+                       topicID: $0.topicID,
                        type: $0.type,
                        title: $0.title,
                        pinned: $0.pinned,
@@ -145,6 +149,7 @@ public extension DataLayer.ThreadList {
             voted: voted,
             voteCount: voteCount,
             courseID: courseID,
+            topicID: topicID,
             type: type,
             title: title,
             pinned: pinned,
