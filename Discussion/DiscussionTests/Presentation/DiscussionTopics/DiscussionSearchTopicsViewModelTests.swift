@@ -34,6 +34,7 @@ final class DiscussionSearchTopicsViewModelTests: XCTestCase {
                            voted: false,
                            voteCount: 1,
                            courseID: "1",
+                           topicID: "1",
                            type: .discussion,
                            title: "1",
                            pinned: false,

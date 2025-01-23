@@ -255,6 +255,11 @@ public struct ThreadView: View {
                 Task {
                     await viewModel.getThreadData(thread: thread, page: 1)
                 }
+                viewModel.trackDiscussionPostViewed(
+                    courseID: thread.courseID,
+                    topicID: thread.topicID,
+                    threadID: thread.id
+                )
             }
             .onDisappear {
                 onBackTapped()
@@ -282,6 +287,7 @@ struct CommentsView_Previews: PreviewProvider {
                                     voted: false,
                                     voteCount: 3,
                                     courseID: "",
+                                    topicID: "",
                                     type: .discussion,
                                     title: "Demo title",
                                     pinned: false,

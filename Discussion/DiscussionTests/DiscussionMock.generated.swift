@@ -2612,22 +2612,22 @@ open class DiscussionAnalyticsMock: DiscussionAnalytics, Mock {
 
 
 
-    open func discussionAllPostsClicked(courseId: String, courseName: String) {
-        addInvocation(.m_discussionAllPostsClicked__courseId_courseIdcourseName_courseName(Parameter<String>.value(`courseId`), Parameter<String>.value(`courseName`)))
-		let perform = methodPerformValue(.m_discussionAllPostsClicked__courseId_courseIdcourseName_courseName(Parameter<String>.value(`courseId`), Parameter<String>.value(`courseName`))) as? (String, String) -> Void
-		perform?(`courseId`, `courseName`)
+    open func discussionAllPostsClicked(courseId: String) {
+        addInvocation(.m_discussionAllPostsClicked__courseId_courseId(Parameter<String>.value(`courseId`)))
+		let perform = methodPerformValue(.m_discussionAllPostsClicked__courseId_courseId(Parameter<String>.value(`courseId`))) as? (String) -> Void
+		perform?(`courseId`)
     }
 
-    open func discussionFollowingClicked(courseId: String, courseName: String) {
-        addInvocation(.m_discussionFollowingClicked__courseId_courseIdcourseName_courseName(Parameter<String>.value(`courseId`), Parameter<String>.value(`courseName`)))
-		let perform = methodPerformValue(.m_discussionFollowingClicked__courseId_courseIdcourseName_courseName(Parameter<String>.value(`courseId`), Parameter<String>.value(`courseName`))) as? (String, String) -> Void
-		perform?(`courseId`, `courseName`)
+    open func discussionFollowingClicked(courseId: String) {
+        addInvocation(.m_discussionFollowingClicked__courseId_courseId(Parameter<String>.value(`courseId`)))
+		let perform = methodPerformValue(.m_discussionFollowingClicked__courseId_courseId(Parameter<String>.value(`courseId`))) as? (String) -> Void
+		perform?(`courseId`)
     }
 
-    open func discussionTopicClicked(courseId: String, courseName: String, topicId: String, topicName: String) {
-        addInvocation(.m_discussionTopicClicked__courseId_courseIdcourseName_courseNametopicId_topicIdtopicName_topicName(Parameter<String>.value(`courseId`), Parameter<String>.value(`courseName`), Parameter<String>.value(`topicId`), Parameter<String>.value(`topicName`)))
-		let perform = methodPerformValue(.m_discussionTopicClicked__courseId_courseIdcourseName_courseNametopicId_topicIdtopicName_topicName(Parameter<String>.value(`courseId`), Parameter<String>.value(`courseName`), Parameter<String>.value(`topicId`), Parameter<String>.value(`topicName`))) as? (String, String, String, String) -> Void
-		perform?(`courseId`, `courseName`, `topicId`, `topicName`)
+    open func discussionTopicClicked(courseId: String, topicId: String) {
+        addInvocation(.m_discussionTopicClicked__courseId_courseIdtopicId_topicId(Parameter<String>.value(`courseId`), Parameter<String>.value(`topicId`)))
+		let perform = methodPerformValue(.m_discussionTopicClicked__courseId_courseIdtopicId_topicId(Parameter<String>.value(`courseId`), Parameter<String>.value(`topicId`))) as? (String, String) -> Void
+		perform?(`courseId`, `topicId`)
     }
 
     open func discussionCreateNewPost(courseID: String, topicID: String, postType: String, followPost: Bool, author: String) {
@@ -2666,38 +2666,55 @@ open class DiscussionAnalyticsMock: DiscussionAnalytics, Mock {
 		perform?(`courseID`, `threadID`, `responseID`, `commentID`, `author`, `discussionType`, `report`)
     }
 
+    open func discussionTopicViewed(courseID: String, topicID: String) {
+        addInvocation(.m_discussionTopicViewed__courseID_courseIDtopicID_topicID(Parameter<String>.value(`courseID`), Parameter<String>.value(`topicID`)))
+		let perform = methodPerformValue(.m_discussionTopicViewed__courseID_courseIDtopicID_topicID(Parameter<String>.value(`courseID`), Parameter<String>.value(`topicID`))) as? (String, String) -> Void
+		perform?(`courseID`, `topicID`)
+    }
+
+    open func discussionPostViewed(courseID: String, topicID: String, threadID: String) {
+        addInvocation(.m_discussionPostViewed__courseID_courseIDtopicID_topicIDthreadID_threadID(Parameter<String>.value(`courseID`), Parameter<String>.value(`topicID`), Parameter<String>.value(`threadID`)))
+		let perform = methodPerformValue(.m_discussionPostViewed__courseID_courseIDtopicID_topicIDthreadID_threadID(Parameter<String>.value(`courseID`), Parameter<String>.value(`topicID`), Parameter<String>.value(`threadID`))) as? (String, String, String) -> Void
+		perform?(`courseID`, `topicID`, `threadID`)
+    }
+
+    open func discussionResponseViewed(courseID: String, threadID: String, responseID: String) {
+        addInvocation(.m_discussionResponseViewed__courseID_courseIDthreadID_threadIDresponseID_responseID(Parameter<String>.value(`courseID`), Parameter<String>.value(`threadID`), Parameter<String>.value(`responseID`)))
+		let perform = methodPerformValue(.m_discussionResponseViewed__courseID_courseIDthreadID_threadIDresponseID_responseID(Parameter<String>.value(`courseID`), Parameter<String>.value(`threadID`), Parameter<String>.value(`responseID`))) as? (String, String, String) -> Void
+		perform?(`courseID`, `threadID`, `responseID`)
+    }
+
 
     fileprivate enum MethodType {
-        case m_discussionAllPostsClicked__courseId_courseIdcourseName_courseName(Parameter<String>, Parameter<String>)
-        case m_discussionFollowingClicked__courseId_courseIdcourseName_courseName(Parameter<String>, Parameter<String>)
-        case m_discussionTopicClicked__courseId_courseIdcourseName_courseNametopicId_topicIdtopicName_topicName(Parameter<String>, Parameter<String>, Parameter<String>, Parameter<String>)
+        case m_discussionAllPostsClicked__courseId_courseId(Parameter<String>)
+        case m_discussionFollowingClicked__courseId_courseId(Parameter<String>)
+        case m_discussionTopicClicked__courseId_courseIdtopicId_topicId(Parameter<String>, Parameter<String>)
         case m_discussionCreateNewPost__courseID_courseIDtopicID_topicIDpostType_postTypefollowPost_followPostauthor_author(Parameter<String>, Parameter<String>, Parameter<String>, Parameter<Bool>, Parameter<String>)
         case m_discussionResponseAdded__courseID_courseIDthreadID_threadIDresponseID_responseIDauthor_author(Parameter<String>, Parameter<String>, Parameter<String>, Parameter<String>)
         case m_discussionCommentAdded__courseID_courseIDthreadID_threadIDresponseID_responseIDcommentID_commentIDauthor_author(Parameter<String>, Parameter<String>, Parameter<String>, Parameter<String>, Parameter<String>)
         case m_discussionFollowToggle__courseID_courseIDthreadID_threadIDauthor_authorfollow_follow(Parameter<String>, Parameter<String>, Parameter<String>, Parameter<Bool>)
         case m_discussionLikeToggle__courseID_courseIDthreadID_threadIDresponseID_responseIDcommentID_commentIDauthor_authordiscussionType_discussionTypelike_like(Parameter<String>, Parameter<String>, Parameter<String?>, Parameter<String?>, Parameter<String>, Parameter<String>, Parameter<Bool>)
         case m_discussionReportToggle__courseID_courseIDthreadID_threadIDresponseID_responseIDcommentID_commentIDauthor_authordiscussionType_discussionTypereport_report(Parameter<String>, Parameter<String>, Parameter<String?>, Parameter<String?>, Parameter<String>, Parameter<String>, Parameter<Bool>)
+        case m_discussionTopicViewed__courseID_courseIDtopicID_topicID(Parameter<String>, Parameter<String>)
+        case m_discussionPostViewed__courseID_courseIDtopicID_topicIDthreadID_threadID(Parameter<String>, Parameter<String>, Parameter<String>)
+        case m_discussionResponseViewed__courseID_courseIDthreadID_threadIDresponseID_responseID(Parameter<String>, Parameter<String>, Parameter<String>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
-            case (.m_discussionAllPostsClicked__courseId_courseIdcourseName_courseName(let lhsCourseid, let lhsCoursename), .m_discussionAllPostsClicked__courseId_courseIdcourseName_courseName(let rhsCourseid, let rhsCoursename)):
+            case (.m_discussionAllPostsClicked__courseId_courseId(let lhsCourseid), .m_discussionAllPostsClicked__courseId_courseId(let rhsCourseid)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseId"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCoursename, rhs: rhsCoursename, with: matcher), lhsCoursename, rhsCoursename, "courseName"))
 				return Matcher.ComparisonResult(results)
 
-            case (.m_discussionFollowingClicked__courseId_courseIdcourseName_courseName(let lhsCourseid, let lhsCoursename), .m_discussionFollowingClicked__courseId_courseIdcourseName_courseName(let rhsCourseid, let rhsCoursename)):
+            case (.m_discussionFollowingClicked__courseId_courseId(let lhsCourseid), .m_discussionFollowingClicked__courseId_courseId(let rhsCourseid)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseId"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCoursename, rhs: rhsCoursename, with: matcher), lhsCoursename, rhsCoursename, "courseName"))
 				return Matcher.ComparisonResult(results)
 
-            case (.m_discussionTopicClicked__courseId_courseIdcourseName_courseNametopicId_topicIdtopicName_topicName(let lhsCourseid, let lhsCoursename, let lhsTopicid, let lhsTopicname), .m_discussionTopicClicked__courseId_courseIdcourseName_courseNametopicId_topicIdtopicName_topicName(let rhsCourseid, let rhsCoursename, let rhsTopicid, let rhsTopicname)):
+            case (.m_discussionTopicClicked__courseId_courseIdtopicId_topicId(let lhsCourseid, let lhsTopicid), .m_discussionTopicClicked__courseId_courseIdtopicId_topicId(let rhsCourseid, let rhsTopicid)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseId"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCoursename, rhs: rhsCoursename, with: matcher), lhsCoursename, rhsCoursename, "courseName"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsTopicid, rhs: rhsTopicid, with: matcher), lhsTopicid, rhsTopicid, "topicId"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsTopicname, rhs: rhsTopicname, with: matcher), lhsTopicname, rhsTopicname, "topicName"))
 				return Matcher.ComparisonResult(results)
 
             case (.m_discussionCreateNewPost__courseID_courseIDtopicID_topicIDpostType_postTypefollowPost_followPostauthor_author(let lhsCourseid, let lhsTopicid, let lhsPosttype, let lhsFollowpost, let lhsAuthor), .m_discussionCreateNewPost__courseID_courseIDtopicID_topicIDpostType_postTypefollowPost_followPostauthor_author(let rhsCourseid, let rhsTopicid, let rhsPosttype, let rhsFollowpost, let rhsAuthor)):
@@ -2755,34 +2772,60 @@ open class DiscussionAnalyticsMock: DiscussionAnalytics, Mock {
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsDiscussiontype, rhs: rhsDiscussiontype, with: matcher), lhsDiscussiontype, rhsDiscussiontype, "discussionType"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsReport, rhs: rhsReport, with: matcher), lhsReport, rhsReport, "report"))
 				return Matcher.ComparisonResult(results)
+
+            case (.m_discussionTopicViewed__courseID_courseIDtopicID_topicID(let lhsCourseid, let lhsTopicid), .m_discussionTopicViewed__courseID_courseIDtopicID_topicID(let rhsCourseid, let rhsTopicid)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseID"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsTopicid, rhs: rhsTopicid, with: matcher), lhsTopicid, rhsTopicid, "topicID"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_discussionPostViewed__courseID_courseIDtopicID_topicIDthreadID_threadID(let lhsCourseid, let lhsTopicid, let lhsThreadid), .m_discussionPostViewed__courseID_courseIDtopicID_topicIDthreadID_threadID(let rhsCourseid, let rhsTopicid, let rhsThreadid)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseID"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsTopicid, rhs: rhsTopicid, with: matcher), lhsTopicid, rhsTopicid, "topicID"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsThreadid, rhs: rhsThreadid, with: matcher), lhsThreadid, rhsThreadid, "threadID"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_discussionResponseViewed__courseID_courseIDthreadID_threadIDresponseID_responseID(let lhsCourseid, let lhsThreadid, let lhsResponseid), .m_discussionResponseViewed__courseID_courseIDthreadID_threadIDresponseID_responseID(let rhsCourseid, let rhsThreadid, let rhsResponseid)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseID"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsThreadid, rhs: rhsThreadid, with: matcher), lhsThreadid, rhsThreadid, "threadID"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsResponseid, rhs: rhsResponseid, with: matcher), lhsResponseid, rhsResponseid, "responseID"))
+				return Matcher.ComparisonResult(results)
             default: return .none
             }
         }
 
         func intValue() -> Int {
             switch self {
-            case let .m_discussionAllPostsClicked__courseId_courseIdcourseName_courseName(p0, p1): return p0.intValue + p1.intValue
-            case let .m_discussionFollowingClicked__courseId_courseIdcourseName_courseName(p0, p1): return p0.intValue + p1.intValue
-            case let .m_discussionTopicClicked__courseId_courseIdcourseName_courseNametopicId_topicIdtopicName_topicName(p0, p1, p2, p3): return p0.intValue + p1.intValue + p2.intValue + p3.intValue
+            case let .m_discussionAllPostsClicked__courseId_courseId(p0): return p0.intValue
+            case let .m_discussionFollowingClicked__courseId_courseId(p0): return p0.intValue
+            case let .m_discussionTopicClicked__courseId_courseIdtopicId_topicId(p0, p1): return p0.intValue + p1.intValue
             case let .m_discussionCreateNewPost__courseID_courseIDtopicID_topicIDpostType_postTypefollowPost_followPostauthor_author(p0, p1, p2, p3, p4): return p0.intValue + p1.intValue + p2.intValue + p3.intValue + p4.intValue
             case let .m_discussionResponseAdded__courseID_courseIDthreadID_threadIDresponseID_responseIDauthor_author(p0, p1, p2, p3): return p0.intValue + p1.intValue + p2.intValue + p3.intValue
             case let .m_discussionCommentAdded__courseID_courseIDthreadID_threadIDresponseID_responseIDcommentID_commentIDauthor_author(p0, p1, p2, p3, p4): return p0.intValue + p1.intValue + p2.intValue + p3.intValue + p4.intValue
             case let .m_discussionFollowToggle__courseID_courseIDthreadID_threadIDauthor_authorfollow_follow(p0, p1, p2, p3): return p0.intValue + p1.intValue + p2.intValue + p3.intValue
             case let .m_discussionLikeToggle__courseID_courseIDthreadID_threadIDresponseID_responseIDcommentID_commentIDauthor_authordiscussionType_discussionTypelike_like(p0, p1, p2, p3, p4, p5, p6): return p0.intValue + p1.intValue + p2.intValue + p3.intValue + p4.intValue + p5.intValue + p6.intValue
             case let .m_discussionReportToggle__courseID_courseIDthreadID_threadIDresponseID_responseIDcommentID_commentIDauthor_authordiscussionType_discussionTypereport_report(p0, p1, p2, p3, p4, p5, p6): return p0.intValue + p1.intValue + p2.intValue + p3.intValue + p4.intValue + p5.intValue + p6.intValue
+            case let .m_discussionTopicViewed__courseID_courseIDtopicID_topicID(p0, p1): return p0.intValue + p1.intValue
+            case let .m_discussionPostViewed__courseID_courseIDtopicID_topicIDthreadID_threadID(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
+            case let .m_discussionResponseViewed__courseID_courseIDthreadID_threadIDresponseID_responseID(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
             }
         }
         func assertionName() -> String {
             switch self {
-            case .m_discussionAllPostsClicked__courseId_courseIdcourseName_courseName: return ".discussionAllPostsClicked(courseId:courseName:)"
-            case .m_discussionFollowingClicked__courseId_courseIdcourseName_courseName: return ".discussionFollowingClicked(courseId:courseName:)"
-            case .m_discussionTopicClicked__courseId_courseIdcourseName_courseNametopicId_topicIdtopicName_topicName: return ".discussionTopicClicked(courseId:courseName:topicId:topicName:)"
+            case .m_discussionAllPostsClicked__courseId_courseId: return ".discussionAllPostsClicked(courseId:)"
+            case .m_discussionFollowingClicked__courseId_courseId: return ".discussionFollowingClicked(courseId:)"
+            case .m_discussionTopicClicked__courseId_courseIdtopicId_topicId: return ".discussionTopicClicked(courseId:topicId:)"
             case .m_discussionCreateNewPost__courseID_courseIDtopicID_topicIDpostType_postTypefollowPost_followPostauthor_author: return ".discussionCreateNewPost(courseID:topicID:postType:followPost:author:)"
             case .m_discussionResponseAdded__courseID_courseIDthreadID_threadIDresponseID_responseIDauthor_author: return ".discussionResponseAdded(courseID:threadID:responseID:author:)"
             case .m_discussionCommentAdded__courseID_courseIDthreadID_threadIDresponseID_responseIDcommentID_commentIDauthor_author: return ".discussionCommentAdded(courseID:threadID:responseID:commentID:author:)"
             case .m_discussionFollowToggle__courseID_courseIDthreadID_threadIDauthor_authorfollow_follow: return ".discussionFollowToggle(courseID:threadID:author:follow:)"
             case .m_discussionLikeToggle__courseID_courseIDthreadID_threadIDresponseID_responseIDcommentID_commentIDauthor_authordiscussionType_discussionTypelike_like: return ".discussionLikeToggle(courseID:threadID:responseID:commentID:author:discussionType:like:)"
             case .m_discussionReportToggle__courseID_courseIDthreadID_threadIDresponseID_responseIDcommentID_commentIDauthor_authordiscussionType_discussionTypereport_report: return ".discussionReportToggle(courseID:threadID:responseID:commentID:author:discussionType:report:)"
+            case .m_discussionTopicViewed__courseID_courseIDtopicID_topicID: return ".discussionTopicViewed(courseID:topicID:)"
+            case .m_discussionPostViewed__courseID_courseIDtopicID_topicIDthreadID_threadID: return ".discussionPostViewed(courseID:topicID:threadID:)"
+            case .m_discussionResponseViewed__courseID_courseIDthreadID_threadIDresponseID_responseID: return ".discussionResponseViewed(courseID:threadID:responseID:)"
             }
         }
     }
@@ -2801,29 +2844,32 @@ open class DiscussionAnalyticsMock: DiscussionAnalytics, Mock {
     public struct Verify {
         fileprivate var method: MethodType
 
-        public static func discussionAllPostsClicked(courseId: Parameter<String>, courseName: Parameter<String>) -> Verify { return Verify(method: .m_discussionAllPostsClicked__courseId_courseIdcourseName_courseName(`courseId`, `courseName`))}
-        public static func discussionFollowingClicked(courseId: Parameter<String>, courseName: Parameter<String>) -> Verify { return Verify(method: .m_discussionFollowingClicked__courseId_courseIdcourseName_courseName(`courseId`, `courseName`))}
-        public static func discussionTopicClicked(courseId: Parameter<String>, courseName: Parameter<String>, topicId: Parameter<String>, topicName: Parameter<String>) -> Verify { return Verify(method: .m_discussionTopicClicked__courseId_courseIdcourseName_courseNametopicId_topicIdtopicName_topicName(`courseId`, `courseName`, `topicId`, `topicName`))}
+        public static func discussionAllPostsClicked(courseId: Parameter<String>) -> Verify { return Verify(method: .m_discussionAllPostsClicked__courseId_courseId(`courseId`))}
+        public static func discussionFollowingClicked(courseId: Parameter<String>) -> Verify { return Verify(method: .m_discussionFollowingClicked__courseId_courseId(`courseId`))}
+        public static func discussionTopicClicked(courseId: Parameter<String>, topicId: Parameter<String>) -> Verify { return Verify(method: .m_discussionTopicClicked__courseId_courseIdtopicId_topicId(`courseId`, `topicId`))}
         public static func discussionCreateNewPost(courseID: Parameter<String>, topicID: Parameter<String>, postType: Parameter<String>, followPost: Parameter<Bool>, author: Parameter<String>) -> Verify { return Verify(method: .m_discussionCreateNewPost__courseID_courseIDtopicID_topicIDpostType_postTypefollowPost_followPostauthor_author(`courseID`, `topicID`, `postType`, `followPost`, `author`))}
         public static func discussionResponseAdded(courseID: Parameter<String>, threadID: Parameter<String>, responseID: Parameter<String>, author: Parameter<String>) -> Verify { return Verify(method: .m_discussionResponseAdded__courseID_courseIDthreadID_threadIDresponseID_responseIDauthor_author(`courseID`, `threadID`, `responseID`, `author`))}
         public static func discussionCommentAdded(courseID: Parameter<String>, threadID: Parameter<String>, responseID: Parameter<String>, commentID: Parameter<String>, author: Parameter<String>) -> Verify { return Verify(method: .m_discussionCommentAdded__courseID_courseIDthreadID_threadIDresponseID_responseIDcommentID_commentIDauthor_author(`courseID`, `threadID`, `responseID`, `commentID`, `author`))}
         public static func discussionFollowToggle(courseID: Parameter<String>, threadID: Parameter<String>, author: Parameter<String>, follow: Parameter<Bool>) -> Verify { return Verify(method: .m_discussionFollowToggle__courseID_courseIDthreadID_threadIDauthor_authorfollow_follow(`courseID`, `threadID`, `author`, `follow`))}
         public static func discussionLikeToggle(courseID: Parameter<String>, threadID: Parameter<String>, responseID: Parameter<String?>, commentID: Parameter<String?>, author: Parameter<String>, discussionType: Parameter<String>, like: Parameter<Bool>) -> Verify { return Verify(method: .m_discussionLikeToggle__courseID_courseIDthreadID_threadIDresponseID_responseIDcommentID_commentIDauthor_authordiscussionType_discussionTypelike_like(`courseID`, `threadID`, `responseID`, `commentID`, `author`, `discussionType`, `like`))}
         public static func discussionReportToggle(courseID: Parameter<String>, threadID: Parameter<String>, responseID: Parameter<String?>, commentID: Parameter<String?>, author: Parameter<String>, discussionType: Parameter<String>, report: Parameter<Bool>) -> Verify { return Verify(method: .m_discussionReportToggle__courseID_courseIDthreadID_threadIDresponseID_responseIDcommentID_commentIDauthor_authordiscussionType_discussionTypereport_report(`courseID`, `threadID`, `responseID`, `commentID`, `author`, `discussionType`, `report`))}
+        public static func discussionTopicViewed(courseID: Parameter<String>, topicID: Parameter<String>) -> Verify { return Verify(method: .m_discussionTopicViewed__courseID_courseIDtopicID_topicID(`courseID`, `topicID`))}
+        public static func discussionPostViewed(courseID: Parameter<String>, topicID: Parameter<String>, threadID: Parameter<String>) -> Verify { return Verify(method: .m_discussionPostViewed__courseID_courseIDtopicID_topicIDthreadID_threadID(`courseID`, `topicID`, `threadID`))}
+        public static func discussionResponseViewed(courseID: Parameter<String>, threadID: Parameter<String>, responseID: Parameter<String>) -> Verify { return Verify(method: .m_discussionResponseViewed__courseID_courseIDthreadID_threadIDresponseID_responseID(`courseID`, `threadID`, `responseID`))}
     }
 
     public struct Perform {
         fileprivate var method: MethodType
         var performs: Any
 
-        public static func discussionAllPostsClicked(courseId: Parameter<String>, courseName: Parameter<String>, perform: @escaping (String, String) -> Void) -> Perform {
-            return Perform(method: .m_discussionAllPostsClicked__courseId_courseIdcourseName_courseName(`courseId`, `courseName`), performs: perform)
+        public static func discussionAllPostsClicked(courseId: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
+            return Perform(method: .m_discussionAllPostsClicked__courseId_courseId(`courseId`), performs: perform)
         }
-        public static func discussionFollowingClicked(courseId: Parameter<String>, courseName: Parameter<String>, perform: @escaping (String, String) -> Void) -> Perform {
-            return Perform(method: .m_discussionFollowingClicked__courseId_courseIdcourseName_courseName(`courseId`, `courseName`), performs: perform)
+        public static func discussionFollowingClicked(courseId: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
+            return Perform(method: .m_discussionFollowingClicked__courseId_courseId(`courseId`), performs: perform)
         }
-        public static func discussionTopicClicked(courseId: Parameter<String>, courseName: Parameter<String>, topicId: Parameter<String>, topicName: Parameter<String>, perform: @escaping (String, String, String, String) -> Void) -> Perform {
-            return Perform(method: .m_discussionTopicClicked__courseId_courseIdcourseName_courseNametopicId_topicIdtopicName_topicName(`courseId`, `courseName`, `topicId`, `topicName`), performs: perform)
+        public static func discussionTopicClicked(courseId: Parameter<String>, topicId: Parameter<String>, perform: @escaping (String, String) -> Void) -> Perform {
+            return Perform(method: .m_discussionTopicClicked__courseId_courseIdtopicId_topicId(`courseId`, `topicId`), performs: perform)
         }
         public static func discussionCreateNewPost(courseID: Parameter<String>, topicID: Parameter<String>, postType: Parameter<String>, followPost: Parameter<Bool>, author: Parameter<String>, perform: @escaping (String, String, String, Bool, String) -> Void) -> Perform {
             return Perform(method: .m_discussionCreateNewPost__courseID_courseIDtopicID_topicIDpostType_postTypefollowPost_followPostauthor_author(`courseID`, `topicID`, `postType`, `followPost`, `author`), performs: perform)
@@ -2842,6 +2888,15 @@ open class DiscussionAnalyticsMock: DiscussionAnalytics, Mock {
         }
         public static func discussionReportToggle(courseID: Parameter<String>, threadID: Parameter<String>, responseID: Parameter<String?>, commentID: Parameter<String?>, author: Parameter<String>, discussionType: Parameter<String>, report: Parameter<Bool>, perform: @escaping (String, String, String?, String?, String, String, Bool) -> Void) -> Perform {
             return Perform(method: .m_discussionReportToggle__courseID_courseIDthreadID_threadIDresponseID_responseIDcommentID_commentIDauthor_authordiscussionType_discussionTypereport_report(`courseID`, `threadID`, `responseID`, `commentID`, `author`, `discussionType`, `report`), performs: perform)
+        }
+        public static func discussionTopicViewed(courseID: Parameter<String>, topicID: Parameter<String>, perform: @escaping (String, String) -> Void) -> Perform {
+            return Perform(method: .m_discussionTopicViewed__courseID_courseIDtopicID_topicID(`courseID`, `topicID`), performs: perform)
+        }
+        public static func discussionPostViewed(courseID: Parameter<String>, topicID: Parameter<String>, threadID: Parameter<String>, perform: @escaping (String, String, String) -> Void) -> Perform {
+            return Perform(method: .m_discussionPostViewed__courseID_courseIDtopicID_topicIDthreadID_threadID(`courseID`, `topicID`, `threadID`), performs: perform)
+        }
+        public static func discussionResponseViewed(courseID: Parameter<String>, threadID: Parameter<String>, responseID: Parameter<String>, perform: @escaping (String, String, String) -> Void) -> Perform {
+            return Perform(method: .m_discussionResponseViewed__courseID_courseIDthreadID_threadIDresponseID_responseID(`courseID`, `threadID`, `responseID`), performs: perform)
         }
     }
 

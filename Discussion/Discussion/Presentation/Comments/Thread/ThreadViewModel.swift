@@ -271,4 +271,16 @@ public class ThreadViewModel: BaseResponsesViewModel, ObservableObject {
             author: author
         )
     }
+    
+    func trackDiscussionPostViewed(
+        courseID: String,
+        topicID: String,
+        threadID: String
+    ) {
+        analytics?.discussionPostViewed(
+            courseID: courseID,
+            topicID: topicID,
+            threadID: threadID
+        )
+    }
 }
