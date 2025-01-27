@@ -80,6 +80,7 @@
 		197FB8EA8F92F00A8F383D82 /* Pods_App_Course.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5E795BD160CDA7D9C120DE6 /* Pods_App_Course.framework */; };
 		975F475E2B6151FD00E5B031 /* CourseDatesMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975F475D2B6151FD00E5B031 /* CourseDatesMock.swift */; };
 		975F47602B615DA700E5B031 /* CourseStructureMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975F475F2B615DA700E5B031 /* CourseStructureMock.swift */; };
+		9798E6672D44485800785CAB /* Profile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9798E6662D44485800785CAB /* Profile.framework */; };
 		97C99C362B9A08FE004EEDE2 /* CalendarSyncProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C99C352B9A08FE004EEDE2 /* CalendarSyncProgressView.swift */; };
 		97CA95252B875EE200A9EDEA /* DatesSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CA95242B875EE200A9EDEA /* DatesSuccessView.swift */; };
 		97E7DF0F2B7C852A00A2A09B /* DatesStatusInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E7DF0E2B7C852A00A2A09B /* DatesStatusInfoView.swift */; };
@@ -198,6 +199,7 @@
 		831B08139890634968EDD44D /* Pods-App-Course-CourseTests.debugstage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Course-CourseTests.debugstage.xcconfig"; path = "Target Support Files/Pods-App-Course-CourseTests/Pods-App-Course-CourseTests.debugstage.xcconfig"; sourceTree = "<group>"; };
 		975F475D2B6151FD00E5B031 /* CourseDatesMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDatesMock.swift; sourceTree = "<group>"; };
 		975F475F2B615DA700E5B031 /* CourseStructureMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseStructureMock.swift; sourceTree = "<group>"; };
+		9798E6662D44485800785CAB /* Profile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Profile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		97C99C352B9A08FE004EEDE2 /* CalendarSyncProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSyncProgressView.swift; sourceTree = "<group>"; };
 		97CA95242B875EE200A9EDEA /* DatesSuccessView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatesSuccessView.swift; sourceTree = "<group>"; };
 		97E7DF0E2B7C852A00A2A09B /* DatesStatusInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatesStatusInfoView.swift; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 			files = (
 				02B6B3C928E1E68100232911 /* Core.framework in Frameworks */,
 				197FB8EA8F92F00A8F383D82 /* Pods_App_Course.framework in Frameworks */,
+				9798E6672D44485800785CAB /* Profile.framework in Frameworks */,
 				02F98A8128F8224200DE94C0 /* Discussion.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -375,6 +378,7 @@
 		02B6B3C728E1E68100232911 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9798E6662D44485800785CAB /* Profile.framework */,
 				02F98A8028F8224200DE94C0 /* Discussion.framework */,
 				02B6B3C828E1E68100232911 /* Core.framework */,
 				E5E795BD160CDA7D9C120DE6 /* Pods_App_Course.framework */,

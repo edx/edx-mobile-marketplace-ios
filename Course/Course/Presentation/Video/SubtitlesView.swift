@@ -8,6 +8,7 @@
 import SwiftUI
 import Core
 import Theme
+import Combine
 
 public struct Subtitle {
     var id: Int
