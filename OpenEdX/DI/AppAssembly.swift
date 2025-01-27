@@ -193,6 +193,10 @@ class AppAssembly: Assembly {
             )
         }.inObjectScope(.container)
         
+        container.register(IAPManager.self) { r in
+            IAPManager(iapService: r.resolve(PluginManager.self)!.iAPService)
+        }.inObjectScope(.container)
+        
         container.register(CalendarManagerProtocol.self) { @MainActor r in
             CalendarManager(
                 persistence: r.resolve(ProfilePersistenceProtocol.self)!,

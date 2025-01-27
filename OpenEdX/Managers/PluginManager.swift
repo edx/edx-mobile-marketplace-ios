@@ -7,12 +7,14 @@
 
 import Foundation
 import OEXFoundation
+import EDXIAPService
 
 public class PluginManager {
     
     private(set) var analyticsServices: [AnalyticsService] = []
     private(set) var pushNotificationsProviders: [PushNotificationsProvider] = []
     private(set) var pushNotificationsListeners: [PushNotificationsListener] = []
+    private(set) var iAPService: EDXIAPService?
     
     public init() {}
     
@@ -26,5 +28,9 @@ public class PluginManager {
     ) {
         pushNotificationsProviders.append(pushNotificationsProvider)
         pushNotificationsListeners.append(pushNotificationsListener)
+    }
+    
+    func setIAPService(_ iAPService: EDXIAPService) {
+        self.iAPService = iAPService
     }
 }

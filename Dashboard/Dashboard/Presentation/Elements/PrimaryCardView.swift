@@ -288,6 +288,7 @@ public struct PrimaryCardView: View {
                     .font(Theme.Fonts.labelMedium)
                     .foregroundStyle(Theme.Colors.textSecondaryLight)
             }
+            Container.shared.resolve(IAPManager.self)!.testView()
         }
         .padding(.top, 10)
         .padding(.horizontal, 12)
