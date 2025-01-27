@@ -3452,6 +3452,22 @@ open class NotificationsInteractorProtocolMock: NotificationsInteractorProtocol,
 		return __value
     }
 
+    open func getAllNotifications(page: Int) throws -> Notifications {
+        addInvocation(.m_getAllNotifications__page_page(Parameter<Int>.value(`page`)))
+		let perform = methodPerformValue(.m_getAllNotifications__page_page(Parameter<Int>.value(`page`))) as? (Int) -> Void
+		perform?(`page`)
+		var __value: Notifications
+		do {
+		    __value = try methodReturnValue(.m_getAllNotifications__page_page(Parameter<Int>.value(`page`))).casted()
+		} catch MockError.notStubed {
+			onFatalFailure("Stub return value not specified for getAllNotifications(page: Int). Use given")
+			Failure("Stub return value not specified for getAllNotifications(page: Int). Use given")
+		} catch {
+		    throw error
+		}
+		return __value
+    }
+
     open func getNotificationsPreferences() throws -> NotificationsPreferences {
         addInvocation(.m_getNotificationsPreferences)
 		let perform = methodPerformValue(.m_getNotificationsPreferences) as? () -> Void
@@ -3535,6 +3551,7 @@ open class NotificationsInteractorProtocolMock: NotificationsInteractorProtocol,
 
     fileprivate enum MethodType {
         case m_getNotificationsCount
+        case m_getAllNotifications__page_page(Parameter<Int>)
         case m_getNotificationsPreferences
         case m_updateNotificationsPreferences__value_value(Parameter<Bool>)
         case m_markNotificationsAsSeen
@@ -3544,6 +3561,11 @@ open class NotificationsInteractorProtocolMock: NotificationsInteractorProtocol,
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
             case (.m_getNotificationsCount, .m_getNotificationsCount): return .match
+
+            case (.m_getAllNotifications__page_page(let lhsPage), .m_getAllNotifications__page_page(let rhsPage)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPage, rhs: rhsPage, with: matcher), lhsPage, rhsPage, "page"))
+				return Matcher.ComparisonResult(results)
 
             case (.m_getNotificationsPreferences, .m_getNotificationsPreferences): return .match
 
@@ -3567,6 +3589,7 @@ open class NotificationsInteractorProtocolMock: NotificationsInteractorProtocol,
         func intValue() -> Int {
             switch self {
             case .m_getNotificationsCount: return 0
+            case let .m_getAllNotifications__page_page(p0): return p0.intValue
             case .m_getNotificationsPreferences: return 0
             case let .m_updateNotificationsPreferences__value_value(p0): return p0.intValue
             case .m_markNotificationsAsSeen: return 0
@@ -3577,6 +3600,7 @@ open class NotificationsInteractorProtocolMock: NotificationsInteractorProtocol,
         func assertionName() -> String {
             switch self {
             case .m_getNotificationsCount: return ".getNotificationsCount()"
+            case .m_getAllNotifications__page_page: return ".getAllNotifications(page:)"
             case .m_getNotificationsPreferences: return ".getNotificationsPreferences()"
             case .m_updateNotificationsPreferences__value_value: return ".updateNotificationsPreferences(value:)"
             case .m_markNotificationsAsSeen: return ".markNotificationsAsSeen()"
@@ -3597,6 +3621,9 @@ open class NotificationsInteractorProtocolMock: NotificationsInteractorProtocol,
 
         public static func getNotificationsCount(willReturn: NotificationsCount...) -> MethodStub {
             return Given(method: .m_getNotificationsCount, products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func getAllNotifications(page: Parameter<Int>, willReturn: Notifications...) -> MethodStub {
+            return Given(method: .m_getAllNotifications__page_page(`page`), products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
         public static func getNotificationsPreferences(willReturn: NotificationsPreferences...) -> MethodStub {
             return Given(method: .m_getNotificationsPreferences, products: willReturn.map({ StubProduct.return($0 as Any) }))
@@ -3620,6 +3647,16 @@ open class NotificationsInteractorProtocolMock: NotificationsInteractorProtocol,
             let willThrow: [Error] = []
 			let given: Given = { return Given(method: .m_getNotificationsCount, products: willThrow.map({ StubProduct.throw($0) })) }()
 			let stubber = given.stubThrows(for: (NotificationsCount).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func getAllNotifications(page: Parameter<Int>, willThrow: Error...) -> MethodStub {
+            return Given(method: .m_getAllNotifications__page_page(`page`), products: willThrow.map({ StubProduct.throw($0) }))
+        }
+        public static func getAllNotifications(page: Parameter<Int>, willProduce: (StubberThrows<Notifications>) -> Void) -> MethodStub {
+            let willThrow: [Error] = []
+			let given: Given = { return Given(method: .m_getAllNotifications__page_page(`page`), products: willThrow.map({ StubProduct.throw($0) })) }()
+			let stubber = given.stubThrows(for: (Notifications).self)
 			willProduce(stubber)
 			return given
         }
@@ -3679,6 +3716,7 @@ open class NotificationsInteractorProtocolMock: NotificationsInteractorProtocol,
         fileprivate var method: MethodType
 
         public static func getNotificationsCount() -> Verify { return Verify(method: .m_getNotificationsCount)}
+        public static func getAllNotifications(page: Parameter<Int>) -> Verify { return Verify(method: .m_getAllNotifications__page_page(`page`))}
         public static func getNotificationsPreferences() -> Verify { return Verify(method: .m_getNotificationsPreferences)}
         public static func updateNotificationsPreferences(value: Parameter<Bool>) -> Verify { return Verify(method: .m_updateNotificationsPreferences__value_value(`value`))}
         public static func markNotificationsAsSeen() -> Verify { return Verify(method: .m_markNotificationsAsSeen)}
@@ -3692,6 +3730,9 @@ open class NotificationsInteractorProtocolMock: NotificationsInteractorProtocol,
 
         public static func getNotificationsCount(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_getNotificationsCount, performs: perform)
+        }
+        public static func getAllNotifications(page: Parameter<Int>, perform: @escaping (Int) -> Void) -> Perform {
+            return Perform(method: .m_getAllNotifications__page_page(`page`), performs: perform)
         }
         public static func getNotificationsPreferences(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_getNotificationsPreferences, performs: perform)

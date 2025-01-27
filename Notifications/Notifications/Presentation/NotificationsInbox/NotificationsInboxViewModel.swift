@@ -10,7 +10,7 @@ import Core
 import SwiftUI
 
 public class NotificationsInboxViewModel: ObservableObject {
-    
+    @Published private(set) var menus: [NotificationMenu] = NotificationMenu.allCases
     @Published private(set) var fetchInProgress = false
     @Published private(set) var refresh = false
     @Published var isShowProgress = true
@@ -43,10 +43,36 @@ public class NotificationsInboxViewModel: ObservableObject {
         self.router = router
     }
     
+    func menuSelected(_ menu: NotificationMenu) {
+        switch menu {
+        case .markAllAsRead:
+            Task {
+                await markAllNotificationsAsRead()
+            }
+        case .settings:
+            router.showPushSettings()
+        }
+    }
+    
     @MainActor
     func markNotificationAsRead(notificationId: String) async {
         do {
             _ = try await interactor.markNotificationAsRead(notificationId: notificationId)
+        } catch {
+            handleFetchError(error)
+        }
+    }
+    
+    @MainActor
+    func markAllNotificationsAsRead() async {
+        do {
+            _ = try await interactor.markAllNotificationsAsRead()
+            
+            flatNotifications = flatNotifications.map { item in
+                var readItem = item
+                readItem.lastRead = Date()
+                return readItem
+            }
         } catch {
             handleFetchError(error)
         }
@@ -157,6 +183,20 @@ public class NotificationsInboxViewModel: ObservableObject {
     private func updateFlatNotification(item: Notification) {
         if let index = flatNotifications.firstIndex(where: { $0.id == item.id }) {
             flatNotifications[index] = item
+        }
+    }
+}
+
+enum NotificationMenu: CaseIterable {
+    case markAllAsRead
+    case settings
+    
+    var localizedValue: String {
+        switch self {
+        case .markAllAsRead:
+            return NotificationsLocalization.Menu.markAllAsRead
+        case .settings:
+            return NotificationsLocalization.Menu.settings
         }
     }
 }

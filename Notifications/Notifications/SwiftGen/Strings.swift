@@ -34,6 +34,12 @@ public enum NotificationsLocalization {
     /// This Week
     public static let thisWeek = NotificationsLocalization.tr("Localizable", "INBOX.THIS_WEEK", fallback: "This Week")
   }
+  public enum Menu {
+    /// Mark all as read
+    public static let markAllAsRead = NotificationsLocalization.tr("Localizable", "MENU.MARK_ALL_AS_READ", fallback: "Mark all as read")
+    /// Settings
+    public static let settings = NotificationsLocalization.tr("Localizable", "MENU.SETTINGS", fallback: "Settings")
+  }
   public enum Settings {
     /// Notifications for course discussions you post, comment, or follow.
     public static let preferenceDescription = NotificationsLocalization.tr("Localizable", "SETTINGS.PREFERENCE_DESCRIPTION", fallback: "Notifications for course discussions you post, comment, or follow.")
