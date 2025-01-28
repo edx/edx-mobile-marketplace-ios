@@ -19,3 +19,5 @@
 "INBOX.RECENT" = "Recent";
 "INBOX.THIS_WEEK" = "This Week";
 "INBOX.OLDER" = "Older";
+"MENU.MARK_ALL_AS_READ" = "Mark all as read";
+"MENU.SETTINGS" = "Settings";

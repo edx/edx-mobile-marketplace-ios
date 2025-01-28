@@ -24,8 +24,12 @@ public struct NotificationsInboxView: View {
                 ZStack {
                     HStack {
                         Spacer()
-                        Button {
-                            // Open three dots menu
+                        Menu {
+                            ForEach(viewModel.menus, id: \.self) { menu in
+                                Button(menu.localizedValue) {
+                                    viewModel.menuSelected(menu)
+                                }
+                            }
                         } label: {
                             NotificationsAssets.threeDotsMenu.swiftUIImage
                                 .padding(.top, 3)
