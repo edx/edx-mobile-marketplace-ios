@@ -116,7 +116,8 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
                                                             showDates: false,
                                                             lastVisitedBlockID: primary.lastVisitedBlockID
                                                         )
-                                                    }
+                                                    },
+                                                    iapService: viewModel.iapService
                                                 )
                                             }
                                             if !enrollments.courses.isEmpty {
@@ -339,7 +340,8 @@ struct PrimaryCourseDashboardView_Previews: PreviewProvider {
             connectivity: Connectivity(),
             analytics: DashboardAnalyticsMock(),
             config: ConfigMock(),
-            storage: CoreStorageMock()
+            storage: CoreStorageMock(),
+            iapService: IAPCommonService()
         )
         
         PrimaryCourseDashboardView(

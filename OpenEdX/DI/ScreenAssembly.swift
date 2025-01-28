@@ -218,7 +218,8 @@ class ScreenAssembly: Assembly {
                 connectivity: r.resolve(ConnectivityProtocol.self)!,
                 analytics: r.resolve(DashboardAnalytics.self)!,
                 config: r.resolve(ConfigProtocol.self)!,
-                storage: r.resolve(CoreStorage.self)!
+                storage: r.resolve(CoreStorage.self)!,
+                iapService: r.resolve(PluginManager.self)!.iapService
             )
         }
         

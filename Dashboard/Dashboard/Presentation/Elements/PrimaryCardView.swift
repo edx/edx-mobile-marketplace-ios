@@ -9,6 +9,8 @@ import SwiftUI
 import Kingfisher
 import Theme
 import Core
+import OEXFoundation
+import EDXIAPService
 
 public struct PrimaryCardView: View {
     
@@ -27,6 +29,7 @@ public struct PrimaryCardView: View {
     private var assignmentAction: (String?) -> Void
     private var openCourseAction: () -> Void
     private var resumeAction: () -> Void
+    private let iapService: IAPServiceProtocol
     @Environment(\.isHorizontal) var isHorizontal
     
     public init(
@@ -44,7 +47,8 @@ public struct PrimaryCardView: View {
         useRelativeDates: Bool,
         assignmentAction: @escaping (String?) -> Void,
         openCourseAction: @escaping () -> Void,
-        resumeAction: @escaping () -> Void
+        resumeAction: @escaping () -> Void,
+        iapService: IAPServiceProtocol
     ) {
         self.courseName = courseName
         self.org = org
@@ -61,6 +65,7 @@ public struct PrimaryCardView: View {
         self.assignmentAction = assignmentAction
         self.openCourseAction = openCourseAction
         self.resumeAction = resumeAction
+        self.iapService = iapService
     }
     
     public var body: some View {
@@ -288,7 +293,9 @@ public struct PrimaryCardView: View {
                     .font(Theme.Fonts.labelMedium)
                     .foregroundStyle(Theme.Colors.textSecondaryLight)
             }
-            Container.shared.resolve(IAPManager.self)!.testView()
+            if let uiView = iapService.someTestView() {
+                ViewRepresentable(uiView: uiView)
+            }
         }
         .padding(.top, 10)
         .padding(.horizontal, 12)
@@ -326,7 +333,8 @@ struct PrimaryCardView_Previews: PreviewProvider {
                 useRelativeDates: false,
                 assignmentAction: { _ in },
                 openCourseAction: {},
-                resumeAction: {}
+                resumeAction: {},
+                iapService: IAPCommonService()
             )
             .loadFonts()
         }

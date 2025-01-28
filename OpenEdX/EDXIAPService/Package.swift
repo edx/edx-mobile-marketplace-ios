@@ -12,7 +12,7 @@ let package = Package(
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "EDXIAPService",
-            targets: ["EDXIAPService"]),
+            targets: ["EDXIAPService"])
     ],
     dependencies: [
         .package(url: "https://github.com/rnr/openedx-app-foundation-ios", branch: "anton/iap-experiments")
@@ -29,6 +29,6 @@ let package = Package(
         .testTarget(
             name: "EDXIAPServiceTests",
             dependencies: ["EDXIAPService"]
-        ),
+        )
     ]
 )

@@ -20,6 +20,7 @@ import FirebaseMessaging
 import Theme
 import BackgroundTasks
 import EDXMobileAnalytics
+import EDXIAPService
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -172,6 +173,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 pushNotificationsListener: FCMListener(deepLinkManager: deepLinkManager)
             )
         }
+        // - IAP
+        pluginManager.setIAPService(EDXIAPService())
     }
 
     private func initDI() {

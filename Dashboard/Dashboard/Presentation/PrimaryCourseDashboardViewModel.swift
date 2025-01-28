@@ -9,6 +9,7 @@ import Foundation
 import Core
 import SwiftUI
 import Combine
+import OEXFoundation
 
 @MainActor
 public class PrimaryCourseDashboardViewModel: ObservableObject {
@@ -36,19 +37,22 @@ public class PrimaryCourseDashboardViewModel: ObservableObject {
 
     private let ipadPageSize = 7
     private let iphonePageSize = 5
+    let iapService: IAPServiceProtocol
     
     public init(
         interactor: DashboardInteractorProtocol,
         connectivity: ConnectivityProtocol,
         analytics: DashboardAnalytics,
         config: ConfigProtocol,
-        storage: CoreStorage
+        storage: CoreStorage,
+        iapService: IAPServiceProtocol
     ) {
         self.interactor = interactor
         self.connectivity = connectivity
         self.analytics = analytics
         self.config = config
         self.storage = storage
+        self.iapService = iapService
         
         let enrollmentPublisher = NotificationCenter.default.publisher(for: .onCourseEnrolled)
         let completionPublisher = NotificationCenter.default.publisher(for: .onblockCompletionRequested)
