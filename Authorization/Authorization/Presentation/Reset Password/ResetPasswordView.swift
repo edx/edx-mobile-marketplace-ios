@@ -15,7 +15,7 @@ public struct ResetPasswordView: View {
     
     @State private var isRecovered: Bool = false
     
-    @Environment (\.isHorizontal) private var isHorizontal
+    @Environment(\.isHorizontal) private var isHorizontal
     
     @ObservedObject
     private var viewModel: ResetPasswordViewModel

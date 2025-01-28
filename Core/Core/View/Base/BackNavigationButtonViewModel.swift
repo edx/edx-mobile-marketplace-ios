@@ -13,6 +13,19 @@ public protocol BackNavigationProtocol {
     func navigateTo(item: BackNavigationMenuItem)
 }
 
+// Mark - For testing and SwiftUI preview
+#if DEBUG
+final class BackNavigationMock: BackNavigationProtocol {
+    func getBackMenuItems() -> [BackNavigationMenuItem] {
+        return [
+            BackNavigationMenuItem(id: 0, title: "Home")
+        ]
+    }
+    
+    func navigateTo(item: BackNavigationMenuItem) { }
+}
+#endif
+
 public struct BackNavigationMenuItem: Identifiable {
     public var id: Int
     public var title: String
@@ -27,8 +40,18 @@ class BackNavigationButtonViewModel: ObservableObject {
     private let helper: BackNavigationProtocol
     @Published var items: [BackNavigationMenuItem] = []
     
-    init() {
-        self.helper = Container.shared.resolve(BackNavigationProtocol.self)!
+    static var defaultBackNavigation: BackNavigationProtocol {
+        #if DEBUG
+        if AppEnvironment.isPreview {
+            return BackNavigationMock()
+        }
+        #endif
+        
+        return Container.shared.resolve(BackNavigationProtocol.self)!
+    }
+    
+    init(backNavigation: BackNavigationProtocol = defaultBackNavigation) {
+        self.helper = backNavigation
     }
     
     func loadItems() {

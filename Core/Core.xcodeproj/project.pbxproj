@@ -180,6 +180,7 @@
 		14DE13DA2BDF7E5E0059168F /* IAPConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DE13D92BDF7E5E0059168F /* IAPConfig.swift */; };
 		14DE13DC2BDF83350059168F /* ServerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DE13DB2BDF83350059168F /* ServerConfig.swift */; };
 		14F8E66B2C0F4D1200E4EF69 /* RestoreInProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F8E66A2C0F4D1200E4EF69 /* RestoreInProgressView.swift */; };
+		9499F1262D41375B00558D59 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9499F1252D41375B00558D59 /* AppEnvironment.swift */; };
 		973CCD7B2D3660D100949756 /* HTML2TextParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CCD792D3660D100949756 /* HTML2TextParser.swift */; };
 		973CCD7C2D3660D100949756 /* AttributedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CCD782D3660D100949756 /* AttributedText.swift */; };
 		9784D47E2BF7762800AFEFFF /* FullScreenErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9784D47D2BF7762800AFEFFF /* FullScreenErrorView.swift */; };
@@ -414,6 +415,7 @@
 		349B90CD6579F7B8D257E515 /* Pods_App_Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_App_Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B74C6685E416657F3C5F5A8 /* Pods-App-Core.releaseprod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Core.releaseprod.xcconfig"; path = "Target Support Files/Pods-App-Core/Pods-App-Core.releaseprod.xcconfig"; sourceTree = "<group>"; };
 		60153262DBC2F9E660D7E11B /* Pods-App-Core.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Core.release.xcconfig"; path = "Target Support Files/Pods-App-Core/Pods-App-Core.release.xcconfig"; sourceTree = "<group>"; };
+		9499F1252D41375B00558D59 /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
 		973CCD782D3660D100949756 /* AttributedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedText.swift; sourceTree = "<group>"; };
 		973CCD792D3660D100949756 /* HTML2TextParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTML2TextParser.swift; sourceTree = "<group>"; };
 		9784D47D2BF7762800AFEFFF /* FullScreenErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullScreenErrorView.swift; sourceTree = "<group>"; };
@@ -701,6 +703,7 @@
 				14DE13D82BDF7E4E0059168F /* ServerConfig */,
 				DBF6F2422B014AF30098414B /* Config */,
 				CFC84955299FAC4D0055E497 /* Combine */,
+				9499F1252D41375B00558D59 /* AppEnvironment.swift */,
 				0770DE1828D0847D006D8A5D /* BaseRouter.swift */,
 				0231CDBD2922422D00032416 /* CSSInjector.swift */,
 				02280F5A294B4E6F0032823A /* Connectivity.swift */,
@@ -1324,6 +1327,7 @@
 				062C69AD2C198323002BD311 /* UpgradeInfoCellView.swift in Sources */,
 				021D924828DC860C00ACC565 /* Data_UserProfile.swift in Sources */,
 				BA593F1C2AF8E498009ADB51 /* ScrollSlidingTabBar.swift in Sources */,
+				9499F1262D41375B00558D59 /* AppEnvironment.swift in Sources */,
 				070019AC28F6FD0100D5FC78 /* CourseDetailBlock.swift in Sources */,
 				BA593F1E2AF8E4A0009ADB51 /* FrameReader.swift in Sources */,
 				0727877028D23411002E9142 /* Config.swift in Sources */,
