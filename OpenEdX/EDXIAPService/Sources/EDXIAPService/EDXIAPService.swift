@@ -2,12 +2,9 @@
 // https://docs.swift.org/swift-book
 
 import SwiftUI
+import OEXFoundation
 
-public protocol EDXIAPServiceProtocol {
-    func someTestView() -> any View
-}
-
-public class EDXIAPService: EDXIAPServiceProtocol {
+public class EDXIAPService: IAPServiceProtocol {
     public func someTestView() -> any View {
         Text("Hello, IAP Plugin!")
     }
