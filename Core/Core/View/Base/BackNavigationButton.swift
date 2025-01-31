@@ -9,6 +9,30 @@ import SwiftUI
 import Theme
 
 class BackButton: UIButton {
+    var directionalInsets: NSDirectionalEdgeInsets = .zero {
+        didSet {
+            contentEdgeInsets = resolvedInsets
+        }
+    }
+    
+    private var resolvedInsets: UIEdgeInsets {
+        if effectiveUserInterfaceLayoutDirection == .rightToLeft {
+            return UIEdgeInsets(
+                top: directionalInsets.top,
+                left: directionalInsets.trailing,
+                bottom: directionalInsets.bottom,
+                right: directionalInsets.leading
+            )
+        }
+        
+        return UIEdgeInsets(
+            top: directionalInsets.top,
+            left: directionalInsets.leading,
+            bottom: directionalInsets.bottom,
+            right: directionalInsets.trailing
+        )
+    }
+    
     override func menuAttachmentPoint(for configuration: UIContextMenuConfiguration) -> CGPoint {
         return .zero
     }
@@ -17,19 +41,13 @@ class BackButton: UIButton {
 public struct BackNavigationButtonRepresentable: UIViewRepresentable {
     @ObservedObject var viewModel: BackNavigationButtonViewModel
     var action: (() -> Void)?
+    var insets: EdgeInsets?
     var color: Color
 
-    init(action: (() -> Void)? = nil, color: Color, viewModel: BackNavigationButtonViewModel) {
-        self.viewModel = viewModel
-        self.action = action
-        self.color = color
-    }
-    
     public func makeUIView(context: Context) -> UIButton {
-        let button = BackButton(type: .custom)
+        let button = BackButton(type: .system)
         let image = CoreAssets.arrowLeft.image.withRenderingMode(.alwaysTemplate)
         button.setImage(image, for: .normal)
-        button.tintColor = UIColor(color)
         button.contentHorizontalAlignment = .leading
         button.addTarget(context.coordinator, action: #selector(Coordinator.buttonAction), for: .touchUpInside)
         button.accessibilityIdentifier = "back_button"
@@ -37,6 +55,16 @@ public struct BackNavigationButtonRepresentable: UIViewRepresentable {
     }
 
     public func updateUIView(_ button: UIButton, context: Context) {
+        guard let button = button as? BackButton else { return }
+        
+        button.tintColor = UIColor(color)
+        
+        if let insets {
+            button.directionalInsets = NSDirectionalEdgeInsets(insets)
+        } else {
+            button.directionalInsets = .zero
+        }
+        
         var actions: [UIAction] = []
         for item in viewModel.items {
             let action = UIAction(title: item.title) {[weak viewModel] _ in
@@ -66,20 +94,28 @@ public struct BackNavigationButtonRepresentable: UIViewRepresentable {
 public struct BackNavigationButton: View {
     @StateObject var viewModel = BackNavigationButtonViewModel()
     private let color: Color
+    private let insets: EdgeInsets?
     private let action: (() -> Void)?
     
     public init(
         color: Color = Theme.Colors.accentXColor,
+        insets: EdgeInsets? = nil,
         action: (() -> Void)? = nil
     ) {
         self.color = color
+        self.insets = insets
         self.action = action
     }
     
     public var body: some View {
-        BackNavigationButtonRepresentable(action: action, color: color, viewModel: viewModel)
-            .accessibilityIdentifier("back_button")
-            .accessibilityLabel(CoreLocalization.back)
+        BackNavigationButtonRepresentable(
+            viewModel: viewModel,
+            action: action,
+            insets: insets,
+            color: color
+        )
+        .accessibilityIdentifier("back_button")
+        .accessibilityLabel(CoreLocalization.back)
         .onAppear {
             viewModel.loadItems()
         }
