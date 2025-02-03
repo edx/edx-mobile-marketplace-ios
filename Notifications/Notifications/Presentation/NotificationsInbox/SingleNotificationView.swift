@@ -74,7 +74,8 @@ struct SingleNotificationView: View {
         viewModel: NotificationsInboxViewModel(
             interactor: NotificationsInteractor.mock,
             analytics: NotificationsAnalyticsMock(),
-            router: NotificationsRouterMock()
+            router: NotificationsRouterMock(),
+            connectivity: Connectivity()
         ),
         groupKey: NotificationGroup.recent,
         notification: Notification(

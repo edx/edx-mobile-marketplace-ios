@@ -23,6 +23,7 @@ public typealias AssetImageTypeAlias = ImageAsset.Image
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 public enum NotificationsAssets {
   public static let discussions = ImageAsset(name: "discussions")
+  public static let noNotifications = ImageAsset(name: "noNotifications")
   public static let threeDotsMenu = ImageAsset(name: "three_dots_menu")
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
