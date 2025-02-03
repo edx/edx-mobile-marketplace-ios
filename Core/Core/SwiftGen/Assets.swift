@@ -92,6 +92,8 @@ public enum CoreAssets {
   public static let logOut = ImageAsset(name: "logOut")
   public static let noAvatar = ImageAsset(name: "noAvatar")
   public static let removePhoto = ImageAsset(name: "removePhoto")
+  public static let noInternet = ImageAsset(name: "noInternet")
+  public static let serverError = ImageAsset(name: "serverError")
   public static let iconApple = ImageAsset(name: "icon_apple")
   public static let iconFacebook = ImageAsset(name: "icon_facebook")
   public static let iconGoogleWhite = ImageAsset(name: "icon_google_white")

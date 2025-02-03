@@ -183,6 +183,7 @@
 		942A984E2D4B598C00DD8BBC /* PaginationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942A984D2D4B598C00DD8BBC /* PaginationManager.swift */; };
 		942A98552D4BD91700DD8BBC /* PaginationTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942A98542D4BD91700DD8BBC /* PaginationTask.swift */; };
 		942A98572D4BD92B00DD8BBC /* PaginationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942A98562D4BD92B00DD8BBC /* PaginationResult.swift */; };
+		942A98592D4CAF5200DD8BBC /* ScreenStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942A98582D4CAF5200DD8BBC /* ScreenStateView.swift */; };
 		9499F1262D41375B00558D59 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9499F1252D41375B00558D59 /* AppEnvironment.swift */; };
 		973CCD7B2D3660D100949756 /* HTML2TextParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CCD792D3660D100949756 /* HTML2TextParser.swift */; };
 		973CCD7C2D3660D100949756 /* AttributedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CCD782D3660D100949756 /* AttributedText.swift */; };
@@ -421,6 +422,7 @@
 		942A984D2D4B598C00DD8BBC /* PaginationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationManager.swift; sourceTree = "<group>"; };
 		942A98542D4BD91700DD8BBC /* PaginationTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationTask.swift; sourceTree = "<group>"; };
 		942A98562D4BD92B00DD8BBC /* PaginationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationResult.swift; sourceTree = "<group>"; };
+		942A98582D4CAF5200DD8BBC /* ScreenStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenStateView.swift; sourceTree = "<group>"; };
 		9499F1252D41375B00558D59 /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
 		973CCD782D3660D100949756 /* AttributedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedText.swift; sourceTree = "<group>"; };
 		973CCD792D3660D100949756 /* HTML2TextParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTML2TextParser.swift; sourceTree = "<group>"; };
@@ -902,6 +904,7 @@
 				020D72F32BB76DFE00773319 /* VisualEffectView.swift */,
 				06DEA4A22BBD66A700110D20 /* BackNavigationButton.swift */,
 				06DEA4A42BBD66D700110D20 /* BackNavigationButtonViewModel.swift */,
+				942A98582D4CAF5200DD8BBC /* ScreenStateView.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -1399,6 +1402,7 @@
 				14A832682BDA8B6000E5654D /* UIAlertController+BlockActions.swift in Sources */,
 				A595689B2B6173DF00ED4F90 /* BranchConfig.swift in Sources */,
 				0770DE2528D08FBA006D8A5D /* CoreStorage.swift in Sources */,
+				942A98592D4CAF5200DD8BBC /* ScreenStateView.swift in Sources */,
 				141DB4662BF4A1F900BDA069 /* EmailTemplates.swift in Sources */,
 				BA8FA6612AD5974300EA029A /* AppleAuthProvider.swift in Sources */,
 				BA8FA6702AD59EA300EA029A /* MicrosoftAuthProvider.swift in Sources */,
