@@ -15,13 +15,20 @@ public struct ScreenStateView: View {
     }
     
     public struct Button {
-        let type: UnitButtonType
+        let title: String
         let action: () -> Void
+        
+        private static func make(
+            _ type: UnitButtonType,
+            action: @escaping () -> Void
+        ) -> Button {
+            return Button(title: type.stringValue(), action: action)
+        }
         
         public static func reload(
             _ action: @escaping () -> Void
         ) -> Button {
-            return Button(type: .reload, action: action)
+            return make(.reload, action: action)
         }
     }
     
@@ -84,11 +91,14 @@ public struct ScreenStateView: View {
                 .multilineTextAlignment(.center)
             
             if let button {
-                UnitButtonView(
-                    type: button.type,
-                    action: button.action
+                StyledButton(
+                    button.title,
+                    action: button.action,
+                    color: Theme.Colors.accentColor,
+                    textColor: Theme.Colors.primaryButtonTextColor,
+                    horizontalPadding: true
                 )
-                .padding(.top, 4)
+                .fixedSize()
             }
             
             Spacer()
