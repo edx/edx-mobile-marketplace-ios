@@ -7,6 +7,10 @@
 
 import Foundation
 
+private final class TaskHolder<Item> {
+    var task: PaginationTask<Item>!
+}
+
 /// A structure representing an ongoing pagination task.
 public struct PaginationTask<Item>: Equatable {
     typealias Operation = (PaginationTask<Item>) async throws -> [Item]
@@ -16,13 +20,17 @@ public struct PaginationTask<Item>: Equatable {
     private init(task: Task<[Item], Error>) {
         self.task = task
     }
-
+    
+    @MainActor
     static func create(operation: @escaping Operation) -> PaginationTask<Item> {
-        var paginationTask: PaginationTask<Item>!
-        paginationTask = PaginationTask(
-            task: Task { try await operation(paginationTask) }
+        let taskHolder = TaskHolder<Item>()
+        taskHolder.task = PaginationTask(
+            task: Task { @MainActor in
+                try await operation(taskHolder.task)
+            }
         )
-        return paginationTask
+        
+        return taskHolder.task
     }
     
     /// Cancels the ongoing pagination task.
