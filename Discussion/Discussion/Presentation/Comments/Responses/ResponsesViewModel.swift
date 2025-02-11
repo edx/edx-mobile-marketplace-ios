@@ -10,7 +10,7 @@ import SwiftUI
 import Core
 import Combine
 
-public class ResponsesViewModel: BaseResponsesViewModel, ObservableObject {
+public final class ResponsesViewModel: BaseResponsesViewModel, ObservableObject {
     
     @Published var scrollTrigger: Bool = false
     private let threadStateSubject: CurrentValueSubject<ThreadPostState?, Never>
@@ -23,13 +23,14 @@ public class ResponsesViewModel: BaseResponsesViewModel, ObservableObject {
         interactor: DiscussionInteractorProtocol,
         router: DiscussionRouter,
         config: ConfigProtocol,
+        storage: CoreStorage,
         threadStateSubject: CurrentValueSubject<ThreadPostState?, Never>,
         analytics: DiscussionAnalytics?
     ) {
         self.courseID = courseID
         self.threadStateSubject = threadStateSubject
         self.analytics = analytics
-        super.init(interactor: interactor, router: router, config: config, analytics: analytics)
+        super.init(interactor: interactor, router: router, config: config, storage: storage, analytics: analytics)
     }
 
     func generateCommentsResponses(comments: [UserComment], parentComment: Post) -> Post? {

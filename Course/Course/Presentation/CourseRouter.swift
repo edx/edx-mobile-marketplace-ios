@@ -8,6 +8,7 @@
 import Foundation
 import Core
 
+@MainActor
 public protocol CourseRouter: BaseRouter {
     
     func presentAppReview()
@@ -55,13 +56,8 @@ public protocol CourseRouter: BaseRouter {
         courseStructure: CourseStructure,
         blockLink: String
     )
-
-    func showDownloads(
-        downloads: [DownloadDataTask],
-        manager: DownloadManagerProtocol
-    )
     
-    func showTabScreen(tab: MainTab)
+    func showDatesAndCalendar()
     
     func showGatedContentError(url: String)
 }
@@ -118,12 +114,7 @@ public class CourseRouterMock: BaseRouterMock, CourseRouter {
         blockLink: String
     ) {}
 
-    public func showDownloads(
-        downloads: [Core.DownloadDataTask],
-        manager: Core.DownloadManagerProtocol
-    ) {}
-    
-    public func showTabScreen(tab: MainTab) {}
+    public func showDatesAndCalendar() {}
     
     public func showGatedContentError(url: String) {}
 }

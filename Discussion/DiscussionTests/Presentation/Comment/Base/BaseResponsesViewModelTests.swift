@@ -12,6 +12,7 @@ import XCTest
 import Alamofire
 import SwiftUI
 
+@MainActor
 final class BaseResponsesViewModelTests: XCTestCase {
     
     let post = Post(authorName: "1",
@@ -50,6 +51,26 @@ final class BaseResponsesViewModelTests: XCTestCase {
                     abuseFlagged: false,
                     closed: false)
     
+    var interactor: DiscussionInteractorProtocolMock!
+    var router: DiscussionRouterMock!
+    var config: ConfigMock!
+    var viewModel: BaseResponsesViewModel!
+    
+    override func setUp() async throws {
+        try await super.setUp()
+        
+        interactor = DiscussionInteractorProtocolMock()
+        router = DiscussionRouterMock()
+        config = ConfigMock()
+        viewModel = BaseResponsesViewModel(
+            interactor: interactor,
+            router: router,
+            config: config,
+            storage: CoreStorageMock(),
+            analytics: DiscussionAnalyticsMock()
+        )
+    }
+    
     func testVoteThreadSuccess() async throws {
         let interactor = DiscussionInteractorProtocolMock()
         let router = DiscussionRouterMock()
@@ -58,6 +79,7 @@ final class BaseResponsesViewModelTests: XCTestCase {
             interactor: interactor,
             router: router,
             config: config,
+            storage: CoreStorageMock(),
             analytics: DiscussionAnalyticsMock()
         )
         var result = false
@@ -85,6 +107,7 @@ final class BaseResponsesViewModelTests: XCTestCase {
             interactor: interactor,
             router: router,
             config: config,
+            storage: CoreStorageMock(),
             analytics: DiscussionAnalyticsMock()
         )
 
@@ -114,6 +137,7 @@ final class BaseResponsesViewModelTests: XCTestCase {
             interactor: interactor,
             router: router,
             config: config,
+            storage: CoreStorageMock(),
             analytics: DiscussionAnalyticsMock()
         )
 
@@ -142,6 +166,7 @@ final class BaseResponsesViewModelTests: XCTestCase {
             interactor: interactor,
             router: router,
             config: config,
+            storage: CoreStorageMock(),
             analytics: DiscussionAnalyticsMock()
         )
 
@@ -172,6 +197,7 @@ final class BaseResponsesViewModelTests: XCTestCase {
             interactor: interactor,
             router: router,
             config: config,
+            storage: CoreStorageMock(),
             analytics: DiscussionAnalyticsMock()
         )
 
@@ -199,6 +225,7 @@ final class BaseResponsesViewModelTests: XCTestCase {
             interactor: interactor,
             router: router,
             config: config,
+            storage: CoreStorageMock(),
             analytics: DiscussionAnalyticsMock()
         )
 
@@ -224,6 +251,7 @@ final class BaseResponsesViewModelTests: XCTestCase {
             interactor: interactor,
             router: router,
             config: config,
+            storage: CoreStorageMock(),
             analytics: DiscussionAnalyticsMock()
         )
 
@@ -252,6 +280,7 @@ final class BaseResponsesViewModelTests: XCTestCase {
             interactor: interactor,
             router: router,
             config: config,
+            storage: CoreStorageMock(),
             analytics: DiscussionAnalyticsMock()
         )
 
@@ -280,6 +309,7 @@ final class BaseResponsesViewModelTests: XCTestCase {
             interactor: interactor,
             router: router,
             config: config,
+            storage: CoreStorageMock(),
             analytics: DiscussionAnalyticsMock()
         )
 
@@ -307,6 +337,7 @@ final class BaseResponsesViewModelTests: XCTestCase {
             interactor: interactor,
             router: router,
             config: config,
+            storage: CoreStorageMock(),
             analytics: DiscussionAnalyticsMock()
         )
 
@@ -332,6 +363,7 @@ final class BaseResponsesViewModelTests: XCTestCase {
             interactor: interactor,
             router: router,
             config: config,
+            storage: CoreStorageMock(),
             analytics: DiscussionAnalyticsMock()
         )
 
@@ -360,6 +392,7 @@ final class BaseResponsesViewModelTests: XCTestCase {
             interactor: interactor,
             router: router,
             config: config,
+            storage: CoreStorageMock(),
             analytics: DiscussionAnalyticsMock()
         )
 
@@ -387,6 +420,7 @@ final class BaseResponsesViewModelTests: XCTestCase {
             interactor: interactor,
             router: router,
             config: config,
+            storage: CoreStorageMock(),
             analytics: DiscussionAnalyticsMock()
         )
 
@@ -412,6 +446,7 @@ final class BaseResponsesViewModelTests: XCTestCase {
             interactor: interactor,
             router: router,
             config: config,
+            storage: CoreStorageMock(),
             analytics: DiscussionAnalyticsMock()
         )
         

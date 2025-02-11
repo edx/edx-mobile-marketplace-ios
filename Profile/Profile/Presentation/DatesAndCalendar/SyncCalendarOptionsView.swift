@@ -72,7 +72,7 @@ public struct SyncCalendarOptionsView: View {
                                     screenDimmed = true
                                     withAnimation(.bouncy(duration: 0.3)) {
                                         if viewModel.reconnectRequired {
-                                            viewModel.showCalendaAccessDenided = true
+                                            viewModel.showCalendaAccessDenied = true
                                         } else {
                                             viewModel.openChangeSyncView = true
                                         }
@@ -95,7 +95,7 @@ public struct SyncCalendarOptionsView: View {
                                 coursesToSync
                                     .padding(.bottom, 24)
                             }
-                           relativeDatesToggle
+                            RelativeDatesToggleView(useRelativeDates: $viewModel.profileStorage.useRelativeDates)
                         }
                         .padding(.horizontal, isHorizontal ? 48 : 0)
                         .frameLimit(width: proxy.size.width)
@@ -106,42 +106,84 @@ public struct SyncCalendarOptionsView: View {
                 .hideNavigationBar(true)
                 .navigationBarBackButtonHidden(true)
                 
-                // Error Alert if needed
-                if viewModel.showError {
-                    ErrorAlertView(errorMessage: $viewModel.errorMessage)
-                }
                 if screenDimmed {
                     Color.black.opacity(0.3)
                         .ignoresSafeArea()
                         .onTapGesture {
                             viewModel.openChangeSyncView = false
-                            viewModel.showCalendaAccessDenided = false
+                            viewModel.showCalendaAccessDenied = false
+                            viewModel.showDisableCalendarSync = false
+                            viewModel.courseCalendarSync = true
                             screenDimmed = false
+                            viewModel.calendarName = viewModel.oldCalendarName
+                            viewModel.colorSelection = viewModel.oldColorSelection
                         }
                 }
+                
+                // Error Alert if needed
+                if viewModel.showError {
+                    ErrorAlertView(errorMessage: $viewModel.errorMessage)
+                }
+                
                 if viewModel.openChangeSyncView {
                     NewCalendarView(
                         title: .changeSyncOptions,
                         viewModel: viewModel,
-                        beginSyncingTapped: {},
+                        beginSyncingTapped: {
+                            viewModel.openChangeSyncView = false
+                            screenDimmed = false
+                            
+                            guard viewModel.isInternetAvaliable else {
+                                viewModel.calendarName = viewModel.oldCalendarName
+                                viewModel.colorSelection = viewModel.oldColorSelection
+                                return
+                            }
+
+                            Task {
+                                await viewModel.deleteOldCalendarIfNeeded()
+                            }
+                        },
                         onCloseTapped: {
                             viewModel.openChangeSyncView = false
+                            screenDimmed = false
+                            viewModel.calendarName = viewModel.oldCalendarName
+                            viewModel.colorSelection = viewModel.oldColorSelection
+                        }
+                    )
+                    .transition(.move(edge: .bottom))
+                    .frame(alignment: .center)
+                } else if viewModel.showCalendaAccessDenied {
+                    CalendarDialogView(
+                        type: .calendarAccess,
+                        action: {
+                            viewModel.showCalendaAccessDenied = false
+                            screenDimmed = false
+                            viewModel.openAppSettings()
+                        },
+                        onCloseTapped: {
+                            viewModel.showCalendaAccessDenied = false
                             screenDimmed = false
                         }
                     )
                     .transition(.move(edge: .bottom))
                     .frame(alignment: .center)
-                } else if viewModel.showCalendaAccessDenided {
+                    .onAppear {
+                        screenDimmed = true
+                    }
+                } else if viewModel.showDisableCalendarSync {
                     CalendarDialogView(
-                        type: .calendarAccess,
+                        type: .disableCalendarSync(calendarName: viewModel.calendarName),
+                        calendarCircleColor: viewModel.colorSelection?.color,
+                        calendarName: viewModel.calendarName,
                         action: {
-                            viewModel.showCalendaAccessDenided = false
-                            screenDimmed = false
-                            viewModel.openAppSettings()
+                            Task {
+                               await viewModel.clearAllData()
+                            }
                         },
                         onCloseTapped: {
-                            viewModel.showCalendaAccessDenided = false
+                            viewModel.showDisableCalendarSync = false
                             screenDimmed = false
+                            viewModel.courseCalendarSync = true
                         }
                     )
                     .transition(.move(edge: .bottom))
@@ -150,6 +192,22 @@ public struct SyncCalendarOptionsView: View {
                 
             }
             .ignoresSafeArea(.all, edges: .horizontal)
+        }
+        .onFirstAppear {
+            Task {
+                await viewModel.fetchCourses()
+            }
+        }
+        .onChange(of: viewModel.courseCalendarSync) { sync in
+            if !sync {
+                screenDimmed = true
+            }
+        }
+        .onAppear {
+            viewModel.loadCalendarOptions()
+            Task {
+                await viewModel.deleteOrAddNewDatesIfNeeded()
+            }
         }
     }
     
@@ -175,6 +233,7 @@ public struct SyncCalendarOptionsView: View {
         VStack(alignment: .leading, spacing: 27) {
             Button(action: {
                 //                viewModel.trackProfileVideoSettingsClicked()
+                guard viewModel.isInternetAvaliable else { return }
                 viewModel.router.showCoursesToSync()
             },
                    label: {
@@ -182,7 +241,7 @@ public struct SyncCalendarOptionsView: View {
                     Text(
                         String(
                             format: ProfileLocalization.CoursesToSync.syncingCourses(
-                                viewModel.coursesForSync.count
+                                viewModel.syncingCoursesCount
                             )
                         )
                     )
@@ -201,28 +260,18 @@ public struct SyncCalendarOptionsView: View {
             strokeColor: .clear
         )
     }
-    
-    @ViewBuilder
-    private var relativeDatesToggle: some View {
-        Divider()
-            .padding(.horizontal, 24)
-        
-        optionTitle(ProfileLocalization.Options.title)
-            .padding(.vertical, 16)
-        ToggleWithDescriptionView(
-            text: ProfileLocalization.Options.useRelativeDates,
-            description: ProfileLocalization.Options.showRelativeDates,
-            toggle: $viewModel.reconnectRequired
-        )
-        .padding(.horizontal, 24)
-    }
 }
 
 #if DEBUG
 struct SyncCalendarOptionsView_Previews: PreviewProvider {
     static var previews: some View {
         let vm = DatesAndCalendarViewModel(
-            router: ProfileRouterMock()
+            router: ProfileRouterMock(),
+            interactor: ProfileInteractor(repository: ProfileRepositoryMock()),
+            profileStorage: ProfileStorageMock(),
+            persistence: ProfilePersistenceMock(),
+            calendarManager: CalendarManagerMock(),
+            connectivity: Connectivity()
         )
         SyncCalendarOptionsView(viewModel: vm)
             .loadFonts()

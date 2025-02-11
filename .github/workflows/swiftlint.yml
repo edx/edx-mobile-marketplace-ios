@@ -1,0 +1,47 @@
+name: SwiftLint
+
+on:
+  workflow_dispatch:
+  pull_request:
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: macos-latest
+
+    concurrency:
+      group: ${{ github.ref == 'refs/heads/develop' && format('swiftlint-develop-{0}', github.sha) || format('swiftlint-{0}', github.ref) }}
+      cancel-in-progress: true
+
+    steps:
+      - uses: nschloe/action-cached-lfs-checkout@v1.2.1
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - uses: actions/cache@v3
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+
+      - name: Setup environment
+        run: |
+          source ci_scripts/ci_prepare_env.sh && setup_github_actions_environment
+          xcodes select 16.1
+
+      - name: SwiftLint
+        run: |
+          export PODS_ROOT=$(pwd)/Pods
+          "${PODS_ROOT}/SwiftLint/swiftlint" --reporter sarif > swiftlint.report.sarif
+
+      - name: Prepare swiftlint.report.sarif
+        if: success() || failure()
+        run: |
+          swift PrepareSarifToUpload.swift
+
+      - name: Upload report
+        uses: github/codeql-action/upload-sarif@v3
+        if: success() || failure()
+        with:
+          sarif_file: swiftlint.report.sarif

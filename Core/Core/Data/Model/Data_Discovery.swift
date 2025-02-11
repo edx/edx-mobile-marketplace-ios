@@ -114,6 +114,7 @@ public extension DataLayer.DiscoveryResponce {
                        isSelfPaced: $0.isSelfPaced,
                        courseRawImage: $0.media.image?.raw,
                        coursewareAccess: nil,
+                       courseRawImage: $0.media.image?.raw,
                        progressEarned: 0,
                        progressPossible: 0,
                        auditAccessExpires: nil,

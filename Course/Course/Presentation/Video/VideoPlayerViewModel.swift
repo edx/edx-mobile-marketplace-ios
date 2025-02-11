@@ -7,9 +7,11 @@
 
 import Foundation
 import Core
+import OEXFoundation
 import _AVKit_SwiftUI
 import Combine
 
+@MainActor
 public class VideoPlayerViewModel: ObservableObject {
     @Published private(set) var isPlaying: Bool = false
     @Published var pause: Bool = false
@@ -159,7 +161,7 @@ public class VideoPlayerViewModel: ObservableObject {
     
     private func generateSelectedLanguage() {
         if let selectedLanguage = languages.first(where: {
-            $0.language == Locale.current.languageCode
+            $0.language == Locale.current.language.languageCode?.identifier
         })?.language {
             self.selectedLanguage = selectedLanguage
         } else {

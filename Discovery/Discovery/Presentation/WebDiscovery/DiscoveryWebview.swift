@@ -9,12 +9,13 @@ import Foundation
 import SwiftUI
 import Theme
 import Core
+import OEXFoundation
 
 public enum DiscoveryWebviewType: Equatable {
     case discovery
     case courseDetail(String)
     case programDetail(String)
-    
+
     var rawValue: String {
         switch self {
         case .discovery:
@@ -98,15 +99,17 @@ public struct DiscoveryWebview: View {
                     WebView(
                         viewModel: .init(
                             url: URLString,
-                            baseURL: ""
+                            baseURL: "",
+                            openFile: {_ in}
                         ),
                         isLoading: $isLoading,
                         refreshCookies: {},
                         navigationDelegate: viewModel,
+                        connectivity: viewModel.connectivity,
                         webViewType: discoveryType.rawValue
                     )
                     .accessibilityIdentifier("discovery_webview")
-                    
+
                     if isLoading || viewModel.showProgress {
                         HStack(alignment: .center) {
                             ProgressBar(
@@ -118,7 +121,7 @@ public struct DiscoveryWebview: View {
                         }
                         .frame(width: proxy.size.width, height: proxy.size.height)
                     }
-                    
+
                     // MARK: - Show Error
                     if viewModel.showError {
                         VStack {
@@ -132,11 +135,15 @@ public struct DiscoveryWebview: View {
                             }
                         }
                     }
-                    
+
                     if !viewModel.userloggedIn, !isLoading {
-                        LogistrationBottomView { buttonAction in
+                        LogistrationBottomView(
+                            ssoEnabled: viewModel.config.uiComponents.samlSSOLoginEnabled
+                        ) { buttonAction in
                             switch buttonAction {
                             case .signIn:
+                                viewModel.router.showLoginScreen(sourceScreen: sourceScreen)
+                            case .signInWithSSO:
                                 viewModel.router.showLoginScreen(sourceScreen: sourceScreen)
                             case .register:
                                 viewModel.router.showRegisterScreen(sourceScreen: sourceScreen)
@@ -144,7 +151,7 @@ public struct DiscoveryWebview: View {
                         }
                     }
                 }
-                
+
                 if viewModel.webViewError {
                     FullScreenErrorView(
                         type: viewModel.connectivity.isInternetAvaliable ? .generic : .noInternetWithReload

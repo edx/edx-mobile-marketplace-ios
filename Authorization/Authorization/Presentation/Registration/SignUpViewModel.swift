@@ -7,13 +7,15 @@
 
 import Foundation
 import Core
+import OEXFoundation
 import SwiftUI
 import AuthenticationServices
 import FacebookLogin
 import GoogleSignIn
 import MSAL
 
-public class SignUpViewModel: ObservableObject {
+@MainActor
+public final class SignUpViewModel: ObservableObject {
     
     @Published var isShowProgress = false
     @Published var scrollTo: Int?
@@ -139,7 +141,7 @@ public class SignUpViewModel: ObservableObject {
             analytics.registrationSuccess(method: authMetod.analyticsValue)
             isShowProgress = false
             var postLoginData: PostLoginData?
-            if case .socailAuth(let socialMethod) = authMethod {
+            if case .socialAuth(let socialMethod) = authMethod {
                 postLoginData = PostLoginData(authMethod: socialMethod.rawValue, showSocialRegisterBanner: false)
             }
             router.showMainOrWhatsNewScreen(sourceScreen: sourceScreen, postLoginData: postLoginData)
@@ -200,7 +202,7 @@ public class SignUpViewModel: ObservableObject {
             analytics.userLogin(method: authMethod)
             isShowProgress = false
             var postLoginData: PostLoginData?
-            if case .socailAuth(let socialMethod) = authMethod {
+            if case .socialAuth(let socialMethod) = authMethod {
                 postLoginData = PostLoginData(authMethod: socialMethod.rawValue, showSocialRegisterBanner: true)
             }
             router.showMainOrWhatsNewScreen(sourceScreen: sourceScreen, postLoginData: postLoginData)

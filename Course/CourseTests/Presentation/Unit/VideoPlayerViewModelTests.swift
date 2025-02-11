@@ -12,6 +12,7 @@ import XCTest
 import Alamofire
 import SwiftUI
 
+@MainActor
 final class VideoPlayerViewModelTests: XCTestCase {
     
     let subtitles = [
@@ -117,15 +118,26 @@ final class VideoPlayerViewModelTests: XCTestCase {
     func testBlockCompletionRequest() async throws {
         let interactor = CourseInteractorProtocolMock()
         let router = CourseRouterMock()
-        let connectivity = ConnectivityProtocolMock()
         
         let tracker = PlayerTrackerProtocolMock(url: nil)
         let service = PlayerService(courseID: "", blockID: "", interactor: interactor, router: router)
-        let playerHolder = PlayerViewControllerHolder(url: nil, blockID: "", courseID: "", selectedCourseTab: 0, pipManager: PipManagerProtocolMock(), playerTracker: tracker, playerDelegate: nil, playerService: service, appStorage: CoreStorageMock())
+        let playerHolder = PlayerViewControllerHolder(
+            url: nil,
+            blockID: "",
+            courseID: "",
+            selectedCourseTab: 0,
+            pipManager: PipManagerProtocolMock(),
+            playerTracker: tracker,
+            playerDelegate: nil,
+            playerService: service,
+            appStorage: CoreStorageMock()
+        )
         
         Given(interactor, .blockCompletionRequest(courseID: .any, blockID: .any, willProduce: {_ in}))
         
         await playerHolder.sendCompletion()
+        
+        await Task.yield()
         
         Verify(interactor, .blockCompletionRequest(courseID: .any, blockID: .any))
     }
@@ -151,13 +163,7 @@ final class VideoPlayerViewModelTests: XCTestCase {
         await playerHolder.sendCompletion()
         
         Verify(interactor, .blockCompletionRequest(courseID: .any, blockID: .any))
-        
-        let expectation = XCTestExpectation(description: "Wait for combine")
-
-        DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
-            expectation.fulfill()
-        }
-        await fulfillment(of: [expectation], timeout: 1)
+        await Task.yield()
         
         XCTAssertTrue(viewModel.showError)
         XCTAssertEqual(viewModel.errorMessage, CoreLocalization.Error.unknownError)
@@ -185,12 +191,7 @@ final class VideoPlayerViewModelTests: XCTestCase {
         
         await playerHolder.sendCompletion()
         
-        let expectation = XCTestExpectation(description: "Wait for combine")
-
-        DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
-            expectation.fulfill()
-        }
-        await fulfillment(of: [expectation], timeout: 1)
+        await Task.yield()
         
         Verify(interactor, .blockCompletionRequest(courseID: .any, blockID: .any))
         

@@ -22,8 +22,6 @@ public enum CoreLocalization {
   public static let ok = CoreLocalization.tr("Localizable", "OK", fallback: "Ok")
   /// View in Safari
   public static let openInBrowser = CoreLocalization.tr("Localizable", "OPEN_IN_BROWSER", fallback: "View in Safari")
-  /// Register
-  public static let register = CoreLocalization.tr("Localizable", "REGISTER", fallback: "Register")
   /// The user canceled the sign-in flow.
   public static let socialSignCanceled = CoreLocalization.tr("Localizable", "SOCIAL_SIGN_CANCELED", fallback: "The user canceled the sign-in flow.")
   /// Tomorrow
@@ -226,6 +224,58 @@ public enum CoreLocalization {
       }
     }
   }
+  public enum CourseDates {
+    /// Completed
+    public static let completed = CoreLocalization.tr("Localizable", "COURSE_DATES.COMPLETED", fallback: "Completed")
+    /// Next week
+    public static let nextWeek = CoreLocalization.tr("Localizable", "COURSE_DATES.NEXT_WEEK", fallback: "Next week")
+    /// Past due
+    public static let pastDue = CoreLocalization.tr("Localizable", "COURSE_DATES.PAST_DUE", fallback: "Past due")
+    /// This week
+    public static let thisWeek = CoreLocalization.tr("Localizable", "COURSE_DATES.THIS_WEEK", fallback: "This week")
+    /// Today
+    public static let today = CoreLocalization.tr("Localizable", "COURSE_DATES.TODAY", fallback: "Today")
+    /// Upcoming
+    public static let upcoming = CoreLocalization.tr("Localizable", "COURSE_DATES.UPCOMING", fallback: "Upcoming")
+    public enum ResetDate {
+      /// Your dates could not be shifted. Please try again.
+      public static let errorMessage = CoreLocalization.tr("Localizable", "COURSE_DATES.RESET_DATE.ERROR_MESSAGE", fallback: "Your dates could not be shifted. Please try again.")
+      /// Your dates have been successfully shifted.
+      public static let successMessage = CoreLocalization.tr("Localizable", "COURSE_DATES.RESET_DATE.SUCCESS_MESSAGE", fallback: "Your dates have been successfully shifted.")
+      /// Course Dates
+      public static let title = CoreLocalization.tr("Localizable", "COURSE_DATES.RESET_DATE.TITLE", fallback: "Course Dates")
+      public enum ResetDateBanner {
+        /// Don't worry - shift our suggested schedule to complete past due assignments without losing any progress.
+        public static let body = CoreLocalization.tr("Localizable", "COURSE_DATES.RESET_DATE.RESET_DATE_BANNER.BODY", fallback: "Don't worry - shift our suggested schedule to complete past due assignments without losing any progress.")
+        /// Shift due dates
+        public static let button = CoreLocalization.tr("Localizable", "COURSE_DATES.RESET_DATE.RESET_DATE_BANNER.BUTTON", fallback: "Shift due dates")
+        /// Missed some deadlines?
+        public static let header = CoreLocalization.tr("Localizable", "COURSE_DATES.RESET_DATE.RESET_DATE_BANNER.HEADER", fallback: "Missed some deadlines?")
+      }
+      public enum TabInfoBanner {
+        /// We built a suggested schedule to help you stay on track. But don’t worry – it’s flexible so you can learn at your own pace. If you happen to fall behind, you’ll be able to adjust the dates to keep yourself on track.
+        public static let body = CoreLocalization.tr("Localizable", "COURSE_DATES.RESET_DATE.TAB_INFO_BANNER.BODY", fallback: "We built a suggested schedule to help you stay on track. But don’t worry – it’s flexible so you can learn at your own pace. If you happen to fall behind, you’ll be able to adjust the dates to keep yourself on track.")
+        /// 
+        public static let header = CoreLocalization.tr("Localizable", "COURSE_DATES.RESET_DATE.TAB_INFO_BANNER.HEADER", fallback: "")
+      }
+      public enum UpgradeToCompleteGradedBanner {
+        /// To complete graded assignments as part of this course, you can upgrade today.
+        public static let body = CoreLocalization.tr("Localizable", "COURSE_DATES.RESET_DATE.UPGRADE_TO_COMPLETE_GRADED_BANNER.BODY", fallback: "To complete graded assignments as part of this course, you can upgrade today.")
+        /// 
+        public static let button = CoreLocalization.tr("Localizable", "COURSE_DATES.RESET_DATE.UPGRADE_TO_COMPLETE_GRADED_BANNER.BUTTON", fallback: "")
+        /// 
+        public static let header = CoreLocalization.tr("Localizable", "COURSE_DATES.RESET_DATE.UPGRADE_TO_COMPLETE_GRADED_BANNER.HEADER", fallback: "")
+      }
+      public enum UpgradeToResetBanner {
+        /// You are auditing this course, which means that you are unable to participate in graded assignments. It looks like you missed some important deadlines based on our suggested schedule. To complete graded assignments as part of this course and shift the past due assignments into the future, you can upgrade today.
+        public static let body = CoreLocalization.tr("Localizable", "COURSE_DATES.RESET_DATE.UPGRADE_TO_RESET_BANNER.BODY", fallback: "You are auditing this course, which means that you are unable to participate in graded assignments. It looks like you missed some important deadlines based on our suggested schedule. To complete graded assignments as part of this course and shift the past due assignments into the future, you can upgrade today.")
+        /// 
+        public static let button = CoreLocalization.tr("Localizable", "COURSE_DATES.RESET_DATE.UPGRADE_TO_RESET_BANNER.BUTTON", fallback: "")
+        /// 
+        public static let header = CoreLocalization.tr("Localizable", "COURSE_DATES.RESET_DATE.UPGRADE_TO_RESET_BANNER.HEADER", fallback: "")
+      }
+    }
+  }
   public enum Date {
     /// Course Ended
     public static let courseEnded = CoreLocalization.tr("Localizable", "DATE.COURSE_ENDED", fallback: "Course Ended")
@@ -233,14 +283,32 @@ public enum CoreLocalization {
     public static let courseEnds = CoreLocalization.tr("Localizable", "DATE.COURSE_ENDS", fallback: "Course Ends")
     /// Course Starts
     public static let courseStarts = CoreLocalization.tr("Localizable", "DATE.COURSE_STARTS", fallback: "Course Starts")
+    /// %@ Days Ago
+    public static func daysAgo(_ p1: Any) -> String {
+      return CoreLocalization.tr("Localizable", "DATE.DAYS_AGO", String(describing: p1), fallback: "%@ Days Ago")
+    }
+    /// Due 
+    public static let due = CoreLocalization.tr("Localizable", "DATE.DUE", fallback: "Due ")
+    /// Due in 
+    public static let dueIn = CoreLocalization.tr("Localizable", "DATE.DUE_IN", fallback: "Due in ")
+    /// Due in %@ Days
+    public static func dueInDays(_ p1: Any) -> String {
+      return CoreLocalization.tr("Localizable", "DATE.DUE_IN_DAYS", String(describing: p1), fallback: "Due in %@ Days")
+    }
     /// Ended
     public static let ended = CoreLocalization.tr("Localizable", "DATE.ENDED", fallback: "Ended")
     /// Just now
     public static let justNow = CoreLocalization.tr("Localizable", "DATE.JUST_NOW", fallback: "Just now")
+    /// Next %@
+    public static func next(_ p1: Any) -> String {
+      return CoreLocalization.tr("Localizable", "DATE.NEXT", String(describing: p1), fallback: "Next %@")
+    }
     /// Start
     public static let start = CoreLocalization.tr("Localizable", "DATE.START", fallback: "Start")
     /// Started
     public static let started = CoreLocalization.tr("Localizable", "DATE.STARTED", fallback: "Started")
+    /// Today
+    public static let today = CoreLocalization.tr("Localizable", "DATE.TODAY", fallback: "Today")
   }
   public enum DateFormat {
     /// MMM dd, yyyy
@@ -374,6 +442,10 @@ public enum CoreLocalization {
   public enum SignIn {
     /// Sign in
     public static let logInBtn = CoreLocalization.tr("Localizable", "SIGN_IN.LOG_IN_BTN", fallback: "Sign in")
+    /// Sign in with SSO
+    public static let logInWithSsoBtn = CoreLocalization.tr("Localizable", "SIGN_IN.LOG_IN_WITH_SSO_BTN", fallback: "Sign in with SSO")
+    /// Register
+    public static let registerBtn = CoreLocalization.tr("Localizable", "SIGN_IN.REGISTER_BTN", fallback: "Register")
   }
   public enum View {
     public enum Snackbar {

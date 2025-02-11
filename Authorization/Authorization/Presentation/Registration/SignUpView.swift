@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Core
+import OEXFoundation
 import Theme
 
 public struct SignUpView: View {
@@ -40,7 +41,7 @@ public struct SignUpView: View {
             VStack(alignment: .center) {
                 ZStack {
                     HStack {
-                        Text(CoreLocalization.register)
+                        Text(CoreLocalization.SignIn.registerBtn)
                             .titleSettings(color: Theme.Colors.loginNavigationText)
                             .accessibilityIdentifier("register_text")
                     }
@@ -64,7 +65,7 @@ public struct SignUpView: View {
                         ScrollView {
                             VStack(alignment: .leading) {
                                 
-                                Text(CoreLocalization.register)
+                                Text(CoreLocalization.SignIn.registerBtn)
                                     .font(Theme.Fonts.displaySmall)
                                     .foregroundColor(Theme.Colors.textPrimary)
                                     .padding(.bottom, 4)
@@ -198,8 +199,8 @@ public struct SignUpView: View {
         }
         .ignoresSafeArea(.all, edges: .horizontal)
         .background(Theme.Colors.background.ignoresSafeArea(.all))
-        .hideNavigationBar()
-        .onFirstAppear{
+        .navigationBarHidden(true)
+        .onFirstAppear {
             viewModel.trackScreenEvent()
         }
     }

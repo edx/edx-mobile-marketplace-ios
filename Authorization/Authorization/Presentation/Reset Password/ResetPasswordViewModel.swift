@@ -7,8 +7,10 @@
 
 import SwiftUI
 import Core
+import OEXFoundation
 
-public class ResetPasswordViewModel: ObservableObject {
+@MainActor
+public final class ResetPasswordViewModel: ObservableObject {
     
     @Published private(set) var isShowProgress = false
     @Published private(set) var showError: Bool = false

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct CourseItem: Hashable {
+public struct CourseItem: Hashable, Sendable {
     public let name: String
     public let org: String
     public let shortDescription: String
@@ -26,6 +26,7 @@ public struct CourseItem: Hashable {
     public let isSelfPaced: Bool?
     public let courseRawImage: String?
     public let coursewareAccess: CoursewareAccess?
+    public let courseRawImage: String?
     public let progressEarned: Int
     public let progressPossible: Int
     public let auditAccessExpires: Date?
@@ -51,6 +52,7 @@ public struct CourseItem: Hashable {
                 isSelfPaced: Bool?,
                 courseRawImage: String?,
                 coursewareAccess: CoursewareAccess?,
+                courseRawImage: String?,
                 progressEarned: Int,
                 progressPossible: Int,
                 auditAccessExpires: Date?,
@@ -76,6 +78,7 @@ public struct CourseItem: Hashable {
         self.isSelfPaced = isSelfPaced
         self.courseRawImage = courseRawImage
         self.coursewareAccess = coursewareAccess
+        self.courseRawImage = courseRawImage
         self.progressEarned = progressEarned
         self.progressPossible = progressPossible
         self.auditAccessExpires = auditAccessExpires

@@ -12,6 +12,7 @@ import XCTest
 import Alamofire
 import SwiftUI
 
+@MainActor
 final class ThreadViewModelTests: XCTestCase {
     
     let userComments = [
@@ -216,6 +217,7 @@ final class ThreadViewModelTests: XCTestCase {
         let viewModel = ThreadViewModel(interactor: interactor,
                                         router: router,
                                         config: config,
+                                        storage: CoreStorageMock(),
                                         postStateSubject: .init(.readed(id: "1")),
                                         analytics: DiscussionAnalyticsMock())
                 
@@ -246,6 +248,7 @@ final class ThreadViewModelTests: XCTestCase {
         let viewModel = ThreadViewModel(interactor: interactor,
                                         router: router,
                                         config: config,
+                                        storage: CoreStorageMock(),
                                         postStateSubject: .init(.readed(id: "1")),
                                         analytics: DiscussionAnalyticsMock())
                 
@@ -276,6 +279,7 @@ final class ThreadViewModelTests: XCTestCase {
         let viewModel = ThreadViewModel(interactor: interactor,
                                         router: router,
                                         config: config,
+                                        storage: CoreStorageMock(),
                                         postStateSubject: .init(.readed(id: "1")),
                                         analytics: DiscussionAnalyticsMock())
         
@@ -308,6 +312,7 @@ final class ThreadViewModelTests: XCTestCase {
         let viewModel = ThreadViewModel(interactor: interactor,
                                         router: router,
                                         config: config,
+                                        storage: CoreStorageMock(),
                                         postStateSubject: .init(.readed(id: "1")),
                                         analytics: DiscussionAnalyticsMock())
                         
@@ -336,6 +341,7 @@ final class ThreadViewModelTests: XCTestCase {
         let viewModel = ThreadViewModel(interactor: interactor,
                                         router: router,
                                         config: config,
+                                        storage: CoreStorageMock(),
                                         postStateSubject: .init(.readed(id: "1")),
                                         analytics: DiscussionAnalyticsMock())
         
@@ -377,6 +383,7 @@ final class ThreadViewModelTests: XCTestCase {
         let viewModel = ThreadViewModel(interactor: interactor,
                                         router: router,
                                         config: config,
+                                        storage: CoreStorageMock(),
                                         postStateSubject: .init(.readed(id: "1")),
                                         analytics: DiscussionAnalyticsMock())
         
@@ -402,6 +409,7 @@ final class ThreadViewModelTests: XCTestCase {
         let viewModel = ThreadViewModel(interactor: interactor,
                                         router: router,
                                         config: config,
+                                        storage: CoreStorageMock(),
                                         postStateSubject: .init(.readed(id: "1")),
                                         analytics: DiscussionAnalyticsMock())
                         
@@ -426,6 +434,7 @@ final class ThreadViewModelTests: XCTestCase {
         let viewModel = ThreadViewModel(interactor: interactor,
                                         router: router,
                                         config: config,
+                                        storage: CoreStorageMock(),
                                         postStateSubject: .init(.readed(id: "1")),
                                         analytics: DiscussionAnalyticsMock())
         

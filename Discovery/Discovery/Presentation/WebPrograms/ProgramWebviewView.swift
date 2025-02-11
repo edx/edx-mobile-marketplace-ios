@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 import Theme
 import Core
+import OEXFoundation
 
 public enum ProgramViewType: String, Equatable {
     case program
@@ -22,7 +23,7 @@ public struct ProgramWebviewView: View {
     private var router: DiscoveryRouter
     private var viewType: ProgramViewType
     public var pathID: String
-
+    
     private var URLString: String {
         switch viewType {
         case .program:
@@ -56,6 +57,7 @@ public struct ProgramWebviewView: View {
                         viewModel: .init(
                             url: URLString,
                             baseURL: "",
+                            openFile: {_ in},
                             injections: [.colorInversionCss]
                         ),
                         isLoading: $isLoading,
@@ -65,6 +67,7 @@ public struct ProgramWebviewView: View {
                             )
                         },
                         navigationDelegate: viewModel,
+                        connectivity: viewModel.connectivity,
                         webViewType: viewType.rawValue
                     )
                     .accessibilityIdentifier("program_webview")

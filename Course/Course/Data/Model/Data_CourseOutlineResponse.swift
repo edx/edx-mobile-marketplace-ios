@@ -13,7 +13,7 @@ public extension DataLayer {
     
     typealias Blocks = [String: CourseBlock]
     
-    struct CourseStructure: Decodable {
+    struct CourseStructure: Decodable, Sendable {
         public let rootItem: String
         public var dict: Blocks
         public let id: String
@@ -134,7 +134,7 @@ public extension DataLayer {
     }
 }
 public extension DataLayer {
-    struct CourseBlock: Decodable {
+    struct CourseBlock: Decodable, Sendable {
         public let blockId: String
         public let id: String
         public let graded: Bool
@@ -149,6 +149,7 @@ public extension DataLayer {
         public let userViewData: CourseDetailUserViewData?
         public let multiDevice: Bool?
         public let assignmentProgress: AssignmentProgress?
+        public let offlineDownload: OfflineDownload?
         
         public init(
             blockId: String,
@@ -164,7 +165,8 @@ public extension DataLayer {
             allSources: [String]?,
             userViewData: CourseDetailUserViewData?,
             multiDevice: Bool?,
-            assignmentProgress: AssignmentProgress?
+            assignmentProgress: AssignmentProgress?,
+            offlineDownload: OfflineDownload?
         ) {
             self.blockId = blockId
             self.id = id
@@ -180,6 +182,7 @@ public extension DataLayer {
             self.userViewData = userViewData
             self.multiDevice = multiDevice
             self.assignmentProgress = assignmentProgress
+            self.offlineDownload = offlineDownload
         }
         
         public enum CodingKeys: String, CodingKey {
@@ -192,10 +195,11 @@ public extension DataLayer {
             case allSources = "all_sources"
             case multiDevice = "student_view_multi_device"
             case assignmentProgress = "assignment_progress"
+            case offlineDownload = "offline_download"
         }
     }
     
-    struct AssignmentProgress: Codable {
+    struct AssignmentProgress: Codable, Sendable {
         public let assignmentType: String?
         public let numPointsEarned: Double?
         public let numPointsPossible: Double?
@@ -212,8 +216,26 @@ public extension DataLayer {
             self.numPointsPossible = numPointsPossible
         }
     }
+    
+    struct OfflineDownload: Codable, Sendable {
+        public let fileUrl: String?
+        public let lastModified: String?
+        public let fileSize: Int?
+        
+        public enum CodingKeys: String, CodingKey {
+            case fileUrl = "file_url"
+            case lastModified = "last_modified"
+            case fileSize = "file_size"
+        }
+        
+        public init(fileUrl: String?, lastModified: String?, fileSize: Int?) {
+            self.fileUrl = fileUrl
+            self.lastModified = lastModified
+            self.fileSize = fileSize
+        }
+    }
 
-    struct Transcripts: Codable {
+    struct Transcripts: Codable, Sendable {
         public let en: String?
 
         enum CodingKeys: String, CodingKey {
@@ -246,7 +268,7 @@ public extension DataLayer {
         }
     }
     
-    struct CourseDetailUserViewData: Decodable {
+    struct CourseDetailUserViewData: Decodable, Sendable {
         public let transcripts: [String: String]?
         public let encodedVideo: CourseDetailEncodedVideoData?
         public let topicID: String?
@@ -268,7 +290,7 @@ public extension DataLayer {
         }
     }
     
-    struct CourseDetailEncodedVideoData: Decodable {
+    struct CourseDetailEncodedVideoData: Decodable, Sendable {
         public let youTube: EncodedVideoData?
         public let fallback: EncodedVideoData?
         public let desktopMP4: EncodedVideoData?
@@ -302,7 +324,7 @@ public extension DataLayer {
         }
     }
     
-    struct EncodedVideoData: Decodable {
+    struct EncodedVideoData: Decodable, Sendable {
         public let url: String?
         public let fileSize: Int?
         public let streamPriority: Int?

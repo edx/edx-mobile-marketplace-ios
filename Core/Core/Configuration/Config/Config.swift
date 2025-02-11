@@ -7,8 +7,12 @@
 
 import Foundation
 
-public protocol ConfigProtocol {
+//sourcery: AutoMockable
+public protocol ConfigProtocol: Sendable {
     var baseURL: URL { get }
+    var baseSSOURL: URL { get }
+    var ssoFinishedURL: URL { get }
+    var ssoButtonTitle: [String: Any] { get }
     var oAuthClientId: String { get }
     var tokenType: TokenType { get }
     var feedbackEmail: String { get }
@@ -28,7 +32,6 @@ public protocol ConfigProtocol {
     var dashboard: DashboardConfig { get }
     var braze: BrazeConfig { get }
     var branch: BranchConfig { get }
-    var segment: SegmentConfig { get }
     var program: DiscoveryConfig { get }
     var URIScheme: String { get }
     var ecommerceURL: String? { get }
@@ -36,13 +39,16 @@ public protocol ConfigProtocol {
     var pushNotificationsEnabled: Bool { get }
 }
 
-public enum TokenType: String {
+public enum TokenType: String, Sendable {
     case jwt = "JWT"
     case bearer = "BEARER"
 }
 
-private enum ConfigKeys: String {
+private enum ConfigKeys: String, Sendable {
     case baseURL = "API_HOST_URL"
+    case ssoBaseURL = "SSO_URL"
+    case ssoFinishedURL = "SSO_FINISHED_URL"
+    case ssoButtonTitle = "SSO_BUTTON_TITLE"
     case oAuthClientID = "OAUTH_CLIENT_ID"
     case tokenType = "TOKEN_TYPE"
     case feedbackEmailAddress = "FEEDBACK_EMAIL_ADDRESS"
@@ -56,7 +62,7 @@ private enum ConfigKeys: String {
     case pushNotificationsEnabled = "PUSH_NOTIFICATIONS_ENABLED"
 }
 
-public class Config {
+public class Config: @unchecked Sendable {
     let configFileName = "config"
     
     internal var properties: [String: Any] = [:]
@@ -124,6 +130,29 @@ extension Config: ConfigProtocol {
         return url
     }
     
+    public var baseSSOURL: URL {
+        guard let urlString = string(for: ConfigKeys.ssoBaseURL.rawValue),
+              let url = URL(string: urlString) else {
+            fatalError("Unable to find SSO base url in config.")
+        }
+        return url
+    }
+    
+    public var ssoFinishedURL: URL {
+        guard let urlString = string(for: ConfigKeys.ssoFinishedURL.rawValue),
+              let url = URL(string: urlString) else {
+            fatalError("Unable to find SSO successful login url in config.")
+        }
+        return url
+    }
+    
+    public var ssoButtonTitle: [String: Any] {
+        guard let ssoButtonTitle = dict(for: ConfigKeys.ssoButtonTitle.rawValue) else {
+            return ["en": CoreLocalization.SignIn.logInWithSsoBtn]
+        }
+        return ssoButtonTitle
+    }
+    
     public var oAuthClientId: String {
         guard let clientID = string(for: ConfigKeys.oAuthClientID.rawValue) else {
             fatalError("Unable to find OAuth ClientID in config.")
@@ -177,9 +206,10 @@ extension Config: ConfigProtocol {
 
 // Mark - For testing and SwiftUI preview
 #if DEBUG
-public class ConfigMock: Config {
+public class ConfigMock: Config, @unchecked Sendable {
     private let config: [String: Any] = [
         "API_HOST_URL": "https://www.example.com",
+        "SSO_URL": "https://www.example.com",
         "OAUTH_CLIENT_ID": "oauth_client_id",
         "FEEDBACK_EMAIL_ADDRESS": "example@mail.com",
         "PLATFORM_NAME": "OpenEdx",

@@ -7,32 +7,31 @@
 
 import Foundation
 import Core
-import Combine
+import OEXFoundation
+@preconcurrency import Combine
 
+@MainActor
 final class DownloadsViewModel: ObservableObject {
 
     // MARK: - Properties
 
     @Published private(set) var downloads: [DownloadDataTask] = []
     @Published private(set) var shouldDismiss: Bool = false
-    private let courseId: String?
     
     let router: CourseRouter
 
-    private let manager: DownloadManagerProtocol
+    private let helper: CourseDownloadHelperProtocol
     private var cancellables = Set<AnyCancellable>()
 
     init(
         router: CourseRouter,
-        courseId: String? = nil,
-        downloads: [DownloadDataTask] = [],
-        manager: DownloadManagerProtocol
+        helper: CourseDownloadHelperProtocol
     ) {
         self.router = router
-        self.courseId = courseId
-        self.manager = manager
-        self.downloads = downloads
-        Task { await configure() }
+        self.helper = helper
+        Task {
+            await configure()
+        }
         observers()
     }
 
@@ -47,7 +46,7 @@ final class DownloadsViewModel: ObservableObject {
     @MainActor
     func cancelDownloading(task: DownloadDataTask) async {
         do {
-            try await manager.cancelDownloading(task: task)
+            try await helper.cancelDownloading(task: task)
             downloads.removeAll(where: { $0.id == task.id })
         } catch {
             debugLog(error)
@@ -56,45 +55,26 @@ final class DownloadsViewModel: ObservableObject {
 
     @MainActor
     private func configure() async {
-        defer {
-            filter()
-        }
-        if !downloads.isEmpty {
-            return
-        }
-        if let courseId = courseId {
-            downloads = await manager.getDownloadTasksForCourse(courseId)
-            return
-        }
-        downloads = await manager.getDownloadTasks()
+        downloads = helper.value?.notFinishedTasks ?? []
 
     }
 
     private func observers() {
-        manager.eventPublisher()
-            .sink { [weak self] event in
-                guard let self else { return }
-                switch event {
-                case .progress(let progress, let downloadData):
-                    if let firstIndex = downloads.firstIndex(where: { $0.id == downloadData.id }) {
-                        self.downloads[firstIndex].progress = progress
-                    }
-                case .finished(let downloadData):
-                    downloads.removeAll(where: { $0.id == downloadData.id })
-                    
-                    if downloads.isEmpty {
-                        shouldDismiss = true
-                    }
-                default:
-                    break
+        helper.publisher()
+            .sink {[weak self] value in
+                self?.downloads = value.notFinishedTasks
+            }
+            .store(in: &cancellables)
+        helper.progressPublisher()
+            .sink {[weak self] task in
+                if let firstIndex = self?.downloads.firstIndex(where: { $0.id == task.id }) {
+                    self?.downloads[firstIndex].progress = task.progress
+//                    ToDo: hide downloadsview when finished
+//                    if downloads.isEmpty {
+//                        shouldDismiss = true
+//                    }
                 }
             }
             .store(in: &cancellables)
-    }
-
-    private func filter() {
-        downloads = downloads
-            .filter { $0.state == .inProgress || $0.state == .waiting }
-            .sorted(by: { $0.state.order < $1.state.order })
     }
 }

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Core
+import OEXFoundation
 import Theme
 
 public struct DiscussionSearchTopicsView: View {
@@ -196,6 +197,7 @@ struct DiscussionSearchTopicsView_Previews: PreviewProvider {
         let vm = DiscussionSearchTopicsViewModel(
             courseID: "123",
             interactor: DiscussionInteractor.mock,
+            storage: CoreStorageMock(),
             router: DiscussionRouterMock(),
             debounce: .searchDebounce
         )

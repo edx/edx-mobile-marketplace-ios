@@ -16,6 +16,7 @@ import Discussion
 import WhatsNew
 import Swinject
 import Notifications
+import OEXFoundation
 
 // swiftlint:disable file_length type_body_length
 protocol AnalyticsService {
@@ -34,9 +35,10 @@ class AnalyticsManager: AuthorizationAnalytics,
                         DiscussionAnalytics,
                         CoreAnalytics,
                         WhatsNewAnalytics,
-                        NotificationsAnalytics {
+                        NotificationsAnalytics,
+                        @unchecked Sendable {
     
-    private var services: [AnalyticsService] = []
+    private var services: [AnalyticsService]
     
     // Init Analytics Manager
     public init(config: ConfigProtocol) {
@@ -68,7 +70,7 @@ class AnalyticsManager: AuthorizationAnalytics,
          disrupting the SDK functionality. We have also communicated our usage strategy to FullStory's support team and requested a more effective
          solution in future SDK updates.
          */
-        #if PROD
+#if PROD
         if config.fullStory.enabled,
            let fullStoryService = Container.shared.resolve(
             FullStoryAnalyticsService.self,
@@ -76,9 +78,14 @@ class AnalyticsManager: AuthorizationAnalytics,
            ) {
             analyticsServices.append(fullStoryService)
         }
-        #endif
+#endif
         
         return analyticsServices
+    }
+
+    // ToDo: which init is using? bellow is develop
+    public init(services: [AnalyticsService]) {
+        self.services = services
     }
     
     public func identify(id: String, username: String, email: String) {
@@ -90,14 +97,14 @@ class AnalyticsManager: AuthorizationAnalytics,
     private func logEvent(_ event: AnalyticsEvent, parameters: [String: Any]? = nil) {
         debugLog("Event: \(event.rawValue) & parameters: \(parameters ?? [:])")
         for service in services {
-            service.logEvent(event, parameters: parameters)
+            service.logEvent(event.rawValue, parameters: parameters)
         }
     }
     
     private func logScreenEvent(_ event: AnalyticsEvent, parameters: [String: Any]? = nil) {
         debugLog("Screen Event: \(event.rawValue) & parameters: \(parameters ?? [:])")
         for service in services {
-            service.logScreenEvent(event, parameters: parameters)
+            service.logScreenEvent(event.rawValue, parameters: parameters)
         }
     }
     
@@ -588,6 +595,15 @@ class AnalyticsManager: AuthorizationAnalytics,
         logScreenEvent(.courseOutlineVideosTabClicked, parameters: parameters)
     }
     
+    func courseOutlineOfflineTabClicked(courseId: String, courseName: String) {
+        let parameters = [
+            EventParamKey.courseID: courseId,
+            EventParamKey.courseName: courseName,
+            EventParamKey.name: EventBIValue.courseOutlineOfflineTabClicked.rawValue
+        ]
+        logEvent(.courseOutlineOfflineTabClicked, parameters: parameters)
+    }
+    
     public func courseOutlineDatesTabClicked(courseId: String, courseName: String) {
         let parameters = [
             EventParamKey.courseID: courseId,
@@ -804,6 +820,108 @@ class AnalyticsManager: AuthorizationAnalytics,
         ]
         
         logEvent(.bulkDeleteVideosSubsection, parameters: parameters)
+    }
+    public func bulkDeleteVideosSection(
+        courseID: String,
+        sectionId: String,
+        videos: Int
+    ) {
+        let parameters: [String: Any] = [
+            EventParamKey.courseID: courseID,
+            EventParamKey.courseSection: sectionId,
+            EventParamKey.noOfVideos: videos,
+            EventParamKey.category: EventCategory.video,
+            EventParamKey.name: EventBIValue.bulkDeleteVideosSection.rawValue
+        ]
+        
+        logEvent(.bulkDeleteVideosSection, parameters: parameters)
+    }
+    public func videoLoaded(courseID: String, blockID: String, videoURL: String) {
+        let parameters: [String: Any] = [
+            EventParamKey.courseID: courseID,
+            EventParamKey.blockID: blockID,
+            EventParamKey.videoURL: videoURL,
+            EventParamKey.category: EventCategory.video,
+            EventParamKey.name: EventBIValue.videoLoaded.rawValue
+        ]
+        
+        logEvent(.videoLoaded, parameters: parameters)
+    }
+    
+    public func videoPlayed(courseID: String, blockID: String, videoURL: String) {
+        let parameters: [String: Any] = [
+            EventParamKey.courseID: courseID,
+            EventParamKey.blockID: blockID,
+            EventParamKey.videoURL: videoURL,
+            EventParamKey.category: EventCategory.video,
+            EventParamKey.name: EventBIValue.videoPlayed.rawValue
+        ]
+        
+        logEvent(.videoPlayed, parameters: parameters)
+    }
+    
+    public func videoSpeedChange(
+        courseID: String,
+        blockID: String,
+        videoURL: String,
+        oldSpeed: Float,
+        newSpeed: Float,
+        currentTime: Double,
+        duration: Double
+    ) {
+        let parameters: [String: Any] = [
+            EventParamKey.courseID: courseID,
+            EventParamKey.blockID: blockID,
+            EventParamKey.videoURL: videoURL,
+            EventParamKey.oldSpeed: oldSpeed,
+            EventParamKey.newSpeed: newSpeed,
+            EventParamKey.currentTime: currentTime,
+            EventParamKey.duration: duration,
+            EventParamKey.category: EventCategory.video,
+            EventParamKey.name: EventBIValue.videoSpeedChange.rawValue
+        ]
+        
+        logEvent(.videoSpeedChange, parameters: parameters)
+    }
+    
+    public func videoPaused(
+        courseID: String,
+        blockID: String,
+        videoURL: String,
+        currentTime: Double,
+        duration: Double
+    ) {
+        let parameters: [String: Any] = [
+            EventParamKey.courseID: courseID,
+            EventParamKey.blockID: blockID,
+            EventParamKey.videoURL: videoURL,
+            EventParamKey.currentTime: currentTime,
+            EventParamKey.duration: duration,
+            EventParamKey.category: EventCategory.video,
+            EventParamKey.name: EventBIValue.videoPaused.rawValue
+        ]
+        
+        logEvent(.videoPaused, parameters: parameters)
+    }
+    
+    public func videoCompleted(
+        courseID: String,
+        blockID: String,
+        videoURL: String,
+        currentTime: Double,
+        duration: Double
+    ) {
+        let parameters: [String: Any] = [
+            EventParamKey.courseID: courseID,
+            EventParamKey.blockID: blockID,
+            EventParamKey.videoURL: videoURL,
+            EventParamKey.currentTime: currentTime,
+            EventParamKey.duration: duration,
+            EventParamKey.category: EventCategory.video,
+            EventParamKey.name: EventBIValue.videoCompleted.rawValue
+        ]
+        
+        logEvent(.videoCompleted, parameters: parameters)
     }
     
     public func bulkDeleteVideosSection(

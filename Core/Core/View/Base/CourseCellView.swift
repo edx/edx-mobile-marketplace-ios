@@ -37,14 +37,21 @@ public struct CourseCellView: View {
         index: Int,
         cellsCount: Int,
         upgradeAction: (() -> Void)? = nil,
-        serverConfig: ServerConfigProtocol? = nil
+        serverConfig: ServerConfigProtocol? = nil,
+        useRelativeDates: Bool
     ) {
         self.model = model
         self.type = type
         self.courseImage = model.imageURL
         self.courseName = model.name
-        self.courseStart = model.courseStart
-        self.courseEnd = model.courseEnd
+        self.courseStart = model.courseStart?.dateToString(
+            style: .startDDMonthYear,
+            useRelativeDates: useRelativeDates
+        ) ?? ""
+        self.courseEnd = model.courseEnd?.dateToString(
+            style: .endedMonthDay,
+            useRelativeDates: useRelativeDates
+        ) ?? ""
         self.courseOrg =  model.org
         self.index = Double(index) + 1
         self.cellsCount = cellsCount
@@ -192,6 +199,7 @@ struct CourseCellView_Previews: PreviewProvider {
         isSelfPaced: false,
         courseRawImage: nil,
         coursewareAccess: nil,
+        courseRawImage: nil,
         progressEarned: 4,
         progressPossible: 10,
         auditAccessExpires: nil,
@@ -205,15 +213,14 @@ struct CourseCellView_Previews: PreviewProvider {
                 .ignoresSafeArea()
             VStack(spacing: 0) {
 //                Divider()
-                CourseCellView(model: course, type: .discovery, index: 1, cellsCount: 3)
+                CourseCellView(model: course, type: .discovery, index: 1, cellsCount: 3, useRelativeDates: true)
                     .previewLayout(.fixed(width: 180, height: 260))
 //                Divider()
-                CourseCellView(model: course, type: .discovery, index: 2, cellsCount: 3)
+                CourseCellView(model: course, type: .discovery, index: 2, cellsCount: 3, useRelativeDates: false)
                     .previewLayout(.fixed(width: 180, height: 260))
 //                Divider()
             }
         }
-
     }
 }
 // swiftlint:enable all

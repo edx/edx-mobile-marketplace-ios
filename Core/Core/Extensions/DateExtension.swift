@@ -14,9 +14,9 @@ public extension Date {
         var date: Date
         var dateFormatter: DateFormatter?
         dateFormatter = DateFormatter()
-        dateFormatter?.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter?.locale = .current
         
-        date = formats.compactMap { format in
+        date = formats.compactMap { format -> Date? in
             dateFormatter?.dateFormat = format
             guard let formattedDate = dateFormatter?.date(from: iso8601) else { return nil }
             let components = calender.dateComponents(
@@ -33,16 +33,78 @@ public extension Date {
         self.init(timeInterval: 0, since: date)
     }
     
-    func timeAgoDisplay() -> String {
-        let formatter = RelativeDateTimeFormatter()
-        formatter.locale = .current
-        formatter.unitsStyle = .full
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        if description == Date().description {
-            return CoreLocalization.Date.justNow
-        } else {
-            return formatter.localizedString(for: self, relativeTo: Date())
+    func timeAgoDisplay(dueIn: Bool = false) -> String {
+        let currentDate = Date()
+        let calendar = Calendar.current
+        
+        let dueString = dueIn ? CoreLocalization.Date.due : ""
+        let dueInString = dueIn ? CoreLocalization.Date.dueIn : ""
+        
+        let startOfCurrentDate = calendar.startOfDay(for: currentDate)
+        let startOfSelfDate = calendar.startOfDay(for: self)
+        
+        let daysRemaining = Calendar.current.dateComponents(
+            [.day],
+            from: startOfCurrentDate,
+            to: self
+        ).day ?? 0
+        
+        guard let sevenDaysAgo = calendar.date(byAdding: .day, value: -7, to: startOfCurrentDate),
+              let sevenDaysAhead = calendar.date(byAdding: .day, value: 7, to: startOfCurrentDate) else {
+            return dueInString + self.dateToString(style: .mmddyy, useRelativeDates: false)
         }
+        
+        let isCurrentYear = calendar.component(.year, from: self) == calendar.component(.year, from: startOfCurrentDate)
+        
+        if calendar.isDateInToday(startOfSelfDate) {
+            return dueString + CoreLocalization.Date.today
+        }
+        
+        if calendar.isDateInYesterday(startOfSelfDate) {
+            return dueString + CoreLocalization.yesterday
+        }
+        
+        if calendar.isDateInTomorrow(startOfSelfDate) {
+            return dueString + CoreLocalization.tomorrow
+        }
+        
+        if startOfSelfDate > startOfCurrentDate && startOfSelfDate <= sevenDaysAhead {
+            let weekdayFormatter = DateFormatter()
+            weekdayFormatter.dateFormat = "EEEE"
+            if startOfSelfDate == calendar.date(byAdding: .day, value: 1, to: startOfCurrentDate) {
+                return dueInString + CoreLocalization.tomorrow
+            } else if startOfSelfDate == calendar.date(byAdding: .day, value: 7, to: startOfCurrentDate) {
+                return CoreLocalization.Date.next(weekdayFormatter.string(from: startOfSelfDate))
+            } else {
+                return dueIn ? (
+                    CoreLocalization.Date.dueInDays(daysRemaining)
+                ) : weekdayFormatter.string(from: startOfSelfDate)
+            }
+        }
+        
+        if startOfSelfDate < startOfCurrentDate && startOfSelfDate >= sevenDaysAgo {
+            guard let daysAgo = calendar.dateComponents(
+                [.day],
+                from: startOfSelfDate,
+                to: startOfCurrentDate
+            ).day else {
+                return self.dateToString(style: .mmddyy, useRelativeDates: false)
+            }
+            return CoreLocalization.Date.daysAgo(daysAgo)
+        }
+        
+        let specificFormatter = DateFormatter()
+        specificFormatter.dateFormat = isCurrentYear ? "MMMM d" : "MMMM d, yyyy"
+        return dueInString + specificFormatter.string(from: self)
+    }
+    
+    func isDateInNextWeek(date: Date, currentDate: Date) -> Bool {
+        let calendar = Calendar.current
+        guard let nextWeek = calendar.date(byAdding: .weekOfYear, value: 1, to: currentDate) else { return false }
+        let startOfNextWeek = calendar.startOfDay(for: nextWeek)
+        guard let endOfNextWeek = calendar.date(byAdding: .day, value: 6, to: startOfNextWeek) else { return false }
+        let startOfSelfDate = calendar.startOfDay(for: date)
+        return startOfSelfDate >= startOfNextWeek && startOfSelfDate <= endOfNextWeek
     }
     
     func timeUntilDisplay() -> String {
@@ -71,19 +133,19 @@ public extension Date {
         }
         self = date
     }
-
-     init(milliseconds: Double) {
-         let now = Date()
-         let calendar = Calendar.current
-         var components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: now)
-         components.nanosecond = Int((milliseconds.truncatingRemainder(dividingBy: 1)) * 1000000)
-         let seconds = Int(milliseconds)
-         components.second = seconds % 60
-         components.minute = (seconds / 60) % 60
-         components.hour = (seconds / 3600) % 24
-         let date = calendar.date(from: components) ?? Date()
-         self = date
-     }
+    
+    init(milliseconds: Double) {
+        let now = Date()
+        let calendar = Calendar.current
+        var components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: now)
+        components.nanosecond = Int((milliseconds.truncatingRemainder(dividingBy: 1)) * 1000000)
+        let seconds = Int(milliseconds)
+        components.second = seconds % 60
+        components.minute = (seconds / 60) % 60
+        components.hour = (seconds / 3600) % 24
+        let date = calendar.date(from: components) ?? Date()
+        self = date
+    }
 }
 
 public enum DateStringStyle {
@@ -105,51 +167,47 @@ public extension Date {
     func secondsSinceMidnight() -> Double {
         let calendar = Calendar.current
         let components = calendar.dateComponents([.hour, .minute, .second], from: self)
-
+        
         guard let hours = components.hour, let minutes = components.minute, let seconds = components.second else {
             return 0.0
         }
-
+        
         let totalSeconds = Double(hours) * 3600.0 + Double(minutes) * 60.0 + Double(seconds)
         return totalSeconds
     }
     
-    func stringValue(style: DateStringStyle) -> String {
+    func dateToString(style: DateStringStyle, useRelativeDates: Bool, dueIn: Bool = false) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         
-        switch style {
-        case .courseStartsMonthDDYear:
-            dateFormatter.dateFormat = CoreLocalization.DateFormat.mmmDdYyyy
-        case .courseEndsMonthDDYear:
-            dateFormatter.dateFormat = CoreLocalization.DateFormat.mmmDdYyyy
-        case .endedMonthDay:
-            dateFormatter.dateFormat = CoreLocalization.DateFormat.mmmmDd
-        case .mmddyy:
-            dateFormatter.dateFormat = "dd.MM.yy"
-        case .monthYear:
-            dateFormatter.dateFormat = "MMMM yyyy"
-        case .startDDMonthYear:
-            dateFormatter.dateFormat = "dd MMM yyyy"
-        case .lastPost:
-            dateFormatter.dateFormat = CoreLocalization.DateFormat.mmmDdYyyy
-        case .iso8601:
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        case .shortWeekdayMonthDayYear:
-            applyShortWeekdayMonthDayYear(dateFormatter: dateFormatter)
-        case .monthDayYear:
-            dateFormatter.dateFormat = "MMMM d, yyyy"
-        case .monthDay:
-            dateFormatter.dateFormat = "MMMM dd"
+        dateFormatter.locale = .current
+        
+        if useRelativeDates {
+            return timeAgoDisplay(dueIn: dueIn)
+        } else {
+            switch style {
+            case .courseStartsMonthDDYear:
+                dateFormatter.dateStyle = .medium
+            case .courseEndsMonthDDYear:
+                dateFormatter.dateStyle = .medium
+            case .endedMonthDay:
+                dateFormatter.dateFormat = CoreLocalization.DateFormat.mmmmDd
+            case .mmddyy:
+                dateFormatter.dateFormat = "dd.MM.yy"
+            case .monthYear:
+                dateFormatter.dateFormat = "MMMM yyyy"
+            case .startDDMonthYear:
+                dateFormatter.dateFormat = "dd MMM yyyy"
+            case .lastPost:
+                dateFormatter.dateFormat = CoreLocalization.DateFormat.mmmDdYyyy
+            case .iso8601:
+                dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+            case .shortWeekdayMonthDayYear:
+                applyShortWeekdayMonthDayYear(dateFormatter: dateFormatter)
+            }
         }
         
-        return dateFormatter.string(from: self)
+        let date = dateFormatter.string(from: self)
         
-    }
-    
-    func dateToString(style: DateStringStyle) -> String {
-        let date = stringValue(style: style)
-
         switch style {
         case .courseStartsMonthDDYear:
             return CoreLocalization.Date.courseStarts + " " + date
@@ -183,55 +241,15 @@ public extension Date {
         case .iso8601:
             return date
         case .shortWeekdayMonthDayYear:
-            return getShortWeekdayMonthDayYear(dateFormatterString: date)
-        case .monthDayYear, .monthDay:
-            return date
+            return (
+                dueIn ? CoreLocalization.Date.dueIn : ""
+            ) + date
         }
         
     }
     
     private func applyShortWeekdayMonthDayYear(dateFormatter: DateFormatter) {
-        if isCurrentYear() {
-            let days = Calendar.current.dateComponents([.day], from: self, to: Date())
-            if let day = days.day, (-6 ... -2).contains(day) {
-                dateFormatter.dateFormat = "EEEE"
-            } else {
-                dateFormatter.dateFormat = "MMMM d"
-            }
-        } else {
-            dateFormatter.dateFormat = "MMMM d, yyyy"
-        }
-    }
-    
-    private func getShortWeekdayMonthDayYear(dateFormatterString: String) -> String {
-        let days = Calendar.current.dateComponents([.day], from: self, to: Date())
-        
-        if let day = days.day {
-            guard isCurrentYear() else {
-                // It's past year or future year
-                return dateFormatterString
-            }
-            
-            switch day {
-            case -6...(-2):
-                return dateFormatterString
-            case 2...6:
-                return timeAgoDisplay()
-            case -1:
-                return CoreLocalization.tomorrow
-            case 1:
-                return CoreLocalization.yesterday
-            default:
-                if day > 6 || day < -6 {
-                    return dateFormatterString
-                } else {
-                    // It means, date is in hours past due or upcoming
-                    return timeAgoDisplay()
-                }
-            }
-        } else {
-            return dateFormatterString
-        }
+        dateFormatter.dateFormat = "MMMM d, yyyy"
     }
     
     func isCurrentYear() -> Bool {
@@ -245,7 +263,7 @@ public extension Date {
     func isEarlierThanOrEqualTo(date: Date) -> Bool {
         timeIntervalSince1970 <= date.timeIntervalSince1970
     }
-
+    
     func isLaterThanOrEqualTo(date: Date) -> Bool {
         timeIntervalSince1970 >= date.timeIntervalSince1970
     }

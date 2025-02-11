@@ -78,7 +78,7 @@ public struct AppReviewView: View {
                             .foregroundColor(Theme.Colors.textPrimary)
                             .padding(.horizontal, 12)
                             .padding(.vertical, 4)
-                            .hideScrollContentBackground()
+                            .scrollContentBackground(.hidden)
                             .background(
                                 Theme.Shapes.textInputShape
                                     .fill(Theme.Colors.commentCellBackground)

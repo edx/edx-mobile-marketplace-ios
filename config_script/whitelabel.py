@@ -372,7 +372,7 @@ class WhitelabelApp:
                 # define regex rule and replacement string for every possible parameter
                 if parameter == "dev_team":
                     parameter_string = 'DEVELOPMENT_TEAM = '+parameter_value+';'
-                    parameter_regex = 'DEVELOPMENT_TEAM = .{10};'
+                    parameter_regex = 'DEVELOPMENT_TEAM = (.{10}|\"\");'
                 elif parameter == "marketing_version":
                     parameter_string = 'MARKETING_VERSION = '+parameter_value+';'
                     parameter_regex = 'MARKETING_VERSION = .*;'
@@ -427,7 +427,7 @@ class WhitelabelApp:
         config_file_string_out = config_file_string
         # string and regex for dev team
         parameter_string = 'DEVELOPMENT_TEAM = '+dev_team+';'
-        parameter_regex = 'DEVELOPMENT_TEAM = .{10};'
+        parameter_regex = 'DEVELOPMENT_TEAM = (.{10}|\"\");'
         # replace all regex findings with new parameters string
         config_file_string_out = re.sub(parameter_regex, parameter_string, config_file_string)
         # if something was changed
@@ -438,7 +438,7 @@ class WhitelabelApp:
             logging.debug("DEVELOPMENT_TEAM for '"+target+"' target was set successfuly")
         # if nothing was found
         elif re.search(parameter_regex, config_file_string) is None:
-                logging.error("Check regex please. Nothing was found for 'DEVELOPMENT_TEAM' in '"+target+" target project file")
+                logging.error("Check regex please. Nothing was found for 'DEVELOPMENT_TEAM' in '"+target+"' target project file")
         else:
             logging.debug("Looks like DEVELOPMENT_TEAM for '"+target+"' target is set already")
     
@@ -572,11 +572,12 @@ class WhitelabelApp:
                 # iterate for all configurations
                 for name, config in configurations.items():
                     if 'env_config' in config:
-                        # get folder name for mobile config for current configuration by env_config 
+                        # get folder name for mobile config for current configuration by env_config
                         config_folder = config_settings.get(self.CONFIG_MAPPINGS, {}).get(config['env_config'])
                         if config_folder:
-                            # replace fullstory flag
-                            project_file_string = self.replace_fullstory_flag(project_file_string, config_directory, name, config_folder, errors_texts)
+                            # example of usage
+                            # project_file_string = self.replace_fullstory_flag(project_file_string, config_directory, name, config_folder, errors_texts)
+                            pass
                         else:
                             logging.error("Config folder for '"+config['env_config']+"' is not defined in config_settings.yaml->config_mapping")
                     else:
@@ -595,20 +596,20 @@ class WhitelabelApp:
         else:
             logging.error("Mobile config directory not found")
 
-    def replace_fullstory_flag(self, project_file_string, config_directory, config_name,  config_folder, errors_texts):
-        # get mobile config 
-        mobile_config = self.get_mobile_config(config_directory,  config_folder, errors_texts)
-        if mobile_config:
-            # get FULLSTORY settings from mobile config
-            fullstory_config = mobile_config.get('FULLSTORY', {})
-            if fullstory_config:
-                fullstory_config_enabled = fullstory_config.get('ENABLED')
-                fullstory_string = "FULLSTORY_ENABLED = YES;" if fullstory_config_enabled else "FULLSTORY_ENABLED = NO;"
-                fullstory_regex = "FULLSTORY_ENABLED = .*;"
-                # serach by regex and replace
-                project_file_string = self.replace_parameter_for_build_config(project_file_string, config_name, fullstory_string, fullstory_regex, errors_texts)
-        return project_file_string
-
+#    def replace_fullstory_flag(self, project_file_string, config_directory, config_name,  config_folder, errors_texts):
+#        # get mobile config
+#        mobile_config = self.get_mobile_config(config_directory,  config_folder, errors_texts)
+#        if mobile_config:
+#            # get FULLSTORY settings from mobile config
+#            fullstory_config = mobile_config.get('FULLSTORY', {})
+#            if fullstory_config:
+#                fullstory_config_enabled = fullstory_config.get('ENABLED')
+#                fullstory_string = "FULLSTORY_ENABLED = YES;" if fullstory_config_enabled else "FULLSTORY_ENABLED = NO;"
+#                fullstory_regex = "FULLSTORY_ENABLED = .*;"
+#                # serach by regex and replace
+#                project_file_string = self.replace_parameter_for_build_config(project_file_string, config_name, fullstory_string, fullstory_regex, errors_texts)
+#        return project_file_string
+#
 def main():
     """
     Parse the command line arguments, and pass them to WhitelabelApp.

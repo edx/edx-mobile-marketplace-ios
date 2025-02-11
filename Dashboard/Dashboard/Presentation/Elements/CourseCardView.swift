@@ -23,6 +23,7 @@ struct CourseCardView: View {
     public let auditAccessExpires: Date?
     public let startDisplay: Date?
     public let startType: DisplayStartType?
+    private let useRelativeDates: Bool
     
     init(
         courseName: String,
@@ -35,7 +36,8 @@ struct CourseCardView: View {
         showProgress: Bool,
         auditAccessExpires: Date?,
         startDisplay: Date?,
-        startType: DisplayStartType?
+        startType: DisplayStartType?,
+        useRelativeDates: Bool
     ) {
         self.courseName = courseName
         self.courseImage = courseImage
@@ -48,6 +50,7 @@ struct CourseCardView: View {
         self.auditAccessExpires = auditAccessExpires
         self.startDisplay = startDisplay
         self.startType = startType
+        self.useRelativeDates = useRelativeDates
     }
     
     var body: some View {
@@ -108,6 +111,17 @@ struct CourseCardView: View {
                     font: Theme.Fonts.labelSmall
                 )
             }
+            if let courseEndDate {
+                Text(courseEndDate.dateToString(style: .courseEndsMonthDDYear, useRelativeDates: useRelativeDates))
+                    .font(Theme.Fonts.labelSmall)
+                    .foregroundStyle(Theme.Colors.textSecondaryLight)
+                    .multilineTextAlignment(.leading)
+            } else if let courseStartDate {
+                Text(courseStartDate.dateToString(style: .courseStartsMonthDDYear, useRelativeDates: useRelativeDates))
+                    .font(Theme.Fonts.labelSmall)
+                    .foregroundStyle(Theme.Colors.textSecondaryLight)
+                    .multilineTextAlignment(.leading)
+            }
             Text(courseName)
                 .font(Theme.Fonts.labelMedium)
                 .foregroundStyle(Theme.Colors.textPrimary)
@@ -122,6 +136,7 @@ struct CourseCardView: View {
     }
 }
 
+//swiftlint:disable line_length
 #if DEBUG
 #Preview {
     CourseCardView(
@@ -135,7 +150,9 @@ struct CourseCardView: View {
         showProgress: true,
         auditAccessExpires: nil,
         startDisplay: nil,
-        startType: .unknown
+        startType: .unknown,
+        useRelativeDates: true
     ).frame(width: 170)
 }
 #endif
+//swiftlint:enable line_length

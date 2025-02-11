@@ -35,6 +35,7 @@ public struct PrimaryCardView: View {
     private var canShowFutureAssignments: Bool {
         return !isUpgradeable || pastAssignments.count <= 0
     }
+    private let useRelativeDates: Bool
     
     public init(
         courseName: String,
@@ -51,6 +52,7 @@ public struct PrimaryCardView: View {
         auditAccessExpires: Date?,
         startDisplay: Date?,
         startType: DisplayStartType?,
+        useRelativeDates: Bool,
         assignmentAction: @escaping (String?) -> Void,
         openCourseAction: @escaping () -> Void,
         resumeAction: @escaping () -> Void,
@@ -68,6 +70,7 @@ public struct PrimaryCardView: View {
         self.progressPossible = progressPossible
         self.canResume = canResume
         self.resumeTitle = resumeTitle
+        self.useRelativeDates = useRelativeDates
         self.assignmentAction = assignmentAction
         self.openCourseAction = openCourseAction
         self.resumeAction = resumeAction
@@ -165,16 +168,12 @@ public struct PrimaryCardView: View {
             // futureAssignment
             if !futureAssignments.isEmpty && canShowFutureAssignments {
                 if futureAssignments.count == 1, let futureAssignment = futureAssignments.first {
-                    let daysRemaining = Calendar.current.dateComponents(
-                        [.day],
-                        from: Date(),
-                        to: futureAssignment.date
-                    ).day ?? 0
                     courseButton(
                         title: futureAssignment.title,
-                        description: DashboardLocalization.Learn.PrimaryCard.dueDays(
-                            futureAssignment.type,
-                            daysRemaining
+                        description: futureAssignment.date.dateToString(
+                            style: .shortWeekdayMonthDayYear,
+                            useRelativeDates: useRelativeDates,
+                            dueIn: true
                         ),
                         icon: CoreAssets.chapter.swiftUIImage,
                         selected: false,
@@ -187,7 +186,7 @@ public struct PrimaryCardView: View {
                         courseButton(
                             title: DashboardLocalization.Learn.PrimaryCard.futureAssignments(
                                 futureAssignments.count,
-                                firtsData.date.dateToString(style: .lastPost)
+                                firtsData.date.dateToString(style: .lastPost, useRelativeDates: useRelativeDates)
                             ),
                             description: nil,
                             icon: CoreAssets.chapter.swiftUIImage,
@@ -320,6 +319,15 @@ public struct PrimaryCardView: View {
                     startType: startType
                 )
             }
+            if let courseEndDate {
+                Text(courseEndDate.dateToString(style: .courseEndsMonthDDYear, useRelativeDates: useRelativeDates))
+                    .font(Theme.Fonts.labelMedium)
+                    .foregroundStyle(Theme.Colors.textSecondaryLight)
+            } else if let courseStartDate {
+                Text(courseStartDate.dateToString(style: .courseStartsMonthDDYear, useRelativeDates: useRelativeDates))
+                    .font(Theme.Fonts.labelMedium)
+                    .foregroundStyle(Theme.Colors.textSecondaryLight)
+            }
         }
         .padding(.top, 10)
         .padding(.horizontal, 12)
@@ -327,6 +335,7 @@ public struct PrimaryCardView: View {
     }
 }
 
+//swiftlint:disable line_length
 #if DEBUG
 struct PrimaryCardView_Previews: PreviewProvider {
     static var previews: some View {
@@ -338,7 +347,16 @@ struct PrimaryCardView_Previews: PreviewProvider {
                 courseImage: "https://thumbs.dreamstime.com/b/logo-edx-samsung-tablet-edx-massive-open-online-course-mooc-provider-hosts-online-university-level-courses-wide-117763805.jpg",
                 courseStartDate: nil,
                 courseEndDate: Date(),
-                futureAssignments: [],
+                futureAssignments: [
+                    Assignment(
+                        type: "Lesson",
+                        title: "HomeWork",
+                        description: "Some description",
+                        date: Date().addingTimeInterval(64000 * 3),
+                        complete: false,
+                        firstComponentBlockId: "123"
+                    )
+                ],
                 pastAssignments: [],
                 progressEarned: 10,
                 progressPossible: 45,
@@ -348,6 +366,7 @@ struct PrimaryCardView_Previews: PreviewProvider {
                 startDisplay: nil,
                 startType: .unknown,
                 assignmentAction: {_ in },
+                useRelativeDates: false,
                 openCourseAction: {},
                 resumeAction: {},
                 isUpgradeable: false,
@@ -358,3 +377,4 @@ struct PrimaryCardView_Previews: PreviewProvider {
     }
 }
 #endif
+//swiftlint:enable line_length

@@ -7,9 +7,10 @@
 
 import Foundation
 import Core
+import OEXFoundation
 import Combine
 
-public protocol DiscussionRepositoryProtocol {
+public protocol DiscussionRepositoryProtocol: Sendable {
     func getCourseDiscussionInfo(courseID: String) async throws -> DiscussionInfo
     func getThreads(courseID: String,
                     type: ThreadType,
@@ -34,7 +35,7 @@ public protocol DiscussionRepositoryProtocol {
     func readBody(threadID: String) async throws
 }
 
-public class DiscussionRepository: DiscussionRepositoryProtocol {
+public actor DiscussionRepository: DiscussionRepositoryProtocol {
     
     private let api: API
     private let appStorage: CoreStorage
@@ -226,7 +227,7 @@ public class DiscussionRepository: DiscussionRepositoryProtocol {
 // Mark - For testing and SwiftUI preview
 // swiftlint:disable all
 #if DEBUG
-public class DiscussionRepositoryMock: DiscussionRepositoryProtocol {
+public actor DiscussionRepositoryMock: DiscussionRepositoryProtocol {
 
     public func getCourseDiscussionInfo(courseID: String) async throws -> DiscussionInfo {
         DiscussionInfo(discussionID: nil, blackouts: [])
@@ -260,7 +261,7 @@ public class DiscussionRepositoryMock: DiscussionRepositoryProtocol {
     }
     
 
-    var comments = [
+    let comments = [
             UserComment(authorName: "Bill",
                         authorAvatar: "",
                         postDate: Date(),

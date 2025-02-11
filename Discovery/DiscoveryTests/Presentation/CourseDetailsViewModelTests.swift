@@ -12,6 +12,7 @@ import XCTest
 import Alamofire
 import SwiftUI
 
+@MainActor
 final class CourseDetailsViewModelTests: XCTestCase {
 
     func testGetCourseDetailSuccess() async throws {
@@ -91,7 +92,7 @@ final class CourseDetailsViewModelTests: XCTestCase {
             isEnrolled: true,
             overviewHTML: "",
             courseBannerURL: "",
-            courseVideoURL: nil, 
+            courseVideoURL: nil,
             courseRawImage: nil
         )
         

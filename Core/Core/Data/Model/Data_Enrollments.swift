@@ -339,6 +339,7 @@ public extension DataLayer.CourseEnrollments {
                 isSelfPaced: course.isSelfPaced,
                 courseRawImage: course.media.courseImage?.url,
                 coursewareAccess: coursewareAccess,
+                courseRawImage: course.media.courseImage?.url,
                 progressEarned: 0,
                 progressPossible: 0,
                 auditAccessExpires: result.auditAccessExpires.flatMap { Date(iso8601: $0) },

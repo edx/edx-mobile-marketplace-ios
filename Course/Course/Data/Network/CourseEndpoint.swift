@@ -7,6 +7,7 @@
 
 import Foundation
 import Core
+import OEXFoundation
 import Alamofire
 
 enum CourseEndpoint: EndPointType {
@@ -24,7 +25,7 @@ enum CourseEndpoint: EndPointType {
     var path: String {
         switch self {
         case .getCourseBlocks:
-            return "/api/mobile/v3/course_info/blocks/"
+            return "/api/mobile/v4/course_info/blocks/"
         case .pageHTML(let url):
             return "/xblock/\(url)"
         case .blockCompletionRequest:
@@ -78,11 +79,11 @@ enum CourseEndpoint: EndPointType {
     var task: HTTPTask {
         switch self {
         case let .getCourseBlocks(courseID, userName):
-            let params: [String: Encodable] = [
+            let params: [String: Encodable & Sendable] = [
                 "username": userName,
                 "course_id": courseID,
                 "depth": "all",
-                "student_view_data": "video,discussion,html",
+                "student_view_data": "video,discussion,html,problem",
                 "nav_depth": "4",
                 "requested_fields": """
                 contains_gated_content,show_gated_sections,special_exam_info,graded,
@@ -94,7 +95,7 @@ enum CourseEndpoint: EndPointType {
         case .pageHTML:
             return .request
         case let .blockCompletionRequest(username, courseID, blockID):
-            let params: [String: Any] = [
+            let params: [String: any Any & Sendable] = [
                 "username": username,
                 "course_key": courseID,
                 "blocks": [blockID: 1.0]
@@ -108,7 +109,7 @@ enum CourseEndpoint: EndPointType {
             return .requestParameters(encoding: JSONEncoding.default)
         case let .getSubtitles(_, subtitleLanguage):
             //           let languageCode = Locale.current.languageCode ?? "en"
-            let params: [String: Any] = [
+            let params: [String: any Any & Sendable] = [
                 "lang": subtitleLanguage
             ]
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)

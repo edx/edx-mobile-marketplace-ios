@@ -10,7 +10,8 @@ import Core
 import SwiftUI
 import Combine
 
-public class SearchViewModel<S: Scheduler>: ObservableObject {
+@MainActor
+public final class SearchViewModel<S: Scheduler>: ObservableObject {
     var nextPage = 1
     var totalPages = 1
     @Published private(set) var fetchInProgress = false
@@ -32,6 +33,7 @@ public class SearchViewModel<S: Scheduler>: ObservableObject {
     
     let router: DiscoveryRouter
     let analytics: DiscoveryAnalytics
+    let storage: CoreStorage
     private let interactor: DiscoveryInteractorProtocol
     let connectivity: ConnectivityProtocol
     
@@ -39,12 +41,14 @@ public class SearchViewModel<S: Scheduler>: ObservableObject {
                 connectivity: ConnectivityProtocol,
                 router: DiscoveryRouter,
                 analytics: DiscoveryAnalytics,
+                storage: CoreStorage,
                 debounce: Debounce<S>
     ) {
         self.interactor = interactor
         self.connectivity = connectivity
         self.router = router
         self.analytics = analytics
+        self.storage = storage
         self.debounce = debounce
         
         $searchText
@@ -55,8 +59,10 @@ public class SearchViewModel<S: Scheduler>: ObservableObject {
                     .trimmingCharacters(in: .whitespaces)
                 Task.detached(priority: .high) {
                     if !term.isEmpty {
-                        if term == self.prevQuery { return }
-                        self.nextPage = 1
+                        if await term == self.prevQuery { return }
+                        await MainActor.run {
+                            self.nextPage = 1
+                        }
                         await self.search(page: self.nextPage, searchTerm: str)
                     } else {
                         await MainActor.run {

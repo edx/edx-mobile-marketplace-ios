@@ -9,9 +9,11 @@ import SwiftyMocky
 import XCTest
 @testable import Core
 @testable import Authorization
+import OEXFoundation
 import Alamofire
 import SwiftUI
 
+@MainActor
 final class SignInViewModelTests: XCTestCase {
     
     override func setUpWithError() throws {
@@ -96,7 +98,34 @@ final class SignInViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.errorMessage, nil)
         XCTAssertEqual(viewModel.isShowProgress, true)
     }
-
+    
+    func testSSOLoginSuccess() async throws {
+        let interactor = AuthInteractorProtocolMock()
+        let router = AuthorizationRouterMock()
+        let validator = Validator()
+        let analytics = AuthorizationAnalyticsMock()
+        let viewModel = SignInViewModel(
+            interactor: interactor,
+            router: router,
+            config: ConfigMock(),
+            analytics: analytics,
+            validator: validator,
+            storage: CoreStorageMock(),
+            sourceScreen: .default
+        )
+        let user = User(id: 1, username: "username", email: "edxUser@edx.com", name: "Name", userAvatar: "")
+        
+        Given(interactor, .login(ssoToken: .any, willReturn: user))
+        
+        await viewModel.ssoLogin(title: "Riyadah")
+        
+        Verify(interactor, 1, .login(ssoToken: .any))
+        Verify(router, 1, .showMainOrWhatsNewScreen(sourceScreen: .any, postLoginData: .any))
+        
+        XCTAssertEqual(viewModel.errorMessage, nil)
+        XCTAssertEqual(viewModel.isShowProgress, true)
+    }
+    
     func testSocialLoginSuccess() async throws {
         let interactor = AuthInteractorProtocolMock()
         let router = AuthorizationRouterMock()
@@ -148,7 +177,7 @@ final class SignInViewModelTests: XCTestCase {
             .apple(.init(name: "name", email: "email", token: "239i2oi3jrf2jflkj23lf2f"))
         )
         let validationErrorMessage = AuthLocalization.Error.accountNotRegistered(
-            AuthMethod.socailAuth(.apple).analyticsValue,
+            AuthMethod.socialAuth(.apple).analyticsValue,
             viewModel.config.platformName
         )
         let validationError = CustomValidationError(statusCode: 400, data: ["error_description": validationErrorMessage])

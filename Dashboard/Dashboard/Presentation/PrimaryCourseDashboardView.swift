@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Core
+import OEXFoundation
 import Theme
 import Swinject
 import Notifications
@@ -50,10 +51,7 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
                     Spacer(minLength: 50)
                     switch selectedMenu {
                     case .courses:
-                    RefreshableScrollViewCompat(action: {
-                        await viewModel.getEnrollments(showProgress: false)
-                        await viewModel.getNotificaitonsCount()
-                    }) {
+                    ScrollView {
                         ZStack(alignment: .topLeading) {
                             if viewModel.fetchInProgress {
                                 VStack(alignment: .center) {
@@ -80,6 +78,7 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
                                                     auditAccessExpires: primary.auditAccessExpires,
                                                     startDisplay: primary.startDisplay,
                                                     startType: primary.startType,
+                                                    useRelativeDates: viewModel.storage.useRelativeDates,
                                                     assignmentAction: { lastVisitedBlockID in
                                                         router.showCourseScreens(
                                                             courseID: primary.courseID,
@@ -178,7 +177,14 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
                             }
                         }
                         .frameLimit(width: proxy.size.width)
-                    }.accessibilityAction {}
+                    }
+                    .refreshable {
+                        Task {
+                            await viewModel.getEnrollments(showProgress: false)
+                            await viewModel.getNotificaitonsCount()
+                        }
+                    }
+                    .accessibilityAction {}
                     case .programs:
                         programView
                     }
@@ -235,6 +241,7 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
     
     @ViewBuilder
     private func courses(_ enrollments: PrimaryEnrollment) -> some View {
+        let useRelativeDates = viewModel.storage.useRelativeDates
         ForEach(
             Array(enrollments.courses.enumerated()),
             id: \.offset
@@ -266,7 +273,8 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
                     showProgress: false,
                     auditAccessExpires: nil,
                     startDisplay: nil,
-                    startType: nil
+                    startType: nil,
+                    useRelativeDates: useRelativeDates
                 ).frame(width: idiom == .pad ? nil : 120)
             }
             )
@@ -392,7 +400,8 @@ struct PrimaryCourseDashboardView_Previews: PreviewProvider {
             analytics: DashboardAnalyticsMock(),
             config: ConfigMock(),
             serverConfig: ServerConfigProtocolMock(),
-            notificationsInteractor: NotificationsInteractor.mock
+            notificationsInteractor: NotificationsInteractor.mock,
+            storage: CoreStorageMock()
         )
         
         PrimaryCourseDashboardView(

@@ -7,13 +7,14 @@
 
 import Foundation
 
-public protocol CoreStorage {
+//sourcery: AutoMockable
+public protocol CoreStorage: Sendable {
     var accessToken: String? {get set}
     var refreshToken: String? {get set}
     var pushToken: String? {get set}
     var appleSignFullName: String? {get set}
     var appleSignEmail: String? {get set}
-    var cookiesDate: String? {get set}
+    var cookiesDate: Date? {get set}
     var reviewLastShownVersion: String? {get set}
     var lastReviewDate: Date? {get set}
     var user: DataLayer.User? {get set}
@@ -21,17 +22,19 @@ public protocol CoreStorage {
     var resetAppSupportDirectoryUserData: Bool? {get set}
     var lastUsedSocialAuth: String? {get set}
     var discussionNotificationsSettingStatus: Bool? {get set}
+    var useRelativeDates: Bool {get set}
+    var lastUsedSocialAuth: String? {get set}
     func clear()
 }
 
 #if DEBUG
-public class CoreStorageMock: CoreStorage {
+public final class CoreStorageMock: CoreStorage, @unchecked Sendable {
     public var accessToken: String?
     public var refreshToken: String?
     public var pushToken: String?
     public var appleSignFullName: String?
     public var appleSignEmail: String?
-    public var cookiesDate: String?
+    public var cookiesDate: Date?
     public var reviewLastShownVersion: String?
     public var lastReviewDate: Date?
     public var user: DataLayer.User?
@@ -39,6 +42,8 @@ public class CoreStorageMock: CoreStorage {
     public var resetAppSupportDirectoryUserData: Bool?
     public var lastUsedSocialAuth: String?
     public var discussionNotificationsSettingStatus: Bool?
+    public var useRelativeDates: Bool = true
+    public var lastUsedSocialAuth: String?
     public func clear() {}
     
     public init() {}

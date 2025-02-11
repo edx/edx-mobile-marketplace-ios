@@ -13,6 +13,7 @@ import Alamofire
 import SwiftUI
 
 // swiftlint:disable type_body_length file_length
+@MainActor
 final class EditProfileViewModelTests: XCTestCase {
     
     func testResizeVerticalImage() async throws {
@@ -493,6 +494,8 @@ final class EditProfileViewModelTests: XCTestCase {
         
         await viewModel.saveProfileUpdates()
         
+        await Task.yield()
+        
         Verify(interactor, 1, .uploadProfilePicture(pictureData: .any))
         Verify(interactor, 1, .updateUserProfile(parameters: .any))
     }
@@ -535,6 +538,8 @@ final class EditProfileViewModelTests: XCTestCase {
         Given(interactor, .deleteProfilePicture(willReturn: true))
         
         await viewModel.saveProfileUpdates()
+        
+        await Task.yield()
         
 //        Verify(interactor, 0, .uploadProfilePicture(pictureData: .any))
         Verify(interactor, 1, .deleteProfilePicture())
@@ -646,6 +651,8 @@ final class EditProfileViewModelTests: XCTestCase {
                                              willThrow: NSError()))
         
         await viewModel.saveProfileUpdates()
+        
+        await Task.yield()
         
         Verify(interactor, 1, .uploadProfilePicture(pictureData: .any))
         Verify(interactor, 1, .updateUserProfile(parameters: .any))
@@ -797,6 +804,8 @@ final class EditProfileViewModelTests: XCTestCase {
         )
         
         viewModel.loadLocationsAndSpokenLanguages()
+        
+        await Task.yield()
         
         Verify(interactor, 1, .getSpokenLanguages())
         Verify(interactor, 1, .getCountries())

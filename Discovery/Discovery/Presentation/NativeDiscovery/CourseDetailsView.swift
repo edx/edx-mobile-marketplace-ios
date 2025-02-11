@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Core
+import OEXFoundation
 import Kingfisher
 import WebKit
 import Theme
@@ -50,9 +51,7 @@ public struct CourseDetailsView: View {
                                 .accessibilityIdentifier("progress_bar")
                         }.frame(width: proxy.size.width)
                     } else {
-                        RefreshableScrollViewCompat(action: {
-                            await viewModel.getCourseDetail(courseID: courseID, withProgress: false)
-                        }) {
+                        ScrollView {
                             VStack(alignment: .leading) {
                                 if let courseDetails = viewModel.courseDetails {
                                     
@@ -139,6 +138,11 @@ public struct CourseDetailsView: View {
                             }
                             .frameLimit(width: proxy.size.width)
                         }
+                        .refreshable {
+                            Task {
+                                await viewModel.getCourseDetail(courseID: courseID, withProgress: false)
+                            }
+                        }
                         .onRightSwipeGesture {
                             viewModel.router.back()
                         }
@@ -146,7 +150,9 @@ public struct CourseDetailsView: View {
                     }
                 }
                 if !viewModel.userloggedIn {
-                    LogistrationBottomView { buttonAction in
+                    LogistrationBottomView(
+                        ssoEnabled: viewModel.config.uiComponents.samlSSOLoginEnabled
+                    ) { buttonAction in
                         switch buttonAction {
                         case .signIn:
                             viewModel.router.showLoginScreen(
@@ -157,6 +163,13 @@ public struct CourseDetailsView: View {
                             )
                         case .register:
                             viewModel.router.showRegisterScreen(
+                                sourceScreen: .courseDetail(
+                                    courseID,
+                                    viewModel.courseDetails?.courseTitle ?? ""
+                                )
+                            )
+                        case .signInWithSSO:
+                            viewModel.router.showLoginScreen(
                                 sourceScreen: .courseDetail(
                                     courseID,
                                     viewModel.courseDetails?.courseTitle ?? ""

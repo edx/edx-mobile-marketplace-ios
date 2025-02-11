@@ -20,7 +20,7 @@ import WhatsNew
 import Combine
 import Notifications
 
-// swiftlint:disable file_length type_body_length
+// swiftlint:disable type_body_length file_length
 public class Router: AuthorizationRouter,
                      WhatsNewRouter,
                      DiscoveryRouter,
@@ -408,8 +408,13 @@ public class Router: AuthorizationRouter,
         )
         navigationController.pushViewController(controller, animated: true)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            Container.shared.resolve(PushNotificationsManager.self)?.performRegistration()
+        Task {
+            try? await Task.sleep(for: .seconds(1))
+            await Container.shared.resolve(PushNotificationsManager.self)?.performRegistration()
+        }
+        
+        if let analytics = Container.shared.resolve(DashboardAnalytics.self) {
+            analytics.dashboardCourseClicked(courseID: courseID, courseName: title)
         }
         
         if let analytics = Container.shared.resolve(DashboardAnalytics.self) {
@@ -605,20 +610,6 @@ public class Router: AuthorizationRouter,
         )
     }
 
-    public func showDownloads(
-        downloads: [DownloadDataTask],
-        manager: DownloadManagerProtocol
-    ) {
-        let downloadsView = DownloadsView(
-            isSheet: false,
-            router: Container.shared.resolve(CourseRouter.self)!,
-            downloads: downloads,
-            manager: manager
-        )
-        let controller = UIHostingController(rootView: downloadsView)
-        navigationController.pushViewController(controller, animated: true)
-    }
-
     public func replaceCourseUnit(
         courseName: String,
         blockId: String,
@@ -798,7 +789,15 @@ public class Router: AuthorizationRouter,
     
     public func showDatesAndCalendar() {
         let viewModel = Container.shared.resolve(DatesAndCalendarViewModel.self)!
-        let view = DatesAndCalendarView(viewModel: viewModel)
+        let storage = Container.shared.resolve(ProfileStorage.self)
+        
+        let view: AnyView
+        if storage?.calendarSettings == nil {
+            view = AnyView(DatesAndCalendarView(viewModel: viewModel))
+        } else {
+            view = AnyView(SyncCalendarOptionsView(viewModel: viewModel))
+        }
+        
         let controller = UIHostingController(rootView: view)
         navigationController.pushViewController(controller, animated: true)
     }
@@ -896,7 +895,18 @@ public class Router: AuthorizationRouter,
         let webBrowser = WebBrowser(
             url: url.absoluteString,
             pageTitle: title,
-            showProgress: true
+            showProgress: true,
+            connectivity: Container.shared.resolve(ConnectivityProtocol.self)!
+        )
+        let controller = UIHostingController(rootView: webBrowser)
+        navigationController.pushViewController(controller, animated: true)
+    }
+    
+    public func showSSOWebBrowser(title: String) {
+        let config = Container.shared.resolve(ConfigProtocol.self)!
+        let webBrowser = ContainerWebView(
+            config.baseSSOURL.absoluteString,
+            title: title
         )
         let controller = UIHostingController(rootView: webBrowser)
         navigationController.pushViewController(controller, animated: true)
@@ -1047,4 +1057,4 @@ extension Router {
     }
     
 }
-// swiftlint:enable file_length type_body_length
+// swiftlint:enable type_body_length file_length

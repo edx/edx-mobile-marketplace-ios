@@ -147,7 +147,8 @@ public struct UnitButtonView: View {
                             Text(type.stringValue())
                                 .foregroundColor(
                                     type == .continueLesson ? Theme.Colors.resumeButtonText :
-                                    Theme.Colors.styledButtonText)
+                                    Theme.Colors.styledButtonText
+                                )
                                 .padding(.leading, 20)
                                 .font(Theme.Fonts.labelLarge)
                             CoreAssets.arrowLeft.swiftUIImage.renderingMode(.template)
@@ -188,7 +189,8 @@ public struct UnitButtonView: View {
                             Theme.Shapes.buttonShape
                                 .fill(
                                     type == .continueLesson ? Theme.Colors.resumeButtonBG :
-                                    bgColor ?? Theme.Colors.accentButtonColor)
+                                    bgColor ?? Theme.Colors.accentButtonColor
+                                )
                             
                                 .shadow(color: (type == .first
                                                 || type == .next

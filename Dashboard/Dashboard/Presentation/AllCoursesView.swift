@@ -7,8 +7,10 @@
 
 import SwiftUI
 import Core
+import OEXFoundation
 import Theme
 
+@MainActor
 public struct AllCoursesView: View {
     
     @ObservedObject
@@ -51,14 +53,13 @@ public struct AllCoursesView: View {
                 VStack(alignment: .center) {
                     learnTitleAndSearch()
                         .frameLimit(width: proxy.size.width)
-                    RefreshableScrollViewCompat(action: {
-                        await viewModel.getCourses(page: 1, refresh: true)
-                    }) {
+                    ScrollView {
                         VStack(spacing: 0) {
                             CategoryFilterView(selectedOption: $viewModel.selectedMenu)
                                 .disabled(viewModel.fetchInProgress)
                                 .frameLimit(width: proxy.size.width)
                             if let myEnrollments = viewModel.myEnrollments {
+                                let useRelativeDates = viewModel.storage.useRelativeDates
                                 LazyVGrid(columns: columns(), spacing: 0) {
                                     ForEach(
                                         Array(myEnrollments.courses.enumerated()),
@@ -95,7 +96,8 @@ public struct AllCoursesView: View {
                                                 showProgress: true,
                                                 auditAccessExpires: course.auditAccessExpires,
                                                 startDisplay: course.startDisplay,
-                                                startType: course.startType
+                                                startType: course.startType,
+                                                useRelativeDates: useRelativeDates
                                             ).padding(8)
                                         })
                                         .accessibilityIdentifier("course_item")
@@ -118,6 +120,11 @@ public struct AllCoursesView: View {
                                         maxHeight: .infinity)
                             }
                             VStack {}.frame(height: 40)
+                        }
+                    }
+                    .refreshable {
+                        Task {
+                            await viewModel.getCourses(page: 1, refresh: true)
                         }
                     }
                     .accessibilityAction {}
@@ -204,7 +211,8 @@ struct AllCoursesView_Previews: PreviewProvider {
         let vm = AllCoursesViewModel(
             interactor: DashboardInteractor.mock,
             connectivity: Connectivity(),
-            analytics: DashboardAnalyticsMock()
+            analytics: DashboardAnalyticsMock(),
+            storage: CoreStorageMock()
         )
         
         AllCoursesView(viewModel: vm, router: DashboardRouterMock())

@@ -10,6 +10,7 @@ import Core
 import SwiftUI
 import Combine
 
+@MainActor
 public class ListDashboardViewModel: ObservableObject {
     
     public var nextPage = 1
@@ -33,6 +34,7 @@ public class ListDashboardViewModel: ObservableObject {
     private var cancellations: [AnyCancellable] = []
     private let upgradehandler: CourseUpgradeHandlerProtocol
     private let coreAnalytics: CoreAnalytics
+    let storage: CoreStorage
     private var onCourseEnrolledCancellable: AnyCancellable?
     private var refreshEnrollmentsCancellable: AnyCancellable?
     let serverConfig: ServerConfigProtocol
@@ -40,6 +42,7 @@ public class ListDashboardViewModel: ObservableObject {
     public init(interactor: DashboardInteractorProtocol,
                 connectivity: ConnectivityProtocol,
                 analytics: DashboardAnalytics,
+                storage: CoreStorage,
                 upgradehandler: CourseUpgradeHandlerProtocol,
                 coreAnalytics: CoreAnalytics,
                 serverConfig: ServerConfigProtocol
@@ -50,6 +53,7 @@ public class ListDashboardViewModel: ObservableObject {
         self.upgradehandler = upgradehandler
         self.coreAnalytics = coreAnalytics
         self.serverConfig = serverConfig
+        self.storage = storage
         
         addObservers()
     }

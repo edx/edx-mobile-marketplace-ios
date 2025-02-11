@@ -33,6 +33,7 @@ public struct CourseContainerView: View {
     private let courseRawImage: String?
     private let org: String?
     private let coursewareAccess: CoursewareAccess?
+    
     private var coordinateBoundaryHigher: CGFloat {
         let topInset = UIApplication.shared.windowInsets.top
         guard topInset > 0 else {
@@ -122,7 +123,6 @@ public struct CourseContainerView: View {
                 self.collapsed = isHorizontal
             }
         }
-        
         switch courseDatesViewModel.eventState {
         case .removedCalendar:
             showDatesSuccessView(
@@ -142,7 +142,8 @@ public struct CourseContainerView: View {
     private func showDatesSuccessView(title: String, message: String) -> some View {
         return DatesSuccessView(
             title: title,
-            message: message
+            message: message,
+            selectedTab: .dates
         ) {
             courseDatesViewModel.resetEventState()
         }
@@ -280,6 +281,21 @@ public struct CourseContainerView: View {
                             }
                             .tag(tab)
                             .accentColor(Theme.Colors.accentColor)
+                        case .offline:
+                            OfflineView(
+                                courseID: courseID,
+                                coordinate: $coordinate,
+                                collapsed: $collapsed,
+                                viewHeight: $viewHeight,
+                                viewModel: viewModel
+                            )
+                            .padding(.bottom, 1)
+                            .tabItem {
+                                tab.image
+                                Text(tab.title)
+                            }
+                            .tag(tab)
+                            .accentColor(Theme.Colors.accentColor)
                         case .discussion:
                             DiscussionTopicsView(
                                 courseID: courseID,
@@ -321,7 +337,7 @@ public struct CourseContainerView: View {
                 }
             }
         }
-        .versionedTabStyle()
+        .tabViewStyle(.page(indexDisplayMode: .never))
         .introspect(.scrollView, on: .iOS(.v16...), customize: { tabView in
             tabView.isScrollEnabled = false
         })
@@ -392,24 +408,6 @@ public struct CourseContainerView: View {
     }
 }
 
-struct TabViewStyleModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        if #available(iOS 16.0, *) {
-            content
-                .tabViewStyle(.page(indexDisplayMode: .never))
-        } else {
-            content
-                .tabViewStyle(.automatic)
-        }
-    }
-}
-
-extension View {
-    func versionedTabStyle() -> some View {
-        modifier(TabViewStyleModifier())
-    }
-}
-
 #if DEBUG
 struct CourseScreensView_Previews: PreviewProvider {
     static var previews: some View {
@@ -430,7 +428,8 @@ struct CourseScreensView_Previews: PreviewProvider {
                 enrollmentEnd: nil,
                 lastVisitedBlockID: nil,
                 coreAnalytics: CoreAnalyticsMock(),
-                serverConfig: ServerConfigProtocolMock()
+                serverConfig: ServerConfigProtocolMock(),
+                courseHelper: CourseDownloadHelper(courseStructure: nil, manager: DownloadManagerMock())
             ),
             courseDatesViewModel: CourseDatesViewModel(
                 interactor: CourseInteractor.mock,
@@ -440,7 +439,8 @@ struct CourseScreensView_Previews: PreviewProvider {
                 config: ConfigMock(),
                 courseID: "1",
                 courseName: "a",
-                analytics: CourseAnalyticsMock()
+                analytics: CourseAnalyticsMock(),
+                calendarManager: CalendarManagerMock()
             ),
             courseID: "",
             title: "Title of Course",

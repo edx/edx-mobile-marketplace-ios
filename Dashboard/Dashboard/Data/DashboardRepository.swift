@@ -7,8 +7,9 @@
 
 import Foundation
 import Core
+import OEXFoundation
 
-public protocol DashboardRepositoryProtocol {
+public protocol DashboardRepositoryProtocol: Sendable {
     func getEnrollments(page: Int) async throws -> [CourseItem]
     func getEnrollmentsOffline() async throws -> [CourseItem]
     func getPrimaryEnrollment(pageSize: Int) async throws -> PrimaryEnrollment
@@ -16,7 +17,7 @@ public protocol DashboardRepositoryProtocol {
     func getAllCourses(filteredBy: String, page: Int) async throws -> PrimaryEnrollment
 }
 
-public class DashboardRepository: DashboardRepositoryProtocol {
+public actor DashboardRepository: DashboardRepositoryProtocol {
     
     private let api: API
     private let storage: CoreStorage
@@ -44,7 +45,11 @@ public class DashboardRepository: DashboardRepositoryProtocol {
         )
             .mapResponse(DataLayer.CourseEnrollments.self)
             .domain(baseURL: config.baseURL.absoluteString)
-        
+//      ToDo: fix it 2 lines from develop - after this - 2u/develop
+        await persistence.saveEnrollments(items: result)
+        return result
+
+//      2u/develop here
         persistence.saveEnrollments(items: result.0)
         persistence.saveServerConfig(configs: result.1)
         
@@ -66,12 +71,17 @@ public class DashboardRepository: DashboardRepositoryProtocol {
         )
             .mapResponse(DataLayer.PrimaryEnrollment.self)
             .domain(baseURL: config.baseURL.absoluteString)
+//      ToDo: fix it 2u/develop here
         persistence.savePrimaryEnrollment(enrollments: result.0)
         persistence.saveServerConfig(configs: result.1)
         
         serverConfig.initialize(serverConfig: result.1?.config)
         
         return result.0
+        
+//      develop here
+        await persistence.savePrimaryEnrollment(enrollments: result)
+        return result
     }
     
     public func getPrimaryEnrollmentOffline() async throws -> PrimaryEnrollment {
@@ -95,7 +105,7 @@ public class DashboardRepository: DashboardRepositoryProtocol {
 // swiftlint:disable all
 // Mark - For testing and SwiftUI preview
 #if DEBUG
-class DashboardRepositoryMock: DashboardRepositoryProtocol {
+final class DashboardRepositoryMock: DashboardRepositoryProtocol {
     func getCourseEnrollments(baseURL: String) async throws -> [CourseItem] {
         do {
             let courseEnrollments = try

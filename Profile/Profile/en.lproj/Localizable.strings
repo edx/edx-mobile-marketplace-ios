@@ -30,7 +30,7 @@
 "FULL_PROFILE" = "full profile";
 "LIMITED_PROFILE" = "limited profile";
 
-"LOGOUT_ALERT.TITLE" = "Comfirm log out";
+"LOGOUT_ALERT.TITLE" = "Confirm log out";
 "LOGOUT_ALERT.TEXT" = "Are you sure you want to log out?";
 
 "DELETE_ALERT.TITLE" = "Warning!";
@@ -61,7 +61,7 @@
 "DELETE_ACCOUNT.DESCRIPTION" = "To confirm this action, please enter your account password.";
 "DELETE_ACCOUNT.PASSWORD" = "Password";
 "DELETE_ACCOUNT.PASSWORD_DESCRIPTION" = "Enter password";
-"DELETE_ACCOUNT.COMFIRM" = "Yes, delete account";
+"DELETE_ACCOUNT.CONFIRM" = "Yes, delete account";
 "DELETE_ACCOUNT.BACK_TO_PROFILE" = "Back to profile";
 "DELETE_ACCOUNT.INCORRECT_PASSWORD" = "The password is incorrect. Please try again.";
 
@@ -98,11 +98,12 @@
 "ASSIGNMENT_STATUS.SYNCED" = "Synced";
 "ASSIGNMENT_STATUS.FAILED" = "Sync Failed";
 "ASSIGNMENT_STATUS.OFFLINE" = "Offline";
+"ASSIGNMENT_STATUS.SYNCING" = "Syncing to calendar...";
 
 "CALENDAR_DIALOG.CALENDAR_ACCESS" = "Calendar Access";
-"CALENDAR_DIALOG.DISABLE_CALENDAR_SYNC" = "Change Sync Options";
+"CALENDAR_DIALOG.DISABLE_CALENDAR_SYNC" = "Disable Calendar Sync";
 "CALENDAR_DIALOG.CALENDAR_ACCESS_DESCRIPTION" = "To show upcoming assignments and course milestones on your calendar, we need permission to access your calendar.";
-"CALENDAR_DIALOG.DISABLE_CALENDAR_SYNC_DESCRIPTION" = "Disabling calendar sync will delete the calendar “My Assignments.” You can turn calendar sync back on at any time.";
+"CALENDAR_DIALOG.DISABLE_CALENDAR_SYNC_DESCRIPTION" = "Disabling calendar sync will delete the calendar “%@”. You can turn calendar sync back on at any time.";
 "CALENDAR_DIALOG.GRANT_CALENDAR_ACCESS" = "Grant Calendar Access";
 "CALENDAR_DIALOG.DISABLE_SYNCING" = "Disable Syncing";
 "CALENDAR_DIALOG.CANCEL" = "Cancel";
@@ -114,6 +115,7 @@
 "OPTIONS.TITLE" = "Options";
 "OPTIONS.USE_RELATIVE_DATES" = "Use relative dates";
 "OPTIONS.SHOW_RELATIVE_DATES" = "Show relative dates like “Tomorrow” and “Yesterday”";
+"OPTIONS.SHOW_FULL_DATES" = "Show full dates like “January 1, 2021”";
 
 "DATES_AND_CALENDAR.TITLE" = "Dates & Calendar";
 "COURSE_CALENDAR_SYNC.TITLE" = "Course Calendar Sync";
@@ -148,9 +150,12 @@
 
 "DROP_DOWN_PICKER.SELECT" = "Select";
 
-"SYNC_SELECTOR.SYNCED" = "Synced";
+"SYNC_SELECTOR.SYNCED" = "To Sync";
 "SYNC_SELECTOR.NOT_SYNCED" = "Not Synced";
 
 "COURSEUPGRADE.PURCHASES" = "Purchases";
 "COURSEUPGRADE.RESTORE_PURCHASES" = "Restore purchases";
 "COURSEUPGRADE.RESTORE_PURCHASES_TEXT" = "Sign into the app store to restore access to courses you have previously paid to upgrade";
+
+"SYNC.NO_SYNCED" = "No Synced Courses";
+"SYNC.NO_SYNCED_DESCRIPTION" = "No courses are currently being synced to your calendar.";

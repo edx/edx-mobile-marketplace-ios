@@ -8,11 +8,12 @@
 import Foundation
 
 //sourcery: AutoMockable
-public protocol AuthInteractorProtocol {
+public protocol AuthInteractorProtocol: Sendable {
     @discardableResult
     func login(username: String, password: String) async throws -> User
     @discardableResult
     func login(externalToken: String, backend: String) async throws -> User
+    func login(ssoToken: String) async throws -> User
     func resetPassword(email: String) async throws -> ResetPassword
     func getCookies(force: Bool) async throws
     func getRegistrationFields() async throws -> [PickerFields]
@@ -20,7 +21,7 @@ public protocol AuthInteractorProtocol {
     func validateRegistrationFields(fields: [String: String]) async throws -> [String: String]
 }
 
-public class AuthInteractor: AuthInteractorProtocol {
+public actor AuthInteractor: AuthInteractorProtocol {
     private let repository: AuthRepositoryProtocol
     
     public init(repository: AuthRepositoryProtocol) {
@@ -37,6 +38,11 @@ public class AuthInteractor: AuthInteractorProtocol {
         return try await repository.login(externalToken: externalToken, backend: backend)
     }
 
+    @discardableResult
+    public func login(ssoToken: String) async throws -> User {
+        return try await repository.login(ssoToken: ssoToken)
+    }
+    
     public func resetPassword(email: String) async throws -> ResetPassword {
         try await repository.resetPassword(email: email)
     }
@@ -60,6 +66,7 @@ public class AuthInteractor: AuthInteractorProtocol {
 
 // Mark - For testing and SwiftUI preview
 #if DEBUG
+@MainActor
 public extension AuthInteractor {
     static let mock: AuthInteractor = .init(repository: AuthRepositoryMock())
 }

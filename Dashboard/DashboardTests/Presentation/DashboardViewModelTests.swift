@@ -12,6 +12,7 @@ import XCTest
 import Alamofire
 import SwiftUI
 
+@MainActor
 final class ListDashboardViewModelTests: XCTestCase {
     
     func testGetMyCoursesSuccess() async throws {
@@ -24,7 +25,8 @@ final class ListDashboardViewModelTests: XCTestCase {
             analytics: analytics,
             upgradehandler: CourseUpgradeHandlerProtocolMock(),
             coreAnalytics: CoreAnalyticsMock(),
-            serverConfig: ServerConfigProtocolMock()
+            serverConfig: ServerConfigProtocolMock(),
+            storage: CoreStorageMock()
         )
         
         let items = [
@@ -40,7 +42,7 @@ final class ListDashboardViewModelTests: XCTestCase {
                        courseID: "123",
                        numPages: 2,
                        coursesCount: 2,
-                        isSelfPaced: false,
+                       isSelfPaced: false,
                        courseRawImage: nil,
                        coursewareAccess: nil,
                        progressEarned: 0,
@@ -93,7 +95,8 @@ final class ListDashboardViewModelTests: XCTestCase {
             analytics: analytics,
             upgradehandler: CourseUpgradeHandlerProtocolMock(),
             coreAnalytics: CoreAnalyticsMock(),
-            serverConfig: ServerConfigProtocolMock()
+            serverConfig: ServerConfigProtocolMock(),
+            storage: CoreStorageMock()
         )
         
         let items = [
@@ -162,7 +165,8 @@ final class ListDashboardViewModelTests: XCTestCase {
             analytics: analytics,
             upgradehandler: CourseUpgradeHandlerProtocolMock(),
             coreAnalytics: CoreAnalyticsMock(),
-            serverConfig: ServerConfigProtocolMock()
+            serverConfig: ServerConfigProtocolMock(),
+            storage: CoreStorageMock()
         )
         
         Given(connectivity, .isInternetAvaliable(getter: true))
@@ -187,7 +191,8 @@ final class ListDashboardViewModelTests: XCTestCase {
             analytics: analytics,
             upgradehandler: CourseUpgradeHandlerProtocolMock(),
             coreAnalytics: CoreAnalyticsMock(),
-            serverConfig: ServerConfigProtocolMock()
+            serverConfig: ServerConfigProtocolMock(),
+            storage: CoreStorageMock()
         )
         
         Given(connectivity, .isInternetAvaliable(getter: true))

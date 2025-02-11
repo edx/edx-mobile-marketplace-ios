@@ -9,9 +9,9 @@ import SwiftUI
 import Core
 
 public enum LessonType: Equatable {
-    case web(url: String, injections: [WebviewInjection])
-    case youtube(youtubeVideoUrl: String, blockID: String)
-    case video(videoUrl: String, blockID: String)
+    case web(url: String, injections: [WebviewInjection], blockId: String, isDownloadable: Bool)
+    case youtube(youtubeVideoUrl: String, blockId: String)
+    case video(videoUrl: String, blockId: String)
     case unknown(String)
     case discussion(String, String, String)
     
@@ -22,21 +22,31 @@ public enum LessonType: Equatable {
             return .unknown(block.studentUrl)
         case .unknown:
             if let multiDevice = block.multiDevice, multiDevice {
-                return .web(url: block.studentUrl, injections: mandatoryInjections)
+                return .web(
+                    url: block.studentUrl,
+                    injections: mandatoryInjections,
+                    blockId: block.id,
+                    isDownloadable: block.isDownloadable
+                )
             } else {
                 return .unknown(block.studentUrl)
             }
         case .html:
-            return .web(url: block.studentUrl, injections: mandatoryInjections)
+            return .web(
+                url: block.studentUrl,
+                injections: mandatoryInjections,
+                blockId: block.id,
+                isDownloadable: block.isDownloadable
+            )
         case .discussion:
             return .discussion(block.topicId ?? "", block.id, block.displayName)
         case .video:
             if let encodedVideo = block.encodedVideo?.video(streamingQuality: streamingQuality),
                let videoURL = encodedVideo.url {
                 if encodedVideo.type == .youtube {
-                    return .youtube(youtubeVideoUrl: videoURL, blockID: block.id)
+                    return .youtube(youtubeVideoUrl: videoURL, blockId: block.id)
                 } else if encodedVideo.isVideoURL {
-                    return .video(videoUrl: videoURL, blockID: block.id)
+                    return .video(videoUrl: videoURL, blockId: block.id)
                 } else {
                     return .unknown(block.studentUrl)
                 }
@@ -45,13 +55,33 @@ public enum LessonType: Equatable {
             }
             
         case .problem:
-            return .web(url: block.studentUrl, injections: mandatoryInjections)
+            return .web(
+                url: block.studentUrl,
+                injections: mandatoryInjections,
+                blockId: block.id,
+                isDownloadable: block.isDownloadable
+            )
         case .dragAndDropV2:
-            return .web(url: block.studentUrl, injections: mandatoryInjections + [.dragAndDropCss])
+            return .web(
+                url: block.studentUrl,
+                injections: mandatoryInjections + [.dragAndDropCss],
+                blockId: block.id,
+                isDownloadable: block.isDownloadable
+            )
         case .survey:
-            return .web(url: block.studentUrl, injections: mandatoryInjections + [.surveyCSS])
+            return .web(
+                url: block.studentUrl,
+                injections: mandatoryInjections + [.surveyCSS],
+                blockId: block.id,
+                isDownloadable: block.isDownloadable
+            )
         case .openassessment, .peerInstructionTool:
-            return .web(url: block.studentUrl, injections: mandatoryInjections)
+            return .web(
+                url: block.studentUrl,
+                injections: mandatoryInjections,
+                blockId: block.id,
+                isDownloadable: block.isDownloadable
+            )
         }
     }
 }
@@ -89,9 +119,10 @@ public struct VerticalData: Equatable {
     }
 }
 
-public class CourseUnitViewModel: ObservableObject {
+@MainActor
+public final class CourseUnitViewModel: ObservableObject {
     
-    enum LessonAction {
+    enum LessonAction: Sendable {
         case next
         case previous
     }
@@ -233,12 +264,17 @@ public class CourseUnitViewModel: ObservableObject {
         }
     }
     
-    func urlForVideoFileOrFallback(blockId: String, url: String) -> URL? {
-        if let fileURL = manager.fileUrl(for: blockId) {
+    func urlForVideoFileOrFallback(blockId: String, url: String) async -> URL? {
+        guard !connectivity.isInternetAvaliable else { return URL(string: url) }
+        if let fileURL = await manager.fileUrl(for: blockId) {
             return fileURL
         } else {
             return URL(string: url)
         }
+    }
+
+    func urlForOfflineContent(blockId: String) async -> URL? {
+        return await manager.fileUrl(for: blockId)
     }
     
     func trackFinishVerticalBackToOutlineClicked() {

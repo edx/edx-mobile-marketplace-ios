@@ -12,6 +12,7 @@ import XCTest
 import Alamofire
 import SwiftUI
 
+@MainActor
 final class ResponsesViewModelTests: XCTestCase {
     
     let userComments = [
@@ -109,6 +110,7 @@ final class ResponsesViewModelTests: XCTestCase {
                                            interactor: interactor,
                                            router: router,
                                            config: config,
+                                           storage: CoreStorageMock(),
                                            threadStateSubject: .init(.postAdded(id: "1")),
                                            analytics: DiscussionAnalyticsMock())
         
@@ -138,6 +140,7 @@ final class ResponsesViewModelTests: XCTestCase {
                                            interactor: interactor,
                                            router: router,
                                            config: config,
+                                           storage: CoreStorageMock(),
                                            threadStateSubject: .init(.postAdded(id: "1")),
                                            analytics: DiscussionAnalyticsMock())
         
@@ -166,6 +169,7 @@ final class ResponsesViewModelTests: XCTestCase {
                                            interactor: interactor,
                                            router: router,
                                            config: config,
+                                           storage: CoreStorageMock(),
                                            threadStateSubject: .init(.postAdded(id: "1")),
                                            analytics: DiscussionAnalyticsMock())
         
@@ -191,6 +195,7 @@ final class ResponsesViewModelTests: XCTestCase {
                                            interactor: interactor,
                                            router: router,
                                            config: config,
+                                           storage: CoreStorageMock(),
                                            threadStateSubject: .init(.postAdded(id: "1")),
                                            analytics: DiscussionAnalyticsMock())
         
@@ -214,6 +219,7 @@ final class ResponsesViewModelTests: XCTestCase {
                                            interactor: interactor,
                                            router: router,
                                            config: config,
+                                           storage: CoreStorageMock(),
                                            threadStateSubject: .init(.postAdded(id: "1")),
                                            analytics: DiscussionAnalyticsMock())
         
@@ -239,6 +245,7 @@ final class ResponsesViewModelTests: XCTestCase {
                                            interactor: interactor,
                                            router: router,
                                            config: config,
+                                           storage: CoreStorageMock(),
                                            threadStateSubject: .init(.postAdded(id: "1")),
                                            analytics: DiscussionAnalyticsMock())
         
@@ -262,6 +269,7 @@ final class ResponsesViewModelTests: XCTestCase {
                                            interactor: interactor,
                                            router: router,
                                            config: config,
+                                           storage: CoreStorageMock(),
                                            threadStateSubject: .init(.postAdded(id: "1")),
                                            analytics: DiscussionAnalyticsMock())
         

@@ -28,33 +28,38 @@ struct AppReviewButton: View {
                         Text(
                             type == .submit
                             ? CoreLocalization.Review.Button.submit
-                            : type == .shareFeedback
+                            : (
+                                type == .shareFeedback
+                                ? CoreLocalization.Review.Button.shareFeedback
+                                : CoreLocalization.Review.Button.rateUs
+                            )
+                        )
+                        .foregroundColor(isActive ? Theme.Colors.primaryButtonTextColor : Color.black.opacity(0.6))
+                        .font(Theme.Fonts.labelLarge)
+                        .padding(3)
+                        
+                    }.padding(.horizontal, 20)
+                        .padding(.vertical, 9)
+                }.fixedSize()
+                    .background(
+                        Theme.Shapes.buttonShape
+                            .fill(
+                                isActive ? Theme.Colors.accentColor
+                                : Theme.Colors.cardViewStroke
+                            )
+                    )
+                    .accessibilityElement(children: .ignore)
+                    .accessibilityLabel(
+                        type == .submit
+                        ? CoreLocalization.Review.Button.submit
+                        : (
+                            type == .shareFeedback
                             ? CoreLocalization.Review.Button.shareFeedback
                             : CoreLocalization.Review.Button.rateUs
                         )
-                .foregroundColor(isActive ? Theme.Colors.primaryButtonTextColor : Color.black.opacity(0.6))
-                .font(Theme.Fonts.labelLarge)
-                .padding(3)
-                
-            }.padding(.horizontal, 20)
-                .padding(.vertical, 9)
-        }.fixedSize()
-                .background(
-                    Theme.Shapes.buttonShape
-                        .fill(
-                            isActive ? Theme.Colors.accentColor
-                            : Theme.Colors.cardViewStroke
-                        )
-                )
-            .accessibilityElement(children: .ignore)
-            .accessibilityLabel(
-                type == .submit
-                ? CoreLocalization.Review.Button.submit
-                : type == .shareFeedback
-                ? CoreLocalization.Review.Button.shareFeedback
-                : CoreLocalization.Review.Button.rateUs
-            )
-            .cornerRadius(8)
-        })
+                    )
+                    .cornerRadius(8)
+            }
+        )
     }
 }

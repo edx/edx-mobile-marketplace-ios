@@ -10,7 +10,8 @@ import SwiftUI
 import Combine
 import Core
 
-public class PostsViewModel: ObservableObject {
+@MainActor
+public final class PostsViewModel: ObservableObject {
     
     public var nextPage = 1
     public var totalPages = 1
@@ -80,6 +81,7 @@ public class PostsViewModel: ObservableObject {
     private let interactor: DiscussionInteractorProtocol
     private let router: DiscussionRouter
     private let config: ConfigProtocol
+    private let storage: CoreStorage
     internal let postStateSubject = CurrentValueSubject<PostState?, Never>(nil)
     private var cancellable: AnyCancellable?
     private let analytics: DiscussionAnalytics?
@@ -88,12 +90,14 @@ public class PostsViewModel: ObservableObject {
         interactor: DiscussionInteractorProtocol,
         router: DiscussionRouter,
         config: ConfigProtocol,
-        analytics: DiscussionAnalytics?
+        analytics: DiscussionAnalytics?,
+        storage: CoreStorage
     ) {
         self.interactor = interactor
         self.router = router
         self.config = config
         self.analytics = analytics
+        self.storage = storage
         
         cancellable = postStateSubject
             .receive(on: RunLoop.main)
@@ -133,24 +137,29 @@ public class PostsViewModel: ObservableObject {
         var result: [DiscussionPost] = []
         if let threads = threads?.threads {
             for thread in threads {
-                result.append(thread.discussionPost(action: { [weak self] in
-                    guard let self, let actualThread = self.threads.threads
-                        .first(where: {$0.id  == thread.id }) else { return }
-                    
-                    self.router.showThread(
-                        thread: actualThread,
-                        postStateSubject: self.postStateSubject,
-                        isBlackedOut: self.isBlackedOut ?? false,
-                        animated: true
+                result.append(
+                    thread.discussionPost(
+                        useRelativeDates: storage.useRelativeDates,
+                        action: { [weak self] in
+                            guard let self,
+                                  let actualThread = self.threads.threads
+                                .first(where: {$0.id  == thread.id }) else { return }
+                            
+                            self.router.showThread(
+                                thread: actualThread,
+                                postStateSubject: self.postStateSubject,
+                                isBlackedOut: self.isBlackedOut ?? false,
+                                animated: true
+                            )
+                        }
                     )
-                }))
+                )
             }
         }
         
         return result
     }
     
-    @MainActor
     func getPostsPagination(index: Int, withProgress: Bool = true) async {
         guard !fetchInProgress else { return }
         if totalPages > 1, index >= filteredPosts.count - 3, nextPage <= totalPages {
@@ -161,7 +170,6 @@ public class PostsViewModel: ObservableObject {
         }
     }
     
-    @MainActor
     public func getPosts(pageNumber: Int, withProgress: Bool = true) async -> Bool {
         fetchInProgress = true
         isShowProgress = withProgress
@@ -201,7 +209,6 @@ public class PostsViewModel: ObservableObject {
         }
     }
     
-    @MainActor
     private func getThreadsList(type: ThreadType, page: Int) async throws -> [UserThread] {
         guard let courseID else { return [] }
         return try await interactor.getThreadsList(

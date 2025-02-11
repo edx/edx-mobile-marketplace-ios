@@ -9,6 +9,7 @@ import SwiftUI
 import Core
 import Kingfisher
 import Theme
+import OEXFoundation
 
 public struct ProfileView: View {
     
@@ -27,15 +28,16 @@ public struct ProfileView: View {
         GeometryReader { proxy in
             ZStack(alignment: .top) {
                 // MARK: - Page Body
-                RefreshableScrollViewCompat(
-                    action: {
-                        await viewModel.getMyProfile(withProgress: false)
-                    },
-                    content: {
+                ScrollView {
                         content
                             .frameLimit(width: proxy.size.width)
                     }
-                )
+                .refreshable {
+                    Task {
+                        await viewModel.getMyProfile(withProgress: false)
+                    }
+
+                }
                 .accessibilityAction {}
                 .padding(.top, 8)
                 .hideNavigationBar(false)

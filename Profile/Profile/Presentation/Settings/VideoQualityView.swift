@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Core
+import OEXFoundation
 import Kingfisher
 import Theme
 
@@ -123,29 +124,22 @@ public struct VideoQualityView: View {
 }
 
 #if DEBUG
-struct VideoQualityView_Previews: PreviewProvider {
-    static var previews: some View {
-        let router = ProfileRouterMock()
-        let vm = SettingsViewModel(
-            interactor: ProfileInteractor.mock,
-            downloadManager: DownloadManagerMock(),
-            router: router,
-            analytics: ProfileAnalyticsMock(),
-            coreAnalytics: CoreAnalyticsMock(),
-            config: ConfigMock(),
-            serverConfig: ServerConfigProtocolMock(),
-            upgradeHandler: CourseUpgradeHandlerProtocolMock()
-        )
-        
-        VideoQualityView(viewModel: vm)
-            .preferredColorScheme(.light)
-            .previewDisplayName("VideoQualityView Light")
-            .loadFonts()
-        
-        VideoQualityView(viewModel: vm)
-            .preferredColorScheme(.dark)
-            .previewDisplayName("VideoQualityView Dark")
-            .loadFonts()
-    }
+#Preview {
+    let router = ProfileRouterMock()
+    let vm = SettingsViewModel(
+        interactor: ProfileInteractor.mock,
+        downloadManager: DownloadManagerMock(),
+        router: router,
+        analytics: ProfileAnalyticsMock(),
+        coreAnalytics: CoreAnalyticsMock(),
+        config: ConfigMock(),
+        serverConfig: ServerConfigProtocolMock(),
+        upgradeHandler: CourseUpgradeHandlerProtocolMock(),
+        corePersistence: CorePersistenceMock(),
+        connectivity: Connectivity()
+    )
+
+    VideoQualityView(viewModel: vm)
+        .loadFonts()
 }
 #endif

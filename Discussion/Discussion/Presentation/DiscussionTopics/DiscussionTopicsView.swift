@@ -46,9 +46,7 @@ public struct DiscussionTopicsView: View {
         GeometryReader { proxy in
             ZStack(alignment: .center) {
                 VStack(alignment: .center) {
-                    RefreshableScrollViewCompat(action: {
-                        await viewModel.getTopics(courseID: self.courseID, withProgress: false)
-                    }) {
+                    ScrollView {
                         VStack(spacing: 0) {
                             DynamicOffsetView(
                                 coordinate: $coordinate,
@@ -193,6 +191,11 @@ public struct DiscussionTopicsView: View {
                             }
                         }
                     }.frame(maxWidth: .infinity)
+                        .refreshable {
+                            Task {
+                                await viewModel.getTopics(courseID: self.courseID, withProgress: false)
+                            }
+                        }
                 }.padding(.top, 8)
                 if viewModel.isShowProgress {
                     ProgressBar(size: 40, lineWidth: 8)
@@ -293,6 +296,7 @@ public struct TopicCell: View {
                     .multilineTextAlignment(.leading)
                 Spacer()
                 Image(systemName: "chevron.right")
+                    .flipsForRightToLeftLayoutDirection(true)
                     .foregroundColor(Theme.Colors.accentColor)
             }
         })

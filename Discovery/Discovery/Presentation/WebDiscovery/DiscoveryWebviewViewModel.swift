@@ -10,12 +10,13 @@ import Core
 import SwiftUI
 import WebKit
 
-public class DiscoveryWebviewViewModel: ObservableObject {
+@MainActor
+public final class DiscoveryWebviewViewModel: ObservableObject {
     @Published var courseDetails: CourseDetails?
     @Published private(set) var showProgress = false
     @Published var showError: Bool = false
     @Published var webViewError: Bool = false
-    
+
     var errorMessage: String? {
         didSet {
             withAnimation {
@@ -75,7 +76,7 @@ public class DiscoveryWebviewViewModel: ObservableObject {
             
             if courseDetails?.isEnrolled ?? false || courseState == .alreadyEnrolled {
                 showProgress = false
-                showCourseDetails()
+                await showCourseDetails()
                 return
             }
             
@@ -85,7 +86,7 @@ public class DiscoveryWebviewViewModel: ObservableObject {
             courseDetails?.isEnrolled = true
             showProgress = false
             NotificationCenter.default.post(name: .onCourseEnrolled, object: courseID)
-            showCourseDetails()
+            await showCourseDetails()
         } catch let error {
             showProgress = false
             if error.isInternetError || error is NoCachedDataError {
@@ -198,7 +199,7 @@ extension DiscoveryWebviewViewModel: WebViewNavigationDelegate {
                 sourceScreen: sourceScreen
             )
         case .enrolledCourseDetail:
-            return showCourseDetails()
+            return await showCourseDetails()
             
         case .programDetail:
             guard let pathID = programDetailPathId(from: url) else { return false }
@@ -241,7 +242,7 @@ extension DiscoveryWebviewViewModel: WebViewNavigationDelegate {
         return path
     }
     
-    @discardableResult private func showCourseDetails() -> Bool {
+    @discardableResult private func showCourseDetails() async -> Bool {
         guard let courseDetails = courseDetails else { return false }
         
         router.showCourseScreens(
@@ -265,7 +266,7 @@ extension DiscoveryWebviewViewModel: WebViewNavigationDelegate {
     private func isValidAppURLScheme(_ url: URL) -> Bool {
         return url.scheme ?? "" == config.URIScheme
     }
-    
+
     public func showWebViewError() {
         self.webViewError = true
     }

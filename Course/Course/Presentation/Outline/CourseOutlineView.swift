@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Core
+import OEXFoundation
 import Kingfisher
 import Theme
 import SwiftUIIntrospect
@@ -59,16 +60,7 @@ public struct CourseOutlineView: View {
         ZStack(alignment: .top) {
             GeometryReader { proxy in
                 VStack(alignment: .center) {
-                    RefreshableScrollViewCompat(action: {
-                        await withTaskGroup(of: Void.self) { group in
-                            group.addTask {
-                                await viewModel.getCourseBlocks(courseID: courseID, withProgress: false)
-                            }
-                            group.addTask {
-                                await viewModel.getCourseDeadlineInfo(courseID: courseID, withProgress: false)
-                            }
-                        }
-                    }) {
+                    ScrollView {
                         VStack(spacing: 0) {
                             DynamicOffsetView(
                                 coordinate: $coordinate,
@@ -148,16 +140,25 @@ public struct CourseOutlineView: View {
                                         )
                                     } else {
                                         if let courseStart = viewModel.courseStart {
-                                            Text(courseStart > Date() ? CourseLocalization.Outline.courseHasntStarted : "")
-                                                .frame(maxWidth: .infinity)
-                                                .frame(maxHeight: .infinity)
-                                                .padding(.top, 100)
+                                            Text(
+                                                courseStart > Date()
+                                                ? CourseLocalization.Outline.courseHasntStarted
+                                                : ""
+                                            )
+                                            .frame(maxWidth: .infinity)
+                                            .frame(maxHeight: .infinity)
+                                            .padding(.top, 100)
                                         }
+                                        Spacer(minLength: viewHeight < 200 ? 200 : viewHeight)
                                     }
-                                    Spacer(minLength: viewHeight < 200 ? 200 : viewHeight)
                                 }
                             }
                             .frameLimit(width: proxy.size.width)
+                        }
+                    }
+                    .refreshable {
+                        Task {
+                            await viewModel.getCourseBlocks(courseID: courseID, withProgress: false)
                         }
                     }
                     .onRightSwipeGesture {
@@ -165,17 +166,6 @@ public struct CourseOutlineView: View {
                     }
                 }
                 .accessibilityAction {}
-                
-                if viewModel.dueDatesShifted && !isVideo {
-                    DatesSuccessView(
-                        title: CourseLocalization.CourseDates.toastSuccessTitle,
-                        message: CourseLocalization.CourseDates.toastSuccessMessage,
-                        selectedTab: .course,
-                        courseContainerViewModel: viewModel
-                    ) {
-                        selection = dateTabIndex
-                    }
-                }
                 
                 // MARK: - Offline mode SnackBar
                 OfflineSnackBarView(
@@ -219,7 +209,7 @@ public struct CourseOutlineView: View {
         }
         .onAppear {
             Task {
-               await viewModel.updateCourseIfNeeded(courseID: courseID)
+                await viewModel.updateCourseIfNeeded(courseID: courseID)
             }
         }
         .background(
@@ -227,7 +217,7 @@ public struct CourseOutlineView: View {
                 .ignoresSafeArea()
         )
         .sheet(isPresented: $showingDownloads) {
-            DownloadsView(router: viewModel.router, manager: viewModel.manager)
+            DownloadsView(router: viewModel.router, courseHelper: viewModel.courseHelper)
         }
         .sheet(isPresented: $showingVideoDownloadQuality) {
             viewModel.storage.userSettings.map {
@@ -252,12 +242,14 @@ public struct CourseOutlineView: View {
                   let blockID = userInfo["blockID"] as? String else {
                 return
             }
-            viewModel.completeBlock(
-                chapterID: chapterID,
-                sequentialID: sequentialID,
-                verticalID: verticalID,
-                blockID: blockID
-            )
+            Task {
+                await viewModel.completeBlock(
+                    chapterID: chapterID,
+                    sequentialID: sequentialID,
+                    verticalID: verticalID,
+                    blockID: blockID
+                )
+            }
         }
     }
     
@@ -321,7 +313,8 @@ public struct CourseOutlineView: View {
                 content: {
                     WebBrowser(
                         url: url,
-                        pageTitle: CourseLocalization.Outline.certificate
+                        pageTitle: CourseLocalization.Outline.certificate,
+                        connectivity: viewModel.connectivity
                     )
                 }
             )
@@ -368,7 +361,8 @@ struct CourseOutlineView_Previews: PreviewProvider {
             enrollmentEnd: nil,
             lastVisitedBlockID: nil,
             coreAnalytics: CoreAnalyticsMock(),
-            serverConfig: ServerConfigProtocolMock()
+            serverConfig: ServerConfigProtocolMock(),
+            courseHelper: CourseDownloadHelper(courseStructure: nil, manager: DownloadManagerMock())
         )
         Task {
             await withTaskGroup(of: Void.self) { group in

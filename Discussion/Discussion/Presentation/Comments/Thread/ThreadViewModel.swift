@@ -9,14 +9,13 @@ import Foundation
 import Combine
 import Core
 
-public class ThreadViewModel: BaseResponsesViewModel, ObservableObject {
+public final class ThreadViewModel: BaseResponsesViewModel, ObservableObject {
     
     @Published var scrollTrigger: Bool = false
     
     internal let threadStateSubject = CurrentValueSubject<ThreadPostState?, Never>(nil)
     private var cancellable: AnyCancellable?
     private let postStateSubject: CurrentValueSubject<PostState?, Never>
-
     public var isBlackedOut: Bool = false
     private let analytics: DiscussionAnalytics?
 
@@ -24,13 +23,14 @@ public class ThreadViewModel: BaseResponsesViewModel, ObservableObject {
         interactor: DiscussionInteractorProtocol,
         router: DiscussionRouter,
         config: ConfigProtocol,
+        storage: CoreStorage,
         postStateSubject: CurrentValueSubject<PostState?, Never>,
         analytics: DiscussionAnalytics?
     ) {
         self.postStateSubject = postStateSubject
         self.analytics = analytics
         
-        super.init(interactor: interactor, router: router, config: config, analytics: analytics)
+        super.init(interactor: interactor, router: router, config: config, storage: storage, analytics: analytics)
         
         cancellable = threadStateSubject
             .receive(on: RunLoop.main)

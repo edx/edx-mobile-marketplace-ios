@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Core
+import OEXFoundation
 import Theme
 
 public struct ResetPasswordView: View {
@@ -173,10 +174,8 @@ public struct ResetPasswordView: View {
                 }
             }
             .ignoresSafeArea(.all, edges: .horizontal)
-            
             .background(Theme.Colors.background.ignoresSafeArea(.all))
-            
-            .hideNavigationBar()
+            .navigationBarHidden(true)
         }
     }
 }

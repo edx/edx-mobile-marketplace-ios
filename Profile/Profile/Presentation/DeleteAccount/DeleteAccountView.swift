@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Core
+import OEXFoundation
 import Theme
 
 public struct DeleteAccountView: View {
@@ -101,7 +102,7 @@ public struct DeleteAccountView: View {
                                 maxWidth: .infinity,
                                 alignment: .topLeading)
                         
-                        // MARK: Comfirmation button
+                        // MARK: Confirmation button
                         if viewModel.isShowProgress {
                             ProgressBar(size: 40, lineWidth: 8)
                                 .padding(.top, 20)
@@ -109,7 +110,7 @@ public struct DeleteAccountView: View {
                                 .accessibilityIdentifier("progress_bar")
                         } else {
                             StyledButton(
-                                ProfileLocalization.DeleteAccount.comfirm,
+                                ProfileLocalization.DeleteAccount.confirm,
                                 action: {
                                     Task {
                                         try await viewModel.deleteAccount(password: viewModel.password)

@@ -8,18 +8,18 @@
 import Dashboard
 import Core
 import Foundation
-import CoreData
+@preconcurrency import CoreData
 
-public class DashboardPersistence: DashboardPersistenceProtocol {
+public final class DashboardPersistence: DashboardPersistenceProtocol {
     
-    private var context: NSManagedObjectContext
+    private let container: NSPersistentContainer
     
-    public init(context: NSManagedObjectContext) {
-        self.context = context
+    public init(container: NSPersistentContainer) {
+        self.container = container
     }
     
     public func loadEnrollments() async throws -> [CourseItem] {
-        try await context.perform {[context] in
+        return try await container.performBackgroundTask { context in
             let result = try? context.fetch(CDDashboardCourse.fetchRequest())
                 .map {
                     var coursewareAccess: CoursewareAccess?
@@ -73,10 +73,10 @@ public class DashboardPersistence: DashboardPersistenceProtocol {
         }
     }
     
-    public func saveEnrollments(items: [CourseItem]) {
-        for item in items {
-            context.perform {[context] in
-                let newItem = CDDashboardCourse(context: self.context)
+    public func saveEnrollments(items: [CourseItem]) async {
+        await container.performBackgroundTask { context in
+            for item in items {
+                let newItem = CDDashboardCourse(context: context)
                 context.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
                 newItem.name = item.name
                 newItem.org = item.org
@@ -228,8 +228,8 @@ public class DashboardPersistence: DashboardPersistenceProtocol {
     }
     
     public func loadPrimaryEnrollment() async throws -> PrimaryEnrollment {
-        try await context.perform {[context] in
-            let request = CDMyEnrollments.fetchRequest()
+        let request = CDMyEnrollments.fetchRequest()
+        return try await container.performBackgroundTask { context in
             if let result = try context.fetch(request).first {
                 let primaryCourse = result.primaryCourse.flatMap { cdPrimaryCourse -> PrimaryCourse? in
                     
@@ -340,16 +340,16 @@ public class DashboardPersistence: DashboardPersistenceProtocol {
         }
     }
     
-    public func savePrimaryEnrollment(enrollments: PrimaryEnrollment) {
+    public func savePrimaryEnrollment(enrollments: PrimaryEnrollment) async {
         // Deleting all old data before saving new ones
-        clearOldEnrollmentsData()
-        context.perform {[context] in
+        await clearOldEnrollmentsData()
+        await container.performBackgroundTask { context in
             let newEnrollment = CDMyEnrollments(context: context)
             context.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
             
             // Saving new courses
             newEnrollment.courses = NSSet(array: enrollments.courses.map { course in
-                let cdCourse = CDDashboardCourse(context: self.context)
+                let cdCourse = CDDashboardCourse(context: context)
                 cdCourse.name = course.name
                 cdCourse.org = course.org
                 cdCourse.desc = course.shortDescription
@@ -375,7 +375,7 @@ public class DashboardPersistence: DashboardPersistenceProtocol {
                 let cdPrimaryCourse = CDPrimaryCourse(context: self.context)
                 
                 let futureAssignments = primaryCourse.futureAssignments.map { assignment in
-                    let cdAssignment = CDAssignment(context: self.context)
+                    let cdAssignment = CDAssignment(context: context)
                     cdAssignment.type = assignment.type
                     cdAssignment.title = assignment.title
                     cdAssignment.descript = assignment.description
@@ -387,7 +387,7 @@ public class DashboardPersistence: DashboardPersistenceProtocol {
                 cdPrimaryCourse.futureAssignments = NSSet(array: futureAssignments)
                 
                 let pastAssignments = primaryCourse.pastAssignments.map { assignment in
-                    let cdAssignment = CDAssignment(context: self.context)
+                    let cdAssignment = CDAssignment(context: context)
                     cdAssignment.type = assignment.type
                     cdAssignment.title = assignment.title
                     cdAssignment.descript = assignment.description
@@ -430,23 +430,18 @@ public class DashboardPersistence: DashboardPersistenceProtocol {
             }
         }
     }
-    // swiftlint:enable function_body_length
     
-    func clearOldEnrollmentsData() {
-        context.performAndWait {[context] in
+    func clearOldEnrollmentsData() async {
+        await container.performBackgroundTask { context in
             let fetchRequest1: NSFetchRequest<NSFetchRequestResult> = CDDashboardCourse.fetchRequest()
             let batchDeleteRequest1 = NSBatchDeleteRequest(fetchRequest: fetchRequest1)
             
-            let fetchRequest2: NSFetchRequest<NSFetchRequestResult> = CDPrimaryCourse.fetchRequest()
+            let fetchRequest2: NSFetchRequest<NSFetchRequestResult> = CDMyEnrollments.fetchRequest()
             let batchDeleteRequest2 = NSBatchDeleteRequest(fetchRequest: fetchRequest2)
-            
-            let fetchRequest3: NSFetchRequest<NSFetchRequestResult> = CDMyEnrollments.fetchRequest()
-            let batchDeleteRequest3 = NSBatchDeleteRequest(fetchRequest: fetchRequest3)
             
             do {
                 try context.execute(batchDeleteRequest1)
                 try context.execute(batchDeleteRequest2)
-                try context.execute(batchDeleteRequest3)
             } catch {
                 print("Error when deleting old data:", error)
             }

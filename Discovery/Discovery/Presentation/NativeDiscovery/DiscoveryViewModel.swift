@@ -9,7 +9,8 @@ import Combine
 import Core
 import SwiftUI
 
-public class DiscoveryViewModel: ObservableObject {
+@MainActor
+public final class DiscoveryViewModel: ObservableObject {
     
     var nextPage = 1
     var totalPages = 1
@@ -37,7 +38,7 @@ public class DiscoveryViewModel: ObservableObject {
     let connectivity: ConnectivityProtocol
     private let interactor: DiscoveryInteractorProtocol
     private let analytics: DiscoveryAnalytics
-    private let storage: CoreStorage
+    let storage: CoreStorage
     
     public init(
         router: DiscoveryRouter,

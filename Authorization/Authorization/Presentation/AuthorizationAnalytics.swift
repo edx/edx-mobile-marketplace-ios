@@ -7,16 +7,20 @@
 
 import Foundation
 import Core
+import OEXFoundation
 
 public enum AuthMethod: Equatable {
     case password
-    case socailAuth(SocialAuthMethod)
+    case SSO
+    case socialAuth(SocialAuthMethod)
 
     public var analyticsValue: String {
         switch self {
         case .password:
             "password"
-        case .socailAuth(let socialAuthMethod):
+        case .SSO:
+            "SSO"
+        case .socialAuth(let socialAuthMethod):
             socialAuthMethod.rawValue
         }
     }

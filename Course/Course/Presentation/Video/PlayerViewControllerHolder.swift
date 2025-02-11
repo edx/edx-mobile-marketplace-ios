@@ -5,11 +5,12 @@
 //  Created by Vadim Kuznetsov on 20.03.24.
 //
 
-import AVKit
-import Combine
+@preconcurrency import AVKit
+@preconcurrency import Combine
 import Core
 
-public protocol PlayerViewControllerHolderProtocol: AnyObject {
+@MainActor
+public protocol PlayerViewControllerHolderProtocol: AnyObject, Sendable {
     var url: URL? { get }
     var blockID: String { get }
     var courseID: String { get }
@@ -40,7 +41,8 @@ public protocol PlayerViewControllerHolderProtocol: AnyObject {
     func sendCompletion() async
 }
 
-public class PlayerViewControllerHolder: PlayerViewControllerHolderProtocol {
+@MainActor
+public final class PlayerViewControllerHolder: PlayerViewControllerHolderProtocol {
     public let url: URL?
     public let blockID: String
     public let courseID: String
@@ -127,34 +129,44 @@ public class PlayerViewControllerHolder: PlayerViewControllerHolderProtocol {
         addObservers()
     }
     
+    @MainActor
     private func addObservers() {
         timePublisher
-            .sink {[weak self] _ in
-                guard let strongSelf = self else { return }
-                if strongSelf.playerTracker.progress > 0.8 && !strongSelf.isViewedOnce {
-                    strongSelf.isViewedOnce = true
+            .sink {[weak self]  _ in
+                guard let self else { return }
+                if self.playerTracker.progress > 0.8 && !self.isViewedOnce {
+                    self.isViewedOnce = true
                     Task {
-                        await strongSelf.sendCompletion()
+                        await self.sendCompletion()
                     }
                 }
             }
             .store(in: &cancellations)
         playerTracker.getFinishPublisher()
             .sink { [weak self] in
-                self?.playerService.presentAppReview()
+                guard let self else { return }
+                MainActor.assumeIsolated {
+                   self.playerService.presentAppReview()
+                }
             }
             .store(in: &cancellations)
         playerTracker.getRatePublisher()
             .sink {[weak self] rate in
                 guard rate > 0 else { return }
-                self?.pausePipIfNeed()
-                self?.saveSelectedRate(rate: rate)
+                guard let self else { return }
+                MainActor.assumeIsolated {
+                    self.pausePipIfNeed()
+                    self.saveSelectedRate(rate: rate)
+                }
             }
             .store(in: &cancellations)
         pipManager.pipRatePublisher()?
             .sink {[weak self] rate in
-                guard rate > 0, self?.isPlayingInPip == false else { return }
-                self?.playerController?.pause()
+                guard let self else { return }
+                MainActor.assumeIsolated {
+                    guard rate > 0, self.isPlayingInPip == false else { return }
+                    self.playerController?.pause()
+                }
             }
             .store(in: &cancellations)
     }
@@ -198,6 +210,7 @@ public class PlayerViewControllerHolder: PlayerViewControllerHolderProtocol {
         playerService
     }
     
+    @MainActor
     public func sendCompletion() async {
         do {
             try await playerService.blockCompletionRequest()
@@ -207,7 +220,7 @@ public class PlayerViewControllerHolder: PlayerViewControllerHolderProtocol {
     }
 }
 
-extension AVPlayerViewController: PlayerControllerProtocol {
+extension AVPlayerViewController: PlayerControllerProtocol, @retroactive Sendable {
     public func play() {
         player?.play()
     }
@@ -226,6 +239,7 @@ extension AVPlayerViewController: PlayerControllerProtocol {
 }
 
 #if DEBUG
+@MainActor
 extension PlayerViewControllerHolder {
     static var mock: PlayerViewControllerHolder {
         PlayerViewControllerHolder(

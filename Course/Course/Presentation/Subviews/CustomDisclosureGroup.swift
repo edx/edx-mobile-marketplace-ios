@@ -51,24 +51,7 @@ struct CustomDisclosureGroup: View {
                                    let state = downloadAllButtonState(for: chapter) {
                                     Button(
                                         action: {
-                                            switch state {
-                                            case .finished:
-                                                viewModel.router.presentAlert(
-                                                    alertTitle: CourseLocalization.Alert.warning,
-                                                    alertMessage: deleteMessage(for: chapter),
-                                                    positiveAction: CoreLocalization.Alert.delete,
-                                                    onCloseTapped: {
-                                                        viewModel.router.dismiss(animated: true)
-                                                    },
-                                                    okTapped: {
-                                                        downloadAllSubsections(in: chapter, state: state)
-                                                        viewModel.router.dismiss(animated: true)
-                                                    },
-                                                    type: .deleteVideo
-                                                )
-                                            default:
-                                                downloadAllSubsections(in: chapter, state: state)
-                                            }
+                                            downloadAllSubsections(in: chapter, state: state)
                                         }, label: {
                                             switch state {
                                             case .available:
@@ -100,7 +83,7 @@ struct CustomDisclosureGroup: View {
                                                     viewModel.router.showGatedContentError(url: courseVertical.webUrl)
                                                     return
                                                 }
-
+                                                
                                                 viewModel.trackSequentialClicked(sequential)
                                                 if viewModel.config.uiComponents.courseDropDownNavigationEnabled {
                                                     viewModel.router.showCourseUnit(
@@ -170,7 +153,7 @@ struct CustomDisclosureGroup: View {
                                 }
                             }
                         }
-
+                        
                     }
                 }
                 .padding(.horizontal, 16)
@@ -216,6 +199,12 @@ struct CustomDisclosureGroup: View {
         }
     }
     
+    private func canDownloadAllSections(in chapter: CourseChapter) -> Bool {
+        chapter.childs.contains { sequential in
+            sequentialDownloadState(sequential) != nil
+        }
+    }
+
     private func assignmentStatusText(
         sequential: CourseSequential
     ) -> String? {
@@ -231,27 +220,40 @@ struct CustomDisclosureGroup: View {
         return "\(assignmentType) - \(daysRemaining)"
     }
     
-    private func canDownloadAllSections(in chapter: CourseChapter) -> Bool {
-        for sequential in chapter.childs where viewModel.sequentialsDownloadState[sequential.id] != nil {
-            return true
-        }
-        
-        return false
-    }
-    
     private func downloadAllSubsections(in chapter: CourseChapter, state: DownloadViewState) {
         Task {
-            await viewModel.onDownloadViewTap(chapter: chapter, state: state)
+            var allBlocks: [CourseBlock] = []
+            var sequentialsToDownload: [CourseSequential] = []
+            for sequential in chapter.childs {
+                let blocks = await viewModel.collectBlocks(
+                    chapter: chapter,
+                    blockId: sequential.id,
+                    state: state
+                )
+                if !blocks.isEmpty {
+                    allBlocks.append(contentsOf: blocks)
+                    sequentialsToDownload.append(sequential)
+                }
+            }
+            await viewModel.download(
+                state: state,
+                blocks: allBlocks,
+                sequentials: sequentialsToDownload
+            )
         }
     }
     
     private func downloadAllButtonState(for chapter: CourseChapter) -> DownloadViewState? {
         if canDownloadAllSections(in: chapter) {
-            let downloads = chapter.childs.filter({ viewModel.sequentialsDownloadState[$0.id] != nil })
-            
-            if downloads.contains(where: { viewModel.sequentialsDownloadState[$0.id] == .downloading }) {
+            var downloads: [DownloadViewState] = []
+            for sequential in chapter.childs {
+                if let state = sequentialDownloadState(sequential) {
+                    downloads.append(state)
+                }
+            }
+            if downloads.contains(.downloading) {
                 return .downloading
-            } else if downloads.allSatisfy({ viewModel.sequentialsDownloadState[$0.id] == .finished }) {
+            } else if downloads.allSatisfy({ $0 == .finished }) {
                 return .finished
             } else {
                 return .available
@@ -260,6 +262,9 @@ struct CustomDisclosureGroup: View {
         return nil
     }
     
+    private func sequentialDownloadState(_ sequential: CourseSequential) -> DownloadViewState? {
+        return viewModel.sequentialsDownloadState[sequential.id]
+    }
 }
 
 #if DEBUG
@@ -398,7 +403,8 @@ struct CustomDisclosureGroup_Previews: PreviewProvider {
             enrollmentEnd: nil,
             lastVisitedBlockID: nil,
             coreAnalytics: CoreAnalyticsMock(),
-            serverConfig: ServerConfigProtocolMock()
+            serverConfig: ServerConfigProtocolMock(),
+            courseHelper: CourseDownloadHelper(courseStructure: nil, manager: DownloadManagerMock())
         )
         Task {
             await withTaskGroup(of: Void.self) { group in
@@ -422,7 +428,7 @@ struct CustomDisclosureGroup_Previews: PreviewProvider {
                         encodedVideo: "",
                         displayName: "Course",
                         childs: sampleCourseChapters,
-                        media: DataLayer.CourseMedia.init(image: DataLayer.Image(raw: "", small: "", large: "")),
+                        media: CourseMedia.init(image: CourseImage(raw: "", small: "", large: "")),
                         certificate: nil,
                         org: "org",
                         isSelfPaced: false,

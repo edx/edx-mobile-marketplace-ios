@@ -14,6 +14,7 @@ public struct CommentCell: View {
     
     private let comment: Post
     private let addCommentAvailable: Bool
+    private let useRelativeDates: Bool
     private var onAvatarTap: ((String) -> Void)
     private var onLikeTap: (() -> Void)
     private var onReportTap: (() -> Void)
@@ -26,6 +27,7 @@ public struct CommentCell: View {
     public init(
         comment: Post,
         addCommentAvailable: Bool,
+        useRelativeDates: Bool,
         leftLineEnabled: Bool = false,
         onAvatarTap: @escaping (String) -> Void,
         onLikeTap: @escaping () -> Void,
@@ -35,6 +37,7 @@ public struct CommentCell: View {
     ) {
         self.comment = comment
         self.addCommentAvailable = addCommentAvailable
+        self.useRelativeDates = useRelativeDates
         self.leftLineEnabled = leftLineEnabled
         self.onAvatarTap = onAvatarTap
         self.onLikeTap = onLikeTap
@@ -63,7 +66,7 @@ public struct CommentCell: View {
                 VStack(alignment: .leading) {
                     Text(comment.authorName)
                         .font(Theme.Fonts.titleSmall)
-                    Text(comment.postDate.dateToString(style: .lastPost))
+                    Text(comment.postDate.dateToString(style: .lastPost, useRelativeDates: useRelativeDates))
                         .font(Theme.Fonts.labelSmall)
                         .foregroundColor(Theme.Colors.textSecondary)
                 }
@@ -186,8 +189,9 @@ struct CommentView_Previews: PreviewProvider {
             CommentCell(
                 comment: comment,
                 addCommentAvailable: true,
+                useRelativeDates: true,
                 leftLineEnabled: false,
-                onAvatarTap: {_ in},
+                onAvatarTap: { _ in },
                 onLikeTap: {},
                 onReportTap: {},
                 onCommentsTap: {},
@@ -195,6 +199,7 @@ struct CommentView_Previews: PreviewProvider {
             CommentCell(
                 comment: comment,
                 addCommentAvailable: true,
+                useRelativeDates: true,
                 leftLineEnabled: false,
                 onAvatarTap: {_ in},
                 onLikeTap: {},
@@ -210,6 +215,7 @@ struct CommentView_Previews: PreviewProvider {
             CommentCell(
                 comment: comment,
                 addCommentAvailable: true,
+                useRelativeDates: true,
                 leftLineEnabled: false,
                 onAvatarTap: {_ in},
                 onLikeTap: {},
@@ -219,6 +225,7 @@ struct CommentView_Previews: PreviewProvider {
             CommentCell(
                 comment: comment,
                 addCommentAvailable: true,
+                useRelativeDates: true,
                 leftLineEnabled: false,
                 onAvatarTap: {_ in},
                 onLikeTap: {},

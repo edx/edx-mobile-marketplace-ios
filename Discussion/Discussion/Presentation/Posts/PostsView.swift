@@ -102,13 +102,7 @@ public struct PostsView: View {
                                     Divider().offset(y: -8)
                                 }
 
-                                RefreshableScrollViewCompat(action: {
-                                    viewModel.resetPosts()
-                                    _ = await viewModel.getPosts(
-                                        pageNumber: 1,
-                                        withProgress: false
-                                    )
-                                }) {
+                                ScrollView {
                                     let posts = Array(viewModel.filteredPosts.enumerated())
                                     if posts.count >= 1 {
                                         LazyVStack {
@@ -209,6 +203,15 @@ public struct PostsView: View {
                                             .padding(.top, 100)
                                             .frameLimit(width: proxy.size.width)
                                         }
+                                    }
+                                }
+                                .refreshable {
+                                    viewModel.resetPosts()
+                                    Task {
+                                        _ = await viewModel.getPosts(
+                                            pageNumber: 1,
+                                            withProgress: false
+                                        )
                                     }
                                 }
                             }
@@ -335,7 +338,8 @@ struct PostsView_Previews: PreviewProvider {
             interactor: DiscussionInteractor.mock,
             router: router,
             config: ConfigMock(),
-            analytics: DiscussionAnalyticsMock()
+            analytics: DiscussionAnalyticsMock(),
+            storage: CoreStorageMock()
         )
         
         PostsView(courseID: "course_id",

@@ -11,6 +11,7 @@ import SwiftUI
 import Combine
 import Notifications
 
+@MainActor
 public class PrimaryCourseDashboardViewModel: ObservableObject {
     
     var nextPage = 1
@@ -34,6 +35,7 @@ public class PrimaryCourseDashboardViewModel: ObservableObject {
     let analytics: DashboardAnalytics
     let config: ConfigProtocol
     let serverConfig: ServerConfigProtocol
+    let storage: CoreStorage
     private var cancellables = Set<AnyCancellable>()
     private let notificationsInteractor: NotificationsInteractorProtocol
     
@@ -46,7 +48,8 @@ public class PrimaryCourseDashboardViewModel: ObservableObject {
         analytics: DashboardAnalytics,
         config: ConfigProtocol,
         serverConfig: ServerConfigProtocol,
-        notificationsInteractor: NotificationsInteractorProtocol
+        notificationsInteractor: NotificationsInteractorProtocol,
+        storage: CoreStorage
     ) {
         self.interactor = interactor
         self.connectivity = connectivity
@@ -54,6 +57,7 @@ public class PrimaryCourseDashboardViewModel: ObservableObject {
         self.config = config
         self.serverConfig = serverConfig
         self.notificationsInteractor = notificationsInteractor
+        self.storage = storage
         
         let enrollmentPublisher = NotificationCenter.default.publisher(for: .onCourseEnrolled)
         let completionPublisher = NotificationCenter.default.publisher(for: .onblockCompletionRequested)

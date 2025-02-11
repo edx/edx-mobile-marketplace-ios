@@ -7,7 +7,9 @@
 
 import Swinject
 import UIKit
+import OEXFoundation
 
+@MainActor
 public protocol BackNavigationProtocol {
     func getBackMenuItems() -> [BackNavigationMenuItem]
     func navigateTo(item: BackNavigationMenuItem)
@@ -36,6 +38,7 @@ public struct BackNavigationMenuItem: Identifiable {
     }
 }
 
+@MainActor
 class BackNavigationButtonViewModel: ObservableObject {
     private let helper: BackNavigationProtocol
     @Published var items: [BackNavigationMenuItem] = []

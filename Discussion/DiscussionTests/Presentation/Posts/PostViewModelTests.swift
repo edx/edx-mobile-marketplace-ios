@@ -12,6 +12,7 @@ import XCTest
 import Alamofire
 import SwiftUI
 
+@MainActor
 final class PostViewModelTests: XCTestCase {
     
     let threads = ThreadLists(threads: [
@@ -106,12 +107,31 @@ final class PostViewModelTests: XCTestCase {
     ])
 
     let discussionInfo = DiscussionInfo(discussionID: "1", blackouts: [])
+    
+    var interactor: DiscussionInteractorProtocolMock!
+    var router: DiscussionRouterMock!
+    var config: ConfigMock!
+    var viewModel: PostsViewModel!
+    
+    override func setUp() async throws {
+        try await super.setUp()
+        
+        interactor = DiscussionInteractorProtocolMock()
+        router = DiscussionRouterMock()
+        config = ConfigMock()
+        let storage = CoreStorageMock()
 
+        Given(storage, .useRelativeDates(getter: false))
+        
+        viewModel = PostsViewModel(
+            interactor: interactor,
+            router: router,
+            config: config,
+            storage: storage
+        )
+    }
 
     func testGetThreadListSuccess() async throws {
-        let interactor = DiscussionInteractorProtocolMock()
-        let router = DiscussionRouterMock()
-        let config = ConfigMock()
         var result = false
         let viewModel = PostsViewModel(interactor: interactor, router: router, config: config, analytics: DiscussionAnalyticsMock())
         
@@ -149,9 +169,6 @@ final class PostViewModelTests: XCTestCase {
     }
     
     func testGetThreadListNoInternetError() async throws {
-        let interactor = DiscussionInteractorProtocolMock()
-        let router = DiscussionRouterMock()
-        let config = ConfigMock()
         var result = false
         let viewModel = PostsViewModel(interactor: interactor, router: router, config: config, analytics: DiscussionAnalyticsMock())
         viewModel.isBlackedOut = false
@@ -174,9 +191,6 @@ final class PostViewModelTests: XCTestCase {
     }
     
     func testGetThreadListUnknownError() async throws {
-        let interactor = DiscussionInteractorProtocolMock()
-        let router = DiscussionRouterMock()
-        let config = ConfigMock()
         var result = false
         let viewModel = PostsViewModel(interactor: interactor, router: router, config: config, analytics: DiscussionAnalyticsMock())
         viewModel.isBlackedOut = false
@@ -197,9 +211,6 @@ final class PostViewModelTests: XCTestCase {
     }
     
     func testSortingAndFilters() async throws {
-        let interactor = DiscussionInteractorProtocolMock()
-        let router = DiscussionRouterMock()
-        let config = ConfigMock()
         let viewModel = PostsViewModel(interactor: interactor, router: router, config: config, analytics: DiscussionAnalyticsMock())
         
         Given(interactor, .getThreadsList(courseID: .any, type: .any, sort: .any, filter: .any, page: .any,

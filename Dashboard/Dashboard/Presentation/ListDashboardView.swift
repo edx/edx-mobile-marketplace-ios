@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Core
+import OEXFoundation
 import Theme
 
 public struct ListDashboardView: View {
@@ -39,9 +40,7 @@ public struct ListDashboardView: View {
                 
                 // MARK: - Page body
                 VStack(alignment: .center) {
-                    RefreshableScrollViewCompat(action: {
-                        await viewModel.getMyCourses(page: 1, refresh: true)
-                    }) {
+                    ScrollView {
                         Group {
                             LazyVStack(spacing: 0) {
                                 HStack {
@@ -53,9 +52,9 @@ public struct ListDashboardView: View {
                                 if viewModel.courses.isEmpty && !viewModel.fetchInProgress {
                                     EmptyPageIcon()
                                 } else {
+                                    let useRelativeDates = viewModel.storage.useRelativeDates
                                     ForEach(Array(viewModel.courses.enumerated()),
                                             id: \.offset) { index, course in
-                                        
                                         CourseCellView(
                                             model: course,
                                             type: .dashboard,
@@ -75,7 +74,8 @@ public struct ListDashboardView: View {
                                                     )
                                                 }
                                             },
-                                            serverConfig: viewModel.serverConfig
+                                            serverConfig: viewModel.serverConfig,
+                                            useRelativeDates: useRelativeDates
                                         )
                                         .padding(.horizontal, 20)
                                         .listRowBackground(Color.clear)
@@ -119,7 +119,13 @@ public struct ListDashboardView: View {
                             }
                         }
                         .frameLimit(width: proxy.size.width)
-                    }.accessibilityAction {}
+                    }
+                    .refreshable {
+                        Task {
+                            await viewModel.getMyCourses(page: 1, refresh: true)
+                        }
+                    }
+                    .accessibilityAction {}
                 }.padding(.top, 8)
                 
                 // MARK: - Offline mode SnackBar
@@ -168,7 +174,8 @@ struct ListDashboardView_Previews: PreviewProvider {
             analytics: DashboardAnalyticsMock(),
             upgradehandler: CourseUpgradeHandlerProtocolMock(),
             coreAnalytics: CoreAnalyticsMock(),
-            serverConfig: ServerConfigProtocolMock()
+            serverConfig: ServerConfigProtocolMock(),
+            storage: CoreStorageMock()
         )
         let router = DashboardRouterMock()
         

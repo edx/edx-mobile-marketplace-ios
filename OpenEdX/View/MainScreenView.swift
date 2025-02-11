@@ -14,6 +14,7 @@ import Profile
 import WhatsNew
 import SwiftUIIntrospect
 import Theme
+import OEXFoundation
 
 struct MainScreenView: View {
     
@@ -183,6 +184,13 @@ struct MainScreenView: View {
         .onReceive(NotificationCenter.default.publisher(for: .onNewVersionAvaliable)) { _ in
             updateAvailable = true
         }
+        .onReceive(NotificationCenter.default.publisher(for: .showDownloadFailed)) { downloads in
+            if let downloads = downloads.object as? [DownloadDataTask] {
+                Task {
+                   await viewModel.showDownloadFailed(downloads: downloads)
+                }
+            }
+        }
         .onChange(of: viewModel.selection) { _ in
             if disableAllTabs {
                 viewModel.selection = .profile
@@ -203,6 +211,12 @@ struct MainScreenView: View {
         .onFirstAppear {
             Task {
                 await viewModel.prefetchDataForOffline()
+                await viewModel.loadCalendar()
+            }
+            viewModel.trackMainDashboardLearnTabClicked()
+            viewModel.trackMainDashboardMyCoursesClicked()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                viewModel.checkIfNeedToShowRegisterBanner()
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 viewModel.checkIfNeedToShowRegisterBanner()

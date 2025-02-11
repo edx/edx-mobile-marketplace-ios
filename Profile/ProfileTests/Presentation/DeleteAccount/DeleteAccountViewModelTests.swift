@@ -9,9 +9,11 @@ import SwiftyMocky
 import XCTest
 @testable import Core
 @testable import Profile
+import OEXFoundation
 import Alamofire
 import SwiftUI
 
+@MainActor
 final class DeleteAccountViewModelTests: XCTestCase {
     
     func testDeletingAccountSuccess() async throws {

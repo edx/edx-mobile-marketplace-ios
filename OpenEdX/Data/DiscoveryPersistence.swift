@@ -7,70 +7,72 @@
 
 import Foundation
 import Discovery
-import CoreData
+@preconcurrency import CoreData
 import Core
 
-public class DiscoveryPersistence: DiscoveryPersistenceProtocol {
+public final class DiscoveryPersistence: DiscoveryPersistenceProtocol {
     
-    private var context: NSManagedObjectContext
+    private let container: NSPersistentContainer
     
-    public init(context: NSManagedObjectContext) {
-        self.context = context
+    public init(container: NSPersistentContainer) {
+        self.container = container
     }
     
     public func loadDiscovery() async throws -> [CourseItem] {
-        let result = try? context.fetch(CDDiscoveryCourse.fetchRequest())
-            .map {
-                var coursewareAccess: CoursewareAccess?
-                if let access = $0.coursewareAccess {
-                    var coursewareError: CourseAccessError?
-                    if let error = access.errorCode {
-                        coursewareError = CourseAccessError(rawValue: error) ?? .unknown
+        return try await container.performBackgroundTask { context in
+            let result = try? context.fetch(CDDiscoveryCourse.fetchRequest())
+                .map {
+                    var coursewareAccess: CoursewareAccess?
+                    if let access = $0.coursewareAccess {
+                        var coursewareError: CourseAccessError?
+                        if let error = access.errorCode {
+                            coursewareError = CourseAccessError(rawValue: error) ?? .unknown
+                        }
+                        
+                        coursewareAccess = CoursewareAccess(
+                            hasAccess: access.hasAccess,
+                            errorCode: coursewareError,
+                            developerMessage: access.developerMessage,
+                            userMessage: access.userMessage,
+                            additionalContextUserMessage: access.additionalContextUserMessage,
+                            userFragment: access.userFragment
+                        )
                     }
-                    
-                    coursewareAccess = CoursewareAccess(
-                        hasAccess: access.hasAccess,
-                        errorCode: coursewareError,
-                        developerMessage: access.developerMessage,
-                        userMessage: access.userMessage,
-                        additionalContextUserMessage: access.additionalContextUserMessage,
-                        userFragment: access.userFragment
+                    return CourseItem(
+                        name: $0.name ?? "",
+                        org: $0.org ?? "",
+                        shortDescription: $0.desc ?? "",
+                        imageURL: $0.imageURL ?? "",
+                        hasAccess: $0.hasAccess,
+                        courseStart: $0.courseStart,
+                        courseEnd: $0.courseEnd,
+                        enrollmentStart: $0.enrollmentStart,
+                        enrollmentEnd: $0.enrollmentEnd,
+                        courseID: $0.courseID ?? "",
+                        numPages: Int($0.numPages),
+                        coursesCount: Int($0.courseCount),
+                        isSelfPaced: $0.isSelfPaced,
+                        courseRawImage: $0.courseRawImage,
+                        coursewareAccess: coursewareAccess,
+                        progressEarned: 0,
+                        progressPossible: 0,
+                        auditAccessExpires: nil,
+                        startDisplay: nil,
+                        startType: nil
                     )
                 }
-                
-                return CourseItem(
-                    name: $0.name ?? "",
-                    org: $0.org ?? "",
-                    shortDescription: $0.desc ?? "",
-                    imageURL: $0.imageURL ?? "",
-                    hasAccess: $0.hasAccess,
-                    courseStart: $0.courseStart,
-                    courseEnd: $0.courseEnd,
-                    enrollmentStart: $0.enrollmentStart,
-                    enrollmentEnd: $0.enrollmentEnd,
-                    courseID: $0.courseID ?? "",
-                    numPages: Int($0.numPages),
-                    coursesCount: Int($0.courseCount),
-                    isSelfPaced: $0.isSelfPaced,
-                    courseRawImage: $0.courseRawImage,
-                    coursewareAccess: coursewareAccess,
-                    progressEarned: 0,
-                    progressPossible: 0,
-                    auditAccessExpires: nil,
-                    startDisplay: nil,
-                    startType: nil
-                )
+            
+            if let result, !result.isEmpty {
+                return result
+            } else {
+                throw NoCachedDataError()
             }
-        if let result, !result.isEmpty {
-            return result
-        } else {
-            throw NoCachedDataError()
         }
     }
     
-    public func saveDiscovery(items: [CourseItem]) {
-        for item in items {
-            context.perform {[context] in
+    public func saveDiscovery(items: [CourseItem]) async {
+        await container.performBackgroundTask { context in
+            for item in items {
                 let newItem = CDDiscoveryCourse(context: context)
                 context.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
                 newItem.name = item.name
@@ -96,19 +98,19 @@ public class DiscoveryPersistence: DiscoveryPersistenceProtocol {
                     newAccess.userFragment = access.userFragment
                     newItem.coursewareAccess = newAccess
                 }
-                do {
-                    try context.save()
-                } catch {
-                    print("⛔️⛔️⛔️⛔️⛔️", error)
-                }
+            }
+            do {
+                try context.save()
+            } catch {
+                print("⛔️⛔️⛔️⛔️⛔️", error)
             }
         }
     }
     
     public func loadCourseDetails(courseID: String) async throws -> CourseDetails {
-        try await context.perform {[context] in
-            let request = CDCourseDetails.fetchRequest()
-            request.predicate = NSPredicate(format: "courseID = %@", courseID)
+        let request = CDCourseDetails.fetchRequest()
+        request.predicate = NSPredicate(format: "courseID = %@", courseID)
+        return try await container.performBackgroundTask { context in
             guard let courseDetails = try? context.fetch(request).first else { throw NoCachedDataError() }
             return CourseDetails(
                 courseID: courseDetails.courseID ?? "",
@@ -122,15 +124,15 @@ public class DiscoveryPersistence: DiscoveryPersistenceProtocol {
                 isEnrolled: courseDetails.isEnrolled,
                 overviewHTML: courseDetails.overviewHTML ?? "",
                 courseBannerURL: courseDetails.courseBannerURL ?? "",
-                courseVideoURL: courseDetails.courseVideoURL,
+                courseVideoURL: nil,
                 courseRawImage: courseDetails.courseRawImage
             )
         }
     }
     
-    public func saveCourseDetails(course: CourseDetails) {
-        context.perform {[context] in
-            let newCourseDetails = CDCourseDetails(context: self.context)
+    public func saveCourseDetails(course: CourseDetails) async {
+        await container.performBackgroundTask { context in
+            let newCourseDetails = CDCourseDetails(context: context)
             newCourseDetails.courseID = course.courseID
             newCourseDetails.org = course.org
             newCourseDetails.courseTitle = course.courseTitle
@@ -142,7 +144,6 @@ public class DiscoveryPersistence: DiscoveryPersistenceProtocol {
             newCourseDetails.isEnrolled = course.isEnrolled
             newCourseDetails.overviewHTML = course.overviewHTML
             newCourseDetails.courseBannerURL = course.courseBannerURL
-            newCourseDetails.courseVideoURL = course.courseVideoURL
             newCourseDetails.courseRawImage = course.courseRawImage
             
             do {

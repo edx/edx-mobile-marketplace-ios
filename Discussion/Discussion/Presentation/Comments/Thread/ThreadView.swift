@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Core
+import OEXFoundation
 import Theme
 
 public struct ThreadView: View {
@@ -36,14 +37,13 @@ public struct ThreadView: View {
                 ScrollViewReader { scroll in
                     VStack {
                         ZStack(alignment: .top) {
-                            RefreshableScrollViewCompat(action: {
-                                _ = await viewModel.getThreadData(thread: thread, page: 1, refresh: true)
-                            }) {
+                            ScrollView {
                                 VStack {
                                     if let comments = viewModel.postComments {
                                         ParentCommentView(
                                             comments: comments,
                                             isThread: true,
+                                            useRelativeDates: viewModel.storage.useRelativeDates,
                                             onAvatarTap: { username in
                                                 viewModel.router.showUserDetails(username: username)
                                             },
@@ -100,11 +100,13 @@ public struct ThreadView: View {
                                         .padding(.leading, 24)
                                         .font(Theme.Fonts.titleMedium)
                                         .foregroundColor(Theme.Colors.textPrimary)
+                                        let useRelativeDates = viewModel.storage.useRelativeDates
                                         
                                         ForEach(Array(comments.comments.enumerated()), id: \.offset) { index, comment in
                                             CommentCell(
                                                 comment: comment,
                                                 addCommentAvailable: true,
+                                                useRelativeDates: useRelativeDates,
                                                 onAvatarTap: { username in
                                                     viewModel.router.showUserDetails(username: username)
                                                 },
@@ -164,6 +166,11 @@ public struct ThreadView: View {
                                     viewModel.sendUpdateUnreadState()
                                 }
                                 .frameLimit(width: proxy.size.width)
+                            }
+                            .refreshable {
+                                Task {
+                                    _ = await viewModel.getThreadData(thread: thread, page: 1, refresh: true)
+                                }
                             }
                             if !(thread.closed  || viewModel.isBlackedOut) {
                                 FlexibleKeyboardInputView(
@@ -299,11 +306,14 @@ struct CommentsView_Previews: PreviewProvider {
                                     abuseFlagged: true,
                                     hasEndorsed: true,
                                     numPages: 3)
-        let vm = ThreadViewModel(interactor: DiscussionInteractor.mock,
-                                 router: DiscussionRouterMock(),
-                                 config: ConfigMock(),
-                                 postStateSubject: .init(nil),
-                                 analytics: DiscussionAnalyticsMock())
+        let vm = ThreadViewModel(
+            interactor: DiscussionInteractor.mock,
+            router: DiscussionRouterMock(),
+            config: ConfigMock(),
+            storage: CoreStorageMock(),
+            postStateSubject: .init(nil),
+            analytics: DiscussionAnalyticsMock()
+        )
         
         ThreadView(thread: userThread, viewModel: vm)
             .preferredColorScheme(.light)

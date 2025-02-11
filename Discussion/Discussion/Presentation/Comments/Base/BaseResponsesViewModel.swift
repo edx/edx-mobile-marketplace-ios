@@ -11,6 +11,7 @@ import Core
 import Combine
 import Swinject
 
+@MainActor
 public class BaseResponsesViewModel {
     
     @Published public var postComments: Post?
@@ -44,6 +45,7 @@ public class BaseResponsesViewModel {
     internal let interactor: DiscussionInteractorProtocol
     internal let router: DiscussionRouter
     internal let config: ConfigProtocol
+    internal let storage: CoreStorage
     internal let addPostSubject = CurrentValueSubject<Post?, Never>(nil)
     private let analytics: DiscussionAnalytics?
     
@@ -51,11 +53,13 @@ public class BaseResponsesViewModel {
         interactor: DiscussionInteractorProtocol,
         router: DiscussionRouter,
         config: ConfigProtocol,
+        storage: CoreStorage,
         analytics: DiscussionAnalytics?
     ) {
         self.interactor = interactor
         self.router = router
         self.config = config
+        self.storage = storage
         self.analytics = analytics
     }
     
@@ -170,8 +174,7 @@ public class BaseResponsesViewModel {
     }
     
     func addNewPost(_ post: Post) {
-        let newPostWithAvatar = post
-        postComments?.comments.append(newPostWithAvatar)
+        postComments?.comments.append(post)
         itemsCount += 1
     }
     

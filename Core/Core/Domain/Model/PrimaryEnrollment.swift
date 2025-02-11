@@ -18,7 +18,7 @@ public enum DisplayStartType: String, Codable {
     }
 }
 
-public struct PrimaryEnrollment: Hashable {
+public struct PrimaryEnrollment: Hashable, Sendable {
     public let primaryCourse: PrimaryCourse?
     public var courses: [CourseItem]
     public let totalPages: Int
@@ -32,7 +32,7 @@ public struct PrimaryEnrollment: Hashable {
     }
 }
 
-public struct PrimaryCourse: Hashable {
+public struct PrimaryCourse: Hashable, Sendable {
     public let name: String
     public let org: String
     public let courseID: String
@@ -98,7 +98,7 @@ public struct PrimaryCourse: Hashable {
     }
 }
 
-public struct Assignment: Hashable {
+public struct Assignment: Hashable, Sendable {
     public let type: String
     public let title: String
     public let description: String?

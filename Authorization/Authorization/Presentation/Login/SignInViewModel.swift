@@ -7,6 +7,7 @@
 
 import Foundation
 import Core
+import OEXFoundation
 import SwiftUI
 import Alamofire
 import AuthenticationServices
@@ -14,6 +15,7 @@ import FacebookLogin
 import GoogleSignIn
 import MSAL
 
+@MainActor
 public class SignInViewModel: ObservableObject {
 
     @Published private(set) var isShowProgress = false
@@ -92,6 +94,20 @@ public class SignInViewModel: ObservableObject {
     }
 
     @MainActor
+    func ssoLogin(title: String) async {
+        analytics.userSignInClicked()
+        isShowProgress = true
+        do {
+            let user = try await interactor.login(ssoToken: "")
+            analytics.identify(id: "\(user.id)", username: user.username, email: user.email)
+            analytics.userLogin(method: .password)
+            router.showMainOrWhatsNewScreen(sourceScreen: sourceScreen, postLoginData: nil)
+        } catch let error {
+            failure(error)
+        }
+    }
+    
+    @MainActor
     func login(with result: Result<SocialAuthDetails, Error>) async {
         switch result {
         case .success(let result):
@@ -117,7 +133,7 @@ public class SignInViewModel: ObservableObject {
             analytics.identify(id: "\(user.id)", username: user.username, email: user.email)
             analytics.userLogin(method: authMethod)
             var postLoginData: PostLoginData?
-            if case .socailAuth(let socialMethod) = authMethod {
+            if case .socialAuth(let socialMethod) = authMethod {
                 postLoginData = PostLoginData(authMethod: socialMethod.rawValue, showSocialRegisterBanner: false)
             }
             router.showMainOrWhatsNewScreen(sourceScreen: sourceScreen, postLoginData: postLoginData)

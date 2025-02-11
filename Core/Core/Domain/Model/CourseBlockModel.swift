@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct CourseStructure: Equatable {
+public struct CourseStructure: Equatable, Sendable {
     public static func == (lhs: CourseStructure, rhs: CourseStructure) -> Bool {
         return lhs.id == rhs.id
     }
@@ -20,7 +20,7 @@ public struct CourseStructure: Equatable {
     public let displayName: String
     public let topicID: String?
     public var childs: [CourseChapter]
-    public let media: DataLayer.CourseMedia //FIXME Domain model
+    public let media: CourseMedia
     public let certificate: Certificate?
     public let org: String
     public let isSelfPaced: Bool
@@ -39,7 +39,7 @@ public struct CourseStructure: Equatable {
         displayName: String,
         topicID: String? = nil,
         childs: [CourseChapter],
-        media: DataLayer.CourseMedia,
+        media: CourseMedia,
         certificate: Certificate?,
         org: String,
         isSelfPaced: Bool,
@@ -159,7 +159,27 @@ public enum CourseAccessError: String {
     case unknown
 }
 
-public struct CourseProgress {
+public struct CourseMedia: Decodable, Sendable, Equatable {
+    public let image: CourseImage
+    
+    public init(image: CourseImage) {
+        self.image = image
+    }
+}
+
+public struct CourseImage: Decodable, Sendable, Equatable {
+    public let raw: String
+    public let small: String
+    public let large: String
+    
+    public init(raw: String, small: String, large: String) {
+        self.raw = raw
+        self.small = small
+        self.large = large
+    }
+}
+
+public struct CourseProgress: Sendable {
     public let totalAssignmentsCount: Int?
     public let assignmentsCompleted: Int?
     
@@ -169,7 +189,11 @@ public struct CourseProgress {
     }
 }
 
-public struct CourseChapter: Identifiable {
+public struct CourseChapter: Identifiable, Sendable, Equatable {
+    public static func == (lhs: CourseChapter, rhs: CourseChapter) -> Bool {
+        lhs.id == rhs.id &&
+        lhs.blockId == rhs.blockId
+    }
 
     public let blockId: String
     public let id: String
@@ -192,7 +216,11 @@ public struct CourseChapter: Identifiable {
     }
 }
 
-public struct CourseSequential: Identifiable {
+public struct CourseSequential: Identifiable, Sendable, Equatable {
+    public static func == (lhs: CourseSequential, rhs: CourseSequential) -> Bool {
+        lhs.id == rhs.id &&
+        lhs.blockId == rhs.blockId
+    }
 
     public let blockId: String
     public let id: String
@@ -205,6 +233,10 @@ public struct CourseSequential: Identifiable {
 
     public var isDownloadable: Bool {
         return childs.first(where: { $0.isDownloadable }) != nil
+    }
+    
+    public var totalSize: Int {
+        childs.flatMap { $0.childs.filter({ $0.isDownloadable }) }.reduce(0) { $0 + ($1.fileSize ?? 0) }
     }
     
     public init(
@@ -228,7 +260,7 @@ public struct CourseSequential: Identifiable {
     }
 }
 
-public struct CourseVertical: Identifiable, Hashable {
+public struct CourseVertical: Identifiable, Hashable, Sendable, Equatable {
     public func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
@@ -267,7 +299,7 @@ public struct CourseVertical: Identifiable, Hashable {
     }
 }
 
-public struct SubtitleUrl: Equatable {
+public struct SubtitleUrl: Equatable, Sendable {
     public let language: String
     public let url: String
     
@@ -277,7 +309,7 @@ public struct SubtitleUrl: Equatable {
     }
 }
 
-public struct SequentialProgress {
+public struct SequentialProgress: Sendable {
     public let assignmentType: String?
     public let numPointsEarned: Int?
     public let numPointsPossible: Int?
@@ -289,7 +321,7 @@ public struct SequentialProgress {
     }
 }
 
-public struct CourseBlock: Hashable, Identifiable {
+public struct CourseBlock: Hashable, Identifiable, Sendable, Equatable {
     public static func == (lhs: CourseBlock, rhs: CourseBlock) -> Bool {
         lhs.id == rhs.id &&
         lhs.blockId == rhs.blockId &&
@@ -314,9 +346,28 @@ public struct CourseBlock: Hashable, Identifiable {
     public let subtitles: [SubtitleUrl]?
     public let encodedVideo: CourseBlockEncodedVideo?
     public let multiDevice: Bool?
+    public var offlineDownload: OfflineDownload?
 
     public var isDownloadable: Bool {
-        encodedVideo?.isDownloadable ?? false
+        encodedVideo?.isDownloadable ?? false || offlineDownload?.isDownloadable ?? false
+    }
+    
+    public var fileSize: Int? {
+        if let fileSize = encodedVideo?.desktopMP4?.fileSize {
+            return fileSize
+        } else if let fileSize = encodedVideo?.fallback?.fileSize {
+            return fileSize
+        } else if let fileSize = encodedVideo?.hls?.fileSize {
+            return fileSize
+        } else if let fileSize = encodedVideo?.mobileHigh?.fileSize {
+            return fileSize
+        } else if let fileSize = encodedVideo?.mobileLow?.fileSize {
+            return fileSize
+        } else if let fileSize = offlineDownload?.fileSize {
+            return fileSize
+        } else {
+            return nil
+        }
     }
 
     public init(
@@ -333,7 +384,8 @@ public struct CourseBlock: Hashable, Identifiable {
         webUrl: String,
         subtitles: [SubtitleUrl]? = nil,
         encodedVideo: CourseBlockEncodedVideo?,
-        multiDevice: Bool?
+        multiDevice: Bool?,
+        offlineDownload: OfflineDownload?
     ) {
         self.blockId = blockId
         self.id = id
@@ -349,10 +401,27 @@ public struct CourseBlock: Hashable, Identifiable {
         self.subtitles = subtitles
         self.encodedVideo = encodedVideo
         self.multiDevice = multiDevice
+        self.offlineDownload = offlineDownload
     }
 }
 
-public struct CourseBlockEncodedVideo {
+public struct OfflineDownload: Sendable {
+    public let fileUrl: String
+    public var lastModified: String
+    public let fileSize: Int
+    
+    public init(fileUrl: String, lastModified: String, fileSize: Int) {
+        self.fileUrl = fileUrl
+        self.lastModified = lastModified
+        self.fileSize = fileSize
+    }
+    
+    public var isDownloadable: Bool {
+        [".zip"].contains(where: { fileUrl.contains($0) == true })
+    }
+}
+
+public struct CourseBlockEncodedVideo: Sendable {
 
     public let fallback: CourseBlockVideo?
     public let desktopMP4: CourseBlockVideo?
@@ -385,7 +454,7 @@ public struct CourseBlockEncodedVideo {
     public func video(downloadQuality: DownloadQuality) -> CourseBlockVideo? {
         switch downloadQuality {
         case .auto:
-            [mobileLow, mobileHigh, desktopMP4, fallback, hls]
+            [hls, mobileLow, mobileHigh, desktopMP4, fallback]
                 .first(where: { $0?.isDownloadable == true })?
                 .flatMap { $0 }
         case .high:
@@ -430,11 +499,11 @@ public struct CourseBlockEncodedVideo {
     }
 }
 
-public enum CourseBlockVideoEncoding {
+public enum CourseBlockVideoEncoding: Sendable {
     case mobileLow, mobileHigh, desktopMP4, fallback, hls, youtube
 }
 
-public struct CourseBlockVideo: Equatable {
+public struct CourseBlockVideo: Equatable, Sendable {
     public let url: String?
     public let fileSize: Int?
     public let streamPriority: Int?

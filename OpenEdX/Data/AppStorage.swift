@@ -11,11 +11,12 @@ import Core
 import Profile
 import WhatsNew
 import Course
+import Theme
 
-public class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, CourseStorage {
+public final class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, CourseStorage {
 
-    private let keychain: KeychainSwift
-    private let userDefaults: UserDefaults
+    private nonisolated(unsafe) let keychain: KeychainSwift
+    private nonisolated(unsafe) let userDefaults: UserDefaults
 
     public init(keychain: KeychainSwift, userDefaults: UserDefaults) {
         self.keychain = keychain
@@ -87,9 +88,9 @@ public class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, CourseSto
         }
     }
 
-    public var cookiesDate: String? {
+    public var cookiesDate: Date? {
         get {
-            return userDefaults.string(forKey: KEY_COOKIES_DATE)
+            return userDefaults.object(forKey: KEY_COOKIES_DATE) as? Date
         }
         set(newValue) {
             if let newValue {
@@ -122,7 +123,13 @@ public class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, CourseSto
         }
         set(newValue) {
             if let newValue {
-                userDefaults.set(newValue.dateToString(style: .iso8601), forKey: KEY_REVIEW_LAST_REVIEW_DATE)
+                userDefaults.set(
+                    newValue.dateToString(
+                        style: .iso8601,
+                        useRelativeDates: false
+                    ),
+                    forKey: KEY_REVIEW_LAST_REVIEW_DATE
+                )
             } else {
                 userDefaults.removeObject(forKey: KEY_REVIEW_LAST_REVIEW_DATE)
             }
@@ -223,7 +230,26 @@ public class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, CourseSto
             }
         }
     }
-    
+        
+    public var calendarSettings: CalendarSettings? {
+        get {
+            guard let userJson = userDefaults.data(forKey: KEY_CALENDAR_SETTINGS) else {
+                return nil
+            }
+            return try? JSONDecoder().decode(CalendarSettings.self, from: userJson)
+        }
+        set(newValue) {
+            if let settings = newValue {
+                let encoder = JSONEncoder()
+                if let encoded = try? encoder.encode(settings) {
+                    userDefaults.set(encoded, forKey: KEY_CALENDAR_SETTINGS)
+                }
+            } else {
+                userDefaults.set(nil, forKey: KEY_CALENDAR_SETTINGS)
+            }
+        }
+    }
+                
     public var resetAppSupportDirectoryUserData: Bool? {
         get {
             return userDefaults.bool(forKey: KEY_RESET_APP_SUPPORT_DIRECTORY_USER_DATA)
@@ -237,6 +263,19 @@ public class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, CourseSto
         }
     }
     
+    public var lastCalendarName: String? {
+        get {
+            return userDefaults.string(forKey: KEY_LAST_CALENDAR_NAME)
+        }
+        set(newValue) {
+            if let newValue {
+                userDefaults.set(newValue, forKey: KEY_LAST_CALENDAR_NAME)
+            } else {
+                userDefaults.removeObject(forKey: KEY_LAST_CALENDAR_NAME)
+            }
+        }
+    }
+
     public var lastUsedSocialAuth: String? {
         get {
             return userDefaults.string(forKey: KEY_LAST_USED_SOCIAL_AUTH)
@@ -262,6 +301,77 @@ public class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, CourseSto
             }
         }
     }
+
+    public var lastLoginUsername: String? {
+        get {
+            return userDefaults.string(forKey: KEY_LAST_LOGIN_USERNAME)
+        }
+        set(newValue) {
+            if let newValue {
+                userDefaults.set(newValue, forKey: KEY_LAST_LOGIN_USERNAME)
+            } else {
+                userDefaults.removeObject(forKey: KEY_LAST_LOGIN_USERNAME)
+            }
+        }
+    }
+    
+    public var lastCalendarUpdateDate: Date? {
+        get {
+            guard let dateString = userDefaults.string(forKey: KEY_LAST_CALENDAR_UPDATE_DATE) else {
+                return nil
+            }
+            return Date(iso8601: dateString)
+        }
+        set(newValue) {
+            if let newValue {
+                userDefaults.set(
+                    newValue.dateToString(
+                        style: .iso8601,
+                        useRelativeDates: useRelativeDates
+                    ),
+                    forKey: KEY_LAST_CALENDAR_UPDATE_DATE
+                )
+            } else {
+                userDefaults.removeObject(forKey: KEY_LAST_CALENDAR_UPDATE_DATE)
+            }
+        }
+    }
+    
+    public var hideInactiveCourses: Bool? {
+        get {
+            return userDefaults.bool(forKey: KEY_HIDE_INACTIVE_COURSES)
+        }
+        set(newValue) {
+            if let newValue {
+                userDefaults.set(newValue, forKey: KEY_HIDE_INACTIVE_COURSES)
+            } else {
+                userDefaults.removeObject(forKey: KEY_HIDE_INACTIVE_COURSES)
+            }
+        }
+    }
+    
+    public var firstCalendarUpdate: Bool? {
+        get {
+            return userDefaults.bool(forKey: KEY_FIRST_CALENDAR_UPDATE)
+        }
+        set(newValue) {
+            if let newValue {
+                userDefaults.set(newValue, forKey: KEY_FIRST_CALENDAR_UPDATE)
+            } else {
+                userDefaults.removeObject(forKey: KEY_FIRST_CALENDAR_UPDATE)
+            }
+        }
+    }
+
+    public var useRelativeDates: Bool {
+        get {
+            // We use userDefaults.object to return the default value as true
+            return userDefaults.object(forKey: KEY_USE_RELATIVE_DATES) as? Bool ?? true
+        }
+        set {
+            userDefaults.set(newValue, forKey: KEY_USE_RELATIVE_DATES)
+        }
+    }
     
     public func clear() {
         accessToken = nil
@@ -270,7 +380,7 @@ public class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, CourseSto
         user = nil
         userProfile = nil
         // delete all cookies
-        if  let cookies = HTTPCookieStorage.shared.cookies {
+        if let cookies = HTTPCookieStorage.shared.cookies {
             for cookie in cookies {
                 HTTPCookieStorage.shared.deleteCookie(cookie)
             }
@@ -290,7 +400,14 @@ public class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, CourseSto
     private let KEY_APPLE_SIGN_FULLNAME = "appleSignFullName"
     private let KEY_APPLE_SIGN_EMAIL = "appleSignEmail"
     private let KEY_ALLOWED_DOWNLOAD_LARGE_FILE = "allowedDownloadLargeFile"
+    private let KEY_CALENDAR_SETTINGS = "calendarSettings"
+    private let KEY_LAST_LOGIN_USERNAME = "lastLoginUsername"
+    private let KEY_LAST_CALENDAR_NAME = "lastCalendarName"
+    private let KEY_LAST_CALENDAR_UPDATE_DATE = "lastCalendarUpdateDate"
+    private let KEY_HIDE_INACTIVE_COURSES = "hideInactiveCourses"
+    private let KEY_FIRST_CALENDAR_UPDATE = "firstCalendarUpdate"
     private let KEY_RESET_APP_SUPPORT_DIRECTORY_USER_DATA = "resetAppSupportDirectoryUserData"
     private let KEY_LAST_USED_SOCIAL_AUTH = "lastUsedSocialAuth"
     private let KEY_DISCUSSION_NOTIFICATIONS_SETTING_STATUS = "discussionNotificationsSettingStatus"
+    private let KEY_USE_RELATIVE_DATES = "useRelativeDates"
 }
