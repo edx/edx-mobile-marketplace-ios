@@ -152,12 +152,28 @@ class AnalyticsManager: AuthorizationAnalytics,
         trackEvent(.signInClicked, biValue: .signInClicked)
     }
     
-    public func userSignInClicked() {
-        trackEvent(.userSignInClicked, biValue: .userSignInClicked)
+    public func userSignInClicked(method: String) {
+        trackEvent(
+            .userSignInClicked,
+            biValue: .userSignInClicked,
+            parameters: [EventParamKey.method: method]
+        )
     }
     
-    public func createAccountClicked() {
-        trackEvent(.createAccountClicked, biValue: .createAccountClicked)
+    public func socialRegisterClicked(method: String) {
+        trackEvent(
+            .socialRegisterClicked,
+            biValue: .socialRegisterClicked,
+            parameters: [EventParamKey.method: method]
+        )
+    }
+    
+    public func createAccountClicked(method: String) {
+        trackEvent(
+            .createAccountClicked,
+            biValue: .createAccountClicked,
+            parameters: [EventParamKey.method: method]
+        )
     }
     
     public func registrationSuccess(method: String) {
@@ -166,6 +182,48 @@ class AnalyticsManager: AuthorizationAnalytics,
             EventParamKey.name: EventBIValue.registrationSuccess.rawValue
         ]
         logEvent(.registrationSuccess, parameters: parameters)
+    }
+    
+    public func socialAuthFailure(method: String, errorCode: String?, errorMessage: String?) {
+        var parameters: [String: Any] = [
+            EventParamKey.method: method
+        ]
+        parameters.setObjectOrNil(errorCode, forKey: EventParamKey.errorCode)
+        parameters.setObjectOrNil(errorMessage, forKey: EventParamKey.errorMessage)
+        
+        trackEvent(
+            .socialAuthFailure,
+            biValue: .socialAuthFailure,
+            parameters: parameters
+        )
+    }
+    
+    public func registerFailure(method: String, errorCode: String?, errorMessage: String?) {
+        var parameters: [String: Any] = [
+            EventParamKey.method: method
+        ]
+        parameters.setObjectOrNil(errorCode, forKey: EventParamKey.errorCode)
+        parameters.setObjectOrNil(errorMessage, forKey: EventParamKey.errorMessage)
+        
+        trackEvent(
+            .registerFailure,
+            biValue: .registerFailure,
+            parameters: parameters
+        )
+    }
+    
+    public func signInFailure(method: String, errorCode: String?, errorMessage: String?) {
+        var parameters: [String: Any] = [
+            EventParamKey.method: method
+        ]
+        parameters.setObjectOrNil(errorCode, forKey: EventParamKey.errorCode)
+        parameters.setObjectOrNil(errorMessage, forKey: EventParamKey.errorMessage)
+        
+        trackEvent(
+            .signInFailure,
+            biValue: .signInFailure,
+            parameters: parameters
+        )
     }
     
     public func forgotPasswordClicked() {

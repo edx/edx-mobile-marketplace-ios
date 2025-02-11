@@ -67,6 +67,20 @@ public class SignInViewModel: ObservableObject {
         config.microsoft.enabled ||
         config.google.enabled
     }
+    
+    lazy var socialAuthViewModel = SocialAuthViewModel(
+        config: config,
+        analytics: analytics,
+        authType: .signIn,
+        lastUsedOption: storage.lastUsedSocialAuth,
+        completion: { [weak self] method, result in
+            guard let self else { return }
+            
+            Task {
+                await self.login(with: method, result: result)
+            }
+        }
+    )
 
     @MainActor
     func login(username: String, password: String) async {
@@ -78,7 +92,7 @@ public class SignInViewModel: ObservableObject {
             errorMessage = AuthLocalization.Error.invalidPasswordLenght
             return
         }
-        analytics.userSignInClicked()
+        analytics.userSignInClicked(method: AuthMethod.password.analyticsValue)
         isShowProgress = true
         do {
             let user = try await interactor.login(username: username, password: password)
@@ -87,12 +101,12 @@ public class SignInViewModel: ObservableObject {
             router.showMainOrWhatsNewScreen(sourceScreen: sourceScreen, postLoginData: nil)
             NotificationCenter.default.post(name: .userAuthorized, object: nil)
         } catch let error {
-            failure(error)
+            failure(error, authMethod: .password)
         }
     }
 
     @MainActor
-    func login(with result: Result<SocialAuthDetails, Error>) async {
+    func login(with method: SocialAuthMethod, result: Result<SocialAuthDetails, SocialAuthError>) async {
         switch result {
         case .success(let result):
             await socialLogin(
@@ -101,6 +115,11 @@ public class SignInViewModel: ObservableObject {
                 authMethod: result.authMethod
             )
         case .failure(let error):
+            analytics.signInFailure(
+                method: AuthMethod.socailAuth(method).analyticsValue,
+                errorCode: error.errorCode.flatMap { String($0) },
+                errorMessage: error.errorDescription
+            )
             errorMessage = error.localizedDescription
         }
     }
@@ -128,11 +147,11 @@ public class SignInViewModel: ObservableObject {
     }
 
     @MainActor
-    private func failure(_ error: Error, authMethod: AuthMethod? = nil) {
+    private func failure(_ error: Error, authMethod: AuthMethod) {
         isShowProgress = false
         if let validationError = error.validationError,
            let value = validationError.data?["error_description"] as? String {
-            if authMethod != .password, validationError.statusCode == 400, let authMethod = authMethod {
+            if authMethod != .password, validationError.statusCode == 400 {
                 errorMessage = AuthLocalization.Error.accountNotRegistered(
                     authMethod.analyticsValue,
                     config.platformName
@@ -149,6 +168,12 @@ public class SignInViewModel: ObservableObject {
         } else {
             errorMessage = CoreLocalization.Error.unknownError
         }
+        
+        analytics.signInFailure(
+            method: authMethod.analyticsValue,
+            errorCode: nil,
+            errorMessage: errorMessage
+        )
     }
 
     func trackForgotPasswordClicked() {

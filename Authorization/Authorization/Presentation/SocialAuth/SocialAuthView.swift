@@ -9,31 +9,26 @@ import SwiftUI
 import Core
 import Theme
 
+enum SocialAuthType {
+    case signIn
+    case register
+}
+
 struct SocialAuthView: View {
     
     // MARK: - Properties
     @StateObject var viewModel: SocialAuthViewModel
     
-    init(
-        authType: SocialAuthType = .signIn,
-        viewModel: SocialAuthViewModel
-    ) {
+    init(viewModel: SocialAuthViewModel) {
         self._viewModel = .init(wrappedValue: viewModel)
-        self.authType = authType
     }
-    
-    enum SocialAuthType {
-        case signIn
-        case register
-    }
-    var authType: SocialAuthType = .signIn
     
     private var title: String {
         AuthLocalization.continueWith
     }
     
     private var bottomViewText: String {
-        switch authType {
+        switch viewModel.authType {
         case .signIn:
             AuthLocalization.orSignInWith
         case .register:
@@ -64,7 +59,7 @@ struct SocialAuthView: View {
     private var buttonsView: some View {
         HStack {
             if let lastOption = viewModel.lastUsedOption,
-               authType == .signIn {
+               viewModel.authType == .signIn {
                 Text(AuthLocalization.lastSignIn)
                     .font(Theme.Fonts.bodySmall)
                     .foregroundStyle(Theme.Colors.textPrimary)
@@ -83,7 +78,7 @@ struct SocialAuthView: View {
             
             HStack {
                 ForEach(viewModel.enabledOptions, id: \.self) { option in
-                    if option != viewModel.lastUsedOption || authType != .signIn {
+                    if option != viewModel.lastUsedOption || viewModel.authType != .signIn {
                         socialAuthButton(option)
                             .padding(.trailing, option == viewModel.enabledOptions.last ? 0 : 12)
                     }
@@ -145,8 +140,10 @@ struct SocialSignView_Previews: PreviewProvider {
     static var previews: some View {
         let vm = SocialAuthViewModel(
             config: ConfigMock(),
+            analytics: AuthorizationAnalyticsMock(),
+            authType: .signIn,
             lastUsedOption: nil,
-            completion: { _ in }
+            completion: { _, _ in }
         )
         SocialAuthView(viewModel: vm).padding()
     }

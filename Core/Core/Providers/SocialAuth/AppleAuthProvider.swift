@@ -18,10 +18,10 @@ public final class AppleAuthProvider: NSObject, ASAuthorizationControllerDelegat
         super.init()
     }
 
-    private var completion: ((Result<SocialAuthResponse, Error>) -> Void)?
+    private var completion: ((Result<SocialAuthResponse, SocialAuthError>) -> Void)?
     private let appleIDProvider = ASAuthorizationAppleIDProvider()
 
-    public func request(completion: ((Result<SocialAuthResponse, Error>) -> Void)?) {
+    public func request(completion: ((Result<SocialAuthResponse, SocialAuthError>) -> Void)?) {
         let request = appleIDProvider.createRequest()
         request.requestedScopes = [.fullName, .email]
 
@@ -37,7 +37,7 @@ public final class AppleAuthProvider: NSObject, ASAuthorizationControllerDelegat
         didCompleteWithAuthorization authorization: ASAuthorization
     ) {
         guard let credentials = authorization.credential as? ASAuthorizationAppleIDCredential else {
-            completion?(.failure(SocialAuthError.unknownError))
+            completion?(.failure(SocialAuthError.unknownError()))
             return
         }
 
@@ -58,7 +58,7 @@ public final class AppleAuthProvider: NSObject, ASAuthorizationControllerDelegat
 
         guard let data = credentials.identityToken,
             let code = String(data: data, encoding: .utf8) else {
-            completion?(.failure(SocialAuthError.unknownError))
+            completion?(.failure(SocialAuthError.unknownError()))
             return
         }
 
@@ -81,14 +81,20 @@ public final class AppleAuthProvider: NSObject, ASAuthorizationControllerDelegat
         completion?(.failure(failure(ASAuthorizationError(_nsError: error as NSError))))
     }
 
-    private func failure(_ error: ASAuthorizationError) -> Error {
+    private func failure(_ error: ASAuthorizationError) -> SocialAuthError {
         switch error.code {
         case .canceled:
-            return SocialAuthError.socialAuthCanceled
+            return SocialAuthError.socialAuthCanceled(code: error.code.rawValue)
         case .failed:
-            return SocialAuthError.error(text: CoreLocalization.Error.authorizationFailed)
+            return SocialAuthError.error(
+                code: error.code.rawValue,
+                text: CoreLocalization.Error.authorizationFailed
+            )
         default:
-            return error
+            return SocialAuthError.error(
+                code: error.code.rawValue,
+                text: error.localizedDescription
+            )
         }
     }
 }

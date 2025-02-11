@@ -84,6 +84,20 @@ public class SignUpViewModel: ObservableObject {
         config.google.enabled
         return socialLoginEnabled && !thirdPartyAuthSuccess && !isShowProgress
     }
+    
+    lazy var socialAuthViewModel = SocialAuthViewModel(
+        config: config,
+        analytics: analytics,
+        authType: .register,
+        lastUsedOption: storage.lastUsedSocialAuth,
+        completion: { [weak self] method, result in
+            guard let self else { return }
+            
+            Task {
+                await self.register(with: method, result: result)
+            }
+        }
+    )
 
     private func showErrors(errors: [String: String]) -> Bool {
         if thirdPartyAuthSuccess, !errors.map({ $0.value }).filter({ !$0.isEmpty }).isEmpty {
@@ -153,6 +167,12 @@ public class SignUpViewModel: ObservableObject {
             } else {
                 errorMessage = CoreLocalization.Error.unknownError
             }
+            
+            analytics.registerFailure(
+                method: authMetod.analyticsValue,
+                errorCode: nil,
+                errorMessage: errorMessage
+            )
         }
     }
 
@@ -174,7 +194,7 @@ public class SignUpViewModel: ObservableObject {
     }
 
     @MainActor
-    func register(with result: Result<SocialAuthDetails, Error>) async {
+    func register(with method: SocialAuthMethod, result: Result<SocialAuthDetails, SocialAuthError>) async {
         switch result {
         case .success(let result):
             await loginOrRegister(
@@ -183,6 +203,11 @@ public class SignUpViewModel: ObservableObject {
                 authMethod: result.authMethod
             )
         case .failure(let error):
+            analytics.socialAuthFailure(
+                method: AuthMethod.socailAuth(method).analyticsValue,
+                errorCode: error.errorCode.flatMap { String($0) },
+                errorMessage: error.errorDescription
+            )
             errorMessage = error.localizedDescription
         }
     }
@@ -222,7 +247,7 @@ public class SignUpViewModel: ObservableObject {
     }
 
     func trackCreateAccountClicked() {
-        analytics.createAccountClicked()
+        analytics.createAccountClicked(method: authMethod.analyticsValue)
     }
     
     func trackScreenEvent() {

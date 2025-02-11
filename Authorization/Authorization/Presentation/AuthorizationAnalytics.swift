@@ -35,9 +35,13 @@ public protocol AuthorizationAnalytics {
     func userLogin(method: AuthMethod)
     func registerClicked()
     func signInClicked()
-    func userSignInClicked()
-    func createAccountClicked()
+    func userSignInClicked(method: String)
+    func socialRegisterClicked(method: String)
+    func createAccountClicked(method: String)
     func registrationSuccess(method: String)
+    func socialAuthFailure(method: String, errorCode: String?, errorMessage: String?)
+    func registerFailure(method: String, errorCode: String?, errorMessage: String?)
+    func signInFailure(method: String, errorCode: String?, errorMessage: String?)
     func forgotPasswordClicked()
     func resetPasswordClicked()
     func resetPassword(success: Bool)
@@ -50,9 +54,13 @@ class AuthorizationAnalyticsMock: AuthorizationAnalytics {
     public func userLogin(method: AuthMethod) {}
     public func registerClicked() {}
     public func signInClicked() {}
-    public func userSignInClicked() {}
-    public func createAccountClicked() {}
+    public func userSignInClicked(method: String) {}
+    public func socialRegisterClicked(method: String) {}
+    public func createAccountClicked(method: String) {}
     public func registrationSuccess(method: String) {}
+    public func socialAuthFailure(method: String, errorCode: String?, errorMessage: String?) {}
+    public func registerFailure(method: String, errorCode: String?, errorMessage: String?) {}
+    public func signInFailure(method: String, errorCode: String?, errorMessage: String?) {}
     public func forgotPasswordClicked() {}
     public func resetPasswordClicked() {}
     public func resetPassword(success: Bool) {}
