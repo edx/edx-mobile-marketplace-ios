@@ -19,6 +19,7 @@ import FirebaseCore
 import FirebaseMessaging
 import Theme
 import BackgroundTasks
+import EDXMobileAnalytics
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -150,6 +151,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         // Initialize your plugins here
+        // - Segment analytic
+        if config.segment.enabled {
+            pluginManager.addPlugin(analyticsService: Container.shared.resolve(SegmentAnalyticsService.self)!)
+        }
+        // - Braze
+        if config.braze.pushNotificationsEnabled,
+            let deepLinkManager = Container.shared.resolve(DeepLinkManager.self) {
+            pluginManager.addPlugin(
+                pushNotificationsProvider:
+                    BrazeProvider(
+                        segmentAnalyticsService: Container.shared.resolve(SegmentAnalyticsService.self)!
+                    ),
+                pushNotificationsListener:
+                    BrazeListener(
+                        deepLinkManager: deepLinkManager,
+                        segmentAnalyticsService: Container.shared.resolve(SegmentAnalyticsService.self)
+                    )
+            )
+        }
+        // - FCM
+        if config.firebase.cloudMessagingEnabled,
+            let storage = Container.shared.resolve(CoreStorage.self),
+            let api = Container.shared.resolve(API.self),
+            let deepLinkManager = Container.shared.resolve(DeepLinkManager.self) {
+            pluginManager.addPlugin(
+                pushNotificationsProvider: FCMProvider(storage: storage, api: api),
+                pushNotificationsListener: FCMListener(deepLinkManager: deepLinkManager)
+            )
+        }
     }
 
     private func initDI() {

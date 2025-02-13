@@ -18,6 +18,7 @@ import Authorization
 import Profile
 import WhatsNew
 import Notifications
+import EDXMobileAnalytics
 
 // swiftlint:disable function_body_length
 class AppAssembly: Assembly {
@@ -200,10 +201,8 @@ class AppAssembly: Assembly {
         
         container.register(PushNotificationsManager.self) { @MainActor r in
             PushNotificationsManager(
-                deepLinkManager: r.resolve(DeepLinkManager.self)!,
-                storage: r.resolve(CoreStorage.self)!,
-                api: r.resolve(API.self)!,
-                config: r.resolve(ConfigProtocol.self)!
+                providers: r.resolve(PluginManager.self)!.pushNotificationsProviders,
+                listeners: r.resolve(PluginManager.self)!.pushNotificationsListeners
             )
         }.inObjectScope(.container)
         
@@ -229,15 +228,19 @@ class AppAssembly: Assembly {
         }.inObjectScope(.container)
         
         // ToDo: add together with plugin architecture
-//        container.register(SegmentAnalyticsService.self) { r in
-//            SegmentAnalyticsService(
-//                config: r.resolve(ConfigProtocol.self)!
-//            )
-//        }.inObjectScope(.container)
-//        
 //        container.register(FullStoryAnalyticsService.self) { _, firebaseEnabled in
 //            FullStoryAnalyticsService(firebaseEnabled)
 //        }.inObjectScope(.container)
+
+        container.register(SegmentAnalyticsService.self) { r in
+            let config = r.resolve(ConfigProtocol.self)!
+            let writeKey = config.segment.writeKey
+            let addFirebaseAnalytics = config.firebase.enabled && config.firebase.isAnalyticsSourceSegment
+            return SegmentAnalyticsService(
+                writeKey: writeKey,
+                addFirebaseAnalytics: addFirebaseAnalytics
+            )
+        }.inObjectScope(.container)
         
         container.register(PipManagerProtocol.self) { @MainActor r in
             let config = r.resolve(ConfigProtocol.self)!

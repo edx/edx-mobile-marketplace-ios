@@ -12,13 +12,14 @@ import Discovery
 import Discussion
 import Course
 import Profile
+import OEXFoundation
 
 // swiftlint:disable function_body_length
 //sourcery: AutoMockable
 @MainActor
 public protocol DeepLinkService {
     func configureWith(
-        manager: DeepLinkManager,
+        manager: DeepLinkManagerProtocol,
         config: ConfigProtocol,
         launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     )
@@ -31,7 +32,7 @@ public protocol DeepLinkService {
 }
 
 @MainActor
-public class DeepLinkManager {
+public class DeepLinkManager: DeepLinkManagerProtocol {
     private var services: [DeepLinkService] = []
     private let config: ConfigProtocol
     private let storage: CoreStorage
@@ -99,6 +100,11 @@ public class DeepLinkManager {
     }
     
     // This method do redirect with link from push notification
+    public func processLinkFrom(userInfo: [AnyHashable: Any]) {
+        guard let dictionary = userInfo as? [String: AnyHashable] else { return }
+        let link = PushLink(dictionary: dictionary)
+        processLinkFromNotification(link)
+    }
     func processLinkFromNotification(_ link: PushLink) {
         // redirect if possible
         guard link.type != .none else {
@@ -117,7 +123,7 @@ public class DeepLinkManager {
     }
     
     // This method process the deep link with response parameters
-    func processDeepLink(with params: [AnyHashable: Any]?) {
+    public func processDeepLink(with params: [AnyHashable: Any]?) {
         guard let params = params else { return }
         let deeplink = DeepLink(dictionary: params)
         if anyServiceEnabled && deeplink.type != .none {

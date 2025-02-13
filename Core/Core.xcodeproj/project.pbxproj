@@ -168,6 +168,7 @@
 		973CCD7C2D3660D100949756 /* AttributedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CCD782D3660D100949756 /* AttributedText.swift */; };
 		9784D47E2BF7762800AFEFFF /* FullScreenErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9784D47D2BF7762800AFEFFF /* FullScreenErrorView.swift */; };
 		A53A32352B233DEC005FE38A /* ThemeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53A32342B233DEC005FE38A /* ThemeConfig.swift */; };
+		A5935EA52CEF832500B4BB48 /* SegmentConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5935EA42CEF832500B4BB48 /* SegmentConfig.swift */; };
 		A595689B2B6173DF00ED4F90 /* BranchConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A595689A2B6173DF00ED4F90 /* BranchConfig.swift */; };
 		A5CBE6582D5B820E00FF455A /* SwiftyStoreKit in Frameworks */ = {isa = PBXBuildFile; productRef = A5CBE6572D5B820E00FF455A /* SwiftyStoreKit */; };
 		A5CBE65A2D5B828800FF455A /* FullStoryConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CBE6592D5B828800FF455A /* FullStoryConfig.swift */; };
@@ -418,6 +419,7 @@
 		9D5B06CAA99EA5CD49CBE2BB /* Pods-App-Core.debugdev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Core.debugdev.xcconfig"; path = "Target Support Files/Pods-App-Core/Pods-App-Core.debugdev.xcconfig"; sourceTree = "<group>"; };
 		9E0B33614CBD791307FFDEAE /* Pods-App-Core-CoreTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Core-CoreTests.release.xcconfig"; path = "Target Support Files/Pods-App-Core-CoreTests/Pods-App-Core-CoreTests.release.xcconfig"; sourceTree = "<group>"; };
 		A53A32342B233DEC005FE38A /* ThemeConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeConfig.swift; sourceTree = "<group>"; };
+		A5935EA42CEF832500B4BB48 /* SegmentConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentConfig.swift; sourceTree = "<group>"; };
 		A595689A2B6173DF00ED4F90 /* BranchConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BranchConfig.swift; sourceTree = "<group>"; };
 		A5CBE6592D5B828800FF455A /* FullStoryConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullStoryConfig.swift; sourceTree = "<group>"; };
 		A5CBE65B2D5B919900FF455A /* Alamofire+Error+MoveToOEXFound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Alamofire+Error+MoveToOEXFound.swift"; sourceTree = "<group>"; };
@@ -1071,6 +1073,7 @@
 				A53A32342B233DEC005FE38A /* ThemeConfig.swift */,
 				E0D586192B2FF74C009B4BA7 /* DiscoveryConfig.swift */,
 				A5CBE6592D5B828800FF455A /* FullStoryConfig.swift */,
+				A5935EA42CEF832500B4BB48 /* SegmentConfig.swift */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -1480,6 +1483,7 @@
 				02935B752BCEE6D600B22F66 /* PrimaryEnrollment.swift in Sources */,
 				020C31C9290AC3F700D6DEA2 /* PickerFields.swift in Sources */,
 				02F6EF3B28D9B8EC00835477 /* CourseCellView.swift in Sources */,
+				A5935EA52CEF832500B4BB48 /* SegmentConfig.swift in Sources */,
 				023A1138291432FD00D0D354 /* FieldConfiguration.swift in Sources */,
 				A5CBE65C2D5B919900FF455A /* Alamofire+Error+MoveToOEXFound.swift in Sources */,
 				06C022C22C05F2E40046ABD3 /* CourseUpgradeHelperProtocol.swift in Sources */,
@@ -2582,10 +2586,10 @@
 		};
 		CE924BE42CD8F8E4000137CA /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/openedx/openedx-app-foundation-ios/";
+			repositoryURL = "https://github.com/rnr/openedx-app-foundation-ios/";
 			requirement = {
-				kind = exactVersion;
-				version = 1.0.2;
+				branch = "anton/plugins-experiments";
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

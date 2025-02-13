@@ -37,6 +37,7 @@ public protocol ConfigProtocol: Sendable {
     var ecommerceURL: String? { get }
     var fullStory: FullStoryConfig { get }
     var pushNotificationsEnabled: Bool { get }
+    var segment: SegmentConfig { get }
 }
 
 public enum TokenType: String, Sendable {
