@@ -9,7 +9,8 @@ import Foundation
 import Core
 
 //sourcery: AutoMockable
-public protocol NotificationsInteractorProtocol {
+@MainActor
+public protocol NotificationsInteractorProtocol: Sendable {
     func getNotificationsCount() async throws -> NotificationsCount
     func getAllNotifications(page: Int) async throws -> Notifications
     func getNotificationsPreferences() async throws -> NotificationsPreferences

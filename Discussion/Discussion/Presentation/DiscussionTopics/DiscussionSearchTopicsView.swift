@@ -150,7 +150,7 @@ public struct DiscussionSearchTopicsView: View {
             .background(Theme.Colors.background.ignoresSafeArea())
             .avoidKeyboard(dismissKeyboardByTap: true)
             .navigationBarBackButtonHidden(true)
-            .hideNavigationBar(true)
+            .navigationBarHidden(true)
             .navigationTitle(DiscussionLocalization.search)
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now()) {

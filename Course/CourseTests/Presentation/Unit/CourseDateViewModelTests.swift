@@ -518,7 +518,7 @@ final class CourseDateViewModelTests: XCTestCase {
     
     func testDateIsInPastProperty() {
         let pastDate = Date().addingTimeInterval(-100000)
-        XCTAssertTrue(pastDate.isInPast, "The past date should return true for isInPast.")
+        XCTAssertTrue(pastDate.isInPast(), "The past date should return true for isInPast.")
         XCTAssertFalse(pastDate.isToday, "The past date should return false for isInPast.")
     }
     

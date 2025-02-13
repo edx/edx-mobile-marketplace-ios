@@ -190,7 +190,7 @@ public extension DataLayer {
     }
 
     // MARK: - CourseMode
-    struct CourseMode: Codable {
+    struct CourseMode: Codable, Sendable {
         public let slug: Mode?
         public let sku: String?
         public let iosSku: String?
@@ -211,7 +211,7 @@ public extension DataLayer {
         }
     }
 
-    enum Mode: String, Codable {
+    enum Mode: String, Codable, Sendable {
         case audit
         case honor
         case verified
@@ -230,7 +230,7 @@ public extension DataLayer {
     }
     
     // MARK: - CoursewareAccess
-    struct CoursewareAccess: Codable {
+    struct CoursewareAccess: Codable, Sendable {
         public let hasAccess: Bool
         public let errorCode: CourseAccessError?
         public let developerMessage: String?
@@ -264,7 +264,7 @@ public extension DataLayer {
         }
     }
     
-    enum CourseAccessError: String, Codable {
+    enum CourseAccessError: String, Codable, Sendable {
         case notStarted = "course_not_started"
         case auditExpired = "audit_expired"
         case visibilityError = "not_visible_to_user"
@@ -339,7 +339,6 @@ public extension DataLayer.CourseEnrollments {
                 isSelfPaced: course.isSelfPaced,
                 courseRawImage: course.media.courseImage?.url,
                 coursewareAccess: coursewareAccess,
-                courseRawImage: course.media.courseImage?.url,
                 progressEarned: 0,
                 progressPossible: 0,
                 auditAccessExpires: result.auditAccessExpires.flatMap { Date(iso8601: $0) },

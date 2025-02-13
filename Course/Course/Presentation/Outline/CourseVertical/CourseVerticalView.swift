@@ -127,7 +127,7 @@ public struct CourseVerticalView: View {
                 }
             }
         }
-        .hideNavigationBar(false)
+        .navigationBarHidden(false)
         .navigationBarBackButtonHidden(false)
         .navigationTitle(title)
         .background(

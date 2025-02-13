@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Theme
+import OEXFoundation
 
 public struct PaymentSnackbarModifier: ViewModifier {
     @StateObject var viewModel: PaymentSnackbarModifierViewModel = .init()

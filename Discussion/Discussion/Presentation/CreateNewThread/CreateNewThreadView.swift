@@ -196,7 +196,7 @@ public struct CreateNewThreadView: View {
                     }
                 }.padding(.top, 8)
             }
-            .hideNavigationBar(false)
+            .navigationBarHidden(false)
             .navigationBarBackButtonHidden(false)
             .navigationTitle(DiscussionLocalization.CreateThread.newPost)
             .background(

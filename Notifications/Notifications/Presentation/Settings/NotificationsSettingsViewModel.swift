@@ -8,6 +8,7 @@
 import Foundation
 import Core
 import SwiftUI
+import OEXFoundation
 
 private enum AuthorizationStatus {
     case notDetermined, denied, authorized
@@ -126,6 +127,7 @@ public class NotificationsSettingsViewModel: ObservableObject {
         })
     }
     
+    @MainActor
     private func showPermissionNeededAlert() {
         let actions = [
             UIAlertAction(
@@ -134,7 +136,7 @@ public class NotificationsSettingsViewModel: ObservableObject {
                 handler: { [weak self] _ in
                     if self?.authorizationStatus == .notDetermined {
                         Task {
-                            await self?.router.performNotificationRegistration()
+                            self?.router.performNotificationRegistration()
                         }
                     } else {
                         if let appSettings = URL(string: UIApplication.openSettingsURLString),

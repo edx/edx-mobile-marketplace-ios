@@ -40,7 +40,7 @@ public struct ProfileView: View {
                 }
                 .accessibilityAction {}
                 .padding(.top, 8)
-                .hideNavigationBar(false)
+                .navigationBarHidden(false)
                 .navigationBarBackButtonHidden(false)
                 .navigationTitle(supportsElevatedTabBar ? "" : ProfileLocalization.title)
                 

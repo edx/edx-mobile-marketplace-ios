@@ -19,7 +19,7 @@ import Discussion
 import Notifications
 @preconcurrency import Combine
 
-// swiftlint:disable function_body_length closure_parameter_position
+// swiftlint:disable function_body_length type_body_length closure_parameter_position
 class ScreenAssembly: Assembly {
     func assemble(container: Container) {
         
@@ -210,10 +210,10 @@ class ScreenAssembly: Assembly {
                 interactor: r.resolve(DashboardInteractorProtocol.self)!,
                 connectivity: r.resolve(ConnectivityProtocol.self)!,
                 analytics: r.resolve(DashboardAnalytics.self)!,
+                storage: r.resolve(CoreStorage.self)!,
                 upgradehandler: r.resolve(CourseUpgradeHandlerProtocol.self)!,
                 coreAnalytics: r.resolve(CoreAnalytics.self)!,
-                serverConfig: r.resolve(ServerConfigProtocol.self)!,
-                storage: r.resolve(CoreStorage.self)!
+                serverConfig: r.resolve(ServerConfigProtocol.self)!
             )
         }
         
@@ -293,7 +293,7 @@ class ScreenAssembly: Assembly {
         }
         
         container.register(NotificationsPersistenceProtocol.self) { r in
-            NotificationsPersistence(context: r.resolve(DatabaseManager.self)!.context)
+            NotificationsPersistence(context: r.resolve(DatabaseManager.self)!.getContext())
         }
         
         container.register(NotificationsRepositoryProtocol.self) { r in
@@ -305,7 +305,7 @@ class ScreenAssembly: Assembly {
             )
         }
         
-        container.register(NotificationsInteractorProtocol.self) { r in
+        container.register(NotificationsInteractorProtocol.self) { @MainActor r in
             NotificationsInteractor(
                 repository: r.resolve(NotificationsRepositoryProtocol.self)!
             )
@@ -687,24 +687,24 @@ class ScreenAssembly: Assembly {
             r.resolve(Router.self)!
         }
         
-        container.register(StoreKitHandlerProtocol.self) { _ in
+        container.register(StoreKitHandlerProtocol.self) { @MainActor _ in
             StorekitHandler()
         }.inObjectScope(.container)
         
-        container.register(CourseUpgradeRepositoryProtocol.self) { r in
+        container.register(CourseUpgradeRepositoryProtocol.self) { @MainActor r in
             CourseUpgradeRepository(
                 api: r.resolve(API.self)!,
                 config: r.resolve(ConfigProtocol.self)!
             )
         }
         
-        container.register(CourseUpgradeInteractorProtocol.self) { r in
+        container.register(CourseUpgradeInteractorProtocol.self) { @MainActor r in
             CourseUpgradeInteractor(
                 repository: r.resolve(CourseUpgradeRepositoryProtocol.self)!
             )
         }
         
-        container.register(CourseUpgradeHandlerProtocol.self) { r in
+        container.register(CourseUpgradeHandlerProtocol.self) { @MainActor r in
             CourseUpgradeHandler(
                 config: r.resolve(ConfigProtocol.self)!,
                 interactor: r.resolve(CourseUpgradeInteractorProtocol.self)!,
@@ -713,7 +713,7 @@ class ScreenAssembly: Assembly {
             )
         }.inObjectScope(.container)
         
-        container.register(CourseUpgradeHelperProtocol.self) { r in
+        container.register(CourseUpgradeHelperProtocol.self) { @MainActor r in
             CourseUpgradeHelper(
                 config: r.resolve(ConfigProtocol.self)!,
                 analytics: r.resolve(CoreAnalytics.self)!,
@@ -724,7 +724,7 @@ class ScreenAssembly: Assembly {
         // MARK: Upgrade info
         container.register(
             UpgradeInfoViewModel.self
-        ) { r, productName, message, sku, courseID, screen, pacing, lmsPrice in
+        ) { @MainActor r, productName, message, sku, courseID, screen, pacing, lmsPrice in
             UpgradeInfoViewModel(
                 productName: productName,
                 message: message,
@@ -740,4 +740,4 @@ class ScreenAssembly: Assembly {
         }
     }
 }
-// swiftlint:enable function_body_length closure_parameter_position
+// swiftlint:enable function_body_length type_body_length closure_parameter_position

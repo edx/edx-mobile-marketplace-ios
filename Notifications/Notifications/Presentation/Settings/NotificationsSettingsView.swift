@@ -8,6 +8,7 @@
 import SwiftUI
 import Theme
 import Core
+import OEXFoundation
 
 public struct NotificationsSettingsView: View {
     @ObservedObject
@@ -77,7 +78,7 @@ public struct NotificationsSettingsView: View {
                     }
                 }
             }
-            .hideNavigationBar(true)
+            .navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)
             .navigationTitle(NotificationsLocalization.Settings.title)
         }

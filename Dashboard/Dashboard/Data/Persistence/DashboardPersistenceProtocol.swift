@@ -9,7 +9,7 @@ import CoreData
 import Core
 
 public protocol DashboardPersistenceProtocol: Sendable {
-    func loadServerConfig() throws -> DataLayer.ServerConfigs?
+    func loadServerConfig() async throws -> DataLayer.ServerConfigs?
     func saveServerConfig(configs: DataLayer.ServerConfigs?)
     func loadEnrollments() async throws -> [CourseItem]
     func saveEnrollments(items: [CourseItem]) async

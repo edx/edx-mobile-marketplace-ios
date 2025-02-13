@@ -19,6 +19,7 @@ import Profile
 import WhatsNew
 import Combine
 import Notifications
+import OEXFoundation
 
 // swiftlint:disable type_body_length file_length
 public class Router: AuthorizationRouter,
@@ -378,6 +379,7 @@ public class Router: AuthorizationRouter,
         return UIHostingController(rootView: view)
     }
     
+    // swiftlint:disable:next function_parameter_count
     public func showCourseScreens(
         courseID: String,
         hasAccess: Bool?,
@@ -422,6 +424,7 @@ public class Router: AuthorizationRouter,
         }
     }
     
+    // swiftlint:disable:next function_parameter_count
     public func getCourseScreensController(
         courseID: String,
         hasAccess: Bool?,
@@ -770,7 +773,9 @@ public class Router: AuthorizationRouter,
     }
     
     public func performNotificationRegistration() {
-        Container.shared.resolve(PushNotificationsManager.self)?.performRegistration()
+        Task {
+            await Container.shared.resolve(PushNotificationsManager.self)?.performRegistration()
+        }
     }
     
     public func showVideoSettings() {
@@ -1034,19 +1039,19 @@ extension Router {
         )
         controller.view.backgroundColor = .black.withAlphaComponent(0.6)
         controller.view.tag = 10010
-        UIApplication.shared.window?.addSubview(controller.view)
+        UIApplication.shared.oexKeyWindow?.addSubview(controller.view)
     }
     
     @MainActor
     public func hideRestoreProgressView() {
-        guard let view = UIApplication.shared.window?.viewWithTag(10010) else { return }
+        guard let view = UIApplication.shared.oexKeyWindow?.viewWithTag(10010) else { return }
         
         view.removeFromSuperview()
     }
     
     @MainActor
     @objc func orientationChanged() {
-        if let view = UIApplication.shared.window?.viewWithTag(10010) {
+        if let view = UIApplication.shared.oexKeyWindow?.viewWithTag(10010) {
             view.frame = CGRect(
                 x: 0,
                 y: 0,

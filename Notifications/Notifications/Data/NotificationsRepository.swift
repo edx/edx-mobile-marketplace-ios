@@ -9,6 +9,7 @@ import Foundation
 import Core
 import CoreData
 import Alamofire
+import OEXFoundation
 
 public protocol NotificationsRepositoryProtocol {
     func getNotificationsCount() async throws -> NotificationsCount

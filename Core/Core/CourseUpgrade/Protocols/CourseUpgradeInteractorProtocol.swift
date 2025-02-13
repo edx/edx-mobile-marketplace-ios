@@ -8,7 +8,8 @@
 import Foundation
 
 //sourcery: AutoMockable
-public protocol CourseUpgradeInteractorProtocol {
+@MainActor
+public protocol CourseUpgradeInteractorProtocol: Sendable {
     func addBasket(sku: String) async throws -> UpgradeBasket
     func checkoutBasket(basketID: Int) async throws -> CheckoutBasket
     @discardableResult

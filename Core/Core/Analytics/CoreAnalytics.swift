@@ -46,6 +46,7 @@ public protocol CoreAnalytics {
         flowType: UpgradeMode
     )
     
+    // swiftlint:disable:next function_parameter_count
     func trackCourseUpgradeErrorAction(
         courseID: String,
         blockID: String?,

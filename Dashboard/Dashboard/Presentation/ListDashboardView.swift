@@ -172,10 +172,10 @@ struct ListDashboardView_Previews: PreviewProvider {
             interactor: DashboardInteractor.mock,
             connectivity: Connectivity(),
             analytics: DashboardAnalyticsMock(),
+            storage: CoreStorageMock(),
             upgradehandler: CourseUpgradeHandlerProtocolMock(),
             coreAnalytics: CoreAnalyticsMock(),
-            serverConfig: ServerConfigProtocolMock(),
-            storage: CoreStorageMock()
+            serverConfig: ServerConfigProtocolMock()
         )
         let router = DashboardRouterMock()
         

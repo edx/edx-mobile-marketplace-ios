@@ -89,7 +89,7 @@ public final class DiscoveryPersistence: DiscoveryPersistenceProtocol {
                 newItem.courseRawImage = item.courseRawImage
                 
                 if let access = item.coursewareAccess {
-                    let newAccess = CDDiscoveryCoursewareAccess(context: self.context)
+                    let newAccess = CDDiscoveryCoursewareAccess(context: context)
                     newAccess.hasAccess = access.hasAccess
                     newAccess.errorCode = access.errorCode?.rawValue
                     newAccess.developerMessage = access.developerMessage

@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 public class CourseUpgradeInteractor: CourseUpgradeInteractorProtocol {
     
     private let repository: CourseUpgradeRepositoryProtocol
@@ -39,15 +40,15 @@ public class CourseUpgradeInteractor: CourseUpgradeInteractorProtocol {
     }
 }
 
-public struct UpgradeBasket {
+public struct UpgradeBasket: Sendable {
     let success: String
     let basketID: Int
 }
 
-public struct CheckoutBasket {
+public struct CheckoutBasket: Sendable {
     let paymentPageURL: String
 }
 
-public struct FulfillCheckout {
+public struct FulfillCheckout: Sendable {
     let orderData: DataLayer.OrderData
 }

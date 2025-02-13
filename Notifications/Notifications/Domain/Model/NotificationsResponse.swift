@@ -5,7 +5,7 @@
 //  Created by Saeed Bashir on 12/17/24.
 //
 
-public struct NotificationsCount {
+public struct NotificationsCount: Sendable {
     public var discussion: Int
     
     public init(discussion: Int) {

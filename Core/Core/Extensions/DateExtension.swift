@@ -203,6 +203,10 @@ public extension Date {
                 dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
             case .shortWeekdayMonthDayYear:
                 applyShortWeekdayMonthDayYear(dateFormatter: dateFormatter)
+            case .monthDayYear:
+                dateFormatter.dateFormat = "MMMM d, yyyy"
+            case .monthDay:
+                dateFormatter.dateFormat = "MMMM dd"
             }
         }
         
@@ -244,6 +248,8 @@ public extension Date {
             return (
                 dueIn ? CoreLocalization.Date.dueIn : ""
             ) + date
+        case .monthDayYear, .monthDay:
+            return date
         }
         
     }

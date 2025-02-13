@@ -89,7 +89,7 @@ public struct SettingsView: View {
                     }
                     .roundedBackground(Theme.Colors.background)
                 }
-                .hideNavigationBar(true)
+                .navigationBarHidden(true)
                 .navigationBarBackButtonHidden(true)
                 .navigationTitle(ProfileLocalization.settings)
                 

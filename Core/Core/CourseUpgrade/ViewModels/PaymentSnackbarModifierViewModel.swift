@@ -8,6 +8,7 @@
 import Combine
 import Foundation
 
+@MainActor
 class PaymentSnackbarModifierViewModel: ObservableObject {
     @Published var showPaymentSuccess: Bool = false
     var isOnScreen: Bool = false

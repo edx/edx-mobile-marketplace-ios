@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum DisplayStartType: String, Codable {
+public enum DisplayStartType: String, Codable, Sendable {
     case timestamp
     case string
     case empty

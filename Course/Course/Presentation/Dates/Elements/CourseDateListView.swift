@@ -17,6 +17,8 @@ struct CourseDateListView: View {
     @Binding var viewHeight: CGFloat
     var courseDates: CourseDates
     let courseID: String
+    @Binding var shouldShowUpgradeButton: Bool
+    @Binding var shouldHideMenuBar: Bool
     
     var body: some View {
         GeometryReader { proxy in
@@ -25,7 +27,9 @@ struct CourseDateListView: View {
                     DynamicOffsetView(
                         coordinate: $coordinate,
                         collapsed: $collapsed,
-                        viewHeight: $viewHeight
+                        viewHeight: $viewHeight,
+                        shouldShowUpgradeButton: $shouldShowUpgradeButton,
+                        shouldHideMenuBar: $shouldHideMenuBar
                     )
                     VStack(alignment: .leading, spacing: 0) {
                         

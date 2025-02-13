@@ -139,7 +139,7 @@ public struct CourseUnitView: View {
                 showDiscussion = viewModel.selectedLesson().type == .discussion
             }
         }
-        .hideNavigationBar(true)
+        .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
         .navigationTitle("")
         .background(

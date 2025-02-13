@@ -109,7 +109,7 @@ public final class CourseContainerViewModel: BaseCourseViewModel {
     let courseEnd: Date?
     let enrollmentStart: Date?
     let enrollmentEnd: Date?
-    let lastVisitedBlockID: String?
+    var lastVisitedBlockID: String?
     
     var courseDownloadTasks: [DownloadDataTask] = []
     private(set) var waitingDownloads: [CourseBlock]?
@@ -225,15 +225,6 @@ public final class CourseContainerViewModel: BaseCourseViewModel {
             }
         }
     }
-
-    @MainActor
-    func getCourseStructure(courseID: String) async throws -> CourseStructure? {
-        if isInternetAvaliable {
-            return try await interactor.getCourseBlocks(courseID: courseID)
-        } else {
-            return try await interactor.getLoadedCourseBlocks(courseID: courseID)
-        }
-    }
     
     @MainActor
     func updateMenuBarVisibility() {
@@ -272,7 +263,7 @@ public final class CourseContainerViewModel: BaseCourseViewModel {
             update(from: courseHelper.value ?? .empty)
             self.courseStructure = courseStructure
             let type = type(for: courseStructure?.coursewareAccessDetails?.coursewareAccess)
-            shouldShowUpgradeButton = type == nil 
+            shouldShowUpgradeButton = type == nil
             && courseStructure?.isUpgradeable ?? false
             && serverConfig.iapConfig.enabled
             

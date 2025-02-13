@@ -107,7 +107,7 @@ public extension DataLayer {
         }
     }
     
-    struct CoursewareAccessDetails: Codable {
+    struct CoursewareAccessDetails: Codable, Sendable {
         public let hasUNMETPrerequisites: Bool
         public let isTooEarly: Bool
         public let auditAccessExpires: String?
@@ -247,7 +247,7 @@ public extension DataLayer {
         }
     }
     
-    struct EnrollmentDetail: Codable {
+    struct EnrollmentDetail: Codable, Sendable {
         let created: String
         let isActive: Bool
         let mode: Mode

@@ -6,8 +6,10 @@
 //
 
 import UIKit
+import OEXFoundation
 
-public class UpgradeInfoViewModel: ObservableObject {
+@MainActor
+public class UpgradeInfoViewModel: ObservableObject, Sendable {
     let productName: String
     let message: String
     let sku: String
@@ -139,6 +141,7 @@ public class UpgradeInfoViewModel: ObservableObject {
         )
     }
 
+    @MainActor
     public func purchase() async {
         isLoading = true
         interactiveDismissDisabled = true

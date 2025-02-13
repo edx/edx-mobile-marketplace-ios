@@ -89,7 +89,7 @@ public struct UserProfileView: View {
                     }
                 }
                 .padding(.top, 8)
-                .hideNavigationBar(false)
+                .navigationBarHidden(false)
                 .navigationBarBackButtonHidden(false)
                 
                 // MARK: - Error Alert

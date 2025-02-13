@@ -26,12 +26,20 @@ final class DatabaseManager: CoreDataHandlerProtocol {
     ]
         
     private nonisolated(unsafe) var persistentContainer: NSPersistentContainer?
+    private nonisolated(unsafe) var context: NSManagedObjectContext?
     
     public func getPersistentContainer() -> NSPersistentContainer {
         if persistentContainer == nil {
            persistentContainer = createContainer()
         }
         return persistentContainer!
+    }
+    
+    public func getContext() -> NSManagedObjectContext {
+        if context == nil {
+            context = createContext()
+        }
+        return context!
     }
     
     init(databaseName: String) {

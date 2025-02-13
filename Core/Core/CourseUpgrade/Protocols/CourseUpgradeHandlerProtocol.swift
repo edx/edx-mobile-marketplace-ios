@@ -8,7 +8,8 @@
 import Foundation
 
 //sourcery: AutoMockable
-public protocol CourseUpgradeHandlerProtocol {
+@MainActor
+public protocol CourseUpgradeHandlerProtocol: Sendable {
     typealias UpgradeCompletionHandler = (UpgradeState) -> Void
     
     func upgradeCourse(
@@ -27,7 +28,7 @@ public protocol CourseUpgradeHandlerProtocol {
 }
 
 #if DEBUG
-public class CourseUpgradeHandlerProtocolMock: CourseUpgradeHandlerProtocol {
+public final class CourseUpgradeHandlerProtocolMock: CourseUpgradeHandlerProtocol {
     public init() {}
     
     public func upgradeCourse(

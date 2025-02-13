@@ -19,6 +19,7 @@ public protocol DiscoveryRouter: BaseRouter {
     func showUpdateRequiredView(showAccountLink: Bool)
     func showUpdateRecomendedView()
     func showDiscoverySearch(searchQuery: String?)
+    // swiftlint:disable:next function_parameter_count
     func showCourseScreens(
         courseID: String,
         hasAccess: Bool?,
@@ -55,6 +56,7 @@ public class DiscoveryRouterMock: BaseRouterMock, DiscoveryRouter {
     public func showUpdateRequiredView(showAccountLink: Bool) {}
     public func showUpdateRecomendedView() {}
     public func showDiscoverySearch(searchQuery: String? = nil) {}
+    // swiftlint:disable:next function_parameter_count
     public func showCourseScreens(
         courseID: String,
         hasAccess: Bool?,

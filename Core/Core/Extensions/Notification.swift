@@ -28,9 +28,10 @@ public extension Notification.Name {
     static let notificationRegistration = Notification.Name("notificationRegistration")
 }
 
+// ToDo: move to OEXFoundation
 public extension Notification {
     enum UserInfoKey: String {
-        case isForced
+//        case isForced
         case status
     }
 }

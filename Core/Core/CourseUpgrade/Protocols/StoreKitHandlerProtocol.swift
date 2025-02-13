@@ -8,7 +8,8 @@
 import Foundation
 
 //sourcery: AutoMockable
-public protocol StoreKitHandlerProtocol {
+@MainActor
+public protocol StoreKitHandlerProtocol: Sendable {
     typealias PurchaseCompletionHandler = (StoreKitUpgradeResponse) -> Void
     func fetchProduct(sku: String) async throws -> StoreProductInfo
     func fetchProduct(sku: String, completion: @escaping (StoreProductInfo?, Error?) -> Void)

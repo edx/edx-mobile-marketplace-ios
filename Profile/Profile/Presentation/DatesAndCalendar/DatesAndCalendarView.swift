@@ -52,7 +52,7 @@ public struct DatesAndCalendarView: View {
                     .roundedBackground(Theme.Colors.background)
                     .ignoresSafeArea(.all, edges: .bottom)
                 }
-                .hideNavigationBar(true)
+                .navigationBarHidden(true)
                 .navigationBarBackButtonHidden(true)
                 
                 if screenDimmed {

@@ -21,7 +21,12 @@ public struct SnackBarView: View {
     
     private let minHeight: CGFloat = 50
     
-    public init(message: String?, textColor: Color = Theme.Colors.snackbarTextColor, bgColor: Color = Theme.Colors.snackbarErrorColor, action: (() -> Void)? = nil) {
+    public init(
+        message: String?,
+        textColor: Color = Theme.Colors.snackbarTextColor,
+        bgColor: Color = Theme.Colors.snackbarErrorColor,
+        action: (() -> Void)? = nil
+    ) {
         self.message = message ?? ""
         self.action = action
         self.textColor = textColor

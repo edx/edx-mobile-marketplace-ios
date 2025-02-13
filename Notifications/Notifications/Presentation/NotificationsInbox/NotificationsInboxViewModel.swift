@@ -43,6 +43,7 @@ public class NotificationsInboxViewModel: ObservableObject {
         self.router = router
     }
     
+    @MainActor
     func menuSelected(_ menu: NotificationMenu) {
         switch menu {
         case .markAllAsRead:

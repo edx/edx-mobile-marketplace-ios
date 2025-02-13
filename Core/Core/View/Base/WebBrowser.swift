@@ -49,7 +49,7 @@ public struct WebBrowser: View {
                 }
             }
             .navigationBarTitle(Text(""))
-            .hideNavigationBar(true)
+            .navigationBarHidden(true)
             .ignoresSafeArea()
         }
     }

@@ -7,6 +7,7 @@
 
 import Foundation
 import Alamofire
+import OEXFoundation
 
 private let PaymentProcessor = "ios-iap"
 

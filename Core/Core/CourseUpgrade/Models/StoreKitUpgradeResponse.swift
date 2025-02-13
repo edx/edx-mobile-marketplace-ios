@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct StoreKitUpgradeResponse {
+public struct StoreKitUpgradeResponse: Sendable {
     var success: Bool
     var receipt: String?
     var error: UpgradeError?

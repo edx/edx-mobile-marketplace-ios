@@ -172,7 +172,7 @@ public struct DiscoveryWebview: View {
                 }
             }
         }
-        .hideNavigationBar(
+        .navigationBarHidden(
             supportsElevatedTabBar ? false :
                 (viewModel.sourceScreen == .default && discoveryType == .discovery)
         )

@@ -38,7 +38,7 @@ public extension DataLayer {
         }
     }
     
-    struct OrderData: Codable {
+    struct OrderData: Codable, Sendable {
         let status: String
         
         enum CodingKeys: String, CodingKey {

@@ -124,7 +124,7 @@ public struct ProgramWebviewView: View {
                 }
             }
         }
-        .hideNavigationBar(viewType == .program)
+        .navigationBarHidden(viewType == .program)
         .navigationTitle(CoreLocalization.Mainscreen.programs)
         .background(Theme.Colors.background.ignoresSafeArea())
         .animation(.default, value: viewModel.showError)

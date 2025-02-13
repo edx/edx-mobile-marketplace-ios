@@ -93,7 +93,7 @@ public struct CourseStructure: Equatable, Sendable {
     }
 }
 
-public struct CoursewareAccessDetails: Hashable {
+public struct CoursewareAccessDetails: Hashable, Sendable {
     public let hasUNMETPrerequisites: Bool
     public let isTooEarly: Bool
     public let auditAccessExpires: String?
@@ -126,7 +126,7 @@ public struct CoursewareAccessDetails: Hashable {
     }
 }
 
-public struct CoursewareAccess: Hashable {
+public struct CoursewareAccess: Hashable, Sendable {
     public let hasAccess: Bool
     public let errorCode: CourseAccessError?
     public let developerMessage: String?
@@ -151,7 +151,7 @@ public struct CoursewareAccess: Hashable {
     }
 }
 
-public enum CourseAccessError: String {
+public enum CourseAccessError: String, Sendable {
     case notStarted = "course_not_started"
     case auditExpired = "audit_expired"
     case visibilityError = "not_visible_to_user"

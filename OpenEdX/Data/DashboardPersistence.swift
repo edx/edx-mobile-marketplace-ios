@@ -96,7 +96,7 @@ public final class DashboardPersistence: DashboardPersistenceProtocol {
                 newItem.lmsPrice = item.lmsPrice ?? .zero
                 
                 if let access = item.coursewareAccess {
-                    let newAccess = CDDashboardCoursewareAccess(context: self.context)
+                    let newAccess = CDDashboardCoursewareAccess(context: context)
                     newAccess.hasAccess = access.hasAccess
                     newAccess.errorCode = access.errorCode?.rawValue
                     newAccess.developerMessage = access.developerMessage
@@ -115,118 +115,7 @@ public final class DashboardPersistence: DashboardPersistenceProtocol {
         }
     }
     
-    // swiftlint:disable function_body_length
-    public func loadPrimaryEnrollment() throws -> PrimaryEnrollment {
-        let request = CDMyEnrollments.fetchRequest()
-        if let result = try context.fetch(request).first {
-            let primaryCourse = result.primaryCourse.flatMap { cdPrimaryCourse -> PrimaryCourse? in
-                
-                let futureAssignments = (cdPrimaryCourse.futureAssignments as? Set<CDAssignment> ?? [])
-                    .map { future in
-                        return Assignment(
-                            type: future.type ?? "",
-                            title: future.title ?? "",
-                            description: future.descript ?? "",
-                            date: future.date ?? Date(),
-                            complete: future.complete,
-                            firstComponentBlockId: future.firstComponentBlockId
-                        )
-                    }
-                
-                let pastAssignments = (cdPrimaryCourse.pastAssignments as? Set<CDAssignment> ?? [])
-                    .map { past in
-                        return Assignment(
-                            type: past.type ?? "",
-                            title: past.title ?? "",
-                            description: past.descript ?? "",
-                            date: past.date ?? Date(),
-                            complete: past.complete,
-                            firstComponentBlockId: past.firstComponentBlockId
-                        )
-                    }
-                
-                return PrimaryCourse(
-                    name: cdPrimaryCourse.name ?? "",
-                    org: cdPrimaryCourse.org ?? "",
-                    courseID: cdPrimaryCourse.courseID ?? "",
-                    hasAccess: cdPrimaryCourse.hasAccess,
-                    courseStart: cdPrimaryCourse.courseStart,
-                    courseEnd: cdPrimaryCourse.courseEnd,
-                    courseBanner: cdPrimaryCourse.courseBanner ?? "",
-                    futureAssignments: futureAssignments,
-                    pastAssignments: pastAssignments,
-                    progressEarned: Int(cdPrimaryCourse.progressEarned),
-                    progressPossible: Int(cdPrimaryCourse.progressPossible),
-                    lastVisitedBlockID: cdPrimaryCourse.lastVisitedBlockID ?? "",
-                    resumeTitle: cdPrimaryCourse.resumeTitle,
-                    auditAccessExpires: cdPrimaryCourse.auditAccessExpires,
-                    startDisplay: cdPrimaryCourse.startDisplay,
-                    startType: DisplayStartType(value: cdPrimaryCourse.startType),
-                    isUpgradeable: cdPrimaryCourse.isUpgradeable,
-                    sku: cdPrimaryCourse.sku,
-                    lmsPrice: cdPrimaryCourse.lmsPrice?.doubleValue,
-                    isSelfPaced: cdPrimaryCourse.isSelfPaced
-                )
-            }
-            
-            let courses = (result.courses as? Set<CDDashboardCourse> ?? [])
-                .map { cdCourse in
-                    var coursewareAccess: CoursewareAccess?
-                    if let access = cdCourse.coursewareAccess {
-                        var coursewareError: CourseAccessError?
-                        if let error = access.errorCode {
-                            coursewareError = CourseAccessError(rawValue: error) ?? .unknown
-                        }
-                        
-                        coursewareAccess = CoursewareAccess(
-                            hasAccess: access.hasAccess,
-                            errorCode: coursewareError,
-                            developerMessage: access.developerMessage,
-                            userMessage: access.userMessage,
-                            additionalContextUserMessage: access.additionalContextUserMessage,
-                            userFragment: access.userFragment
-                        )
-                    }
-                    
-                    return CourseItem(
-                        name: cdCourse.name ?? "",
-                        org: cdCourse.org ?? "",
-                        shortDescription: cdCourse.desc ?? "",
-                        imageURL: cdCourse.imageURL ?? "",
-                        hasAccess: cdCourse.hasAccess,
-                        courseStart: cdCourse.courseStart,
-                        courseEnd: cdCourse.courseEnd,
-                        enrollmentStart: cdCourse.enrollmentStart,
-                        enrollmentEnd: cdCourse.enrollmentEnd,
-                        courseID: cdCourse.courseID ?? "",
-                        numPages: Int(cdCourse.numPages),
-                        coursesCount: Int(cdCourse.courseCount),
-                        sku: cdCourse.courseSku ?? "",
-                        dynamicUpgradeDeadline: cdCourse.dynamicUpgradeDeadline,
-                        mode: DataLayer.Mode(rawValue: cdCourse.mode ?? "") ?? .unknown,
-                        isSelfPaced: cdCourse.isSelfPaced,
-                        courseRawImage: cdCourse.courseRawImage,
-                        coursewareAccess: coursewareAccess,
-                        progressEarned: Int(cdCourse.progressEarned),
-                        progressPossible: Int(cdCourse.progressPossible),
-                        auditAccessExpires: cdCourse.auditAccessExpires,
-                        startDisplay: cdCourse.startDisplay,
-                        startType: DisplayStartType(value: cdCourse.startType),
-                        lmsPrice: cdCourse.lmsPrice
-                    )
-                }
-            
-            return PrimaryEnrollment(
-                primaryCourse: primaryCourse,
-                courses: courses,
-                totalPages: Int(result.totalPages),
-                count: Int(result.count)
-            )
-        } else {
-            throw NoCachedDataError()
-        }
-    }
-    
+    // swiftlint:disable:next function_body_length
     public func loadPrimaryEnrollment() async throws -> PrimaryEnrollment {
         let request = CDMyEnrollments.fetchRequest()
         return try await container.performBackgroundTask { context in
@@ -372,7 +261,7 @@ public final class DashboardPersistence: DashboardPersistenceProtocol {
             
             // Saving PrimaryCourse
             if let primaryCourse = enrollments.primaryCourse {
-                let cdPrimaryCourse = CDPrimaryCourse(context: self.context)
+                let cdPrimaryCourse = CDPrimaryCourse(context: context)
                 
                 let futureAssignments = primaryCourse.futureAssignments.map { assignment in
                     let cdAssignment = CDAssignment(context: context)
@@ -449,7 +338,7 @@ public final class DashboardPersistence: DashboardPersistenceProtocol {
     }
     
     public func saveServerConfig(configs: DataLayer.ServerConfigs?) {
-        context.performAndWait {
+        container.performBackgroundTask { context in
             let result = try? context.fetch(CDServerConfigs.fetchRequest())
             var item: CDServerConfigs?
             
@@ -470,15 +359,15 @@ public final class DashboardPersistence: DashboardPersistenceProtocol {
         }
     }
     
-    public func loadServerConfig() throws -> DataLayer.ServerConfigs? {
-        let result = try? context.fetch(CDServerConfigs.fetchRequest())
-            .map { DataLayer.ServerConfigs(config: $0.config ?? "")}
-        
-        if let result, !result.isEmpty {
-            return result.first
-            
-        } else {
-            throw NoCachedDataError()
+    public func loadServerConfig() async throws -> DataLayer.ServerConfigs? {
+        try await container.performBackgroundTask { context in
+            let result = try? context.fetch(CDServerConfigs.fetchRequest())
+                .map { DataLayer.ServerConfigs(config: $0.config ?? "") }
+            if let result, !result.isEmpty {
+                return result.first
+            } else {
+                throw NoCachedDataError()
+            }
         }
     }
 }

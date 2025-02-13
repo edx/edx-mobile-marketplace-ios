@@ -178,8 +178,6 @@ public final class CorePersistence: CorePersistenceProtocol {
                 let result = block()
                 continuation.resume(returning: result)
             }
-        } catch {
-            debugLog("Can't insert new elements")
         }
     }
 

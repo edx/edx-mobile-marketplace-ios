@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct StoreProductInfo {
+public struct StoreProductInfo: Sendable {
     var price: NSDecimalNumber
     var localizedPrice: String?
     var currencySymbol: String?

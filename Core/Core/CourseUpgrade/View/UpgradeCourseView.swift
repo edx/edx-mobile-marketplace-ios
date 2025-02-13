@@ -69,7 +69,7 @@ public struct UpgradeCourseView: View {
                 let message = CoreLocalization.CourseUpgrade.View.auditMessage
                     .replacingOccurrences(
                         of: CoreLocalization.CourseUpgrade.View.datePlaceholder,
-                        with: date?.dateToString(style: .monthDayYear) ?? ""
+                        with: date?.dateToString(style: .monthDayYear, useRelativeDates: false) ?? ""
                     )
                 UpgradeInfoView(
                     isFindCourseButtonVisible: true,
@@ -106,7 +106,7 @@ public struct UpgradeCourseView: View {
             let message = CoreLocalization.CourseUpgrade.View.startDateMessage
                 .replacingOccurrences(
                     of: CoreLocalization.CourseUpgrade.View.datePlaceholder,
-                    with: date?.dateToString(style: .monthDayYear) ?? ""
+                    with: date?.dateToString(style: .monthDayYear, useRelativeDates: false) ?? ""
                 )
             UpgradeCourseViewMessage(
                 message: message,
@@ -122,7 +122,7 @@ public struct UpgradeCourseView: View {
             let message = CoreLocalization.CourseUpgrade.View.endDateMessage
                 .replacingOccurrences(
                     of: CoreLocalization.CourseUpgrade.View.datePlaceholder,
-                    with: date.dateToString(style: .monthDayYear)
+                    with: date.dateToString(style: .monthDayYear, useRelativeDates: false)
                 )
             UpgradeCourseViewMessage(
                 message: message,

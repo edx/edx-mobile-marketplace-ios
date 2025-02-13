@@ -6,20 +6,21 @@
 //
 
 import Foundation
+import OEXFoundation
 
 private enum Keys: String, RawStringExtractable {
     case valuePropEnabled = "value_prop_enabled"
     case feedbackFormURL = "feedback_form_url"
 }
 
-public protocol ServerConfigProtocol {
+public protocol ServerConfigProtocol: Sendable {
     var valuePropEnabled: Bool { get }
     var iapConfig: IAPConfig { get }
     func initialize(serverConfig: String?)
     var feedbackURL: URL? { get }
 }
 
-public class ServerConfig: ServerConfigProtocol {
+public class ServerConfig: ServerConfigProtocol, @unchecked Sendable {
     var config: [String: Any] = [:]
     
     public init () {}
@@ -45,7 +46,7 @@ public class ServerConfig: ServerConfigProtocol {
 // Mark - For testing and SwiftUI preview
 // swiftlint:disable all
 #if DEBUG
-public class ServerConfigProtocolMock: ServerConfigProtocol {
+public final class ServerConfigProtocolMock: ServerConfigProtocol, @unchecked Sendable {
     
     let configString = "{\"iap_config\":{\"enabled\":true,\"experiment_enabled\":false,\"android_product_prefix\":\"mobile.android.usd\",\"allowed_users\":[\"all_users\"]},\"value_prop_enabled\":true,\"feedback_form_url\":\"https://bit.ly/edx-apps-feedback\",\"course_dates_calendar_sync\":{\"ios\":{\"enabled\":true,\"self_paced_enabled\":true,\"instructor_paced_enabled\":true,\"deep_links_enabled\":true},\"android\":{\"enabled\":true,\"self_paced_enabled\":true,\"instructor_paced_enabled\":true,\"deep_links_enabled\":true}}}"
     

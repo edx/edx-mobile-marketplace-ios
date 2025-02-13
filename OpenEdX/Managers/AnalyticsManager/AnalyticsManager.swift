@@ -19,13 +19,6 @@ import Notifications
 import OEXFoundation
 
 // swiftlint:disable file_length type_body_length
-protocol AnalyticsService {
-    func identify(id: String, username: String?, email: String?)
-    func logEvent(_ event: AnalyticsEvent, parameters: [String: Any]?)
-    func logScreenEvent(_ event: AnalyticsEvent, parameters: [String: Any]?)
-}
-
-// swiftlint:disable type_body_length file_length
 class AnalyticsManager: AuthorizationAnalytics,
                         MainScreenAnalytics,
                         DiscoveryAnalytics,
@@ -41,49 +34,52 @@ class AnalyticsManager: AuthorizationAnalytics,
     private var services: [AnalyticsService]
     
     // Init Analytics Manager
-    public init(config: ConfigProtocol) {
-        services = servicesFor(config: config)
-    }
-
-    private func servicesFor(config: ConfigProtocol) -> [AnalyticsService] {
-        var analyticsServices: [AnalyticsService] = []
-        // add Firebase Analytics Service
-        if config.firebase.enabled && config.firebase.isAnalyticsSourceFirebase,
-           let firebaseService = Container.shared.resolve(FirebaseAnalyticsService.self) {
-            analyticsServices.append(firebaseService)
-        }
-        
-        // add Segment Analytics Service
-        if config.segment.enabled,
-           let segmentService = Container.shared.resolve(SegmentAnalyticsService.self) {
-            analyticsServices.append(segmentService)
-        }
-        
-        /**
-         This check is `edX/2U` specific.
-         We only want to record FullStory events for the `PROD` environment for the following reasons:
-         1. `Dev` & `Stage` environments has `orgID` of Test Organization named `2U - Mobile Apps`, and we do not want to record
-         events or other data for this test organization.
-         2. Initially, we set up conditional loading for the FullStory SDK, but it caused issues with enabling SwiftUI-based views in FullStory sessions.
-         We reached out to FullStory's technical support team, who informed us that conditional integration of the FullStory SDK is not possible. As a
-         workaround, we used the test organization `2U - Mobile Apps` and its `orgID` for the `Dev` and `Stage` environments to avoid
-         disrupting the SDK functionality. We have also communicated our usage strategy to FullStory's support team and requested a more effective
-         solution in future SDK updates.
-         */
-#if PROD
-        if config.fullStory.enabled,
-           let fullStoryService = Container.shared.resolve(
-            FullStoryAnalyticsService.self,
-            argument: config.firebase.enabled
-           ) {
-            analyticsServices.append(fullStoryService)
-        }
-#endif
-        
-        return analyticsServices
-    }
+//    public init(config: ConfigProtocol) {
+//        services = servicesFor(config: config)
+//    }
+//
+//    private func servicesFor(config: ConfigProtocol) -> [AnalyticsService] {
+//        var analyticsServices: [AnalyticsService] = []
+//        // add Firebase Analytics Service
+//        if config.firebase.enabled && config.firebase.isAnalyticsSourceFirebase,
+//           let firebaseService = Container.shared.resolve(FirebaseAnalyticsService.self) {
+//            analyticsServices.append(firebaseService)
+//        }
+//        
+//        // add Segment Analytics Service
+//        if config.segment.enabled,
+//           let segmentService = Container.shared.resolve(SegmentAnalyticsService.self) {
+//            analyticsServices.append(segmentService)
+//        }
+//        
+//        /**
+//         This check is `edX/2U` specific.
+//         We only want to record FullStory events for the `PROD` environment for the following reasons:
+//         1. `Dev` & `Stage` environments has `orgID` of Test Organization named `2U - Mobile Apps`, and we do not want
+//         to record events or other data for this test organization.
+//         2. Initially, we set up conditional loading for the FullStory SDK, but it caused issues with enabling
+//         SwiftUI-based views in FullStory sessions.
+//         We reached out to FullStory's technical support team, who informed us that conditional integration of
+//         the FullStory SDK is not possible. As a
+//         workaround, we used the test organization `2U - Mobile Apps` and its `orgID` for the `Dev` and `Stage`
+//         environments to avoid disrupting the SDK functionality. We have also communicated our usage strategy to
+//         FullStory's support team and requested a more effective solution in future SDK updates.
+//         */
+//#if PROD
+//        if config.fullStory.enabled,
+//           let fullStoryService = Container.shared.resolve(
+//            FullStoryAnalyticsService.self,
+//            argument: config.firebase.enabled
+//           ) {
+//            analyticsServices.append(fullStoryService)
+//        }
+//#endif
+//        
+//        return analyticsServices
+//    }
 
     // ToDo: which init is using? bellow is develop
+    // we could delete 2u/develop init - just needs to move fullstory to plugin
     public init(services: [AnalyticsService]) {
         self.services = services
     }
@@ -924,110 +920,6 @@ class AnalyticsManager: AuthorizationAnalytics,
         logEvent(.videoCompleted, parameters: parameters)
     }
     
-    public func bulkDeleteVideosSection(
-        courseID: String,
-        sectionId: String,
-        videos: Int
-    ) {
-        let parameters: [String: Any] = [
-            EventParamKey.courseID: courseID,
-            EventParamKey.courseSection: sectionId,
-            EventParamKey.noOfVideos: videos,
-            EventParamKey.category: EventCategory.video,
-            EventParamKey.name: EventBIValue.bulkDeleteVideosSection.rawValue
-        ]
-        
-        logEvent(.bulkDeleteVideosSection, parameters: parameters)
-    }
-    
-    public func videoLoaded(courseID: String, blockID: String, videoURL: String) {
-        let parameters: [String: Any] = [
-            EventParamKey.courseID: courseID,
-            EventParamKey.blockID: blockID,
-            EventParamKey.videoURL: videoURL,
-            EventParamKey.category: EventCategory.video,
-            EventParamKey.name: EventBIValue.videoLoaded.rawValue
-        ]
-        
-        logEvent(.videoLoaded, parameters: parameters)
-    }
-    
-    public func videoPlayed(courseID: String, blockID: String, videoURL: String) {
-        let parameters: [String: Any] = [
-            EventParamKey.courseID: courseID,
-            EventParamKey.blockID: blockID,
-            EventParamKey.videoURL: videoURL,
-            EventParamKey.category: EventCategory.video,
-            EventParamKey.name: EventBIValue.videoPlayed.rawValue
-        ]
-        
-        logEvent(.videoPlayed, parameters: parameters)
-    }
-    
-    public func videoSpeedChange(
-        courseID: String,
-        blockID: String,
-        videoURL: String,
-        oldSpeed: Float,
-        newSpeed: Float,
-        currentTime: Double,
-        duration: Double
-    ) {
-        let parameters: [String: Any] = [
-            EventParamKey.courseID: courseID,
-            EventParamKey.blockID: blockID,
-            EventParamKey.videoURL: videoURL,
-            EventParamKey.oldSpeed: oldSpeed,
-            EventParamKey.newSpeed: newSpeed,
-            EventParamKey.currentTime: currentTime,
-            EventParamKey.duration: duration,
-            EventParamKey.category: EventCategory.video,
-            EventParamKey.name: EventBIValue.videoSpeedChange.rawValue
-        ]
-        
-        logEvent(.videoSpeedChange, parameters: parameters)
-    }
-    
-    public func videoPaused(
-        courseID: String,
-        blockID: String,
-        videoURL: String,
-        currentTime: Double,
-        duration: Double
-    ) {
-        let parameters: [String: Any] = [
-            EventParamKey.courseID: courseID,
-            EventParamKey.blockID: blockID,
-            EventParamKey.videoURL: videoURL,
-            EventParamKey.currentTime: currentTime,
-            EventParamKey.duration: duration,
-            EventParamKey.category: EventCategory.video,
-            EventParamKey.name: EventBIValue.videoPaused.rawValue
-        ]
-        
-        logEvent(.videoPaused, parameters: parameters)
-    }
-    
-    public func videoCompleted(
-        courseID: String,
-        blockID: String,
-        videoURL: String,
-        currentTime: Double,
-        duration: Double
-    ) {
-        let parameters: [String: Any] = [
-            EventParamKey.courseID: courseID,
-            EventParamKey.blockID: blockID,
-            EventParamKey.videoURL: videoURL,
-            EventParamKey.currentTime: currentTime,
-            EventParamKey.duration: duration,
-            EventParamKey.category: EventCategory.video,
-            EventParamKey.name: EventBIValue.videoCompleted.rawValue
-        ]
-        
-        logEvent(.videoCompleted, parameters: parameters)
-    }
-    
     // MARK: Discussion
     public func discussionAllPostsClicked(courseId: String) {
         let parameters = [
@@ -1329,6 +1221,7 @@ class AnalyticsManager: AuthorizationAnalytics,
         logEvent(.courseUpgradeError, parameters: parameters)
     }
     
+    // swiftlint:disable:next function_parameter_count
     public func trackCourseUpgradeErrorAction(
         courseID: String,
         blockID: String?,

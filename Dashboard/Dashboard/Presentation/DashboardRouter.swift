@@ -10,7 +10,7 @@ import Core
 
 @MainActor
 public protocol DashboardRouter: BaseRouter {
-    
+    // swiftlint:disable:next function_parameter_count
     func showCourseScreens(courseID: String,
                            hasAccess: Bool?,
                            courseStart: Date?,
@@ -39,6 +39,7 @@ public protocol DashboardRouter: BaseRouter {
 public class DashboardRouterMock: BaseRouterMock, DashboardRouter {
     public override init() {}
     
+    // swiftlint:disable:next function_parameter_count
     public func showCourseScreens(courseID: String,
                                   hasAccess: Bool?,
                                   courseStart: Date?,

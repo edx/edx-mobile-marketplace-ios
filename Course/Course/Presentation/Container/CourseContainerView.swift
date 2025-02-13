@@ -79,7 +79,7 @@ public struct CourseContainerView: View {
         ZStack(alignment: .top) {
             content
         }
-        .hideNavigationBar(true)
+        .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
         .navigationTitle(title)
         .onChange(of: viewModel.selection, perform: didSelect)
@@ -287,7 +287,9 @@ public struct CourseContainerView: View {
                                 coordinate: $coordinate,
                                 collapsed: $collapsed,
                                 viewHeight: $viewHeight,
-                                viewModel: viewModel
+                                viewModel: viewModel,
+                                shouldShowUpgradeButton: $viewModel.shouldShowUpgradeButton,
+                                shouldHideMenuBar: $viewModel.shouldHideMenuBar
                             )
                             .padding(.bottom, 1)
                             .tabItem {

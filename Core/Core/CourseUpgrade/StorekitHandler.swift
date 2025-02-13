@@ -8,6 +8,7 @@
 import Foundation
 import SwiftyStoreKit
 import StoreKit
+import OEXFoundation
 
 // In case of completeTransctions SDK returns SwiftyStoreKit.Purchase
 // And on the in-app purchase SDK returns SwiftyStoreKit.PurchaseDetails
@@ -55,6 +56,7 @@ public class StorekitHandler: NSObject, StoreKitHandlerProtocol {
         }
     }
     
+    @MainActor
     public func purchaseProduct(_ identifier: String) async -> StoreKitUpgradeResponse {
         await withCheckedContinuation { continuation in
             purchaseProduct(identifier) { response in

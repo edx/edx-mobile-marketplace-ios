@@ -57,6 +57,8 @@ struct OfflineView: View {
     @Binding private var coordinate: CGFloat
     @Binding private var collapsed: Bool
     @Binding private var viewHeight: CGFloat
+    @Binding private var shouldShowUpgradeButton: Bool
+    @Binding private var shouldHideMenuBar: Bool
     
     @StateObject
     private var viewModel: CourseContainerViewModel
@@ -66,13 +68,17 @@ struct OfflineView: View {
         coordinate: Binding<CGFloat>,
         collapsed: Binding<Bool>,
         viewHeight: Binding<CGFloat>,
-        viewModel: CourseContainerViewModel
+        viewModel: CourseContainerViewModel,
+        shouldShowUpgradeButton: Binding<Bool>,
+        shouldHideMenuBar: Binding<Bool>
     ) {
         self.courseID = courseID
         self._coordinate = coordinate
         self._collapsed = collapsed
         self._viewHeight = viewHeight
         self._viewModel = StateObject(wrappedValue: { viewModel }())
+        self._shouldShowUpgradeButton = shouldShowUpgradeButton
+        self._shouldHideMenuBar = shouldHideMenuBar
     }
     
     public var body: some View {
@@ -93,7 +99,9 @@ struct OfflineView: View {
                                 DynamicOffsetView(
                                     coordinate: $coordinate,
                                     collapsed: $collapsed,
-                                    viewHeight: $viewHeight
+                                    viewHeight: $viewHeight,
+                                    shouldShowUpgradeButton: $shouldShowUpgradeButton,
+                                    shouldHideMenuBar: $shouldHideMenuBar
                                 )
                                 TotalDownloadedProgressView(
                                     downloadedFilesSize: viewModel.downloadedFilesSize,
@@ -259,6 +267,7 @@ struct OfflineView: View {
         enrollmentEnd: nil,
         lastVisitedBlockID: nil,
         coreAnalytics: CoreAnalyticsMock(),
+        serverConfig: ServerConfigProtocolMock(),
         courseHelper: CourseDownloadHelper(courseStructure: nil, manager: DownloadManagerMock())
     )
     
@@ -267,7 +276,9 @@ struct OfflineView: View {
         coordinate: .constant(0),
         collapsed: .constant(false),
         viewHeight: .constant(0),
-        viewModel: vm
+        viewModel: vm,
+        shouldShowUpgradeButton: .constant(false),
+        shouldHideMenuBar: .constant(false)
     ).onAppear {
         vm.isShowProgress = false
     }

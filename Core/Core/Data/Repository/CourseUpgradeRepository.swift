@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import OEXFoundation
 
-public protocol CourseUpgradeRepositoryProtocol {
+@MainActor
+public protocol CourseUpgradeRepositoryProtocol: Sendable {
     func addbasket(sku: String) async throws -> UpgradeBasket
     func checkoutBasket(basketID: Int) async throws -> CheckoutBasket
     func fulfillCheckout(

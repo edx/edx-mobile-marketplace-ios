@@ -171,7 +171,7 @@ public struct AllCoursesView: View {
                     .ignoresSafeArea()
             )
             .navigationBarBackButtonHidden(true)
-            .hideNavigationBar(true)
+            .navigationBarHidden(true)
             .navigationTitle(DashboardLocalization.Learn.allCourses)
         }
     }

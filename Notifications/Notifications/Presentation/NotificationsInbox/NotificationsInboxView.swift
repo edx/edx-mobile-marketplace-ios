@@ -128,7 +128,7 @@ public struct NotificationsInboxView: View {
                     await viewModel.markNotificationsAsSeen()
                 }
             }
-            .hideNavigationBar(true)
+            .navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)
             .navigationTitle(NotificationsLocalization.notifications)
         }

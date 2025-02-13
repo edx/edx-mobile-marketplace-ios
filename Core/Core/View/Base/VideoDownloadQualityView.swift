@@ -136,7 +136,7 @@ public struct VideoDownloadQualityView: View {
                 }
             }
         }
-        .hideNavigationBar(!isModal)
+        .navigationBarHidden(!isModal)
         .navigationBarBackButtonHidden(!isModal)
         .navigationTitle(CoreLocalization.Settings.videoDownloadQualityTitle)
         .ignoresSafeArea(.all, edges: .horizontal)

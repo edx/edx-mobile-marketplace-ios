@@ -318,7 +318,6 @@ public extension DataLayer.PrimaryEnrollment {
             isSelfPaced: enrollment.course.isSelfPaced,
             courseRawImage: enrollment.course.media.image?.raw,
             coursewareAccess: coursewareAccess,
-            courseRawImage: enrollment.course.media.image?.raw,
             progressEarned: enrollment.progress?.assignmentsCompleted ?? 0,
             progressPossible: enrollment.progress?.totalAssignmentsCount ?? 0,
             auditAccessExpires: enrollment.auditAccessExpires.flatMap { Date(iso8601: $0) },

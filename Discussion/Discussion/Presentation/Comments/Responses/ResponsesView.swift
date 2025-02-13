@@ -229,7 +229,7 @@ public struct ResponsesView: View {
                 }
             }
             .ignoresSafeArea(.all, edges: .horizontal)
-            .hideNavigationBar(false)
+            .navigationBarHidden(false)
             .navigationBarBackButtonHidden(true)
             .navigationTitle(title)
             .toolbar {

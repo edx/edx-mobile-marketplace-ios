@@ -7,20 +7,20 @@
 
 import Foundation
 
-public enum CourseUpgradeScreen: String {
+public enum CourseUpgradeScreen: String, Sendable {
     case dashboard
     case courseDashboard = "course_dashboard"
     case courseComponent = "course_component"
     case unknown
 }
 
-public enum UpgradeMode: String {
+public enum UpgradeMode: String, Sendable {
     case silent
     case userInitiated = "user_initiated"
     case restore
 }
 
-public enum UpgradeState {
+public enum UpgradeState: Sendable {
     case initial
     case basket
     case checkout
@@ -30,8 +30,9 @@ public enum UpgradeState {
     case error(UpgradeError)
 }
 
+@MainActor
 public class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
-    static var ecommerceURL: String = ""
+    nonisolated(unsafe) static var ecommerceURL: String = ""
     
     private var completion: UpgradeCompletionHandler?
     private var basketID: Int = 0
@@ -124,7 +125,6 @@ public class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
         await proceedWithUpgrade(sku: sku)
     }
     
-    @MainActor
     private func proceedWithUpgrade(sku: String) async {
         state = .basket
         
@@ -138,7 +138,6 @@ public class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
         }
     }
     
-    @MainActor
     private func checkout(basketID: Int, sku: String) async {
         // Checkout API
         guard basketID > 0 else {
@@ -161,7 +160,6 @@ public class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
         }
     }
     
-    @MainActor
     private func makePayment(sku: String) async -> StoreKitUpgradeResponse {
         state = .payment
         return await storeKitHandler.purchaseProduct(sku)
@@ -177,7 +175,6 @@ public class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
         }
     }
     
-    @MainActor
     private func verifyPayment(_ receipt: String) async {
         state = .verify
         

@@ -179,7 +179,7 @@ public struct CourseDetailsView: View {
                     }
                 }
             }.padding(.top, 8)
-            .hideNavigationBar(false)
+            .navigationBarHidden(false)
             .navigationBarBackButtonHidden(false)
             .navigationTitle(DiscoveryLocalization.Details.title)
             

@@ -44,14 +44,8 @@ public struct CourseCellView: View {
         self.type = type
         self.courseImage = model.imageURL
         self.courseName = model.name
-        self.courseStart = model.courseStart?.dateToString(
-            style: .startDDMonthYear,
-            useRelativeDates: useRelativeDates
-        ) ?? ""
-        self.courseEnd = model.courseEnd?.dateToString(
-            style: .endedMonthDay,
-            useRelativeDates: useRelativeDates
-        ) ?? ""
+        self.courseStart = model.courseStart
+        self.courseEnd = model.courseEnd
         self.courseOrg =  model.org
         self.index = Double(index) + 1
         self.cellsCount = cellsCount
@@ -199,7 +193,6 @@ struct CourseCellView_Previews: PreviewProvider {
         isSelfPaced: false,
         courseRawImage: nil,
         coursewareAccess: nil,
-        courseRawImage: nil,
         progressEarned: 4,
         progressPossible: 10,
         auditAccessExpires: nil,

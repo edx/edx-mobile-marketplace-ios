@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 public class EmailTemplates {
+    @MainActor
     public class func contactSupport(email: String, emailSubject: String, errorMessage: String? = nil) -> URL? {
         let osVersion = UIDevice.current.systemVersion
         let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""

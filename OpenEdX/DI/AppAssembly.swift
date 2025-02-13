@@ -228,19 +228,16 @@ class AppAssembly: Assembly {
             )
         }.inObjectScope(.container)
         
-        container.register(SegmentAnalyticsService.self) { r in
-            SegmentAnalyticsService(
-                config: r.resolve(ConfigProtocol.self)!
-            )
-        }.inObjectScope(.container)
-        
-        container.register(FirebaseAnalyticsService.self) { _ in
-            FirebaseAnalyticsService()
-        }.inObjectScope(.container)
-        
-        container.register(FullStoryAnalyticsService.self) { _, firebaseEnabled in
-            FullStoryAnalyticsService(firebaseEnabled)
-        }.inObjectScope(.container)
+        // ToDo: add together with plugin architecture
+//        container.register(SegmentAnalyticsService.self) { r in
+//            SegmentAnalyticsService(
+//                config: r.resolve(ConfigProtocol.self)!
+//            )
+//        }.inObjectScope(.container)
+//        
+//        container.register(FullStoryAnalyticsService.self) { _, firebaseEnabled in
+//            FullStoryAnalyticsService(firebaseEnabled)
+//        }.inObjectScope(.container)
         
         container.register(PipManagerProtocol.self) { @MainActor r in
             let config = r.resolve(ConfigProtocol.self)!

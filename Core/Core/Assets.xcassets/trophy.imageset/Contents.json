@@ -1,11 +1,7 @@
 {
   "images" : [
     {
-<<<<<<<< HEAD:Core/Core/Assets.xcassets/trophy.imageset/Contents.json
       "filename" : "trophy.pdf",
-========
-      "filename" : "learn_inactive.svg",
->>>>>>>> develop:Core/Core/Assets.xcassets/NavigationBar/learn_inactive.imageset/Contents.json
       "idiom" : "universal"
     }
   ],

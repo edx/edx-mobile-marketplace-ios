@@ -26,7 +26,6 @@ public struct CourseItem: Hashable, Sendable {
     public let isSelfPaced: Bool?
     public let courseRawImage: String?
     public let coursewareAccess: CoursewareAccess?
-    public let courseRawImage: String?
     public let progressEarned: Int
     public let progressPossible: Int
     public let auditAccessExpires: Date?
@@ -52,7 +51,6 @@ public struct CourseItem: Hashable, Sendable {
                 isSelfPaced: Bool?,
                 courseRawImage: String?,
                 coursewareAccess: CoursewareAccess?,
-                courseRawImage: String?,
                 progressEarned: Int,
                 progressPossible: Int,
                 auditAccessExpires: Date?,
@@ -78,7 +76,6 @@ public struct CourseItem: Hashable, Sendable {
         self.isSelfPaced = isSelfPaced
         self.courseRawImage = courseRawImage
         self.coursewareAccess = coursewareAccess
-        self.courseRawImage = courseRawImage
         self.progressEarned = progressEarned
         self.progressPossible = progressPossible
         self.auditAccessExpires = auditAccessExpires
@@ -117,12 +114,12 @@ extension CourseItem {
                 return nil
             }
             
-            let formattedEndDate = endDate.stringValue(style: dateStyle)
+            let formattedEndDate = endDate.dateToString(style: dateStyle, useRelativeDates: false)
             
             return endDate.isInPast() ? CoreLocalization.Course.ended(formattedEndDate) :
             CoreLocalization.Course.ending(formattedEndDate)
         } else {
-            let formattedStartDate = startDate?.stringValue(style: dateStyle) ?? ""
+            let formattedStartDate = startDate?.dateToString(style: dateStyle, useRelativeDates: false) ?? ""
             switch startType {
             case .string where startDisplay != nil:
                 if startDisplay?.daysUntil() ?? 0 < 1 {
@@ -146,7 +143,7 @@ extension CourseItem {
     ) -> String {
         guard let auditExpiry = auditAccessExpires as Date? else { return "" }
 
-        let formattedExpiryDate = auditExpiry.stringValue(style: dateStyle)
+        let formattedExpiryDate = auditExpiry.dateToString(style: dateStyle, useRelativeDates: false)
         let timeSpan = 7 // show number of days when less than a week
         
         if auditExpiry.isInPast() {

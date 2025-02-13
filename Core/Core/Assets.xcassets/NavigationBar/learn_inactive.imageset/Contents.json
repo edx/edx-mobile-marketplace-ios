@@ -1,11 +1,7 @@
 {
   "images" : [
     {
-<<<<<<<< HEAD:Core/Core/Assets.xcassets/NavigationBar/learn_inactive.imageset/Contents.json
       "filename" : "learn_inactive.svg",
-========
-      "filename" : "profile_active.svg",
->>>>>>>> develop:Core/Core/Assets.xcassets/NavigationBar/profile_active.imageset/Contents.json
       "idiom" : "universal"
     }
   ],

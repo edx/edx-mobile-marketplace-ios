@@ -1,11 +1,7 @@
 {
   "images" : [
     {
-<<<<<<<< HEAD:Notifications/Notifications/Assets.xcassets/discussions.imageset/Contents.json
       "filename" : "discussions.svg",
-========
-      "filename" : "check_circle.svg",
->>>>>>>> develop:Core/Core/Assets.xcassets/check_circle.imageset/Contents.json
       "idiom" : "universal"
     }
   ],

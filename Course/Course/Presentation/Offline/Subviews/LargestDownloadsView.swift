@@ -103,6 +103,7 @@ struct LargestDownloadsView_Previews: PreviewProvider {
             enrollmentEnd: nil,
             lastVisitedBlockID: nil,
             coreAnalytics: CoreAnalyticsMock(),
+            serverConfig: ServerConfigProtocolMock(),
             courseHelper: CourseDownloadHelper(courseStructure: nil, manager: DownloadManagerMock())
         )
         

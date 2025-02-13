@@ -63,16 +63,15 @@ final class DownloadsViewModel: ObservableObject {
         helper.publisher()
             .sink {[weak self] value in
                 self?.downloads = value.notFinishedTasks
+                if self?.downloads.isEmpty == true {
+                    self?.shouldDismiss = true
+                }
             }
             .store(in: &cancellables)
         helper.progressPublisher()
             .sink {[weak self] task in
                 if let firstIndex = self?.downloads.firstIndex(where: { $0.id == task.id }) {
                     self?.downloads[firstIndex].progress = task.progress
-//                    ToDo: hide downloadsview when finished
-//                    if downloads.isEmpty {
-//                        shouldDismiss = true
-//                    }
                 }
             }
             .store(in: &cancellables)

@@ -81,7 +81,7 @@ public struct ManageAccountView: View {
                     .padding(.horizontal, isHorizontal ? 24 : 0)
                     .roundedBackground(Theme.Colors.background)
                 }
-                .hideNavigationBar(true)
+                .navigationBarHidden(true)
                 .navigationBarBackButtonHidden(true)
                 .navigationTitle(ProfileLocalization.manageAccount)
                 

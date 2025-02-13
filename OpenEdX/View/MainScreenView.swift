@@ -170,7 +170,7 @@ struct MainScreenView: View {
             .tag(MainTab.profile)
             .accessibilityIdentifier("profile_tabitem")
         }
-        .hideNavigationBar(
+        .navigationBarHidden(
             supportsElevatedTabBar ? true :
                 viewModel.selection == .dashboard
         )

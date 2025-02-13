@@ -45,12 +45,8 @@ public actor DashboardRepository: DashboardRepositoryProtocol {
         )
             .mapResponse(DataLayer.CourseEnrollments.self)
             .domain(baseURL: config.baseURL.absoluteString)
-//      ToDo: fix it 2 lines from develop - after this - 2u/develop
-        await persistence.saveEnrollments(items: result)
-        return result
 
-//      2u/develop here
-        persistence.saveEnrollments(items: result.0)
+        await persistence.saveEnrollments(items: result.0)
         persistence.saveServerConfig(configs: result.1)
         
         serverConfig.initialize(serverConfig: result.1?.config)
@@ -71,17 +67,14 @@ public actor DashboardRepository: DashboardRepositoryProtocol {
         )
             .mapResponse(DataLayer.PrimaryEnrollment.self)
             .domain(baseURL: config.baseURL.absoluteString)
-//      ToDo: fix it 2u/develop here
-        persistence.savePrimaryEnrollment(enrollments: result.0)
+
+        await persistence.savePrimaryEnrollment(enrollments: result.0)
         persistence.saveServerConfig(configs: result.1)
         
         serverConfig.initialize(serverConfig: result.1?.config)
         
         return result.0
         
-//      develop here
-        await persistence.savePrimaryEnrollment(enrollments: result)
-        return result
     }
     
     public func getPrimaryEnrollmentOffline() async throws -> PrimaryEnrollment {

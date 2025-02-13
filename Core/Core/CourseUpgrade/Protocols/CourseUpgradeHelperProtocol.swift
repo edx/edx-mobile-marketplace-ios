@@ -8,7 +8,7 @@
 import Foundation
 
 //sourcery: AutoMockable
-public protocol CourseUpgradeHelperProtocol {
+public protocol CourseUpgradeHelperProtocol: Sendable {
     func setData(
         courseID: String,
         pacing: String,

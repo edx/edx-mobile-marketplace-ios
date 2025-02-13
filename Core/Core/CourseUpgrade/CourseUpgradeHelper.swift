@@ -63,7 +63,8 @@ public protocol CourseUpgradeHelperDelegate: AnyObject {
     func hideAlertAction()
 }
 
-public class CourseUpgradeHelper: CourseUpgradeHelperProtocol {
+@MainActor
+public class CourseUpgradeHelper: @preconcurrency CourseUpgradeHelperProtocol {
     
     weak private(set) var delegate: CourseUpgradeHelperDelegate?
     private(set) var completion: (() -> Void)?

@@ -9,6 +9,7 @@ import Foundation
 import Core
 import SwiftUI
 import Combine
+import OEXFoundation
 
 @MainActor
 public final class SettingsViewModel: ObservableObject {
@@ -226,6 +227,7 @@ public final class SettingsViewModel: ObservableObject {
         }
     }
     
+    @MainActor
     private func fulfillPurchase(inprogressIAP: InProgressIAP, product: StoreProductInfo) async {
         coreAnalytics.trackCourseUnfulfilledPurchaseInitiated(
             courseID: inprogressIAP.courseID,

@@ -234,7 +234,7 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
                     .ignoresSafeArea()
             )
             .navigationBarBackButtonHidden(true)
-            .hideNavigationBar(true)
+            .navigationBarHidden(true)
             .navigationTitle(DashboardLocalization.title)
         }
     }
