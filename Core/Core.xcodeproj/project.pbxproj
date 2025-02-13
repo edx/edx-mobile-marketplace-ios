@@ -129,7 +129,6 @@
 		0716946D296D996900E3DED6 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0770DE0828D07831006D8A5D /* Core.framework */; platformFilter = ios; };
 		0727877028D23411002E9142 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0727876F28D23411002E9142 /* Config.swift */; };
 		0727877728D23847002E9142 /* DataLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0727877628D23847002E9142 /* DataLayer.swift */; };
-		0727877928D23BE0002E9142 /* RequestInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0727877828D23BE0002E9142 /* RequestInterceptor.swift */; };
 		0727877D28D25212002E9142 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0727877C28D25212002E9142 /* ProgressBar.swift */; };
 		0727878128D25EFD002E9142 /* SnackBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0727878028D25EFD002E9142 /* SnackBarView.swift */; };
 		0727878528D31657002E9142 /* Data_User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0727878428D31657002E9142 /* Data_User.swift */; };
@@ -173,6 +172,7 @@
 		A5CBE6582D5B820E00FF455A /* SwiftyStoreKit in Frameworks */ = {isa = PBXBuildFile; productRef = A5CBE6572D5B820E00FF455A /* SwiftyStoreKit */; };
 		A5CBE65A2D5B828800FF455A /* FullStoryConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CBE6592D5B828800FF455A /* FullStoryConfig.swift */; };
 		A5CBE65C2D5B919900FF455A /* Alamofire+Error+MoveToOEXFound.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CBE65B2D5B919900FF455A /* Alamofire+Error+MoveToOEXFound.swift */; };
+		A5D2A61A2D5E1C7000E98BCA /* RequestInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D2A6192D5E1C7000E98BCA /* RequestInterceptor.swift */; };
 		A5D4B3DE2CDD0A9700688951 /* SecureInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D4B3DD2CDD0A9700688951 /* SecureInputView.swift */; };
 		A5F4E7B52B61544A00ACD166 /* BrazeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F4E7B42B61544A00ACD166 /* BrazeConfig.swift */; };
 		BA4AFB422B5A7A0900A21367 /* VideoDownloadQualityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4AFB412B5A7A0900A21367 /* VideoDownloadQualityView.swift */; };
@@ -363,7 +363,6 @@
 		07169469296D996900E3DED6 /* CoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0727876F28D23411002E9142 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		0727877628D23847002E9142 /* DataLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLayer.swift; sourceTree = "<group>"; };
-		0727877828D23BE0002E9142 /* RequestInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestInterceptor.swift; sourceTree = "<group>"; };
 		0727877C28D25212002E9142 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		0727878028D25EFD002E9142 /* SnackBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackBarView.swift; sourceTree = "<group>"; };
 		0727878428D31657002E9142 /* Data_User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data_User.swift; sourceTree = "<group>"; };
@@ -422,6 +421,7 @@
 		A595689A2B6173DF00ED4F90 /* BranchConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BranchConfig.swift; sourceTree = "<group>"; };
 		A5CBE6592D5B828800FF455A /* FullStoryConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullStoryConfig.swift; sourceTree = "<group>"; };
 		A5CBE65B2D5B919900FF455A /* Alamofire+Error+MoveToOEXFound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Alamofire+Error+MoveToOEXFound.swift"; sourceTree = "<group>"; };
+		A5D2A6192D5E1C7000E98BCA /* RequestInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestInterceptor.swift; sourceTree = "<group>"; };
 		A5D4B3DD2CDD0A9700688951 /* SecureInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureInputView.swift; sourceTree = "<group>"; };
 		A5F4E7B42B61544A00ACD166 /* BrazeConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrazeConfig.swift; sourceTree = "<group>"; };
 		B2556B4A2D4F84F402A7A7D9 /* Pods-CoreTests.releaseprod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoreTests.releaseprod.xcconfig"; path = "Target Support Files/Pods-CoreTests/Pods-CoreTests.releaseprod.xcconfig"; sourceTree = "<group>"; };
@@ -807,7 +807,7 @@
 		0770DE2828D0928B006D8A5D /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				0727877828D23BE0002E9142 /* RequestInterceptor.swift */,
+				A5D2A6192D5E1C7000E98BCA /* RequestInterceptor.swift */,
 				0236961E28F9A2F600EEF206 /* AuthEndpoint.swift */,
 				029A132B2C2471F8005FB830 /* OfflineSyncEndpoint.swift */,
 				02A4833929B8A9AB00D33F33 /* DownloadManager.swift */,
@@ -1469,9 +1469,7 @@
 				070019A528F6F17900D5FC78 /* Data_Media.swift in Sources */,
 				024D723529C8BB1A006D36ED /* NavigationBar.swift in Sources */,
 				14A832612BD8B5F100E5654D /* CourseUpgradeHelper.swift in Sources */,
-				0727877928D23BE0002E9142 /* RequestInterceptor.swift in Sources */,
 				142BBEB32C2EE49C00D57CEC /* CourseAccessMessageView.swift in Sources */,
-				0727877928D23BE0002E9142 /* RequestInterceptor.swift in Sources */,
 				028CE96929858ECC00B6B1C3 /* FlexibleKeyboardInputView.swift in Sources */,
 				062C69B42C198337002BD311 /* UpgradeInfoViewModel.swift in Sources */,
 				027BD3A92909474200392132 /* KeyboardAvoidingViewControllerRepr.swift in Sources */,
@@ -1494,6 +1492,7 @@
 				023A1136291432B200D0D354 /* RegistrationTextField.swift in Sources */,
 				02A463112AEA966C00331037 /* AppReviewView.swift in Sources */,
 				025B36752A13B7D5001A640E /* UnitButtonView.swift in Sources */,
+				A5D2A61A2D5E1C7000E98BCA /* RequestInterceptor.swift in Sources */,
 				028F9F39293A452B00DE65D0 /* ResetPassword.swift in Sources */,
 				0233D56F2AF13EB200BAC8BD /* StarRatingView.swift in Sources */,
 				029A13302C2479E7005FB830 /* OfflineSyncInteractor.swift in Sources */,

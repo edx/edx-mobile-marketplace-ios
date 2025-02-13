@@ -1004,7 +1004,7 @@ class AnalyticsManager: AuthorizationAnalytics,
         author: String,
         follow: Bool
     ) {
-        var parameters: [String: Any] = [
+        let parameters: [String: Any] = [
             EventParamKey.courseID: courseID,
             EventParamKey.threadID: threadID,
             EventParamKey.author: author,
@@ -1067,7 +1067,7 @@ class AnalyticsManager: AuthorizationAnalytics,
         courseID: String,
         topicID: String
     ) {
-        var parameters: [String: Any] = [
+        let parameters: [String: Any] = [
             EventParamKey.courseID: courseID,
             EventParamKey.topicID: topicID,
             EventParamKey.name: EventBIValue.discussionTopicViewed.rawValue
@@ -1081,7 +1081,7 @@ class AnalyticsManager: AuthorizationAnalytics,
         topicID: String,
         threadID: String
     ) {
-        var parameters: [String: Any] = [
+        let parameters: [String: Any] = [
             EventParamKey.courseID: courseID,
             EventParamKey.topicID: topicID,
             EventParamKey.threadID: threadID,
@@ -1096,7 +1096,7 @@ class AnalyticsManager: AuthorizationAnalytics,
         threadID: String,
         responseID: String
     ) {
-        var parameters: [String: Any] = [
+        let parameters: [String: Any] = [
             EventParamKey.courseID: courseID,
             EventParamKey.threadID: threadID,
             EventParamKey.responseID: responseID,
@@ -1376,7 +1376,7 @@ class AnalyticsManager: AuthorizationAnalytics,
     }
     
     public func notificationsDiscussionPermissionToggleEvent(action: Bool) {
-        var parameters: [String: Any] = [
+        let parameters: [String: Any] = [
             EventParamKey.action: action,
             EventParamKey.category: EventCategory.notifications,
             EventParamKey.name: EventBIValue.notificationDiscussionPermissionToggle.rawValue
