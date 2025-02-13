@@ -9,6 +9,8 @@ import SwiftUI
 import Kingfisher
 import Theme
 import Core
+import OEXFoundation
+import EDXIAPService
 
 public struct PrimaryCardView: View {
     
@@ -31,6 +33,7 @@ public struct PrimaryCardView: View {
     private var resumeAction: () -> Void
     private var upgradeAction: () -> Void
     private var isUpgradeable: Bool
+    private let iapService: IAPServiceProtocol
     @Environment(\.isHorizontal) var isHorizontal
     private var canShowFutureAssignments: Bool {
         return !isUpgradeable || pastAssignments.count <= 0
@@ -57,7 +60,8 @@ public struct PrimaryCardView: View {
         openCourseAction: @escaping () -> Void,
         resumeAction: @escaping () -> Void,
         isUpgradeable: Bool,
-        upgradeAction: @escaping () -> Void
+        upgradeAction: @escaping () -> Void,
+        iapService: IAPServiceProtocol
     ) {
         self.courseName = courseName
         self.org = org
@@ -79,6 +83,7 @@ public struct PrimaryCardView: View {
         self.startType = startType
         self.isUpgradeable = isUpgradeable
         self.upgradeAction = upgradeAction
+        self.iapService = iapService
     }
     
     public var body: some View {
@@ -328,6 +333,9 @@ public struct PrimaryCardView: View {
                     .font(Theme.Fonts.labelMedium)
                     .foregroundStyle(Theme.Colors.textSecondaryLight)
             }
+            if let uiView = iapService.someTestView() {
+                ViewRepresentable(uiView: uiView)
+            }
         }
         .padding(.top, 10)
         .padding(.horizontal, 12)
@@ -370,7 +378,8 @@ struct PrimaryCardView_Previews: PreviewProvider {
                 openCourseAction: {},
                 resumeAction: {},
                 isUpgradeable: false,
-                upgradeAction: {}
+                upgradeAction: {},
+                iapService: IAPCommonService()
             )
             .loadFonts()
         }

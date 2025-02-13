@@ -10,6 +10,7 @@ import Core
 import SwiftUI
 import Combine
 import Notifications
+import OEXFoundation
 
 @MainActor
 public class PrimaryCourseDashboardViewModel: ObservableObject {
@@ -41,6 +42,7 @@ public class PrimaryCourseDashboardViewModel: ObservableObject {
     
     private let ipadPageSize = 7
     private let iphonePageSize = 5
+    let iapService: IAPServiceProtocol
     
     public init(
         interactor: DashboardInteractorProtocol,
@@ -49,7 +51,8 @@ public class PrimaryCourseDashboardViewModel: ObservableObject {
         config: ConfigProtocol,
         serverConfig: ServerConfigProtocol,
         notificationsInteractor: NotificationsInteractorProtocol,
-        storage: CoreStorage
+        storage: CoreStorage,
+        iapService: IAPServiceProtocol
     ) {
         self.interactor = interactor
         self.connectivity = connectivity
@@ -58,6 +61,7 @@ public class PrimaryCourseDashboardViewModel: ObservableObject {
         self.serverConfig = serverConfig
         self.notificationsInteractor = notificationsInteractor
         self.storage = storage
+        self.iapService = iapService
         
         let enrollmentPublisher = NotificationCenter.default.publisher(for: .onCourseEnrolled)
         let completionPublisher = NotificationCenter.default.publisher(for: .onblockCompletionRequested)

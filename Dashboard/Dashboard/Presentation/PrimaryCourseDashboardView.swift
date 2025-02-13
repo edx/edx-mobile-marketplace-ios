@@ -143,7 +143,8 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
                                                                 lmsPrice: primary.lmsPrice ?? .zero
                                                             )
                                                         }
-                                                    }
+                                                    },
+                                                    iapService: viewModel.iapService
                                                 )
                                             }
                                             if !enrollments.courses.isEmpty {
@@ -401,7 +402,8 @@ struct PrimaryCourseDashboardView_Previews: PreviewProvider {
             config: ConfigMock(),
             serverConfig: ServerConfigProtocolMock(),
             notificationsInteractor: NotificationsInteractor.mock,
-            storage: CoreStorageMock()
+            storage: CoreStorageMock(),
+            iapService: IAPCommonService()
         )
         
         PrimaryCourseDashboardView(

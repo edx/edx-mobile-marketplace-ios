@@ -7,14 +7,19 @@
 
 import Foundation
 import OEXFoundation
+import SwiftUI
 
 public class PluginManager {
     
     private(set) var analyticsServices: [AnalyticsService] = []
     private(set) var pushNotificationsProviders: [PushNotificationsProvider] = []
     private(set) var pushNotificationsListeners: [PushNotificationsListener] = []
+    private(set) var iapService: IAPServiceProtocol
     
-    public init() {}
+    @MainActor
+    public init() {
+        self.iapService = IAPCommonService()
+    }
     
     func addPlugin(analyticsService: AnalyticsService) {
         analyticsServices.append(analyticsService)
@@ -26,5 +31,9 @@ public class PluginManager {
     ) {
         pushNotificationsProviders.append(pushNotificationsProvider)
         pushNotificationsListeners.append(pushNotificationsListener)
+    }
+    
+    func setIAPService(_ iapService: IAPServiceProtocol) {
+        self.iapService = iapService
     }
 }
