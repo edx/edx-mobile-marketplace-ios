@@ -15,7 +15,7 @@ let package = Package(
             targets: ["EDXIAPService"])
     ],
     dependencies: [
-        .package(url: "https://github.com/rnr/openedx-app-foundation-ios", branch: "anton/iap-experiments")
+        .package(url: "https://github.com/rnr/openedx-app-foundation-ios", branch: "anton/plugins-experiments")
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.

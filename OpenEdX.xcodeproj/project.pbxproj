@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -52,13 +52,13 @@
 		A500668D2B6143000024680B /* FCMProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A500668C2B6143000024680B /* FCMProvider.swift */; };
 		A50066932B614DCD0024680B /* FCMListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50066922B614DCD0024680B /* FCMListener.swift */; };
 		A50926D12D1D8C9C0013F967 /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = A50926D02D1D8C9C0013F967 /* OEXFoundation */; };
+		A52E470F2D5E3DC600C1636F /* EDXIAPService in Frameworks */ = {isa = PBXBuildFile; productRef = A52E470E2D5E3DC600C1636F /* EDXIAPService */; };
 		A538B5652D1D95F500216179 /* OEXFirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = A538B5642D1D95F500216179 /* OEXFirebaseAnalytics */; };
 		A538B5672D1D977C00216179 /* EDXMobileAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = A538B5662D1D977C00216179 /* EDXMobileAnalytics */; };
 		A5462D9C2B864AE0003B96A5 /* BranchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5462D9B2B864AE0003B96A5 /* BranchService.swift */; };
 		A59568952B61630500ED4F90 /* DeepLinkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59568942B61630500ED4F90 /* DeepLinkManager.swift */; };
 		A59568972B61653700ED4F90 /* DeepLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59568962B61653700ED4F90 /* DeepLink.swift */; };
 		A59568992B616D9400ED4F90 /* PushLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59568982B616D9400ED4F90 /* PushLink.swift */; };
-		A5BF5AEC2D43DEF70081B45A /* EDXIAPService in Frameworks */ = {isa = PBXBuildFile; productRef = A5BF5AEB2D43DEF70081B45A /* EDXIAPService */; };
 		BA7468762B96201D00793145 /* DeepLinkRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7468752B96201D00793145 /* DeepLinkRouter.swift */; };
 		CE0BF0BA2CD9203A00D10289 /* MSAL in Frameworks */ = {isa = PBXBuildFile; productRef = CE0BF0B92CD9203A00D10289 /* MSAL */; };
 		CE1D5B7B2CE60E000019CA34 /* ContainerMainActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D5B7A2CE60E000019CA34 /* ContainerMainActor.swift */; };
@@ -166,7 +166,7 @@
 				072787B128D34D83002E9142 /* Discovery.framework in Frameworks */,
 				CE924BE72CD8FAB3000137CA /* FirebaseMessaging in Frameworks */,
 				A50926D12D1D8C9C0013F967 /* OEXFoundation in Frameworks */,
-				A5BF5AEC2D43DEF70081B45A /* EDXIAPService in Frameworks */,
+				A52E470F2D5E3DC600C1636F /* EDXIAPService in Frameworks */,
 				A538B5672D1D977C00216179 /* EDXMobileAnalytics in Frameworks */,
 				0218196428F734FA00202564 /* Discussion.framework in Frameworks */,
 				0219C67728F4347600D64452 /* Course.framework in Frameworks */,
@@ -405,7 +405,7 @@
 				A50926D02D1D8C9C0013F967 /* OEXFoundation */,
 				A538B5642D1D95F500216179 /* OEXFirebaseAnalytics */,
 				A538B5662D1D977C00216179 /* EDXMobileAnalytics */,
-				A5BF5AEB2D43DEF70081B45A /* EDXIAPService */,
+				A52E470E2D5E3DC600C1636F /* EDXIAPService */,
 			);
 			productName = OpenEdX;
 			productReference = 07D5DA3128D075AA00752FD9 /* OpenEdX.app */;
@@ -442,6 +442,7 @@
 				A50926CF2D1D8C9C0013F967 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */,
 				A538B55E2D1D8CD300216179 /* XCRemoteSwiftPackageReference "openedx-app-firebase-analytics-ios" */,
 				A5DB687D2D3170850096CBF8 /* XCRemoteSwiftPackageReference "edx-mobile-app-analytics-ios" */,
+				A52E470D2D5E3DC600C1636F /* XCLocalSwiftPackageReference "OpenEdX/EDXIAPService" */,
 			);
 			productRefGroup = 07D5DA3228D075AA00752FD9 /* Products */;
 			projectDirPath = "";
@@ -1230,12 +1231,19 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		A52E470D2D5E3DC600C1636F /* XCLocalSwiftPackageReference "OpenEdX/EDXIAPService" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = OpenEdX/EDXIAPService;
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCRemoteSwiftPackageReference section */
 		A50926CF2D1D8C9C0013F967 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rnr/openedx-app-foundation-ios";
 			requirement = {
-				branch = "anton/iap-experiments";
+				branch = "anton/plugins-experiments";
 				kind = branch;
 			};
 		};
@@ -1243,7 +1251,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rnr/openedx-app-firebase-analytics-ios";
 			requirement = {
-				branch = "anton/iap-experiments";
+				branch = "anton/plugins-experiments";
 				kind = branch;
 			};
 		};
@@ -1251,7 +1259,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/edx/edx-mobile-app-analytics-ios";
 			requirement = {
-				branch = "anton/iap-experiments";
+				branch = develop;
 				kind = branch;
 			};
 		};
@@ -1279,6 +1287,10 @@
 			package = A50926CF2D1D8C9C0013F967 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */;
 			productName = OEXFoundation;
 		};
+		A52E470E2D5E3DC600C1636F /* EDXIAPService */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = EDXIAPService;
+		};
 		A538B5642D1D95F500216179 /* OEXFirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A538B55E2D1D8CD300216179 /* XCRemoteSwiftPackageReference "openedx-app-firebase-analytics-ios" */;
@@ -1287,10 +1299,6 @@
 		A538B5662D1D977C00216179 /* EDXMobileAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = EDXMobileAnalytics;
-		};
-		A5BF5AEB2D43DEF70081B45A /* EDXIAPService */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = EDXIAPService;
 		};
 		CE0BF0B92CD9203A00D10289 /* MSAL */ = {
 			isa = XCSwiftPackageProductDependency;

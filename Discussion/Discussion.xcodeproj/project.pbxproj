@@ -1759,7 +1759,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rnr/openedx-app-foundation-ios/";
 			requirement = {
-				branch = "anton/iap-experiments";
+				branch = "anton/plugins-experiments";
 				kind = branch;
 			};
 		};
