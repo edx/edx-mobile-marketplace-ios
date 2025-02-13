@@ -172,7 +172,6 @@
 		A595689B2B6173DF00ED4F90 /* BranchConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A595689A2B6173DF00ED4F90 /* BranchConfig.swift */; };
 		A5CBE6582D5B820E00FF455A /* SwiftyStoreKit in Frameworks */ = {isa = PBXBuildFile; productRef = A5CBE6572D5B820E00FF455A /* SwiftyStoreKit */; };
 		A5CBE65A2D5B828800FF455A /* FullStoryConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CBE6592D5B828800FF455A /* FullStoryConfig.swift */; };
-		A5CBE65C2D5B919900FF455A /* Alamofire+Error+MoveToOEXFound.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CBE65B2D5B919900FF455A /* Alamofire+Error+MoveToOEXFound.swift */; };
 		A5D2A61A2D5E1C7000E98BCA /* RequestInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D2A6192D5E1C7000E98BCA /* RequestInterceptor.swift */; };
 		A5D4B3DE2CDD0A9700688951 /* SecureInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D4B3DD2CDD0A9700688951 /* SecureInputView.swift */; };
 		A5F4E7B52B61544A00ACD166 /* BrazeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F4E7B42B61544A00ACD166 /* BrazeConfig.swift */; };
@@ -422,7 +421,6 @@
 		A5935EA42CEF832500B4BB48 /* SegmentConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentConfig.swift; sourceTree = "<group>"; };
 		A595689A2B6173DF00ED4F90 /* BranchConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BranchConfig.swift; sourceTree = "<group>"; };
 		A5CBE6592D5B828800FF455A /* FullStoryConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullStoryConfig.swift; sourceTree = "<group>"; };
-		A5CBE65B2D5B919900FF455A /* Alamofire+Error+MoveToOEXFound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Alamofire+Error+MoveToOEXFound.swift"; sourceTree = "<group>"; };
 		A5D2A6192D5E1C7000E98BCA /* RequestInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestInterceptor.swift; sourceTree = "<group>"; };
 		A5D4B3DD2CDD0A9700688951 /* SecureInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureInputView.swift; sourceTree = "<group>"; };
 		A5F4E7B42B61544A00ACD166 /* BrazeConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrazeConfig.swift; sourceTree = "<group>"; };
@@ -815,7 +813,6 @@
 				02A4833929B8A9AB00D33F33 /* DownloadManager.swift */,
 				CED42FFB2D099F0400C7AD89 /* DownloadManagerMock.swift */,
 				029A13272C246AE6005FB830 /* OfflineSyncManager.swift */,
-				A5CBE65B2D5B919900FF455A /* Alamofire+Error+MoveToOEXFound.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -1485,7 +1482,6 @@
 				02F6EF3B28D9B8EC00835477 /* CourseCellView.swift in Sources */,
 				A5935EA52CEF832500B4BB48 /* SegmentConfig.swift in Sources */,
 				023A1138291432FD00D0D354 /* FieldConfiguration.swift in Sources */,
-				A5CBE65C2D5B919900FF455A /* Alamofire+Error+MoveToOEXFound.swift in Sources */,
 				06C022C22C05F2E40046ABD3 /* CourseUpgradeHelperProtocol.swift in Sources */,
 				DBF6F24A2B0380E00098414B /* FeaturesConfig.swift in Sources */,
 				0231CDBE2922422D00032416 /* CSSInjector.swift in Sources */,

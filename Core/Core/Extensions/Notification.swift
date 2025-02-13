@@ -27,11 +27,3 @@ public extension Notification.Name {
     static let refreshEnrollments = Notification.Name("refreshEnrollments")
     static let notificationRegistration = Notification.Name("notificationRegistration")
 }
-
-// ToDo: move to OEXFoundation
-public extension Notification {
-    enum UserInfoKey: String {
-//        case isForced
-        case status
-    }
-}
