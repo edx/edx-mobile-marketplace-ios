@@ -33,7 +33,7 @@ public struct PrimaryCardView: View {
     private var resumeAction: () -> Void
     private var upgradeAction: () -> Void
     private var isUpgradeable: Bool
-    private let iapService: IAPServiceProtocol
+    private let iapService: V2IAPServiceProtocol?
     @Environment(\.isHorizontal) var isHorizontal
     private var canShowFutureAssignments: Bool {
         return !isUpgradeable || pastAssignments.count <= 0
@@ -61,7 +61,7 @@ public struct PrimaryCardView: View {
         resumeAction: @escaping () -> Void,
         isUpgradeable: Bool,
         upgradeAction: @escaping () -> Void,
-        iapService: IAPServiceProtocol
+        iapService: V2IAPServiceProtocol?
     ) {
         self.courseName = courseName
         self.org = org
@@ -333,9 +333,7 @@ public struct PrimaryCardView: View {
                     .font(Theme.Fonts.labelMedium)
                     .foregroundStyle(Theme.Colors.textSecondaryLight)
             }
-            if let uiView = iapService.someTestView() {
-                ViewRepresentable(uiView: uiView)
-            }
+            iapService?.someTestView()
         }
         .padding(.top, 10)
         .padding(.horizontal, 12)
@@ -379,7 +377,7 @@ struct PrimaryCardView_Previews: PreviewProvider {
                 resumeAction: {},
                 isUpgradeable: false,
                 upgradeAction: {},
-                iapService: IAPCommonService()
+                iapService: nil
             )
             .loadFonts()
         }

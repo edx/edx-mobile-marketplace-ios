@@ -403,7 +403,7 @@ struct PrimaryCourseDashboardView_Previews: PreviewProvider {
             serverConfig: ServerConfigProtocolMock(),
             notificationsInteractor: NotificationsInteractor.mock,
             storage: CoreStorageMock(),
-            iapService: IAPCommonService()
+            iapService: nil
         )
         
         PrimaryCourseDashboardView(

@@ -14,12 +14,10 @@ public class PluginManager {
     private(set) var analyticsServices: [AnalyticsService] = []
     private(set) var pushNotificationsProviders: [PushNotificationsProvider] = []
     private(set) var pushNotificationsListeners: [PushNotificationsListener] = []
-    private(set) var iapService: IAPServiceProtocol
+    private(set) var iapService: V2IAPServiceProtocol?
     
     @MainActor
-    public init() {
-        self.iapService = IAPCommonService()
-    }
+    public init() { }
     
     func addPlugin(analyticsService: AnalyticsService) {
         analyticsServices.append(analyticsService)
@@ -33,7 +31,7 @@ public class PluginManager {
         pushNotificationsListeners.append(pushNotificationsListener)
     }
     
-    func setIAPService(_ iapService: IAPServiceProtocol) {
+    func setIAPService(_ iapService: V2IAPServiceProtocol) {
         self.iapService = iapService
     }
 }

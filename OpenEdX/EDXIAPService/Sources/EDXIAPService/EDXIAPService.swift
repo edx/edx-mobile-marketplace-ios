@@ -4,10 +4,12 @@
 import SwiftUI
 import OEXFoundation
 
-public class EDXIAPService: IAPServiceProtocol {
-    public func someTestView() -> UIView? {
-        UIHostingController(rootView: Text("Hello, IAP Plugin!")).view
-    }
-    
+public class EDXIAPService: V2IAPServiceProtocol {
     public init() {}
+    
+    public func someTestView() -> AnyView {
+        AnyView(
+            Text("Hello, IAP Plugin V2!")
+        )
+    }
 }

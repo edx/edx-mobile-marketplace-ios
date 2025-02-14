@@ -42,7 +42,7 @@ public class PrimaryCourseDashboardViewModel: ObservableObject {
     
     private let ipadPageSize = 7
     private let iphonePageSize = 5
-    let iapService: IAPServiceProtocol
+    let iapService: V2IAPServiceProtocol?
     
     public init(
         interactor: DashboardInteractorProtocol,
@@ -52,7 +52,7 @@ public class PrimaryCourseDashboardViewModel: ObservableObject {
         serverConfig: ServerConfigProtocol,
         notificationsInteractor: NotificationsInteractorProtocol,
         storage: CoreStorage,
-        iapService: IAPServiceProtocol
+        iapService: V2IAPServiceProtocol?
     ) {
         self.interactor = interactor
         self.connectivity = connectivity
