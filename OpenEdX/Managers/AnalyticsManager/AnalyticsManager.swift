@@ -176,6 +176,14 @@ class AnalyticsManager: AuthorizationAnalytics,
         )
     }
     
+    public func socialAuthSuccess(method: String) {
+        let parameters = [
+            EventParamKey.method: method,
+            EventParamKey.name: EventBIValue.socialAuthSuccess.rawValue
+        ]
+        logEvent(.socialAuthSuccess, parameters: parameters)
+    }
+    
     public func registrationSuccess(method: String) {
         let parameters = [
             EventParamKey.method: method,
@@ -194,6 +202,20 @@ class AnalyticsManager: AuthorizationAnalytics,
         trackEvent(
             .socialAuthFailure,
             biValue: .socialAuthFailure,
+            parameters: parameters
+        )
+    }
+    
+    public func validationFailure(method: String, statusCode: Int?, errorMessage: String?) {
+        var parameters: [String: Any] = [
+            EventParamKey.method: method
+        ]
+        parameters.setObjectOrNil(statusCode, forKey: EventParamKey.status_code)
+        parameters.setObjectOrNil(errorMessage, forKey: EventParamKey.errorMessage)
+        
+        trackEvent(
+            .validationFailure,
+            biValue: .validationFailure,
             parameters: parameters
         )
     }

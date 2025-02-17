@@ -140,10 +140,28 @@ public class SignUpViewModel: ObservableObject {
 
     @MainActor
     func registerUser(authMetod: AuthMethod = .password) async {
+        let validateFields = configureFields()
         do {
-            let validateFields = configureFields()
             let errors = try await interactor.validateRegistrationFields(fields: validateFields)
-            guard !showErrors(errors: errors) else { return }
+            if showErrors(errors: errors) {
+                analytics.validationFailure(
+                    method: authMetod.analyticsValue,
+                    statusCode: nil,
+                    errorMessage: errors.toJson()
+                )
+                return
+            }
+        } catch {
+            displayError(error)
+            analytics.validationFailure(
+                method: authMetod.analyticsValue,
+                statusCode: (error as? CustomValidationError)?.statusCode,
+                errorMessage: errorMessage
+            )
+            return
+        }
+        
+        do {
             isShowProgress = true
             let user = try await interactor.registerUser(
                 fields: validateFields,
@@ -160,14 +178,7 @@ public class SignUpViewModel: ObservableObject {
             NotificationCenter.default.post(name: .userAuthorized, object: nil)
         } catch let error {
             isShowProgress = false
-            if case APIError.invalidGrant = error {
-                errorMessage = CoreLocalization.Error.invalidCredentials
-            } else if error.isInternetError {
-                errorMessage = CoreLocalization.Error.slowOrNoInternetConnection
-            } else {
-                errorMessage = CoreLocalization.Error.unknownError
-            }
-            
+            displayError(error)
             analytics.registerFailure(
                 method: authMetod.analyticsValue,
                 errorCode: nil,
@@ -192,11 +203,22 @@ public class SignUpViewModel: ObservableObject {
         }
         return validateFields
     }
+    
+    private func displayError(_ error: Error) {
+        if case APIError.invalidGrant = error {
+            errorMessage = CoreLocalization.Error.invalidCredentials
+        } else if error.isInternetError {
+            errorMessage = CoreLocalization.Error.slowOrNoInternetConnection
+        } else {
+            errorMessage = CoreLocalization.Error.unknownError
+        }
+    }
 
     @MainActor
     func register(with method: SocialAuthMethod, result: Result<SocialAuthDetails, SocialAuthError>) async {
         switch result {
         case .success(let result):
+            analytics.socialAuthSuccess(method: AuthMethod.socailAuth(method).analyticsValue)
             await loginOrRegister(
                 result.response,
                 backend: result.backend,

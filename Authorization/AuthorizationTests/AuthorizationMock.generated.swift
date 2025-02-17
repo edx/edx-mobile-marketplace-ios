@@ -551,6 +551,12 @@ open class AuthorizationAnalyticsMock: AuthorizationAnalytics, Mock {
 		perform?(`method`)
     }
 
+    open func socialAuthSuccess(method: String) {
+        addInvocation(.m_socialAuthSuccess__method_method(Parameter<String>.value(`method`)))
+		let perform = methodPerformValue(.m_socialAuthSuccess__method_method(Parameter<String>.value(`method`))) as? (String) -> Void
+		perform?(`method`)
+    }
+
     open func registrationSuccess(method: String) {
         addInvocation(.m_registrationSuccess__method_method(Parameter<String>.value(`method`)))
 		let perform = methodPerformValue(.m_registrationSuccess__method_method(Parameter<String>.value(`method`))) as? (String) -> Void
@@ -561,6 +567,12 @@ open class AuthorizationAnalyticsMock: AuthorizationAnalytics, Mock {
         addInvocation(.m_socialAuthFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(Parameter<String>.value(`method`), Parameter<String?>.value(`errorCode`), Parameter<String?>.value(`errorMessage`)))
 		let perform = methodPerformValue(.m_socialAuthFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(Parameter<String>.value(`method`), Parameter<String?>.value(`errorCode`), Parameter<String?>.value(`errorMessage`))) as? (String, String?, String?) -> Void
 		perform?(`method`, `errorCode`, `errorMessage`)
+    }
+
+    open func validationFailure(method: String, statusCode: Int?, errorMessage: String?) {
+        addInvocation(.m_validationFailure__method_methodstatusCode_statusCodeerrorMessage_errorMessage(Parameter<String>.value(`method`), Parameter<Int?>.value(`statusCode`), Parameter<String?>.value(`errorMessage`)))
+		let perform = methodPerformValue(.m_validationFailure__method_methodstatusCode_statusCodeerrorMessage_errorMessage(Parameter<String>.value(`method`), Parameter<Int?>.value(`statusCode`), Parameter<String?>.value(`errorMessage`))) as? (String, Int?, String?) -> Void
+		perform?(`method`, `statusCode`, `errorMessage`)
     }
 
     open func registerFailure(method: String, errorCode: String?, errorMessage: String?) {
@@ -608,8 +620,10 @@ open class AuthorizationAnalyticsMock: AuthorizationAnalytics, Mock {
         case m_userSignInClicked__method_method(Parameter<String>)
         case m_socialRegisterClicked__method_method(Parameter<String>)
         case m_createAccountClicked__method_method(Parameter<String>)
+        case m_socialAuthSuccess__method_method(Parameter<String>)
         case m_registrationSuccess__method_method(Parameter<String>)
         case m_socialAuthFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(Parameter<String>, Parameter<String?>, Parameter<String?>)
+        case m_validationFailure__method_methodstatusCode_statusCodeerrorMessage_errorMessage(Parameter<String>, Parameter<Int?>, Parameter<String?>)
         case m_registerFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(Parameter<String>, Parameter<String?>, Parameter<String?>)
         case m_signInFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(Parameter<String>, Parameter<String?>, Parameter<String?>)
         case m_forgotPasswordClicked
@@ -650,6 +664,11 @@ open class AuthorizationAnalyticsMock: AuthorizationAnalytics, Mock {
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsMethod, rhs: rhsMethod, with: matcher), lhsMethod, rhsMethod, "method"))
 				return Matcher.ComparisonResult(results)
 
+            case (.m_socialAuthSuccess__method_method(let lhsMethod), .m_socialAuthSuccess__method_method(let rhsMethod)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsMethod, rhs: rhsMethod, with: matcher), lhsMethod, rhsMethod, "method"))
+				return Matcher.ComparisonResult(results)
+
             case (.m_registrationSuccess__method_method(let lhsMethod), .m_registrationSuccess__method_method(let rhsMethod)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsMethod, rhs: rhsMethod, with: matcher), lhsMethod, rhsMethod, "method"))
@@ -659,6 +678,13 @@ open class AuthorizationAnalyticsMock: AuthorizationAnalytics, Mock {
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsMethod, rhs: rhsMethod, with: matcher), lhsMethod, rhsMethod, "method"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsErrorcode, rhs: rhsErrorcode, with: matcher), lhsErrorcode, rhsErrorcode, "errorCode"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsErrormessage, rhs: rhsErrormessage, with: matcher), lhsErrormessage, rhsErrormessage, "errorMessage"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_validationFailure__method_methodstatusCode_statusCodeerrorMessage_errorMessage(let lhsMethod, let lhsStatuscode, let lhsErrormessage), .m_validationFailure__method_methodstatusCode_statusCodeerrorMessage_errorMessage(let rhsMethod, let rhsStatuscode, let rhsErrormessage)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsMethod, rhs: rhsMethod, with: matcher), lhsMethod, rhsMethod, "method"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsStatuscode, rhs: rhsStatuscode, with: matcher), lhsStatuscode, rhsStatuscode, "statusCode"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsErrormessage, rhs: rhsErrormessage, with: matcher), lhsErrormessage, rhsErrormessage, "errorMessage"))
 				return Matcher.ComparisonResult(results)
 
@@ -703,8 +729,10 @@ open class AuthorizationAnalyticsMock: AuthorizationAnalytics, Mock {
             case let .m_userSignInClicked__method_method(p0): return p0.intValue
             case let .m_socialRegisterClicked__method_method(p0): return p0.intValue
             case let .m_createAccountClicked__method_method(p0): return p0.intValue
+            case let .m_socialAuthSuccess__method_method(p0): return p0.intValue
             case let .m_registrationSuccess__method_method(p0): return p0.intValue
             case let .m_socialAuthFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
+            case let .m_validationFailure__method_methodstatusCode_statusCodeerrorMessage_errorMessage(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
             case let .m_registerFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
             case let .m_signInFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
             case .m_forgotPasswordClicked: return 0
@@ -722,8 +750,10 @@ open class AuthorizationAnalyticsMock: AuthorizationAnalytics, Mock {
             case .m_userSignInClicked__method_method: return ".userSignInClicked(method:)"
             case .m_socialRegisterClicked__method_method: return ".socialRegisterClicked(method:)"
             case .m_createAccountClicked__method_method: return ".createAccountClicked(method:)"
+            case .m_socialAuthSuccess__method_method: return ".socialAuthSuccess(method:)"
             case .m_registrationSuccess__method_method: return ".registrationSuccess(method:)"
             case .m_socialAuthFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage: return ".socialAuthFailure(method:errorCode:errorMessage:)"
+            case .m_validationFailure__method_methodstatusCode_statusCodeerrorMessage_errorMessage: return ".validationFailure(method:statusCode:errorMessage:)"
             case .m_registerFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage: return ".registerFailure(method:errorCode:errorMessage:)"
             case .m_signInFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage: return ".signInFailure(method:errorCode:errorMessage:)"
             case .m_forgotPasswordClicked: return ".forgotPasswordClicked()"
@@ -755,8 +785,10 @@ open class AuthorizationAnalyticsMock: AuthorizationAnalytics, Mock {
         public static func userSignInClicked(method: Parameter<String>) -> Verify { return Verify(method: .m_userSignInClicked__method_method(`method`))}
         public static func socialRegisterClicked(method: Parameter<String>) -> Verify { return Verify(method: .m_socialRegisterClicked__method_method(`method`))}
         public static func createAccountClicked(method: Parameter<String>) -> Verify { return Verify(method: .m_createAccountClicked__method_method(`method`))}
+        public static func socialAuthSuccess(method: Parameter<String>) -> Verify { return Verify(method: .m_socialAuthSuccess__method_method(`method`))}
         public static func registrationSuccess(method: Parameter<String>) -> Verify { return Verify(method: .m_registrationSuccess__method_method(`method`))}
         public static func socialAuthFailure(method: Parameter<String>, errorCode: Parameter<String?>, errorMessage: Parameter<String?>) -> Verify { return Verify(method: .m_socialAuthFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(`method`, `errorCode`, `errorMessage`))}
+        public static func validationFailure(method: Parameter<String>, statusCode: Parameter<Int?>, errorMessage: Parameter<String?>) -> Verify { return Verify(method: .m_validationFailure__method_methodstatusCode_statusCodeerrorMessage_errorMessage(`method`, `statusCode`, `errorMessage`))}
         public static func registerFailure(method: Parameter<String>, errorCode: Parameter<String?>, errorMessage: Parameter<String?>) -> Verify { return Verify(method: .m_registerFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(`method`, `errorCode`, `errorMessage`))}
         public static func signInFailure(method: Parameter<String>, errorCode: Parameter<String?>, errorMessage: Parameter<String?>) -> Verify { return Verify(method: .m_signInFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(`method`, `errorCode`, `errorMessage`))}
         public static func forgotPasswordClicked() -> Verify { return Verify(method: .m_forgotPasswordClicked)}
@@ -790,11 +822,17 @@ open class AuthorizationAnalyticsMock: AuthorizationAnalytics, Mock {
         public static func createAccountClicked(method: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
             return Perform(method: .m_createAccountClicked__method_method(`method`), performs: perform)
         }
+        public static func socialAuthSuccess(method: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
+            return Perform(method: .m_socialAuthSuccess__method_method(`method`), performs: perform)
+        }
         public static func registrationSuccess(method: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
             return Perform(method: .m_registrationSuccess__method_method(`method`), performs: perform)
         }
         public static func socialAuthFailure(method: Parameter<String>, errorCode: Parameter<String?>, errorMessage: Parameter<String?>, perform: @escaping (String, String?, String?) -> Void) -> Perform {
             return Perform(method: .m_socialAuthFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(`method`, `errorCode`, `errorMessage`), performs: perform)
+        }
+        public static func validationFailure(method: Parameter<String>, statusCode: Parameter<Int?>, errorMessage: Parameter<String?>, perform: @escaping (String, Int?, String?) -> Void) -> Perform {
+            return Perform(method: .m_validationFailure__method_methodstatusCode_statusCodeerrorMessage_errorMessage(`method`, `statusCode`, `errorMessage`), performs: perform)
         }
         public static func registerFailure(method: Parameter<String>, errorCode: Parameter<String?>, errorMessage: Parameter<String?>, perform: @escaping (String, String?, String?) -> Void) -> Perform {
             return Perform(method: .m_registerFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(`method`, `errorCode`, `errorMessage`), performs: perform)

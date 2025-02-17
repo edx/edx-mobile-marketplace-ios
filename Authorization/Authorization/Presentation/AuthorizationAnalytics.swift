@@ -38,8 +38,10 @@ public protocol AuthorizationAnalytics {
     func userSignInClicked(method: String)
     func socialRegisterClicked(method: String)
     func createAccountClicked(method: String)
+    func socialAuthSuccess(method: String)
     func registrationSuccess(method: String)
     func socialAuthFailure(method: String, errorCode: String?, errorMessage: String?)
+    func validationFailure(method: String, statusCode: Int?, errorMessage: String?)
     func registerFailure(method: String, errorCode: String?, errorMessage: String?)
     func signInFailure(method: String, errorCode: String?, errorMessage: String?)
     func forgotPasswordClicked()
@@ -57,8 +59,10 @@ class AuthorizationAnalyticsMock: AuthorizationAnalytics {
     public func userSignInClicked(method: String) {}
     public func socialRegisterClicked(method: String) {}
     public func createAccountClicked(method: String) {}
+    public func socialAuthSuccess(method: String) {}
     public func registrationSuccess(method: String) {}
     public func socialAuthFailure(method: String, errorCode: String?, errorMessage: String?) {}
+    public func validationFailure(method: String, statusCode: Int?, errorMessage: String?) {}
     public func registerFailure(method: String, errorCode: String?, errorMessage: String?) {}
     public func signInFailure(method: String, errorCode: String?, errorMessage: String?) {}
     public func forgotPasswordClicked() {}
