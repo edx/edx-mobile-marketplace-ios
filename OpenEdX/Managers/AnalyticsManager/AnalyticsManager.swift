@@ -32,54 +32,7 @@ class AnalyticsManager: AuthorizationAnalytics,
                         @unchecked Sendable {
     
     private var services: [AnalyticsService]
-    
-    // Init Analytics Manager
-//    public init(config: ConfigProtocol) {
-//        services = servicesFor(config: config)
-//    }
-//
-//    private func servicesFor(config: ConfigProtocol) -> [AnalyticsService] {
-//        var analyticsServices: [AnalyticsService] = []
-//        // add Firebase Analytics Service
-//        if config.firebase.enabled && config.firebase.isAnalyticsSourceFirebase,
-//           let firebaseService = Container.shared.resolve(FirebaseAnalyticsService.self) {
-//            analyticsServices.append(firebaseService)
-//        }
-//        
-//        // add Segment Analytics Service
-//        if config.segment.enabled,
-//           let segmentService = Container.shared.resolve(SegmentAnalyticsService.self) {
-//            analyticsServices.append(segmentService)
-//        }
-//        
-//        /**
-//         This check is `edX/2U` specific.
-//         We only want to record FullStory events for the `PROD` environment for the following reasons:
-//         1. `Dev` & `Stage` environments has `orgID` of Test Organization named `2U - Mobile Apps`, and we do not want
-//         to record events or other data for this test organization.
-//         2. Initially, we set up conditional loading for the FullStory SDK, but it caused issues with enabling
-//         SwiftUI-based views in FullStory sessions.
-//         We reached out to FullStory's technical support team, who informed us that conditional integration of
-//         the FullStory SDK is not possible. As a
-//         workaround, we used the test organization `2U - Mobile Apps` and its `orgID` for the `Dev` and `Stage`
-//         environments to avoid disrupting the SDK functionality. We have also communicated our usage strategy to
-//         FullStory's support team and requested a more effective solution in future SDK updates.
-//         */
-//#if PROD
-//        if config.fullStory.enabled,
-//           let fullStoryService = Container.shared.resolve(
-//            FullStoryAnalyticsService.self,
-//            argument: config.firebase.enabled
-//           ) {
-//            analyticsServices.append(fullStoryService)
-//        }
-//#endif
-//        
-//        return analyticsServices
-//    }
 
-    // ToDo: which init is using? bellow is develop
-    // we could delete 2u/develop init - just needs to move fullstory to plugin
     public init(services: [AnalyticsService]) {
         self.services = services
     }

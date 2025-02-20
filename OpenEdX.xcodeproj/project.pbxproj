@@ -482,7 +482,6 @@
 			packageReferences = (
 				CE924BE52CD8FAB3000137CA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				CE0BF0B82CD9203A00D10289 /* XCRemoteSwiftPackageReference "microsoft-authentication-library-for-objc" */,
-				A5CBE6552D5B7E3500FF455A /* XCRemoteSwiftPackageReference "fullstory-swift-package-ios" */,
 				A538B55E2D1D8CD300216179 /* XCRemoteSwiftPackageReference "openedx-app-firebase-analytics-ios" */,
 				A5DB687D2D3170850096CBF8 /* XCRemoteSwiftPackageReference "edx-mobile-app-analytics-ios" */,
 				A543D6E12D63601A0031F155 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */,
@@ -1321,19 +1320,11 @@
 				kind = branch;
 			};
 		};
-		A5CBE6552D5B7E3500FF455A /* XCRemoteSwiftPackageReference "fullstory-swift-package-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/fullstorydev/fullstory-swift-package-ios";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.51.1;
-			};
-		};
 		A5DB687D2D3170850096CBF8 /* XCRemoteSwiftPackageReference "edx-mobile-app-analytics-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/edx/edx-mobile-app-analytics-ios";
 			requirement = {
-				branch = develop;
+				branch = add_fullstory;
 				kind = branch;
 			};
 		};

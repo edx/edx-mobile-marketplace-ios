@@ -227,10 +227,11 @@ class AppAssembly: Assembly {
             )
         }.inObjectScope(.container)
         
-        // ToDo: add together with plugin architecture
-//        container.register(FullStoryAnalyticsService.self) { _, firebaseEnabled in
-//            FullStoryAnalyticsService(firebaseEnabled)
-//        }.inObjectScope(.container)
+        container.register(FullStoryAnalyticsService.self) { r in
+            let config = r.resolve(ConfigProtocol.self)!
+            let firebaseEnabled = config.firebase.enabled
+            return FullStoryAnalyticsService(firebaseEnabled)
+        }.inObjectScope(.container)
 
         container.register(SegmentAnalyticsService.self) { r in
             let config = r.resolve(ConfigProtocol.self)!
