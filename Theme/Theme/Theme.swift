@@ -80,6 +80,9 @@ public struct Theme {
         public private(set) static var resumeButtonBG = ThemeAssets.resumeButtonBG.swiftUIColor
         public private(set) static var resumeButtonText = ThemeAssets.resumeButtonText.swiftUIColor
         public private(set) static var socialAuthColor = ThemeAssets.socialAuthColor.swiftUIColor
+        public private(set) static var primerHeaderBG = primaryCardUpgradeBG
+        public private(set) static var primerHeaderButtonText = ThemeAssets.primerHeaderButtonText.swiftUIColor
+        public private(set) static var primerContentBG = textInputBackground
 
         public static func update(
             accentColor: Color = ThemeAssets.accentColor.swiftUIColor,

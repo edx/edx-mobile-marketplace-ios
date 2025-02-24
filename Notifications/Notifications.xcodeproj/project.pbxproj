@@ -22,6 +22,9 @@
 		149D4A9A2D0BEF7E003A2E1D /* NotificationsSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149D4A992D0BEF7B003A2E1D /* NotificationsSettingsViewModel.swift */; };
 		14BAE6912D0978C300EAF0E4 /* NotificationsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BAE6902D0978BC00EAF0E4 /* NotificationsSettingsView.swift */; };
 		87E3F4AB2D8BE4FD628C91C4 /* Pods_App_Notifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAFCD31A42C7E150939829CE /* Pods_App_Notifications.framework */; };
+		940DBF162D5F80180042335E /* NotificationsPrimerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940DBF152D5F80140042335E /* NotificationsPrimerViewModel.swift */; };
+		947488042D5DE91B00DD0A24 /* NotificationsPrimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947488032D5DE91B00DD0A24 /* NotificationsPrimerView.swift */; };
+		94C862B22D65B6FC00A8D002 /* NotificationsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C862B12D65B6FC00A8D002 /* NotificationsStorage.swift */; };
 		9704E8082D2BF8C500B28907 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9704E8072D2BF8C100B28907 /* Notifications.swift */; };
 		97243C862D377662000B17C0 /* NotificationsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97243C852D377662000B17C0 /* NotificationsResponse.swift */; };
 		973CCD772D3635C000949756 /* SingleNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CCD762D3635C000949756 /* SingleNotificationView.swift */; };
@@ -70,6 +73,9 @@
 		7729007722CBCF0B8256DC02 /* Pods-App-Notifications.debugdev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Notifications.debugdev.xcconfig"; path = "Target Support Files/Pods-App-Notifications/Pods-App-Notifications.debugdev.xcconfig"; sourceTree = "<group>"; };
 		7A8D523EE9F729312DE6718E /* Pods-App-Notifications.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Notifications.debug.xcconfig"; path = "Target Support Files/Pods-App-Notifications/Pods-App-Notifications.debug.xcconfig"; sourceTree = "<group>"; };
 		874E5747C9EC9E35C11CDA15 /* Pods-App-Notifications.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Notifications.release.xcconfig"; path = "Target Support Files/Pods-App-Notifications/Pods-App-Notifications.release.xcconfig"; sourceTree = "<group>"; };
+		940DBF152D5F80140042335E /* NotificationsPrimerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsPrimerViewModel.swift; sourceTree = "<group>"; };
+		947488032D5DE91B00DD0A24 /* NotificationsPrimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsPrimerView.swift; sourceTree = "<group>"; };
+		94C862B12D65B6FC00A8D002 /* NotificationsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsStorage.swift; sourceTree = "<group>"; };
 		9704E8072D2BF8C100B28907 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		97243C852D377662000B17C0 /* NotificationsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsResponse.swift; sourceTree = "<group>"; };
 		973CCD762D3635C000949756 /* SingleNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleNotificationView.swift; sourceTree = "<group>"; };
@@ -133,8 +139,9 @@
 			children = (
 				14116DAE2D1546AB00A30AE0 /* Model */,
 				0284DBFA28D4832D00830893 /* Network */,
-				0284DC0228D4922900830893 /* NotificationsRepository.swift */,
 				0208666829CC6CD600BC05B2 /* Persistence */,
+				0284DC0228D4922900830893 /* NotificationsRepository.swift */,
+				94C862B12D65B6FC00A8D002 /* NotificationsStorage.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -168,6 +175,7 @@
 		070019A228F6EF2700D5FC78 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				947488022D5DE8F300DD0A24 /* Primer */,
 				1402A0C62B61011D00A0A00B /* Settings */,
 				978775222D19A06F00D1C21E /* NotificationsInbox */,
 				02F3BFDE29252F2F0051930C /* NotificationsRouter.swift */,
@@ -261,6 +269,15 @@
 			);
 			name = Pods;
 			path = ../Pods;
+			sourceTree = "<group>";
+		};
+		947488022D5DE8F300DD0A24 /* Primer */ = {
+			isa = PBXGroup;
+			children = (
+				947488032D5DE91B00DD0A24 /* NotificationsPrimerView.swift */,
+				940DBF152D5F80140042335E /* NotificationsPrimerViewModel.swift */,
+			);
+			path = Primer;
 			sourceTree = "<group>";
 		};
 		9704E8062D2BF8AA00B28907 /* Model */ = {
@@ -493,7 +510,10 @@
 				14BAE6912D0978C300EAF0E4 /* NotificationsSettingsView.swift in Sources */,
 				0284DBFC28D4856A00830893 /* NotificationsEndpoint.swift in Sources */,
 				97243C862D377662000B17C0 /* NotificationsResponse.swift in Sources */,
+				947488042D5DE91B00DD0A24 /* NotificationsPrimerView.swift in Sources */,
 				0283347728D499BC00C828FC /* NotificationsInteractor.swift in Sources */,
+				94C862B22D65B6FC00A8D002 /* NotificationsStorage.swift in Sources */,
+				940DBF162D5F80180042335E /* NotificationsPrimerViewModel.swift in Sources */,
 				02F3BFDF29252F2F0051930C /* NotificationsRouter.swift in Sources */,
 				978775262D19A21D00D1C21E /* NotificationsInboxViewModel.swift in Sources */,
 				029737422949FB3B0051696B /* NotificationsPersistenceProtocol.swift in Sources */,
