@@ -303,6 +303,7 @@ struct CommentsView_Previews: PreviewProvider {
                                  router: DiscussionRouterMock(),
                                  config: ConfigMock(),
                                  postStateSubject: .init(nil),
+                                 responseID: nil,
                                  analytics: DiscussionAnalyticsMock())
         
         ThreadView(thread: userThread, viewModel: vm)

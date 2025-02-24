@@ -276,7 +276,9 @@ class ScreenAssembly: Assembly {
         
         container.register(NotificationsInboxViewModel.self) { r in
             NotificationsInboxViewModel(
-                interactor: r.resolve(NotificationsInteractorProtocol.self)!,
+                notificationsInteractor: r.resolve(NotificationsInteractorProtocol.self)!,
+                discoveryInteractor: r.resolve(DiscoveryInteractorProtocol.self)!,
+                discussionInteractor: r.resolve(DiscussionInteractorProtocol.self)!,
                 analytics: r.resolve(NotificationsAnalytics.self)!,
                 router: r.resolve(NotificationsRouter.self)!
             )
@@ -572,12 +574,13 @@ class ScreenAssembly: Assembly {
             )
         }
         
-        container.register(ThreadViewModel.self) { r, subject in
+        container.register(ThreadViewModel.self) { r, subject, responseID in
             ThreadViewModel(
                 interactor: r.resolve(DiscussionInteractorProtocol.self)!,
                 router: r.resolve(DiscussionRouter.self)!,
                 config: r.resolve(ConfigProtocol.self)!,
                 postStateSubject: subject,
+                responseID: responseID,
                 analytics: r.resolve(DiscussionAnalytics.self)!
             )
         }

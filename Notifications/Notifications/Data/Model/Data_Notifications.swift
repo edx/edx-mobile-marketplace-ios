@@ -228,6 +228,7 @@ public extension DataLayer {
         public let notificationType: String?
         public let contentContext: ContentContext?
         public let content: String?
+        public let courseId: String?
         public let lastRead: String?
         public let lastSeen: String?
         public let created: String
@@ -238,6 +239,7 @@ public extension DataLayer {
             case notificationType = "notification_type"
             case contentContext = "content_context"
             case content
+            case courseId = "course_id"
             case lastRead = "last_read"
             case lastSeen = "last_seen"
             case created
@@ -249,6 +251,7 @@ public extension DataLayer {
             notificationType: String?,
             contentContext: ContentContext?,
             content: String?,
+            courseId: String?,
             lastRead: String?,
             lastSeen: String?,
             created: String
@@ -258,6 +261,7 @@ public extension DataLayer {
             self.notificationType = notificationType
             self.contentContext = contentContext
             self.content = content
+            self.courseId = courseId
             self.lastRead = lastRead
             self.lastSeen = lastSeen
             self.created = created
@@ -316,6 +320,7 @@ public extension DataLayer.Notifications {
                         postTitle: result.contentContext?.postTitle
                     ),
                     content: result.content,
+                    courseId: result.courseId,
                     lastRead: result.lastRead.flatMap { Date(iso8601: $0) },
                     lastSeen: result.lastSeen.flatMap { Date(iso8601: $0) },
                     created: Date(iso8601: result.created)

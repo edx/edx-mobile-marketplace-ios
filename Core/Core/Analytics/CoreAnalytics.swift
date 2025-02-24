@@ -337,7 +337,8 @@ public enum AnalyticsEvent: String {
     case discussionResponseViewed = "Discussion:Response Viewed"
     case notificationSettingPermissionStatus = "Notification:Setting Permission Status"
     case notificationDiscussionPermissionToggle = "Notification:Discussion Permission Toggle"
-    
+    case notificationInbox = "Notification:Notification Inbox"
+    case notificationTapped = "Notification:Notification Tapped"
 }
 
 public enum EventBIValue: String {
@@ -455,6 +456,8 @@ public enum EventBIValue: String {
     case discussionResponseViewed = "edx.bi.app.discussion.response.viewed"
     case notificationSettingPermissionStatus = "edx.bi.app.notification.setting_permission.status"
     case notificationDiscussionPermissionToggle = "edx.bi.app.notification.discussion.permission.toggle"
+    case notificationInbox = "edx.bi.app.notification.inbox"
+    case notificationTapped = "edx.bi.app.notification.tapped"
 }
 
 public struct EventParamKey {
@@ -514,6 +517,8 @@ public struct EventParamKey {
     public static let report = "report"
     public static let discussionType = "discussion_type"
     public static let status = "status"
+    public static let notificationCategory = "notification_category"
+    public static let notificationType = "notification_type"
 }
 
 public struct EventCategory {
@@ -526,4 +531,5 @@ public struct EventCategory {
     public static let course = "course"
     public static let inAppPurchases = "in_app_purchases"
     public static let notifications = "notifications"
+    public static let discussion = "discussion"
 }

@@ -8,6 +8,8 @@
 import SwiftUI
 import Theme
 import Core
+import Discovery
+import Discussion
 
 struct SingleNotificationView: View {
     @ObservedObject
@@ -25,6 +27,10 @@ struct SingleNotificationView: View {
         Button(
             action: {
                 Task {
+                    await viewModel.showDiscussions(notification)
+                    viewModel.trackNotificationTapped(
+                        notificationType: notification.notificationType ?? ""
+                    )
                     await viewModel.markNotificationAsRead(notificationId: String(notification.id))
                     var updatedNotification = notification
                     updatedNotification.lastRead = Date()
@@ -69,10 +75,13 @@ struct SingleNotificationView: View {
     }
 }
 
+#if DEBUG
 #Preview {
     SingleNotificationView(
         viewModel: NotificationsInboxViewModel(
-            interactor: NotificationsInteractor.mock,
+            notificationsInteractor: NotificationsInteractor.mock,
+            discoveryInteractor: DiscoveryInteractor.mock,
+            discussionInteractor: DiscussionInteractor.mock,
             analytics: NotificationsAnalyticsMock(),
             router: NotificationsRouterMock()
         ),
@@ -89,9 +98,11 @@ struct SingleNotificationView: View {
                 postTitle: "How to learn it online?"
             ),
             content: "Test notification",
+            courseId: "course-v1:edX+Test+2T2009",
             lastRead: Date(iso8601: "2025-01-06T01:20:58.919612Z"),
             lastSeen: Date(iso8601: "2025-01-06T01:20:58.919612Z"),
             created: Date(iso8601: "2025-01-06T01:20:58.919612Z")
         )
     )
 }
+#endif

@@ -16,6 +16,7 @@ public class ThreadViewModel: BaseResponsesViewModel, ObservableObject {
     internal let threadStateSubject = CurrentValueSubject<ThreadPostState?, Never>(nil)
     private var cancellable: AnyCancellable?
     private let postStateSubject: CurrentValueSubject<PostState?, Never>
+    private let responseID: String?
 
     public var isBlackedOut: Bool = false
     private let analytics: DiscussionAnalytics?
@@ -25,9 +26,11 @@ public class ThreadViewModel: BaseResponsesViewModel, ObservableObject {
         router: DiscussionRouter,
         config: ConfigProtocol,
         postStateSubject: CurrentValueSubject<PostState?, Never>,
+        responseID: String?,
         analytics: DiscussionAnalytics?
     ) {
         self.postStateSubject = postStateSubject
+        self.responseID = responseID
         self.analytics = analytics
         
         super.init(interactor: interactor, router: router, config: config, analytics: analytics)
@@ -177,6 +180,9 @@ public class ThreadViewModel: BaseResponsesViewModel, ObservableObject {
                 }
                 postComments = generateComments(comments: self.comments, thread: threadPost)
             }
+            if let responseID = responseID, !responseID.isEmpty {
+                await prioritizeResponseForDeepLinking(responseID)
+            }
             fetchInProgress = false
             return true
         } catch let error {
@@ -230,6 +236,23 @@ public class ThreadViewModel: BaseResponsesViewModel, ObservableObject {
         }
     }
     
+    @MainActor
+    private func prioritizeResponseForDeepLinking(_ responseID: String) async {
+        guard var comments = postComments?.comments else { return }
+        if let index = comments.firstIndex(where: { $0.commentID == responseID }) {
+            let response = comments.remove(at: index)
+            comments.insert(response, at: 0)
+        } else {
+            do {
+                let response = try await interactor.getResponse(responseID: responseID)
+                comments.insert(response.post, at: 0)
+            } catch {
+                debugLog(error.localizedDescription)
+            }
+        }
+        postComments?.comments = comments
+    }
+
     private func updateThreadLikeState(id: String, voted: Bool, votesCount: Int) {
         guard var comments = postComments else { return }
         guard let index = comments.comments.firstIndex(where: { $0.commentID == id }) else { return }

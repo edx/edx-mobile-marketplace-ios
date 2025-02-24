@@ -3254,10 +3254,24 @@ open class NotificationsAnalyticsMock: NotificationsAnalytics, Mock {
 		perform?(`action`)
     }
 
+    open func notificationInbox() {
+        addInvocation(.m_notificationInbox)
+		let perform = methodPerformValue(.m_notificationInbox) as? () -> Void
+		perform?()
+    }
+
+    open func notificationTapped(notificationType: String) {
+        addInvocation(.m_notificationTapped__notificationType_notificationType(Parameter<String>.value(`notificationType`)))
+		let perform = methodPerformValue(.m_notificationTapped__notificationType_notificationType(Parameter<String>.value(`notificationType`))) as? (String) -> Void
+		perform?(`notificationType`)
+    }
+
 
     fileprivate enum MethodType {
         case m_notificationsScreenEvent__event_eventbiValue_biValue(Parameter<AnalyticsEvent>, Parameter<EventBIValue>)
         case m_notificationsDiscussionPermissionToggleEvent__action_action(Parameter<Bool>)
+        case m_notificationInbox
+        case m_notificationTapped__notificationType_notificationType(Parameter<String>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
@@ -3271,6 +3285,13 @@ open class NotificationsAnalyticsMock: NotificationsAnalytics, Mock {
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsAction, rhs: rhsAction, with: matcher), lhsAction, rhsAction, "action"))
 				return Matcher.ComparisonResult(results)
+
+            case (.m_notificationInbox, .m_notificationInbox): return .match
+
+            case (.m_notificationTapped__notificationType_notificationType(let lhsNotificationtype), .m_notificationTapped__notificationType_notificationType(let rhsNotificationtype)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsNotificationtype, rhs: rhsNotificationtype, with: matcher), lhsNotificationtype, rhsNotificationtype, "notificationType"))
+				return Matcher.ComparisonResult(results)
             default: return .none
             }
         }
@@ -3279,12 +3300,16 @@ open class NotificationsAnalyticsMock: NotificationsAnalytics, Mock {
             switch self {
             case let .m_notificationsScreenEvent__event_eventbiValue_biValue(p0, p1): return p0.intValue + p1.intValue
             case let .m_notificationsDiscussionPermissionToggleEvent__action_action(p0): return p0.intValue
+            case .m_notificationInbox: return 0
+            case let .m_notificationTapped__notificationType_notificationType(p0): return p0.intValue
             }
         }
         func assertionName() -> String {
             switch self {
             case .m_notificationsScreenEvent__event_eventbiValue_biValue: return ".notificationsScreenEvent(event:biValue:)"
             case .m_notificationsDiscussionPermissionToggleEvent__action_action: return ".notificationsDiscussionPermissionToggleEvent(action:)"
+            case .m_notificationInbox: return ".notificationInbox()"
+            case .m_notificationTapped__notificationType_notificationType: return ".notificationTapped(notificationType:)"
             }
         }
     }
@@ -3305,6 +3330,8 @@ open class NotificationsAnalyticsMock: NotificationsAnalytics, Mock {
 
         public static func notificationsScreenEvent(event: Parameter<AnalyticsEvent>, biValue: Parameter<EventBIValue>) -> Verify { return Verify(method: .m_notificationsScreenEvent__event_eventbiValue_biValue(`event`, `biValue`))}
         public static func notificationsDiscussionPermissionToggleEvent(action: Parameter<Bool>) -> Verify { return Verify(method: .m_notificationsDiscussionPermissionToggleEvent__action_action(`action`))}
+        public static func notificationInbox() -> Verify { return Verify(method: .m_notificationInbox)}
+        public static func notificationTapped(notificationType: Parameter<String>) -> Verify { return Verify(method: .m_notificationTapped__notificationType_notificationType(`notificationType`))}
     }
 
     public struct Perform {
@@ -3316,6 +3343,12 @@ open class NotificationsAnalyticsMock: NotificationsAnalytics, Mock {
         }
         public static func notificationsDiscussionPermissionToggleEvent(action: Parameter<Bool>, perform: @escaping (Bool) -> Void) -> Perform {
             return Perform(method: .m_notificationsDiscussionPermissionToggleEvent__action_action(`action`), performs: perform)
+        }
+        public static func notificationInbox(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_notificationInbox, performs: perform)
+        }
+        public static func notificationTapped(notificationType: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
+            return Perform(method: .m_notificationTapped__notificationType_notificationType(`notificationType`), performs: perform)
         }
     }
 

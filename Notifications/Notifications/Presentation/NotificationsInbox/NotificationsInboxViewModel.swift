@@ -8,6 +8,8 @@
 import Foundation
 import Core
 import SwiftUI
+import Discovery
+import Discussion
 
 public class NotificationsInboxViewModel: ObservableObject {
     @Published private(set) var menus: [NotificationMenu] = NotificationMenu.allCases
@@ -28,17 +30,23 @@ public class NotificationsInboxViewModel: ObservableObject {
     }
     
     private let calendar = Calendar.current
-    private var interactor: NotificationsInteractorProtocol
+    private var notificationsInteractor: NotificationsInteractorProtocol
+    private var discoveryInteractor: DiscoveryInteractorProtocol
+    private var discussionInteractor: DiscussionInteractorProtocol
     private var analytics: NotificationsAnalytics
     private var nextPage = 1
     private var totalPages = 1
     
     public init(
-        interactor: NotificationsInteractorProtocol,
+        notificationsInteractor: NotificationsInteractorProtocol,
+        discoveryInteractor: DiscoveryInteractorProtocol,
+        discussionInteractor: DiscussionInteractorProtocol,
         analytics: NotificationsAnalytics,
         router: NotificationsRouter
     ) {
-        self.interactor = interactor
+        self.notificationsInteractor = notificationsInteractor
+        self.discoveryInteractor = discoveryInteractor
+        self.discussionInteractor = discussionInteractor
         self.analytics = analytics
         self.router = router
     }
@@ -57,7 +65,7 @@ public class NotificationsInboxViewModel: ObservableObject {
     @MainActor
     func markNotificationAsRead(notificationId: String) async {
         do {
-            _ = try await interactor.markNotificationAsRead(notificationId: notificationId)
+            _ = try await notificationsInteractor.markNotificationAsRead(notificationId: notificationId)
         } catch {
             handleFetchError(error)
         }
@@ -66,7 +74,7 @@ public class NotificationsInboxViewModel: ObservableObject {
     @MainActor
     func markAllNotificationsAsRead() async {
         do {
-            _ = try await interactor.markAllNotificationsAsRead()
+            _ = try await notificationsInteractor.markAllNotificationsAsRead()
             
             flatNotifications = flatNotifications.map { item in
                 var readItem = item
@@ -81,7 +89,7 @@ public class NotificationsInboxViewModel: ObservableObject {
     @MainActor
     func markNotificationsAsSeen() async {
         do {
-            _ = try await interactor.markNotificationsAsSeen()
+            _ = try await notificationsInteractor.markNotificationsAsSeen()
         } catch {
             handleFetchError(error)
         }
@@ -97,7 +105,7 @@ public class NotificationsInboxViewModel: ObservableObject {
                 resetNotifications()
             }
             
-            let notificationsData = try await interactor.getAllNotifications(page: page)
+            let notificationsData = try await notificationsInteractor.getAllNotifications(page: page)
             updateNotifications(with: notificationsData)
             
             self.nextPage += 1
@@ -150,6 +158,75 @@ public class NotificationsInboxViewModel: ObservableObject {
                 }
             }
         }
+    }
+    
+    @MainActor
+    public func showDiscussions(_ notification: Notification) async {
+        router.showProgress()
+        do {
+            guard
+                let courseId = notification.courseId, !courseId.isEmpty,
+                let topicId = notification.contentContext?.topicId, !topicId.isEmpty
+            else {
+                router.dismissProgress()
+                return
+            }
+
+            let courseDetails = try await discoveryInteractor.getCourseDetails(
+                courseID: courseId
+            )
+            let discussionInfo = try await discussionInteractor.getCourseDiscussionInfo(
+                courseID: courseDetails.courseID
+            )
+            let topics = try await discussionInteractor.getTopic(
+                courseID: courseDetails.courseID,
+                topicID: topicId
+            )
+
+            router.showThreads(
+                topicID: topicId,
+                courseDetails: courseDetails,
+                topics: topics,
+                isBlackedOut: discussionInfo.isBlackedOut()
+            )
+
+            let responseId = notification.contentContext?.parentId?.isEmpty == false &&
+                             notification.contentContext?.commentId?.isEmpty == false
+                             ? notification.contentContext?.parentId
+                             : notification.contentContext?.commentId
+
+            if let threadId = notification.contentContext?.threadId, !threadId.isEmpty {
+                let userThread = try await discussionInteractor.getThread(threadID: threadId)
+                router.showThread(
+                    userThread: userThread,
+                    isBlackedOut: discussionInfo.isBlackedOut(),
+                    responseID: responseId
+                )
+            }
+
+            if let parentId = notification.contentContext?.parentId, !parentId.isEmpty {
+                let comment = try await discussionInteractor.getResponse(responseID: parentId)
+                router.showComment(
+                    courseID: courseDetails.courseID,
+                    comment: comment,
+                    parentComment: comment.post,
+                    isBlackedOut: discussionInfo.isBlackedOut()
+                )
+            }
+        } catch {
+            debugLog(error.localizedDescription)
+        }
+        router.dismissProgress()
+    }
+    
+    func trackNotificationInbox() {
+        analytics.notificationInbox()
+    }
+    
+    func trackNotificationTapped(notificationType: String) {
+        analytics.notificationTapped(
+            notificationType: notificationType
+        )
     }
     
     private func groupItems() {

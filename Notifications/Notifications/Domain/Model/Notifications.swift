@@ -38,6 +38,7 @@ public struct Notification: Hashable {
     public let notificationType: String?
     public let contentContext: ContentContext?
     public let content: String?
+    public let courseId: String?
     public var lastRead: Date?
     public let lastSeen: Date?
     public let created: Date
@@ -48,6 +49,7 @@ public struct Notification: Hashable {
         notificationType: String?,
         contentContext: ContentContext?,
         content: String?,
+        courseId: String?,
         lastRead: Date?,
         lastSeen: Date?,
         created: Date
@@ -57,6 +59,7 @@ public struct Notification: Hashable {
         self.notificationType = notificationType
         self.contentContext = contentContext
         self.content = content
+        self.courseId = courseId
         self.lastRead = lastRead
         self.lastSeen = lastSeen
         self.created = created
