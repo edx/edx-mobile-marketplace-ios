@@ -13,6 +13,8 @@ import Core
 public final class NotificationsPrimerViewModel: ObservableObject {
     @Published private(set) var isUpdating = false
 
+    private var openedSettings = false
+
     private let interactor: NotificationsInteractorProtocol
     private let router: NotificationsRouter
 
@@ -47,10 +49,23 @@ public final class NotificationsPrimerViewModel: ObservableObject {
     private func addObservers() {
         NotificationCenter.default.addObserver(
             self,
+            selector: #selector(didBecomeActive),
+            name: UIApplication.didBecomeActiveNotification,
+            object: nil
+        )
+
+        NotificationCenter.default.addObserver(
+            self,
             selector: #selector(refreshSettings),
             name: .notificationRegistration,
             object: nil
         )
+    }
+    
+    @objc private func didBecomeActive() {
+        if openedSettings {
+            refreshSettings()
+        }
     }
 
     @objc private func refreshSettings() {
@@ -61,22 +76,50 @@ public final class NotificationsPrimerViewModel: ObservableObject {
 
     @MainActor
     private func requestNotificationPermissions() async {
+        isUpdating = true
+
         let settings = await UNUserNotificationCenter.current().notificationSettings()
         if settings.authorizationStatus == .notDetermined {
-            isUpdating = true
             router.performNotificationRegistration()
         } else {
-            router.dismiss(animated: true) {
-                self.openSettingsIfPossible()
-            }
+            showPermissionNeededAlert()
         }
     }
+    
+    private func showPermissionNeededAlert() {
+        let actions = [
+            UIAlertAction(
+                title: NotificationsLocalization.Alert.continue,
+                style: .default,
+                handler: { [weak self] _ in
+                    self?.openSettingsOrDismiss()
+                }
+            ),
+            UIAlertAction(
+                title: NotificationsLocalization.Alert.cancel,
+                style: .default,
+                handler: { [weak self] _ in
+                    self?.dismiss()
+                }
+            )
+        ]
 
-    private func openSettingsIfPossible() {
-        if let appSettings = URL(string: UIApplication.openSettingsURLString),
-           UIApplication.shared.canOpenURL(appSettings) {
-            UIApplication.shared.open(appSettings)
+        router.presentNativeAlert(
+            title: NotificationsLocalization.Alert.permissionTitle,
+            message: NotificationsLocalization.Alert.permissionMessage,
+            actions: actions
+        )
+    }
+
+    private func openSettingsOrDismiss() {
+        guard let settingsURL = URL(string: UIApplication.openSettingsURLString),
+              UIApplication.shared.canOpenURL(settingsURL) else {
+            dismiss()
+            return
         }
+
+        UIApplication.shared.open(settingsURL)
+        openedSettings = true
     }
 
     @MainActor
