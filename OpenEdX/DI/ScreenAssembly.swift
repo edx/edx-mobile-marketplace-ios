@@ -278,7 +278,8 @@ class ScreenAssembly: Assembly {
             NotificationsInboxViewModel(
                 interactor: r.resolve(NotificationsInteractorProtocol.self)!,
                 analytics: r.resolve(NotificationsAnalytics.self)!,
-                router: r.resolve(NotificationsRouter.self)!
+                router: r.resolve(NotificationsRouter.self)!,
+                connectivity: r.resolve(ConnectivityProtocol.self)!
             )
         }
         
