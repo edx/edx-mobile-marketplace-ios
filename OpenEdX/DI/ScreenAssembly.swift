@@ -280,7 +280,8 @@ class ScreenAssembly: Assembly {
                 discoveryInteractor: r.resolve(DiscoveryInteractorProtocol.self)!,
                 discussionInteractor: r.resolve(DiscussionInteractorProtocol.self)!,
                 analytics: r.resolve(NotificationsAnalytics.self)!,
-                router: r.resolve(NotificationsRouter.self)!
+                router: r.resolve(NotificationsRouter.self)!,
+                connectivity: r.resolve(ConnectivityProtocol.self)!
             )
         }
         

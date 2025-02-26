@@ -83,7 +83,8 @@ struct SingleNotificationView: View {
             discoveryInteractor: DiscoveryInteractor.mock,
             discussionInteractor: DiscussionInteractor.mock,
             analytics: NotificationsAnalyticsMock(),
-            router: NotificationsRouterMock()
+            router: NotificationsRouterMock(),
+            connectivity: Connectivity()
         ),
         groupKey: NotificationGroup.recent,
         notification: Notification(

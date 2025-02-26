@@ -33,6 +33,12 @@ public enum NotificationsLocalization {
     public static let recent = NotificationsLocalization.tr("Localizable", "INBOX.RECENT", fallback: "Recent")
     /// This Week
     public static let thisWeek = NotificationsLocalization.tr("Localizable", "INBOX.THIS_WEEK", fallback: "This Week")
+    public enum Empty {
+      /// When you receive notifications they’ll show up here.
+      public static let description = NotificationsLocalization.tr("Localizable", "INBOX.EMPTY.DESCRIPTION", fallback: "When you receive notifications they’ll show up here.")
+      /// No notifications yet
+      public static let title = NotificationsLocalization.tr("Localizable", "INBOX.EMPTY.TITLE", fallback: "No notifications yet")
+    }
   }
   public enum Menu {
     /// Mark all as read
