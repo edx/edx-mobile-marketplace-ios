@@ -172,7 +172,7 @@ public struct NotificationsInboxView: View {
                                 groupKey: group,
                                 notification: item
                             )
-                            .accessibilityIdentifier("sigle_notification_view_\(index)")
+                            .accessibilityIdentifier("single_notification_view_\(index)")
                             .frame(maxWidth: .infinity)
                             .onAppear {
                                 viewModel.fetchMoreNotificationsIfNeeded(for: item)
