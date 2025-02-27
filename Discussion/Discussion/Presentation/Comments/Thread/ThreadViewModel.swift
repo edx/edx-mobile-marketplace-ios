@@ -16,7 +16,7 @@ public class ThreadViewModel: BaseResponsesViewModel, ObservableObject {
     internal let threadStateSubject = CurrentValueSubject<ThreadPostState?, Never>(nil)
     private var cancellable: AnyCancellable?
     private let postStateSubject: CurrentValueSubject<PostState?, Never>
-    private let responseID: String?
+    private let prioritizingResponseId: String?
 
     public var isBlackedOut: Bool = false
     private let analytics: DiscussionAnalytics?
@@ -30,7 +30,7 @@ public class ThreadViewModel: BaseResponsesViewModel, ObservableObject {
         analytics: DiscussionAnalytics?
     ) {
         self.postStateSubject = postStateSubject
-        self.responseID = responseID
+        self.prioritizingResponseId = responseID
         self.analytics = analytics
         
         super.init(interactor: interactor, router: router, config: config, analytics: analytics)
@@ -180,7 +180,7 @@ public class ThreadViewModel: BaseResponsesViewModel, ObservableObject {
                 }
                 postComments = generateComments(comments: self.comments, thread: threadPost)
             }
-            if let responseID = responseID, !responseID.isEmpty {
+            if let responseID = prioritizingResponseId, !responseID.isEmpty {
                 await prioritizeResponseForDeepLinking(responseID)
             }
             fetchInProgress = false
