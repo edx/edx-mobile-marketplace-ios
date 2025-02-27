@@ -105,6 +105,7 @@ public struct ThreadView: View {
                                             CommentCell(
                                                 comment: comment,
                                                 addCommentAvailable: true,
+                                                shouldHighlight: viewModel.shouldHighlightResponse(index),
                                                 onAvatarTap: { username in
                                                     viewModel.router.showUserDetails(username: username)
                                                 },

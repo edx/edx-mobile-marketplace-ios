@@ -19,6 +19,7 @@ public class ThreadViewModel: BaseResponsesViewModel, ObservableObject {
     private let prioritizingResponseId: String?
 
     public var isBlackedOut: Bool = false
+    private var shouldHighlightResponse: Bool = false
     private let analytics: DiscussionAnalytics?
 
     public init(
@@ -248,9 +249,16 @@ public class ThreadViewModel: BaseResponsesViewModel, ObservableObject {
                 comments.insert(response.post, at: 0)
             } catch {
                 debugLog(error.localizedDescription)
+                return
             }
         }
+        
+        shouldHighlightResponse = true
         postComments?.comments = comments
+    }
+    
+    public func shouldHighlightResponse(_ index: Int) -> Bool {
+        return index == 0 && shouldHighlightResponse
     }
 
     private func updateThreadLikeState(id: String, voted: Bool, votesCount: Int) {
