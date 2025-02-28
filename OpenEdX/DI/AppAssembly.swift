@@ -230,7 +230,7 @@ class AppAssembly: Assembly {
         container.register(FullStoryAnalyticsService.self) { r in
             let config = r.resolve(ConfigProtocol.self)!
             let firebaseEnabled = config.firebase.enabled
-            return FullStoryAnalyticsService(firebaseEnabled)
+            return FullStoryAnalyticsService(firebaseEnabled: firebaseEnabled)
         }.inObjectScope(.container)
 
         container.register(SegmentAnalyticsService.self) { r in
