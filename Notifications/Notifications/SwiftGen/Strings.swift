@@ -46,6 +46,18 @@ public enum NotificationsLocalization {
     /// Settings
     public static let settings = NotificationsLocalization.tr("Localizable", "MENU.SETTINGS", fallback: "Settings")
   }
+  public enum Primer {
+    /// Get notifications
+    public static let getNotifications = NotificationsLocalization.tr("Localizable", "PRIMER.GET_NOTIFICATIONS", fallback: "Get notifications")
+    /// Stay on top of your coursework. Get notified about comments, replies, and likes on your posts.
+    public static let message = NotificationsLocalization.tr("Localizable", "PRIMER.MESSAGE", fallback: "Stay on top of your coursework. Get notified about comments, replies, and likes on your posts.")
+    /// No thanks
+    public static let noThanks = NotificationsLocalization.tr("Localizable", "PRIMER.NO_THANKS", fallback: "No thanks")
+    /// Stay up to date with discussions
+    public static let title = NotificationsLocalization.tr("Localizable", "PRIMER.TITLE", fallback: "Stay up to date with discussions")
+    /// Yes, notify me
+    public static let yesNotifyMe = NotificationsLocalization.tr("Localizable", "PRIMER.YES_NOTIFY_ME", fallback: "Yes, notify me")
+  }
   public enum Settings {
     /// Notifications for course discussions you post, comment, or follow.
     public static let preferenceDescription = NotificationsLocalization.tr("Localizable", "SETTINGS.PREFERENCE_DESCRIPTION", fallback: "Notifications for course discussions you post, comment, or follow.")

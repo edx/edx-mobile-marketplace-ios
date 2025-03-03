@@ -101,8 +101,12 @@ public class PostsViewModel: ObservableObject {
                 guard let self, let state else { return }
                 switch state {
                 case let .followed(id, followed):
+                    if followed {
+                        self.showNotificationsPrimerIfNeeded()
+                    }
                     self.updatePostFollowedState(id: id, followed: followed)
                 case let .replyAdded(id):
+                    self.showNotificationsPrimerIfNeeded()
                     self.updatePostRepliesCountState(id: id)
                 case let .readed(id):
                     self.updateUnreadCommentsCount(id: id)
@@ -260,6 +264,12 @@ public class PostsViewModel: ObservableObject {
         self.threads = ThreadLists(threads: threads)
         discussionPosts = generatePosts(threads: self.threads)
         self.filteredPosts = self.discussionPosts
+    }
+    
+    private func showNotificationsPrimerIfNeeded() {
+        Task {
+            await router.showNotificationsPrimerIfNeeded()
+        }
     }
     
     private func updatePostRepliesCountState(id: String) {
