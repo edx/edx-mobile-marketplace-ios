@@ -132,6 +132,7 @@ public struct CommentCell: View {
                                    ? Theme.Colors.accentColor
                                    : Theme.Colors.textSecondaryLight)
                 .font(Theme.Fonts.labelLarge)
+                .disabled(comment.isAuthor)
 
                 Spacer()
                 if addCommentAvailable {
@@ -160,6 +161,7 @@ public struct CommentCell: View {
 struct CommentView_Previews: PreviewProvider {
     static var previews: some View {
         let comment = Post(
+            isAuthor: false,
             authorName: "Bill Clinton",
             authorAvatar: "",
             postDate: Date(),

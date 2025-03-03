@@ -408,7 +408,7 @@ public class DeepLinkManager {
                 router.showComment(
                     courseID: courseDetails.courseID,
                     comment: comment,
-                    parentComment: parentComment.post,
+                    parentComment: parentComment.toPost(username: storage.user?.username),
                     isBlackedOut: isBlackedOut
                 )
             }
@@ -445,7 +445,7 @@ public class DeepLinkManager {
                 router.showComment(
                     courseID: courseDetails.courseID,
                     comment: comment,
-                    parentComment: parentComment.post,
+                    parentComment: parentComment.toPost(username: storage.user?.username),
                     isBlackedOut: isBlackedOut
                 )
             }

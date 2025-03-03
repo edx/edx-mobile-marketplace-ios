@@ -122,6 +122,7 @@ public struct ParentCommentView: View {
                 }).foregroundColor(comments.voted
                                    ? Theme.Colors.accentColor
                                    : Theme.Colors.textSecondaryLight)
+                .disabled(comments.isAuthor)
                 Spacer()
                 Button(action: {
                     onReportTap()
@@ -154,6 +155,7 @@ public struct ParentCommentView: View {
 struct ParentCommentView_Previews: PreviewProvider {
     static var previews: some View {
         let comment = Post(
+            isAuthor: false,
             authorName: "Thomas Mraz",
             authorAvatar: "",
             postDate: Date(),
