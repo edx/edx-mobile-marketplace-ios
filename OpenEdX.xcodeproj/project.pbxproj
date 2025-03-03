@@ -1306,8 +1306,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/edx/edx-mobile-app-analytics-ios";
 			requirement = {
-				branch = develop;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.3;
 			};
 		};
 		A5FB2CB02D75D88900ECA001 /* XCRemoteSwiftPackageReference "openedx-app-firebase-analytics-ios" */ = {
