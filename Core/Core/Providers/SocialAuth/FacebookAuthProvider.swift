@@ -17,27 +17,34 @@ public final class FacebookAuthProvider {
     @MainActor
     public func signIn(
         withPresenting: UIViewController
-    ) async -> Result<SocialAuthResponse, Error> {
+    ) async -> Result<SocialAuthResponse, SocialAuthError> {
         await withCheckedContinuation { continuation in
             loginManager.logIn(
                 permissions: [],
                 from: withPresenting
             ) { result, error in
                 if let error = error {
-                    continuation.resume(returning: .failure(error))
+                    continuation.resume(
+                        returning: .failure(
+                            SocialAuthError.error(
+                                code: (error as NSError).code,
+                                text: error.localizedDescription
+                            )
+                        )
+                    )
                     return
                 }
 
                 guard let result = result,
                       let tokenString = AccessToken.current?.tokenString else {
                     continuation.resume(
-                        returning: .failure(SocialAuthError.unknownError)
+                        returning: .failure(SocialAuthError.unknownError())
                     )
                     return
                 }
 
                 if result.isCancelled {
-                    continuation.resume(returning: .failure(SocialAuthError.socialAuthCanceled))
+                    continuation.resume(returning: .failure(SocialAuthError.socialAuthCanceled()))
                     return
                 }
 
@@ -74,13 +81,5 @@ public final class FacebookAuthProvider {
 
     public func signOut() {
         loginManager.logOut()
-    }
-
-    private func failure(_ error: Error?) -> Error {
-        if let error = error as? NSError,
-           let description = error.userInfo[ErrorLocalizedDescriptionKey] as? String {
-            return SocialAuthError.error(text: description)
-        }
-        return error ?? SocialAuthError.unknownError
     }
 }
