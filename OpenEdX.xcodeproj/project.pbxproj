@@ -56,6 +56,7 @@
 		A500668B2B613ED10024680B /* PushNotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A500668A2B613ED10024680B /* PushNotificationsManager.swift */; };
 		A500668D2B6143000024680B /* FCMProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A500668C2B6143000024680B /* FCMProvider.swift */; };
 		A50066932B614DCD0024680B /* FCMListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50066922B614DCD0024680B /* FCMListener.swift */; };
+		A5265D492D77416F00D91735 /* OEXFoundation in Embed Frameworks */ = {isa = PBXBuildFile; productRef = A5FB2CB42D75D89E00ECA001 /* OEXFoundation */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		A538B5672D1D977C00216179 /* EDXMobileAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = A538B5662D1D977C00216179 /* EDXMobileAnalytics */; };
 		A5462D9C2B864AE0003B96A5 /* BranchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5462D9B2B864AE0003B96A5 /* BranchService.swift */; };
 		A59568952B61630500ED4F90 /* DeepLinkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59568942B61630500ED4F90 /* DeepLinkManager.swift */; };
@@ -108,6 +109,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				E0D6E6A42B1626D60089F9C9 /* Theme.framework in Embed Frameworks */,
+				A5265D492D77416F00D91735 /* OEXFoundation in Embed Frameworks */,
 				14BAE68F2D0974B700EAF0E4 /* Notifications.framework in Embed Frameworks */,
 				072787B228D34D83002E9142 /* Discovery.framework in Embed Frameworks */,
 				0218196528F734FA00202564 /* Discussion.framework in Embed Frameworks */,
