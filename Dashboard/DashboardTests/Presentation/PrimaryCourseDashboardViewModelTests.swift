@@ -12,6 +12,7 @@ import XCTest
 @testable import Dashboard
 import Combine
 import SwiftUI
+import Notifications
 
 @MainActor
 final class PrimaryCourseDashboardViewModelTests: XCTestCase {
@@ -46,7 +47,14 @@ final class PrimaryCourseDashboardViewModelTests: XCTestCase {
             progressEarned: 0,
             progressPossible: 1,
             lastVisitedBlockID: nil,
-            resumeTitle: nil
+            resumeTitle: nil,
+            auditAccessExpires: nil,
+            startDisplay: nil,
+            startType: .unknown,
+            isUpgradeable: false,
+            sku: nil,
+            lmsPrice: nil,
+            isSelfPaced: false
         ),
         courses: [
             CourseItem.init(
@@ -62,9 +70,14 @@ final class PrimaryCourseDashboardViewModelTests: XCTestCase {
                 courseID: "2",
                 numPages: 1,
                 coursesCount: 3,
+                isSelfPaced: false,
                 courseRawImage: nil,
+                coursewareAccess: nil,
                 progressEarned: 0,
-                progressPossible: 2
+                progressPossible: 2,
+                auditAccessExpires: nil,
+                startDisplay: nil,
+                startType: nil
             )
         ],
         totalPages: 1,
@@ -78,6 +91,8 @@ final class PrimaryCourseDashboardViewModelTests: XCTestCase {
             connectivity: connectivity,
             analytics: analytics,
             config: config,
+            serverConfig: ServerConfigProtocolMock(),
+            notificationsInteractor: NotificationsInteractor.mock,
             storage: storage
         )
         
@@ -102,6 +117,8 @@ final class PrimaryCourseDashboardViewModelTests: XCTestCase {
             connectivity: connectivity,
             analytics: analytics,
             config: config,
+            serverConfig: ServerConfigProtocolMock(),
+            notificationsInteractor: NotificationsInteractor.mock,
             storage: storage
         )
                 
@@ -126,6 +143,8 @@ final class PrimaryCourseDashboardViewModelTests: XCTestCase {
             connectivity: connectivity,
             analytics: analytics,
             config: config,
+            serverConfig: ServerConfigProtocolMock(),
+            notificationsInteractor: NotificationsInteractor.mock,
             storage: storage
         )
         
@@ -150,6 +169,8 @@ final class PrimaryCourseDashboardViewModelTests: XCTestCase {
             connectivity: connectivity,
             analytics: analytics,
             config: config,
+            serverConfig: ServerConfigProtocolMock(),
+            notificationsInteractor: NotificationsInteractor.mock,
             storage: storage
         )
         
@@ -174,6 +195,8 @@ final class PrimaryCourseDashboardViewModelTests: XCTestCase {
             connectivity: connectivity,
             analytics: analytics,
             config: config,
+            serverConfig: ServerConfigProtocolMock(),
+            notificationsInteractor: NotificationsInteractor.mock,
             storage: storage
         )
         
@@ -194,6 +217,8 @@ final class PrimaryCourseDashboardViewModelTests: XCTestCase {
             connectivity: connectivity,
             analytics: analytics,
             config: config,
+            serverConfig: ServerConfigProtocolMock(),
+            notificationsInteractor: NotificationsInteractor.mock,
             storage: storage
         )
         

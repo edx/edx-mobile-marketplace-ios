@@ -23,10 +23,10 @@ final class ListDashboardViewModelTests: XCTestCase {
             interactor: interactor,
             connectivity: connectivity,
             analytics: analytics,
+            storage: CoreStorageMock(),
             upgradehandler: CourseUpgradeHandlerProtocolMock(),
             coreAnalytics: CoreAnalyticsMock(),
-            serverConfig: ServerConfigProtocolMock(),
-            storage: CoreStorageMock()
+            serverConfig: ServerConfigProtocolMock()
         )
         
         let items = [
@@ -93,10 +93,10 @@ final class ListDashboardViewModelTests: XCTestCase {
             interactor: interactor,
             connectivity: connectivity,
             analytics: analytics,
+            storage: CoreStorageMock(),
             upgradehandler: CourseUpgradeHandlerProtocolMock(),
             coreAnalytics: CoreAnalyticsMock(),
-            serverConfig: ServerConfigProtocolMock(),
-            storage: CoreStorageMock()
+            serverConfig: ServerConfigProtocolMock()
         )
         
         let items = [
@@ -163,10 +163,10 @@ final class ListDashboardViewModelTests: XCTestCase {
             interactor: interactor,
             connectivity: connectivity,
             analytics: analytics,
+            storage: CoreStorageMock(),
             upgradehandler: CourseUpgradeHandlerProtocolMock(),
             coreAnalytics: CoreAnalyticsMock(),
-            serverConfig: ServerConfigProtocolMock(),
-            storage: CoreStorageMock()
+            serverConfig: ServerConfigProtocolMock()
         )
         
         Given(connectivity, .isInternetAvaliable(getter: true))
@@ -189,10 +189,10 @@ final class ListDashboardViewModelTests: XCTestCase {
             interactor: interactor,
             connectivity: connectivity,
             analytics: analytics,
+            storage: CoreStorageMock(),
             upgradehandler: CourseUpgradeHandlerProtocolMock(),
             coreAnalytics: CoreAnalyticsMock(),
-            serverConfig: ServerConfigProtocolMock(),
-            storage: CoreStorageMock()
+            serverConfig: ServerConfigProtocolMock()
         )
         
         Given(connectivity, .isInternetAvaliable(getter: true))

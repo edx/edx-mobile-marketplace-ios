@@ -42,7 +42,7 @@ final class CourseDownloadHelperTests: XCTestCase {
             encodedVideo: .init(
                 fallback: nil,
                 youtube: nil,
-                desktopMP4: .init(url: "http://test/test.mp4", fileSize: 1000, streamPriority: 1),
+                desktopMP4: .init(url: "http://test/test.mp4", fileSize: 1000, streamPriority: 1, type: .desktopMP4),
                 mobileHigh: nil,
                 mobileLow: nil,
                 hls: nil
@@ -100,7 +100,11 @@ final class CourseDownloadHelperTests: XCTestCase {
             certificate: nil,
             org: "",
             isSelfPaced: true,
-            courseProgress: nil
+            isUpgradeable: false,
+            sku: nil,
+            coursewareAccessDetails: nil,
+            courseProgress: nil,
+            lmsPrice: .zero
         )
         task = DownloadDataTask(block: block, userId: 0, downloadQuality: .auto)
         value = .init(

@@ -127,13 +127,13 @@ final class PostViewModelTests: XCTestCase {
             interactor: interactor,
             router: router,
             config: config,
+            analytics: DiscussionAnalyticsMock(),
             storage: storage
         )
     }
 
     func testGetThreadListSuccess() async throws {
         var result = false
-        let viewModel = PostsViewModel(interactor: interactor, router: router, config: config, analytics: DiscussionAnalyticsMock())
         
         viewModel.courseID = "1"
         viewModel.type = .allPosts
@@ -170,7 +170,13 @@ final class PostViewModelTests: XCTestCase {
     
     func testGetThreadListNoInternetError() async throws {
         var result = false
-        let viewModel = PostsViewModel(interactor: interactor, router: router, config: config, analytics: DiscussionAnalyticsMock())
+        let viewModel = PostsViewModel(
+            interactor: interactor,
+            router: router,
+            config: config,
+            analytics: DiscussionAnalyticsMock(),
+            storage: CoreStorageMock()
+        )
         viewModel.isBlackedOut = false
 
         let noInternetError = AFError.sessionInvalidated(error: URLError(.notConnectedToInternet))
@@ -192,7 +198,13 @@ final class PostViewModelTests: XCTestCase {
     
     func testGetThreadListUnknownError() async throws {
         var result = false
-        let viewModel = PostsViewModel(interactor: interactor, router: router, config: config, analytics: DiscussionAnalyticsMock())
+        let viewModel = PostsViewModel(
+            interactor: interactor,
+            router: router,
+            config: config,
+            analytics: DiscussionAnalyticsMock(),
+            storage: CoreStorageMock()
+        )
         viewModel.isBlackedOut = false
 
         Given(interactor, .getThreadsList(courseID: .any, type: .any, sort: .any, filter: .any, page: .any, willThrow: NSError()))
@@ -211,7 +223,6 @@ final class PostViewModelTests: XCTestCase {
     }
     
     func testSortingAndFilters() async throws {
-        let viewModel = PostsViewModel(interactor: interactor, router: router, config: config, analytics: DiscussionAnalyticsMock())
         
         Given(interactor, .getThreadsList(courseID: .any, type: .any, sort: .any, filter: .any, page: .any,
                                           willReturn: threads))

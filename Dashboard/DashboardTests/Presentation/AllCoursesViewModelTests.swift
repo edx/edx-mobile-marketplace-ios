@@ -43,7 +43,14 @@ final class AllCoursesViewModelTests: XCTestCase {
             progressEarned: 0,
             progressPossible: 1,
             lastVisitedBlockID: nil,
-            resumeTitle: nil
+            resumeTitle: nil,
+            auditAccessExpires: nil,
+            startDisplay: nil,
+            startType: .unknown,
+            isUpgradeable: false,
+            sku: nil,
+            lmsPrice: nil,
+            isSelfPaced: false
         ),
         courses: [
             CourseItem.init(
@@ -59,9 +66,14 @@ final class AllCoursesViewModelTests: XCTestCase {
                 courseID: "2",
                 numPages: 1,
                 coursesCount: 3,
+                isSelfPaced: false,
                 courseRawImage: nil,
+                coursewareAccess: nil,
                 progressEarned: 0,
-                progressPossible: 2
+                progressPossible: 2,
+                auditAccessExpires: nil,
+                startDisplay: nil,
+                startType: nil
             ),
             CourseItem.init(
                 name: "Course",
@@ -76,9 +88,14 @@ final class AllCoursesViewModelTests: XCTestCase {
                 courseID: "3",
                 numPages: 1,
                 coursesCount: 3,
+                isSelfPaced: false,
                 courseRawImage: nil,
+                coursewareAccess: nil,
                 progressEarned: 0,
-                progressPossible: 2
+                progressPossible: 2,
+                auditAccessExpires: nil,
+                startDisplay: nil,
+                startType: nil
             ),
             CourseItem.init(
                 name: "Course",
@@ -93,9 +110,14 @@ final class AllCoursesViewModelTests: XCTestCase {
                 courseID: "4",
                 numPages: 1,
                 coursesCount: 3,
+                isSelfPaced: false,
                 courseRawImage: nil,
+                coursewareAccess: nil,
                 progressEarned: 0,
-                progressPossible: 2
+                progressPossible: 2,
+                auditAccessExpires: nil,
+                startDisplay: nil,
+                startType: nil
             )
         ],
         totalPages: 2,
