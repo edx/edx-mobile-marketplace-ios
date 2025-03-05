@@ -23,3 +23,8 @@
 "INBOX.EMPTY.DESCRIPTION" = "When you receive notifications they’ll show up here.";
 "MENU.MARK_ALL_AS_READ" = "Mark all as read";
 "MENU.SETTINGS" = "Settings";
+"PRIMER.TITLE" = "Stay up to date with discussions";
+"PRIMER.MESSAGE" = "Stay on top of your coursework. Get notified about comments, replies, and likes on your posts.";
+"PRIMER.GET_NOTIFICATIONS" = "Get notifications";
+"PRIMER.YES_NOTIFY_ME" = "Yes, notify me";
+"PRIMER.NO_THANKS" = "No thanks";

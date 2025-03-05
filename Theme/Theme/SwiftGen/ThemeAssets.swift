@@ -56,6 +56,7 @@ public enum ThemeAssets {
   public static let primaryCardCautionBG = ColorAsset(name: "PrimaryCardCautionBG")
   public static let primaryCardCourseUpgradeBG = ColorAsset(name: "PrimaryCardCourseUpgradeBG")
   public static let primaryCardProgressBG = ColorAsset(name: "PrimaryCardProgressBG")
+  public static let primerHeaderButtonText = ColorAsset(name: "PrimerHeaderButtonText")
   public static let onProgress = ColorAsset(name: "OnProgress")
   public static let progressDone = ColorAsset(name: "ProgressDone")
   public static let progressSkip = ColorAsset(name: "ProgressSkip")

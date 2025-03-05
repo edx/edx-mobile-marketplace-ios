@@ -55,8 +55,8 @@ public class Router: AuthorizationRouter,
         navigationController.popToRootViewController(animated: animated)
     }
     
-    public func dismiss(animated: Bool) {
-        navigationController.dismiss(animated: animated)
+    public func dismiss(animated: Bool, completion: (() -> Void)?) {
+        navigationController.dismiss(animated: animated, completion: completion)
     }
     
     public func back(animated: Bool) {
@@ -781,6 +781,19 @@ public class Router: AuthorizationRouter,
     
     public func performNotificationRegistration() {
         Container.shared.resolve(PushNotificationsManager.self)?.performRegistration()
+    }
+    
+    public func showNotificationsPrimerIfNeeded() {
+        Task { @MainActor in
+            let interactor = Container.shared.resolve(NotificationsInteractorProtocol.self)!
+            if await interactor.shouldShowPrimer() {
+                let viewModel = Container.shared.resolve(NotificationsPrimerViewModel.self)!
+                presentView(
+                    transitionStyle: .crossDissolve,
+                    view: NotificationsPrimerView(viewModel: viewModel)
+                )
+            }
+        }
     }
     
     public func showVideoSettings() {

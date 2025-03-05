@@ -74,12 +74,7 @@ public struct SignInView: View {
                                 
                                 if viewModel.socialAuthEnabled {
                                     SocialAuthView(
-                                        viewModel: .init(
-                                            config: viewModel.config,
-                                            lastUsedOption: viewModel.storage.lastUsedSocialAuth
-                                        ) { result in
-                                            Task { await viewModel.login(with: result) }
-                                        }
+                                        viewModel: viewModel.socialAuthViewModel
                                     )
                                     .padding(.top, 22)
                                     .padding(.bottom, 16)
