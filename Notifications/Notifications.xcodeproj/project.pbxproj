@@ -26,9 +26,9 @@
 		97243C862D377662000B17C0 /* NotificationsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97243C852D377662000B17C0 /* NotificationsResponse.swift */; };
 		973CCD772D3635C000949756 /* SingleNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CCD762D3635C000949756 /* SingleNotificationView.swift */; };
 		978648CE2D636AD600AB006B /* Discussion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 978648CD2D636AD600AB006B /* Discussion.framework */; };
-		978648CF2D636AD600AB006B /* Discussion.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 978648CD2D636AD600AB006B /* Discussion.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		978775242D19A20300D1C21E /* NotificationsInboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978775232D19A20300D1C21E /* NotificationsInboxView.swift */; };
 		978775262D19A21D00D1C21E /* NotificationsInboxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978775252D19A21D00D1C21E /* NotificationsInboxViewModel.swift */; };
+		979F6FE92D789926002ACC5E /* NotificationsDeepLinkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979F6FE72D789926002ACC5E /* NotificationsDeepLinkManager.swift */; };
 		97A222942D2404590067E6D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97A222932D2404590067E6D2 /* Assets.xcassets */; };
 		97A222962D2415EA0067E6D2 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A222952D2415EA0067E6D2 /* Assets.swift */; };
 		97B079422D2BD59400538435 /* Data_Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B079412D2BD58900538435 /* Data_Notifications.swift */; };
@@ -44,20 +44,6 @@
 			remoteInfo = Notifications;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		978648D02D636AD600AB006B /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				978648CF2D636AD600AB006B /* Discussion.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		022C0492F3BB6C4C560B9A9F /* Pods-App-Notifications-NotificationsTests.releasestage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Notifications-NotificationsTests.releasestage.xcconfig"; path = "Target Support Files/Pods-App-Notifications-NotificationsTests/Pods-App-Notifications-NotificationsTests.releasestage.xcconfig"; sourceTree = "<group>"; };
@@ -92,6 +78,7 @@
 		978648CD2D636AD600AB006B /* Discussion.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Discussion.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		978775232D19A20300D1C21E /* NotificationsInboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsInboxView.swift; sourceTree = "<group>"; };
 		978775252D19A21D00D1C21E /* NotificationsInboxViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsInboxViewModel.swift; sourceTree = "<group>"; };
+		979F6FE72D789926002ACC5E /* NotificationsDeepLinkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsDeepLinkManager.swift; sourceTree = "<group>"; };
 		97A222932D2404590067E6D2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97A222952D2415EA0067E6D2 /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		97B079412D2BD58900538435 /* Data_Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data_Notifications.swift; sourceTree = "<group>"; };
@@ -222,6 +209,7 @@
 				0284DBF828D4831000830893 /* Data */,
 				0284DC0428D4996F00830893 /* Domain */,
 				070019A228F6EF2700D5FC78 /* Presentation */,
+				979F6FE82D789926002ACC5E /* Managers */,
 				02EF39D928D86A380058F6BD /* Localizable.strings */,
 				97A222932D2404590067E6D2 /* Assets.xcassets */,
 			);
@@ -301,6 +289,14 @@
 			path = NotificationsInbox;
 			sourceTree = "<group>";
 		};
+		979F6FE82D789926002ACC5E /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				979F6FE72D789926002ACC5E /* NotificationsDeepLinkManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -344,7 +340,6 @@
 				0727879528D34C03002E9142 /* Sources */,
 				0727879628D34C03002E9142 /* Frameworks */,
 				0727879728D34C03002E9142 /* Resources */,
-				978648D02D636AD600AB006B /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -511,6 +506,7 @@
 			files = (
 				97B079422D2BD59400538435 /* Data_Notifications.swift in Sources */,
 				14BAE6912D0978C300EAF0E4 /* NotificationsSettingsView.swift in Sources */,
+				979F6FE92D789926002ACC5E /* NotificationsDeepLinkManager.swift in Sources */,
 				0284DBFC28D4856A00830893 /* NotificationsEndpoint.swift in Sources */,
 				97243C862D377662000B17C0 /* NotificationsResponse.swift in Sources */,
 				0283347728D499BC00C828FC /* NotificationsInteractor.swift in Sources */,

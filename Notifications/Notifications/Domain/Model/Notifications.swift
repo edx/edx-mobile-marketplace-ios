@@ -13,7 +13,7 @@ public struct Notifications: Hashable {
     public let numPages: Int?
     public let currentPage: Int?
     public let start: Int?
-    public let results: [Notification]?
+    public let results: [SingleNotification]?
     
     public init(
         next: String?,
@@ -21,7 +21,7 @@ public struct Notifications: Hashable {
         numPages: Int?,
         currentPage: Int?,
         start: Int?,
-        results: [Notification]?
+        results: [SingleNotification]?
     ) {
         self.next = next
         self.count = count
@@ -32,7 +32,7 @@ public struct Notifications: Hashable {
     }
 }
 
-public struct Notification: Hashable {
+public struct SingleNotification: Hashable {
     public let id: Int
     public let appName: String?
     public let notificationType: String?

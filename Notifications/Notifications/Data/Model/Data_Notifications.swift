@@ -308,7 +308,7 @@ public extension DataLayer.Notifications {
             currentPage: currentPage,
             start: start,
             results: results?.compactMap { result in
-                Notification(
+                SingleNotification(
                     id: result.id,
                     appName: result.appName,
                     notificationType: result.notificationType,

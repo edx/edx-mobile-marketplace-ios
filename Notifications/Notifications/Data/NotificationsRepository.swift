@@ -115,7 +115,7 @@ class NotificationsRepositoryMock: NotificationsRepositoryProtocol {
             currentPage: 1,
             start: 0,
             results: [
-                Notification(
+                SingleNotification(
                     id: 123,
                     appName: "discussion",
                     notificationType: "comment_on_followed_post",

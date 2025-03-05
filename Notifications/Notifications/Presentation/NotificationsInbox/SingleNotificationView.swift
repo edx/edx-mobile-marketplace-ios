@@ -8,16 +8,14 @@
 import SwiftUI
 import Theme
 import Core
-import Discovery
-import Discussion
 
 struct SingleNotificationView: View {
     @ObservedObject
     private var viewModel: NotificationsInboxViewModel
-    private var notification: Notification
+    private var notification: SingleNotification
     private var groupKey: NotificationGroup
     
-    public init(viewModel: NotificationsInboxViewModel, groupKey: NotificationGroup, notification: Notification) {
+    public init(viewModel: NotificationsInboxViewModel, groupKey: NotificationGroup, notification: SingleNotification) {
         self.viewModel = viewModel
         self.notification = notification
         self.groupKey = groupKey
@@ -80,14 +78,13 @@ struct SingleNotificationView: View {
     SingleNotificationView(
         viewModel: NotificationsInboxViewModel(
             notificationsInteractor: NotificationsInteractor.mock,
-            discoveryInteractor: DiscoveryInteractor.mock,
-            discussionInteractor: DiscussionInteractor.mock,
             analytics: NotificationsAnalyticsMock(),
             router: NotificationsRouterMock(),
-            connectivity: Connectivity()
+            connectivity: Connectivity(),
+            deepLinkManager: NotificationsDeepLinkManagerMock()
         ),
         groupKey: NotificationGroup.recent,
-        notification: Notification(
+        notification: SingleNotification(
             id: 123,
             appName: "discussion",
             notificationType: "comment_on_followed_post",

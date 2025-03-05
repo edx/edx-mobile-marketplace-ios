@@ -5,9 +5,6 @@
 //  Created by Shafqat Muneer on 12/23/24.
 //
 
-//import SwiftUI // TODO: Need to check
-import Discovery
-import Discussion
 import Foundation
 import Combine
 import Core
@@ -16,7 +13,7 @@ public class NotificationsInboxViewModel: ObservableObject {
     @Published private(set) var menus: [NotificationMenu] = NotificationMenu.allCases
     @Published private(set) var screenState: ScreenState = .idle
     @Published private(set) var isLoadingMore = false
-    @Published private(set) var groupedNotifications: [NotificationGroup: [Notification]] = [:]
+    @Published private(set) var groupedNotifications: [NotificationGroup: [SingleNotification]] = [:]
     @Published private(set) var showError: Bool = false
 
     private(set) var errorMessage: String? {
@@ -28,13 +25,12 @@ public class NotificationsInboxViewModel: ObservableObject {
     private let analytics: NotificationsAnalytics
     private let router: NotificationsRouter
     private let connectivity: ConnectivityProtocol
-    private let paginationManager: PaginationManager<Notification, Int>
+    private let deepLinkManager: NotificationsDeepLinkManager
+    private let paginationManager: PaginationManager<SingleNotification, Int>
     private let calendar = Calendar.current
-    private var notificationsInteractor: NotificationsInteractorProtocol
-    private var discoveryInteractor: DiscoveryInteractorProtocol
-    private var discussionInteractor: DiscussionInteractorProtocol
+    private var interactor: NotificationsInteractorProtocol
     private var cancellables = Set<AnyCancellable>()
-    private var flatNotifications: [Notification] = [] {
+    private var flatNotifications: [SingleNotification] = [] {
         didSet { groupItems() }
     }
     
@@ -49,18 +45,16 @@ public class NotificationsInboxViewModel: ObservableObject {
     
     public init(
         notificationsInteractor: NotificationsInteractorProtocol,
-        discoveryInteractor: DiscoveryInteractorProtocol,
-        discussionInteractor: DiscussionInteractorProtocol,
         analytics: NotificationsAnalytics,
         router: NotificationsRouter,
-        connectivity: ConnectivityProtocol
+        connectivity: ConnectivityProtocol,
+        deepLinkManager: NotificationsDeepLinkManager
     ) {
-        self.notificationsInteractor = notificationsInteractor
-        self.discoveryInteractor = discoveryInteractor
-        self.discussionInteractor = discussionInteractor
+        self.interactor = notificationsInteractor
         self.analytics = analytics
         self.router = router
         self.connectivity = connectivity
+        self.deepLinkManager = deepLinkManager
         self.paginationManager = PaginationManager { pageKey in
             let currentPage = pageKey ?? 1
             let data = try await notificationsInteractor.getAllNotifications(page: currentPage)
@@ -129,7 +123,7 @@ public class NotificationsInboxViewModel: ObservableObject {
     }
     
     @MainActor
-    func fetchMoreNotificationsIfNeeded(for item: Notification) {
+    func fetchMoreNotificationsIfNeeded(for item: SingleNotification) {
         guard let index = flatNotifications.firstIndex(of: item) else { return }
         
         if index == flatNotifications.count - 3 {
@@ -140,7 +134,7 @@ public class NotificationsInboxViewModel: ObservableObject {
     @MainActor
     func markNotificationAsRead(notificationId: String) async {
         do {
-            _ = try await notificationsInteractor.markNotificationAsRead(notificationId: notificationId)
+            _ = try await interactor.markNotificationAsRead(notificationId: notificationId)
         } catch {
             handleAPIError(error)
         }
@@ -149,7 +143,7 @@ public class NotificationsInboxViewModel: ObservableObject {
     @MainActor
     func markAllNotificationsAsRead() async {
         do {
-            _ = try await notificationsInteractor.markAllNotificationsAsRead()
+            _ = try await interactor.markAllNotificationsAsRead()
             
             flatNotifications = flatNotifications.map { item in
                 var readItem = item
@@ -163,7 +157,7 @@ public class NotificationsInboxViewModel: ObservableObject {
     
     @MainActor
     func markNotificationsAsSeen() async {
-        _ = try? await notificationsInteractor.markNotificationsAsSeen()
+        _ = try? await interactor.markNotificationsAsSeen()
     }
     
     func hideError() {
@@ -193,64 +187,9 @@ public class NotificationsInboxViewModel: ObservableObject {
         }
         return dateString
     }
-    
-    @MainActor
-    public func showDiscussions(_ notification: Notification) async {
-        router.showProgress()
-        do {
-            guard
-                let courseId = notification.courseId, !courseId.isEmpty,
-                let topicId = notification.contentContext?.topicId, !topicId.isEmpty
-            else {
-                router.dismissProgress()
-                return
-            }
 
-            let courseDetails = try await discoveryInteractor.getCourseDetails(
-                courseID: courseId
-            )
-            let discussionInfo = try await discussionInteractor.getCourseDiscussionInfo(
-                courseID: courseDetails.courseID
-            )
-            let topics = try await discussionInteractor.getTopic(
-                courseID: courseDetails.courseID,
-                topicID: topicId
-            )
-
-            router.showThreads(
-                topicID: topicId,
-                courseDetails: courseDetails,
-                topics: topics,
-                isBlackedOut: discussionInfo.isBlackedOut()
-            )
-
-            let responseId = notification.contentContext?.parentId?.isEmpty == false &&
-                             notification.contentContext?.commentId?.isEmpty == false
-                             ? notification.contentContext?.parentId
-                             : notification.contentContext?.commentId
-
-            if let threadId = notification.contentContext?.threadId, !threadId.isEmpty {
-                let userThread = try await discussionInteractor.getThread(threadID: threadId)
-                router.showThread(
-                    userThread: userThread,
-                    isBlackedOut: discussionInfo.isBlackedOut(),
-                    responseID: responseId
-                )
-            }
-
-            if let parentId = notification.contentContext?.parentId, !parentId.isEmpty {
-                let comment = try await discussionInteractor.getResponse(responseID: parentId)
-                router.showComment(
-                    courseID: courseDetails.courseID,
-                    comment: comment,
-                    parentComment: comment.post,
-                    isBlackedOut: discussionInfo.isBlackedOut()
-                )
-            }
-        } catch {
-            debugLog(error.localizedDescription)
-        }
-        router.dismissProgress()
+    public func showDiscussions(_ notification: SingleNotification) async {
+        await deepLinkManager.showDiscussions(notification)
     }
     
     func trackNotificationInbox() {
@@ -280,18 +219,18 @@ public class NotificationsInboxViewModel: ObservableObject {
     }
     
     // Update a specific item in the array
-    func updateNotification(groupKey: NotificationGroup, item: Notification) {
+    func updateNotification(groupKey: NotificationGroup, item: SingleNotification) {
         updateGroupedNotification(groupKey: groupKey, item: item)
         updateFlatNotification(item: item)
     }
 
-    private func updateGroupedNotification(groupKey: NotificationGroup, item: Notification) {
+    private func updateGroupedNotification(groupKey: NotificationGroup, item: SingleNotification) {
         if let index = groupedNotifications[groupKey]?.firstIndex(where: { $0.id == item.id }) {
             groupedNotifications[groupKey]?[index] = item
         }
     }
 
-    private func updateFlatNotification(item: Notification) {
+    private func updateFlatNotification(item: SingleNotification) {
         if let index = flatNotifications.firstIndex(where: { $0.id == item.id }) {
             flatNotifications[index] = item
         }

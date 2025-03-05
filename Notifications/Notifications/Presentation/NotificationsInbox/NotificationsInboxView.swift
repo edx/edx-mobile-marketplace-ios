@@ -8,8 +8,6 @@
 import SwiftUI
 import Theme
 import Core
-import Discovery
-import Discussion
 
 public struct NotificationsInboxView: View {
     @ObservedObject
@@ -202,11 +200,10 @@ public struct NotificationsInboxView: View {
     NotificationsInboxView(
         viewModel: NotificationsInboxViewModel(
             notificationsInteractor: NotificationsInteractor.mock,
-            discoveryInteractor: DiscoveryInteractor.mock,
-            discussionInteractor: DiscussionInteractor.mock,
             analytics: NotificationsAnalyticsMock(),
             router: NotificationsRouterMock(),
-            connectivity: Connectivity()
+            connectivity: Connectivity(),
+            deepLinkManager: NotificationsDeepLinkManagerMock()
         )
     )
 }

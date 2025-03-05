@@ -274,17 +274,6 @@ class ScreenAssembly: Assembly {
             )
         }
         
-        container.register(NotificationsInboxViewModel.self) { r in
-            NotificationsInboxViewModel(
-                notificationsInteractor: r.resolve(NotificationsInteractorProtocol.self)!,
-                discoveryInteractor: r.resolve(DiscoveryInteractorProtocol.self)!,
-                discussionInteractor: r.resolve(DiscussionInteractorProtocol.self)!,
-                analytics: r.resolve(NotificationsAnalytics.self)!,
-                router: r.resolve(NotificationsRouter.self)!,
-                connectivity: r.resolve(ConnectivityProtocol.self)!
-            )
-        }
-        
         container.register(DatesAndCalendarViewModel.self) { r in
             DatesAndCalendarViewModel(
                 router: r.resolve(ProfileRouter.self)!
@@ -661,6 +650,21 @@ class ScreenAssembly: Assembly {
                 router: r.resolve(CourseRouter.self)!,
                 lmsPrice: lmsPrice
             )
+        }
+        
+        // MARK: Notifications
+        container.register(NotificationsInboxViewModel.self) { r in
+            NotificationsInboxViewModel(
+                notificationsInteractor: r.resolve(NotificationsInteractorProtocol.self)!,
+                analytics: r.resolve(NotificationsAnalytics.self)!,
+                router: r.resolve(NotificationsRouter.self)!,
+                connectivity: r.resolve(ConnectivityProtocol.self)!,
+                deepLinkManager: r.resolve(NotificationsDeepLinkManager.self)!
+            )
+        }
+        
+        container.register(NotificationsDeepLinkManager.self) { r in
+            r.resolve(DeepLinkManager.self)!
         }
     }
 }
