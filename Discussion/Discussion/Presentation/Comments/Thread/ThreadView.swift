@@ -302,6 +302,7 @@ struct CommentsView_Previews: PreviewProvider {
         let vm = ThreadViewModel(interactor: DiscussionInteractor.mock,
                                  router: DiscussionRouterMock(),
                                  config: ConfigMock(),
+                                 coreStorage: CoreStorageMock(),
                                  postStateSubject: .init(nil),
                                  analytics: DiscussionAnalyticsMock())
         

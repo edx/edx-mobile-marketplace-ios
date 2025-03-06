@@ -60,8 +60,9 @@ public struct UserComment: Hashable {
 }
 
 public extension UserComment {
-    var post: Post {
+    func toPost(username: String?) -> Post {
         Post(
+            isAuthor: username == authorName,
             authorName: authorName,
             authorAvatar: authorAvatar,
             postDate: postDate,

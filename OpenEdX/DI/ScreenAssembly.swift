@@ -586,6 +586,7 @@ class ScreenAssembly: Assembly {
                 interactor: r.resolve(DiscussionInteractorProtocol.self)!,
                 router: r.resolve(DiscussionRouter.self)!,
                 config: r.resolve(ConfigProtocol.self)!,
+                coreStorage: r.resolve(CoreStorage.self)!,
                 postStateSubject: subject,
                 analytics: r.resolve(DiscussionAnalytics.self)!
             )
@@ -597,6 +598,7 @@ class ScreenAssembly: Assembly {
                 interactor: r.resolve(DiscussionInteractorProtocol.self)!,
                 router: r.resolve(DiscussionRouter.self)!,
                 config: r.resolve(ConfigProtocol.self)!,
+                coreStorage: r.resolve(CoreStorage.self)!,
                 threadStateSubject: subject,
                 analytics: r.resolve(DiscussionAnalytics.self)!
             )

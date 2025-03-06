@@ -15,6 +15,7 @@ public class ThreadViewModel: BaseResponsesViewModel, ObservableObject {
     
     internal let threadStateSubject = CurrentValueSubject<ThreadPostState?, Never>(nil)
     private var cancellable: AnyCancellable?
+    private let coreStorage: CoreStorage
     private let postStateSubject: CurrentValueSubject<PostState?, Never>
 
     public var isBlackedOut: Bool = false
@@ -24,9 +25,11 @@ public class ThreadViewModel: BaseResponsesViewModel, ObservableObject {
         interactor: DiscussionInteractorProtocol,
         router: DiscussionRouter,
         config: ConfigProtocol,
+        coreStorage: CoreStorage,
         postStateSubject: CurrentValueSubject<PostState?, Never>,
         analytics: DiscussionAnalytics?
     ) {
+        self.coreStorage = coreStorage
         self.postStateSubject = postStateSubject
         self.analytics = analytics
         
@@ -49,7 +52,10 @@ public class ThreadViewModel: BaseResponsesViewModel, ObservableObject {
     }
     
     func generateComments(comments: [UserComment], thread: UserThread) -> Post {
+        let username = coreStorage.user?.username
+        
         var result = Post(
+            isAuthor: thread.author == username,
             authorName: thread.author,
             authorAvatar: thread.avatar,
             postDate: thread.createdAt,
@@ -70,6 +76,7 @@ public class ThreadViewModel: BaseResponsesViewModel, ObservableObject {
         )
         result.comments = comments.map { c in
             Post(
+                isAuthor: c.authorName == username,
                 authorName: c.authorName,
                 authorAvatar: c.authorAvatar,
                 postDate: c.postDate,
