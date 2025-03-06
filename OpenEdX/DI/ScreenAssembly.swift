@@ -282,15 +282,6 @@ class ScreenAssembly: Assembly {
             )
         }
         
-        container.register(NotificationsInboxViewModel.self) { r in
-            NotificationsInboxViewModel(
-                interactor: r.resolve(NotificationsInteractorProtocol.self)!,
-                analytics: r.resolve(NotificationsAnalytics.self)!,
-                router: r.resolve(NotificationsRouter.self)!,
-                connectivity: r.resolve(ConnectivityProtocol.self)!
-            )
-        }
-        
         container.register(DatesAndCalendarViewModel.self) { r in
             DatesAndCalendarViewModel(
                 router: r.resolve(ProfileRouter.self)!
@@ -581,13 +572,14 @@ class ScreenAssembly: Assembly {
             )
         }
         
-        container.register(ThreadViewModel.self) { r, subject in
+        container.register(ThreadViewModel.self) { r, subject, responseID in
             ThreadViewModel(
                 interactor: r.resolve(DiscussionInteractorProtocol.self)!,
                 router: r.resolve(DiscussionRouter.self)!,
                 config: r.resolve(ConfigProtocol.self)!,
                 coreStorage: r.resolve(CoreStorage.self)!,
                 postStateSubject: subject,
+                responseID: responseID,
                 analytics: r.resolve(DiscussionAnalytics.self)!
             )
         }
@@ -668,6 +660,21 @@ class ScreenAssembly: Assembly {
                 router: r.resolve(CourseRouter.self)!,
                 lmsPrice: lmsPrice
             )
+        }
+        
+        // MARK: Notifications
+        container.register(NotificationsInboxViewModel.self) { r in
+            NotificationsInboxViewModel(
+                notificationsInteractor: r.resolve(NotificationsInteractorProtocol.self)!,
+                analytics: r.resolve(NotificationsAnalytics.self)!,
+                router: r.resolve(NotificationsRouter.self)!,
+                connectivity: r.resolve(ConnectivityProtocol.self)!,
+                deepLinkManager: r.resolve(NotificationsDeepLinkManager.self)!
+            )
+        }
+        
+        container.register(NotificationsDeepLinkManager.self) { r in
+            r.resolve(DeepLinkManager.self)!
         }
     }
 }

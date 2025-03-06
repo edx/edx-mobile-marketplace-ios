@@ -1453,6 +1453,25 @@ class AnalyticsManager: AuthorizationAnalytics,
         
         logEvent(.notificationDiscussionPermissionToggle, parameters: parameters)
     }
+    
+    public func notificationInbox() {
+        var parameters: [String: Any] = [
+            EventParamKey.name: EventBIValue.notificationInbox.rawValue
+        ]
+        
+        logEvent(.notificationInbox, parameters: parameters)
+    }
+    
+    public func notificationTapped(notificationType: String) {
+        var parameters: [String: Any] = [
+            EventParamKey.category: EventCategory.notifications,
+            EventParamKey.notificationCategory: EventCategory.discussion,
+            EventParamKey.notificationType: notificationType,
+            EventParamKey.name: EventBIValue.notificationTapped.rawValue
+        ]
+        
+        logEvent(.notificationTapped, parameters: parameters)
+    }
 }
 
 // swiftlint:enable file_length type_body_length

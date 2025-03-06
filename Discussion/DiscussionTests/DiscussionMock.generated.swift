@@ -3936,10 +3936,10 @@ open class DiscussionRouterMock: DiscussionRouter, Mock {
 		perform?(`courseID`, `topics`, `title`, `type`, `isBlackedOut`, `animated`)
     }
 
-    open func showThread(thread: UserThread, postStateSubject: CurrentValueSubject<PostState?, Never>, isBlackedOut: Bool, animated: Bool) {
-        addInvocation(.m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animated(Parameter<UserThread>.value(`thread`), Parameter<CurrentValueSubject<PostState?, Never>>.value(`postStateSubject`), Parameter<Bool>.value(`isBlackedOut`), Parameter<Bool>.value(`animated`)))
-		let perform = methodPerformValue(.m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animated(Parameter<UserThread>.value(`thread`), Parameter<CurrentValueSubject<PostState?, Never>>.value(`postStateSubject`), Parameter<Bool>.value(`isBlackedOut`), Parameter<Bool>.value(`animated`))) as? (UserThread, CurrentValueSubject<PostState?, Never>, Bool, Bool) -> Void
-		perform?(`thread`, `postStateSubject`, `isBlackedOut`, `animated`)
+    open func showThread(thread: UserThread, postStateSubject: CurrentValueSubject<PostState?, Never>, isBlackedOut: Bool, animated: Bool, responseID: String?) {
+        addInvocation(.m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animatedresponseID_responseID(Parameter<UserThread>.value(`thread`), Parameter<CurrentValueSubject<PostState?, Never>>.value(`postStateSubject`), Parameter<Bool>.value(`isBlackedOut`), Parameter<Bool>.value(`animated`), Parameter<String?>.value(`responseID`)))
+		let perform = methodPerformValue(.m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animatedresponseID_responseID(Parameter<UserThread>.value(`thread`), Parameter<CurrentValueSubject<PostState?, Never>>.value(`postStateSubject`), Parameter<Bool>.value(`isBlackedOut`), Parameter<Bool>.value(`animated`), Parameter<String?>.value(`responseID`))) as? (UserThread, CurrentValueSubject<PostState?, Never>, Bool, Bool, String?) -> Void
+		perform?(`thread`, `postStateSubject`, `isBlackedOut`, `animated`, `responseID`)
     }
 
     open func showDiscussionsSearch(courseID: String, isBlackedOut: Bool) {
@@ -4124,11 +4124,17 @@ open class DiscussionRouterMock: DiscussionRouter, Mock {
 		perform?(`animated`)
     }
 
+    open func showThread(thread: UserThread, postStateSubject: CurrentValueSubject<PostState?, Never>, isBlackedOut: Bool, animated: Bool) {
+        addInvocation(.m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animated(Parameter<UserThread>.value(`thread`), Parameter<CurrentValueSubject<PostState?, Never>>.value(`postStateSubject`), Parameter<Bool>.value(`isBlackedOut`), Parameter<Bool>.value(`animated`)))
+		let perform = methodPerformValue(.m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animated(Parameter<UserThread>.value(`thread`), Parameter<CurrentValueSubject<PostState?, Never>>.value(`postStateSubject`), Parameter<Bool>.value(`isBlackedOut`), Parameter<Bool>.value(`animated`))) as? (UserThread, CurrentValueSubject<PostState?, Never>, Bool, Bool) -> Void
+		perform?(`thread`, `postStateSubject`, `isBlackedOut`, `animated`)
+    }
+
 
     fileprivate enum MethodType {
         case m_showUserDetails__username_username(Parameter<String>)
         case m_showThreads__courseID_courseIDtopics_topicstitle_titletype_typeisBlackedOut_isBlackedOutanimated_animated(Parameter<String>, Parameter<Topics>, Parameter<String>, Parameter<ThreadType>, Parameter<Bool>, Parameter<Bool>)
-        case m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animated(Parameter<UserThread>, Parameter<CurrentValueSubject<PostState?, Never>>, Parameter<Bool>, Parameter<Bool>)
+        case m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animatedresponseID_responseID(Parameter<UserThread>, Parameter<CurrentValueSubject<PostState?, Never>>, Parameter<Bool>, Parameter<Bool>, Parameter<String?>)
         case m_showDiscussionsSearch__courseID_courseIDisBlackedOut_isBlackedOut(Parameter<String>, Parameter<Bool>)
         case m_showComments__courseID_courseIDcommentID_commentIDparentComment_parentCommentthreadStateSubject_threadStateSubjectisBlackedOut_isBlackedOutanimated_animated(Parameter<String>, Parameter<String>, Parameter<Post>, Parameter<CurrentValueSubject<ThreadPostState?, Never>>, Parameter<Bool>, Parameter<Bool>)
         case m_createNewThread__courseID_courseIDselectedTopic_selectedTopiconPostCreated_onPostCreated(Parameter<String>, Parameter<String>, Parameter<() -> Void>)
@@ -4158,6 +4164,7 @@ open class DiscussionRouterMock: DiscussionRouter, Mock {
         case m_performNotificationRegistration
         case m_showNotificationsPrimerIfNeeded
         case m_dismiss__animated_animated(Parameter<Bool>)
+        case m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animated(Parameter<UserThread>, Parameter<CurrentValueSubject<PostState?, Never>>, Parameter<Bool>, Parameter<Bool>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
@@ -4176,12 +4183,13 @@ open class DiscussionRouterMock: DiscussionRouter, Mock {
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsAnimated, rhs: rhsAnimated, with: matcher), lhsAnimated, rhsAnimated, "animated"))
 				return Matcher.ComparisonResult(results)
 
-            case (.m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animated(let lhsThread, let lhsPoststatesubject, let lhsIsblackedout, let lhsAnimated), .m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animated(let rhsThread, let rhsPoststatesubject, let rhsIsblackedout, let rhsAnimated)):
+            case (.m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animatedresponseID_responseID(let lhsThread, let lhsPoststatesubject, let lhsIsblackedout, let lhsAnimated, let lhsResponseid), .m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animatedresponseID_responseID(let rhsThread, let rhsPoststatesubject, let rhsIsblackedout, let rhsAnimated, let rhsResponseid)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsThread, rhs: rhsThread, with: matcher), lhsThread, rhsThread, "thread"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPoststatesubject, rhs: rhsPoststatesubject, with: matcher), lhsPoststatesubject, rhsPoststatesubject, "postStateSubject"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsIsblackedout, rhs: rhsIsblackedout, with: matcher), lhsIsblackedout, rhsIsblackedout, "isBlackedOut"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsAnimated, rhs: rhsAnimated, with: matcher), lhsAnimated, rhsAnimated, "animated"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsResponseid, rhs: rhsResponseid, with: matcher), lhsResponseid, rhsResponseid, "responseID"))
 				return Matcher.ComparisonResult(results)
 
             case (.m_showDiscussionsSearch__courseID_courseIDisBlackedOut_isBlackedOut(let lhsCourseid, let lhsIsblackedout), .m_showDiscussionsSearch__courseID_courseIDisBlackedOut_isBlackedOut(let rhsCourseid, let rhsIsblackedout)):
@@ -4343,6 +4351,14 @@ open class DiscussionRouterMock: DiscussionRouter, Mock {
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsAnimated, rhs: rhsAnimated, with: matcher), lhsAnimated, rhsAnimated, "animated"))
 				return Matcher.ComparisonResult(results)
+
+            case (.m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animated(let lhsThread, let lhsPoststatesubject, let lhsIsblackedout, let lhsAnimated), .m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animated(let rhsThread, let rhsPoststatesubject, let rhsIsblackedout, let rhsAnimated)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsThread, rhs: rhsThread, with: matcher), lhsThread, rhsThread, "thread"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPoststatesubject, rhs: rhsPoststatesubject, with: matcher), lhsPoststatesubject, rhsPoststatesubject, "postStateSubject"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsIsblackedout, rhs: rhsIsblackedout, with: matcher), lhsIsblackedout, rhsIsblackedout, "isBlackedOut"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsAnimated, rhs: rhsAnimated, with: matcher), lhsAnimated, rhsAnimated, "animated"))
+				return Matcher.ComparisonResult(results)
             default: return .none
             }
         }
@@ -4351,7 +4367,7 @@ open class DiscussionRouterMock: DiscussionRouter, Mock {
             switch self {
             case let .m_showUserDetails__username_username(p0): return p0.intValue
             case let .m_showThreads__courseID_courseIDtopics_topicstitle_titletype_typeisBlackedOut_isBlackedOutanimated_animated(p0, p1, p2, p3, p4, p5): return p0.intValue + p1.intValue + p2.intValue + p3.intValue + p4.intValue + p5.intValue
-            case let .m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animated(p0, p1, p2, p3): return p0.intValue + p1.intValue + p2.intValue + p3.intValue
+            case let .m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animatedresponseID_responseID(p0, p1, p2, p3, p4): return p0.intValue + p1.intValue + p2.intValue + p3.intValue + p4.intValue
             case let .m_showDiscussionsSearch__courseID_courseIDisBlackedOut_isBlackedOut(p0, p1): return p0.intValue + p1.intValue
             case let .m_showComments__courseID_courseIDcommentID_commentIDparentComment_parentCommentthreadStateSubject_threadStateSubjectisBlackedOut_isBlackedOutanimated_animated(p0, p1, p2, p3, p4, p5): return p0.intValue + p1.intValue + p2.intValue + p3.intValue + p4.intValue + p5.intValue
             case let .m_createNewThread__courseID_courseIDselectedTopic_selectedTopiconPostCreated_onPostCreated(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
@@ -4381,13 +4397,14 @@ open class DiscussionRouterMock: DiscussionRouter, Mock {
             case .m_performNotificationRegistration: return 0
             case .m_showNotificationsPrimerIfNeeded: return 0
             case let .m_dismiss__animated_animated(p0): return p0.intValue
+            case let .m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animated(p0, p1, p2, p3): return p0.intValue + p1.intValue + p2.intValue + p3.intValue
             }
         }
         func assertionName() -> String {
             switch self {
             case .m_showUserDetails__username_username: return ".showUserDetails(username:)"
             case .m_showThreads__courseID_courseIDtopics_topicstitle_titletype_typeisBlackedOut_isBlackedOutanimated_animated: return ".showThreads(courseID:topics:title:type:isBlackedOut:animated:)"
-            case .m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animated: return ".showThread(thread:postStateSubject:isBlackedOut:animated:)"
+            case .m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animatedresponseID_responseID: return ".showThread(thread:postStateSubject:isBlackedOut:animated:responseID:)"
             case .m_showDiscussionsSearch__courseID_courseIDisBlackedOut_isBlackedOut: return ".showDiscussionsSearch(courseID:isBlackedOut:)"
             case .m_showComments__courseID_courseIDcommentID_commentIDparentComment_parentCommentthreadStateSubject_threadStateSubjectisBlackedOut_isBlackedOutanimated_animated: return ".showComments(courseID:commentID:parentComment:threadStateSubject:isBlackedOut:animated:)"
             case .m_createNewThread__courseID_courseIDselectedTopic_selectedTopiconPostCreated_onPostCreated: return ".createNewThread(courseID:selectedTopic:onPostCreated:)"
@@ -4417,6 +4434,7 @@ open class DiscussionRouterMock: DiscussionRouter, Mock {
             case .m_performNotificationRegistration: return ".performNotificationRegistration()"
             case .m_showNotificationsPrimerIfNeeded: return ".showNotificationsPrimerIfNeeded()"
             case .m_dismiss__animated_animated: return ".dismiss(animated:)"
+            case .m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animated: return ".showThread(thread:postStateSubject:isBlackedOut:animated:)"
             }
         }
     }
@@ -4437,7 +4455,7 @@ open class DiscussionRouterMock: DiscussionRouter, Mock {
 
         public static func showUserDetails(username: Parameter<String>) -> Verify { return Verify(method: .m_showUserDetails__username_username(`username`))}
         public static func showThreads(courseID: Parameter<String>, topics: Parameter<Topics>, title: Parameter<String>, type: Parameter<ThreadType>, isBlackedOut: Parameter<Bool>, animated: Parameter<Bool>) -> Verify { return Verify(method: .m_showThreads__courseID_courseIDtopics_topicstitle_titletype_typeisBlackedOut_isBlackedOutanimated_animated(`courseID`, `topics`, `title`, `type`, `isBlackedOut`, `animated`))}
-        public static func showThread(thread: Parameter<UserThread>, postStateSubject: Parameter<CurrentValueSubject<PostState?, Never>>, isBlackedOut: Parameter<Bool>, animated: Parameter<Bool>) -> Verify { return Verify(method: .m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animated(`thread`, `postStateSubject`, `isBlackedOut`, `animated`))}
+        public static func showThread(thread: Parameter<UserThread>, postStateSubject: Parameter<CurrentValueSubject<PostState?, Never>>, isBlackedOut: Parameter<Bool>, animated: Parameter<Bool>, responseID: Parameter<String?>) -> Verify { return Verify(method: .m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animatedresponseID_responseID(`thread`, `postStateSubject`, `isBlackedOut`, `animated`, `responseID`))}
         public static func showDiscussionsSearch(courseID: Parameter<String>, isBlackedOut: Parameter<Bool>) -> Verify { return Verify(method: .m_showDiscussionsSearch__courseID_courseIDisBlackedOut_isBlackedOut(`courseID`, `isBlackedOut`))}
         public static func showComments(courseID: Parameter<String>, commentID: Parameter<String>, parentComment: Parameter<Post>, threadStateSubject: Parameter<CurrentValueSubject<ThreadPostState?, Never>>, isBlackedOut: Parameter<Bool>, animated: Parameter<Bool>) -> Verify { return Verify(method: .m_showComments__courseID_courseIDcommentID_commentIDparentComment_parentCommentthreadStateSubject_threadStateSubjectisBlackedOut_isBlackedOutanimated_animated(`courseID`, `commentID`, `parentComment`, `threadStateSubject`, `isBlackedOut`, `animated`))}
         public static func createNewThread(courseID: Parameter<String>, selectedTopic: Parameter<String>, onPostCreated: Parameter<() -> Void>) -> Verify { return Verify(method: .m_createNewThread__courseID_courseIDselectedTopic_selectedTopiconPostCreated_onPostCreated(`courseID`, `selectedTopic`, `onPostCreated`))}
@@ -4475,6 +4493,7 @@ open class DiscussionRouterMock: DiscussionRouter, Mock {
         @MainActor
 		public static func showNotificationsPrimerIfNeeded() -> Verify { return Verify(method: .m_showNotificationsPrimerIfNeeded)}
         public static func dismiss(animated: Parameter<Bool>) -> Verify { return Verify(method: .m_dismiss__animated_animated(`animated`))}
+        public static func showThread(thread: Parameter<UserThread>, postStateSubject: Parameter<CurrentValueSubject<PostState?, Never>>, isBlackedOut: Parameter<Bool>, animated: Parameter<Bool>) -> Verify { return Verify(method: .m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animated(`thread`, `postStateSubject`, `isBlackedOut`, `animated`))}
     }
 
     public struct Perform {
@@ -4487,8 +4506,8 @@ open class DiscussionRouterMock: DiscussionRouter, Mock {
         public static func showThreads(courseID: Parameter<String>, topics: Parameter<Topics>, title: Parameter<String>, type: Parameter<ThreadType>, isBlackedOut: Parameter<Bool>, animated: Parameter<Bool>, perform: @escaping (String, Topics, String, ThreadType, Bool, Bool) -> Void) -> Perform {
             return Perform(method: .m_showThreads__courseID_courseIDtopics_topicstitle_titletype_typeisBlackedOut_isBlackedOutanimated_animated(`courseID`, `topics`, `title`, `type`, `isBlackedOut`, `animated`), performs: perform)
         }
-        public static func showThread(thread: Parameter<UserThread>, postStateSubject: Parameter<CurrentValueSubject<PostState?, Never>>, isBlackedOut: Parameter<Bool>, animated: Parameter<Bool>, perform: @escaping (UserThread, CurrentValueSubject<PostState?, Never>, Bool, Bool) -> Void) -> Perform {
-            return Perform(method: .m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animated(`thread`, `postStateSubject`, `isBlackedOut`, `animated`), performs: perform)
+        public static func showThread(thread: Parameter<UserThread>, postStateSubject: Parameter<CurrentValueSubject<PostState?, Never>>, isBlackedOut: Parameter<Bool>, animated: Parameter<Bool>, responseID: Parameter<String?>, perform: @escaping (UserThread, CurrentValueSubject<PostState?, Never>, Bool, Bool, String?) -> Void) -> Perform {
+            return Perform(method: .m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animatedresponseID_responseID(`thread`, `postStateSubject`, `isBlackedOut`, `animated`, `responseID`), performs: perform)
         }
         public static func showDiscussionsSearch(courseID: Parameter<String>, isBlackedOut: Parameter<Bool>, perform: @escaping (String, Bool) -> Void) -> Perform {
             return Perform(method: .m_showDiscussionsSearch__courseID_courseIDisBlackedOut_isBlackedOut(`courseID`, `isBlackedOut`), performs: perform)
@@ -4584,6 +4603,9 @@ open class DiscussionRouterMock: DiscussionRouter, Mock {
         }
         public static func dismiss(animated: Parameter<Bool>, perform: @escaping (Bool) -> Void) -> Perform {
             return Perform(method: .m_dismiss__animated_animated(`animated`), performs: perform)
+        }
+        public static func showThread(thread: Parameter<UserThread>, postStateSubject: Parameter<CurrentValueSubject<PostState?, Never>>, isBlackedOut: Parameter<Bool>, animated: Parameter<Bool>, perform: @escaping (UserThread, CurrentValueSubject<PostState?, Never>, Bool, Bool) -> Void) -> Perform {
+            return Perform(method: .m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animated(`thread`, `postStateSubject`, `isBlackedOut`, `animated`), performs: perform)
         }
     }
 

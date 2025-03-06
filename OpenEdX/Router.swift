@@ -692,9 +692,10 @@ public class Router: AuthorizationRouter,
         thread: UserThread,
         postStateSubject: CurrentValueSubject<PostState?, Never>,
         isBlackedOut: Bool,
-        animated: Bool
+        animated: Bool,
+        responseID: String? = nil
     ) {
-        let viewModel = Container.shared.resolve(ThreadViewModel.self, argument: postStateSubject)!
+        let viewModel = Container.shared.resolve(ThreadViewModel.self, arguments: postStateSubject, responseID)!
         viewModel.isBlackedOut = isBlackedOut
         let view = ThreadView(thread: thread, viewModel: viewModel)
         let controller = UIHostingController(rootView: view)

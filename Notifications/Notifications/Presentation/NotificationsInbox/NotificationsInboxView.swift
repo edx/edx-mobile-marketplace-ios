@@ -40,6 +40,7 @@ public struct NotificationsInboxView: View {
                 }
             }
             .onFirstAppear {
+                viewModel.trackNotificationInbox()
                 Task {
                     await viewModel.loadNotifications()
                     await viewModel.markNotificationsAsSeen()
@@ -198,10 +199,11 @@ public struct NotificationsInboxView: View {
 #Preview {
     NotificationsInboxView(
         viewModel: NotificationsInboxViewModel(
-            interactor: NotificationsInteractor.mock,
+            notificationsInteractor: NotificationsInteractor.mock,
             analytics: NotificationsAnalyticsMock(),
             router: NotificationsRouterMock(),
-            connectivity: Connectivity()
+            connectivity: Connectivity(),
+            deepLinkManager: NotificationsDeepLinkManagerMock()
         )
     )
 }

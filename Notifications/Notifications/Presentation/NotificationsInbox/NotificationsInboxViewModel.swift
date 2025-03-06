@@ -13,7 +13,7 @@ public class NotificationsInboxViewModel: ObservableObject {
     @Published private(set) var menus: [NotificationMenu] = NotificationMenu.allCases
     @Published private(set) var screenState: ScreenState = .idle
     @Published private(set) var isLoadingMore = false
-    @Published private(set) var groupedNotifications: [NotificationGroup: [Notification]] = [:]
+    @Published private(set) var groupedNotifications: [NotificationGroup: [SingleNotification]] = [:]
     @Published private(set) var showError: Bool = false
 
     private(set) var errorMessage: String? {
@@ -22,15 +22,15 @@ public class NotificationsInboxViewModel: ObservableObject {
         }
     }
     
-    private let interactor: NotificationsInteractorProtocol
     private let analytics: NotificationsAnalytics
     private let router: NotificationsRouter
     private let connectivity: ConnectivityProtocol
-    private let paginationManager: PaginationManager<Notification, Int>
-    
+    private let deepLinkManager: NotificationsDeepLinkManager
+    private let paginationManager: PaginationManager<SingleNotification, Int>
     private let calendar = Calendar.current
+    private var interactor: NotificationsInteractorProtocol
     private var cancellables = Set<AnyCancellable>()
-    private var flatNotifications: [Notification] = [] {
+    private var flatNotifications: [SingleNotification] = [] {
         didSet { groupItems() }
     }
     
@@ -44,18 +44,20 @@ public class NotificationsInboxViewModel: ObservableObject {
     }
     
     public init(
-        interactor: NotificationsInteractorProtocol,
+        notificationsInteractor: NotificationsInteractorProtocol,
         analytics: NotificationsAnalytics,
         router: NotificationsRouter,
-        connectivity: ConnectivityProtocol
+        connectivity: ConnectivityProtocol,
+        deepLinkManager: NotificationsDeepLinkManager
     ) {
-        self.interactor = interactor
+        self.interactor = notificationsInteractor
         self.analytics = analytics
         self.router = router
         self.connectivity = connectivity
+        self.deepLinkManager = deepLinkManager
         self.paginationManager = PaginationManager { pageKey in
             let currentPage = pageKey ?? 1
-            let data = try await interactor.getAllNotifications(page: currentPage)
+            let data = try await notificationsInteractor.getAllNotifications(page: currentPage)
             
             let totalPages = data.numPages ?? 1
             let nextPage = currentPage + 1
@@ -121,7 +123,7 @@ public class NotificationsInboxViewModel: ObservableObject {
     }
     
     @MainActor
-    func fetchMoreNotificationsIfNeeded(for item: Notification) {
+    func fetchMoreNotificationsIfNeeded(for item: SingleNotification) {
         guard let index = flatNotifications.firstIndex(of: item) else { return }
         
         if index == flatNotifications.count - 3 {
@@ -185,6 +187,20 @@ public class NotificationsInboxViewModel: ObservableObject {
         }
         return dateString
     }
+
+    public func showDiscussions(_ notification: SingleNotification) async {
+        await deepLinkManager.showDiscussions(notification)
+    }
+    
+    func trackNotificationInbox() {
+        analytics.notificationInbox()
+    }
+    
+    func trackNotificationTapped(notificationType: String) {
+        analytics.notificationTapped(
+            notificationType: notificationType
+        )
+    }
     
     private func groupItems() {
         let now = Date()
@@ -203,18 +219,18 @@ public class NotificationsInboxViewModel: ObservableObject {
     }
     
     // Update a specific item in the array
-    func updateNotification(groupKey: NotificationGroup, item: Notification) {
+    func updateNotification(groupKey: NotificationGroup, item: SingleNotification) {
         updateGroupedNotification(groupKey: groupKey, item: item)
         updateFlatNotification(item: item)
     }
 
-    private func updateGroupedNotification(groupKey: NotificationGroup, item: Notification) {
+    private func updateGroupedNotification(groupKey: NotificationGroup, item: SingleNotification) {
         if let index = groupedNotifications[groupKey]?.firstIndex(where: { $0.id == item.id }) {
             groupedNotifications[groupKey]?[index] = item
         }
     }
 
-    private func updateFlatNotification(item: Notification) {
+    private func updateFlatNotification(item: SingleNotification) {
         if let index = flatNotifications.firstIndex(where: { $0.id == item.id }) {
             flatNotifications[index] = item
         }

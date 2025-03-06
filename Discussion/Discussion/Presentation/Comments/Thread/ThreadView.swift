@@ -105,6 +105,7 @@ public struct ThreadView: View {
                                             CommentCell(
                                                 comment: comment,
                                                 addCommentAvailable: true,
+                                                shouldHighlight: viewModel.shouldHighlightResponse(index),
                                                 onAvatarTap: { username in
                                                     viewModel.router.showUserDetails(username: username)
                                                 },
@@ -304,6 +305,7 @@ struct CommentsView_Previews: PreviewProvider {
                                  config: ConfigMock(),
                                  coreStorage: CoreStorageMock(),
                                  postStateSubject: .init(nil),
+                                 responseID: nil,
                                  analytics: DiscussionAnalyticsMock())
         
         ThreadView(thread: userThread, viewModel: vm)

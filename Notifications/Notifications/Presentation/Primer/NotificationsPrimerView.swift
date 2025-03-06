@@ -138,6 +138,7 @@ public struct NotificationsPrimerView: View {
     }
 }
 
+#if DEBUG
 #Preview {
     NotificationsPrimerView(
         viewModel: NotificationsPrimerViewModel(
@@ -146,3 +147,4 @@ public struct NotificationsPrimerView: View {
         )
     )
 }
+#endif

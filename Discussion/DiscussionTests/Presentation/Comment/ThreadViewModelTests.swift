@@ -222,6 +222,7 @@ final class ThreadViewModelTests: XCTestCase {
                                         config: config,
                                         coreStorage: coreStorage,
                                         postStateSubject: .init(.readed(id: "1")),
+                                        responseID: "1",
                                         analytics: DiscussionAnalyticsMock())
                 
         Given(interactor, .readBody(threadID: .any, willProduce: {_ in}))
@@ -254,6 +255,7 @@ final class ThreadViewModelTests: XCTestCase {
                                         config: config,
                                         coreStorage: coreStorage,
                                         postStateSubject: .init(.readed(id: "1")),
+                                        responseID: "1",
                                         analytics: DiscussionAnalyticsMock())
                 
         Given(interactor, .readBody(threadID: .any, willProduce: {_ in}))
@@ -286,6 +288,7 @@ final class ThreadViewModelTests: XCTestCase {
                                         config: config,
                                         coreStorage: coreStorage,
                                         postStateSubject: .init(.readed(id: "1")),
+                                        responseID: "1",
                                         analytics: DiscussionAnalyticsMock())
         
         let noInternetError = AFError.sessionInvalidated(error: URLError(.notConnectedToInternet))
@@ -320,6 +323,7 @@ final class ThreadViewModelTests: XCTestCase {
                                         config: config,
                                         coreStorage: coreStorage,
                                         postStateSubject: .init(.readed(id: "1")),
+                                        responseID: "1",
                                         analytics: DiscussionAnalyticsMock())
                         
         Given(interactor, .readBody(threadID: .any, willThrow: NSError()))
@@ -350,6 +354,7 @@ final class ThreadViewModelTests: XCTestCase {
                                         config: config,
                                         coreStorage: coreStorage,
                                         postStateSubject: .init(.readed(id: "1")),
+                                        responseID: "1",
                                         analytics: DiscussionAnalyticsMock())
         
         let post = Post(isAuthor: true,
@@ -394,6 +399,7 @@ final class ThreadViewModelTests: XCTestCase {
                                         config: config,
                                         coreStorage: coreStorage,
                                         postStateSubject: .init(.readed(id: "1")),
+                                        responseID: "1",
                                         analytics: DiscussionAnalyticsMock())
         
         let noInternetError = AFError.sessionInvalidated(error: URLError(.notConnectedToInternet))
@@ -421,6 +427,7 @@ final class ThreadViewModelTests: XCTestCase {
                                         config: config,
                                         coreStorage: coreStorage,
                                         postStateSubject: .init(.readed(id: "1")),
+                                        responseID: "1",
                                         analytics: DiscussionAnalyticsMock())
                         
         Given(interactor, .addCommentTo(threadID: .any, rawBody: .any, parentID: .any, willThrow: NSError()) )
@@ -447,6 +454,7 @@ final class ThreadViewModelTests: XCTestCase {
                                         config: config,
                                         coreStorage: coreStorage,
                                         postStateSubject: .init(.readed(id: "1")),
+                                        responseID: "1",
                                         analytics: DiscussionAnalyticsMock())
         
         viewModel.totalPages = 2

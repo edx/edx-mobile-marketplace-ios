@@ -19,6 +19,7 @@ public struct CommentCell: View {
     private var onReportTap: (() -> Void)
     private var onCommentsTap: (() -> Void)
     private var onFetchMore: (() -> Void)
+    private var shouldHighlight: Bool
     private var leftLineEnabled: Bool
     
     @State private var isImageVisible = true
@@ -26,6 +27,7 @@ public struct CommentCell: View {
     public init(
         comment: Post,
         addCommentAvailable: Bool,
+        shouldHighlight: Bool = false,
         leftLineEnabled: Bool = false,
         onAvatarTap: @escaping (String) -> Void,
         onLikeTap: @escaping () -> Void,
@@ -35,6 +37,7 @@ public struct CommentCell: View {
     ) {
         self.comment = comment
         self.addCommentAvailable = addCommentAvailable
+        self.shouldHighlight = shouldHighlight
         self.leftLineEnabled = leftLineEnabled
         self.onAvatarTap = onAvatarTap
         self.onLikeTap = onLikeTap
@@ -149,7 +152,9 @@ public struct CommentCell: View {
                 .font(Theme.Fonts.labelMedium)
             
         }.cardStyle(top: leftLineEnabled ? 0 : 8, leftLineEnabled: leftLineEnabled,
-                    bgColor: Theme.Colors.commentCellBackground)
+                    bgColor: shouldHighlight
+                    ? Theme.Colors.textInputUnfocusedBackground
+                    : Theme.Colors.commentCellBackground)
             .onTapGesture {
                 if addCommentAvailable {
                     onCommentsTap()
