@@ -253,7 +253,7 @@ public class ThreadViewModel: BaseResponsesViewModel, ObservableObject {
         } else {
             do {
                 let response = try await interactor.getResponse(responseID: responseID)
-                comments.insert(response.post, at: 0)
+                comments.insert(response.toPost(username: coreStorage.user?.username), at: 0)
             } catch {
                 debugLog(error.localizedDescription)
                 return

@@ -528,7 +528,7 @@ public class DeepLinkManager: NotificationsDeepLinkManager {
                 router.showComment(
                     courseID: courseDetails.courseID,
                     comment: comment,
-                    parentComment: comment.post,
+                    parentComment: comment.toPost(username: storage.user?.username),
                     isBlackedOut: discussionInfo.isBlackedOut()
                 )
             }
