@@ -63,7 +63,8 @@ final class ResponsesViewModelTests: XCTestCase {
                     abuseFlagged: false)
     ]
     
-    let post = Post(authorName: "1",
+    let post = Post(isAuthor: true,
+                    authorName: "1",
                     authorAvatar: "1",
                     postDate: Date(),
                     postTitle: "1",
@@ -75,7 +76,8 @@ final class ResponsesViewModelTests: XCTestCase {
                     votesCount: 1,
                     responsesCount: 1,
                     comments: [
-                        Post(authorName: "1",
+                        Post(isAuthor: false,
+                             authorName: "1",
                              authorAvatar: "1",
                              postDate: Date(),
                              postTitle: "1",
@@ -104,13 +106,14 @@ final class ResponsesViewModelTests: XCTestCase {
         let interactor = DiscussionInteractorProtocolMock()
         let router = DiscussionRouterMock()
         let config = ConfigMock()
+        let coreStorage = CoreStorageMock()
         var result = false
 
         let viewModel = ResponsesViewModel(courseID: "courseID",
                                            interactor: interactor,
                                            router: router,
                                            config: config,
-                                           storage: CoreStorageMock(),
+                                           coreStorage: coreStorage,
                                            threadStateSubject: .init(.postAdded(id: "1")),
                                            analytics: DiscussionAnalyticsMock())
         
@@ -134,13 +137,14 @@ final class ResponsesViewModelTests: XCTestCase {
         let interactor = DiscussionInteractorProtocolMock()
         let router = DiscussionRouterMock()
         let config = ConfigMock()
+        let coreStorage = CoreStorageMock()
         var result = false
 
         let viewModel = ResponsesViewModel(courseID: "courseID",
                                            interactor: interactor,
                                            router: router,
                                            config: config,
-                                           storage: CoreStorageMock(),
+                                           coreStorage: coreStorage,
                                            threadStateSubject: .init(.postAdded(id: "1")),
                                            analytics: DiscussionAnalyticsMock())
         
@@ -163,13 +167,14 @@ final class ResponsesViewModelTests: XCTestCase {
         let interactor = DiscussionInteractorProtocolMock()
         let router = DiscussionRouterMock()
         let config = ConfigMock()
+        let coreStorage = CoreStorageMock()
         var result = false
 
         let viewModel = ResponsesViewModel(courseID: "courseID",
                                            interactor: interactor,
                                            router: router,
                                            config: config,
-                                           storage: CoreStorageMock(),
+                                           coreStorage: coreStorage,
                                            threadStateSubject: .init(.postAdded(id: "1")),
                                            analytics: DiscussionAnalyticsMock())
         
@@ -190,12 +195,13 @@ final class ResponsesViewModelTests: XCTestCase {
         let interactor = DiscussionInteractorProtocolMock()
         let router = DiscussionRouterMock()
         let config = ConfigMock()
+        let coreStorage = CoreStorageMock()
 
         let viewModel = ResponsesViewModel(courseID: "courseID",
                                            interactor: interactor,
                                            router: router,
                                            config: config,
-                                           storage: CoreStorageMock(),
+                                           coreStorage: coreStorage,
                                            threadStateSubject: .init(.postAdded(id: "1")),
                                            analytics: DiscussionAnalyticsMock())
         
@@ -214,12 +220,13 @@ final class ResponsesViewModelTests: XCTestCase {
         let interactor = DiscussionInteractorProtocolMock()
         let router = DiscussionRouterMock()
         let config = ConfigMock()
+        let coreStorage = CoreStorageMock()
 
         let viewModel = ResponsesViewModel(courseID: "courseID",
                                            interactor: interactor,
                                            router: router,
                                            config: config,
-                                           storage: CoreStorageMock(),
+                                           coreStorage: coreStorage,
                                            threadStateSubject: .init(.postAdded(id: "1")),
                                            analytics: DiscussionAnalyticsMock())
         
@@ -240,12 +247,13 @@ final class ResponsesViewModelTests: XCTestCase {
         let interactor = DiscussionInteractorProtocolMock()
         let router = DiscussionRouterMock()
         let config = ConfigMock()
+        let coreStorage = CoreStorageMock()
 
         let viewModel = ResponsesViewModel(courseID: "courseID",
                                            interactor: interactor,
                                            router: router,
                                            config: config,
-                                           storage: CoreStorageMock(),
+                                           coreStorage: coreStorage,
                                            threadStateSubject: .init(.postAdded(id: "1")),
                                            analytics: DiscussionAnalyticsMock())
         
@@ -264,12 +272,13 @@ final class ResponsesViewModelTests: XCTestCase {
         let interactor = DiscussionInteractorProtocolMock()
         let router = DiscussionRouterMock()
         let config = ConfigMock()
+        let coreStorage = CoreStorageMock()
 
         let viewModel = ResponsesViewModel(courseID: "courseID",
                                            interactor: interactor,
                                            router: router,
                                            config: config,
-                                           storage: CoreStorageMock(),
+                                           coreStorage: coreStorage,
                                            threadStateSubject: .init(.postAdded(id: "1")),
                                            analytics: DiscussionAnalyticsMock())
         

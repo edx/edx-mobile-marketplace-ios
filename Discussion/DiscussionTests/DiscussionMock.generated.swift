@@ -569,10 +569,10 @@ open class BaseRouterMock: BaseRouter, Mock {
 		perform?()
     }
 
-    open func dismiss(animated: Bool) {
-        addInvocation(.m_dismiss__animated_animated(Parameter<Bool>.value(`animated`)))
-		let perform = methodPerformValue(.m_dismiss__animated_animated(Parameter<Bool>.value(`animated`))) as? (Bool) -> Void
-		perform?(`animated`)
+    open func dismiss(animated: Bool, completion: (() -> Void)?) {
+        addInvocation(.m_dismiss__animated_animatedcompletion_completion(Parameter<Bool>.value(`animated`), Parameter<(() -> Void)?>.value(`completion`)))
+		let perform = methodPerformValue(.m_dismiss__animated_animatedcompletion_completion(Parameter<Bool>.value(`animated`), Parameter<(() -> Void)?>.value(`completion`))) as? (Bool, (() -> Void)?) -> Void
+		perform?(`animated`, `completion`)
     }
 
     open func removeLastView(controllers: Int) {
@@ -708,12 +708,25 @@ open class BaseRouterMock: BaseRouter, Mock {
 		perform?()
     }
 
+    @MainActor
+	open func showNotificationsPrimerIfNeeded() {
+        addInvocation(.m_showNotificationsPrimerIfNeeded)
+		let perform = methodPerformValue(.m_showNotificationsPrimerIfNeeded) as? () -> Void
+		perform?()
+    }
+
+    open func dismiss(animated: Bool = true) {
+        addInvocation(.m_dismiss__animated_animated(Parameter<Bool>.value(`animated`)))
+		let perform = methodPerformValue(.m_dismiss__animated_animated(Parameter<Bool>.value(`animated`))) as? (Bool) -> Void
+		perform?(`animated`)
+    }
+
 
     fileprivate enum MethodType {
         case m_backToRoot__animated_animated(Parameter<Bool>)
         case m_back__animated_animated(Parameter<Bool>)
         case m_backWithFade
-        case m_dismiss__animated_animated(Parameter<Bool>)
+        case m_dismiss__animated_animatedcompletion_completion(Parameter<Bool>, Parameter<(() -> Void)?>)
         case m_removeLastView__controllers_controllers(Parameter<Int>)
         case m_showMainOrWhatsNewScreen__sourceScreen_sourceScreenpostLoginData_postLoginData(Parameter<LogistrationSourceScreen>, Parameter<PostLoginData?>)
         case m_showStartupScreen
@@ -735,6 +748,8 @@ open class BaseRouterMock: BaseRouter, Mock {
         case m_showRestoreProgressView
         case m_hideRestoreProgressView
         case m_performNotificationRegistration
+        case m_showNotificationsPrimerIfNeeded
+        case m_dismiss__animated_animated(Parameter<Bool>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
@@ -750,9 +765,10 @@ open class BaseRouterMock: BaseRouter, Mock {
 
             case (.m_backWithFade, .m_backWithFade): return .match
 
-            case (.m_dismiss__animated_animated(let lhsAnimated), .m_dismiss__animated_animated(let rhsAnimated)):
+            case (.m_dismiss__animated_animatedcompletion_completion(let lhsAnimated, let lhsCompletion), .m_dismiss__animated_animatedcompletion_completion(let rhsAnimated, let rhsCompletion)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsAnimated, rhs: rhsAnimated, with: matcher), lhsAnimated, rhsAnimated, "animated"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCompletion, rhs: rhsCompletion, with: matcher), lhsCompletion, rhsCompletion, "completion"))
 				return Matcher.ComparisonResult(results)
 
             case (.m_removeLastView__controllers_controllers(let lhsControllers), .m_removeLastView__controllers_controllers(let rhsControllers)):
@@ -871,6 +887,13 @@ open class BaseRouterMock: BaseRouter, Mock {
             case (.m_hideRestoreProgressView, .m_hideRestoreProgressView): return .match
 
             case (.m_performNotificationRegistration, .m_performNotificationRegistration): return .match
+
+            case (.m_showNotificationsPrimerIfNeeded, .m_showNotificationsPrimerIfNeeded): return .match
+
+            case (.m_dismiss__animated_animated(let lhsAnimated), .m_dismiss__animated_animated(let rhsAnimated)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsAnimated, rhs: rhsAnimated, with: matcher), lhsAnimated, rhsAnimated, "animated"))
+				return Matcher.ComparisonResult(results)
             default: return .none
             }
         }
@@ -880,7 +903,7 @@ open class BaseRouterMock: BaseRouter, Mock {
             case let .m_backToRoot__animated_animated(p0): return p0.intValue
             case let .m_back__animated_animated(p0): return p0.intValue
             case .m_backWithFade: return 0
-            case let .m_dismiss__animated_animated(p0): return p0.intValue
+            case let .m_dismiss__animated_animatedcompletion_completion(p0, p1): return p0.intValue + p1.intValue
             case let .m_removeLastView__controllers_controllers(p0): return p0.intValue
             case let .m_showMainOrWhatsNewScreen__sourceScreen_sourceScreenpostLoginData_postLoginData(p0, p1): return p0.intValue + p1.intValue
             case .m_showStartupScreen: return 0
@@ -902,6 +925,8 @@ open class BaseRouterMock: BaseRouter, Mock {
             case .m_showRestoreProgressView: return 0
             case .m_hideRestoreProgressView: return 0
             case .m_performNotificationRegistration: return 0
+            case .m_showNotificationsPrimerIfNeeded: return 0
+            case let .m_dismiss__animated_animated(p0): return p0.intValue
             }
         }
         func assertionName() -> String {
@@ -909,7 +934,7 @@ open class BaseRouterMock: BaseRouter, Mock {
             case .m_backToRoot__animated_animated: return ".backToRoot(animated:)"
             case .m_back__animated_animated: return ".back(animated:)"
             case .m_backWithFade: return ".backWithFade()"
-            case .m_dismiss__animated_animated: return ".dismiss(animated:)"
+            case .m_dismiss__animated_animatedcompletion_completion: return ".dismiss(animated:completion:)"
             case .m_removeLastView__controllers_controllers: return ".removeLastView(controllers:)"
             case .m_showMainOrWhatsNewScreen__sourceScreen_sourceScreenpostLoginData_postLoginData: return ".showMainOrWhatsNewScreen(sourceScreen:postLoginData:)"
             case .m_showStartupScreen: return ".showStartupScreen()"
@@ -931,6 +956,8 @@ open class BaseRouterMock: BaseRouter, Mock {
             case .m_showRestoreProgressView: return ".showRestoreProgressView()"
             case .m_hideRestoreProgressView: return ".hideRestoreProgressView()"
             case .m_performNotificationRegistration: return ".performNotificationRegistration()"
+            case .m_showNotificationsPrimerIfNeeded: return ".showNotificationsPrimerIfNeeded()"
+            case .m_dismiss__animated_animated: return ".dismiss(animated:)"
             }
         }
     }
@@ -952,7 +979,7 @@ open class BaseRouterMock: BaseRouter, Mock {
         public static func backToRoot(animated: Parameter<Bool>) -> Verify { return Verify(method: .m_backToRoot__animated_animated(`animated`))}
         public static func back(animated: Parameter<Bool>) -> Verify { return Verify(method: .m_back__animated_animated(`animated`))}
         public static func backWithFade() -> Verify { return Verify(method: .m_backWithFade)}
-        public static func dismiss(animated: Parameter<Bool>) -> Verify { return Verify(method: .m_dismiss__animated_animated(`animated`))}
+        public static func dismiss(animated: Parameter<Bool>, completion: Parameter<(() -> Void)?>) -> Verify { return Verify(method: .m_dismiss__animated_animatedcompletion_completion(`animated`, `completion`))}
         public static func removeLastView(controllers: Parameter<Int>) -> Verify { return Verify(method: .m_removeLastView__controllers_controllers(`controllers`))}
         public static func showMainOrWhatsNewScreen(sourceScreen: Parameter<LogistrationSourceScreen>, postLoginData: Parameter<PostLoginData?>) -> Verify { return Verify(method: .m_showMainOrWhatsNewScreen__sourceScreen_sourceScreenpostLoginData_postLoginData(`sourceScreen`, `postLoginData`))}
         public static func showStartupScreen() -> Verify { return Verify(method: .m_showStartupScreen)}
@@ -981,6 +1008,9 @@ open class BaseRouterMock: BaseRouter, Mock {
 		public static func hideRestoreProgressView() -> Verify { return Verify(method: .m_hideRestoreProgressView)}
         @MainActor
 		public static func performNotificationRegistration() -> Verify { return Verify(method: .m_performNotificationRegistration)}
+        @MainActor
+		public static func showNotificationsPrimerIfNeeded() -> Verify { return Verify(method: .m_showNotificationsPrimerIfNeeded)}
+        public static func dismiss(animated: Parameter<Bool>) -> Verify { return Verify(method: .m_dismiss__animated_animated(`animated`))}
     }
 
     public struct Perform {
@@ -996,8 +1026,8 @@ open class BaseRouterMock: BaseRouter, Mock {
         public static func backWithFade(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_backWithFade, performs: perform)
         }
-        public static func dismiss(animated: Parameter<Bool>, perform: @escaping (Bool) -> Void) -> Perform {
-            return Perform(method: .m_dismiss__animated_animated(`animated`), performs: perform)
+        public static func dismiss(animated: Parameter<Bool>, completion: Parameter<(() -> Void)?>, perform: @escaping (Bool, (() -> Void)?) -> Void) -> Perform {
+            return Perform(method: .m_dismiss__animated_animatedcompletion_completion(`animated`, `completion`), performs: perform)
         }
         public static func removeLastView(controllers: Parameter<Int>, perform: @escaping (Int) -> Void) -> Perform {
             return Perform(method: .m_removeLastView__controllers_controllers(`controllers`), performs: perform)
@@ -1068,6 +1098,13 @@ open class BaseRouterMock: BaseRouter, Mock {
         @MainActor
 		public static func performNotificationRegistration(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_performNotificationRegistration, performs: perform)
+        }
+        @MainActor
+		public static func showNotificationsPrimerIfNeeded(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_showNotificationsPrimerIfNeeded, performs: perform)
+        }
+        public static func dismiss(animated: Parameter<Bool>, perform: @escaping (Bool) -> Void) -> Perform {
+            return Perform(method: .m_dismiss__animated_animated(`animated`), performs: perform)
         }
     }
 
@@ -5863,10 +5900,10 @@ open class DiscussionRouterMock: DiscussionRouter, Mock {
 		perform?(`courseID`, `topics`, `title`, `type`, `isBlackedOut`, `animated`)
     }
 
-    open func showThread(thread: UserThread, postStateSubject: CurrentValueSubject<PostState?, Never>, isBlackedOut: Bool, animated: Bool) {
-        addInvocation(.m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animated(Parameter<UserThread>.value(`thread`), Parameter<CurrentValueSubject<PostState?, Never>>.value(`postStateSubject`), Parameter<Bool>.value(`isBlackedOut`), Parameter<Bool>.value(`animated`)))
-		let perform = methodPerformValue(.m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animated(Parameter<UserThread>.value(`thread`), Parameter<CurrentValueSubject<PostState?, Never>>.value(`postStateSubject`), Parameter<Bool>.value(`isBlackedOut`), Parameter<Bool>.value(`animated`))) as? (UserThread, CurrentValueSubject<PostState?, Never>, Bool, Bool) -> Void
-		perform?(`thread`, `postStateSubject`, `isBlackedOut`, `animated`)
+    open func showThread(thread: UserThread, postStateSubject: CurrentValueSubject<PostState?, Never>, isBlackedOut: Bool, animated: Bool, responseID: String?) {
+        addInvocation(.m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animatedresponseID_responseID(Parameter<UserThread>.value(`thread`), Parameter<CurrentValueSubject<PostState?, Never>>.value(`postStateSubject`), Parameter<Bool>.value(`isBlackedOut`), Parameter<Bool>.value(`animated`), Parameter<String?>.value(`responseID`)))
+		let perform = methodPerformValue(.m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animatedresponseID_responseID(Parameter<UserThread>.value(`thread`), Parameter<CurrentValueSubject<PostState?, Never>>.value(`postStateSubject`), Parameter<Bool>.value(`isBlackedOut`), Parameter<Bool>.value(`animated`), Parameter<String?>.value(`responseID`))) as? (UserThread, CurrentValueSubject<PostState?, Never>, Bool, Bool, String?) -> Void
+		perform?(`thread`, `postStateSubject`, `isBlackedOut`, `animated`, `responseID`)
     }
 
     open func showDiscussionsSearch(courseID: String, isBlackedOut: Bool) {
@@ -5905,10 +5942,10 @@ open class DiscussionRouterMock: DiscussionRouter, Mock {
 		perform?()
     }
 
-    open func dismiss(animated: Bool) {
-        addInvocation(.m_dismiss__animated_animated(Parameter<Bool>.value(`animated`)))
-		let perform = methodPerformValue(.m_dismiss__animated_animated(Parameter<Bool>.value(`animated`))) as? (Bool) -> Void
-		perform?(`animated`)
+    open func dismiss(animated: Bool, completion: (() -> Void)?) {
+        addInvocation(.m_dismiss__animated_animatedcompletion_completion(Parameter<Bool>.value(`animated`), Parameter<(() -> Void)?>.value(`completion`)))
+		let perform = methodPerformValue(.m_dismiss__animated_animatedcompletion_completion(Parameter<Bool>.value(`animated`), Parameter<(() -> Void)?>.value(`completion`))) as? (Bool, (() -> Void)?) -> Void
+		perform?(`animated`, `completion`)
     }
 
     open func removeLastView(controllers: Int) {
@@ -6044,18 +6081,37 @@ open class DiscussionRouterMock: DiscussionRouter, Mock {
 		perform?()
     }
 
+    @MainActor
+	open func showNotificationsPrimerIfNeeded() {
+        addInvocation(.m_showNotificationsPrimerIfNeeded)
+		let perform = methodPerformValue(.m_showNotificationsPrimerIfNeeded) as? () -> Void
+		perform?()
+    }
+
+    open func dismiss(animated: Bool = true) {
+        addInvocation(.m_dismiss__animated_animated(Parameter<Bool>.value(`animated`)))
+		let perform = methodPerformValue(.m_dismiss__animated_animated(Parameter<Bool>.value(`animated`))) as? (Bool) -> Void
+		perform?(`animated`)
+    }
+
+    open func showThread(thread: UserThread, postStateSubject: CurrentValueSubject<PostState?, Never>, isBlackedOut: Bool, animated: Bool) {
+        addInvocation(.m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animated(Parameter<UserThread>.value(`thread`), Parameter<CurrentValueSubject<PostState?, Never>>.value(`postStateSubject`), Parameter<Bool>.value(`isBlackedOut`), Parameter<Bool>.value(`animated`)))
+		let perform = methodPerformValue(.m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animated(Parameter<UserThread>.value(`thread`), Parameter<CurrentValueSubject<PostState?, Never>>.value(`postStateSubject`), Parameter<Bool>.value(`isBlackedOut`), Parameter<Bool>.value(`animated`))) as? (UserThread, CurrentValueSubject<PostState?, Never>, Bool, Bool) -> Void
+		perform?(`thread`, `postStateSubject`, `isBlackedOut`, `animated`)
+    }
+
 
     fileprivate enum MethodType {
         case m_showUserDetails__username_username(Parameter<String>)
         case m_showThreads__courseID_courseIDtopics_topicstitle_titletype_typeisBlackedOut_isBlackedOutanimated_animated(Parameter<String>, Parameter<Topics>, Parameter<String>, Parameter<ThreadType>, Parameter<Bool>, Parameter<Bool>)
-        case m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animated(Parameter<UserThread>, Parameter<CurrentValueSubject<PostState?, Never>>, Parameter<Bool>, Parameter<Bool>)
+        case m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animatedresponseID_responseID(Parameter<UserThread>, Parameter<CurrentValueSubject<PostState?, Never>>, Parameter<Bool>, Parameter<Bool>, Parameter<String?>)
         case m_showDiscussionsSearch__courseID_courseIDisBlackedOut_isBlackedOut(Parameter<String>, Parameter<Bool>)
         case m_showComments__courseID_courseIDcommentID_commentIDparentComment_parentCommentthreadStateSubject_threadStateSubjectisBlackedOut_isBlackedOutanimated_animated(Parameter<String>, Parameter<String>, Parameter<Post>, Parameter<CurrentValueSubject<ThreadPostState?, Never>>, Parameter<Bool>, Parameter<Bool>)
         case m_createNewThread__courseID_courseIDselectedTopic_selectedTopiconPostCreated_onPostCreated(Parameter<String>, Parameter<String>, Parameter<() -> Void>)
         case m_backToRoot__animated_animated(Parameter<Bool>)
         case m_back__animated_animated(Parameter<Bool>)
         case m_backWithFade
-        case m_dismiss__animated_animated(Parameter<Bool>)
+        case m_dismiss__animated_animatedcompletion_completion(Parameter<Bool>, Parameter<(() -> Void)?>)
         case m_removeLastView__controllers_controllers(Parameter<Int>)
         case m_showMainOrWhatsNewScreen__sourceScreen_sourceScreenpostLoginData_postLoginData(Parameter<LogistrationSourceScreen>, Parameter<PostLoginData?>)
         case m_showStartupScreen
@@ -6077,6 +6133,9 @@ open class DiscussionRouterMock: DiscussionRouter, Mock {
         case m_showRestoreProgressView
         case m_hideRestoreProgressView
         case m_performNotificationRegistration
+        case m_showNotificationsPrimerIfNeeded
+        case m_dismiss__animated_animated(Parameter<Bool>)
+        case m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animated(Parameter<UserThread>, Parameter<CurrentValueSubject<PostState?, Never>>, Parameter<Bool>, Parameter<Bool>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
@@ -6095,12 +6154,13 @@ open class DiscussionRouterMock: DiscussionRouter, Mock {
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsAnimated, rhs: rhsAnimated, with: matcher), lhsAnimated, rhsAnimated, "animated"))
 				return Matcher.ComparisonResult(results)
 
-            case (.m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animated(let lhsThread, let lhsPoststatesubject, let lhsIsblackedout, let lhsAnimated), .m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animated(let rhsThread, let rhsPoststatesubject, let rhsIsblackedout, let rhsAnimated)):
+            case (.m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animatedresponseID_responseID(let lhsThread, let lhsPoststatesubject, let lhsIsblackedout, let lhsAnimated, let lhsResponseid), .m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animatedresponseID_responseID(let rhsThread, let rhsPoststatesubject, let rhsIsblackedout, let rhsAnimated, let rhsResponseid)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsThread, rhs: rhsThread, with: matcher), lhsThread, rhsThread, "thread"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPoststatesubject, rhs: rhsPoststatesubject, with: matcher), lhsPoststatesubject, rhsPoststatesubject, "postStateSubject"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsIsblackedout, rhs: rhsIsblackedout, with: matcher), lhsIsblackedout, rhsIsblackedout, "isBlackedOut"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsAnimated, rhs: rhsAnimated, with: matcher), lhsAnimated, rhsAnimated, "animated"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsResponseid, rhs: rhsResponseid, with: matcher), lhsResponseid, rhsResponseid, "responseID"))
 				return Matcher.ComparisonResult(results)
 
             case (.m_showDiscussionsSearch__courseID_courseIDisBlackedOut_isBlackedOut(let lhsCourseid, let lhsIsblackedout), .m_showDiscussionsSearch__courseID_courseIDisBlackedOut_isBlackedOut(let rhsCourseid, let rhsIsblackedout)):
@@ -6138,9 +6198,10 @@ open class DiscussionRouterMock: DiscussionRouter, Mock {
 
             case (.m_backWithFade, .m_backWithFade): return .match
 
-            case (.m_dismiss__animated_animated(let lhsAnimated), .m_dismiss__animated_animated(let rhsAnimated)):
+            case (.m_dismiss__animated_animatedcompletion_completion(let lhsAnimated, let lhsCompletion), .m_dismiss__animated_animatedcompletion_completion(let rhsAnimated, let rhsCompletion)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsAnimated, rhs: rhsAnimated, with: matcher), lhsAnimated, rhsAnimated, "animated"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCompletion, rhs: rhsCompletion, with: matcher), lhsCompletion, rhsCompletion, "completion"))
 				return Matcher.ComparisonResult(results)
 
             case (.m_removeLastView__controllers_controllers(let lhsControllers), .m_removeLastView__controllers_controllers(let rhsControllers)):
@@ -6259,6 +6320,21 @@ open class DiscussionRouterMock: DiscussionRouter, Mock {
             case (.m_hideRestoreProgressView, .m_hideRestoreProgressView): return .match
 
             case (.m_performNotificationRegistration, .m_performNotificationRegistration): return .match
+
+            case (.m_showNotificationsPrimerIfNeeded, .m_showNotificationsPrimerIfNeeded): return .match
+
+            case (.m_dismiss__animated_animated(let lhsAnimated), .m_dismiss__animated_animated(let rhsAnimated)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsAnimated, rhs: rhsAnimated, with: matcher), lhsAnimated, rhsAnimated, "animated"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animated(let lhsThread, let lhsPoststatesubject, let lhsIsblackedout, let lhsAnimated), .m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animated(let rhsThread, let rhsPoststatesubject, let rhsIsblackedout, let rhsAnimated)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsThread, rhs: rhsThread, with: matcher), lhsThread, rhsThread, "thread"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPoststatesubject, rhs: rhsPoststatesubject, with: matcher), lhsPoststatesubject, rhsPoststatesubject, "postStateSubject"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsIsblackedout, rhs: rhsIsblackedout, with: matcher), lhsIsblackedout, rhsIsblackedout, "isBlackedOut"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsAnimated, rhs: rhsAnimated, with: matcher), lhsAnimated, rhsAnimated, "animated"))
+				return Matcher.ComparisonResult(results)
             default: return .none
             }
         }
@@ -6267,14 +6343,14 @@ open class DiscussionRouterMock: DiscussionRouter, Mock {
             switch self {
             case let .m_showUserDetails__username_username(p0): return p0.intValue
             case let .m_showThreads__courseID_courseIDtopics_topicstitle_titletype_typeisBlackedOut_isBlackedOutanimated_animated(p0, p1, p2, p3, p4, p5): return p0.intValue + p1.intValue + p2.intValue + p3.intValue + p4.intValue + p5.intValue
-            case let .m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animated(p0, p1, p2, p3): return p0.intValue + p1.intValue + p2.intValue + p3.intValue
+            case let .m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animatedresponseID_responseID(p0, p1, p2, p3, p4): return p0.intValue + p1.intValue + p2.intValue + p3.intValue + p4.intValue
             case let .m_showDiscussionsSearch__courseID_courseIDisBlackedOut_isBlackedOut(p0, p1): return p0.intValue + p1.intValue
             case let .m_showComments__courseID_courseIDcommentID_commentIDparentComment_parentCommentthreadStateSubject_threadStateSubjectisBlackedOut_isBlackedOutanimated_animated(p0, p1, p2, p3, p4, p5): return p0.intValue + p1.intValue + p2.intValue + p3.intValue + p4.intValue + p5.intValue
             case let .m_createNewThread__courseID_courseIDselectedTopic_selectedTopiconPostCreated_onPostCreated(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
             case let .m_backToRoot__animated_animated(p0): return p0.intValue
             case let .m_back__animated_animated(p0): return p0.intValue
             case .m_backWithFade: return 0
-            case let .m_dismiss__animated_animated(p0): return p0.intValue
+            case let .m_dismiss__animated_animatedcompletion_completion(p0, p1): return p0.intValue + p1.intValue
             case let .m_removeLastView__controllers_controllers(p0): return p0.intValue
             case let .m_showMainOrWhatsNewScreen__sourceScreen_sourceScreenpostLoginData_postLoginData(p0, p1): return p0.intValue + p1.intValue
             case .m_showStartupScreen: return 0
@@ -6296,20 +6372,23 @@ open class DiscussionRouterMock: DiscussionRouter, Mock {
             case .m_showRestoreProgressView: return 0
             case .m_hideRestoreProgressView: return 0
             case .m_performNotificationRegistration: return 0
+            case .m_showNotificationsPrimerIfNeeded: return 0
+            case let .m_dismiss__animated_animated(p0): return p0.intValue
+            case let .m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animated(p0, p1, p2, p3): return p0.intValue + p1.intValue + p2.intValue + p3.intValue
             }
         }
         func assertionName() -> String {
             switch self {
             case .m_showUserDetails__username_username: return ".showUserDetails(username:)"
             case .m_showThreads__courseID_courseIDtopics_topicstitle_titletype_typeisBlackedOut_isBlackedOutanimated_animated: return ".showThreads(courseID:topics:title:type:isBlackedOut:animated:)"
-            case .m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animated: return ".showThread(thread:postStateSubject:isBlackedOut:animated:)"
+            case .m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animatedresponseID_responseID: return ".showThread(thread:postStateSubject:isBlackedOut:animated:responseID:)"
             case .m_showDiscussionsSearch__courseID_courseIDisBlackedOut_isBlackedOut: return ".showDiscussionsSearch(courseID:isBlackedOut:)"
             case .m_showComments__courseID_courseIDcommentID_commentIDparentComment_parentCommentthreadStateSubject_threadStateSubjectisBlackedOut_isBlackedOutanimated_animated: return ".showComments(courseID:commentID:parentComment:threadStateSubject:isBlackedOut:animated:)"
             case .m_createNewThread__courseID_courseIDselectedTopic_selectedTopiconPostCreated_onPostCreated: return ".createNewThread(courseID:selectedTopic:onPostCreated:)"
             case .m_backToRoot__animated_animated: return ".backToRoot(animated:)"
             case .m_back__animated_animated: return ".back(animated:)"
             case .m_backWithFade: return ".backWithFade()"
-            case .m_dismiss__animated_animated: return ".dismiss(animated:)"
+            case .m_dismiss__animated_animatedcompletion_completion: return ".dismiss(animated:completion:)"
             case .m_removeLastView__controllers_controllers: return ".removeLastView(controllers:)"
             case .m_showMainOrWhatsNewScreen__sourceScreen_sourceScreenpostLoginData_postLoginData: return ".showMainOrWhatsNewScreen(sourceScreen:postLoginData:)"
             case .m_showStartupScreen: return ".showStartupScreen()"
@@ -6331,6 +6410,9 @@ open class DiscussionRouterMock: DiscussionRouter, Mock {
             case .m_showRestoreProgressView: return ".showRestoreProgressView()"
             case .m_hideRestoreProgressView: return ".hideRestoreProgressView()"
             case .m_performNotificationRegistration: return ".performNotificationRegistration()"
+            case .m_showNotificationsPrimerIfNeeded: return ".showNotificationsPrimerIfNeeded()"
+            case .m_dismiss__animated_animated: return ".dismiss(animated:)"
+            case .m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animated: return ".showThread(thread:postStateSubject:isBlackedOut:animated:)"
             }
         }
     }
@@ -6351,14 +6433,14 @@ open class DiscussionRouterMock: DiscussionRouter, Mock {
 
         public static func showUserDetails(username: Parameter<String>) -> Verify { return Verify(method: .m_showUserDetails__username_username(`username`))}
         public static func showThreads(courseID: Parameter<String>, topics: Parameter<Topics>, title: Parameter<String>, type: Parameter<ThreadType>, isBlackedOut: Parameter<Bool>, animated: Parameter<Bool>) -> Verify { return Verify(method: .m_showThreads__courseID_courseIDtopics_topicstitle_titletype_typeisBlackedOut_isBlackedOutanimated_animated(`courseID`, `topics`, `title`, `type`, `isBlackedOut`, `animated`))}
-        public static func showThread(thread: Parameter<UserThread>, postStateSubject: Parameter<CurrentValueSubject<PostState?, Never>>, isBlackedOut: Parameter<Bool>, animated: Parameter<Bool>) -> Verify { return Verify(method: .m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animated(`thread`, `postStateSubject`, `isBlackedOut`, `animated`))}
+        public static func showThread(thread: Parameter<UserThread>, postStateSubject: Parameter<CurrentValueSubject<PostState?, Never>>, isBlackedOut: Parameter<Bool>, animated: Parameter<Bool>, responseID: Parameter<String?>) -> Verify { return Verify(method: .m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animatedresponseID_responseID(`thread`, `postStateSubject`, `isBlackedOut`, `animated`, `responseID`))}
         public static func showDiscussionsSearch(courseID: Parameter<String>, isBlackedOut: Parameter<Bool>) -> Verify { return Verify(method: .m_showDiscussionsSearch__courseID_courseIDisBlackedOut_isBlackedOut(`courseID`, `isBlackedOut`))}
         public static func showComments(courseID: Parameter<String>, commentID: Parameter<String>, parentComment: Parameter<Post>, threadStateSubject: Parameter<CurrentValueSubject<ThreadPostState?, Never>>, isBlackedOut: Parameter<Bool>, animated: Parameter<Bool>) -> Verify { return Verify(method: .m_showComments__courseID_courseIDcommentID_commentIDparentComment_parentCommentthreadStateSubject_threadStateSubjectisBlackedOut_isBlackedOutanimated_animated(`courseID`, `commentID`, `parentComment`, `threadStateSubject`, `isBlackedOut`, `animated`))}
         public static func createNewThread(courseID: Parameter<String>, selectedTopic: Parameter<String>, onPostCreated: Parameter<() -> Void>) -> Verify { return Verify(method: .m_createNewThread__courseID_courseIDselectedTopic_selectedTopiconPostCreated_onPostCreated(`courseID`, `selectedTopic`, `onPostCreated`))}
         public static func backToRoot(animated: Parameter<Bool>) -> Verify { return Verify(method: .m_backToRoot__animated_animated(`animated`))}
         public static func back(animated: Parameter<Bool>) -> Verify { return Verify(method: .m_back__animated_animated(`animated`))}
         public static func backWithFade() -> Verify { return Verify(method: .m_backWithFade)}
-        public static func dismiss(animated: Parameter<Bool>) -> Verify { return Verify(method: .m_dismiss__animated_animated(`animated`))}
+        public static func dismiss(animated: Parameter<Bool>, completion: Parameter<(() -> Void)?>) -> Verify { return Verify(method: .m_dismiss__animated_animatedcompletion_completion(`animated`, `completion`))}
         public static func removeLastView(controllers: Parameter<Int>) -> Verify { return Verify(method: .m_removeLastView__controllers_controllers(`controllers`))}
         public static func showMainOrWhatsNewScreen(sourceScreen: Parameter<LogistrationSourceScreen>, postLoginData: Parameter<PostLoginData?>) -> Verify { return Verify(method: .m_showMainOrWhatsNewScreen__sourceScreen_sourceScreenpostLoginData_postLoginData(`sourceScreen`, `postLoginData`))}
         public static func showStartupScreen() -> Verify { return Verify(method: .m_showStartupScreen)}
@@ -6387,6 +6469,10 @@ open class DiscussionRouterMock: DiscussionRouter, Mock {
 		public static func hideRestoreProgressView() -> Verify { return Verify(method: .m_hideRestoreProgressView)}
         @MainActor
 		public static func performNotificationRegistration() -> Verify { return Verify(method: .m_performNotificationRegistration)}
+        @MainActor
+		public static func showNotificationsPrimerIfNeeded() -> Verify { return Verify(method: .m_showNotificationsPrimerIfNeeded)}
+        public static func dismiss(animated: Parameter<Bool>) -> Verify { return Verify(method: .m_dismiss__animated_animated(`animated`))}
+        public static func showThread(thread: Parameter<UserThread>, postStateSubject: Parameter<CurrentValueSubject<PostState?, Never>>, isBlackedOut: Parameter<Bool>, animated: Parameter<Bool>) -> Verify { return Verify(method: .m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animated(`thread`, `postStateSubject`, `isBlackedOut`, `animated`))}
     }
 
     public struct Perform {
@@ -6399,8 +6485,8 @@ open class DiscussionRouterMock: DiscussionRouter, Mock {
         public static func showThreads(courseID: Parameter<String>, topics: Parameter<Topics>, title: Parameter<String>, type: Parameter<ThreadType>, isBlackedOut: Parameter<Bool>, animated: Parameter<Bool>, perform: @escaping (String, Topics, String, ThreadType, Bool, Bool) -> Void) -> Perform {
             return Perform(method: .m_showThreads__courseID_courseIDtopics_topicstitle_titletype_typeisBlackedOut_isBlackedOutanimated_animated(`courseID`, `topics`, `title`, `type`, `isBlackedOut`, `animated`), performs: perform)
         }
-        public static func showThread(thread: Parameter<UserThread>, postStateSubject: Parameter<CurrentValueSubject<PostState?, Never>>, isBlackedOut: Parameter<Bool>, animated: Parameter<Bool>, perform: @escaping (UserThread, CurrentValueSubject<PostState?, Never>, Bool, Bool) -> Void) -> Perform {
-            return Perform(method: .m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animated(`thread`, `postStateSubject`, `isBlackedOut`, `animated`), performs: perform)
+        public static func showThread(thread: Parameter<UserThread>, postStateSubject: Parameter<CurrentValueSubject<PostState?, Never>>, isBlackedOut: Parameter<Bool>, animated: Parameter<Bool>, responseID: Parameter<String?>, perform: @escaping (UserThread, CurrentValueSubject<PostState?, Never>, Bool, Bool, String?) -> Void) -> Perform {
+            return Perform(method: .m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animatedresponseID_responseID(`thread`, `postStateSubject`, `isBlackedOut`, `animated`, `responseID`), performs: perform)
         }
         public static func showDiscussionsSearch(courseID: Parameter<String>, isBlackedOut: Parameter<Bool>, perform: @escaping (String, Bool) -> Void) -> Perform {
             return Perform(method: .m_showDiscussionsSearch__courseID_courseIDisBlackedOut_isBlackedOut(`courseID`, `isBlackedOut`), performs: perform)
@@ -6420,8 +6506,8 @@ open class DiscussionRouterMock: DiscussionRouter, Mock {
         public static func backWithFade(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_backWithFade, performs: perform)
         }
-        public static func dismiss(animated: Parameter<Bool>, perform: @escaping (Bool) -> Void) -> Perform {
-            return Perform(method: .m_dismiss__animated_animated(`animated`), performs: perform)
+        public static func dismiss(animated: Parameter<Bool>, completion: Parameter<(() -> Void)?>, perform: @escaping (Bool, (() -> Void)?) -> Void) -> Perform {
+            return Perform(method: .m_dismiss__animated_animatedcompletion_completion(`animated`, `completion`), performs: perform)
         }
         public static func removeLastView(controllers: Parameter<Int>, perform: @escaping (Int) -> Void) -> Perform {
             return Perform(method: .m_removeLastView__controllers_controllers(`controllers`), performs: perform)
@@ -6492,6 +6578,16 @@ open class DiscussionRouterMock: DiscussionRouter, Mock {
         @MainActor
 		public static func performNotificationRegistration(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_performNotificationRegistration, performs: perform)
+        }
+        @MainActor
+		public static func showNotificationsPrimerIfNeeded(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_showNotificationsPrimerIfNeeded, performs: perform)
+        }
+        public static func dismiss(animated: Parameter<Bool>, perform: @escaping (Bool) -> Void) -> Perform {
+            return Perform(method: .m_dismiss__animated_animated(`animated`), performs: perform)
+        }
+        public static func showThread(thread: Parameter<UserThread>, postStateSubject: Parameter<CurrentValueSubject<PostState?, Never>>, isBlackedOut: Parameter<Bool>, animated: Parameter<Bool>, perform: @escaping (UserThread, CurrentValueSubject<PostState?, Never>, Bool, Bool) -> Void) -> Perform {
+            return Perform(method: .m_showThread__thread_threadpostStateSubject_postStateSubjectisBlackedOut_isBlackedOutanimated_animated(`thread`, `postStateSubject`, `isBlackedOut`, `animated`), performs: perform)
         }
     }
 

@@ -15,7 +15,8 @@ import SwiftUI
 @MainActor
 final class BaseResponsesViewModelTests: XCTestCase {
     
-    let post = Post(authorName: "1",
+    let post = Post(isAuthor: false,
+                    authorName: "1",
                     authorAvatar: "1",
                     postDate: Date(),
                     postTitle: "1",
@@ -27,7 +28,8 @@ final class BaseResponsesViewModelTests: XCTestCase {
                     votesCount: 1,
                     responsesCount: 1,
                     comments: [
-                        Post(authorName: "1",
+                        Post(isAuthor: false,
+                                        authorName: "1",
                                         authorAvatar: "1",
                                         postDate: Date(),
                                         postTitle: "1",
@@ -452,7 +454,8 @@ final class BaseResponsesViewModelTests: XCTestCase {
         
         viewModel.postComments = post
         
-        let newPost = Post(authorName: "new",
+        let newPost = Post(isAuthor: true,
+                           authorName: "new",
                            authorAvatar: "new",
                            postDate: Date(),
                            postTitle: "new",

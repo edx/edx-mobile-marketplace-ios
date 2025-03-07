@@ -154,7 +154,8 @@ final class ThreadViewModelTests: XCTestCase {
                    numPages: 2),
     ])
     
-    let postComments = Post(authorName: "1",
+    let postComments = Post(isAuthor: false,
+                            authorName: "1",
                             authorAvatar: "1",
                             postDate: Date(),
                             postTitle: "1",
@@ -166,7 +167,8 @@ final class ThreadViewModelTests: XCTestCase {
                             votesCount: 1,
                             responsesCount: 1,
                             comments: [
-                                Post(authorName: "2",
+                                Post(isAuthor: false,
+                                     authorName: "2",
                                      authorAvatar: "2",
                                      postDate: Date(),
                                      postTitle: "2",
@@ -183,7 +185,8 @@ final class ThreadViewModelTests: XCTestCase {
                                      parentID: nil,
                                      abuseFlagged: false,
                                      closed: false),
-                                Post(authorName: "2",
+                                Post(isAuthor: false,
+                                     authorName: "2",
                                      authorAvatar: "2",
                                      postDate: Date(),
                                      postTitle: "2",
@@ -212,13 +215,15 @@ final class ThreadViewModelTests: XCTestCase {
         let interactor = DiscussionInteractorProtocolMock()
         let router = DiscussionRouterMock()
         let config = ConfigMock()
+        let coreStorage = CoreStorageMock()
         var result = false
 
         let viewModel = ThreadViewModel(interactor: interactor,
                                         router: router,
                                         config: config,
-                                        storage: CoreStorageMock(),
+                                        coreStorage: coreStorage,
                                         postStateSubject: .init(.readed(id: "1")),
+                                        responseID: "1",
                                         analytics: DiscussionAnalyticsMock())
                 
         Given(interactor, .readBody(threadID: .any, willProduce: {_ in}))
@@ -243,13 +248,15 @@ final class ThreadViewModelTests: XCTestCase {
         let interactor = DiscussionInteractorProtocolMock()
         let router = DiscussionRouterMock()
         let config = ConfigMock()
+        let coreStorage = CoreStorageMock()
         var result = false
 
         let viewModel = ThreadViewModel(interactor: interactor,
                                         router: router,
                                         config: config,
-                                        storage: CoreStorageMock(),
+                                        coreStorage: coreStorage,
                                         postStateSubject: .init(.readed(id: "1")),
+                                        responseID: "1",
                                         analytics: DiscussionAnalyticsMock())
                 
         Given(interactor, .readBody(threadID: .any, willProduce: {_ in}))
@@ -274,13 +281,15 @@ final class ThreadViewModelTests: XCTestCase {
         let interactor = DiscussionInteractorProtocolMock()
         let router = DiscussionRouterMock()
         let config = ConfigMock()
+        let coreStorage = CoreStorageMock()
         var result = false
 
         let viewModel = ThreadViewModel(interactor: interactor,
                                         router: router,
                                         config: config,
-                                        storage: CoreStorageMock(),
+                                        coreStorage: coreStorage,
                                         postStateSubject: .init(.readed(id: "1")),
+                                        responseID: "1",
                                         analytics: DiscussionAnalyticsMock())
         
         let noInternetError = AFError.sessionInvalidated(error: URLError(.notConnectedToInternet))
@@ -307,13 +316,15 @@ final class ThreadViewModelTests: XCTestCase {
         let interactor = DiscussionInteractorProtocolMock()
         let router = DiscussionRouterMock()
         let config = ConfigMock()
+        let coreStorage = CoreStorageMock()
         var result = false
 
         let viewModel = ThreadViewModel(interactor: interactor,
                                         router: router,
                                         config: config,
-                                        storage: CoreStorageMock(),
+                                        coreStorage: coreStorage,
                                         postStateSubject: .init(.readed(id: "1")),
+                                        responseID: "1",
                                         analytics: DiscussionAnalyticsMock())
                         
         Given(interactor, .readBody(threadID: .any, willThrow: NSError()))
@@ -337,15 +348,18 @@ final class ThreadViewModelTests: XCTestCase {
         let interactor = DiscussionInteractorProtocolMock()
         let router = DiscussionRouterMock()
         let config = ConfigMock()
+        let coreStorage = CoreStorageMock()
 
         let viewModel = ThreadViewModel(interactor: interactor,
                                         router: router,
                                         config: config,
-                                        storage: CoreStorageMock(),
+                                        coreStorage: coreStorage,
                                         postStateSubject: .init(.readed(id: "1")),
+                                        responseID: "1",
                                         analytics: DiscussionAnalyticsMock())
         
-        let post = Post(authorName: "",
+        let post = Post(isAuthor: true,
+                        authorName: "",
                         authorAvatar: "",
                         postDate: Date(),
                         postTitle: "",
@@ -378,13 +392,15 @@ final class ThreadViewModelTests: XCTestCase {
     func testPostCommentNoInternetError() async {
         let interactor = DiscussionInteractorProtocolMock()
         let router = DiscussionRouterMock()
+        let coreStorage = CoreStorageMock()
         let config = ConfigMock()
 
         let viewModel = ThreadViewModel(interactor: interactor,
                                         router: router,
                                         config: config,
-                                        storage: CoreStorageMock(),
+                                        coreStorage: coreStorage,
                                         postStateSubject: .init(.readed(id: "1")),
+                                        responseID: "1",
                                         analytics: DiscussionAnalyticsMock())
         
         let noInternetError = AFError.sessionInvalidated(error: URLError(.notConnectedToInternet))
@@ -405,12 +421,14 @@ final class ThreadViewModelTests: XCTestCase {
         let interactor = DiscussionInteractorProtocolMock()
         let router = DiscussionRouterMock()
         let config = ConfigMock()
+        let coreStorage = CoreStorageMock()
 
         let viewModel = ThreadViewModel(interactor: interactor,
                                         router: router,
                                         config: config,
-                                        storage: CoreStorageMock(),
+                                        coreStorage: coreStorage,
                                         postStateSubject: .init(.readed(id: "1")),
+                                        responseID: "1",
                                         analytics: DiscussionAnalyticsMock())
                         
         Given(interactor, .addCommentTo(threadID: .any, rawBody: .any, parentID: .any, willThrow: NSError()) )
@@ -429,13 +447,15 @@ final class ThreadViewModelTests: XCTestCase {
         let interactor = DiscussionInteractorProtocolMock()
         let router = DiscussionRouterMock()
         let config = ConfigMock()
+        let coreStorage = CoreStorageMock()
         var result = false
         
         let viewModel = ThreadViewModel(interactor: interactor,
                                         router: router,
                                         config: config,
-                                        storage: CoreStorageMock(),
+                                        coreStorage: coreStorage,
                                         postStateSubject: .init(.readed(id: "1")),
+                                        responseID: "1",
                                         analytics: DiscussionAnalyticsMock())
         
         viewModel.totalPages = 2

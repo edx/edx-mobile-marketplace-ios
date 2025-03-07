@@ -575,22 +575,58 @@ open class AuthorizationAnalyticsMock: AuthorizationAnalytics, Mock {
 		perform?()
     }
 
-    open func userSignInClicked() {
-        addInvocation(.m_userSignInClicked)
-		let perform = methodPerformValue(.m_userSignInClicked) as? () -> Void
-		perform?()
+    open func userSignInClicked(method: String) {
+        addInvocation(.m_userSignInClicked__method_method(Parameter<String>.value(`method`)))
+		let perform = methodPerformValue(.m_userSignInClicked__method_method(Parameter<String>.value(`method`))) as? (String) -> Void
+		perform?(`method`)
     }
 
-    open func createAccountClicked() {
-        addInvocation(.m_createAccountClicked)
-		let perform = methodPerformValue(.m_createAccountClicked) as? () -> Void
-		perform?()
+    open func socialRegisterClicked(method: String) {
+        addInvocation(.m_socialRegisterClicked__method_method(Parameter<String>.value(`method`)))
+		let perform = methodPerformValue(.m_socialRegisterClicked__method_method(Parameter<String>.value(`method`))) as? (String) -> Void
+		perform?(`method`)
+    }
+
+    open func createAccountClicked(method: String) {
+        addInvocation(.m_createAccountClicked__method_method(Parameter<String>.value(`method`)))
+		let perform = methodPerformValue(.m_createAccountClicked__method_method(Parameter<String>.value(`method`))) as? (String) -> Void
+		perform?(`method`)
+    }
+
+    open func socialAuthSuccess(method: String) {
+        addInvocation(.m_socialAuthSuccess__method_method(Parameter<String>.value(`method`)))
+		let perform = methodPerformValue(.m_socialAuthSuccess__method_method(Parameter<String>.value(`method`))) as? (String) -> Void
+		perform?(`method`)
     }
 
     open func registrationSuccess(method: String) {
         addInvocation(.m_registrationSuccess__method_method(Parameter<String>.value(`method`)))
 		let perform = methodPerformValue(.m_registrationSuccess__method_method(Parameter<String>.value(`method`))) as? (String) -> Void
 		perform?(`method`)
+    }
+
+    open func socialAuthFailure(method: String, errorCode: String?, errorMessage: String?) {
+        addInvocation(.m_socialAuthFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(Parameter<String>.value(`method`), Parameter<String?>.value(`errorCode`), Parameter<String?>.value(`errorMessage`)))
+		let perform = methodPerformValue(.m_socialAuthFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(Parameter<String>.value(`method`), Parameter<String?>.value(`errorCode`), Parameter<String?>.value(`errorMessage`))) as? (String, String?, String?) -> Void
+		perform?(`method`, `errorCode`, `errorMessage`)
+    }
+
+    open func validationFailure(method: String, statusCode: Int?, errorMessage: String?) {
+        addInvocation(.m_validationFailure__method_methodstatusCode_statusCodeerrorMessage_errorMessage(Parameter<String>.value(`method`), Parameter<Int?>.value(`statusCode`), Parameter<String?>.value(`errorMessage`)))
+		let perform = methodPerformValue(.m_validationFailure__method_methodstatusCode_statusCodeerrorMessage_errorMessage(Parameter<String>.value(`method`), Parameter<Int?>.value(`statusCode`), Parameter<String?>.value(`errorMessage`))) as? (String, Int?, String?) -> Void
+		perform?(`method`, `statusCode`, `errorMessage`)
+    }
+
+    open func registerFailure(method: String, errorCode: String?, errorMessage: String?) {
+        addInvocation(.m_registerFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(Parameter<String>.value(`method`), Parameter<String?>.value(`errorCode`), Parameter<String?>.value(`errorMessage`)))
+		let perform = methodPerformValue(.m_registerFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(Parameter<String>.value(`method`), Parameter<String?>.value(`errorCode`), Parameter<String?>.value(`errorMessage`))) as? (String, String?, String?) -> Void
+		perform?(`method`, `errorCode`, `errorMessage`)
+    }
+
+    open func signInFailure(method: String, errorCode: String?, errorMessage: String?) {
+        addInvocation(.m_signInFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(Parameter<String>.value(`method`), Parameter<String?>.value(`errorCode`), Parameter<String?>.value(`errorMessage`)))
+		let perform = methodPerformValue(.m_signInFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(Parameter<String>.value(`method`), Parameter<String?>.value(`errorCode`), Parameter<String?>.value(`errorMessage`))) as? (String, String?, String?) -> Void
+		perform?(`method`, `errorCode`, `errorMessage`)
     }
 
     open func forgotPasswordClicked() {
@@ -623,9 +659,15 @@ open class AuthorizationAnalyticsMock: AuthorizationAnalytics, Mock {
         case m_userLogin__method_method(Parameter<AuthMethod>)
         case m_registerClicked
         case m_signInClicked
-        case m_userSignInClicked
-        case m_createAccountClicked
+        case m_userSignInClicked__method_method(Parameter<String>)
+        case m_socialRegisterClicked__method_method(Parameter<String>)
+        case m_createAccountClicked__method_method(Parameter<String>)
+        case m_socialAuthSuccess__method_method(Parameter<String>)
         case m_registrationSuccess__method_method(Parameter<String>)
+        case m_socialAuthFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(Parameter<String>, Parameter<String?>, Parameter<String?>)
+        case m_validationFailure__method_methodstatusCode_statusCodeerrorMessage_errorMessage(Parameter<String>, Parameter<Int?>, Parameter<String?>)
+        case m_registerFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(Parameter<String>, Parameter<String?>, Parameter<String?>)
+        case m_signInFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(Parameter<String>, Parameter<String?>, Parameter<String?>)
         case m_forgotPasswordClicked
         case m_resetPasswordClicked
         case m_resetPassword__success_success(Parameter<Bool>)
@@ -649,13 +691,57 @@ open class AuthorizationAnalyticsMock: AuthorizationAnalytics, Mock {
 
             case (.m_signInClicked, .m_signInClicked): return .match
 
-            case (.m_userSignInClicked, .m_userSignInClicked): return .match
+            case (.m_userSignInClicked__method_method(let lhsMethod), .m_userSignInClicked__method_method(let rhsMethod)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsMethod, rhs: rhsMethod, with: matcher), lhsMethod, rhsMethod, "method"))
+				return Matcher.ComparisonResult(results)
 
-            case (.m_createAccountClicked, .m_createAccountClicked): return .match
+            case (.m_socialRegisterClicked__method_method(let lhsMethod), .m_socialRegisterClicked__method_method(let rhsMethod)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsMethod, rhs: rhsMethod, with: matcher), lhsMethod, rhsMethod, "method"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_createAccountClicked__method_method(let lhsMethod), .m_createAccountClicked__method_method(let rhsMethod)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsMethod, rhs: rhsMethod, with: matcher), lhsMethod, rhsMethod, "method"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_socialAuthSuccess__method_method(let lhsMethod), .m_socialAuthSuccess__method_method(let rhsMethod)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsMethod, rhs: rhsMethod, with: matcher), lhsMethod, rhsMethod, "method"))
+				return Matcher.ComparisonResult(results)
 
             case (.m_registrationSuccess__method_method(let lhsMethod), .m_registrationSuccess__method_method(let rhsMethod)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsMethod, rhs: rhsMethod, with: matcher), lhsMethod, rhsMethod, "method"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_socialAuthFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(let lhsMethod, let lhsErrorcode, let lhsErrormessage), .m_socialAuthFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(let rhsMethod, let rhsErrorcode, let rhsErrormessage)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsMethod, rhs: rhsMethod, with: matcher), lhsMethod, rhsMethod, "method"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsErrorcode, rhs: rhsErrorcode, with: matcher), lhsErrorcode, rhsErrorcode, "errorCode"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsErrormessage, rhs: rhsErrormessage, with: matcher), lhsErrormessage, rhsErrormessage, "errorMessage"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_validationFailure__method_methodstatusCode_statusCodeerrorMessage_errorMessage(let lhsMethod, let lhsStatuscode, let lhsErrormessage), .m_validationFailure__method_methodstatusCode_statusCodeerrorMessage_errorMessage(let rhsMethod, let rhsStatuscode, let rhsErrormessage)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsMethod, rhs: rhsMethod, with: matcher), lhsMethod, rhsMethod, "method"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsStatuscode, rhs: rhsStatuscode, with: matcher), lhsStatuscode, rhsStatuscode, "statusCode"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsErrormessage, rhs: rhsErrormessage, with: matcher), lhsErrormessage, rhsErrormessage, "errorMessage"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_registerFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(let lhsMethod, let lhsErrorcode, let lhsErrormessage), .m_registerFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(let rhsMethod, let rhsErrorcode, let rhsErrormessage)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsMethod, rhs: rhsMethod, with: matcher), lhsMethod, rhsMethod, "method"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsErrorcode, rhs: rhsErrorcode, with: matcher), lhsErrorcode, rhsErrorcode, "errorCode"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsErrormessage, rhs: rhsErrormessage, with: matcher), lhsErrormessage, rhsErrormessage, "errorMessage"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_signInFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(let lhsMethod, let lhsErrorcode, let lhsErrormessage), .m_signInFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(let rhsMethod, let rhsErrorcode, let rhsErrormessage)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsMethod, rhs: rhsMethod, with: matcher), lhsMethod, rhsMethod, "method"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsErrorcode, rhs: rhsErrorcode, with: matcher), lhsErrorcode, rhsErrorcode, "errorCode"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsErrormessage, rhs: rhsErrormessage, with: matcher), lhsErrormessage, rhsErrormessage, "errorMessage"))
 				return Matcher.ComparisonResult(results)
 
             case (.m_forgotPasswordClicked, .m_forgotPasswordClicked): return .match
@@ -682,9 +768,15 @@ open class AuthorizationAnalyticsMock: AuthorizationAnalytics, Mock {
             case let .m_userLogin__method_method(p0): return p0.intValue
             case .m_registerClicked: return 0
             case .m_signInClicked: return 0
-            case .m_userSignInClicked: return 0
-            case .m_createAccountClicked: return 0
+            case let .m_userSignInClicked__method_method(p0): return p0.intValue
+            case let .m_socialRegisterClicked__method_method(p0): return p0.intValue
+            case let .m_createAccountClicked__method_method(p0): return p0.intValue
+            case let .m_socialAuthSuccess__method_method(p0): return p0.intValue
             case let .m_registrationSuccess__method_method(p0): return p0.intValue
+            case let .m_socialAuthFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
+            case let .m_validationFailure__method_methodstatusCode_statusCodeerrorMessage_errorMessage(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
+            case let .m_registerFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
+            case let .m_signInFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
             case .m_forgotPasswordClicked: return 0
             case .m_resetPasswordClicked: return 0
             case let .m_resetPassword__success_success(p0): return p0.intValue
@@ -697,9 +789,15 @@ open class AuthorizationAnalyticsMock: AuthorizationAnalytics, Mock {
             case .m_userLogin__method_method: return ".userLogin(method:)"
             case .m_registerClicked: return ".registerClicked()"
             case .m_signInClicked: return ".signInClicked()"
-            case .m_userSignInClicked: return ".userSignInClicked()"
-            case .m_createAccountClicked: return ".createAccountClicked()"
+            case .m_userSignInClicked__method_method: return ".userSignInClicked(method:)"
+            case .m_socialRegisterClicked__method_method: return ".socialRegisterClicked(method:)"
+            case .m_createAccountClicked__method_method: return ".createAccountClicked(method:)"
+            case .m_socialAuthSuccess__method_method: return ".socialAuthSuccess(method:)"
             case .m_registrationSuccess__method_method: return ".registrationSuccess(method:)"
+            case .m_socialAuthFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage: return ".socialAuthFailure(method:errorCode:errorMessage:)"
+            case .m_validationFailure__method_methodstatusCode_statusCodeerrorMessage_errorMessage: return ".validationFailure(method:statusCode:errorMessage:)"
+            case .m_registerFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage: return ".registerFailure(method:errorCode:errorMessage:)"
+            case .m_signInFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage: return ".signInFailure(method:errorCode:errorMessage:)"
             case .m_forgotPasswordClicked: return ".forgotPasswordClicked()"
             case .m_resetPasswordClicked: return ".resetPasswordClicked()"
             case .m_resetPassword__success_success: return ".resetPassword(success:)"
@@ -726,9 +824,15 @@ open class AuthorizationAnalyticsMock: AuthorizationAnalytics, Mock {
         public static func userLogin(method: Parameter<AuthMethod>) -> Verify { return Verify(method: .m_userLogin__method_method(`method`))}
         public static func registerClicked() -> Verify { return Verify(method: .m_registerClicked)}
         public static func signInClicked() -> Verify { return Verify(method: .m_signInClicked)}
-        public static func userSignInClicked() -> Verify { return Verify(method: .m_userSignInClicked)}
-        public static func createAccountClicked() -> Verify { return Verify(method: .m_createAccountClicked)}
+        public static func userSignInClicked(method: Parameter<String>) -> Verify { return Verify(method: .m_userSignInClicked__method_method(`method`))}
+        public static func socialRegisterClicked(method: Parameter<String>) -> Verify { return Verify(method: .m_socialRegisterClicked__method_method(`method`))}
+        public static func createAccountClicked(method: Parameter<String>) -> Verify { return Verify(method: .m_createAccountClicked__method_method(`method`))}
+        public static func socialAuthSuccess(method: Parameter<String>) -> Verify { return Verify(method: .m_socialAuthSuccess__method_method(`method`))}
         public static func registrationSuccess(method: Parameter<String>) -> Verify { return Verify(method: .m_registrationSuccess__method_method(`method`))}
+        public static func socialAuthFailure(method: Parameter<String>, errorCode: Parameter<String?>, errorMessage: Parameter<String?>) -> Verify { return Verify(method: .m_socialAuthFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(`method`, `errorCode`, `errorMessage`))}
+        public static func validationFailure(method: Parameter<String>, statusCode: Parameter<Int?>, errorMessage: Parameter<String?>) -> Verify { return Verify(method: .m_validationFailure__method_methodstatusCode_statusCodeerrorMessage_errorMessage(`method`, `statusCode`, `errorMessage`))}
+        public static func registerFailure(method: Parameter<String>, errorCode: Parameter<String?>, errorMessage: Parameter<String?>) -> Verify { return Verify(method: .m_registerFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(`method`, `errorCode`, `errorMessage`))}
+        public static func signInFailure(method: Parameter<String>, errorCode: Parameter<String?>, errorMessage: Parameter<String?>) -> Verify { return Verify(method: .m_signInFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(`method`, `errorCode`, `errorMessage`))}
         public static func forgotPasswordClicked() -> Verify { return Verify(method: .m_forgotPasswordClicked)}
         public static func resetPasswordClicked() -> Verify { return Verify(method: .m_resetPasswordClicked)}
         public static func resetPassword(success: Parameter<Bool>) -> Verify { return Verify(method: .m_resetPassword__success_success(`success`))}
@@ -751,14 +855,32 @@ open class AuthorizationAnalyticsMock: AuthorizationAnalytics, Mock {
         public static func signInClicked(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_signInClicked, performs: perform)
         }
-        public static func userSignInClicked(perform: @escaping () -> Void) -> Perform {
-            return Perform(method: .m_userSignInClicked, performs: perform)
+        public static func userSignInClicked(method: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
+            return Perform(method: .m_userSignInClicked__method_method(`method`), performs: perform)
         }
-        public static func createAccountClicked(perform: @escaping () -> Void) -> Perform {
-            return Perform(method: .m_createAccountClicked, performs: perform)
+        public static func socialRegisterClicked(method: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
+            return Perform(method: .m_socialRegisterClicked__method_method(`method`), performs: perform)
+        }
+        public static func createAccountClicked(method: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
+            return Perform(method: .m_createAccountClicked__method_method(`method`), performs: perform)
+        }
+        public static func socialAuthSuccess(method: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
+            return Perform(method: .m_socialAuthSuccess__method_method(`method`), performs: perform)
         }
         public static func registrationSuccess(method: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
             return Perform(method: .m_registrationSuccess__method_method(`method`), performs: perform)
+        }
+        public static func socialAuthFailure(method: Parameter<String>, errorCode: Parameter<String?>, errorMessage: Parameter<String?>, perform: @escaping (String, String?, String?) -> Void) -> Perform {
+            return Perform(method: .m_socialAuthFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(`method`, `errorCode`, `errorMessage`), performs: perform)
+        }
+        public static func validationFailure(method: Parameter<String>, statusCode: Parameter<Int?>, errorMessage: Parameter<String?>, perform: @escaping (String, Int?, String?) -> Void) -> Perform {
+            return Perform(method: .m_validationFailure__method_methodstatusCode_statusCodeerrorMessage_errorMessage(`method`, `statusCode`, `errorMessage`), performs: perform)
+        }
+        public static func registerFailure(method: Parameter<String>, errorCode: Parameter<String?>, errorMessage: Parameter<String?>, perform: @escaping (String, String?, String?) -> Void) -> Perform {
+            return Perform(method: .m_registerFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(`method`, `errorCode`, `errorMessage`), performs: perform)
+        }
+        public static func signInFailure(method: Parameter<String>, errorCode: Parameter<String?>, errorMessage: Parameter<String?>, perform: @escaping (String, String?, String?) -> Void) -> Perform {
+            return Perform(method: .m_signInFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(`method`, `errorCode`, `errorMessage`), performs: perform)
         }
         public static func forgotPasswordClicked(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_forgotPasswordClicked, performs: perform)
@@ -915,10 +1037,10 @@ open class AuthorizationRouterMock: AuthorizationRouter, Mock {
 		perform?()
     }
 
-    open func dismiss(animated: Bool) {
-        addInvocation(.m_dismiss__animated_animated(Parameter<Bool>.value(`animated`)))
-		let perform = methodPerformValue(.m_dismiss__animated_animated(Parameter<Bool>.value(`animated`))) as? (Bool) -> Void
-		perform?(`animated`)
+    open func dismiss(animated: Bool, completion: (() -> Void)?) {
+        addInvocation(.m_dismiss__animated_animatedcompletion_completion(Parameter<Bool>.value(`animated`), Parameter<(() -> Void)?>.value(`completion`)))
+		let perform = methodPerformValue(.m_dismiss__animated_animatedcompletion_completion(Parameter<Bool>.value(`animated`), Parameter<(() -> Void)?>.value(`completion`))) as? (Bool, (() -> Void)?) -> Void
+		perform?(`animated`, `completion`)
     }
 
     open func removeLastView(controllers: Int) {
@@ -1054,13 +1176,26 @@ open class AuthorizationRouterMock: AuthorizationRouter, Mock {
 		perform?()
     }
 
+    @MainActor
+	open func showNotificationsPrimerIfNeeded() {
+        addInvocation(.m_showNotificationsPrimerIfNeeded)
+		let perform = methodPerformValue(.m_showNotificationsPrimerIfNeeded) as? () -> Void
+		perform?()
+    }
+
+    open func dismiss(animated: Bool = true) {
+        addInvocation(.m_dismiss__animated_animated(Parameter<Bool>.value(`animated`)))
+		let perform = methodPerformValue(.m_dismiss__animated_animated(Parameter<Bool>.value(`animated`))) as? (Bool) -> Void
+		perform?(`animated`)
+    }
+
 
     fileprivate enum MethodType {
         case m_showUpdateRequiredView__showAccountLink_showAccountLink(Parameter<Bool>)
         case m_backToRoot__animated_animated(Parameter<Bool>)
         case m_back__animated_animated(Parameter<Bool>)
         case m_backWithFade
-        case m_dismiss__animated_animated(Parameter<Bool>)
+        case m_dismiss__animated_animatedcompletion_completion(Parameter<Bool>, Parameter<(() -> Void)?>)
         case m_removeLastView__controllers_controllers(Parameter<Int>)
         case m_showMainOrWhatsNewScreen__sourceScreen_sourceScreenpostLoginData_postLoginData(Parameter<LogistrationSourceScreen>, Parameter<PostLoginData?>)
         case m_showStartupScreen
@@ -1082,6 +1217,8 @@ open class AuthorizationRouterMock: AuthorizationRouter, Mock {
         case m_showRestoreProgressView
         case m_hideRestoreProgressView
         case m_performNotificationRegistration
+        case m_showNotificationsPrimerIfNeeded
+        case m_dismiss__animated_animated(Parameter<Bool>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
@@ -1102,9 +1239,10 @@ open class AuthorizationRouterMock: AuthorizationRouter, Mock {
 
             case (.m_backWithFade, .m_backWithFade): return .match
 
-            case (.m_dismiss__animated_animated(let lhsAnimated), .m_dismiss__animated_animated(let rhsAnimated)):
+            case (.m_dismiss__animated_animatedcompletion_completion(let lhsAnimated, let lhsCompletion), .m_dismiss__animated_animatedcompletion_completion(let rhsAnimated, let rhsCompletion)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsAnimated, rhs: rhsAnimated, with: matcher), lhsAnimated, rhsAnimated, "animated"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCompletion, rhs: rhsCompletion, with: matcher), lhsCompletion, rhsCompletion, "completion"))
 				return Matcher.ComparisonResult(results)
 
             case (.m_removeLastView__controllers_controllers(let lhsControllers), .m_removeLastView__controllers_controllers(let rhsControllers)):
@@ -1223,6 +1361,13 @@ open class AuthorizationRouterMock: AuthorizationRouter, Mock {
             case (.m_hideRestoreProgressView, .m_hideRestoreProgressView): return .match
 
             case (.m_performNotificationRegistration, .m_performNotificationRegistration): return .match
+
+            case (.m_showNotificationsPrimerIfNeeded, .m_showNotificationsPrimerIfNeeded): return .match
+
+            case (.m_dismiss__animated_animated(let lhsAnimated), .m_dismiss__animated_animated(let rhsAnimated)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsAnimated, rhs: rhsAnimated, with: matcher), lhsAnimated, rhsAnimated, "animated"))
+				return Matcher.ComparisonResult(results)
             default: return .none
             }
         }
@@ -1233,7 +1378,7 @@ open class AuthorizationRouterMock: AuthorizationRouter, Mock {
             case let .m_backToRoot__animated_animated(p0): return p0.intValue
             case let .m_back__animated_animated(p0): return p0.intValue
             case .m_backWithFade: return 0
-            case let .m_dismiss__animated_animated(p0): return p0.intValue
+            case let .m_dismiss__animated_animatedcompletion_completion(p0, p1): return p0.intValue + p1.intValue
             case let .m_removeLastView__controllers_controllers(p0): return p0.intValue
             case let .m_showMainOrWhatsNewScreen__sourceScreen_sourceScreenpostLoginData_postLoginData(p0, p1): return p0.intValue + p1.intValue
             case .m_showStartupScreen: return 0
@@ -1255,6 +1400,8 @@ open class AuthorizationRouterMock: AuthorizationRouter, Mock {
             case .m_showRestoreProgressView: return 0
             case .m_hideRestoreProgressView: return 0
             case .m_performNotificationRegistration: return 0
+            case .m_showNotificationsPrimerIfNeeded: return 0
+            case let .m_dismiss__animated_animated(p0): return p0.intValue
             }
         }
         func assertionName() -> String {
@@ -1263,7 +1410,7 @@ open class AuthorizationRouterMock: AuthorizationRouter, Mock {
             case .m_backToRoot__animated_animated: return ".backToRoot(animated:)"
             case .m_back__animated_animated: return ".back(animated:)"
             case .m_backWithFade: return ".backWithFade()"
-            case .m_dismiss__animated_animated: return ".dismiss(animated:)"
+            case .m_dismiss__animated_animatedcompletion_completion: return ".dismiss(animated:completion:)"
             case .m_removeLastView__controllers_controllers: return ".removeLastView(controllers:)"
             case .m_showMainOrWhatsNewScreen__sourceScreen_sourceScreenpostLoginData_postLoginData: return ".showMainOrWhatsNewScreen(sourceScreen:postLoginData:)"
             case .m_showStartupScreen: return ".showStartupScreen()"
@@ -1285,6 +1432,8 @@ open class AuthorizationRouterMock: AuthorizationRouter, Mock {
             case .m_showRestoreProgressView: return ".showRestoreProgressView()"
             case .m_hideRestoreProgressView: return ".hideRestoreProgressView()"
             case .m_performNotificationRegistration: return ".performNotificationRegistration()"
+            case .m_showNotificationsPrimerIfNeeded: return ".showNotificationsPrimerIfNeeded()"
+            case .m_dismiss__animated_animated: return ".dismiss(animated:)"
             }
         }
     }
@@ -1307,7 +1456,7 @@ open class AuthorizationRouterMock: AuthorizationRouter, Mock {
         public static func backToRoot(animated: Parameter<Bool>) -> Verify { return Verify(method: .m_backToRoot__animated_animated(`animated`))}
         public static func back(animated: Parameter<Bool>) -> Verify { return Verify(method: .m_back__animated_animated(`animated`))}
         public static func backWithFade() -> Verify { return Verify(method: .m_backWithFade)}
-        public static func dismiss(animated: Parameter<Bool>) -> Verify { return Verify(method: .m_dismiss__animated_animated(`animated`))}
+        public static func dismiss(animated: Parameter<Bool>, completion: Parameter<(() -> Void)?>) -> Verify { return Verify(method: .m_dismiss__animated_animatedcompletion_completion(`animated`, `completion`))}
         public static func removeLastView(controllers: Parameter<Int>) -> Verify { return Verify(method: .m_removeLastView__controllers_controllers(`controllers`))}
         public static func showMainOrWhatsNewScreen(sourceScreen: Parameter<LogistrationSourceScreen>, postLoginData: Parameter<PostLoginData?>) -> Verify { return Verify(method: .m_showMainOrWhatsNewScreen__sourceScreen_sourceScreenpostLoginData_postLoginData(`sourceScreen`, `postLoginData`))}
         public static func showStartupScreen() -> Verify { return Verify(method: .m_showStartupScreen)}
@@ -1336,6 +1485,9 @@ open class AuthorizationRouterMock: AuthorizationRouter, Mock {
 		public static func hideRestoreProgressView() -> Verify { return Verify(method: .m_hideRestoreProgressView)}
         @MainActor
 		public static func performNotificationRegistration() -> Verify { return Verify(method: .m_performNotificationRegistration)}
+        @MainActor
+		public static func showNotificationsPrimerIfNeeded() -> Verify { return Verify(method: .m_showNotificationsPrimerIfNeeded)}
+        public static func dismiss(animated: Parameter<Bool>) -> Verify { return Verify(method: .m_dismiss__animated_animated(`animated`))}
     }
 
     public struct Perform {
@@ -1354,8 +1506,8 @@ open class AuthorizationRouterMock: AuthorizationRouter, Mock {
         public static func backWithFade(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_backWithFade, performs: perform)
         }
-        public static func dismiss(animated: Parameter<Bool>, perform: @escaping (Bool) -> Void) -> Perform {
-            return Perform(method: .m_dismiss__animated_animated(`animated`), performs: perform)
+        public static func dismiss(animated: Parameter<Bool>, completion: Parameter<(() -> Void)?>, perform: @escaping (Bool, (() -> Void)?) -> Void) -> Perform {
+            return Perform(method: .m_dismiss__animated_animatedcompletion_completion(`animated`, `completion`), performs: perform)
         }
         public static func removeLastView(controllers: Parameter<Int>, perform: @escaping (Int) -> Void) -> Perform {
             return Perform(method: .m_removeLastView__controllers_controllers(`controllers`), performs: perform)
@@ -1426,6 +1578,13 @@ open class AuthorizationRouterMock: AuthorizationRouter, Mock {
         @MainActor
 		public static func performNotificationRegistration(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_performNotificationRegistration, performs: perform)
+        }
+        @MainActor
+		public static func showNotificationsPrimerIfNeeded(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_showNotificationsPrimerIfNeeded, performs: perform)
+        }
+        public static func dismiss(animated: Parameter<Bool>, perform: @escaping (Bool) -> Void) -> Perform {
+            return Perform(method: .m_dismiss__animated_animated(`animated`), performs: perform)
         }
     }
 
@@ -1564,10 +1723,10 @@ open class BaseRouterMock: BaseRouter, Mock {
 		perform?()
     }
 
-    open func dismiss(animated: Bool) {
-        addInvocation(.m_dismiss__animated_animated(Parameter<Bool>.value(`animated`)))
-		let perform = methodPerformValue(.m_dismiss__animated_animated(Parameter<Bool>.value(`animated`))) as? (Bool) -> Void
-		perform?(`animated`)
+    open func dismiss(animated: Bool, completion: (() -> Void)?) {
+        addInvocation(.m_dismiss__animated_animatedcompletion_completion(Parameter<Bool>.value(`animated`), Parameter<(() -> Void)?>.value(`completion`)))
+		let perform = methodPerformValue(.m_dismiss__animated_animatedcompletion_completion(Parameter<Bool>.value(`animated`), Parameter<(() -> Void)?>.value(`completion`))) as? (Bool, (() -> Void)?) -> Void
+		perform?(`animated`, `completion`)
     }
 
     open func removeLastView(controllers: Int) {
@@ -1703,12 +1862,25 @@ open class BaseRouterMock: BaseRouter, Mock {
 		perform?()
     }
 
+    @MainActor
+	open func showNotificationsPrimerIfNeeded() {
+        addInvocation(.m_showNotificationsPrimerIfNeeded)
+		let perform = methodPerformValue(.m_showNotificationsPrimerIfNeeded) as? () -> Void
+		perform?()
+    }
+
+    open func dismiss(animated: Bool = true) {
+        addInvocation(.m_dismiss__animated_animated(Parameter<Bool>.value(`animated`)))
+		let perform = methodPerformValue(.m_dismiss__animated_animated(Parameter<Bool>.value(`animated`))) as? (Bool) -> Void
+		perform?(`animated`)
+    }
+
 
     fileprivate enum MethodType {
         case m_backToRoot__animated_animated(Parameter<Bool>)
         case m_back__animated_animated(Parameter<Bool>)
         case m_backWithFade
-        case m_dismiss__animated_animated(Parameter<Bool>)
+        case m_dismiss__animated_animatedcompletion_completion(Parameter<Bool>, Parameter<(() -> Void)?>)
         case m_removeLastView__controllers_controllers(Parameter<Int>)
         case m_showMainOrWhatsNewScreen__sourceScreen_sourceScreenpostLoginData_postLoginData(Parameter<LogistrationSourceScreen>, Parameter<PostLoginData?>)
         case m_showStartupScreen
@@ -1730,6 +1902,8 @@ open class BaseRouterMock: BaseRouter, Mock {
         case m_showRestoreProgressView
         case m_hideRestoreProgressView
         case m_performNotificationRegistration
+        case m_showNotificationsPrimerIfNeeded
+        case m_dismiss__animated_animated(Parameter<Bool>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
@@ -1745,9 +1919,10 @@ open class BaseRouterMock: BaseRouter, Mock {
 
             case (.m_backWithFade, .m_backWithFade): return .match
 
-            case (.m_dismiss__animated_animated(let lhsAnimated), .m_dismiss__animated_animated(let rhsAnimated)):
+            case (.m_dismiss__animated_animatedcompletion_completion(let lhsAnimated, let lhsCompletion), .m_dismiss__animated_animatedcompletion_completion(let rhsAnimated, let rhsCompletion)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsAnimated, rhs: rhsAnimated, with: matcher), lhsAnimated, rhsAnimated, "animated"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCompletion, rhs: rhsCompletion, with: matcher), lhsCompletion, rhsCompletion, "completion"))
 				return Matcher.ComparisonResult(results)
 
             case (.m_removeLastView__controllers_controllers(let lhsControllers), .m_removeLastView__controllers_controllers(let rhsControllers)):
@@ -1866,6 +2041,13 @@ open class BaseRouterMock: BaseRouter, Mock {
             case (.m_hideRestoreProgressView, .m_hideRestoreProgressView): return .match
 
             case (.m_performNotificationRegistration, .m_performNotificationRegistration): return .match
+
+            case (.m_showNotificationsPrimerIfNeeded, .m_showNotificationsPrimerIfNeeded): return .match
+
+            case (.m_dismiss__animated_animated(let lhsAnimated), .m_dismiss__animated_animated(let rhsAnimated)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsAnimated, rhs: rhsAnimated, with: matcher), lhsAnimated, rhsAnimated, "animated"))
+				return Matcher.ComparisonResult(results)
             default: return .none
             }
         }
@@ -1875,7 +2057,7 @@ open class BaseRouterMock: BaseRouter, Mock {
             case let .m_backToRoot__animated_animated(p0): return p0.intValue
             case let .m_back__animated_animated(p0): return p0.intValue
             case .m_backWithFade: return 0
-            case let .m_dismiss__animated_animated(p0): return p0.intValue
+            case let .m_dismiss__animated_animatedcompletion_completion(p0, p1): return p0.intValue + p1.intValue
             case let .m_removeLastView__controllers_controllers(p0): return p0.intValue
             case let .m_showMainOrWhatsNewScreen__sourceScreen_sourceScreenpostLoginData_postLoginData(p0, p1): return p0.intValue + p1.intValue
             case .m_showStartupScreen: return 0
@@ -1897,6 +2079,8 @@ open class BaseRouterMock: BaseRouter, Mock {
             case .m_showRestoreProgressView: return 0
             case .m_hideRestoreProgressView: return 0
             case .m_performNotificationRegistration: return 0
+            case .m_showNotificationsPrimerIfNeeded: return 0
+            case let .m_dismiss__animated_animated(p0): return p0.intValue
             }
         }
         func assertionName() -> String {
@@ -1904,7 +2088,7 @@ open class BaseRouterMock: BaseRouter, Mock {
             case .m_backToRoot__animated_animated: return ".backToRoot(animated:)"
             case .m_back__animated_animated: return ".back(animated:)"
             case .m_backWithFade: return ".backWithFade()"
-            case .m_dismiss__animated_animated: return ".dismiss(animated:)"
+            case .m_dismiss__animated_animatedcompletion_completion: return ".dismiss(animated:completion:)"
             case .m_removeLastView__controllers_controllers: return ".removeLastView(controllers:)"
             case .m_showMainOrWhatsNewScreen__sourceScreen_sourceScreenpostLoginData_postLoginData: return ".showMainOrWhatsNewScreen(sourceScreen:postLoginData:)"
             case .m_showStartupScreen: return ".showStartupScreen()"
@@ -1926,6 +2110,8 @@ open class BaseRouterMock: BaseRouter, Mock {
             case .m_showRestoreProgressView: return ".showRestoreProgressView()"
             case .m_hideRestoreProgressView: return ".hideRestoreProgressView()"
             case .m_performNotificationRegistration: return ".performNotificationRegistration()"
+            case .m_showNotificationsPrimerIfNeeded: return ".showNotificationsPrimerIfNeeded()"
+            case .m_dismiss__animated_animated: return ".dismiss(animated:)"
             }
         }
     }
@@ -1947,7 +2133,7 @@ open class BaseRouterMock: BaseRouter, Mock {
         public static func backToRoot(animated: Parameter<Bool>) -> Verify { return Verify(method: .m_backToRoot__animated_animated(`animated`))}
         public static func back(animated: Parameter<Bool>) -> Verify { return Verify(method: .m_back__animated_animated(`animated`))}
         public static func backWithFade() -> Verify { return Verify(method: .m_backWithFade)}
-        public static func dismiss(animated: Parameter<Bool>) -> Verify { return Verify(method: .m_dismiss__animated_animated(`animated`))}
+        public static func dismiss(animated: Parameter<Bool>, completion: Parameter<(() -> Void)?>) -> Verify { return Verify(method: .m_dismiss__animated_animatedcompletion_completion(`animated`, `completion`))}
         public static func removeLastView(controllers: Parameter<Int>) -> Verify { return Verify(method: .m_removeLastView__controllers_controllers(`controllers`))}
         public static func showMainOrWhatsNewScreen(sourceScreen: Parameter<LogistrationSourceScreen>, postLoginData: Parameter<PostLoginData?>) -> Verify { return Verify(method: .m_showMainOrWhatsNewScreen__sourceScreen_sourceScreenpostLoginData_postLoginData(`sourceScreen`, `postLoginData`))}
         public static func showStartupScreen() -> Verify { return Verify(method: .m_showStartupScreen)}
@@ -1976,6 +2162,9 @@ open class BaseRouterMock: BaseRouter, Mock {
 		public static func hideRestoreProgressView() -> Verify { return Verify(method: .m_hideRestoreProgressView)}
         @MainActor
 		public static func performNotificationRegistration() -> Verify { return Verify(method: .m_performNotificationRegistration)}
+        @MainActor
+		public static func showNotificationsPrimerIfNeeded() -> Verify { return Verify(method: .m_showNotificationsPrimerIfNeeded)}
+        public static func dismiss(animated: Parameter<Bool>) -> Verify { return Verify(method: .m_dismiss__animated_animated(`animated`))}
     }
 
     public struct Perform {
@@ -1991,8 +2180,8 @@ open class BaseRouterMock: BaseRouter, Mock {
         public static func backWithFade(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_backWithFade, performs: perform)
         }
-        public static func dismiss(animated: Parameter<Bool>, perform: @escaping (Bool) -> Void) -> Perform {
-            return Perform(method: .m_dismiss__animated_animated(`animated`), performs: perform)
+        public static func dismiss(animated: Parameter<Bool>, completion: Parameter<(() -> Void)?>, perform: @escaping (Bool, (() -> Void)?) -> Void) -> Perform {
+            return Perform(method: .m_dismiss__animated_animatedcompletion_completion(`animated`, `completion`), performs: perform)
         }
         public static func removeLastView(controllers: Parameter<Int>, perform: @escaping (Int) -> Void) -> Perform {
             return Perform(method: .m_removeLastView__controllers_controllers(`controllers`), performs: perform)
@@ -2063,6 +2252,13 @@ open class BaseRouterMock: BaseRouter, Mock {
         @MainActor
 		public static func performNotificationRegistration(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_performNotificationRegistration, performs: perform)
+        }
+        @MainActor
+		public static func showNotificationsPrimerIfNeeded(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_showNotificationsPrimerIfNeeded, performs: perform)
+        }
+        public static func dismiss(animated: Parameter<Bool>, perform: @escaping (Bool) -> Void) -> Perform {
+            return Perform(method: .m_dismiss__animated_animated(`animated`), performs: perform)
         }
     }
 

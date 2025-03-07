@@ -94,13 +94,7 @@ public struct SignUpView: View {
                                 if viewModel.socialAuthEnabled,
                                     !requiredFields.isEmpty {
                                     SocialAuthView(
-                                        authType: .register,
-                                        viewModel: .init(
-                                            config: viewModel.config,
-                                            lastUsedOption: viewModel.storage.lastUsedSocialAuth
-                                        ) { result in
-                                            Task { await viewModel.register(with: result) }
-                                        }
+                                        viewModel: viewModel.socialAuthViewModel
                                     )
                                     .padding(.top, 22)
                                     .padding(.bottom, -2)

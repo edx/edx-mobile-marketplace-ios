@@ -307,7 +307,15 @@ class ScreenAssembly: Assembly {
         
         container.register(NotificationsInteractorProtocol.self) { @MainActor r in
             NotificationsInteractor(
-                repository: r.resolve(NotificationsRepositoryProtocol.self)!
+                repository: r.resolve(NotificationsRepositoryProtocol.self)!,
+                storage: r.resolve(AppStorage.self)!
+            )
+        }
+        
+        container.register(NotificationsPrimerViewModel.self) { r in
+            NotificationsPrimerViewModel(
+                interactor: r.resolve(NotificationsInteractorProtocol.self)!,
+                router: r.resolve(NotificationsRouter.self)!
             )
         }
         
@@ -317,14 +325,6 @@ class ScreenAssembly: Assembly {
                 analytics: r.resolve(NotificationsAnalytics.self)!,
                 router: r.resolve(NotificationsRouter.self)!,
                 storage: r.resolve(CoreStorage.self)!
-            )
-        }
-        
-        container.register(NotificationsInboxViewModel.self) { r in
-            NotificationsInboxViewModel(
-                interactor: r.resolve(NotificationsInteractorProtocol.self)!,
-                analytics: r.resolve(NotificationsAnalytics.self)!,
-                router: r.resolve(NotificationsRouter.self)!
             )
         }
         
@@ -636,13 +636,14 @@ class ScreenAssembly: Assembly {
             )
         }
         
-        container.register(ThreadViewModel.self) { @MainActor r, subject in
+        container.register(ThreadViewModel.self) { @MainActor r, subject, responseID in
             ThreadViewModel(
                 interactor: r.resolve(DiscussionInteractorProtocol.self)!,
                 router: r.resolve(DiscussionRouter.self)!,
                 config: r.resolve(ConfigProtocol.self)!,
-                storage: r.resolve(CoreStorage.self)!,
+                coreStorage: r.resolve(CoreStorage.self)!,
                 postStateSubject: subject,
+                responseID: responseID,
                 analytics: r.resolve(DiscussionAnalytics.self)!
             )
         }
@@ -653,7 +654,7 @@ class ScreenAssembly: Assembly {
                 interactor: r.resolve(DiscussionInteractorProtocol.self)!,
                 router: r.resolve(DiscussionRouter.self)!,
                 config: r.resolve(ConfigProtocol.self)!,
-                storage: r.resolve(CoreStorage.self)!,
+                coreStorage: r.resolve(CoreStorage.self)!,
                 threadStateSubject: subject,
                 analytics: r.resolve(DiscussionAnalytics.self)!
             )
@@ -737,6 +738,21 @@ class ScreenAssembly: Assembly {
                 router: r.resolve(CourseRouter.self)!,
                 lmsPrice: lmsPrice
             )
+        }
+        
+        // MARK: Notifications
+        container.register(NotificationsInboxViewModel.self) { r in
+            NotificationsInboxViewModel(
+                notificationsInteractor: r.resolve(NotificationsInteractorProtocol.self)!,
+                analytics: r.resolve(NotificationsAnalytics.self)!,
+                router: r.resolve(NotificationsRouter.self)!,
+                connectivity: r.resolve(ConnectivityProtocol.self)!,
+                deepLinkManager: r.resolve(NotificationsDeepLinkManager.self)!
+            )
+        }
+        
+        container.register(NotificationsDeepLinkManager.self) { r in
+            r.resolve(DeepLinkManager.self)!
         }
     }
 }

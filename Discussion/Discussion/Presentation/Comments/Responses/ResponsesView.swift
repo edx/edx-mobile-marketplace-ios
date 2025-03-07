@@ -260,11 +260,12 @@ struct ResponsesView_Previews: PreviewProvider {
             interactor: DiscussionInteractor(repository: DiscussionRepositoryMock()),
             router: DiscussionRouterMock(),
             config: ConfigMock(),
-            storage: CoreStorageMock(),
+            coreStorage: CoreStorageMock(),
             threadStateSubject: .init(nil),
             analytics: DiscussionAnalyticsMock()
         )
         let post = Post(
+            isAuthor: false,
             authorName: "Kirill",
             authorAvatar: "",
             postDate: Date(),

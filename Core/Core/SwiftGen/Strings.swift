@@ -351,6 +351,12 @@ public enum CoreLocalization {
       /// No internet connection
       public static let noInternetTitle = CoreLocalization.tr("Localizable", "ERROR.INTERNET.NO_INTERNET_TITLE", fallback: "No internet connection")
     }
+    public enum Server {
+      /// Something went wrong on our end. Please try again later.
+      public static let genericDescription = CoreLocalization.tr("Localizable", "ERROR.SERVER.GENERIC_DESCRIPTION", fallback: "Something went wrong on our end. Please try again later.")
+      /// Server error
+      public static let genericTitle = CoreLocalization.tr("Localizable", "ERROR.SERVER.GENERIC_TITLE", fallback: "Server error")
+    }
   }
   public enum Mainscreen {
     /// Dashboard

@@ -6,41 +6,97 @@
 //
 
 import Foundation
+import Combine
 import Core
-import SwiftUI
 
 public class NotificationsInboxViewModel: ObservableObject {
     @Published private(set) var menus: [NotificationMenu] = NotificationMenu.allCases
-    @Published private(set) var fetchInProgress = false
-    @Published private(set) var refresh = false
-    @Published var isShowProgress = true
-    @Published var showError: Bool = false
-    @Published var groupedNotifications: [NotificationGroup: [Notification]] = [:]
-    @Published var flatNotifications: [Notification] = [] {
-        didSet { groupItems() }
-    }
-    
-    var router: NotificationsRouter
-    var errorMessage: String? {
+    @Published private(set) var screenState: ScreenState = .idle
+    @Published private(set) var isLoadingMore = false
+    @Published private(set) var groupedNotifications: [NotificationGroup: [SingleNotification]] = [:]
+    @Published private(set) var showError: Bool = false
+
+    private(set) var errorMessage: String? {
         didSet {
             showError = errorMessage != nil
         }
     }
     
+    private let analytics: NotificationsAnalytics
+    private let router: NotificationsRouter
+    private let connectivity: ConnectivityProtocol
+    private let deepLinkManager: NotificationsDeepLinkManager
+    private let paginationManager: PaginationManager<SingleNotification, Int>
     private let calendar = Calendar.current
     private var interactor: NotificationsInteractorProtocol
-    private var analytics: NotificationsAnalytics
-    private var nextPage = 1
-    private var totalPages = 1
+    private var cancellables = Set<AnyCancellable>()
+    private var flatNotifications: [SingleNotification] = [] {
+        didSet { groupItems() }
+    }
+    
+    enum ScreenState {
+        case idle
+        case loading
+        case populated
+        case noData
+        case noInternet
+        case serverError
+    }
     
     public init(
-        interactor: NotificationsInteractorProtocol,
+        notificationsInteractor: NotificationsInteractorProtocol,
         analytics: NotificationsAnalytics,
-        router: NotificationsRouter
+        router: NotificationsRouter,
+        connectivity: ConnectivityProtocol,
+        deepLinkManager: NotificationsDeepLinkManager
     ) {
-        self.interactor = interactor
+        self.interactor = notificationsInteractor
         self.analytics = analytics
         self.router = router
+        self.connectivity = connectivity
+        self.deepLinkManager = deepLinkManager
+        self.paginationManager = PaginationManager { pageKey in
+            let currentPage = pageKey ?? 1
+            let data = try await notificationsInteractor.getAllNotifications(page: currentPage)
+            
+            let totalPages = data.numPages ?? 1
+            let nextPage = currentPage + 1
+            
+            return PaginationResult(
+                items: data.results ?? [],
+                nextPageKey: nextPage <= totalPages ? nextPage : nil
+            )
+        }
+        
+        setupBindings()
+    }
+    
+    private func setupBindings() {
+        paginationManager.isLoadingMorePublisher
+            .assign(to: &$isLoadingMore)
+        
+        paginationManager.itemsPublisher
+            .sink { [weak self] items in
+                guard let self else { return }
+                
+                if let items {
+                    screenState = items.isEmpty ? .noData : .populated
+                    flatNotifications = items
+                } else {
+                    flatNotifications = []
+                }
+            }
+            .store(in: &cancellables)
+        
+        paginationManager.errorPublisher
+            .sink { [weak self] error in
+                self?.handleFetchError(error)
+            }
+            .store(in: &cancellables)
+    }
+    
+    func backButtonPressed() {
+        router.back()
     }
     
     @MainActor
@@ -56,11 +112,32 @@ public class NotificationsInboxViewModel: ObservableObject {
     }
     
     @MainActor
+    func loadNotifications() async {
+        screenState = .loading
+        paginationManager.reset()
+        await refreshNotifications()
+    }
+    
+    @MainActor
+    func refreshNotifications() async {
+        _ = await paginationManager.refresh().result
+    }
+    
+    @MainActor
+    func fetchMoreNotificationsIfNeeded(for item: SingleNotification) {
+        guard let index = flatNotifications.firstIndex(of: item) else { return }
+        
+        if index == flatNotifications.count - 3 {
+            paginationManager.loadMore()
+        }
+    }
+    
+    @MainActor
     func markNotificationAsRead(notificationId: String) async {
         do {
             _ = try await interactor.markNotificationAsRead(notificationId: notificationId)
         } catch {
-            handleFetchError(error)
+            handleAPIError(error)
         }
     }
     
@@ -75,59 +152,33 @@ public class NotificationsInboxViewModel: ObservableObject {
                 return readItem
             }
         } catch {
-            handleFetchError(error)
+            handleAPIError(error)
         }
     }
     
     @MainActor
     func markNotificationsAsSeen() async {
-        do {
-            _ = try await interactor.markNotificationsAsSeen()
-        } catch {
-            handleFetchError(error)
-        }
+        _ = try? await interactor.markNotificationsAsSeen()
     }
     
-    @MainActor
-    func getNotifications(page: Int, refresh: Bool = false) async {
-        self.refresh = refresh
-        isShowProgress = true
-        
-        do {
-            if refresh || page == 1 {
-                resetNotifications()
-            }
-            
-            let notificationsData = try await interactor.getAllNotifications(page: page)
-            updateNotifications(with: notificationsData)
-            
-            self.nextPage += 1
-        } catch {
-            handleFetchError(error)
-        }
-        
-        isShowProgress = false
-        self.refresh = false
-    }
-
-    private func resetNotifications() {
-        flatNotifications = []
-        nextPage = 1
-    }
-
-    private func updateNotifications(with data: Notifications) {
-        self.totalPages = data.numPages ?? 1
-        flatNotifications += data.results ?? []
-        groupItems()
+    func hideError() {
+        errorMessage = nil
     }
     
     private func handleFetchError(_ error: Error) {
-        // We will handle errors in separte PR and will remove this comment
-        errorMessage = CoreLocalization.Error.unknownError
+        if screenState != .populated {
+            screenState = connectivity.isInternetAvaliable ? .serverError : .noInternet
+        } else {
+            handleAPIError(error)
+        }
     }
     
-    public func isFirstPage() -> Bool {
-        return nextPage == 1
+    private func handleAPIError(_ error: Error) {
+        if error.isInternetError {
+            errorMessage = CoreLocalization.Error.slowOrNoInternetConnection
+        } else {
+            errorMessage = CoreLocalization.Error.unknownError
+        }
     }
     
     public func relativeTimeDisplay(date: Date) -> String {
@@ -137,20 +188,19 @@ public class NotificationsInboxViewModel: ObservableObject {
         }
         return dateString
     }
+
+    public func showDiscussions(_ notification: SingleNotification) async {
+        await deepLinkManager.showDiscussions(notification)
+    }
     
-    @MainActor
-    public func getNotificationsPagination(index: Int) async {
-        if !fetchInProgress {
-            if totalPages > 1 {
-                if index == flatNotifications.count - 3 {
-                    if totalPages != 1 {
-                        if nextPage <= totalPages {
-                            await getNotifications(page: self.nextPage)
-                        }
-                    }
-                }
-            }
-        }
+    func trackNotificationInbox() {
+        analytics.notificationInbox()
+    }
+    
+    func trackNotificationTapped(notificationType: String) {
+        analytics.notificationTapped(
+            notificationType: notificationType
+        )
     }
     
     private func groupItems() {
@@ -170,18 +220,18 @@ public class NotificationsInboxViewModel: ObservableObject {
     }
     
     // Update a specific item in the array
-    func updateNotification(groupKey: NotificationGroup, item: Notification) {
+    func updateNotification(groupKey: NotificationGroup, item: SingleNotification) {
         updateGroupedNotification(groupKey: groupKey, item: item)
         updateFlatNotification(item: item)
     }
 
-    private func updateGroupedNotification(groupKey: NotificationGroup, item: Notification) {
+    private func updateGroupedNotification(groupKey: NotificationGroup, item: SingleNotification) {
         if let index = groupedNotifications[groupKey]?.firstIndex(where: { $0.id == item.id }) {
             groupedNotifications[groupKey]?[index] = item
         }
     }
 
-    private func updateFlatNotification(item: Notification) {
+    private func updateFlatNotification(item: SingleNotification) {
         if let index = flatNotifications.firstIndex(where: { $0.id == item.id }) {
             flatNotifications[index] = item
         }

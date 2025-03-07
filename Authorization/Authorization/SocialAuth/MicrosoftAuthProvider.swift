@@ -23,7 +23,7 @@ public final class MicrosoftAuthProvider {
     @MainActor
     public func signIn(
         withPresenting: UIViewController
-    ) async -> Result<SocialAuthResponse, Error> {
+    ) async -> Result<SocialAuthResponse, SocialAuthError> {
         await withCheckedContinuation { continuation in
             do {
                 let clientApplication = try createClientApplication()
@@ -32,14 +32,21 @@ public final class MicrosoftAuthProvider {
                 let parameters = MSALInteractiveTokenParameters(scopes: scopes, webviewParameters: webParameters)
                 clientApplication.acquireToken(with: parameters) {  result, error in
                     if let error = error {
-                        continuation.resume(returning: .failure(error))
+                        continuation.resume(
+                            returning: .failure(
+                                SocialAuthError.error(
+                                    code: (error as NSError).code,
+                                    text: error.localizedDescription
+                                )
+                            )
+                        )
                         return
                     }
 
                     guard let result = result else {
                         continuation.resume(
                             returning: .failure(
-                                SocialAuthError.error(text: CoreLocalization.Error.unknownError)
+                                SocialAuthError.unknownError()
                             )
                         )
                         return
@@ -59,7 +66,14 @@ public final class MicrosoftAuthProvider {
                     )
                 }
             } catch let error {
-                continuation.resume(returning: .failure(error))
+                continuation.resume(
+                    returning: .failure(
+                        SocialAuthError.error(
+                            code: (error as NSError).code,
+                            text: error.localizedDescription
+                        )
+                    )
+                )
             }
         }
     }
@@ -87,7 +101,10 @@ public final class MicrosoftAuthProvider {
         do {
             return try MSALPublicClientApplication(configuration: configuration)
         } catch {
-            throw SocialAuthError.error(text: error.localizedDescription)
+            throw SocialAuthError.error(
+                code: (error as NSError).code,
+                text: error.localizedDescription
+            )
         }
     }
 
@@ -101,18 +118,7 @@ public final class MicrosoftAuthProvider {
 
         return account
     }
-
-    private func failure(_ error: Error?) -> Error {
-        if let error = error as? NSError,
-            let description = error.userInfo[MSALErrorDescriptionKey] as? String {
-            if let errorCode = MSALError(rawValue: error.code), case .userCanceled = errorCode {
-                return SocialAuthError.socialAuthCanceled
-            }
-            return SocialAuthError.error(text: description)
-        }
-        return error ?? SocialAuthError.error(text: CoreLocalization.Error.unknownError)
-    }
-
+    
     func getUser(completion: (MSALAccount) -> Void) {
         guard let user = result?.account else { return }
         completion(user)

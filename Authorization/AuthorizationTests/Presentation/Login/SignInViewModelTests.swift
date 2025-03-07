@@ -141,14 +141,14 @@ final class SignInViewModelTests: XCTestCase {
             sourceScreen: .default
         )
 
-        let result: Result<SocialAuthDetails, Error> = .success(.apple(
+        let result: Result<SocialAuthDetails, SocialAuthError> = .success(.apple(
             .init(name: "name", email: "email", token: "239i2oi3jrf2jflkj23lf2f"))
         )
         let user = User(id: 1, username: "username", email: "edxUser@edx.com", name: "Name", userAvatar: "")
 
         Given(interactor, .login(externalToken: .any, backend: .any, willReturn: user))
 
-        await viewModel.login(with: result)
+        await viewModel.login(with: .apple, result: result)
 
         Verify(interactor, 1, .login(externalToken: .any, backend: .any))
         Verify(analytics, .userLogin(method: .any))
@@ -173,7 +173,7 @@ final class SignInViewModelTests: XCTestCase {
             sourceScreen: .default
         )
 
-        let result: Result<SocialAuthDetails, Error> = .success(
+        let result: Result<SocialAuthDetails, SocialAuthError> = .success(
             .apple(.init(name: "name", email: "email", token: "239i2oi3jrf2jflkj23lf2f"))
         )
         let validationErrorMessage = AuthLocalization.Error.accountNotRegistered(
@@ -185,7 +185,7 @@ final class SignInViewModelTests: XCTestCase {
 
         Given(interactor, .login(externalToken: .any, backend: .any, willThrow: error))
 
-        await viewModel.login(with: result)
+        await viewModel.login(with: .apple, result: result)
 
         Verify(interactor, 1, .login(externalToken: .any, backend: .any))
         Verify(router, 0, .showMainOrWhatsNewScreen(sourceScreen: .any, postLoginData: .any))

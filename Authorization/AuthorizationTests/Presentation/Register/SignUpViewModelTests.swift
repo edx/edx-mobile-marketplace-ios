@@ -293,6 +293,6 @@ final class SignUpViewModelTests: XCTestCase {
         
         viewModel.trackCreateAccountClicked()
         
-        Verify(analytics, 1, .createAccountClicked())
+        Verify(analytics, 1, .createAccountClicked(method: .any))
     }
 }
