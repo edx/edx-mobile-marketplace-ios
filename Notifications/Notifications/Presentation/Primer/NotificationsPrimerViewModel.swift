@@ -32,6 +32,7 @@ public final class NotificationsPrimerViewModel: ObservableObject {
         NotificationCenter.default.removeObserver(self)
     }
 
+    @MainActor
     func markAsShown() {
         interactor.markPrimerAsShown()
     }
@@ -42,6 +43,7 @@ public final class NotificationsPrimerViewModel: ObservableObject {
         }
     }
 
+    @MainActor
     func dismiss() {
         router.dismiss()
     }
@@ -86,6 +88,7 @@ public final class NotificationsPrimerViewModel: ObservableObject {
         }
     }
     
+    @MainActor
     private func showPermissionNeededAlert() {
         let actions = [
             UIAlertAction(
@@ -111,6 +114,7 @@ public final class NotificationsPrimerViewModel: ObservableObject {
         )
     }
 
+    @MainActor
     private func openSettingsOrDismiss() {
         guard let settingsURL = URL(string: UIApplication.openSettingsURLString),
               UIApplication.shared.canOpenURL(settingsURL) else {

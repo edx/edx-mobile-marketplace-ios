@@ -33,7 +33,7 @@ public protocol DeepLinkService {
 }
 
 @MainActor
-public class DeepLinkManager: DeepLinkManagerProtocol {
+public class DeepLinkManager: DeepLinkManagerProtocol, NotificationsDeepLinkManager {
     private var services: [DeepLinkService] = []
     private let config: ConfigProtocol
     private let storage: CoreStorage

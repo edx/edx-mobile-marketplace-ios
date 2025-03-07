@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 import Core
+import OEXFoundation
 
 public final class ThreadViewModel: BaseResponsesViewModel, ObservableObject {
     
@@ -37,7 +38,7 @@ public final class ThreadViewModel: BaseResponsesViewModel, ObservableObject {
         self.prioritizingResponseId = responseID
         self.analytics = analytics
         
-        super.init(interactor: interactor, router: router, config: config, storage: storage, analytics: analytics)
+        super.init(interactor: interactor, router: router, config: config, storage: coreStorage, analytics: analytics)
         
         cancellable = threadStateSubject
             .receive(on: RunLoop.main)

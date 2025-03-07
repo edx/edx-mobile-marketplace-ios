@@ -109,7 +109,7 @@ public class SignInViewModel: ObservableObject {
 
     @MainActor
     func ssoLogin(title: String) async {
-        analytics.userSignInClicked()
+        analytics.userSignInClicked(method: AuthMethod.SSO.analyticsValue)
         isShowProgress = true
         do {
             let user = try await interactor.login(ssoToken: "")
@@ -117,7 +117,7 @@ public class SignInViewModel: ObservableObject {
             analytics.userLogin(method: .password)
             router.showMainOrWhatsNewScreen(sourceScreen: sourceScreen, postLoginData: nil)
         } catch let error {
-            failure(error)
+            failure(error, authMethod: .SSO)
         }
     }
     
@@ -132,7 +132,7 @@ public class SignInViewModel: ObservableObject {
             )
         case .failure(let error):
             analytics.signInFailure(
-                method: AuthMethod.socailAuth(method).analyticsValue,
+                method: AuthMethod.socialAuth(method).analyticsValue,
                 errorCode: error.errorCode.flatMap { String($0) },
                 errorMessage: error.errorDescription
             )

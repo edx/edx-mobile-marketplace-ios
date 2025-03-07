@@ -8,7 +8,7 @@
 import Foundation
 
 /// A structure representing the result of a paginated fetch operation.
-public struct PaginationResult<Item, PaginationKey> {
+public struct PaginationResult<Item: Sendable, PaginationKey: Sendable>: Sendable {
     /// The list of items fetched in the current page.
     public let items: [Item]
     /// An optional key used to fetch the next page. `nil` indicates that no more pages are available.

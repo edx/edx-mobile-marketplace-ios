@@ -13,7 +13,7 @@ import GoogleSignIn
 import MSAL
 import Swinject
 
-enum SocialAuthDetails {
+enum SocialAuthDetails: Sendable {
     case apple(SocialAuthResponse)
     case facebook(SocialAuthResponse)
     case google(SocialAuthResponse)
@@ -199,7 +199,7 @@ final class SocialAuthViewModel: ObservableObject {
     // MARK: - Analytics
     
     private func trackClickEvent(for method: SocialAuthMethod) {
-        let analyticsValue = AuthMethod.socailAuth(method).analyticsValue
+        let analyticsValue = AuthMethod.socialAuth(method).analyticsValue
         
         switch authType {
         case .signIn:

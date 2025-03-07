@@ -8,6 +8,7 @@
 import SwiftUI
 import Theme
 import Core
+import OEXFoundation
 
 public struct NotificationsInboxView: View {
     @ObservedObject
@@ -143,9 +144,7 @@ public struct NotificationsInboxView: View {
     
     @ViewBuilder
     private func list(geometry: GeometryProxy) -> some View {
-        RefreshableScrollViewCompat(action: {
-            await viewModel.refreshNotifications()
-        }) {
+        ScrollView {
             LazyVStack(spacing: 16) {
                 ForEach(
                     NotificationGroup.allCases.filter { key in
@@ -191,6 +190,9 @@ public struct NotificationsInboxView: View {
                 }
             }
             .frameLimit(width: geometry.size.width)
+        }
+        .refreshable {
+            await viewModel.refreshNotifications()
         }
     }
 }

@@ -397,7 +397,7 @@ public final class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, Cou
         set(newValue) {
             if let newValue {
                 userDefaults.set(
-                    newValue.dateToString(style: .iso8601),
+                    newValue.dateToString(style: .iso8601, useRelativeDates: false),
                     forKey: KEY_NOTIFICATIONS_PRIMER_LAST_SHOWN_DATE
                 )
             } else {

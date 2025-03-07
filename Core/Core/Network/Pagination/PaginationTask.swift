@@ -7,13 +7,13 @@
 
 import Foundation
 
-private final class TaskHolder<Item> {
+private final class TaskHolder<Item: Sendable>: @unchecked Sendable {
     var task: PaginationTask<Item>!
 }
 
 /// A structure representing an ongoing pagination task.
-public struct PaginationTask<Item>: Equatable {
-    typealias Operation = (PaginationTask<Item>) async throws -> [Item]
+public struct PaginationTask<Item: Sendable>: Sendable, Equatable {
+    typealias Operation = @Sendable (PaginationTask<Item>) async throws -> [Item]
     
     private let task: Task<[Item], Error>
     
@@ -55,5 +55,11 @@ public struct PaginationTask<Item>: Equatable {
         get async {
             return await task.result
         }
+    }
+    
+    // MARK: - Equatable
+    
+    public static func == (lhs: PaginationTask<Item>, rhs: PaginationTask<Item>) -> Bool {
+        return lhs.task == rhs.task
     }
 }

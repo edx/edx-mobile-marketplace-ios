@@ -26,7 +26,7 @@ public enum AuthMethod: Equatable {
     }
 }
 
-public enum SocialAuthMethod: String {
+public enum SocialAuthMethod: String, Sendable {
     case facebook
     case google
     case microsoft

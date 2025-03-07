@@ -95,6 +95,7 @@ public class NotificationsInboxViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
+    @MainActor
     func backButtonPressed() {
         router.back()
     }

@@ -32,7 +32,7 @@ public final class ResponsesViewModel: BaseResponsesViewModel, ObservableObject 
         self.threadStateSubject = threadStateSubject
         self.coreStorage = coreStorage
         self.analytics = analytics
-        super.init(interactor: interactor, router: router, config: config, storage: storage, analytics: analytics)
+        super.init(interactor: interactor, router: router, config: config, storage: coreStorage, analytics: analytics)
     }
 
     func generateCommentsResponses(comments: [UserComment], parentComment: Post) -> Post? {

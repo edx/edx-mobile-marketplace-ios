@@ -32,7 +32,7 @@ public struct Notifications: Hashable {
     }
 }
 
-public struct SingleNotification: Hashable {
+public struct SingleNotification: Hashable, Sendable {
     public let id: Int
     public let appName: String?
     public let notificationType: String?
@@ -75,7 +75,7 @@ public struct SingleNotification: Hashable {
     }
 }
 
-public struct ContentContext: Hashable {
+public struct ContentContext: Hashable, Sendable {
     public let topicId: String?
     public let parentId: String?
     public let threadId: String?

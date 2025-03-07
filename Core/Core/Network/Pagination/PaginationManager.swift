@@ -12,12 +12,12 @@ import Combine
 ///
 /// This class manages paginated data fetching, providing publishers for items, loading states, and errors.
 /// It supports refreshing data from the first page and loading additional pages using a pagination key.
-public final class PaginationManager<Item, PaginationKey> {
+public final class PaginationManager<Item: Sendable, PaginationKey: Sendable>: @unchecked Sendable {
     /// A closure that fetches a page of items asynchronously.
     ///
     /// - Parameter pageKey: An optional pagination key used to fetch the next page. Pass `nil` to fetch the first page.
     /// - Returns: A `PaginationResult` containing the fetched items and the next pagination key.
-    public typealias FetchPage = (PaginationKey?) async throws -> PaginationResult<Item, PaginationKey>
+    public typealias FetchPage = @Sendable (PaginationKey?) async throws -> PaginationResult<Item, PaginationKey>
     
     private let fetchPage: FetchPage
     

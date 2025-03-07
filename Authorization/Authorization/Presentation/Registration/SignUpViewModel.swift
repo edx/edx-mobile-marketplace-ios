@@ -220,7 +220,7 @@ public final class SignUpViewModel: ObservableObject {
     func register(with method: SocialAuthMethod, result: Result<SocialAuthDetails, SocialAuthError>) async {
         switch result {
         case .success(let result):
-            analytics.socialAuthSuccess(method: AuthMethod.socailAuth(method).analyticsValue)
+            analytics.socialAuthSuccess(method: AuthMethod.socialAuth(method).analyticsValue)
             await loginOrRegister(
                 result.response,
                 backend: result.backend,
@@ -228,7 +228,7 @@ public final class SignUpViewModel: ObservableObject {
             )
         case .failure(let error):
             analytics.socialAuthFailure(
-                method: AuthMethod.socailAuth(method).analyticsValue,
+                method: AuthMethod.socialAuth(method).analyticsValue,
                 errorCode: error.errorCode.flatMap { String($0) },
                 errorMessage: error.errorDescription
             )
