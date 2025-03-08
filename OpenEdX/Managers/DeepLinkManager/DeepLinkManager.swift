@@ -13,6 +13,7 @@ import Discussion
 import Course
 import Profile
 import Notifications
+import Swinject
 
 // swiftlint:disable function_body_length type_body_length
 //sourcery: AutoMockable
@@ -283,6 +284,12 @@ public class DeepLinkManager: NotificationsDeepLinkManager {
                         ) else {
                             return
                         }
+                        
+                        if let notificationID = link.notificationID, !notificationID.isEmpty,
+                           let viewModel = Container.shared.resolve(NotificationsInboxViewModel.self) {
+                            _ = try? await viewModel.markNotificationAsRead(notificationId: notificationID)
+                        }
+                        
                         await self.showCourseDiscussion(
                             link: link,
                             courseDetails: courseDetails,
@@ -333,6 +340,11 @@ public class DeepLinkManager: NotificationsDeepLinkManager {
         courseDetails: CourseDetails,
         isBlackedOut: Bool
     ) async {
+        let responseId = link.parentID?.isEmpty == false &&
+        link.commentID?.isEmpty == false
+        ? link.parentID
+        : link.commentID
+
         switch link.type {
         case .discussionTopic:
             guard let topicID = link.topicID,
@@ -373,7 +385,8 @@ public class DeepLinkManager: NotificationsDeepLinkManager {
                 let userThread = try? await discussionInteractor.getThread(threadID: threadID) {
                 router.showThread(
                     userThread: userThread,
-                    isBlackedOut: isBlackedOut
+                    isBlackedOut: isBlackedOut,
+                    responseID: responseId
                 )
             }
         case .discussionComment, .forumResponse:
@@ -396,7 +409,8 @@ public class DeepLinkManager: NotificationsDeepLinkManager {
                 let userThread = try? await discussionInteractor.getThread(threadID: threadID) {
                 router.showThread(
                     userThread: userThread,
-                    isBlackedOut: isBlackedOut
+                    isBlackedOut: isBlackedOut,
+                    responseID: responseId
                 )
             }
 
@@ -433,7 +447,8 @@ public class DeepLinkManager: NotificationsDeepLinkManager {
                 let userThread = try? await discussionInteractor.getThread(threadID: threadID) {
                 router.showThread(
                     userThread: userThread,
-                    isBlackedOut: isBlackedOut
+                    isBlackedOut: isBlackedOut,
+                    responseID: responseId
                 )
             }
             
