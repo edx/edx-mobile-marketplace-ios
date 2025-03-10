@@ -387,7 +387,7 @@ final class EditProfileViewModelTests: XCTestCase {
             country: "UA",
             spokenLanguage: "UA",
             shortBiography: "Bio",
-            isFullProfile: true,
+            isFullProfile: false,
             email: "",
             requiresParentalConsent: false
         )
@@ -424,7 +424,7 @@ final class EditProfileViewModelTests: XCTestCase {
             country: "UA",
             spokenLanguage: "UA",
             shortBiography: "Bio",
-            isFullProfile: true,
+            isFullProfile: false,
             email: "",
             requiresParentalConsent: false
         )
