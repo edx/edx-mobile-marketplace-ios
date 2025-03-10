@@ -58,11 +58,10 @@
 		0766DFCA299AA3D400EBEF6A /* Data_CreatedComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0766DFC9299AA3D400EBEF6A /* Data_CreatedComment.swift */; };
 		7527943BE0D66C33B167A41A /* Pods_App_Discussion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66A7A0375EDDEB8948165EAD /* Pods_App_Discussion.framework */; };
 		9FC0EF907C0334E383C300C4 /* Pods_App_Discussion_DiscussionTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C40A586C6164140DC2079231 /* Pods_App_Discussion_DiscussionTests.framework */; };
-		A5FB2CCD2D75D95A00ECA001 /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = A5FB2CCC2D75D95A00ECA001 /* OEXFoundation */; };
+		A5967C262D7F69C600781A74 /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = A5967C252D7F69C600781A74 /* OEXFoundation */; };
+		A5967C292D7F69CE00781A74 /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = A5967C282D7F69CE00781A74 /* OEXFoundation */; };
 		BA3C45672BA9E13000672C96 /* Data_DiscussionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3C45662BA9E13000672C96 /* Data_DiscussionInfo.swift */; };
 		BA3C45692BA9E18D00672C96 /* DiscussionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3C45682BA9E18D00672C96 /* DiscussionInfo.swift */; };
-		CE7CAF472CC1566D00E0AC9D /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = CE7CAF462CC1566D00E0AC9D /* OEXFoundation */; };
-		CEB1E2762CC14ED700921517 /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = CEB1E2752CC14ED700921517 /* OEXFoundation */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -177,9 +176,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A5FB2CCD2D75D95A00ECA001 /* OEXFoundation in Frameworks */,
 				0218195928F7347200202564 /* Core.framework in Frameworks */,
-				CEB1E2762CC14ED700921517 /* OEXFoundation in Frameworks */,
+				A5967C262D7F69C600781A74 /* OEXFoundation in Frameworks */,
 				7527943BE0D66C33B167A41A /* Pods_App_Discussion.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -189,7 +187,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0240D8D32987FE1F003CFE50 /* Discussion.framework in Frameworks */,
-				CE7CAF472CC1566D00E0AC9D /* OEXFoundation in Frameworks */,
+				A5967C292D7F69CE00781A74 /* OEXFoundation in Frameworks */,
 				9FC0EF907C0334E383C300C4 /* Pods_App_Discussion_DiscussionTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1765,30 +1763,17 @@
 				minimumVersion = 1.0.3;
 			};
 		};
-		CEB1E2742CC14ED700921517 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/rnr/openedx-app-foundation-ios/";
-			requirement = {
-				branch = "anton/plugins-experiments";
-				kind = branch;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		A5FB2CCC2D75D95A00ECA001 /* OEXFoundation */ = {
+		A5967C252D7F69C600781A74 /* OEXFoundation */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A5FB2CCB2D75D95A00ECA001 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */;
 			productName = OEXFoundation;
 		};
-		CE7CAF462CC1566D00E0AC9D /* OEXFoundation */ = {
+		A5967C282D7F69CE00781A74 /* OEXFoundation */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = CEB1E2742CC14ED700921517 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */;
-			productName = OEXFoundation;
-		};
-		CEB1E2752CC14ED700921517 /* OEXFoundation */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CEB1E2742CC14ED700921517 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */;
+			package = A5FB2CCB2D75D95A00ECA001 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */;
 			productName = OEXFoundation;
 		};
 /* End XCSwiftPackageProductDependency section */
