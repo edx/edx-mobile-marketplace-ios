@@ -1440,37 +1440,106 @@ class AnalyticsManager: AuthorizationAnalytics,
         logScreenEvent(.courseUpgradeValuePropViewed, parameters: parameters)
     }
     
-    public func notificationsScreenEvent(event: AnalyticsEvent, biValue: EventBIValue) {
-        
-    }
-    
-    public func notificationsDiscussionPermissionToggleEvent(action: Bool) {
-        var parameters: [String: Any] = [
-            EventParamKey.action: action,
+    public func notificationScreenEvent(_ event: AnalyticsEvent, biValue: EventBIValue) {
+        let parameters = [
             EventParamKey.category: EventCategory.notifications,
-            EventParamKey.name: EventBIValue.notificationDiscussionPermissionToggle.rawValue
+            EventParamKey.name: biValue.rawValue
         ]
         
-        logEvent(.notificationDiscussionPermissionToggle, parameters: parameters)
+        logScreenEvent(event, parameters: parameters)
     }
     
-    public func notificationInbox() {
-        var parameters: [String: Any] = [
-            EventParamKey.name: EventBIValue.notificationInbox.rawValue
-        ]
-        
-        logEvent(.notificationInbox, parameters: parameters)
-    }
-    
-    public func notificationTapped(notificationType: String) {
+    public func notificationDiscussionPreferenceToggle(action: Bool) {
         var parameters: [String: Any] = [
             EventParamKey.category: EventCategory.notifications,
-            EventParamKey.notificationCategory: EventCategory.discussion,
+            EventParamKey.name: EventBIValue.notificationDiscussionPreferenceToggle.rawValue,
+            EventParamKey.action: action
+        ]
+        
+        logEvent(.notificationDiscussionPreferenceToggle, parameters: parameters)
+    }
+    
+    public func notificationPreferencesToggleBatchState(discussionsActivity: Bool) {
+        var parameters: [String: Any] = [
+            EventParamKey.category: EventCategory.notifications,
+            EventParamKey.name: EventBIValue.notificationPreferencesToggleBatchState.rawValue,
+            EventParamKey.discussionsActivity: discussionsActivity,
+        ]
+        
+        logEvent(.notificationPreferencesToggleBatchState, parameters: parameters)
+    }
+    
+    public func notificationSystemPermissionDialogAction(action: String) {
+        var parameters: [String: Any] = [
+            EventParamKey.category: EventCategory.notifications,
+            EventParamKey.name: EventBIValue.notificationSystemPermissionDialogAction.rawValue,
+            EventParamKey.action: action
+        ]
+        
+        logEvent(.notificationSystemPermissionDialogAction, parameters: parameters)
+    }
+    
+    public func notificationAppPermissionRationaleDialogAction(action: String) {
+        var parameters: [String: Any] = [
+            EventParamKey.category: EventCategory.notifications,
+            EventParamKey.name: EventBIValue.notificationAppPermissionRationaleDialogAction.rawValue,
+            EventParamKey.action: action
+        ]
+        
+        logEvent(.notificationAppPermissionRationaleDialogAction, parameters: parameters)
+    }
+
+    public func notificationInboxMenuClicked() {
+        var parameters: [String: Any] = [
+            EventParamKey.category: EventCategory.notifications,
+            EventParamKey.name: EventBIValue.notificationInboxMenuClicked.rawValue
+        ]
+
+        logEvent(.notificationInboxMenuClicked, parameters: parameters)
+    }
+
+    public func notificationMarkAllReadClicked() {
+        var parameters: [String: Any] = [
+            EventParamKey.category: EventCategory.notifications,
+            EventParamKey.name: EventBIValue.notificationMarkAllReadClicked.rawValue
+        ]
+
+        logEvent(.notificationMarkAllReadClicked, parameters: parameters)
+    }
+
+    public func notificationPushNotificationsSettingClicked() {
+        var parameters: [String: Any] = [
+            EventParamKey.category: EventCategory.notifications,
+            EventParamKey.name: EventBIValue.notificationPushNotificationsSettingClicked.rawValue
+        ]
+
+        logEvent(.notificationPushNotificationsSettingClicked, parameters: parameters)
+    }
+
+    public func notificationInboxItemClicked(
+        notificationDomain: String,
+        notificationType: String,
+        notificationID: String,
+        courseID: String?,
+        topicID: String?,
+        threadID: String?,
+        responseID: String?,
+        commentID: String?
+    ) {
+        var parameters: [String: Any] = [
+            EventParamKey.category: EventCategory.notifications,
+            EventParamKey.name: EventBIValue.notificationAppPermissionRationaleDialogAction.rawValue,
+            EventParamKey.notificationDomain: notificationDomain,
             EventParamKey.notificationType: notificationType,
-            EventParamKey.name: EventBIValue.notificationTapped.rawValue
+            EventParamKey.notificationID: notificationID
         ]
-        
-        logEvent(.notificationTapped, parameters: parameters)
+        parameters.setObjectOrNil(courseID, forKey: EventParamKey.courseID)
+        parameters.setObjectOrNil(topicID, forKey: EventParamKey.topicID)
+        parameters.setObjectOrNil(threadID, forKey: EventParamKey.threadID)
+        parameters.setObjectOrNil(responseID, forKey: EventParamKey.responseID)
+        parameters.setObjectOrNil(commentID, forKey: EventParamKey.commentID)
+
+        logEvent(.notificationInboxItemClicked, parameters: parameters)
     }
 }
 

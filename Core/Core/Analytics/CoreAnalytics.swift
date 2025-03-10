@@ -341,10 +341,19 @@ public enum AnalyticsEvent: String {
     case discussionTopicViewed = "Discussion:Topic Viewed"
     case discussionPostViewed = "Discussion:Post Viewed"
     case discussionResponseViewed = "Discussion:Response Viewed"
+    case notificationSettings = "Notification:Push Notifications Settings"
     case notificationSettingPermissionStatus = "Notification:Setting Permission Status"
-    case notificationDiscussionPermissionToggle = "Notification:Discussion Permission Toggle"
-    case notificationInbox = "Notification:Notification Inbox"
-    case notificationTapped = "Notification:Notification Tapped"
+    case notificationDiscussionPreferenceToggle = "Notification:Discussion Preference Toggle"
+    case notificationPreferencesToggleBatchState = "Notification:Preferences Toggle Batch State"
+    case notificationSystemPermissionDialogViewed = "Notification:System Permission Dialog Viewed"
+    case notificationSystemPermissionDialogAction = "Notification:System Permission Dialog Action"
+    case notificationAppPermissionRationaleDialogViewed = "Notification:App Permission Rationale Dialog Viewed"
+    case notificationAppPermissionRationaleDialogAction = "Notification:App Permission Rationale Dialog Action"
+    case notificationInbox = "Notification:Inbox"
+    case notificationInboxMenuClicked = "Notification:Inbox Menu Clicked"
+    case notificationMarkAllReadClicked = "Notification:Mark All Read Clicked"
+    case notificationPushNotificationsSettingClicked = "Notification:Push Notifications Setting Clicked"
+    case notificationInboxItemClicked = "Notification:Inbox Item Clicked"
 }
 
 public enum EventBIValue: String {
@@ -466,10 +475,19 @@ public enum EventBIValue: String {
     case discussionTopicViewed = "edx.bi.app.discussion.topic.viewed"
     case discussionPostViewed = "edx.bi.app.discussion.post.viewed"
     case discussionResponseViewed = "edx.bi.app.discussion.response.viewed"
+    case notificationSettings = "edx.bi.app.notification.push_notifications_settings"
     case notificationSettingPermissionStatus = "edx.bi.app.notification.setting_permission.status"
-    case notificationDiscussionPermissionToggle = "edx.bi.app.notification.discussion.permission.toggle"
+    case notificationDiscussionPreferenceToggle = "edx.bi.app.notification.preference.discussion.toggle"
+    case notificationPreferencesToggleBatchState = "edx.bi.app.notification.preference.batch.toggle"
+    case notificationSystemPermissionDialogViewed = "edx.bi.app.notification.system.permission.dialog.viewed"
+    case notificationSystemPermissionDialogAction = "edx.bi.app.notification.system.permission.dialog.action"
+    case notificationAppPermissionRationaleDialogViewed = "edx.bi.app.notification.app.permission.dialog.viewed"
+    case notificationAppPermissionRationaleDialogAction = "edx.bi.app.notification.app.permission.dialog.action"
     case notificationInbox = "edx.bi.app.notification.inbox"
-    case notificationTapped = "edx.bi.app.notification.tapped"
+    case notificationInboxMenuClicked = "edx.bi.app.notification.inbox.menu.clicked"
+    case notificationMarkAllReadClicked = "edx.bi.app.notification.inbox.mark_all_read.clicked"
+    case notificationPushNotificationsSettingClicked = "edx.bi.app.notification.inbox.push_notifications_setting.clicked"
+    case notificationInboxItemClicked = "edx.bi.app.notification.inbox.item.clicked"
 }
 
 public struct EventParamKey {
@@ -532,7 +550,10 @@ public struct EventParamKey {
     public static let discussionType = "discussion_type"
     public static let status = "status"
     public static let notificationCategory = "notification_category"
+    public static let notificationDomain = "notification_domain"
     public static let notificationType = "notification_type"
+    public static let notificationID = "notification_id"
+    public static let discussionsActivity = "discussions_activity"
     public static let status_code = "status_code"
 }
 

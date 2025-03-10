@@ -10,17 +10,45 @@ import Core
 
 //sourcery: AutoMockable
 public protocol NotificationsAnalytics {
-    func notificationsScreenEvent(event: AnalyticsEvent, biValue: EventBIValue)
-    func notificationsDiscussionPermissionToggleEvent(action: Bool)
-    func notificationInbox()
-    func notificationTapped(notificationType: String)
+    func notificationScreenEvent(_ event: AnalyticsEvent, biValue: EventBIValue)
+    func notificationDiscussionPreferenceToggle(action: Bool)
+    func notificationPreferencesToggleBatchState(discussionsActivity: Bool)
+    func notificationSystemPermissionDialogAction(action: String)
+    func notificationAppPermissionRationaleDialogAction(action: String)
+    func notificationInboxMenuClicked()
+    func notificationMarkAllReadClicked()
+    func notificationPushNotificationsSettingClicked()
+    func notificationInboxItemClicked(
+        notificationDomain: String,
+        notificationType: String,
+        notificationID: String,
+        courseID: String?,
+        topicID: String?,
+        threadID: String?,
+        responseID: String?,
+        commentID: String?
+    )
 }
 
 #if DEBUG
-class NotificationsAnalyticsMock: NotificationsAnalytics {
-    public func notificationsScreenEvent(event: AnalyticsEvent, biValue: EventBIValue) {}
-    public func notificationsDiscussionPermissionToggleEvent(action: Bool) {}
-    public func notificationInbox() {}
-    public func notificationTapped(notificationType: String) {}
+final class NotificationsAnalyticsMock: NotificationsAnalytics {
+    func notificationScreenEvent(_ event: AnalyticsEvent, biValue: EventBIValue) {}
+    func notificationDiscussionPreferenceToggle(action: Bool) {}
+    func notificationPreferencesToggleBatchState(discussionsActivity: Bool) {}
+    func notificationSystemPermissionDialogAction(action: String) {}
+    func notificationAppPermissionRationaleDialogAction(action: String) {}
+    func notificationInboxMenuClicked() {}
+    func notificationMarkAllReadClicked() {}
+    func notificationPushNotificationsSettingClicked() {}
+    func notificationInboxItemClicked(
+        notificationDomain: String,
+        notificationType: String,
+        notificationID: String,
+        courseID: String?,
+        topicID: String?,
+        threadID: String?,
+        responseID: String?,
+        commentID: String?
+    ) {}
 }
 #endif

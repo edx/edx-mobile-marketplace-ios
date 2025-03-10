@@ -66,10 +66,12 @@ public class NotificationsSettingsViewModel: ObservableObject {
     
     @MainActor
     public func toggleDiscussionNotifications() async {
+        trackDiscussionPermissionToggle(action: !discussionNotificationsEnabled)
+        
         switch authorizationStatus {
         case .notDetermined:
             discussionNotificationsEnabled = false
-            router.performNotificationRegistration()
+            showSystemPermissionAlert()
             return
         case .denied:
             discussionNotificationsEnabled = false
@@ -92,7 +94,6 @@ public class NotificationsSettingsViewModel: ObservableObject {
         
         do {
             let update = try await interactor.updateNotificationsPreferences(value: discussionNotificationsEnabled)
-            analytics.notificationsDiscussionPermissionToggleEvent(action: discussionNotificationsEnabled)
             if update.updatedValue != discussionNotificationsEnabled {
                 discussionNotificationsEnabled = update.updatedValue
             }
@@ -105,18 +106,23 @@ public class NotificationsSettingsViewModel: ObservableObject {
     }
     
     @objc private func refreshOSSettingsPermissionStatus() {
-        getOSSettingsPermissionStatus(autoUpdate: true)
+        getOSSettingsPermissionStatus(autoUpdate: true, track: true)
     }
     
-    private func getOSSettingsPermissionStatus(autoUpdate: Bool = false) {
+    private func getOSSettingsPermissionStatus(autoUpdate: Bool = false, track: Bool = false) {
         UNUserNotificationCenter.current().getNotificationSettings(completionHandler: { [weak self] (settings) in
             if settings.authorizationStatus == .notDetermined {
                 self?.authorizationStatus = .notDetermined
             } else if settings.authorizationStatus == .denied {
                 self?.authorizationStatus = .denied
+                if track {
+                    self?.trackSystemPermissionDialogAction(action: "dont_allow")
+                }
             } else if settings.authorizationStatus == .authorized {
                 self?.authorizationStatus = .authorized
-                
+                if track {
+                    self?.trackSystemPermissionDialogAction(action: "allow")
+                }
                 if autoUpdate {
                     Task {
                         await self?.updateDiscussionNotifications(enabled: true)
@@ -132,9 +138,11 @@ public class NotificationsSettingsViewModel: ObservableObject {
                 title: NotificationsLocalization.Alert.continue,
                 style: .default,
                 handler: { [weak self] _ in
+                    self?.trackAppPermissionRationaleDialogAction(action: "continue")
+                    
                     if self?.authorizationStatus == .notDetermined {
                         Task {
-                            await self?.router.performNotificationRegistration()
+                            await self?.showSystemPermissionAlert()
                         }
                     } else {
                         if let appSettings = URL(string: UIApplication.openSettingsURLString),
@@ -148,7 +156,9 @@ public class NotificationsSettingsViewModel: ObservableObject {
             UIAlertAction(
                 title: NotificationsLocalization.Alert.cancel,
                 style: .default,
-                handler: nil
+                handler: { [weak self] _ in
+                    self?.trackAppPermissionRationaleDialogAction(action: "cancel")
+                }
             )
         ]
         
@@ -157,8 +167,15 @@ public class NotificationsSettingsViewModel: ObservableObject {
             message: NotificationsLocalization.Alert.permissionMessage,
             actions: actions
         )
+        trackAppPermissionRationaleDialogViewed()
     }
-    
+
+    @MainActor
+    private func showSystemPermissionAlert() {
+        router.performNotificationRegistration()
+        trackSystemPermissionDialogViewed()
+    }
+
     private func addObservers() {
         NotificationCenter.default.addObserver(
             self,
@@ -182,5 +199,41 @@ public class NotificationsSettingsViewModel: ObservableObject {
     
     deinit {
         NotificationCenter.default.removeObserver(self)
+    }
+
+    func trackScreenEvent() {
+        analytics.notificationScreenEvent(.notificationSettings, biValue: .notificationSettings)
+    }
+    
+    func trackDiscussionPermissionToggle(action: Bool) {
+        analytics.notificationDiscussionPreferenceToggle(action: action)
+    }
+    
+    func trackPreferencesToggleBatchState() {
+        analytics.notificationPreferencesToggleBatchState(
+            discussionsActivity: discussionNotificationsEnabled
+        )
+    }
+    
+    func trackSystemPermissionDialogViewed() {
+        analytics.notificationScreenEvent(
+            .notificationSystemPermissionDialogViewed,
+            biValue: .notificationSystemPermissionDialogViewed
+        )
+    }
+    
+    func trackSystemPermissionDialogAction(action: String) {
+        analytics.notificationSystemPermissionDialogAction(action: action)
+    }
+    
+    func trackAppPermissionRationaleDialogViewed() {
+        analytics.notificationScreenEvent(
+            .notificationAppPermissionRationaleDialogViewed,
+            biValue: .notificationAppPermissionRationaleDialogViewed
+        )
+    }
+    
+    func trackAppPermissionRationaleDialogAction(action: String) {
+        analytics.notificationAppPermissionRationaleDialogAction(action: action)
     }
 }
