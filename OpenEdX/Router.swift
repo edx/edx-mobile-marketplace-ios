@@ -116,6 +116,9 @@ public class Router: AuthorizationRouter,
             let controller = UIHostingController(rootView: MainScreenView(viewModel: viewModel))
             navigationController.viewControllers = [controller]
             navigationController.setViewControllers([controller], animated: true)
+            if case .courseDetail = sourceScreen {
+                showTabScreen(tab: .discovery)
+            }
         }
     }
     
@@ -172,7 +175,7 @@ public class Router: AuthorizationRouter,
         alertMessage: String,
         positiveAction: String,
         onCloseTapped: @escaping () -> Void,
-        okTapped: @escaping () -> Void,
+        firstButtonTapped: @escaping () -> Void,
         type: AlertViewType
     ) {
         presentView(
@@ -184,7 +187,7 @@ public class Router: AuthorizationRouter,
                 alertMessage: alertMessage,
                 positiveAction: positiveAction,
                 onCloseTapped: onCloseTapped,
-                okTapped: okTapped,
+                firstButtonTapped: firstButtonTapped,
                 type: type
             )
         }
@@ -197,7 +200,7 @@ public class Router: AuthorizationRouter,
         action: String,
         image: Image,
         onCloseTapped: @escaping () -> Void,
-        okTapped: @escaping () -> Void,
+        firstButtonTapped: @escaping () -> Void,
         nextSectionTapped: @escaping () -> Void
     ) {
         presentView(
@@ -211,7 +214,7 @@ public class Router: AuthorizationRouter,
                 mainAction: action,
                 image: image,
                 onCloseTapped: onCloseTapped,
-                okTapped: okTapped,
+                firstButtonTapped: firstButtonTapped,
                 nextSectionTapped: { nextSectionTapped() }
             )
         }
@@ -603,7 +606,7 @@ public class Router: AuthorizationRouter,
             onCloseTapped: {
                 self.dismiss(animated: true)
             },
-            okTapped: {
+            firstButtonTapped: {
                 self.dismiss(animated: true)
                 if UIApplication.shared.canOpenURL(blockURL) {
                     UIApplication.shared.open(blockURL, options: [:], completionHandler: nil)

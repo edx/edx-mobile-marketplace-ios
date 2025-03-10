@@ -397,7 +397,6 @@
 				0727879528D34C03002E9142 /* Sources */,
 				0727879628D34C03002E9142 /* Frameworks */,
 				0727879728D34C03002E9142 /* Resources */,
-				A5310EA02D7F645A00020305 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1623,8 +1622,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/openedx/openedx-app-foundation-ios/";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.3;
+				kind = exactVersion;
+				version = 1.0.3;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

@@ -144,7 +144,7 @@ public class DeepLinkManager: DeepLinkManagerProtocol, NotificationsDeepLinkMana
             onCloseTapped: { [weak self] in
                 self?.router.dismiss(animated: true)
             },
-            okTapped: { [weak self] in
+            firstButtonTapped: { [weak self] in
                 guard let self else {
                     return
                 }

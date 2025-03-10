@@ -858,7 +858,7 @@ public final class CourseContainerViewModel: BaseCourseViewModel {
                 onCloseTapped: {
                     self.router.dismiss(animated: true)
                 },
-                okTapped: {
+                firstButtonTapped: {
                     Task {
                         await self.continueDownload()
                     }

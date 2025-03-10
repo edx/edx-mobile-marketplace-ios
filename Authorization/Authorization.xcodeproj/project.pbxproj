@@ -404,7 +404,6 @@
 				0770DE3728D0A319006D8A5D /* Sources */,
 				0770DE3828D0A319006D8A5D /* Frameworks */,
 				0770DE3928D0A319006D8A5D /* Resources */,
-				A5310E922D7F62C800020305 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1589,8 +1588,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/openedx/openedx-app-foundation-ios/";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.3;
+				kind = exactVersion;
+				version = 1.0.3;
 			};
 		};
 		CE7FB8752CC13C0B0088001A /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */ = {

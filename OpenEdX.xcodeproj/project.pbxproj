@@ -1308,24 +1308,24 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/edx/edx-mobile-app-analytics-ios";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.3;
+				kind = exactVersion;
+				version = 1.0.3;
 			};
 		};
 		A5FB2CB02D75D88900ECA001 /* XCRemoteSwiftPackageReference "openedx-app-firebase-analytics-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/openedx/openedx-app-firebase-analytics-ios";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.3;
+				kind = exactVersion;
+				version = 1.0.3;
 			};
 		};
 		A5FB2CB32D75D89E00ECA001 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/openedx/openedx-app-foundation-ios/";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.3;
+				kind = exactVersion;
+				version = 1.0.3;
 			};
 		};
 		CE0BF0B82CD9203A00D10289 /* XCRemoteSwiftPackageReference "microsoft-authentication-library-for-objc" */ = {

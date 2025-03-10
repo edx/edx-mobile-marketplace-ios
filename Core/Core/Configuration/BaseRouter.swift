@@ -43,7 +43,7 @@ public protocol BaseRouter: Sendable {
         alertMessage: String,
         positiveAction: String,
         onCloseTapped: @escaping () -> Void,
-        okTapped: @escaping () -> Void,
+        firstButtonTapped: @escaping () -> Void,
         type: AlertViewType
     )
     
@@ -54,7 +54,7 @@ public protocol BaseRouter: Sendable {
         action: String,
         image: SwiftUI.Image,
         onCloseTapped: @escaping () -> Void,
-        okTapped: @escaping () -> Void,
+        firstButtonTapped: @escaping () -> Void,
         nextSectionTapped: @escaping () -> Void
     )
     
@@ -148,7 +148,7 @@ open class BaseRouterMock: BaseRouter {
         alertMessage: String,
         positiveAction: String,
         onCloseTapped: @escaping () -> Void,
-        okTapped: @escaping () -> Void,
+        firstButtonTapped: @escaping () -> Void,
         type: AlertViewType
     ) {}
     
@@ -159,7 +159,7 @@ open class BaseRouterMock: BaseRouter {
         action: String,
         image: SwiftUI.Image,
         onCloseTapped: @escaping () -> Void,
-        okTapped: @escaping () -> Void,
+        firstButtonTapped: @escaping () -> Void,
         nextSectionTapped: @escaping () -> Void
     ) {}
 
