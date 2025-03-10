@@ -30,13 +30,12 @@
 		99C1654D2C0C4F2F00DC384D /* SSOHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C1654C2C0C4F2F00DC384D /* SSOHelper.swift */; };
 		99C1654F2C0C4F5900DC384D /* SSOWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C1654E2C0C4F5900DC384D /* SSOWebView.swift */; };
 		99C165512C0C4F7B00DC384D /* SSOWebViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C165502C0C4F7B00DC384D /* SSOWebViewModel.swift */; };
-		A5FB2CBB2D75D8E200ECA001 /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = A5FB2CBA2D75D8E200ECA001 /* OEXFoundation */; };
+		A5310E902D7F62C800020305 /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = A5310E8F2D7F62C800020305 /* OEXFoundation */; };
+		A5310E942D7F62D700020305 /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = A5310E932D7F62D700020305 /* OEXFoundation */; };
 		BA8B3A322AD5487300D25EF5 /* SocialAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8B3A312AD5487300D25EF5 /* SocialAuthView.swift */; };
 		BADB3F552AD6DFC3004D5CFA /* SocialAuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB3F542AD6DFC3004D5CFA /* SocialAuthViewModel.swift */; };
-		CE7CAF2D2CC155BE00E0AC9D /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = CE7CAF2C2CC155BE00E0AC9D /* OEXFoundation */; };
 		CE7FB8772CC13C0B0088001A /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = CE7FB8762CC13C0B0088001A /* FacebookLogin */; };
 		CE7FB87A2CC13C3C0088001A /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CE7FB8792CC13C3C0088001A /* GoogleSignInSwift */; };
-		CEB1E2642CC14E3100921517 /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = CEB1E2632CC14E3100921517 /* OEXFoundation */; };
 		CEB25A022CC13A36007FC792 /* AppleAuthProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB259FC2CC13A36007FC792 /* AppleAuthProvider.swift */; };
 		CEB25A032CC13A36007FC792 /* FacebookAuthProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB259FE2CC13A36007FC792 /* FacebookAuthProvider.swift */; };
 		CEB25A042CC13A36007FC792 /* GoogleAuthProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB259FD2CC13A36007FC792 /* GoogleAuthProvider.swift */; };
@@ -131,7 +130,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				07169458296D913400E3DED6 /* Authorization.framework in Frameworks */,
-				CE7CAF2D2CC155BE00E0AC9D /* OEXFoundation in Frameworks */,
+				A5310E942D7F62D700020305 /* OEXFoundation in Frameworks */,
 				5FB79D2802949372CDAF08D6 /* Pods_App_Authorization_AuthorizationTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -143,9 +142,8 @@
 				0770DE4728D0A3DA006D8A5D /* Core.framework in Frameworks */,
 				DE843D6BB1B9DDA398494890 /* Pods_App_Authorization.framework in Frameworks */,
 				CE7FB8772CC13C0B0088001A /* FacebookLogin in Frameworks */,
-				CEB1E2642CC14E3100921517 /* OEXFoundation in Frameworks */,
-				A5FB2CBB2D75D8E200ECA001 /* OEXFoundation in Frameworks */,
 				CE7FB87A2CC13C3C0088001A /* GoogleSignInSwift in Frameworks */,
+				A5310E902D7F62C800020305 /* OEXFoundation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,6 +404,7 @@
 				0770DE3728D0A319006D8A5D /* Sources */,
 				0770DE3828D0A319006D8A5D /* Frameworks */,
 				0770DE3928D0A319006D8A5D /* Resources */,
+				A5310E922D7F62C800020305 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1610,25 +1609,17 @@
 				minimumVersion = 8.0.0;
 			};
 		};
-		CEB1E2622CC14E3100921517 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/rnr/openedx-app-foundation-ios/";
-			requirement = {
-				branch = "anton/plugins-experiments";
-				kind = branch;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		A5FB2CBA2D75D8E200ECA001 /* OEXFoundation */ = {
+		A5310E8F2D7F62C800020305 /* OEXFoundation */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A5FB2CB92D75D8E200ECA001 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */;
 			productName = OEXFoundation;
 		};
-		CE7CAF2C2CC155BE00E0AC9D /* OEXFoundation */ = {
+		A5310E932D7F62D700020305 /* OEXFoundation */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = CEB1E2622CC14E3100921517 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */;
+			package = A5FB2CB92D75D8E200ECA001 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */;
 			productName = OEXFoundation;
 		};
 		CE7FB8762CC13C0B0088001A /* FacebookLogin */ = {
@@ -1640,11 +1631,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CE7FB8782CC13C3C0088001A /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignInSwift;
-		};
-		CEB1E2632CC14E3100921517 /* OEXFoundation */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CEB1E2622CC14E3100921517 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */;
-			productName = OEXFoundation;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

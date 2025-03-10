@@ -567,10 +567,10 @@ open class BaseRouterMock: BaseRouter, Mock {
 		perform?()
     }
 
-    open func dismiss(animated: Bool) {
-        addInvocation(.m_dismiss__animated_animated(Parameter<Bool>.value(`animated`)))
-		let perform = methodPerformValue(.m_dismiss__animated_animated(Parameter<Bool>.value(`animated`))) as? (Bool) -> Void
-		perform?(`animated`)
+    open func dismiss(animated: Bool, completion: (() -> Void)?) {
+        addInvocation(.m_dismiss__animated_animatedcompletion_completion(Parameter<Bool>.value(`animated`), Parameter<(() -> Void)?>.value(`completion`)))
+		let perform = methodPerformValue(.m_dismiss__animated_animatedcompletion_completion(Parameter<Bool>.value(`animated`), Parameter<(() -> Void)?>.value(`completion`))) as? (Bool, (() -> Void)?) -> Void
+		perform?(`animated`, `completion`)
     }
 
     open func removeLastView(controllers: Int) {
@@ -706,12 +706,25 @@ open class BaseRouterMock: BaseRouter, Mock {
 		perform?()
     }
 
+    @MainActor
+	open func showNotificationsPrimerIfNeeded() {
+        addInvocation(.m_showNotificationsPrimerIfNeeded)
+		let perform = methodPerformValue(.m_showNotificationsPrimerIfNeeded) as? () -> Void
+		perform?()
+    }
+
+    open func dismiss(animated: Bool = true) {
+        addInvocation(.m_dismiss__animated_animated(Parameter<Bool>.value(`animated`)))
+		let perform = methodPerformValue(.m_dismiss__animated_animated(Parameter<Bool>.value(`animated`))) as? (Bool) -> Void
+		perform?(`animated`)
+    }
+
 
     fileprivate enum MethodType {
         case m_backToRoot__animated_animated(Parameter<Bool>)
         case m_back__animated_animated(Parameter<Bool>)
         case m_backWithFade
-        case m_dismiss__animated_animated(Parameter<Bool>)
+        case m_dismiss__animated_animatedcompletion_completion(Parameter<Bool>, Parameter<(() -> Void)?>)
         case m_removeLastView__controllers_controllers(Parameter<Int>)
         case m_showMainOrWhatsNewScreen__sourceScreen_sourceScreenpostLoginData_postLoginData(Parameter<LogistrationSourceScreen>, Parameter<PostLoginData?>)
         case m_showStartupScreen
@@ -733,6 +746,8 @@ open class BaseRouterMock: BaseRouter, Mock {
         case m_showRestoreProgressView
         case m_hideRestoreProgressView
         case m_performNotificationRegistration
+        case m_showNotificationsPrimerIfNeeded
+        case m_dismiss__animated_animated(Parameter<Bool>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
@@ -748,9 +763,10 @@ open class BaseRouterMock: BaseRouter, Mock {
 
             case (.m_backWithFade, .m_backWithFade): return .match
 
-            case (.m_dismiss__animated_animated(let lhsAnimated), .m_dismiss__animated_animated(let rhsAnimated)):
+            case (.m_dismiss__animated_animatedcompletion_completion(let lhsAnimated, let lhsCompletion), .m_dismiss__animated_animatedcompletion_completion(let rhsAnimated, let rhsCompletion)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsAnimated, rhs: rhsAnimated, with: matcher), lhsAnimated, rhsAnimated, "animated"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCompletion, rhs: rhsCompletion, with: matcher), lhsCompletion, rhsCompletion, "completion"))
 				return Matcher.ComparisonResult(results)
 
             case (.m_removeLastView__controllers_controllers(let lhsControllers), .m_removeLastView__controllers_controllers(let rhsControllers)):
@@ -869,6 +885,13 @@ open class BaseRouterMock: BaseRouter, Mock {
             case (.m_hideRestoreProgressView, .m_hideRestoreProgressView): return .match
 
             case (.m_performNotificationRegistration, .m_performNotificationRegistration): return .match
+
+            case (.m_showNotificationsPrimerIfNeeded, .m_showNotificationsPrimerIfNeeded): return .match
+
+            case (.m_dismiss__animated_animated(let lhsAnimated), .m_dismiss__animated_animated(let rhsAnimated)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsAnimated, rhs: rhsAnimated, with: matcher), lhsAnimated, rhsAnimated, "animated"))
+				return Matcher.ComparisonResult(results)
             default: return .none
             }
         }
@@ -878,7 +901,7 @@ open class BaseRouterMock: BaseRouter, Mock {
             case let .m_backToRoot__animated_animated(p0): return p0.intValue
             case let .m_back__animated_animated(p0): return p0.intValue
             case .m_backWithFade: return 0
-            case let .m_dismiss__animated_animated(p0): return p0.intValue
+            case let .m_dismiss__animated_animatedcompletion_completion(p0, p1): return p0.intValue + p1.intValue
             case let .m_removeLastView__controllers_controllers(p0): return p0.intValue
             case let .m_showMainOrWhatsNewScreen__sourceScreen_sourceScreenpostLoginData_postLoginData(p0, p1): return p0.intValue + p1.intValue
             case .m_showStartupScreen: return 0
@@ -900,6 +923,8 @@ open class BaseRouterMock: BaseRouter, Mock {
             case .m_showRestoreProgressView: return 0
             case .m_hideRestoreProgressView: return 0
             case .m_performNotificationRegistration: return 0
+            case .m_showNotificationsPrimerIfNeeded: return 0
+            case let .m_dismiss__animated_animated(p0): return p0.intValue
             }
         }
         func assertionName() -> String {
@@ -907,7 +932,7 @@ open class BaseRouterMock: BaseRouter, Mock {
             case .m_backToRoot__animated_animated: return ".backToRoot(animated:)"
             case .m_back__animated_animated: return ".back(animated:)"
             case .m_backWithFade: return ".backWithFade()"
-            case .m_dismiss__animated_animated: return ".dismiss(animated:)"
+            case .m_dismiss__animated_animatedcompletion_completion: return ".dismiss(animated:completion:)"
             case .m_removeLastView__controllers_controllers: return ".removeLastView(controllers:)"
             case .m_showMainOrWhatsNewScreen__sourceScreen_sourceScreenpostLoginData_postLoginData: return ".showMainOrWhatsNewScreen(sourceScreen:postLoginData:)"
             case .m_showStartupScreen: return ".showStartupScreen()"
@@ -929,6 +954,8 @@ open class BaseRouterMock: BaseRouter, Mock {
             case .m_showRestoreProgressView: return ".showRestoreProgressView()"
             case .m_hideRestoreProgressView: return ".hideRestoreProgressView()"
             case .m_performNotificationRegistration: return ".performNotificationRegistration()"
+            case .m_showNotificationsPrimerIfNeeded: return ".showNotificationsPrimerIfNeeded()"
+            case .m_dismiss__animated_animated: return ".dismiss(animated:)"
             }
         }
     }
@@ -950,7 +977,7 @@ open class BaseRouterMock: BaseRouter, Mock {
         public static func backToRoot(animated: Parameter<Bool>) -> Verify { return Verify(method: .m_backToRoot__animated_animated(`animated`))}
         public static func back(animated: Parameter<Bool>) -> Verify { return Verify(method: .m_back__animated_animated(`animated`))}
         public static func backWithFade() -> Verify { return Verify(method: .m_backWithFade)}
-        public static func dismiss(animated: Parameter<Bool>) -> Verify { return Verify(method: .m_dismiss__animated_animated(`animated`))}
+        public static func dismiss(animated: Parameter<Bool>, completion: Parameter<(() -> Void)?>) -> Verify { return Verify(method: .m_dismiss__animated_animatedcompletion_completion(`animated`, `completion`))}
         public static func removeLastView(controllers: Parameter<Int>) -> Verify { return Verify(method: .m_removeLastView__controllers_controllers(`controllers`))}
         public static func showMainOrWhatsNewScreen(sourceScreen: Parameter<LogistrationSourceScreen>, postLoginData: Parameter<PostLoginData?>) -> Verify { return Verify(method: .m_showMainOrWhatsNewScreen__sourceScreen_sourceScreenpostLoginData_postLoginData(`sourceScreen`, `postLoginData`))}
         public static func showStartupScreen() -> Verify { return Verify(method: .m_showStartupScreen)}
@@ -979,6 +1006,9 @@ open class BaseRouterMock: BaseRouter, Mock {
 		public static func hideRestoreProgressView() -> Verify { return Verify(method: .m_hideRestoreProgressView)}
         @MainActor
 		public static func performNotificationRegistration() -> Verify { return Verify(method: .m_performNotificationRegistration)}
+        @MainActor
+		public static func showNotificationsPrimerIfNeeded() -> Verify { return Verify(method: .m_showNotificationsPrimerIfNeeded)}
+        public static func dismiss(animated: Parameter<Bool>) -> Verify { return Verify(method: .m_dismiss__animated_animated(`animated`))}
     }
 
     public struct Perform {
@@ -994,8 +1024,8 @@ open class BaseRouterMock: BaseRouter, Mock {
         public static func backWithFade(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_backWithFade, performs: perform)
         }
-        public static func dismiss(animated: Parameter<Bool>, perform: @escaping (Bool) -> Void) -> Perform {
-            return Perform(method: .m_dismiss__animated_animated(`animated`), performs: perform)
+        public static func dismiss(animated: Parameter<Bool>, completion: Parameter<(() -> Void)?>, perform: @escaping (Bool, (() -> Void)?) -> Void) -> Perform {
+            return Perform(method: .m_dismiss__animated_animatedcompletion_completion(`animated`, `completion`), performs: perform)
         }
         public static func removeLastView(controllers: Parameter<Int>, perform: @escaping (Int) -> Void) -> Perform {
             return Perform(method: .m_removeLastView__controllers_controllers(`controllers`), performs: perform)
@@ -1066,6 +1096,13 @@ open class BaseRouterMock: BaseRouter, Mock {
         @MainActor
 		public static func performNotificationRegistration(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_performNotificationRegistration, performs: perform)
+        }
+        @MainActor
+		public static func showNotificationsPrimerIfNeeded(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_showNotificationsPrimerIfNeeded, performs: perform)
+        }
+        public static func dismiss(animated: Parameter<Bool>, perform: @escaping (Bool) -> Void) -> Perform {
+            return Perform(method: .m_dismiss__animated_animated(`animated`), performs: perform)
         }
     }
 
@@ -2062,7 +2099,7 @@ open class ConfigProtocolMock: ConfigProtocol, Mock {
 }
 
 // MARK: - ConnectivityProtocol
-@MainActor
+
 open class ConnectivityProtocolMock: ConnectivityProtocol, Mock {
     public init(sequencing sequencingPolicy: SequencingPolicy = .lastWrittenResolvedFirst, stubbing stubbingPolicy: StubbingPolicy = .wrap, file: StaticString = #file, line: UInt = #line) {
         SwiftyMockyTestObserver.setup()
