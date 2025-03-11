@@ -93,7 +93,8 @@ final class PrimaryCourseDashboardViewModelTests: XCTestCase {
             config: config,
             serverConfig: ServerConfigProtocolMock(),
             notificationsInteractor: NotificationsInteractor.mock,
-            storage: storage
+            storage: storage,
+            iapService: nil
         )
         
         Given(connectivity, .isInternetAvaliable(getter: true))
@@ -119,7 +120,8 @@ final class PrimaryCourseDashboardViewModelTests: XCTestCase {
             config: config,
             serverConfig: ServerConfigProtocolMock(),
             notificationsInteractor: NotificationsInteractor.mock,
-            storage: storage
+            storage: storage,
+            iapService: nil
         )
                 
         Given(connectivity, .isInternetAvaliable(getter: false))
@@ -145,7 +147,8 @@ final class PrimaryCourseDashboardViewModelTests: XCTestCase {
             config: config,
             serverConfig: ServerConfigProtocolMock(),
             notificationsInteractor: NotificationsInteractor.mock,
-            storage: storage
+            storage: storage,
+            iapService: nil
         )
         
         Given(connectivity, .isInternetAvaliable(getter: true))
@@ -171,7 +174,8 @@ final class PrimaryCourseDashboardViewModelTests: XCTestCase {
             config: config,
             serverConfig: ServerConfigProtocolMock(),
             notificationsInteractor: NotificationsInteractor.mock,
-            storage: storage
+            storage: storage,
+            iapService: nil
         )
         
         Given(connectivity, .isInternetAvaliable(getter: true))
@@ -197,7 +201,8 @@ final class PrimaryCourseDashboardViewModelTests: XCTestCase {
             config: config,
             serverConfig: ServerConfigProtocolMock(),
             notificationsInteractor: NotificationsInteractor.mock,
-            storage: storage
+            storage: storage,
+            iapService: nil
         )
         
         let courseID = "test-course-id"
@@ -219,7 +224,8 @@ final class PrimaryCourseDashboardViewModelTests: XCTestCase {
             config: config,
             serverConfig: ServerConfigProtocolMock(),
             notificationsInteractor: NotificationsInteractor.mock,
-            storage: storage
+            storage: storage,
+            iapService: nil
         )
         
         Given(connectivity, .isInternetAvaliable(getter: true))
