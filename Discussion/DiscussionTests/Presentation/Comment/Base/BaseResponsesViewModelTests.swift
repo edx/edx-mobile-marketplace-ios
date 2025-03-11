@@ -440,7 +440,7 @@ final class BaseResponsesViewModelTests: XCTestCase {
         
         viewModel.addNewPost(newPost)
         
-        XCTAssertTrue(viewModel.postComments!.comments.last!.authorName == "new")
+        XCTAssertTrue(viewModel.postComments!.comments.first!.authorName == "new")
     }
     
 }

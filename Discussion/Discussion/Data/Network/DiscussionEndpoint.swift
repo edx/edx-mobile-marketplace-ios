@@ -200,6 +200,7 @@ enum DiscussionEndpoint: EndPointType {
         case let .getDiscussionComments(threadID, page):
             let parameters: [String: Encodable] = [
                 "thread_id": threadID,
+                "reverse_order": "true",
                 "requested_fields": "profile_image",
                 "page": page
             ]
@@ -208,12 +209,14 @@ enum DiscussionEndpoint: EndPointType {
             let parameters: [String: Encodable] = [
                 "thread_id": threadID,
                 "endorsed": false,
+                "reverse_order": "true",
                 "requested_fields": "profile_image",
                 "page": page
             ]
             return .requestParameters(parameters: parameters, encoding: URLEncoding.queryString)
         case let .getCommentResponses(_, page):
             let parameters: [String: Encodable] = [
+                "reverse_order": "true",
                 "requested_fields": "profile_image",
                 "page": page
             ]

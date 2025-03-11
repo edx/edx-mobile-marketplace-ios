@@ -192,15 +192,11 @@ public struct ResponsesView: View {
                     .onReceive(viewModel.addPostSubject, perform: { newComment in
                         guard let newComment else { return }
                         viewModel.sendThreadPostsCountState()
-                        if viewModel.nextPage - 1 == viewModel.totalPages {
-                            viewModel.addNewPost(newComment)
-                            withAnimation {
-                                guard let count = viewModel.postComments?.comments.count else { return }
-                                scroll.scrollTo(count - 2, anchor: .top)
+                        viewModel.addNewPost(newComment)
+                        withAnimation {
+                            if !(viewModel.postComments?.comments.isEmpty ?? true) {
+                                scroll.scrollTo(0, anchor: .bottom)
                             }
-                        } else {
-                            viewModel.alertMessage = DiscussionLocalization.Response.Alert.commentAdded
-                            viewModel.showAlert = true
                         }
                     })
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
