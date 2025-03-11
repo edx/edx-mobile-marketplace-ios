@@ -93,8 +93,8 @@
 		97C99C362B9A08FE004EEDE2 /* CalendarSyncProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C99C352B9A08FE004EEDE2 /* CalendarSyncProgressView.swift */; };
 		97CA95252B875EE200A9EDEA /* DatesSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CA95242B875EE200A9EDEA /* DatesSuccessView.swift */; };
 		97E7DF0F2B7C852A00A2A09B /* DatesStatusInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E7DF0E2B7C852A00A2A09B /* DatesStatusInfoView.swift */; };
-		A5310EB02D7F653700020305 /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = A5310EAF2D7F653700020305 /* OEXFoundation */; };
 		A5310EB42D7F654100020305 /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = A5310EB32D7F654100020305 /* OEXFoundation */; };
+		A583638C2D807EA9008935FF /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = A583638B2D807EA9008935FF /* OEXFoundation */; };
 		B8F50317B6B830A0E520C954 /* Pods_App_Course_CourseTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50E59D2B81E12610964282C5 /* Pods_App_Course_CourseTests.framework */; };
 		BA58CF5D2B3D804D005B102E /* CourseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA58CF5C2B3D804D005B102E /* CourseStorage.swift */; };
 		BA58CF612B471041005B102E /* VideoDownloadQualityBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA58CF602B471041005B102E /* VideoDownloadQualityBarView.swift */; };
@@ -290,7 +290,7 @@
 				197FB8EA8F92F00A8F383D82 /* Pods_App_Course.framework in Frameworks */,
 				CEBCA4342CC13CDE00076589 /* YouTubePlayerKit in Frameworks */,
 				02F98A8128F8224200DE94C0 /* Discussion.framework in Frameworks */,
-				A5310EB02D7F653700020305 /* OEXFoundation in Frameworks */,
+				A583638C2D807EA9008935FF /* OEXFoundation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -772,6 +772,7 @@
 				0289F8EA28E1C3510064F8F3 /* Sources */,
 				0289F8EB28E1C3510064F8F3 /* Frameworks */,
 				0289F8EC28E1C3510064F8F3 /* Resources */,
+				A583638E2D807EA9008935FF /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -813,7 +814,7 @@
 			mainGroup = 0289F8E428E1C3510064F8F3;
 			packageReferences = (
 				CEBCA4322CC13CDE00076589 /* XCRemoteSwiftPackageReference "YouTubePlayerKit" */,
-				A5FB2CC82D75D94300ECA001 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */,
+				A51F8CD52D8070A500F3B60C /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */,
 			);
 			productRefGroup = 0289F8EF28E1C3510064F8F3 /* Products */;
 			projectDirPath = "";
@@ -2093,6 +2094,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		A51F8CD52D8070A500F3B60C /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/rnr/openedx-app-foundation-ios";
+			requirement = {
+				branch = "anton/plugins-experiments";
+				kind = branch;
+			};
+		};
 		A5FB2CC82D75D94300ECA001 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/openedx/openedx-app-foundation-ios/";
@@ -2112,14 +2121,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		A5310EAF2D7F653700020305 /* OEXFoundation */ = {
+		A5310EB32D7F654100020305 /* OEXFoundation */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A5FB2CC82D75D94300ECA001 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */;
 			productName = OEXFoundation;
 		};
-		A5310EB32D7F654100020305 /* OEXFoundation */ = {
+		A583638B2D807EA9008935FF /* OEXFoundation */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A5FB2CC82D75D94300ECA001 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */;
+			package = A51F8CD52D8070A500F3B60C /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */;
 			productName = OEXFoundation;
 		};
 		CEBCA4332CC13CDE00076589 /* YouTubePlayerKit */ = {

@@ -172,6 +172,7 @@
 		A5265D4B2D7741A900D91735 /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5265D4A2D7741A900D91735 /* UINavigationController.swift */; };
 		A53A32352B233DEC005FE38A /* ThemeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53A32342B233DEC005FE38A /* ThemeConfig.swift */; };
 		A55DC36F2D774D30001E272B /* FullStoryConfigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55DC36E2D774D2F001E272B /* FullStoryConfigTests.swift */; };
+		A58363902D807EC2008935FF /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = A583638F2D807EC2008935FF /* OEXFoundation */; };
 		A5935EA52CEF832500B4BB48 /* SegmentConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5935EA42CEF832500B4BB48 /* SegmentConfig.swift */; };
 		A595689B2B6173DF00ED4F90 /* BranchConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A595689A2B6173DF00ED4F90 /* BranchConfig.swift */; };
 		A5CBE6582D5B820E00FF455A /* SwiftyStoreKit in Frameworks */ = {isa = PBXBuildFile; productRef = A5CBE6572D5B820E00FF455A /* SwiftyStoreKit */; };
@@ -179,7 +180,6 @@
 		A5D2A61A2D5E1C7000E98BCA /* RequestInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D2A6192D5E1C7000E98BCA /* RequestInterceptor.swift */; };
 		A5D4B3DE2CDD0A9700688951 /* SecureInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D4B3DD2CDD0A9700688951 /* SecureInputView.swift */; };
 		A5F4E7B52B61544A00ACD166 /* BrazeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F4E7B42B61544A00ACD166 /* BrazeConfig.swift */; };
-		A5FB2CB82D75D8CB00ECA001 /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = A5FB2CB72D75D8CB00ECA001 /* OEXFoundation */; };
 		BA4AFB422B5A7A0900A21367 /* VideoDownloadQualityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4AFB412B5A7A0900A21367 /* VideoDownloadQualityView.swift */; };
 		BA4AFB442B6A5AF100A21367 /* CheckBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4AFB432B6A5AF100A21367 /* CheckBoxView.swift */; };
 		BA593F1C2AF8E498009ADB51 /* ScrollSlidingTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA593F1B2AF8E498009ADB51 /* ScrollSlidingTabBar.swift */; };
@@ -197,7 +197,6 @@
 		CE09B2B62CE796AE0090DB53 /* InvalidCoreDataContextError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE09B2B52CE796AE0090DB53 /* InvalidCoreDataContextError.swift */; };
 		CE1D5B7D2CE65D360019CA34 /* Protected.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D5B7C2CE65D360019CA34 /* Protected.swift */; };
 		CE54C2D22CC80D8500E529F9 /* DownloadManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE54C2D12CC80D8500E529F9 /* DownloadManagerTests.swift */; };
-		CE57127C2CD109DB00D4AB17 /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = CE57127B2CD109DB00D4AB17 /* OEXFoundation */; };
 		CE953A3B2CD0DA940023D667 /* CoreMock.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE953A3A2CD0DA940023D667 /* CoreMock.generated.swift */; };
 		CED42FFC2D099F0400C7AD89 /* DownloadManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED42FFB2D099F0400C7AD89 /* DownloadManagerMock.swift */; };
 		CFC84952299F8B890055E497 /* Debounce.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC84951299F8B890055E497 /* Debounce.swift */; };
@@ -485,12 +484,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE57127C2CD109DB00D4AB17 /* OEXFoundation in Frameworks */,
 				C8C446EF233F81B9FABB77D2 /* Pods_App_Core.framework in Frameworks */,
 				02AA27942C2C1B88006F5B6A /* ZipArchive in Frameworks */,
 				A5CBE6582D5B820E00FF455A /* SwiftyStoreKit in Frameworks */,
-				A5FB2CB82D75D8CB00ECA001 /* OEXFoundation in Frameworks */,
 				E055A5392B18DC95008D9E5E /* Theme.framework in Frameworks */,
+				A58363902D807EC2008935FF /* OEXFoundation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1174,9 +1172,8 @@
 			name = Core;
 			packageProductDependencies = (
 				02AA27932C2C1B88006F5B6A /* ZipArchive */,
-				CE57127B2CD109DB00D4AB17 /* OEXFoundation */,
 				A5CBE6572D5B820E00FF455A /* SwiftyStoreKit */,
-				A5FB2CB72D75D8CB00ECA001 /* OEXFoundation */,
+				A583638F2D807EC2008935FF /* OEXFoundation */,
 			);
 			productName = Core;
 			productReference = 0770DE0828D07831006D8A5D /* Core.framework */;
@@ -1215,7 +1212,7 @@
 			packageReferences = (
 				02AA27922C2C1B61006F5B6A /* XCRemoteSwiftPackageReference "ZipArchive" */,
 				A5CBE6562D5B7ED900FF455A /* XCRemoteSwiftPackageReference "SwiftyStoreKit" */,
-				A5FB2CB62D75D8CB00ECA001 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */,
+				A51F8CC32D80702800F3B60C /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */,
 			);
 			productRefGroup = 0770DE0928D07831006D8A5D /* Products */;
 			projectDirPath = "";
@@ -2593,20 +2590,20 @@
 				minimumVersion = 2.5.5;
 			};
 		};
+		A51F8CC32D80702800F3B60C /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/rnr/openedx-app-foundation-ios";
+			requirement = {
+				branch = "anton/plugins-experiments";
+				kind = branch;
+			};
+		};
 		A5CBE6562D5B7ED900FF455A /* XCRemoteSwiftPackageReference "SwiftyStoreKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/bizz84/SwiftyStoreKit.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 0.16.4;
-			};
-		};
-		A5FB2CB62D75D8CB00ECA001 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/openedx/openedx-app-foundation-ios/";
-			requirement = {
-				kind = exactVersion;
-				version = 1.0.3;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -2617,19 +2614,15 @@
 			package = 02AA27922C2C1B61006F5B6A /* XCRemoteSwiftPackageReference "ZipArchive" */;
 			productName = ZipArchive;
 		};
+		A583638F2D807EC2008935FF /* OEXFoundation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A51F8CC32D80702800F3B60C /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */;
+			productName = OEXFoundation;
+		};
 		A5CBE6572D5B820E00FF455A /* SwiftyStoreKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A5CBE6562D5B7ED900FF455A /* XCRemoteSwiftPackageReference "SwiftyStoreKit" */;
 			productName = SwiftyStoreKit;
-		};
-		A5FB2CB72D75D8CB00ECA001 /* OEXFoundation */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A5FB2CB62D75D8CB00ECA001 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */;
-			productName = OEXFoundation;
-		};
-		CE57127B2CD109DB00D4AB17 /* OEXFoundation */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = OEXFoundation;
 		};
 /* End XCSwiftPackageProductDependency section */
 

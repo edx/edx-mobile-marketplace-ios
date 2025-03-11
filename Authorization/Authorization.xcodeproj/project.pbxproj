@@ -30,8 +30,8 @@
 		99C1654D2C0C4F2F00DC384D /* SSOHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C1654C2C0C4F2F00DC384D /* SSOHelper.swift */; };
 		99C1654F2C0C4F5900DC384D /* SSOWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C1654E2C0C4F5900DC384D /* SSOWebView.swift */; };
 		99C165512C0C4F7B00DC384D /* SSOWebViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C165502C0C4F7B00DC384D /* SSOWebViewModel.swift */; };
-		A5310E902D7F62C800020305 /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = A5310E8F2D7F62C800020305 /* OEXFoundation */; };
 		A5310E942D7F62D700020305 /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = A5310E932D7F62D700020305 /* OEXFoundation */; };
+		A58363932D807EDB008935FF /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = A58363922D807EDB008935FF /* OEXFoundation */; };
 		BA8B3A322AD5487300D25EF5 /* SocialAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8B3A312AD5487300D25EF5 /* SocialAuthView.swift */; };
 		BADB3F552AD6DFC3004D5CFA /* SocialAuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB3F542AD6DFC3004D5CFA /* SocialAuthViewModel.swift */; };
 		CE7FB8772CC13C0B0088001A /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = CE7FB8762CC13C0B0088001A /* FacebookLogin */; };
@@ -143,7 +143,7 @@
 				DE843D6BB1B9DDA398494890 /* Pods_App_Authorization.framework in Frameworks */,
 				CE7FB8772CC13C0B0088001A /* FacebookLogin in Frameworks */,
 				CE7FB87A2CC13C3C0088001A /* GoogleSignInSwift in Frameworks */,
-				A5310E902D7F62C800020305 /* OEXFoundation in Frameworks */,
+				A58363932D807EDB008935FF /* OEXFoundation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -404,6 +404,7 @@
 				0770DE3728D0A319006D8A5D /* Sources */,
 				0770DE3828D0A319006D8A5D /* Frameworks */,
 				0770DE3928D0A319006D8A5D /* Resources */,
+				A58363952D807EDB008935FF /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -446,7 +447,7 @@
 			packageReferences = (
 				CE7FB8752CC13C0B0088001A /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
 				CE7FB8782CC13C3C0088001A /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
-				A5FB2CB92D75D8E200ECA001 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */,
+				A51F8CC62D80703C00F3B60C /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */,
 			);
 			productRefGroup = 0770DE3C28D0A319006D8A5D /* Products */;
 			projectDirPath = "";
@@ -1584,6 +1585,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		A51F8CC62D80703C00F3B60C /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/rnr/openedx-app-foundation-ios";
+			requirement = {
+				branch = "anton/plugins-experiments";
+				kind = branch;
+			};
+		};
 		A5FB2CB92D75D8E200ECA001 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/openedx/openedx-app-foundation-ios/";
@@ -1611,14 +1620,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		A5310E8F2D7F62C800020305 /* OEXFoundation */ = {
+		A5310E932D7F62D700020305 /* OEXFoundation */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A5FB2CB92D75D8E200ECA001 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */;
 			productName = OEXFoundation;
 		};
-		A5310E932D7F62D700020305 /* OEXFoundation */ = {
+		A58363922D807EDB008935FF /* OEXFoundation */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A5FB2CB92D75D8E200ECA001 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */;
+			package = A51F8CC62D80703C00F3B60C /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */;
 			productName = OEXFoundation;
 		};
 		CE7FB8762CC13C0B0088001A /* FacebookLogin */ = {

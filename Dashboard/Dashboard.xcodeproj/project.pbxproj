@@ -37,7 +37,7 @@
 		97D2CBB92D354DCA006AC2C2 /* Notifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97D2CBB82D354DCA006AC2C2 /* Notifications.framework */; };
 		97E7DF0B2B7A3EAF00A2A09B /* CourseEnrollmentsMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E7DF0A2B7A3EAF00A2A09B /* CourseEnrollmentsMock.swift */; };
 		9AD4A6A1AAF97092CF457FE2 /* Pods_App_Dashboard_DashboardTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22905947A936093AD23D4CF8 /* Pods_App_Dashboard_DashboardTests.framework */; };
-		A5310EA52D7F64DB00020305 /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = A5310EA42D7F64DB00020305 /* OEXFoundation */; };
+		A58363892D807E8E008935FF /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = A58363882D807E8E008935FF /* OEXFoundation */; };
 		CE1735062CD2552A00F9606A /* PrimaryCourseDashboardViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1735052CD2552A00F9606A /* PrimaryCourseDashboardViewModelTests.swift */; };
 		CE17350A2CD26CB500F9606A /* AllCoursesViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1735092CD26CB500F9606A /* AllCoursesViewModelTests.swift */; };
 /* End PBXBuildFile section */
@@ -131,7 +131,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A5310EA52D7F64DB00020305 /* OEXFoundation in Frameworks */,
+				A58363892D807E8E008935FF /* OEXFoundation in Frameworks */,
 				97D2CBB92D354DCA006AC2C2 /* Notifications.framework in Frameworks */,
 				027DB33F28D8E605002B6862 /* Core.framework in Frameworks */,
 				214DA1AADABC7BF4FB8EA1D7 /* Pods_App_Dashboard.framework in Frameworks */,
@@ -393,7 +393,7 @@
 			);
 			mainGroup = 02EF39DD28D89F560058F6BD;
 			packageReferences = (
-				A5FB2CC22D75D91D00ECA001 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */,
+				A51F8CCF2D80707700F3B60C /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */,
 			);
 			productRefGroup = 02EF39E828D89F560058F6BD /* Products */;
 			projectDirPath = "";
@@ -1552,20 +1552,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		A5FB2CC22D75D91D00ECA001 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */ = {
+		A51F8CCF2D80707700F3B60C /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/openedx/openedx-app-foundation-ios/";
+			repositoryURL = "https://github.com/rnr/openedx-app-foundation-ios";
 			requirement = {
-				kind = exactVersion;
-				version = 1.0.3;
+				branch = "anton/plugins-experiments";
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		A5310EA42D7F64DB00020305 /* OEXFoundation */ = {
+		A58363882D807E8E008935FF /* OEXFoundation */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A5FB2CC22D75D91D00ECA001 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */;
+			package = A51F8CCF2D80707700F3B60C /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */;
 			productName = OEXFoundation;
 		};
 /* End XCSwiftPackageProductDependency section */
