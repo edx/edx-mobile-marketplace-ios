@@ -9,6 +9,7 @@ import XCTest
 @testable import Core
 import SwiftyMocky
 
+@MainActor
 final class UpgradeInfoViewModelTests: XCTestCase {
     typealias FlowData = (sku: String, product: StoreProductInfo, basketID: Int, symbol: String, receipt: String )
     
@@ -158,7 +159,7 @@ final class UpgradeInfoViewModelTests: XCTestCase {
     }
     
     @MainActor 
-    private func verifySuccessFlow(flowData: FlowData) throws {
+    private func verifySuccessFlow(flowData: FlowData) async throws {
         guard let interactor else { throw UpgradeInfoViewModelTestsError.interactorIsNil }
         Verify(interactor, 1, .addBasket(sku: .value(flowData.sku)))
         Verify(interactor, 1, .checkoutBasket(basketID: .value(flowData.basketID)))
@@ -190,6 +191,8 @@ final class UpgradeInfoViewModelTests: XCTestCase {
         let flowData = try prepareSuccessFlow(for: viewModel.sku, product: product)
         
         await viewModel.purchase()
+        
+        await Task.yield()
         
         // Verify purchase backend processing
         try await verifySuccessFlow(flowData: flowData)
@@ -275,9 +278,11 @@ final class UpgradeInfoViewModelTests: XCTestCase {
         
         await viewModel.purchase()
         
+        await Task.yield()
+        
         // Verify purchase backend processing
-        try await verifyFailureBasketFlow(flowData: flowData)
-        try await verifyFailureRouterFlow(flowData: flowData)
+        try verifyFailureBasketFlow(flowData: flowData)
+        try verifyFailureRouterFlow(flowData: flowData)
         
         var stateIsSuccess: Bool = false
         if case .error = handler.state {
@@ -311,10 +316,12 @@ final class UpgradeInfoViewModelTests: XCTestCase {
         
         await viewModel.purchase()
         
+        await Task.yield()
+        
         // Verify purchase backend processing
-        try await verifyFailureBasketFlow(flowData: flowData)
-        try await verifyFailureCheckoutFlow(flowData: flowData)
-        try await verifyFailureRouterFlow(flowData: flowData)
+        try verifyFailureBasketFlow(flowData: flowData)
+        try verifyFailureCheckoutFlow(flowData: flowData)
+        try verifyFailureRouterFlow(flowData: flowData)
         
         var stateIsSuccess: Bool = false
         if case .error = handler.state {
@@ -359,11 +366,13 @@ final class UpgradeInfoViewModelTests: XCTestCase {
         
         await viewModel.purchase()
         
+        await Task.yield()
+        
         // Verify purchase backend processing
-        try await verifyFailureBasketFlow(flowData: flowData)
-        try await verifyFailureCheckoutFlow(flowData: flowData)
+        try verifyFailureBasketFlow(flowData: flowData)
+        try verifyFailureCheckoutFlow(flowData: flowData)
         try verifyFailurePurchaseFlow(flowData: flowData)
-        try await verifyFailureRouterFlow(flowData: flowData)
+        try verifyFailureRouterFlow(flowData: flowData)
 
         
         var stateIsSuccess: Bool = false
@@ -427,9 +436,11 @@ final class UpgradeInfoViewModelTests: XCTestCase {
         
         await viewModel.purchase()
         
+        await Task.yield()
+        
         // Verify purchase backend processing
-        try await verifyFailureBasketFlow(flowData: flowData)
-        try await verifyFailureCheckoutFlow(flowData: flowData)
+        try verifyFailureBasketFlow(flowData: flowData)
+        try verifyFailureCheckoutFlow(flowData: flowData)
         try verifyFailurePurchaseFlow(flowData: flowData)
         try verifyFullfillCheckoutFlow(flowData: flowData)
         guard let router else { throw UpgradeInfoViewModelTestsError.routerIsNil }

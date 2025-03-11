@@ -27,6 +27,9 @@
 "ERROR.INTERNET.NO_INTERNET_TITLE" = "No internet connection";
 "ERROR.INTERNET.NO_INTERNET_DESCRIPTION" = "Please connect to the internet to view this content.";
 
+"ERROR.SERVER.GENERIC_TITLE" = "Server error";
+"ERROR.SERVER.GENERIC_DESCRIPTION" = "Something went wrong on our end. Please try again later.";
+
 "COURSEWARE.COURSE_CONTENT" = "Course content";
 "COURSEWARE.COURSE_CONTENT_NOT_AVAILABLE" = "This interactive component isn't yet available on mobile.";
 "COURSEWARE.COURSE_UNITS" = "Course units";
@@ -65,6 +68,8 @@
 "ALERT.CANCEL" = "Cancel";
 "ALERT.LOGOUT" = "Log out";
 "ALERT.LEAVE" = "Leave";
+"ALERT.SIGN_IN" = "Sign in";
+"ALERT.REGISTER" = "Register";
 "ALERT.KEEP_EDITING" = "Keep editing";
 "ALERT.DELETE" = "Delete";
 "ALERT.ADD" = "Add";

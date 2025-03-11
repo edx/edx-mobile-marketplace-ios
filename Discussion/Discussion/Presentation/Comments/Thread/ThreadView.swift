@@ -107,6 +107,7 @@ public struct ThreadView: View {
                                                 comment: comment,
                                                 addCommentAvailable: true,
                                                 useRelativeDates: useRelativeDates,
+                                                shouldHighlight: viewModel.shouldHighlightResponse(index),
                                                 onAvatarTap: { username in
                                                     viewModel.router.showUserDetails(username: username)
                                                 },
@@ -310,8 +311,9 @@ struct CommentsView_Previews: PreviewProvider {
             interactor: DiscussionInteractor.mock,
             router: DiscussionRouterMock(),
             config: ConfigMock(),
-            storage: CoreStorageMock(),
+            coreStorage: CoreStorageMock(),
             postStateSubject: .init(nil),
+            responseID: nil,
             analytics: DiscussionAnalyticsMock()
         )
         

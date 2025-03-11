@@ -28,7 +28,8 @@ public protocol DiscussionRouter: BaseRouter {
         thread: UserThread,
         postStateSubject: CurrentValueSubject<PostState?, Never>,
         isBlackedOut: Bool,
-        animated: Bool
+        animated: Bool,
+        responseID: String?
     )
 
     func showDiscussionsSearch(courseID: String, isBlackedOut: Bool)
@@ -43,6 +44,23 @@ public protocol DiscussionRouter: BaseRouter {
     )
     
     func createNewThread(courseID: String, selectedTopic: String, onPostCreated: @escaping () -> Void)
+}
+
+public extension DiscussionRouter {
+    func showThread(
+        thread: UserThread,
+        postStateSubject: CurrentValueSubject<PostState?, Never>,
+        isBlackedOut: Bool,
+        animated: Bool
+    ) {
+        showThread(
+            thread: thread,
+            postStateSubject: postStateSubject,
+            isBlackedOut: isBlackedOut,
+            animated: animated,
+            responseID: nil
+        )
+    }
 }
 
 // Mark - For testing and SwiftUI preview
@@ -66,7 +84,8 @@ public class DiscussionRouterMock: BaseRouterMock, DiscussionRouter {
         thread: UserThread,
         postStateSubject: CurrentValueSubject<PostState?, Never>,
         isBlackedOut: Bool,
-        animated: Bool
+        animated: Bool,
+        responseID: String?
     ) {}
 
     public func showDiscussionsSearch(courseID: String, isBlackedOut: Bool) {}

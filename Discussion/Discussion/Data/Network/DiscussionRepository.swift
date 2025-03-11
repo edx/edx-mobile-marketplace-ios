@@ -451,6 +451,7 @@ public actor DiscussionRepositoryMock: DiscussionRepositoryProtocol {
 
     public func addCommentTo(threadID: String, rawBody: String, parentID: String?) async throws  -> Post {
         Post(
+            isAuthor: true,
             authorName: "John",
             authorAvatar: "",
             postDate: Date(),

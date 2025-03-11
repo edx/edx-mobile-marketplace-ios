@@ -35,12 +35,11 @@
 		02F6EF4828D9ED8300835477 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F6EF4728D9ED8300835477 /* Strings.swift */; };
 		214DA1AADABC7BF4FB8EA1D7 /* Pods_App_Dashboard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B008B2F0762EF35CADE3DD4 /* Pods_App_Dashboard.framework */; };
 		97D2CBB92D354DCA006AC2C2 /* Notifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97D2CBB82D354DCA006AC2C2 /* Notifications.framework */; };
-		97D2CBBA2D354DCA006AC2C2 /* Notifications.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 97D2CBB82D354DCA006AC2C2 /* Notifications.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		97E7DF0B2B7A3EAF00A2A09B /* CourseEnrollmentsMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E7DF0A2B7A3EAF00A2A09B /* CourseEnrollmentsMock.swift */; };
 		9AD4A6A1AAF97092CF457FE2 /* Pods_App_Dashboard_DashboardTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22905947A936093AD23D4CF8 /* Pods_App_Dashboard_DashboardTests.framework */; };
+		A5310EA52D7F64DB00020305 /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = A5310EA42D7F64DB00020305 /* OEXFoundation */; };
 		CE1735062CD2552A00F9606A /* PrimaryCourseDashboardViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1735052CD2552A00F9606A /* PrimaryCourseDashboardViewModelTests.swift */; };
 		CE17350A2CD26CB500F9606A /* AllCoursesViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1735092CD26CB500F9606A /* AllCoursesViewModelTests.swift */; };
-		CEB1E26D2CC14E9B00921517 /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = CEB1E26C2CC14E9B00921517 /* OEXFoundation */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,13 +53,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		97D2CBBB2D354DCA006AC2C2 /* Embed Frameworks */ = {
+		A5310EA72D7F64DB00020305 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				97D2CBBA2D354DCA006AC2C2 /* Notifications.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -133,9 +131,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5310EA52D7F64DB00020305 /* OEXFoundation in Frameworks */,
 				97D2CBB92D354DCA006AC2C2 /* Notifications.framework in Frameworks */,
 				027DB33F28D8E605002B6862 /* Core.framework in Frameworks */,
-				CEB1E26D2CC14E9B00921517 /* OEXFoundation in Frameworks */,
 				214DA1AADABC7BF4FB8EA1D7 /* Pods_App_Dashboard.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -354,7 +352,7 @@
 				02EF39E328D89F560058F6BD /* Sources */,
 				02EF39E428D89F560058F6BD /* Frameworks */,
 				02EF39E528D89F560058F6BD /* Resources */,
-				97D2CBBB2D354DCA006AC2C2 /* Embed Frameworks */,
+				A5310EA72D7F64DB00020305 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -395,7 +393,7 @@
 			);
 			mainGroup = 02EF39DD28D89F560058F6BD;
 			packageReferences = (
-				CEB1E26B2CC14E9B00921517 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */,
+				A5FB2CC22D75D91D00ECA001 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */,
 			);
 			productRefGroup = 02EF39E828D89F560058F6BD /* Products */;
 			projectDirPath = "";
@@ -1554,20 +1552,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		CEB1E26B2CC14E9B00921517 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */ = {
+		A5FB2CC22D75D91D00ECA001 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/rnr/openedx-app-foundation-ios/";
+			repositoryURL = "https://github.com/openedx/openedx-app-foundation-ios/";
 			requirement = {
-				branch = "anton/plugins-experiments";
-				kind = branch;
+				kind = exactVersion;
+				version = 1.0.3;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		CEB1E26C2CC14E9B00921517 /* OEXFoundation */ = {
+		A5310EA42D7F64DB00020305 /* OEXFoundation */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = CEB1E26B2CC14E9B00921517 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */;
+			package = A5FB2CC22D75D91D00ECA001 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */;
 			productName = OEXFoundation;
 		};
 /* End XCSwiftPackageProductDependency section */

@@ -15,6 +15,7 @@ public final class ResponsesViewModel: BaseResponsesViewModel, ObservableObject 
     @Published var scrollTrigger: Bool = false
     private let threadStateSubject: CurrentValueSubject<ThreadPostState?, Never>
     public var isBlackedOut: Bool = false
+    private let coreStorage: CoreStorage
     private let analytics: DiscussionAnalytics?
     let courseID: String
 
@@ -23,21 +24,24 @@ public final class ResponsesViewModel: BaseResponsesViewModel, ObservableObject 
         interactor: DiscussionInteractorProtocol,
         router: DiscussionRouter,
         config: ConfigProtocol,
-        storage: CoreStorage,
+        coreStorage: CoreStorage,
         threadStateSubject: CurrentValueSubject<ThreadPostState?, Never>,
         analytics: DiscussionAnalytics?
     ) {
         self.courseID = courseID
         self.threadStateSubject = threadStateSubject
+        self.coreStorage = coreStorage
         self.analytics = analytics
-        super.init(interactor: interactor, router: router, config: config, storage: storage, analytics: analytics)
+        super.init(interactor: interactor, router: router, config: config, storage: coreStorage, analytics: analytics)
     }
 
     func generateCommentsResponses(comments: [UserComment], parentComment: Post) -> Post? {
-        var result = parentComment
+        let username = coreStorage.user?.username
         
+        var result = parentComment
         result.comments = comments.map { c in
-            Post(authorName: c.authorName,
+            Post(isAuthor: c.authorName == username,
+                 authorName: c.authorName,
                  authorAvatar: c.authorAvatar,
                  postDate: c.postDate,
                  postTitle: c.postTitle,
@@ -135,7 +139,7 @@ public final class ResponsesViewModel: BaseResponsesViewModel, ObservableObject 
     func getParentPost(parentComment: Post) async -> Post {
         do {
             let parentCommentData = try await interactor.getResponse(responseID: parentComment.commentID)
-            var parentPost = parentCommentData.post
+            var parentPost = parentCommentData.toPost(username: coreStorage.user?.username)
             parentPost.closed = parentComment.closed
             parentPost.authorAvatar = parentComment.authorAvatar
             return parentPost

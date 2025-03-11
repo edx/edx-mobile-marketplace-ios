@@ -23,7 +23,7 @@ public struct CourseDates: Sendable {
             switch true {
             case block.complete ?? false || block.blockStatus == .courseStartDate:
                 statusBlocks[.completed, default: []].append(block)
-            case date.isInPast():
+            case date.isInPastByToday:
                 statusBlocks[.pastDue, default: []].append(block)
             case date.isToday:
                 if date < Date() {
@@ -104,6 +104,10 @@ public extension Date {
         return .orderedSame
     }
     
+    var isInPastByToday: Bool {
+        return Date.compare(self, to: .today) == .orderedAscending
+    }
+    
     var isToday: Bool {
         let calendar = Calendar.current
         let selfComponents = calendar.dateComponents([.year, .month, .day], from: self)
@@ -159,7 +163,7 @@ public struct CourseDateBlock: Identifiable, Sendable {
     }
     
     public var isInPast: Bool {
-        return date.isInPast()
+        return date.isInPastByToday
     }
     
     public var isToday: Bool {

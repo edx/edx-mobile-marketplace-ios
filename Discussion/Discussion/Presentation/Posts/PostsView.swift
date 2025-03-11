@@ -119,6 +119,7 @@ public struct PostsView: View {
                                                             courseID: courseID,
                                                             selectedTopic: currentBlockID,
                                                             onPostCreated: {
+                                                                router.showNotificationsPrimerIfNeeded()
                                                                 reloadPage(onSuccess: {
                                                                     withAnimation {
                                                                         scroll.scrollTo(1)

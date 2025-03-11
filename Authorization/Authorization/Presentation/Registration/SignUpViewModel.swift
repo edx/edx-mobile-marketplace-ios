@@ -86,6 +86,20 @@ public final class SignUpViewModel: ObservableObject {
         config.google.enabled
         return socialLoginEnabled && !thirdPartyAuthSuccess && !isShowProgress
     }
+    
+    lazy var socialAuthViewModel = SocialAuthViewModel(
+        config: config,
+        analytics: analytics,
+        authType: .register,
+        lastUsedOption: storage.lastUsedSocialAuth,
+        completion: { [weak self] method, result in
+            guard let self else { return }
+            
+            Task {
+                await self.register(with: method, result: result)
+            }
+        }
+    )
 
     private func showErrors(errors: [String: String]) -> Bool {
         if thirdPartyAuthSuccess, !errors.map({ $0.value }).filter({ !$0.isEmpty }).isEmpty {
@@ -128,10 +142,28 @@ public final class SignUpViewModel: ObservableObject {
 
     @MainActor
     func registerUser(authMetod: AuthMethod = .password) async {
+        let validateFields = configureFields()
         do {
-            let validateFields = configureFields()
             let errors = try await interactor.validateRegistrationFields(fields: validateFields)
-            guard !showErrors(errors: errors) else { return }
+            if showErrors(errors: errors) {
+                analytics.validationFailure(
+                    method: authMetod.analyticsValue,
+                    statusCode: nil,
+                    errorMessage: errors.toJson()
+                )
+                return
+            }
+        } catch {
+            displayError(error)
+            analytics.validationFailure(
+                method: authMetod.analyticsValue,
+                statusCode: (error as? CustomValidationError)?.statusCode,
+                errorMessage: errorMessage
+            )
+            return
+        }
+        
+        do {
             isShowProgress = true
             let user = try await interactor.registerUser(
                 fields: validateFields,
@@ -148,13 +180,12 @@ public final class SignUpViewModel: ObservableObject {
             NotificationCenter.default.post(name: .userAuthorized, object: nil)
         } catch let error {
             isShowProgress = false
-            if case APIError.invalidGrant = error {
-                errorMessage = CoreLocalization.Error.invalidCredentials
-            } else if error.isInternetError {
-                errorMessage = CoreLocalization.Error.slowOrNoInternetConnection
-            } else {
-                errorMessage = CoreLocalization.Error.unknownError
-            }
+            displayError(error)
+            analytics.registerFailure(
+                method: authMetod.analyticsValue,
+                errorCode: nil,
+                errorMessage: errorMessage
+            )
         }
     }
 
@@ -174,17 +205,33 @@ public final class SignUpViewModel: ObservableObject {
         }
         return validateFields
     }
+    
+    private func displayError(_ error: Error) {
+        if case APIError.invalidGrant = error {
+            errorMessage = CoreLocalization.Error.invalidCredentials
+        } else if error.isInternetError {
+            errorMessage = CoreLocalization.Error.slowOrNoInternetConnection
+        } else {
+            errorMessage = CoreLocalization.Error.unknownError
+        }
+    }
 
     @MainActor
-    func register(with result: Result<SocialAuthDetails, Error>) async {
+    func register(with method: SocialAuthMethod, result: Result<SocialAuthDetails, SocialAuthError>) async {
         switch result {
         case .success(let result):
+            analytics.socialAuthSuccess(method: AuthMethod.socialAuth(method).analyticsValue)
             await loginOrRegister(
                 result.response,
                 backend: result.backend,
                 authMethod: result.authMethod
             )
         case .failure(let error):
+            analytics.socialAuthFailure(
+                method: AuthMethod.socialAuth(method).analyticsValue,
+                errorCode: error.errorCode.flatMap { String($0) },
+                errorMessage: error.errorDescription
+            )
             errorMessage = error.localizedDescription
         }
     }
@@ -224,7 +271,7 @@ public final class SignUpViewModel: ObservableObject {
     }
 
     func trackCreateAccountClicked() {
-        analytics.createAccountClicked()
+        analytics.createAccountClicked(method: authMethod.analyticsValue)
     }
     
     func trackScreenEvent() {

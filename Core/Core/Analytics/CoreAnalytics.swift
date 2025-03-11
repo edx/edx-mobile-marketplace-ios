@@ -232,7 +232,13 @@ public enum AnalyticsEvent: String {
     case signInClicked = "Logistration:Sign In Clicked"
     case userSignInClicked = "Logistration:User Sign In Clicked"
     case createAccountClicked = "Logistration:Create Account Clicked"
+    case socialRegisterClicked = "Logistration:Social Register Clicked"
+    case socialAuthSuccess = "Logistration:Social Auth Success"
     case registrationSuccess = "Logistration:Register Success"
+    case socialAuthFailure = "Logistration:Social Auth Failure"
+    case validationFailure = "Logistration:Validation Failure"
+    case registerFailure = "Logistration:Register Failure"
+    case signInFailure = "Logistration:Sign In Failure"
     case userLogout = "Profile:Logged Out"
     case userLogoutClicked = "Profile:Logout Clicked"
     case forgotPasswordClicked = "Logistration:Forgot Password Clicked"
@@ -339,7 +345,8 @@ public enum AnalyticsEvent: String {
     case discussionResponseViewed = "Discussion:Response Viewed"
     case notificationSettingPermissionStatus = "Notification:Setting Permission Status"
     case notificationDiscussionPermissionToggle = "Notification:Discussion Permission Toggle"
-    
+    case notificationInbox = "Notification:Notification Inbox"
+    case notificationTapped = "Notification:Notification Tapped"
 }
 
 public enum EventBIValue: String {
@@ -349,9 +356,15 @@ public enum EventBIValue: String {
     case userLogin = "edx.bi.app.user.signin.success"
     case signInClicked = "edx.bi.app.logistration.signin.clicked"
     case registerClicked = "edx.bi.app.logistration.register.clicked"
+    case socialAuthSuccess = "edx.bi.app.logistration.social.auth.success"
     case registrationSuccess = "edx.bi.app.user.register.success"
     case userSignInClicked = "edx.bi.app.logistration.user.signin.clicked"
-    case createAccountClicked = "edx.bi.app.logistration.user.create_account.clicked"
+    case createAccountClicked = "edx.bi.app.logistration.create_account.clicked"
+    case socialRegisterClicked = "edx.bi.app.logistration.social.register.clicked"
+    case socialAuthFailure = "edx.bi.app.logistration.social.auth.failure"
+    case validationFailure = "edx.bi.app.logistration.validation.failure"
+    case registerFailure = "edx.bi.app.logistration.register.failure"
+    case signInFailure = "edx.bi.app.logistration.signin.failure"
     case forgotPasswordClicked = "edx.bi.app.logistration.forgot_password.clicked"
     case resetPasswordClicked = "edx.bi.app.user.reset_password.clicked"
     case resetPasswordSuccess = "edx.bi.app.user.reset_password.success"
@@ -458,6 +471,8 @@ public enum EventBIValue: String {
     case discussionResponseViewed = "edx.bi.app.discussion.response.viewed"
     case notificationSettingPermissionStatus = "edx.bi.app.notification.setting_permission.status"
     case notificationDiscussionPermissionToggle = "edx.bi.app.notification.discussion.permission.toggle"
+    case notificationInbox = "edx.bi.app.notification.inbox"
+    case notificationTapped = "edx.bi.app.notification.tapped"
 }
 
 public struct EventParamKey {
@@ -498,6 +513,8 @@ public struct EventParamKey {
     public static let localizedCurrencyCode = "localized_currency_code"
     public static let lmsPrice = "lms_usd_price"
     public static let error = "error"
+    public static let errorCode = "error_code"
+    public static let errorMessage = "error_message"
     public static let errorAction = "error_action"
     public static let flowType = "flow_type"
     public static let alertType = "alert_type"
@@ -517,6 +534,9 @@ public struct EventParamKey {
     public static let report = "report"
     public static let discussionType = "discussion_type"
     public static let status = "status"
+    public static let notificationCategory = "notification_category"
+    public static let notificationType = "notification_type"
+    public static let status_code = "status_code"
 }
 
 public struct EventCategory {
@@ -529,4 +549,5 @@ public struct EventCategory {
     public static let course = "course"
     public static let inAppPurchases = "in_app_purchases"
     public static let notifications = "notifications"
+    public static let discussion = "discussion"
 }

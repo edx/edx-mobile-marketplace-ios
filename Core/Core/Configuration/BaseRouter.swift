@@ -18,7 +18,7 @@ public protocol BaseRouter: Sendable {
     
     func backWithFade()
     
-    func dismiss(animated: Bool)
+    func dismiss(animated: Bool, completion: (() -> Void)?)
     
     func removeLastView(controllers: Int)
 
@@ -43,7 +43,7 @@ public protocol BaseRouter: Sendable {
         alertMessage: String,
         positiveAction: String,
         onCloseTapped: @escaping () -> Void,
-        okTapped: @escaping () -> Void,
+        firstButtonTapped: @escaping () -> Void,
         type: AlertViewType
     )
     
@@ -54,7 +54,7 @@ public protocol BaseRouter: Sendable {
         action: String,
         image: SwiftUI.Image,
         onCloseTapped: @escaping () -> Void,
-        okTapped: @escaping () -> Void,
+        firstButtonTapped: @escaping () -> Void,
         nextSectionTapped: @escaping () -> Void
     )
     
@@ -92,9 +92,16 @@ public protocol BaseRouter: Sendable {
     
     @MainActor
     func performNotificationRegistration()
+    
+    @MainActor
+    func showNotificationsPrimerIfNeeded()
 }
 
 extension BaseRouter {
+    public func dismiss(animated: Bool = true) {
+        dismiss(animated: animated, completion: nil)
+    }
+    
     public func backToRoot(animated: Bool = true) {
         backToRoot(animated: animated)
     }
@@ -110,7 +117,7 @@ open class BaseRouterMock: BaseRouter {
 
     public init() {}
 
-    public func dismiss(animated: Bool) {}
+    public func dismiss(animated: Bool, completion: (() -> Void)? = nil) {}
 
     public func showMainOrWhatsNewScreen(sourceScreen: LogistrationSourceScreen, postLoginData: PostLoginData?) {}
     
@@ -141,7 +148,7 @@ open class BaseRouterMock: BaseRouter {
         alertMessage: String,
         positiveAction: String,
         onCloseTapped: @escaping () -> Void,
-        okTapped: @escaping () -> Void,
+        firstButtonTapped: @escaping () -> Void,
         type: AlertViewType
     ) {}
     
@@ -152,7 +159,7 @@ open class BaseRouterMock: BaseRouter {
         action: String,
         image: SwiftUI.Image,
         onCloseTapped: @escaping () -> Void,
-        okTapped: @escaping () -> Void,
+        firstButtonTapped: @escaping () -> Void,
         nextSectionTapped: @escaping () -> Void
     ) {}
 
@@ -190,5 +197,8 @@ open class BaseRouterMock: BaseRouter {
     
     @MainActor
     public func performNotificationRegistration() {}
+    
+    @MainActor
+    public func showNotificationsPrimerIfNeeded() {}
 }
 #endif

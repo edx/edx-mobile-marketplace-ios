@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 import Core
+import OEXFoundation
 
 public final class ThreadViewModel: BaseResponsesViewModel, ObservableObject {
     
@@ -15,22 +16,29 @@ public final class ThreadViewModel: BaseResponsesViewModel, ObservableObject {
     
     internal let threadStateSubject = CurrentValueSubject<ThreadPostState?, Never>(nil)
     private var cancellable: AnyCancellable?
+    private let coreStorage: CoreStorage
     private let postStateSubject: CurrentValueSubject<PostState?, Never>
+    private let prioritizingResponseId: String?
+
     public var isBlackedOut: Bool = false
+    private var shouldHighlightResponse: Bool = false
     private let analytics: DiscussionAnalytics?
 
     public init(
         interactor: DiscussionInteractorProtocol,
         router: DiscussionRouter,
         config: ConfigProtocol,
-        storage: CoreStorage,
+        coreStorage: CoreStorage,
         postStateSubject: CurrentValueSubject<PostState?, Never>,
+        responseID: String?,
         analytics: DiscussionAnalytics?
     ) {
+        self.coreStorage = coreStorage
         self.postStateSubject = postStateSubject
+        self.prioritizingResponseId = responseID
         self.analytics = analytics
         
-        super.init(interactor: interactor, router: router, config: config, storage: storage, analytics: analytics)
+        super.init(interactor: interactor, router: router, config: config, storage: coreStorage, analytics: analytics)
         
         cancellable = threadStateSubject
             .receive(on: RunLoop.main)
@@ -49,7 +57,10 @@ public final class ThreadViewModel: BaseResponsesViewModel, ObservableObject {
     }
     
     func generateComments(comments: [UserComment], thread: UserThread) -> Post {
+        let username = coreStorage.user?.username
+        
         var result = Post(
+            isAuthor: thread.author == username,
             authorName: thread.author,
             authorAvatar: thread.avatar,
             postDate: thread.createdAt,
@@ -70,6 +81,7 @@ public final class ThreadViewModel: BaseResponsesViewModel, ObservableObject {
         )
         result.comments = comments.map { c in
             Post(
+                isAuthor: c.authorName == username,
                 authorName: c.authorName,
                 authorAvatar: c.authorAvatar,
                 postDate: c.postDate,
@@ -177,6 +189,9 @@ public final class ThreadViewModel: BaseResponsesViewModel, ObservableObject {
                 }
                 postComments = generateComments(comments: self.comments, thread: threadPost)
             }
+            if let responseID = prioritizingResponseId, !responseID.isEmpty {
+                await prioritizeResponseForDeepLinking(responseID)
+            }
             fetchInProgress = false
             return true
         } catch let error {
@@ -230,6 +245,30 @@ public final class ThreadViewModel: BaseResponsesViewModel, ObservableObject {
         }
     }
     
+    @MainActor
+    private func prioritizeResponseForDeepLinking(_ responseID: String) async {
+        guard var comments = postComments?.comments else { return }
+        if let index = comments.firstIndex(where: { $0.commentID == responseID }) {
+            let response = comments.remove(at: index)
+            comments.insert(response, at: 0)
+        } else {
+            do {
+                let response = try await interactor.getResponse(responseID: responseID)
+                comments.insert(response.toPost(username: coreStorage.user?.username), at: 0)
+            } catch {
+                debugLog(error.localizedDescription)
+                return
+            }
+        }
+        
+        shouldHighlightResponse = true
+        postComments?.comments = comments
+    }
+    
+    public func shouldHighlightResponse(_ index: Int) -> Bool {
+        return index == 0 && shouldHighlightResponse
+    }
+
     private func updateThreadLikeState(id: String, voted: Bool, votesCount: Int) {
         guard var comments = postComments else { return }
         guard let index = comments.comments.firstIndex(where: { $0.commentID == id }) else { return }

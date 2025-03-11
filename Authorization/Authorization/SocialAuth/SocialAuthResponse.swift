@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct SocialAuthResponse {
+public struct SocialAuthResponse: Sendable {
     public var name: String
     public var email: String
     public var token: String

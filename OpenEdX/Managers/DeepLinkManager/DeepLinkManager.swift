@@ -13,6 +13,7 @@ import Discussion
 import Course
 import Profile
 import OEXFoundation
+import Notifications
 
 // swiftlint:disable function_body_length
 //sourcery: AutoMockable
@@ -32,7 +33,7 @@ public protocol DeepLinkService {
 }
 
 @MainActor
-public class DeepLinkManager: DeepLinkManagerProtocol {
+public class DeepLinkManager: DeepLinkManagerProtocol, NotificationsDeepLinkManager {
     private var services: [DeepLinkService] = []
     private let config: ConfigProtocol
     private let storage: CoreStorage
@@ -143,7 +144,7 @@ public class DeepLinkManager: DeepLinkManagerProtocol {
             onCloseTapped: { [weak self] in
                 self?.router.dismiss(animated: true)
             },
-            okTapped: { [weak self] in
+            firstButtonTapped: { [weak self] in
                 guard let self else {
                     return
                 }
@@ -415,7 +416,7 @@ public class DeepLinkManager: DeepLinkManagerProtocol {
                 router.showComment(
                     courseID: courseDetails.courseID,
                     comment: comment,
-                    parentComment: parentComment.post,
+                    parentComment: parentComment.toPost(username: storage.user?.username),
                     isBlackedOut: isBlackedOut
                 )
             }
@@ -452,7 +453,7 @@ public class DeepLinkManager: DeepLinkManagerProtocol {
                 router.showComment(
                     courseID: courseDetails.courseID,
                     comment: comment,
-                    parentComment: parentComment.post,
+                    parentComment: parentComment.toPost(username: storage.user?.username),
                     isBlackedOut: isBlackedOut
                 )
             }
@@ -483,6 +484,65 @@ public class DeepLinkManager: DeepLinkManagerProtocol {
             return
         }
         router.showUserProfile(userProfile: userProfile)
+    }
+    
+    @MainActor
+    public func showDiscussions(_ notification: SingleNotification) async {
+        router.showProgress()
+        do {
+            guard
+                let courseId = notification.courseId, !courseId.isEmpty,
+                let topicId = notification.contentContext?.topicId, !topicId.isEmpty
+            else {
+                router.dismissProgress()
+                return
+            }
+
+            let courseDetails = try await discoveryInteractor.getCourseDetails(
+                courseID: courseId
+            )
+            let discussionInfo = try await discussionInteractor.getCourseDiscussionInfo(
+                courseID: courseDetails.courseID
+            )
+            let topics = try await discussionInteractor.getTopic(
+                courseID: courseDetails.courseID,
+                topicID: topicId
+            )
+
+            router.showThreads(
+                topicID: topicId,
+                courseDetails: courseDetails,
+                topics: topics,
+                isBlackedOut: discussionInfo.isBlackedOut()
+            )
+
+            let responseId = notification.contentContext?.parentId?.isEmpty == false &&
+                             notification.contentContext?.commentId?.isEmpty == false
+                             ? notification.contentContext?.parentId
+                             : notification.contentContext?.commentId
+
+            if let threadId = notification.contentContext?.threadId, !threadId.isEmpty {
+                let userThread = try await discussionInteractor.getThread(threadID: threadId)
+                router.showThread(
+                    userThread: userThread,
+                    isBlackedOut: discussionInfo.isBlackedOut(),
+                    responseID: responseId
+                )
+            }
+
+            if let parentId = notification.contentContext?.parentId, !parentId.isEmpty {
+                let comment = try await discussionInteractor.getResponse(responseID: parentId)
+                router.showComment(
+                    courseID: courseDetails.courseID,
+                    comment: comment,
+                    parentComment: comment.toPost(username: storage.user?.username),
+                    isBlackedOut: discussionInfo.isBlackedOut()
+                )
+            }
+        } catch {
+            debugLog(error.localizedDescription)
+        }
+        router.dismissProgress()
     }
 }
 

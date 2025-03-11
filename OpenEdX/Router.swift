@@ -56,8 +56,8 @@ public class Router: AuthorizationRouter,
         navigationController.popToRootViewController(animated: animated)
     }
     
-    public func dismiss(animated: Bool) {
-        navigationController.dismiss(animated: animated)
+    public func dismiss(animated: Bool, completion: (() -> Void)?) {
+        navigationController.dismiss(animated: animated, completion: completion)
     }
     
     public func back(animated: Bool) {
@@ -116,6 +116,9 @@ public class Router: AuthorizationRouter,
             let controller = UIHostingController(rootView: MainScreenView(viewModel: viewModel))
             navigationController.viewControllers = [controller]
             navigationController.setViewControllers([controller], animated: true)
+            if case .courseDetail = sourceScreen {
+                showTabScreen(tab: .discovery)
+            }
         }
     }
     
@@ -172,7 +175,7 @@ public class Router: AuthorizationRouter,
         alertMessage: String,
         positiveAction: String,
         onCloseTapped: @escaping () -> Void,
-        okTapped: @escaping () -> Void,
+        firstButtonTapped: @escaping () -> Void,
         type: AlertViewType
     ) {
         presentView(
@@ -184,7 +187,7 @@ public class Router: AuthorizationRouter,
                 alertMessage: alertMessage,
                 positiveAction: positiveAction,
                 onCloseTapped: onCloseTapped,
-                okTapped: okTapped,
+                firstButtonTapped: firstButtonTapped,
                 type: type
             )
         }
@@ -197,7 +200,7 @@ public class Router: AuthorizationRouter,
         action: String,
         image: Image,
         onCloseTapped: @escaping () -> Void,
-        okTapped: @escaping () -> Void,
+        firstButtonTapped: @escaping () -> Void,
         nextSectionTapped: @escaping () -> Void
     ) {
         presentView(
@@ -211,7 +214,7 @@ public class Router: AuthorizationRouter,
                 mainAction: action,
                 image: image,
                 onCloseTapped: onCloseTapped,
-                okTapped: okTapped,
+                firstButtonTapped: firstButtonTapped,
                 nextSectionTapped: { nextSectionTapped() }
             )
         }
@@ -603,7 +606,7 @@ public class Router: AuthorizationRouter,
             onCloseTapped: {
                 self.dismiss(animated: true)
             },
-            okTapped: {
+            firstButtonTapped: {
                 self.dismiss(animated: true)
                 if UIApplication.shared.canOpenURL(blockURL) {
                     UIApplication.shared.open(blockURL, options: [:], completionHandler: nil)
@@ -686,9 +689,10 @@ public class Router: AuthorizationRouter,
         thread: UserThread,
         postStateSubject: CurrentValueSubject<PostState?, Never>,
         isBlackedOut: Bool,
-        animated: Bool
+        animated: Bool,
+        responseID: String? = nil
     ) {
-        let viewModel = Container.shared.resolve(ThreadViewModel.self, argument: postStateSubject)!
+        let viewModel = Container.shared.resolve(ThreadViewModel.self, arguments: postStateSubject, responseID)!
         viewModel.isBlackedOut = isBlackedOut
         let view = ThreadView(thread: thread, viewModel: viewModel)
         let controller = UIHostingController(rootView: view)
@@ -775,6 +779,19 @@ public class Router: AuthorizationRouter,
     public func performNotificationRegistration() {
         Task {
             await Container.shared.resolve(PushNotificationsManager.self)?.performRegistration()
+        }
+    }
+    
+    public func showNotificationsPrimerIfNeeded() {
+        Task { @MainActor in
+            let interactor = Container.shared.resolve(NotificationsInteractorProtocol.self)!
+            if await interactor.shouldShowPrimer() {
+                let viewModel = Container.shared.resolve(NotificationsPrimerViewModel.self)!
+                presentView(
+                    transitionStyle: .crossDissolve,
+                    view: NotificationsPrimerView(viewModel: viewModel)
+                )
+            }
         }
     }
     

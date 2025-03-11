@@ -25,9 +25,9 @@
 		02EC90AA2AE904E1007DE1E0 /* WhatsNewStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02EC90A92AE904E1007DE1E0 /* WhatsNewStorage.swift */; };
 		02EC90AC2AE90C64007DE1E0 /* WhatsNewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02EC90AB2AE90C64007DE1E0 /* WhatsNewPage.swift */; };
 		14769D3E2B99713800AB36D4 /* WhatsNewAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14769D3D2B99713800AB36D4 /* WhatsNewAnalytics.swift */; };
+		A5310E972D7F63C200020305 /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = A5310E962D7F63C200020305 /* OEXFoundation */; };
+		A5310E9B2D7F63CD00020305 /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = A5310E9A2D7F63CD00020305 /* OEXFoundation */; };
 		B3BB9B06B226989A619C6440 /* Pods_App_WhatsNew.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05AC45C7050E30F8394E0C76 /* Pods_App_WhatsNew.framework */; };
-		CE7CAF352CC1560900E0AC9D /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = CE7CAF342CC1560900E0AC9D /* OEXFoundation */; };
-		CEB1E2672CC14E6400921517 /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = CEB1E2662CC14E6400921517 /* OEXFoundation */; };
 		EF5CA11A55CB49F2DA030D25 /* Pods_App_WhatsNew_WhatsNewTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8D1A5DF016EC4630637336C /* Pods_App_WhatsNew_WhatsNewTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -101,7 +101,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				028A373A2ADFF425008CA604 /* Core.framework in Frameworks */,
-				CEB1E2672CC14E6400921517 /* OEXFoundation in Frameworks */,
+				A5310E972D7F63C200020305 /* OEXFoundation in Frameworks */,
 				B3BB9B06B226989A619C6440 /* Pods_App_WhatsNew.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -111,7 +111,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				028A37262ADFF3F8008CA604 /* WhatsNew.framework in Frameworks */,
-				CE7CAF352CC1560900E0AC9D /* OEXFoundation in Frameworks */,
+				A5310E9B2D7F63CD00020305 /* OEXFoundation in Frameworks */,
 				EF5CA11A55CB49F2DA030D25 /* Pods_App_WhatsNew_WhatsNewTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -336,7 +336,7 @@
 			);
 			mainGroup = 028A37132ADFF3F7008CA604;
 			packageReferences = (
-				CEB1E2652CC14E6400921517 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */,
+				A5FB2CBC2D75D8F800ECA001 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */,
 			);
 			productRefGroup = 028A371E2ADFF3F7008CA604 /* Products */;
 			projectDirPath = "";
@@ -1527,25 +1527,25 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		CEB1E2652CC14E6400921517 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */ = {
+		A5FB2CBC2D75D8F800ECA001 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/rnr/openedx-app-foundation-ios/";
+			repositoryURL = "https://github.com/openedx/openedx-app-foundation-ios/";
 			requirement = {
-				branch = "anton/plugins-experiments";
-				kind = branch;
+				kind = exactVersion;
+				version = 1.0.3;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		CE7CAF342CC1560900E0AC9D /* OEXFoundation */ = {
+		A5310E962D7F63C200020305 /* OEXFoundation */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = CEB1E2652CC14E6400921517 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */;
+			package = A5FB2CBC2D75D8F800ECA001 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */;
 			productName = OEXFoundation;
 		};
-		CEB1E2662CC14E6400921517 /* OEXFoundation */ = {
+		A5310E9A2D7F63CD00020305 /* OEXFoundation */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = CEB1E2652CC14E6400921517 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */;
+			package = A5FB2CBC2D75D8F800ECA001 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */;
 			productName = OEXFoundation;
 		};
 /* End XCSwiftPackageProductDependency section */
