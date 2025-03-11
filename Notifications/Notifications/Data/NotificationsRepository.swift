@@ -116,7 +116,7 @@ class NotificationsRepositoryMock: NotificationsRepositoryProtocol {
             currentPage: 1,
             start: 0,
             results: [
-                Notification(
+                SingleNotification(
                     id: 123,
                     appName: "discussion",
                     notificationType: "comment_on_followed_post",
@@ -128,6 +128,7 @@ class NotificationsRepositoryMock: NotificationsRepositoryProtocol {
                         postTitle: "How to learn it online?"
                     ),
                     content: "Test notification",
+                    courseId: "course-v1:edX+Test+2T2009",
                     lastRead: Date(iso8601: "2025-01-06T01:20:58.919612Z"),
                     lastSeen: Date(iso8601: "2025-01-06T01:20:58.919612Z"),
                     created: Date(iso8601: "2025-01-06T01:20:58.919612Z")

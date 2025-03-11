@@ -16,19 +16,23 @@ public final class GoogleAuthProvider {
     @MainActor
     public func signIn(
         withPresenting: UIViewController
-    ) async -> Result<SocialAuthResponse, Error> {
+    ) async -> Result<SocialAuthResponse, SocialAuthError> {
         await withCheckedContinuation { continuation in
             GIDSignIn.sharedInstance.signIn(
                 withPresenting: withPresenting,
                 completion: { result, error in
                     if let error = error as? NSError, error.code == GIDSignInError.canceled.rawValue {
-                        continuation.resume(returning: .failure(SocialAuthError.socialAuthCanceled))
+                        continuation.resume(
+                            returning: .failure(
+                                SocialAuthError.socialAuthCanceled(code: error.code)
+                            )
+                        )
                         return
                     }
                     guard let result = result else {
                         continuation.resume(
                             returning: .failure(
-                                SocialAuthError.error(text: CoreLocalization.Error.unknownError)
+                                SocialAuthError.unknownError(code: (error as? NSError)?.code)
                             )
                         )
                         return

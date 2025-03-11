@@ -22,16 +22,20 @@
 		149D4A9A2D0BEF7E003A2E1D /* NotificationsSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149D4A992D0BEF7B003A2E1D /* NotificationsSettingsViewModel.swift */; };
 		14BAE6912D0978C300EAF0E4 /* NotificationsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BAE6902D0978BC00EAF0E4 /* NotificationsSettingsView.swift */; };
 		87E3F4AB2D8BE4FD628C91C4 /* Pods_App_Notifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAFCD31A42C7E150939829CE /* Pods_App_Notifications.framework */; };
+		940DBF162D5F80180042335E /* NotificationsPrimerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940DBF152D5F80140042335E /* NotificationsPrimerViewModel.swift */; };
+		947488042D5DE91B00DD0A24 /* NotificationsPrimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947488032D5DE91B00DD0A24 /* NotificationsPrimerView.swift */; };
+		94C862B22D65B6FC00A8D002 /* NotificationsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C862B12D65B6FC00A8D002 /* NotificationsStorage.swift */; };
 		9704E8082D2BF8C500B28907 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9704E8072D2BF8C100B28907 /* Notifications.swift */; };
 		97243C862D377662000B17C0 /* NotificationsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97243C852D377662000B17C0 /* NotificationsResponse.swift */; };
 		973CCD772D3635C000949756 /* SingleNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CCD762D3635C000949756 /* SingleNotificationView.swift */; };
+		978648CE2D636AD600AB006B /* Discussion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 978648CD2D636AD600AB006B /* Discussion.framework */; };
 		978775242D19A20300D1C21E /* NotificationsInboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978775232D19A20300D1C21E /* NotificationsInboxView.swift */; };
 		978775262D19A21D00D1C21E /* NotificationsInboxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978775252D19A21D00D1C21E /* NotificationsInboxViewModel.swift */; };
+		979F6FE92D789926002ACC5E /* NotificationsDeepLinkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979F6FE72D789926002ACC5E /* NotificationsDeepLinkManager.swift */; };
 		97A222942D2404590067E6D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97A222932D2404590067E6D2 /* Assets.xcassets */; };
 		97A222962D2415EA0067E6D2 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A222952D2415EA0067E6D2 /* Assets.swift */; };
 		97B079422D2BD59400538435 /* Data_Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B079412D2BD58900538435 /* Data_Notifications.swift */; };
-		A52E470C2D5E35C600C1636F /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = A52E470B2D5E35C600C1636F /* OEXFoundation */; };
-		A5529D1E2D5CD941001B1E53 /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = A5529D1D2D5CD941001B1E53 /* OEXFoundation */; };
+		A583637E2D807E2F008935FF /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = A583637D2D807E2F008935FF /* OEXFoundation */; };
 		FB43867C6484A90253882035 /* Pods_App_Notifications_NotificationsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7FEAD4AF36405458BBBE5AB /* Pods_App_Notifications_NotificationsTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -72,11 +76,16 @@
 		7729007722CBCF0B8256DC02 /* Pods-App-Notifications.debugdev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Notifications.debugdev.xcconfig"; path = "Target Support Files/Pods-App-Notifications/Pods-App-Notifications.debugdev.xcconfig"; sourceTree = "<group>"; };
 		7A8D523EE9F729312DE6718E /* Pods-App-Notifications.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Notifications.debug.xcconfig"; path = "Target Support Files/Pods-App-Notifications/Pods-App-Notifications.debug.xcconfig"; sourceTree = "<group>"; };
 		874E5747C9EC9E35C11CDA15 /* Pods-App-Notifications.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Notifications.release.xcconfig"; path = "Target Support Files/Pods-App-Notifications/Pods-App-Notifications.release.xcconfig"; sourceTree = "<group>"; };
+		940DBF152D5F80140042335E /* NotificationsPrimerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsPrimerViewModel.swift; sourceTree = "<group>"; };
+		947488032D5DE91B00DD0A24 /* NotificationsPrimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsPrimerView.swift; sourceTree = "<group>"; };
+		94C862B12D65B6FC00A8D002 /* NotificationsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsStorage.swift; sourceTree = "<group>"; };
 		9704E8072D2BF8C100B28907 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		97243C852D377662000B17C0 /* NotificationsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsResponse.swift; sourceTree = "<group>"; };
 		973CCD762D3635C000949756 /* SingleNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleNotificationView.swift; sourceTree = "<group>"; };
+		978648CD2D636AD600AB006B /* Discussion.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Discussion.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		978775232D19A20300D1C21E /* NotificationsInboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsInboxView.swift; sourceTree = "<group>"; };
 		978775252D19A21D00D1C21E /* NotificationsInboxViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsInboxViewModel.swift; sourceTree = "<group>"; };
+		979F6FE72D789926002ACC5E /* NotificationsDeepLinkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsDeepLinkManager.swift; sourceTree = "<group>"; };
 		97A222932D2404590067E6D2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97A222952D2415EA0067E6D2 /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		97B079412D2BD58900538435 /* Data_Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data_Notifications.swift; sourceTree = "<group>"; };
@@ -106,10 +115,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A52E470C2D5E35C600C1636F /* OEXFoundation in Frameworks */,
+				A583637E2D807E2F008935FF /* OEXFoundation in Frameworks */,
 				072787AD28D34D15002E9142 /* Core.framework in Frameworks */,
-				A5529D1E2D5CD941001B1E53 /* OEXFoundation in Frameworks */,
 				87E3F4AB2D8BE4FD628C91C4 /* Pods_App_Notifications.framework in Frameworks */,
+				978648CE2D636AD600AB006B /* Discussion.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,8 +146,9 @@
 			children = (
 				14116DAE2D1546AB00A30AE0 /* Model */,
 				0284DBFA28D4832D00830893 /* Network */,
-				0284DC0228D4922900830893 /* NotificationsRepository.swift */,
 				0208666829CC6CD600BC05B2 /* Persistence */,
+				0284DC0228D4922900830893 /* NotificationsRepository.swift */,
+				94C862B12D65B6FC00A8D002 /* NotificationsStorage.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -172,6 +182,7 @@
 		070019A228F6EF2700D5FC78 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				947488022D5DE8F300DD0A24 /* Primer */,
 				1402A0C62B61011D00A0A00B /* Settings */,
 				978775222D19A06F00D1C21E /* NotificationsInbox */,
 				02F3BFDE29252F2F0051930C /* NotificationsRouter.swift */,
@@ -208,6 +219,7 @@
 				0284DBF828D4831000830893 /* Data */,
 				0284DC0428D4996F00830893 /* Domain */,
 				070019A228F6EF2700D5FC78 /* Presentation */,
+				979F6FE82D789926002ACC5E /* Managers */,
 				02EF39D928D86A380058F6BD /* Localizable.strings */,
 				97A222932D2404590067E6D2 /* Assets.xcassets */,
 			);
@@ -217,6 +229,7 @@
 		072787AB28D34D15002E9142 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				978648CD2D636AD600AB006B /* Discussion.framework */,
 				E08D12E22B482D720096311A /* Course.framework */,
 				E0D586132B29F25A009B4BA7 /* Authorization.framework */,
 				072787AC28D34D15002E9142 /* Core.framework */,
@@ -267,6 +280,15 @@
 			path = ../Pods;
 			sourceTree = "<group>";
 		};
+		947488022D5DE8F300DD0A24 /* Primer */ = {
+			isa = PBXGroup;
+			children = (
+				947488032D5DE91B00DD0A24 /* NotificationsPrimerView.swift */,
+				940DBF152D5F80140042335E /* NotificationsPrimerViewModel.swift */,
+			);
+			path = Primer;
+			sourceTree = "<group>";
+		};
 		9704E8062D2BF8AA00B28907 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -284,6 +306,14 @@
 				973CCD762D3635C000949756 /* SingleNotificationView.swift */,
 			);
 			path = NotificationsInbox;
+			sourceTree = "<group>";
+		};
+		979F6FE82D789926002ACC5E /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				979F6FE72D789926002ACC5E /* NotificationsDeepLinkManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -329,6 +359,7 @@
 				0727879528D34C03002E9142 /* Sources */,
 				0727879628D34C03002E9142 /* Frameworks */,
 				0727879728D34C03002E9142 /* Resources */,
+				A58363802D807E2F008935FF /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -369,7 +400,7 @@
 			);
 			mainGroup = 0727878F28D34C03002E9142;
 			packageReferences = (
-				A52E470A2D5E35C600C1636F /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */,
+				A51F8CDB2D8070C500F3B60C /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */,
 			);
 			productRefGroup = 0727879A28D34C03002E9142 /* Products */;
 			projectDirPath = "";
@@ -498,9 +529,13 @@
 			files = (
 				97B079422D2BD59400538435 /* Data_Notifications.swift in Sources */,
 				14BAE6912D0978C300EAF0E4 /* NotificationsSettingsView.swift in Sources */,
+				979F6FE92D789926002ACC5E /* NotificationsDeepLinkManager.swift in Sources */,
 				0284DBFC28D4856A00830893 /* NotificationsEndpoint.swift in Sources */,
 				97243C862D377662000B17C0 /* NotificationsResponse.swift in Sources */,
+				947488042D5DE91B00DD0A24 /* NotificationsPrimerView.swift in Sources */,
 				0283347728D499BC00C828FC /* NotificationsInteractor.swift in Sources */,
+				94C862B22D65B6FC00A8D002 /* NotificationsStorage.swift in Sources */,
+				940DBF162D5F80180042335E /* NotificationsPrimerViewModel.swift in Sources */,
 				02F3BFDF29252F2F0051930C /* NotificationsRouter.swift in Sources */,
 				978775262D19A21D00D1C21E /* NotificationsInboxViewModel.swift in Sources */,
 				029737422949FB3B0051696B /* NotificationsPersistenceProtocol.swift in Sources */,
@@ -1522,7 +1557,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		A52E470A2D5E35C600C1636F /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */ = {
+		A51F8CDB2D8070C500F3B60C /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rnr/openedx-app-foundation-ios";
 			requirement = {
@@ -1530,25 +1565,12 @@
 				kind = branch;
 			};
 		};
-		A5529D1C2D5CD941001B1E53 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/openedx/openedx-app-foundation-ios/";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.2;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		A52E470B2D5E35C600C1636F /* OEXFoundation */ = {
+		A583637D2D807E2F008935FF /* OEXFoundation */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A52E470A2D5E35C600C1636F /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */;
-			productName = OEXFoundation;
-		};
-		A5529D1D2D5CD941001B1E53 /* OEXFoundation */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A5529D1C2D5CD941001B1E53 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */;
+			package = A51F8CDB2D8070C500F3B60C /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */;
 			productName = OEXFoundation;
 		};
 /* End XCSwiftPackageProductDependency section */

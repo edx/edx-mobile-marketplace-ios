@@ -8,6 +8,7 @@
 import Foundation
 
 public struct Post: Sendable {
+    public let isAuthor: Bool
     public let authorName: String
     public var authorAvatar: String
     public let postDate: Date
@@ -27,6 +28,7 @@ public struct Post: Sendable {
     public var closed: Bool
     
     public init(
+        isAuthor: Bool,
         authorName: String,
         authorAvatar: String,
         postDate: Date,
@@ -45,6 +47,7 @@ public struct Post: Sendable {
         abuseFlagged: Bool,
         closed: Bool
     ) {
+        self.isAuthor = isAuthor
         self.authorName = authorName
         self.authorAvatar = authorAvatar
         self.postDate = postDate

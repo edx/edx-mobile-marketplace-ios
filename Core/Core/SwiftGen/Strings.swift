@@ -47,8 +47,12 @@ public enum CoreLocalization {
     public static let leave = CoreLocalization.tr("Localizable", "ALERT.LEAVE", fallback: "Leave")
     /// Log out
     public static let logout = CoreLocalization.tr("Localizable", "ALERT.LOGOUT", fallback: "Log out")
+    /// Register
+    public static let register = CoreLocalization.tr("Localizable", "ALERT.REGISTER", fallback: "Register")
     /// Remove
     public static let remove = CoreLocalization.tr("Localizable", "ALERT.REMOVE", fallback: "Remove")
+    /// Sign in
+    public static let signIn = CoreLocalization.tr("Localizable", "ALERT.SIGN_IN", fallback: "Sign in")
   }
   public enum Course {
     /// Ended on %@
@@ -350,6 +354,12 @@ public enum CoreLocalization {
       public static let noInternetDescription = CoreLocalization.tr("Localizable", "ERROR.INTERNET.NO_INTERNET_DESCRIPTION", fallback: "Please connect to the internet to view this content.")
       /// No internet connection
       public static let noInternetTitle = CoreLocalization.tr("Localizable", "ERROR.INTERNET.NO_INTERNET_TITLE", fallback: "No internet connection")
+    }
+    public enum Server {
+      /// Something went wrong on our end. Please try again later.
+      public static let genericDescription = CoreLocalization.tr("Localizable", "ERROR.SERVER.GENERIC_DESCRIPTION", fallback: "Something went wrong on our end. Please try again later.")
+      /// Server error
+      public static let genericTitle = CoreLocalization.tr("Localizable", "ERROR.SERVER.GENERIC_TITLE", fallback: "Server error")
     }
   }
   public enum Mainscreen {

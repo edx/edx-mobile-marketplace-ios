@@ -12,8 +12,9 @@ import Profile
 import WhatsNew
 import Course
 import Theme
+import Notifications
 
-public final class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, CourseStorage {
+public final class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, CourseStorage, NotificationsStorage {
 
     private nonisolated(unsafe) let keychain: KeychainSwift
     private nonisolated(unsafe) let userDefaults: UserDefaults
@@ -373,6 +374,38 @@ public final class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, Cou
         }
     }
     
+    public var notificationsPrimerDismissalCount: Int {
+        get {
+            return userDefaults.integer(forKey: KEY_NOTIFICATIONS_PRIMER_DISMISSAL_COUNT)
+        }
+        set(newValue) {
+            if newValue != 0 {
+                userDefaults.set(newValue, forKey: KEY_NOTIFICATIONS_PRIMER_DISMISSAL_COUNT)
+            } else {
+                userDefaults.removeObject(forKey: KEY_NOTIFICATIONS_PRIMER_DISMISSAL_COUNT)
+            }
+        }
+    }
+    
+    public var notificationsPrimerLastShownDate: Date? {
+        get {
+            guard let dateString = userDefaults.string(forKey: KEY_NOTIFICATIONS_PRIMER_LAST_SHOWN_DATE) else {
+                return nil
+            }
+            return Date(iso8601: dateString)
+        }
+        set(newValue) {
+            if let newValue {
+                userDefaults.set(
+                    newValue.dateToString(style: .iso8601, useRelativeDates: false),
+                    forKey: KEY_NOTIFICATIONS_PRIMER_LAST_SHOWN_DATE
+                )
+            } else {
+                userDefaults.removeObject(forKey: KEY_NOTIFICATIONS_PRIMER_LAST_SHOWN_DATE)
+            }
+        }
+    }
+    
     public func clear() {
         accessToken = nil
         refreshToken = nil
@@ -410,4 +443,6 @@ public final class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, Cou
     private let KEY_LAST_USED_SOCIAL_AUTH = "lastUsedSocialAuth"
     private let KEY_DISCUSSION_NOTIFICATIONS_SETTING_STATUS = "discussionNotificationsSettingStatus"
     private let KEY_USE_RELATIVE_DATES = "useRelativeDates"
+    private let KEY_NOTIFICATIONS_PRIMER_DISMISSAL_COUNT = "notificationsPrimerDismissalCount"
+    private let KEY_NOTIFICATIONS_PRIMER_LAST_SHOWN_DATE = "notificationsPrimerLastShownDate"
 }

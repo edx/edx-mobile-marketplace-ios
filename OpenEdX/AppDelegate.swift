@@ -151,6 +151,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             pluginManager.addPlugin(analyticsService: FirebaseAnalyticsService())
         }
         
+        // - FCM
+        if config.firebase.cloudMessagingEnabled,
+            let storage = Container.shared.resolve(CoreStorage.self),
+            let api = Container.shared.resolve(API.self),
+            let deepLinkManager = Container.shared.resolve(DeepLinkManager.self) {
+            pluginManager.addPlugin(
+                pushNotificationsProvider: FCMProvider(storage: storage, api: api),
+                pushNotificationsListener: FCMListener(deepLinkManager: deepLinkManager)
+            )
+        }
         // Initialize your plugins here
         // - Segment analytic
         if config.segment.enabled {
@@ -183,6 +193,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         // - IAP
         pluginManager.setIAPService(EDXIAPService())
+        // - FullStory
+        /**
+         This check is `edX/2U` specific.
+         We only want to record FullStory events for the `PROD` environment for the following reasons:
+         1. `Dev` & `Stage` environments has `orgID` of Test Organization named `2U - Mobile Apps`, and we do not want
+         to record events or other data for this test organization.
+         2. Initially, we set up conditional loading for the FullStory SDK, but it caused issues with enabling
+         SwiftUI-based views in FullStory sessions.
+         We reached out to FullStory's technical support team, who informed us that conditional integration of
+         the FullStory SDK is not possible. As a
+         workaround, we used the test organization `2U - Mobile Apps` and its `orgID` for the `Dev` and `Stage`
+         environments to avoid disrupting the SDK functionality. We have also communicated our usage strategy to
+         FullStory's support team and requested a more effective solution in future SDK updates.
+         */
+        #if PROD
+        if config.fullStory.enabled {
+            pluginManager.addPlugin(analyticsService: Container.shared.resolve(FullStoryAnalyticsService.self)!)
+        }
+        #endif
     }
 
     private func initDI() {

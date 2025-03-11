@@ -12,10 +12,10 @@ import Core
 struct SingleNotificationView: View {
     @ObservedObject
     private var viewModel: NotificationsInboxViewModel
-    private var notification: Notification
+    private var notification: SingleNotification
     private var groupKey: NotificationGroup
     
-    public init(viewModel: NotificationsInboxViewModel, groupKey: NotificationGroup, notification: Notification) {
+    public init(viewModel: NotificationsInboxViewModel, groupKey: NotificationGroup, notification: SingleNotification) {
         self.viewModel = viewModel
         self.notification = notification
         self.groupKey = groupKey
@@ -25,6 +25,10 @@ struct SingleNotificationView: View {
         Button(
             action: {
                 Task {
+                    await viewModel.showDiscussions(notification)
+                    viewModel.trackNotificationTapped(
+                        notificationType: notification.notificationType ?? ""
+                    )
                     await viewModel.markNotificationAsRead(notificationId: String(notification.id))
                     var updatedNotification = notification
                     updatedNotification.lastRead = Date()
@@ -69,15 +73,18 @@ struct SingleNotificationView: View {
     }
 }
 
+#if DEBUG
 #Preview {
     SingleNotificationView(
         viewModel: NotificationsInboxViewModel(
-            interactor: NotificationsInteractor.mock,
+            notificationsInteractor: NotificationsInteractor.mock,
             analytics: NotificationsAnalyticsMock(),
-            router: NotificationsRouterMock()
+            router: NotificationsRouterMock(),
+            connectivity: Connectivity(),
+            deepLinkManager: NotificationsDeepLinkManagerMock()
         ),
         groupKey: NotificationGroup.recent,
-        notification: Notification(
+        notification: SingleNotification(
             id: 123,
             appName: "discussion",
             notificationType: "comment_on_followed_post",
@@ -89,9 +96,11 @@ struct SingleNotificationView: View {
                 postTitle: "How to learn it online?"
             ),
             content: "Test notification",
+            courseId: "course-v1:edX+Test+2T2009",
             lastRead: Date(iso8601: "2025-01-06T01:20:58.919612Z"),
             lastSeen: Date(iso8601: "2025-01-06T01:20:58.919612Z"),
             created: Date(iso8601: "2025-01-06T01:20:58.919612Z")
         )
     )
 }
+#endif

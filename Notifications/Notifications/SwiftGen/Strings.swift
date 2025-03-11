@@ -33,12 +33,30 @@ public enum NotificationsLocalization {
     public static let recent = NotificationsLocalization.tr("Localizable", "INBOX.RECENT", fallback: "Recent")
     /// This Week
     public static let thisWeek = NotificationsLocalization.tr("Localizable", "INBOX.THIS_WEEK", fallback: "This Week")
+    public enum Empty {
+      /// When you receive notifications they’ll show up here.
+      public static let description = NotificationsLocalization.tr("Localizable", "INBOX.EMPTY.DESCRIPTION", fallback: "When you receive notifications they’ll show up here.")
+      /// No notifications yet
+      public static let title = NotificationsLocalization.tr("Localizable", "INBOX.EMPTY.TITLE", fallback: "No notifications yet")
+    }
   }
   public enum Menu {
     /// Mark all as read
     public static let markAllAsRead = NotificationsLocalization.tr("Localizable", "MENU.MARK_ALL_AS_READ", fallback: "Mark all as read")
     /// Settings
     public static let settings = NotificationsLocalization.tr("Localizable", "MENU.SETTINGS", fallback: "Settings")
+  }
+  public enum Primer {
+    /// Get notifications
+    public static let getNotifications = NotificationsLocalization.tr("Localizable", "PRIMER.GET_NOTIFICATIONS", fallback: "Get notifications")
+    /// Stay on top of your coursework. Get notified about comments, replies, and likes on your posts.
+    public static let message = NotificationsLocalization.tr("Localizable", "PRIMER.MESSAGE", fallback: "Stay on top of your coursework. Get notified about comments, replies, and likes on your posts.")
+    /// No thanks
+    public static let noThanks = NotificationsLocalization.tr("Localizable", "PRIMER.NO_THANKS", fallback: "No thanks")
+    /// Stay up to date with discussions
+    public static let title = NotificationsLocalization.tr("Localizable", "PRIMER.TITLE", fallback: "Stay up to date with discussions")
+    /// Yes, notify me
+    public static let yesNotifyMe = NotificationsLocalization.tr("Localizable", "PRIMER.YES_NOTIFY_ME", fallback: "Yes, notify me")
   }
   public enum Settings {
     /// Notifications for course discussions you post, comment, or follow.

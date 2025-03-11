@@ -38,26 +38,36 @@ public struct EditProfileView: View {
                             .font(Theme.Fonts.titleSmall)
                             .foregroundColor(Theme.Colors.textSecondary)
                             .accessibilityIdentifier("profile_type_text")
-                        Button(action: {
-                            withAnimation {
-                                showingBottomSheet.toggle()
-                            }
-                        }, label: {
-                            UserAvatar(url: viewModel.userModel.avatarUrl, image: $viewModel.inputImage)
-                            .padding(.top, 30)
-                            .overlay(
-                                ZStack {
-                                    if !viewModel.userModel.requiresParentalConsent {
-                                        Circle().frame(width: 36, height: 36)
-                                            .foregroundColor(Theme.Colors.accentXColor)
-                                        
-                                        CoreAssets.addPhoto.swiftUIImage.renderingMode(.template)
-                                            .foregroundColor(Theme.Colors.primaryButtonTextColor)
-                                    }
-                                }.offset(x: 36, y: 50)
-                            )
-                        })
-                        .disabled(viewModel.userModel.requiresParentalConsent)
+                        Button(
+                            action: {
+                                withAnimation {
+                                    showingBottomSheet.toggle()
+                                }
+                            },
+                            label: {
+                                UserAvatar(
+                                    url: viewModel.profileChanges.profileType == .full
+                                    ? viewModel.userModel.avatarUrl
+                                    : "",
+                                    image: viewModel.profileChanges.profileType == .full
+                                    ? $viewModel.inputImage
+                                    : .constant(nil)
+                                )
+                                .padding(.top, 30)
+                                .overlay(
+                                    ZStack {
+                                        if !viewModel.userModel.requiresParentalConsent {
+                                            Circle().frame(width: 36, height: 36)
+                                                .foregroundColor(Theme.Colors.accentXColor)
+                                            
+                                            CoreAssets.addPhoto.swiftUIImage.renderingMode(.template)
+                                                .foregroundColor(Theme.Colors.primaryButtonTextColor)
+                                        }
+                                    }.offset(x: 36, y: 50)
+                                    .saturation(viewModel.canEditAvatar ? 1.0 : 0)
+                                )
+                            })
+                        .disabled(!viewModel.canEditAvatar || viewModel.userModel.requiresParentalConsent)
                         .accessibilityIdentifier("change_profile_image_button")
                         
                         Text(viewModel.userModel.name)

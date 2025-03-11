@@ -46,7 +46,8 @@ public protocol DeepLinkRouter: BaseRouter {
     )
     func showThread(
         userThread: UserThread,
-        isBlackedOut: Bool
+        isBlackedOut: Bool,
+        responseID: String?
     )
     func showComment(
         courseID: String,
@@ -61,6 +62,12 @@ public protocol DeepLinkRouter: BaseRouter {
     func dismissPresentedViewController()
     func showProgress()
     func dismissProgress()
+}
+
+public extension DeepLinkRouter {
+    public func showThread(userThread: UserThread, isBlackedOut: Bool) {
+        showThread(userThread: userThread, isBlackedOut: isBlackedOut, responseID: nil)
+    }
 }
 
 extension Router: DeepLinkRouter {
@@ -227,13 +234,15 @@ extension Router: DeepLinkRouter {
 
     public func showThread(
         userThread: UserThread,
-        isBlackedOut: Bool
+        isBlackedOut: Bool,
+        responseID: String? = nil
     ) {
         showThread(
             thread: userThread,
             postStateSubject: .init(.none),
             isBlackedOut: isBlackedOut,
-            animated: false
+            animated: false,
+            responseID: responseID
         )
     }
 
@@ -372,7 +381,8 @@ public class DeepLinkRouterMock: BaseRouterMock, DeepLinkRouter {
     ) {}
     public func showThread(
         userThread: UserThread,
-        isBlackedOut: Bool
+        isBlackedOut: Bool,
+        responseID: String?
     ) {}
     public func showComment(
         courseID: String,

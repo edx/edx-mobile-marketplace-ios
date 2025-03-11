@@ -575,22 +575,58 @@ open class AuthorizationAnalyticsMock: AuthorizationAnalytics, Mock {
 		perform?()
     }
 
-    open func userSignInClicked() {
-        addInvocation(.m_userSignInClicked)
-		let perform = methodPerformValue(.m_userSignInClicked) as? () -> Void
-		perform?()
+    open func userSignInClicked(method: String) {
+        addInvocation(.m_userSignInClicked__method_method(Parameter<String>.value(`method`)))
+		let perform = methodPerformValue(.m_userSignInClicked__method_method(Parameter<String>.value(`method`))) as? (String) -> Void
+		perform?(`method`)
     }
 
-    open func createAccountClicked() {
-        addInvocation(.m_createAccountClicked)
-		let perform = methodPerformValue(.m_createAccountClicked) as? () -> Void
-		perform?()
+    open func socialRegisterClicked(method: String) {
+        addInvocation(.m_socialRegisterClicked__method_method(Parameter<String>.value(`method`)))
+		let perform = methodPerformValue(.m_socialRegisterClicked__method_method(Parameter<String>.value(`method`))) as? (String) -> Void
+		perform?(`method`)
+    }
+
+    open func createAccountClicked(method: String) {
+        addInvocation(.m_createAccountClicked__method_method(Parameter<String>.value(`method`)))
+		let perform = methodPerformValue(.m_createAccountClicked__method_method(Parameter<String>.value(`method`))) as? (String) -> Void
+		perform?(`method`)
+    }
+
+    open func socialAuthSuccess(method: String) {
+        addInvocation(.m_socialAuthSuccess__method_method(Parameter<String>.value(`method`)))
+		let perform = methodPerformValue(.m_socialAuthSuccess__method_method(Parameter<String>.value(`method`))) as? (String) -> Void
+		perform?(`method`)
     }
 
     open func registrationSuccess(method: String) {
         addInvocation(.m_registrationSuccess__method_method(Parameter<String>.value(`method`)))
 		let perform = methodPerformValue(.m_registrationSuccess__method_method(Parameter<String>.value(`method`))) as? (String) -> Void
 		perform?(`method`)
+    }
+
+    open func socialAuthFailure(method: String, errorCode: String?, errorMessage: String?) {
+        addInvocation(.m_socialAuthFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(Parameter<String>.value(`method`), Parameter<String?>.value(`errorCode`), Parameter<String?>.value(`errorMessage`)))
+		let perform = methodPerformValue(.m_socialAuthFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(Parameter<String>.value(`method`), Parameter<String?>.value(`errorCode`), Parameter<String?>.value(`errorMessage`))) as? (String, String?, String?) -> Void
+		perform?(`method`, `errorCode`, `errorMessage`)
+    }
+
+    open func validationFailure(method: String, statusCode: Int?, errorMessage: String?) {
+        addInvocation(.m_validationFailure__method_methodstatusCode_statusCodeerrorMessage_errorMessage(Parameter<String>.value(`method`), Parameter<Int?>.value(`statusCode`), Parameter<String?>.value(`errorMessage`)))
+		let perform = methodPerformValue(.m_validationFailure__method_methodstatusCode_statusCodeerrorMessage_errorMessage(Parameter<String>.value(`method`), Parameter<Int?>.value(`statusCode`), Parameter<String?>.value(`errorMessage`))) as? (String, Int?, String?) -> Void
+		perform?(`method`, `statusCode`, `errorMessage`)
+    }
+
+    open func registerFailure(method: String, errorCode: String?, errorMessage: String?) {
+        addInvocation(.m_registerFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(Parameter<String>.value(`method`), Parameter<String?>.value(`errorCode`), Parameter<String?>.value(`errorMessage`)))
+		let perform = methodPerformValue(.m_registerFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(Parameter<String>.value(`method`), Parameter<String?>.value(`errorCode`), Parameter<String?>.value(`errorMessage`))) as? (String, String?, String?) -> Void
+		perform?(`method`, `errorCode`, `errorMessage`)
+    }
+
+    open func signInFailure(method: String, errorCode: String?, errorMessage: String?) {
+        addInvocation(.m_signInFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(Parameter<String>.value(`method`), Parameter<String?>.value(`errorCode`), Parameter<String?>.value(`errorMessage`)))
+		let perform = methodPerformValue(.m_signInFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(Parameter<String>.value(`method`), Parameter<String?>.value(`errorCode`), Parameter<String?>.value(`errorMessage`))) as? (String, String?, String?) -> Void
+		perform?(`method`, `errorCode`, `errorMessage`)
     }
 
     open func forgotPasswordClicked() {
@@ -623,9 +659,15 @@ open class AuthorizationAnalyticsMock: AuthorizationAnalytics, Mock {
         case m_userLogin__method_method(Parameter<AuthMethod>)
         case m_registerClicked
         case m_signInClicked
-        case m_userSignInClicked
-        case m_createAccountClicked
+        case m_userSignInClicked__method_method(Parameter<String>)
+        case m_socialRegisterClicked__method_method(Parameter<String>)
+        case m_createAccountClicked__method_method(Parameter<String>)
+        case m_socialAuthSuccess__method_method(Parameter<String>)
         case m_registrationSuccess__method_method(Parameter<String>)
+        case m_socialAuthFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(Parameter<String>, Parameter<String?>, Parameter<String?>)
+        case m_validationFailure__method_methodstatusCode_statusCodeerrorMessage_errorMessage(Parameter<String>, Parameter<Int?>, Parameter<String?>)
+        case m_registerFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(Parameter<String>, Parameter<String?>, Parameter<String?>)
+        case m_signInFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(Parameter<String>, Parameter<String?>, Parameter<String?>)
         case m_forgotPasswordClicked
         case m_resetPasswordClicked
         case m_resetPassword__success_success(Parameter<Bool>)
@@ -649,13 +691,57 @@ open class AuthorizationAnalyticsMock: AuthorizationAnalytics, Mock {
 
             case (.m_signInClicked, .m_signInClicked): return .match
 
-            case (.m_userSignInClicked, .m_userSignInClicked): return .match
+            case (.m_userSignInClicked__method_method(let lhsMethod), .m_userSignInClicked__method_method(let rhsMethod)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsMethod, rhs: rhsMethod, with: matcher), lhsMethod, rhsMethod, "method"))
+				return Matcher.ComparisonResult(results)
 
-            case (.m_createAccountClicked, .m_createAccountClicked): return .match
+            case (.m_socialRegisterClicked__method_method(let lhsMethod), .m_socialRegisterClicked__method_method(let rhsMethod)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsMethod, rhs: rhsMethod, with: matcher), lhsMethod, rhsMethod, "method"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_createAccountClicked__method_method(let lhsMethod), .m_createAccountClicked__method_method(let rhsMethod)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsMethod, rhs: rhsMethod, with: matcher), lhsMethod, rhsMethod, "method"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_socialAuthSuccess__method_method(let lhsMethod), .m_socialAuthSuccess__method_method(let rhsMethod)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsMethod, rhs: rhsMethod, with: matcher), lhsMethod, rhsMethod, "method"))
+				return Matcher.ComparisonResult(results)
 
             case (.m_registrationSuccess__method_method(let lhsMethod), .m_registrationSuccess__method_method(let rhsMethod)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsMethod, rhs: rhsMethod, with: matcher), lhsMethod, rhsMethod, "method"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_socialAuthFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(let lhsMethod, let lhsErrorcode, let lhsErrormessage), .m_socialAuthFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(let rhsMethod, let rhsErrorcode, let rhsErrormessage)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsMethod, rhs: rhsMethod, with: matcher), lhsMethod, rhsMethod, "method"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsErrorcode, rhs: rhsErrorcode, with: matcher), lhsErrorcode, rhsErrorcode, "errorCode"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsErrormessage, rhs: rhsErrormessage, with: matcher), lhsErrormessage, rhsErrormessage, "errorMessage"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_validationFailure__method_methodstatusCode_statusCodeerrorMessage_errorMessage(let lhsMethod, let lhsStatuscode, let lhsErrormessage), .m_validationFailure__method_methodstatusCode_statusCodeerrorMessage_errorMessage(let rhsMethod, let rhsStatuscode, let rhsErrormessage)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsMethod, rhs: rhsMethod, with: matcher), lhsMethod, rhsMethod, "method"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsStatuscode, rhs: rhsStatuscode, with: matcher), lhsStatuscode, rhsStatuscode, "statusCode"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsErrormessage, rhs: rhsErrormessage, with: matcher), lhsErrormessage, rhsErrormessage, "errorMessage"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_registerFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(let lhsMethod, let lhsErrorcode, let lhsErrormessage), .m_registerFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(let rhsMethod, let rhsErrorcode, let rhsErrormessage)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsMethod, rhs: rhsMethod, with: matcher), lhsMethod, rhsMethod, "method"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsErrorcode, rhs: rhsErrorcode, with: matcher), lhsErrorcode, rhsErrorcode, "errorCode"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsErrormessage, rhs: rhsErrormessage, with: matcher), lhsErrormessage, rhsErrormessage, "errorMessage"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_signInFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(let lhsMethod, let lhsErrorcode, let lhsErrormessage), .m_signInFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(let rhsMethod, let rhsErrorcode, let rhsErrormessage)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsMethod, rhs: rhsMethod, with: matcher), lhsMethod, rhsMethod, "method"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsErrorcode, rhs: rhsErrorcode, with: matcher), lhsErrorcode, rhsErrorcode, "errorCode"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsErrormessage, rhs: rhsErrormessage, with: matcher), lhsErrormessage, rhsErrormessage, "errorMessage"))
 				return Matcher.ComparisonResult(results)
 
             case (.m_forgotPasswordClicked, .m_forgotPasswordClicked): return .match
@@ -682,9 +768,15 @@ open class AuthorizationAnalyticsMock: AuthorizationAnalytics, Mock {
             case let .m_userLogin__method_method(p0): return p0.intValue
             case .m_registerClicked: return 0
             case .m_signInClicked: return 0
-            case .m_userSignInClicked: return 0
-            case .m_createAccountClicked: return 0
+            case let .m_userSignInClicked__method_method(p0): return p0.intValue
+            case let .m_socialRegisterClicked__method_method(p0): return p0.intValue
+            case let .m_createAccountClicked__method_method(p0): return p0.intValue
+            case let .m_socialAuthSuccess__method_method(p0): return p0.intValue
             case let .m_registrationSuccess__method_method(p0): return p0.intValue
+            case let .m_socialAuthFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
+            case let .m_validationFailure__method_methodstatusCode_statusCodeerrorMessage_errorMessage(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
+            case let .m_registerFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
+            case let .m_signInFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
             case .m_forgotPasswordClicked: return 0
             case .m_resetPasswordClicked: return 0
             case let .m_resetPassword__success_success(p0): return p0.intValue
@@ -697,9 +789,15 @@ open class AuthorizationAnalyticsMock: AuthorizationAnalytics, Mock {
             case .m_userLogin__method_method: return ".userLogin(method:)"
             case .m_registerClicked: return ".registerClicked()"
             case .m_signInClicked: return ".signInClicked()"
-            case .m_userSignInClicked: return ".userSignInClicked()"
-            case .m_createAccountClicked: return ".createAccountClicked()"
+            case .m_userSignInClicked__method_method: return ".userSignInClicked(method:)"
+            case .m_socialRegisterClicked__method_method: return ".socialRegisterClicked(method:)"
+            case .m_createAccountClicked__method_method: return ".createAccountClicked(method:)"
+            case .m_socialAuthSuccess__method_method: return ".socialAuthSuccess(method:)"
             case .m_registrationSuccess__method_method: return ".registrationSuccess(method:)"
+            case .m_socialAuthFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage: return ".socialAuthFailure(method:errorCode:errorMessage:)"
+            case .m_validationFailure__method_methodstatusCode_statusCodeerrorMessage_errorMessage: return ".validationFailure(method:statusCode:errorMessage:)"
+            case .m_registerFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage: return ".registerFailure(method:errorCode:errorMessage:)"
+            case .m_signInFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage: return ".signInFailure(method:errorCode:errorMessage:)"
             case .m_forgotPasswordClicked: return ".forgotPasswordClicked()"
             case .m_resetPasswordClicked: return ".resetPasswordClicked()"
             case .m_resetPassword__success_success: return ".resetPassword(success:)"
@@ -726,9 +824,15 @@ open class AuthorizationAnalyticsMock: AuthorizationAnalytics, Mock {
         public static func userLogin(method: Parameter<AuthMethod>) -> Verify { return Verify(method: .m_userLogin__method_method(`method`))}
         public static func registerClicked() -> Verify { return Verify(method: .m_registerClicked)}
         public static func signInClicked() -> Verify { return Verify(method: .m_signInClicked)}
-        public static func userSignInClicked() -> Verify { return Verify(method: .m_userSignInClicked)}
-        public static func createAccountClicked() -> Verify { return Verify(method: .m_createAccountClicked)}
+        public static func userSignInClicked(method: Parameter<String>) -> Verify { return Verify(method: .m_userSignInClicked__method_method(`method`))}
+        public static func socialRegisterClicked(method: Parameter<String>) -> Verify { return Verify(method: .m_socialRegisterClicked__method_method(`method`))}
+        public static func createAccountClicked(method: Parameter<String>) -> Verify { return Verify(method: .m_createAccountClicked__method_method(`method`))}
+        public static func socialAuthSuccess(method: Parameter<String>) -> Verify { return Verify(method: .m_socialAuthSuccess__method_method(`method`))}
         public static func registrationSuccess(method: Parameter<String>) -> Verify { return Verify(method: .m_registrationSuccess__method_method(`method`))}
+        public static func socialAuthFailure(method: Parameter<String>, errorCode: Parameter<String?>, errorMessage: Parameter<String?>) -> Verify { return Verify(method: .m_socialAuthFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(`method`, `errorCode`, `errorMessage`))}
+        public static func validationFailure(method: Parameter<String>, statusCode: Parameter<Int?>, errorMessage: Parameter<String?>) -> Verify { return Verify(method: .m_validationFailure__method_methodstatusCode_statusCodeerrorMessage_errorMessage(`method`, `statusCode`, `errorMessage`))}
+        public static func registerFailure(method: Parameter<String>, errorCode: Parameter<String?>, errorMessage: Parameter<String?>) -> Verify { return Verify(method: .m_registerFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(`method`, `errorCode`, `errorMessage`))}
+        public static func signInFailure(method: Parameter<String>, errorCode: Parameter<String?>, errorMessage: Parameter<String?>) -> Verify { return Verify(method: .m_signInFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(`method`, `errorCode`, `errorMessage`))}
         public static func forgotPasswordClicked() -> Verify { return Verify(method: .m_forgotPasswordClicked)}
         public static func resetPasswordClicked() -> Verify { return Verify(method: .m_resetPasswordClicked)}
         public static func resetPassword(success: Parameter<Bool>) -> Verify { return Verify(method: .m_resetPassword__success_success(`success`))}
@@ -751,14 +855,32 @@ open class AuthorizationAnalyticsMock: AuthorizationAnalytics, Mock {
         public static func signInClicked(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_signInClicked, performs: perform)
         }
-        public static func userSignInClicked(perform: @escaping () -> Void) -> Perform {
-            return Perform(method: .m_userSignInClicked, performs: perform)
+        public static func userSignInClicked(method: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
+            return Perform(method: .m_userSignInClicked__method_method(`method`), performs: perform)
         }
-        public static func createAccountClicked(perform: @escaping () -> Void) -> Perform {
-            return Perform(method: .m_createAccountClicked, performs: perform)
+        public static func socialRegisterClicked(method: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
+            return Perform(method: .m_socialRegisterClicked__method_method(`method`), performs: perform)
+        }
+        public static func createAccountClicked(method: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
+            return Perform(method: .m_createAccountClicked__method_method(`method`), performs: perform)
+        }
+        public static func socialAuthSuccess(method: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
+            return Perform(method: .m_socialAuthSuccess__method_method(`method`), performs: perform)
         }
         public static func registrationSuccess(method: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
             return Perform(method: .m_registrationSuccess__method_method(`method`), performs: perform)
+        }
+        public static func socialAuthFailure(method: Parameter<String>, errorCode: Parameter<String?>, errorMessage: Parameter<String?>, perform: @escaping (String, String?, String?) -> Void) -> Perform {
+            return Perform(method: .m_socialAuthFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(`method`, `errorCode`, `errorMessage`), performs: perform)
+        }
+        public static func validationFailure(method: Parameter<String>, statusCode: Parameter<Int?>, errorMessage: Parameter<String?>, perform: @escaping (String, Int?, String?) -> Void) -> Perform {
+            return Perform(method: .m_validationFailure__method_methodstatusCode_statusCodeerrorMessage_errorMessage(`method`, `statusCode`, `errorMessage`), performs: perform)
+        }
+        public static func registerFailure(method: Parameter<String>, errorCode: Parameter<String?>, errorMessage: Parameter<String?>, perform: @escaping (String, String?, String?) -> Void) -> Perform {
+            return Perform(method: .m_registerFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(`method`, `errorCode`, `errorMessage`), performs: perform)
+        }
+        public static func signInFailure(method: Parameter<String>, errorCode: Parameter<String?>, errorMessage: Parameter<String?>, perform: @escaping (String, String?, String?) -> Void) -> Perform {
+            return Perform(method: .m_signInFailure__method_methoderrorCode_errorCodeerrorMessage_errorMessage(`method`, `errorCode`, `errorMessage`), performs: perform)
         }
         public static func forgotPasswordClicked(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_forgotPasswordClicked, performs: perform)
@@ -848,7 +970,7 @@ open class AuthorizationAnalyticsMock: AuthorizationAnalytics, Mock {
 }
 
 // MARK: - AuthorizationRouter
-
+@MainActor
 open class AuthorizationRouterMock: AuthorizationRouter, Mock {
     public init(sequencing sequencingPolicy: SequencingPolicy = .lastWrittenResolvedFirst, stubbing stubbingPolicy: StubbingPolicy = .wrap, file: StaticString = #file, line: UInt = #line) {
         SwiftyMockyTestObserver.setup()
@@ -915,10 +1037,10 @@ open class AuthorizationRouterMock: AuthorizationRouter, Mock {
 		perform?()
     }
 
-    open func dismiss(animated: Bool) {
-        addInvocation(.m_dismiss__animated_animated(Parameter<Bool>.value(`animated`)))
-		let perform = methodPerformValue(.m_dismiss__animated_animated(Parameter<Bool>.value(`animated`))) as? (Bool) -> Void
-		perform?(`animated`)
+    open func dismiss(animated: Bool, completion: (() -> Void)?) {
+        addInvocation(.m_dismiss__animated_animatedcompletion_completion(Parameter<Bool>.value(`animated`), Parameter<(() -> Void)?>.value(`completion`)))
+		let perform = methodPerformValue(.m_dismiss__animated_animatedcompletion_completion(Parameter<Bool>.value(`animated`), Parameter<(() -> Void)?>.value(`completion`))) as? (Bool, (() -> Void)?) -> Void
+		perform?(`animated`, `completion`)
     }
 
     open func removeLastView(controllers: Int) {
@@ -975,16 +1097,16 @@ open class AuthorizationRouterMock: AuthorizationRouter, Mock {
 		perform?(`title`)
     }
 
-    open func presentAlert(alertTitle: String, alertMessage: String, positiveAction: String, onCloseTapped: @escaping () -> Void, okTapped: @escaping () -> Void, type: AlertViewType) {
-        addInvocation(.m_presentAlert__alertTitle_alertTitlealertMessage_alertMessagepositiveAction_positiveActiononCloseTapped_onCloseTappedokTapped_okTappedtype_type(Parameter<String>.value(`alertTitle`), Parameter<String>.value(`alertMessage`), Parameter<String>.value(`positiveAction`), Parameter<() -> Void>.value(`onCloseTapped`), Parameter<() -> Void>.value(`okTapped`), Parameter<AlertViewType>.value(`type`)))
-		let perform = methodPerformValue(.m_presentAlert__alertTitle_alertTitlealertMessage_alertMessagepositiveAction_positiveActiononCloseTapped_onCloseTappedokTapped_okTappedtype_type(Parameter<String>.value(`alertTitle`), Parameter<String>.value(`alertMessage`), Parameter<String>.value(`positiveAction`), Parameter<() -> Void>.value(`onCloseTapped`), Parameter<() -> Void>.value(`okTapped`), Parameter<AlertViewType>.value(`type`))) as? (String, String, String, @escaping () -> Void, @escaping () -> Void, AlertViewType) -> Void
-		perform?(`alertTitle`, `alertMessage`, `positiveAction`, `onCloseTapped`, `okTapped`, `type`)
+    open func presentAlert(alertTitle: String, alertMessage: String, positiveAction: String, onCloseTapped: @escaping () -> Void, firstButtonTapped: @escaping () -> Void, type: AlertViewType) {
+        addInvocation(.m_presentAlert__alertTitle_alertTitlealertMessage_alertMessagepositiveAction_positiveActiononCloseTapped_onCloseTappedokTapped_okTappedtype_type(Parameter<String>.value(`alertTitle`), Parameter<String>.value(`alertMessage`), Parameter<String>.value(`positiveAction`), Parameter<() -> Void>.value(`onCloseTapped`), Parameter<() -> Void>.value(`firstButtonTapped`), Parameter<AlertViewType>.value(`type`)))
+		let perform = methodPerformValue(.m_presentAlert__alertTitle_alertTitlealertMessage_alertMessagepositiveAction_positiveActiononCloseTapped_onCloseTappedokTapped_okTappedtype_type(Parameter<String>.value(`alertTitle`), Parameter<String>.value(`alertMessage`), Parameter<String>.value(`positiveAction`), Parameter<() -> Void>.value(`onCloseTapped`), Parameter<() -> Void>.value(`firstButtonTapped`), Parameter<AlertViewType>.value(`type`))) as? (String, String, String, @escaping () -> Void, @escaping () -> Void, AlertViewType) -> Void
+		perform?(`alertTitle`, `alertMessage`, `positiveAction`, `onCloseTapped`, `firstButtonTapped`, `type`)
     }
 
-    open func presentAlert(alertTitle: String, alertMessage: String, nextSectionName: String?, action: String, image: SwiftUI.Image, onCloseTapped: @escaping () -> Void, okTapped: @escaping () -> Void, nextSectionTapped: @escaping () -> Void) {
-        addInvocation(.m_presentAlert__alertTitle_alertTitlealertMessage_alertMessagenextSectionName_nextSectionNameaction_actionimage_imageonCloseTapped_onCloseTappedokTapped_okTappednextSectionTapped_nextSectionTapped(Parameter<String>.value(`alertTitle`), Parameter<String>.value(`alertMessage`), Parameter<String?>.value(`nextSectionName`), Parameter<String>.value(`action`), Parameter<SwiftUI.Image>.value(`image`), Parameter<() -> Void>.value(`onCloseTapped`), Parameter<() -> Void>.value(`okTapped`), Parameter<() -> Void>.value(`nextSectionTapped`)))
-		let perform = methodPerformValue(.m_presentAlert__alertTitle_alertTitlealertMessage_alertMessagenextSectionName_nextSectionNameaction_actionimage_imageonCloseTapped_onCloseTappedokTapped_okTappednextSectionTapped_nextSectionTapped(Parameter<String>.value(`alertTitle`), Parameter<String>.value(`alertMessage`), Parameter<String?>.value(`nextSectionName`), Parameter<String>.value(`action`), Parameter<SwiftUI.Image>.value(`image`), Parameter<() -> Void>.value(`onCloseTapped`), Parameter<() -> Void>.value(`okTapped`), Parameter<() -> Void>.value(`nextSectionTapped`))) as? (String, String, String?, String, SwiftUI.Image, @escaping () -> Void, @escaping () -> Void, @escaping () -> Void) -> Void
-		perform?(`alertTitle`, `alertMessage`, `nextSectionName`, `action`, `image`, `onCloseTapped`, `okTapped`, `nextSectionTapped`)
+    open func presentAlert(alertTitle: String, alertMessage: String, nextSectionName: String?, action: String, image: SwiftUI.Image, onCloseTapped: @escaping () -> Void, firstButtonTapped: @escaping () -> Void, nextSectionTapped: @escaping () -> Void) {
+        addInvocation(.m_presentAlert__alertTitle_alertTitlealertMessage_alertMessagenextSectionName_nextSectionNameaction_actionimage_imageonCloseTapped_onCloseTappedokTapped_okTappednextSectionTapped_nextSectionTapped(Parameter<String>.value(`alertTitle`), Parameter<String>.value(`alertMessage`), Parameter<String?>.value(`nextSectionName`), Parameter<String>.value(`action`), Parameter<SwiftUI.Image>.value(`image`), Parameter<() -> Void>.value(`onCloseTapped`), Parameter<() -> Void>.value(`firstButtonTapped`), Parameter<() -> Void>.value(`nextSectionTapped`)))
+		let perform = methodPerformValue(.m_presentAlert__alertTitle_alertTitlealertMessage_alertMessagenextSectionName_nextSectionNameaction_actionimage_imageonCloseTapped_onCloseTappedokTapped_okTappednextSectionTapped_nextSectionTapped(Parameter<String>.value(`alertTitle`), Parameter<String>.value(`alertMessage`), Parameter<String?>.value(`nextSectionName`), Parameter<String>.value(`action`), Parameter<SwiftUI.Image>.value(`image`), Parameter<() -> Void>.value(`onCloseTapped`), Parameter<() -> Void>.value(`firstButtonTapped`), Parameter<() -> Void>.value(`nextSectionTapped`))) as? (String, String, String?, String, SwiftUI.Image, @escaping () -> Void, @escaping () -> Void, @escaping () -> Void) -> Void
+		perform?(`alertTitle`, `alertMessage`, `nextSectionName`, `action`, `image`, `onCloseTapped`, `firstButtonTapped`, `nextSectionTapped`)
     }
 
     open func presentView(transitionStyle: UIModalTransitionStyle, view: any View, completion: (() -> Void)?) {
@@ -999,13 +1121,81 @@ open class AuthorizationRouterMock: AuthorizationRouter, Mock {
 		perform?(`transitionStyle`, `animated`, `content`)
     }
 
+    open func presentNativeAlert(title: String?, message: String?, actions: [UIAlertAction]) {
+        addInvocation(.m_presentNativeAlert__title_titlemessage_messageactions_actions(Parameter<String?>.value(`title`), Parameter<String?>.value(`message`), Parameter<[UIAlertAction]>.value(`actions`)))
+		let perform = methodPerformValue(.m_presentNativeAlert__title_titlemessage_messageactions_actions(Parameter<String?>.value(`title`), Parameter<String?>.value(`message`), Parameter<[UIAlertAction]>.value(`actions`))) as? (String?, String?, [UIAlertAction]) -> Void
+		perform?(`title`, `message`, `actions`)
+    }
+
+    @MainActor
+	open func showUpgradeInfo(productName: String, message: String, sku: String, courseID: String, screen: CourseUpgradeScreen, pacing: String, lmsPrice: Double) {
+        addInvocation(.m_showUpgradeInfo__productName_productNamemessage_messagesku_skucourseID_courseIDscreen_screenpacing_pacinglmsPrice_lmsPrice(Parameter<String>.value(`productName`), Parameter<String>.value(`message`), Parameter<String>.value(`sku`), Parameter<String>.value(`courseID`), Parameter<CourseUpgradeScreen>.value(`screen`), Parameter<String>.value(`pacing`), Parameter<Double>.value(`lmsPrice`)))
+		let perform = methodPerformValue(.m_showUpgradeInfo__productName_productNamemessage_messagesku_skucourseID_courseIDscreen_screenpacing_pacinglmsPrice_lmsPrice(Parameter<String>.value(`productName`), Parameter<String>.value(`message`), Parameter<String>.value(`sku`), Parameter<String>.value(`courseID`), Parameter<CourseUpgradeScreen>.value(`screen`), Parameter<String>.value(`pacing`), Parameter<Double>.value(`lmsPrice`))) as? (String, String, String, String, CourseUpgradeScreen, String, Double) -> Void
+		perform?(`productName`, `message`, `sku`, `courseID`, `screen`, `pacing`, `lmsPrice`)
+    }
+
+    @MainActor
+	open func hideUpgradeInfo(animated: Bool) {
+        addInvocation(.m_hideUpgradeInfo__animated_animated(Parameter<Bool>.value(`animated`)))
+		let perform = methodPerformValue(.m_hideUpgradeInfo__animated_animated(Parameter<Bool>.value(`animated`))) as? (Bool) -> Void
+		perform?(`animated`)
+    }
+
+    @MainActor
+	open func showUpgradeLoaderView(animated: Bool) {
+        addInvocation(.m_showUpgradeLoaderView__animated_animated(Parameter<Bool>.value(`animated`)))
+		let perform = methodPerformValue(.m_showUpgradeLoaderView__animated_animated(Parameter<Bool>.value(`animated`))) as? (Bool) -> Void
+		perform?(`animated`)
+    }
+
+    @MainActor
+	open func hideUpgradeLoaderView(animated: Bool) {
+        addInvocation(.m_hideUpgradeLoaderView__animated_animated(Parameter<Bool>.value(`animated`)))
+		let perform = methodPerformValue(.m_hideUpgradeLoaderView__animated_animated(Parameter<Bool>.value(`animated`))) as? (Bool) -> Void
+		perform?(`animated`)
+    }
+
+    @MainActor
+	open func showRestoreProgressView() {
+        addInvocation(.m_showRestoreProgressView)
+		let perform = methodPerformValue(.m_showRestoreProgressView) as? () -> Void
+		perform?()
+    }
+
+    @MainActor
+	open func hideRestoreProgressView() {
+        addInvocation(.m_hideRestoreProgressView)
+		let perform = methodPerformValue(.m_hideRestoreProgressView) as? () -> Void
+		perform?()
+    }
+
+    @MainActor
+	open func performNotificationRegistration() {
+        addInvocation(.m_performNotificationRegistration)
+		let perform = methodPerformValue(.m_performNotificationRegistration) as? () -> Void
+		perform?()
+    }
+
+    @MainActor
+	open func showNotificationsPrimerIfNeeded() {
+        addInvocation(.m_showNotificationsPrimerIfNeeded)
+		let perform = methodPerformValue(.m_showNotificationsPrimerIfNeeded) as? () -> Void
+		perform?()
+    }
+
+    open func dismiss(animated: Bool = true) {
+        addInvocation(.m_dismiss__animated_animated(Parameter<Bool>.value(`animated`)))
+		let perform = methodPerformValue(.m_dismiss__animated_animated(Parameter<Bool>.value(`animated`))) as? (Bool) -> Void
+		perform?(`animated`)
+    }
+
 
     fileprivate enum MethodType {
         case m_showUpdateRequiredView__showAccountLink_showAccountLink(Parameter<Bool>)
         case m_backToRoot__animated_animated(Parameter<Bool>)
         case m_back__animated_animated(Parameter<Bool>)
         case m_backWithFade
-        case m_dismiss__animated_animated(Parameter<Bool>)
+        case m_dismiss__animated_animatedcompletion_completion(Parameter<Bool>, Parameter<(() -> Void)?>)
         case m_removeLastView__controllers_controllers(Parameter<Int>)
         case m_showMainOrWhatsNewScreen__sourceScreen_sourceScreenpostLoginData_postLoginData(Parameter<LogistrationSourceScreen>, Parameter<PostLoginData?>)
         case m_showStartupScreen
@@ -1019,6 +1209,16 @@ open class AuthorizationRouterMock: AuthorizationRouter, Mock {
         case m_presentAlert__alertTitle_alertTitlealertMessage_alertMessagenextSectionName_nextSectionNameaction_actionimage_imageonCloseTapped_onCloseTappedokTapped_okTappednextSectionTapped_nextSectionTapped(Parameter<String>, Parameter<String>, Parameter<String?>, Parameter<String>, Parameter<SwiftUI.Image>, Parameter<() -> Void>, Parameter<() -> Void>, Parameter<() -> Void>)
         case m_presentView__transitionStyle_transitionStyleview_viewcompletion_completion(Parameter<UIModalTransitionStyle>, Parameter<any View>, Parameter<(() -> Void)?>)
         case m_presentView__transitionStyle_transitionStyleanimated_animatedcontent_content(Parameter<UIModalTransitionStyle>, Parameter<Bool>, Parameter<() -> any View>)
+        case m_presentNativeAlert__title_titlemessage_messageactions_actions(Parameter<String?>, Parameter<String?>, Parameter<[UIAlertAction]>)
+        case m_showUpgradeInfo__productName_productNamemessage_messagesku_skucourseID_courseIDscreen_screenpacing_pacinglmsPrice_lmsPrice(Parameter<String>, Parameter<String>, Parameter<String>, Parameter<String>, Parameter<CourseUpgradeScreen>, Parameter<String>, Parameter<Double>)
+        case m_hideUpgradeInfo__animated_animated(Parameter<Bool>)
+        case m_showUpgradeLoaderView__animated_animated(Parameter<Bool>)
+        case m_hideUpgradeLoaderView__animated_animated(Parameter<Bool>)
+        case m_showRestoreProgressView
+        case m_hideRestoreProgressView
+        case m_performNotificationRegistration
+        case m_showNotificationsPrimerIfNeeded
+        case m_dismiss__animated_animated(Parameter<Bool>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
@@ -1039,9 +1239,10 @@ open class AuthorizationRouterMock: AuthorizationRouter, Mock {
 
             case (.m_backWithFade, .m_backWithFade): return .match
 
-            case (.m_dismiss__animated_animated(let lhsAnimated), .m_dismiss__animated_animated(let rhsAnimated)):
+            case (.m_dismiss__animated_animatedcompletion_completion(let lhsAnimated, let lhsCompletion), .m_dismiss__animated_animatedcompletion_completion(let rhsAnimated, let rhsCompletion)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsAnimated, rhs: rhsAnimated, with: matcher), lhsAnimated, rhsAnimated, "animated"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCompletion, rhs: rhsCompletion, with: matcher), lhsCompletion, rhsCompletion, "completion"))
 				return Matcher.ComparisonResult(results)
 
             case (.m_removeLastView__controllers_controllers(let lhsControllers), .m_removeLastView__controllers_controllers(let rhsControllers)):
@@ -1121,6 +1322,52 @@ open class AuthorizationRouterMock: AuthorizationRouter, Mock {
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsAnimated, rhs: rhsAnimated, with: matcher), lhsAnimated, rhsAnimated, "animated"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsContent, rhs: rhsContent, with: matcher), lhsContent, rhsContent, "content"))
 				return Matcher.ComparisonResult(results)
+
+            case (.m_presentNativeAlert__title_titlemessage_messageactions_actions(let lhsTitle, let lhsMessage, let lhsActions), .m_presentNativeAlert__title_titlemessage_messageactions_actions(let rhsTitle, let rhsMessage, let rhsActions)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsTitle, rhs: rhsTitle, with: matcher), lhsTitle, rhsTitle, "title"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsMessage, rhs: rhsMessage, with: matcher), lhsMessage, rhsMessage, "message"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsActions, rhs: rhsActions, with: matcher), lhsActions, rhsActions, "actions"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_showUpgradeInfo__productName_productNamemessage_messagesku_skucourseID_courseIDscreen_screenpacing_pacinglmsPrice_lmsPrice(let lhsProductname, let lhsMessage, let lhsSku, let lhsCourseid, let lhsScreen, let lhsPacing, let lhsLmsprice), .m_showUpgradeInfo__productName_productNamemessage_messagesku_skucourseID_courseIDscreen_screenpacing_pacinglmsPrice_lmsPrice(let rhsProductname, let rhsMessage, let rhsSku, let rhsCourseid, let rhsScreen, let rhsPacing, let rhsLmsprice)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsProductname, rhs: rhsProductname, with: matcher), lhsProductname, rhsProductname, "productName"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsMessage, rhs: rhsMessage, with: matcher), lhsMessage, rhsMessage, "message"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsSku, rhs: rhsSku, with: matcher), lhsSku, rhsSku, "sku"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseID"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsScreen, rhs: rhsScreen, with: matcher), lhsScreen, rhsScreen, "screen"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPacing, rhs: rhsPacing, with: matcher), lhsPacing, rhsPacing, "pacing"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLmsprice, rhs: rhsLmsprice, with: matcher), lhsLmsprice, rhsLmsprice, "lmsPrice"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_hideUpgradeInfo__animated_animated(let lhsAnimated), .m_hideUpgradeInfo__animated_animated(let rhsAnimated)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsAnimated, rhs: rhsAnimated, with: matcher), lhsAnimated, rhsAnimated, "animated"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_showUpgradeLoaderView__animated_animated(let lhsAnimated), .m_showUpgradeLoaderView__animated_animated(let rhsAnimated)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsAnimated, rhs: rhsAnimated, with: matcher), lhsAnimated, rhsAnimated, "animated"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_hideUpgradeLoaderView__animated_animated(let lhsAnimated), .m_hideUpgradeLoaderView__animated_animated(let rhsAnimated)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsAnimated, rhs: rhsAnimated, with: matcher), lhsAnimated, rhsAnimated, "animated"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_showRestoreProgressView, .m_showRestoreProgressView): return .match
+
+            case (.m_hideRestoreProgressView, .m_hideRestoreProgressView): return .match
+
+            case (.m_performNotificationRegistration, .m_performNotificationRegistration): return .match
+
+            case (.m_showNotificationsPrimerIfNeeded, .m_showNotificationsPrimerIfNeeded): return .match
+
+            case (.m_dismiss__animated_animated(let lhsAnimated), .m_dismiss__animated_animated(let rhsAnimated)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsAnimated, rhs: rhsAnimated, with: matcher), lhsAnimated, rhsAnimated, "animated"))
+				return Matcher.ComparisonResult(results)
             default: return .none
             }
         }
@@ -1131,7 +1378,7 @@ open class AuthorizationRouterMock: AuthorizationRouter, Mock {
             case let .m_backToRoot__animated_animated(p0): return p0.intValue
             case let .m_back__animated_animated(p0): return p0.intValue
             case .m_backWithFade: return 0
-            case let .m_dismiss__animated_animated(p0): return p0.intValue
+            case let .m_dismiss__animated_animatedcompletion_completion(p0, p1): return p0.intValue + p1.intValue
             case let .m_removeLastView__controllers_controllers(p0): return p0.intValue
             case let .m_showMainOrWhatsNewScreen__sourceScreen_sourceScreenpostLoginData_postLoginData(p0, p1): return p0.intValue + p1.intValue
             case .m_showStartupScreen: return 0
@@ -1145,6 +1392,16 @@ open class AuthorizationRouterMock: AuthorizationRouter, Mock {
             case let .m_presentAlert__alertTitle_alertTitlealertMessage_alertMessagenextSectionName_nextSectionNameaction_actionimage_imageonCloseTapped_onCloseTappedokTapped_okTappednextSectionTapped_nextSectionTapped(p0, p1, p2, p3, p4, p5, p6, p7): return p0.intValue + p1.intValue + p2.intValue + p3.intValue + p4.intValue + p5.intValue + p6.intValue + p7.intValue
             case let .m_presentView__transitionStyle_transitionStyleview_viewcompletion_completion(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
             case let .m_presentView__transitionStyle_transitionStyleanimated_animatedcontent_content(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
+            case let .m_presentNativeAlert__title_titlemessage_messageactions_actions(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
+            case let .m_showUpgradeInfo__productName_productNamemessage_messagesku_skucourseID_courseIDscreen_screenpacing_pacinglmsPrice_lmsPrice(p0, p1, p2, p3, p4, p5, p6): return p0.intValue + p1.intValue + p2.intValue + p3.intValue + p4.intValue + p5.intValue + p6.intValue
+            case let .m_hideUpgradeInfo__animated_animated(p0): return p0.intValue
+            case let .m_showUpgradeLoaderView__animated_animated(p0): return p0.intValue
+            case let .m_hideUpgradeLoaderView__animated_animated(p0): return p0.intValue
+            case .m_showRestoreProgressView: return 0
+            case .m_hideRestoreProgressView: return 0
+            case .m_performNotificationRegistration: return 0
+            case .m_showNotificationsPrimerIfNeeded: return 0
+            case let .m_dismiss__animated_animated(p0): return p0.intValue
             }
         }
         func assertionName() -> String {
@@ -1153,7 +1410,7 @@ open class AuthorizationRouterMock: AuthorizationRouter, Mock {
             case .m_backToRoot__animated_animated: return ".backToRoot(animated:)"
             case .m_back__animated_animated: return ".back(animated:)"
             case .m_backWithFade: return ".backWithFade()"
-            case .m_dismiss__animated_animated: return ".dismiss(animated:)"
+            case .m_dismiss__animated_animatedcompletion_completion: return ".dismiss(animated:completion:)"
             case .m_removeLastView__controllers_controllers: return ".removeLastView(controllers:)"
             case .m_showMainOrWhatsNewScreen__sourceScreen_sourceScreenpostLoginData_postLoginData: return ".showMainOrWhatsNewScreen(sourceScreen:postLoginData:)"
             case .m_showStartupScreen: return ".showStartupScreen()"
@@ -1167,6 +1424,16 @@ open class AuthorizationRouterMock: AuthorizationRouter, Mock {
             case .m_presentAlert__alertTitle_alertTitlealertMessage_alertMessagenextSectionName_nextSectionNameaction_actionimage_imageonCloseTapped_onCloseTappedokTapped_okTappednextSectionTapped_nextSectionTapped: return ".presentAlert(alertTitle:alertMessage:nextSectionName:action:image:onCloseTapped:okTapped:nextSectionTapped:)"
             case .m_presentView__transitionStyle_transitionStyleview_viewcompletion_completion: return ".presentView(transitionStyle:view:completion:)"
             case .m_presentView__transitionStyle_transitionStyleanimated_animatedcontent_content: return ".presentView(transitionStyle:animated:content:)"
+            case .m_presentNativeAlert__title_titlemessage_messageactions_actions: return ".presentNativeAlert(title:message:actions:)"
+            case .m_showUpgradeInfo__productName_productNamemessage_messagesku_skucourseID_courseIDscreen_screenpacing_pacinglmsPrice_lmsPrice: return ".showUpgradeInfo(productName:message:sku:courseID:screen:pacing:lmsPrice:)"
+            case .m_hideUpgradeInfo__animated_animated: return ".hideUpgradeInfo(animated:)"
+            case .m_showUpgradeLoaderView__animated_animated: return ".showUpgradeLoaderView(animated:)"
+            case .m_hideUpgradeLoaderView__animated_animated: return ".hideUpgradeLoaderView(animated:)"
+            case .m_showRestoreProgressView: return ".showRestoreProgressView()"
+            case .m_hideRestoreProgressView: return ".hideRestoreProgressView()"
+            case .m_performNotificationRegistration: return ".performNotificationRegistration()"
+            case .m_showNotificationsPrimerIfNeeded: return ".showNotificationsPrimerIfNeeded()"
+            case .m_dismiss__animated_animated: return ".dismiss(animated:)"
             }
         }
     }
@@ -1189,7 +1456,7 @@ open class AuthorizationRouterMock: AuthorizationRouter, Mock {
         public static func backToRoot(animated: Parameter<Bool>) -> Verify { return Verify(method: .m_backToRoot__animated_animated(`animated`))}
         public static func back(animated: Parameter<Bool>) -> Verify { return Verify(method: .m_back__animated_animated(`animated`))}
         public static func backWithFade() -> Verify { return Verify(method: .m_backWithFade)}
-        public static func dismiss(animated: Parameter<Bool>) -> Verify { return Verify(method: .m_dismiss__animated_animated(`animated`))}
+        public static func dismiss(animated: Parameter<Bool>, completion: Parameter<(() -> Void)?>) -> Verify { return Verify(method: .m_dismiss__animated_animatedcompletion_completion(`animated`, `completion`))}
         public static func removeLastView(controllers: Parameter<Int>) -> Verify { return Verify(method: .m_removeLastView__controllers_controllers(`controllers`))}
         public static func showMainOrWhatsNewScreen(sourceScreen: Parameter<LogistrationSourceScreen>, postLoginData: Parameter<PostLoginData?>) -> Verify { return Verify(method: .m_showMainOrWhatsNewScreen__sourceScreen_sourceScreenpostLoginData_postLoginData(`sourceScreen`, `postLoginData`))}
         public static func showStartupScreen() -> Verify { return Verify(method: .m_showStartupScreen)}
@@ -1203,6 +1470,24 @@ open class AuthorizationRouterMock: AuthorizationRouter, Mock {
         public static func presentAlert(alertTitle: Parameter<String>, alertMessage: Parameter<String>, nextSectionName: Parameter<String?>, action: Parameter<String>, image: Parameter<SwiftUI.Image>, onCloseTapped: Parameter<() -> Void>, okTapped: Parameter<() -> Void>, nextSectionTapped: Parameter<() -> Void>) -> Verify { return Verify(method: .m_presentAlert__alertTitle_alertTitlealertMessage_alertMessagenextSectionName_nextSectionNameaction_actionimage_imageonCloseTapped_onCloseTappedokTapped_okTappednextSectionTapped_nextSectionTapped(`alertTitle`, `alertMessage`, `nextSectionName`, `action`, `image`, `onCloseTapped`, `okTapped`, `nextSectionTapped`))}
         public static func presentView(transitionStyle: Parameter<UIModalTransitionStyle>, view: Parameter<any View>, completion: Parameter<(() -> Void)?>) -> Verify { return Verify(method: .m_presentView__transitionStyle_transitionStyleview_viewcompletion_completion(`transitionStyle`, `view`, `completion`))}
         public static func presentView(transitionStyle: Parameter<UIModalTransitionStyle>, animated: Parameter<Bool>, content: Parameter<() -> any View>) -> Verify { return Verify(method: .m_presentView__transitionStyle_transitionStyleanimated_animatedcontent_content(`transitionStyle`, `animated`, `content`))}
+        public static func presentNativeAlert(title: Parameter<String?>, message: Parameter<String?>, actions: Parameter<[UIAlertAction]>) -> Verify { return Verify(method: .m_presentNativeAlert__title_titlemessage_messageactions_actions(`title`, `message`, `actions`))}
+        @MainActor
+		public static func showUpgradeInfo(productName: Parameter<String>, message: Parameter<String>, sku: Parameter<String>, courseID: Parameter<String>, screen: Parameter<CourseUpgradeScreen>, pacing: Parameter<String>, lmsPrice: Parameter<Double>) -> Verify { return Verify(method: .m_showUpgradeInfo__productName_productNamemessage_messagesku_skucourseID_courseIDscreen_screenpacing_pacinglmsPrice_lmsPrice(`productName`, `message`, `sku`, `courseID`, `screen`, `pacing`, `lmsPrice`))}
+        @MainActor
+		public static func hideUpgradeInfo(animated: Parameter<Bool>) -> Verify { return Verify(method: .m_hideUpgradeInfo__animated_animated(`animated`))}
+        @MainActor
+		public static func showUpgradeLoaderView(animated: Parameter<Bool>) -> Verify { return Verify(method: .m_showUpgradeLoaderView__animated_animated(`animated`))}
+        @MainActor
+		public static func hideUpgradeLoaderView(animated: Parameter<Bool>) -> Verify { return Verify(method: .m_hideUpgradeLoaderView__animated_animated(`animated`))}
+        @MainActor
+		public static func showRestoreProgressView() -> Verify { return Verify(method: .m_showRestoreProgressView)}
+        @MainActor
+		public static func hideRestoreProgressView() -> Verify { return Verify(method: .m_hideRestoreProgressView)}
+        @MainActor
+		public static func performNotificationRegistration() -> Verify { return Verify(method: .m_performNotificationRegistration)}
+        @MainActor
+		public static func showNotificationsPrimerIfNeeded() -> Verify { return Verify(method: .m_showNotificationsPrimerIfNeeded)}
+        public static func dismiss(animated: Parameter<Bool>) -> Verify { return Verify(method: .m_dismiss__animated_animated(`animated`))}
     }
 
     public struct Perform {
@@ -1221,8 +1506,8 @@ open class AuthorizationRouterMock: AuthorizationRouter, Mock {
         public static func backWithFade(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_backWithFade, performs: perform)
         }
-        public static func dismiss(animated: Parameter<Bool>, perform: @escaping (Bool) -> Void) -> Perform {
-            return Perform(method: .m_dismiss__animated_animated(`animated`), performs: perform)
+        public static func dismiss(animated: Parameter<Bool>, completion: Parameter<(() -> Void)?>, perform: @escaping (Bool, (() -> Void)?) -> Void) -> Perform {
+            return Perform(method: .m_dismiss__animated_animatedcompletion_completion(`animated`, `completion`), performs: perform)
         }
         public static func removeLastView(controllers: Parameter<Int>, perform: @escaping (Int) -> Void) -> Perform {
             return Perform(method: .m_removeLastView__controllers_controllers(`controllers`), performs: perform)
@@ -1262,6 +1547,44 @@ open class AuthorizationRouterMock: AuthorizationRouter, Mock {
         }
         public static func presentView(transitionStyle: Parameter<UIModalTransitionStyle>, animated: Parameter<Bool>, content: Parameter<() -> any View>, perform: @escaping (UIModalTransitionStyle, Bool, () -> any View) -> Void) -> Perform {
             return Perform(method: .m_presentView__transitionStyle_transitionStyleanimated_animatedcontent_content(`transitionStyle`, `animated`, `content`), performs: perform)
+        }
+        public static func presentNativeAlert(title: Parameter<String?>, message: Parameter<String?>, actions: Parameter<[UIAlertAction]>, perform: @escaping (String?, String?, [UIAlertAction]) -> Void) -> Perform {
+            return Perform(method: .m_presentNativeAlert__title_titlemessage_messageactions_actions(`title`, `message`, `actions`), performs: perform)
+        }
+        @MainActor
+		public static func showUpgradeInfo(productName: Parameter<String>, message: Parameter<String>, sku: Parameter<String>, courseID: Parameter<String>, screen: Parameter<CourseUpgradeScreen>, pacing: Parameter<String>, lmsPrice: Parameter<Double>, perform: @escaping (String, String, String, String, CourseUpgradeScreen, String, Double) -> Void) -> Perform {
+            return Perform(method: .m_showUpgradeInfo__productName_productNamemessage_messagesku_skucourseID_courseIDscreen_screenpacing_pacinglmsPrice_lmsPrice(`productName`, `message`, `sku`, `courseID`, `screen`, `pacing`, `lmsPrice`), performs: perform)
+        }
+        @MainActor
+		public static func hideUpgradeInfo(animated: Parameter<Bool>, perform: @escaping (Bool) -> Void) -> Perform {
+            return Perform(method: .m_hideUpgradeInfo__animated_animated(`animated`), performs: perform)
+        }
+        @MainActor
+		public static func showUpgradeLoaderView(animated: Parameter<Bool>, perform: @escaping (Bool) -> Void) -> Perform {
+            return Perform(method: .m_showUpgradeLoaderView__animated_animated(`animated`), performs: perform)
+        }
+        @MainActor
+		public static func hideUpgradeLoaderView(animated: Parameter<Bool>, perform: @escaping (Bool) -> Void) -> Perform {
+            return Perform(method: .m_hideUpgradeLoaderView__animated_animated(`animated`), performs: perform)
+        }
+        @MainActor
+		public static func showRestoreProgressView(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_showRestoreProgressView, performs: perform)
+        }
+        @MainActor
+		public static func hideRestoreProgressView(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_hideRestoreProgressView, performs: perform)
+        }
+        @MainActor
+		public static func performNotificationRegistration(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_performNotificationRegistration, performs: perform)
+        }
+        @MainActor
+		public static func showNotificationsPrimerIfNeeded(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_showNotificationsPrimerIfNeeded, performs: perform)
+        }
+        public static func dismiss(animated: Parameter<Bool>, perform: @escaping (Bool) -> Void) -> Perform {
+            return Perform(method: .m_dismiss__animated_animated(`animated`), performs: perform)
         }
     }
 
@@ -1339,7 +1662,7 @@ open class AuthorizationRouterMock: AuthorizationRouter, Mock {
 }
 
 // MARK: - BaseRouter
-
+@MainActor
 open class BaseRouterMock: BaseRouter, Mock {
     public init(sequencing sequencingPolicy: SequencingPolicy = .lastWrittenResolvedFirst, stubbing stubbingPolicy: StubbingPolicy = .wrap, file: StaticString = #file, line: UInt = #line) {
         SwiftyMockyTestObserver.setup()
@@ -1400,10 +1723,10 @@ open class BaseRouterMock: BaseRouter, Mock {
 		perform?()
     }
 
-    open func dismiss(animated: Bool) {
-        addInvocation(.m_dismiss__animated_animated(Parameter<Bool>.value(`animated`)))
-		let perform = methodPerformValue(.m_dismiss__animated_animated(Parameter<Bool>.value(`animated`))) as? (Bool) -> Void
-		perform?(`animated`)
+    open func dismiss(animated: Bool, completion: (() -> Void)?) {
+        addInvocation(.m_dismiss__animated_animatedcompletion_completion(Parameter<Bool>.value(`animated`), Parameter<(() -> Void)?>.value(`completion`)))
+		let perform = methodPerformValue(.m_dismiss__animated_animatedcompletion_completion(Parameter<Bool>.value(`animated`), Parameter<(() -> Void)?>.value(`completion`))) as? (Bool, (() -> Void)?) -> Void
+		perform?(`animated`, `completion`)
     }
 
     open func removeLastView(controllers: Int) {
@@ -1460,16 +1783,16 @@ open class BaseRouterMock: BaseRouter, Mock {
 		perform?(`title`)
     }
 
-    open func presentAlert(alertTitle: String, alertMessage: String, positiveAction: String, onCloseTapped: @escaping () -> Void, okTapped: @escaping () -> Void, type: AlertViewType) {
-        addInvocation(.m_presentAlert__alertTitle_alertTitlealertMessage_alertMessagepositiveAction_positiveActiononCloseTapped_onCloseTappedokTapped_okTappedtype_type(Parameter<String>.value(`alertTitle`), Parameter<String>.value(`alertMessage`), Parameter<String>.value(`positiveAction`), Parameter<() -> Void>.value(`onCloseTapped`), Parameter<() -> Void>.value(`okTapped`), Parameter<AlertViewType>.value(`type`)))
-		let perform = methodPerformValue(.m_presentAlert__alertTitle_alertTitlealertMessage_alertMessagepositiveAction_positiveActiononCloseTapped_onCloseTappedokTapped_okTappedtype_type(Parameter<String>.value(`alertTitle`), Parameter<String>.value(`alertMessage`), Parameter<String>.value(`positiveAction`), Parameter<() -> Void>.value(`onCloseTapped`), Parameter<() -> Void>.value(`okTapped`), Parameter<AlertViewType>.value(`type`))) as? (String, String, String, @escaping () -> Void, @escaping () -> Void, AlertViewType) -> Void
-		perform?(`alertTitle`, `alertMessage`, `positiveAction`, `onCloseTapped`, `okTapped`, `type`)
+    open func presentAlert(alertTitle: String, alertMessage: String, positiveAction: String, onCloseTapped: @escaping () -> Void, firstButtonTapped: @escaping () -> Void, type: AlertViewType) {
+        addInvocation(.m_presentAlert__alertTitle_alertTitlealertMessage_alertMessagepositiveAction_positiveActiononCloseTapped_onCloseTappedokTapped_okTappedtype_type(Parameter<String>.value(`alertTitle`), Parameter<String>.value(`alertMessage`), Parameter<String>.value(`positiveAction`), Parameter<() -> Void>.value(`onCloseTapped`), Parameter<() -> Void>.value(`firstButtonTapped`), Parameter<AlertViewType>.value(`type`)))
+		let perform = methodPerformValue(.m_presentAlert__alertTitle_alertTitlealertMessage_alertMessagepositiveAction_positiveActiononCloseTapped_onCloseTappedokTapped_okTappedtype_type(Parameter<String>.value(`alertTitle`), Parameter<String>.value(`alertMessage`), Parameter<String>.value(`positiveAction`), Parameter<() -> Void>.value(`onCloseTapped`), Parameter<() -> Void>.value(`firstButtonTapped`), Parameter<AlertViewType>.value(`type`))) as? (String, String, String, @escaping () -> Void, @escaping () -> Void, AlertViewType) -> Void
+		perform?(`alertTitle`, `alertMessage`, `positiveAction`, `onCloseTapped`, `firstButtonTapped`, `type`)
     }
 
-    open func presentAlert(alertTitle: String, alertMessage: String, nextSectionName: String?, action: String, image: SwiftUI.Image, onCloseTapped: @escaping () -> Void, okTapped: @escaping () -> Void, nextSectionTapped: @escaping () -> Void) {
-        addInvocation(.m_presentAlert__alertTitle_alertTitlealertMessage_alertMessagenextSectionName_nextSectionNameaction_actionimage_imageonCloseTapped_onCloseTappedokTapped_okTappednextSectionTapped_nextSectionTapped(Parameter<String>.value(`alertTitle`), Parameter<String>.value(`alertMessage`), Parameter<String?>.value(`nextSectionName`), Parameter<String>.value(`action`), Parameter<SwiftUI.Image>.value(`image`), Parameter<() -> Void>.value(`onCloseTapped`), Parameter<() -> Void>.value(`okTapped`), Parameter<() -> Void>.value(`nextSectionTapped`)))
-		let perform = methodPerformValue(.m_presentAlert__alertTitle_alertTitlealertMessage_alertMessagenextSectionName_nextSectionNameaction_actionimage_imageonCloseTapped_onCloseTappedokTapped_okTappednextSectionTapped_nextSectionTapped(Parameter<String>.value(`alertTitle`), Parameter<String>.value(`alertMessage`), Parameter<String?>.value(`nextSectionName`), Parameter<String>.value(`action`), Parameter<SwiftUI.Image>.value(`image`), Parameter<() -> Void>.value(`onCloseTapped`), Parameter<() -> Void>.value(`okTapped`), Parameter<() -> Void>.value(`nextSectionTapped`))) as? (String, String, String?, String, SwiftUI.Image, @escaping () -> Void, @escaping () -> Void, @escaping () -> Void) -> Void
-		perform?(`alertTitle`, `alertMessage`, `nextSectionName`, `action`, `image`, `onCloseTapped`, `okTapped`, `nextSectionTapped`)
+    open func presentAlert(alertTitle: String, alertMessage: String, nextSectionName: String?, action: String, image: SwiftUI.Image, onCloseTapped: @escaping () -> Void, firstButtonTapped: @escaping () -> Void, nextSectionTapped: @escaping () -> Void) {
+        addInvocation(.m_presentAlert__alertTitle_alertTitlealertMessage_alertMessagenextSectionName_nextSectionNameaction_actionimage_imageonCloseTapped_onCloseTappedokTapped_okTappednextSectionTapped_nextSectionTapped(Parameter<String>.value(`alertTitle`), Parameter<String>.value(`alertMessage`), Parameter<String?>.value(`nextSectionName`), Parameter<String>.value(`action`), Parameter<SwiftUI.Image>.value(`image`), Parameter<() -> Void>.value(`onCloseTapped`), Parameter<() -> Void>.value(`firstButtonTapped`), Parameter<() -> Void>.value(`nextSectionTapped`)))
+		let perform = methodPerformValue(.m_presentAlert__alertTitle_alertTitlealertMessage_alertMessagenextSectionName_nextSectionNameaction_actionimage_imageonCloseTapped_onCloseTappedokTapped_okTappednextSectionTapped_nextSectionTapped(Parameter<String>.value(`alertTitle`), Parameter<String>.value(`alertMessage`), Parameter<String?>.value(`nextSectionName`), Parameter<String>.value(`action`), Parameter<SwiftUI.Image>.value(`image`), Parameter<() -> Void>.value(`onCloseTapped`), Parameter<() -> Void>.value(`firstButtonTapped`), Parameter<() -> Void>.value(`nextSectionTapped`))) as? (String, String, String?, String, SwiftUI.Image, @escaping () -> Void, @escaping () -> Void, @escaping () -> Void) -> Void
+		perform?(`alertTitle`, `alertMessage`, `nextSectionName`, `action`, `image`, `onCloseTapped`, `firstButtonTapped`, `nextSectionTapped`)
     }
 
     open func presentView(transitionStyle: UIModalTransitionStyle, view: any View, completion: (() -> Void)?) {
@@ -1484,12 +1807,80 @@ open class BaseRouterMock: BaseRouter, Mock {
 		perform?(`transitionStyle`, `animated`, `content`)
     }
 
+    open func presentNativeAlert(title: String?, message: String?, actions: [UIAlertAction]) {
+        addInvocation(.m_presentNativeAlert__title_titlemessage_messageactions_actions(Parameter<String?>.value(`title`), Parameter<String?>.value(`message`), Parameter<[UIAlertAction]>.value(`actions`)))
+		let perform = methodPerformValue(.m_presentNativeAlert__title_titlemessage_messageactions_actions(Parameter<String?>.value(`title`), Parameter<String?>.value(`message`), Parameter<[UIAlertAction]>.value(`actions`))) as? (String?, String?, [UIAlertAction]) -> Void
+		perform?(`title`, `message`, `actions`)
+    }
+
+    @MainActor
+	open func showUpgradeInfo(productName: String, message: String, sku: String, courseID: String, screen: CourseUpgradeScreen, pacing: String, lmsPrice: Double) {
+        addInvocation(.m_showUpgradeInfo__productName_productNamemessage_messagesku_skucourseID_courseIDscreen_screenpacing_pacinglmsPrice_lmsPrice(Parameter<String>.value(`productName`), Parameter<String>.value(`message`), Parameter<String>.value(`sku`), Parameter<String>.value(`courseID`), Parameter<CourseUpgradeScreen>.value(`screen`), Parameter<String>.value(`pacing`), Parameter<Double>.value(`lmsPrice`)))
+		let perform = methodPerformValue(.m_showUpgradeInfo__productName_productNamemessage_messagesku_skucourseID_courseIDscreen_screenpacing_pacinglmsPrice_lmsPrice(Parameter<String>.value(`productName`), Parameter<String>.value(`message`), Parameter<String>.value(`sku`), Parameter<String>.value(`courseID`), Parameter<CourseUpgradeScreen>.value(`screen`), Parameter<String>.value(`pacing`), Parameter<Double>.value(`lmsPrice`))) as? (String, String, String, String, CourseUpgradeScreen, String, Double) -> Void
+		perform?(`productName`, `message`, `sku`, `courseID`, `screen`, `pacing`, `lmsPrice`)
+    }
+
+    @MainActor
+	open func hideUpgradeInfo(animated: Bool) {
+        addInvocation(.m_hideUpgradeInfo__animated_animated(Parameter<Bool>.value(`animated`)))
+		let perform = methodPerformValue(.m_hideUpgradeInfo__animated_animated(Parameter<Bool>.value(`animated`))) as? (Bool) -> Void
+		perform?(`animated`)
+    }
+
+    @MainActor
+	open func showUpgradeLoaderView(animated: Bool) {
+        addInvocation(.m_showUpgradeLoaderView__animated_animated(Parameter<Bool>.value(`animated`)))
+		let perform = methodPerformValue(.m_showUpgradeLoaderView__animated_animated(Parameter<Bool>.value(`animated`))) as? (Bool) -> Void
+		perform?(`animated`)
+    }
+
+    @MainActor
+	open func hideUpgradeLoaderView(animated: Bool) {
+        addInvocation(.m_hideUpgradeLoaderView__animated_animated(Parameter<Bool>.value(`animated`)))
+		let perform = methodPerformValue(.m_hideUpgradeLoaderView__animated_animated(Parameter<Bool>.value(`animated`))) as? (Bool) -> Void
+		perform?(`animated`)
+    }
+
+    @MainActor
+	open func showRestoreProgressView() {
+        addInvocation(.m_showRestoreProgressView)
+		let perform = methodPerformValue(.m_showRestoreProgressView) as? () -> Void
+		perform?()
+    }
+
+    @MainActor
+	open func hideRestoreProgressView() {
+        addInvocation(.m_hideRestoreProgressView)
+		let perform = methodPerformValue(.m_hideRestoreProgressView) as? () -> Void
+		perform?()
+    }
+
+    @MainActor
+	open func performNotificationRegistration() {
+        addInvocation(.m_performNotificationRegistration)
+		let perform = methodPerformValue(.m_performNotificationRegistration) as? () -> Void
+		perform?()
+    }
+
+    @MainActor
+	open func showNotificationsPrimerIfNeeded() {
+        addInvocation(.m_showNotificationsPrimerIfNeeded)
+		let perform = methodPerformValue(.m_showNotificationsPrimerIfNeeded) as? () -> Void
+		perform?()
+    }
+
+    open func dismiss(animated: Bool = true) {
+        addInvocation(.m_dismiss__animated_animated(Parameter<Bool>.value(`animated`)))
+		let perform = methodPerformValue(.m_dismiss__animated_animated(Parameter<Bool>.value(`animated`))) as? (Bool) -> Void
+		perform?(`animated`)
+    }
+
 
     fileprivate enum MethodType {
         case m_backToRoot__animated_animated(Parameter<Bool>)
         case m_back__animated_animated(Parameter<Bool>)
         case m_backWithFade
-        case m_dismiss__animated_animated(Parameter<Bool>)
+        case m_dismiss__animated_animatedcompletion_completion(Parameter<Bool>, Parameter<(() -> Void)?>)
         case m_removeLastView__controllers_controllers(Parameter<Int>)
         case m_showMainOrWhatsNewScreen__sourceScreen_sourceScreenpostLoginData_postLoginData(Parameter<LogistrationSourceScreen>, Parameter<PostLoginData?>)
         case m_showStartupScreen
@@ -1503,6 +1894,16 @@ open class BaseRouterMock: BaseRouter, Mock {
         case m_presentAlert__alertTitle_alertTitlealertMessage_alertMessagenextSectionName_nextSectionNameaction_actionimage_imageonCloseTapped_onCloseTappedokTapped_okTappednextSectionTapped_nextSectionTapped(Parameter<String>, Parameter<String>, Parameter<String?>, Parameter<String>, Parameter<SwiftUI.Image>, Parameter<() -> Void>, Parameter<() -> Void>, Parameter<() -> Void>)
         case m_presentView__transitionStyle_transitionStyleview_viewcompletion_completion(Parameter<UIModalTransitionStyle>, Parameter<any View>, Parameter<(() -> Void)?>)
         case m_presentView__transitionStyle_transitionStyleanimated_animatedcontent_content(Parameter<UIModalTransitionStyle>, Parameter<Bool>, Parameter<() -> any View>)
+        case m_presentNativeAlert__title_titlemessage_messageactions_actions(Parameter<String?>, Parameter<String?>, Parameter<[UIAlertAction]>)
+        case m_showUpgradeInfo__productName_productNamemessage_messagesku_skucourseID_courseIDscreen_screenpacing_pacinglmsPrice_lmsPrice(Parameter<String>, Parameter<String>, Parameter<String>, Parameter<String>, Parameter<CourseUpgradeScreen>, Parameter<String>, Parameter<Double>)
+        case m_hideUpgradeInfo__animated_animated(Parameter<Bool>)
+        case m_showUpgradeLoaderView__animated_animated(Parameter<Bool>)
+        case m_hideUpgradeLoaderView__animated_animated(Parameter<Bool>)
+        case m_showRestoreProgressView
+        case m_hideRestoreProgressView
+        case m_performNotificationRegistration
+        case m_showNotificationsPrimerIfNeeded
+        case m_dismiss__animated_animated(Parameter<Bool>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
@@ -1518,9 +1919,10 @@ open class BaseRouterMock: BaseRouter, Mock {
 
             case (.m_backWithFade, .m_backWithFade): return .match
 
-            case (.m_dismiss__animated_animated(let lhsAnimated), .m_dismiss__animated_animated(let rhsAnimated)):
+            case (.m_dismiss__animated_animatedcompletion_completion(let lhsAnimated, let lhsCompletion), .m_dismiss__animated_animatedcompletion_completion(let rhsAnimated, let rhsCompletion)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsAnimated, rhs: rhsAnimated, with: matcher), lhsAnimated, rhsAnimated, "animated"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCompletion, rhs: rhsCompletion, with: matcher), lhsCompletion, rhsCompletion, "completion"))
 				return Matcher.ComparisonResult(results)
 
             case (.m_removeLastView__controllers_controllers(let lhsControllers), .m_removeLastView__controllers_controllers(let rhsControllers)):
@@ -1600,6 +2002,52 @@ open class BaseRouterMock: BaseRouter, Mock {
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsAnimated, rhs: rhsAnimated, with: matcher), lhsAnimated, rhsAnimated, "animated"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsContent, rhs: rhsContent, with: matcher), lhsContent, rhsContent, "content"))
 				return Matcher.ComparisonResult(results)
+
+            case (.m_presentNativeAlert__title_titlemessage_messageactions_actions(let lhsTitle, let lhsMessage, let lhsActions), .m_presentNativeAlert__title_titlemessage_messageactions_actions(let rhsTitle, let rhsMessage, let rhsActions)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsTitle, rhs: rhsTitle, with: matcher), lhsTitle, rhsTitle, "title"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsMessage, rhs: rhsMessage, with: matcher), lhsMessage, rhsMessage, "message"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsActions, rhs: rhsActions, with: matcher), lhsActions, rhsActions, "actions"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_showUpgradeInfo__productName_productNamemessage_messagesku_skucourseID_courseIDscreen_screenpacing_pacinglmsPrice_lmsPrice(let lhsProductname, let lhsMessage, let lhsSku, let lhsCourseid, let lhsScreen, let lhsPacing, let lhsLmsprice), .m_showUpgradeInfo__productName_productNamemessage_messagesku_skucourseID_courseIDscreen_screenpacing_pacinglmsPrice_lmsPrice(let rhsProductname, let rhsMessage, let rhsSku, let rhsCourseid, let rhsScreen, let rhsPacing, let rhsLmsprice)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsProductname, rhs: rhsProductname, with: matcher), lhsProductname, rhsProductname, "productName"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsMessage, rhs: rhsMessage, with: matcher), lhsMessage, rhsMessage, "message"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsSku, rhs: rhsSku, with: matcher), lhsSku, rhsSku, "sku"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseID"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsScreen, rhs: rhsScreen, with: matcher), lhsScreen, rhsScreen, "screen"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPacing, rhs: rhsPacing, with: matcher), lhsPacing, rhsPacing, "pacing"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLmsprice, rhs: rhsLmsprice, with: matcher), lhsLmsprice, rhsLmsprice, "lmsPrice"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_hideUpgradeInfo__animated_animated(let lhsAnimated), .m_hideUpgradeInfo__animated_animated(let rhsAnimated)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsAnimated, rhs: rhsAnimated, with: matcher), lhsAnimated, rhsAnimated, "animated"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_showUpgradeLoaderView__animated_animated(let lhsAnimated), .m_showUpgradeLoaderView__animated_animated(let rhsAnimated)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsAnimated, rhs: rhsAnimated, with: matcher), lhsAnimated, rhsAnimated, "animated"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_hideUpgradeLoaderView__animated_animated(let lhsAnimated), .m_hideUpgradeLoaderView__animated_animated(let rhsAnimated)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsAnimated, rhs: rhsAnimated, with: matcher), lhsAnimated, rhsAnimated, "animated"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_showRestoreProgressView, .m_showRestoreProgressView): return .match
+
+            case (.m_hideRestoreProgressView, .m_hideRestoreProgressView): return .match
+
+            case (.m_performNotificationRegistration, .m_performNotificationRegistration): return .match
+
+            case (.m_showNotificationsPrimerIfNeeded, .m_showNotificationsPrimerIfNeeded): return .match
+
+            case (.m_dismiss__animated_animated(let lhsAnimated), .m_dismiss__animated_animated(let rhsAnimated)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsAnimated, rhs: rhsAnimated, with: matcher), lhsAnimated, rhsAnimated, "animated"))
+				return Matcher.ComparisonResult(results)
             default: return .none
             }
         }
@@ -1609,7 +2057,7 @@ open class BaseRouterMock: BaseRouter, Mock {
             case let .m_backToRoot__animated_animated(p0): return p0.intValue
             case let .m_back__animated_animated(p0): return p0.intValue
             case .m_backWithFade: return 0
-            case let .m_dismiss__animated_animated(p0): return p0.intValue
+            case let .m_dismiss__animated_animatedcompletion_completion(p0, p1): return p0.intValue + p1.intValue
             case let .m_removeLastView__controllers_controllers(p0): return p0.intValue
             case let .m_showMainOrWhatsNewScreen__sourceScreen_sourceScreenpostLoginData_postLoginData(p0, p1): return p0.intValue + p1.intValue
             case .m_showStartupScreen: return 0
@@ -1623,6 +2071,16 @@ open class BaseRouterMock: BaseRouter, Mock {
             case let .m_presentAlert__alertTitle_alertTitlealertMessage_alertMessagenextSectionName_nextSectionNameaction_actionimage_imageonCloseTapped_onCloseTappedokTapped_okTappednextSectionTapped_nextSectionTapped(p0, p1, p2, p3, p4, p5, p6, p7): return p0.intValue + p1.intValue + p2.intValue + p3.intValue + p4.intValue + p5.intValue + p6.intValue + p7.intValue
             case let .m_presentView__transitionStyle_transitionStyleview_viewcompletion_completion(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
             case let .m_presentView__transitionStyle_transitionStyleanimated_animatedcontent_content(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
+            case let .m_presentNativeAlert__title_titlemessage_messageactions_actions(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
+            case let .m_showUpgradeInfo__productName_productNamemessage_messagesku_skucourseID_courseIDscreen_screenpacing_pacinglmsPrice_lmsPrice(p0, p1, p2, p3, p4, p5, p6): return p0.intValue + p1.intValue + p2.intValue + p3.intValue + p4.intValue + p5.intValue + p6.intValue
+            case let .m_hideUpgradeInfo__animated_animated(p0): return p0.intValue
+            case let .m_showUpgradeLoaderView__animated_animated(p0): return p0.intValue
+            case let .m_hideUpgradeLoaderView__animated_animated(p0): return p0.intValue
+            case .m_showRestoreProgressView: return 0
+            case .m_hideRestoreProgressView: return 0
+            case .m_performNotificationRegistration: return 0
+            case .m_showNotificationsPrimerIfNeeded: return 0
+            case let .m_dismiss__animated_animated(p0): return p0.intValue
             }
         }
         func assertionName() -> String {
@@ -1630,7 +2088,7 @@ open class BaseRouterMock: BaseRouter, Mock {
             case .m_backToRoot__animated_animated: return ".backToRoot(animated:)"
             case .m_back__animated_animated: return ".back(animated:)"
             case .m_backWithFade: return ".backWithFade()"
-            case .m_dismiss__animated_animated: return ".dismiss(animated:)"
+            case .m_dismiss__animated_animatedcompletion_completion: return ".dismiss(animated:completion:)"
             case .m_removeLastView__controllers_controllers: return ".removeLastView(controllers:)"
             case .m_showMainOrWhatsNewScreen__sourceScreen_sourceScreenpostLoginData_postLoginData: return ".showMainOrWhatsNewScreen(sourceScreen:postLoginData:)"
             case .m_showStartupScreen: return ".showStartupScreen()"
@@ -1644,6 +2102,16 @@ open class BaseRouterMock: BaseRouter, Mock {
             case .m_presentAlert__alertTitle_alertTitlealertMessage_alertMessagenextSectionName_nextSectionNameaction_actionimage_imageonCloseTapped_onCloseTappedokTapped_okTappednextSectionTapped_nextSectionTapped: return ".presentAlert(alertTitle:alertMessage:nextSectionName:action:image:onCloseTapped:okTapped:nextSectionTapped:)"
             case .m_presentView__transitionStyle_transitionStyleview_viewcompletion_completion: return ".presentView(transitionStyle:view:completion:)"
             case .m_presentView__transitionStyle_transitionStyleanimated_animatedcontent_content: return ".presentView(transitionStyle:animated:content:)"
+            case .m_presentNativeAlert__title_titlemessage_messageactions_actions: return ".presentNativeAlert(title:message:actions:)"
+            case .m_showUpgradeInfo__productName_productNamemessage_messagesku_skucourseID_courseIDscreen_screenpacing_pacinglmsPrice_lmsPrice: return ".showUpgradeInfo(productName:message:sku:courseID:screen:pacing:lmsPrice:)"
+            case .m_hideUpgradeInfo__animated_animated: return ".hideUpgradeInfo(animated:)"
+            case .m_showUpgradeLoaderView__animated_animated: return ".showUpgradeLoaderView(animated:)"
+            case .m_hideUpgradeLoaderView__animated_animated: return ".hideUpgradeLoaderView(animated:)"
+            case .m_showRestoreProgressView: return ".showRestoreProgressView()"
+            case .m_hideRestoreProgressView: return ".hideRestoreProgressView()"
+            case .m_performNotificationRegistration: return ".performNotificationRegistration()"
+            case .m_showNotificationsPrimerIfNeeded: return ".showNotificationsPrimerIfNeeded()"
+            case .m_dismiss__animated_animated: return ".dismiss(animated:)"
             }
         }
     }
@@ -1665,7 +2133,7 @@ open class BaseRouterMock: BaseRouter, Mock {
         public static func backToRoot(animated: Parameter<Bool>) -> Verify { return Verify(method: .m_backToRoot__animated_animated(`animated`))}
         public static func back(animated: Parameter<Bool>) -> Verify { return Verify(method: .m_back__animated_animated(`animated`))}
         public static func backWithFade() -> Verify { return Verify(method: .m_backWithFade)}
-        public static func dismiss(animated: Parameter<Bool>) -> Verify { return Verify(method: .m_dismiss__animated_animated(`animated`))}
+        public static func dismiss(animated: Parameter<Bool>, completion: Parameter<(() -> Void)?>) -> Verify { return Verify(method: .m_dismiss__animated_animatedcompletion_completion(`animated`, `completion`))}
         public static func removeLastView(controllers: Parameter<Int>) -> Verify { return Verify(method: .m_removeLastView__controllers_controllers(`controllers`))}
         public static func showMainOrWhatsNewScreen(sourceScreen: Parameter<LogistrationSourceScreen>, postLoginData: Parameter<PostLoginData?>) -> Verify { return Verify(method: .m_showMainOrWhatsNewScreen__sourceScreen_sourceScreenpostLoginData_postLoginData(`sourceScreen`, `postLoginData`))}
         public static func showStartupScreen() -> Verify { return Verify(method: .m_showStartupScreen)}
@@ -1679,6 +2147,24 @@ open class BaseRouterMock: BaseRouter, Mock {
         public static func presentAlert(alertTitle: Parameter<String>, alertMessage: Parameter<String>, nextSectionName: Parameter<String?>, action: Parameter<String>, image: Parameter<SwiftUI.Image>, onCloseTapped: Parameter<() -> Void>, okTapped: Parameter<() -> Void>, nextSectionTapped: Parameter<() -> Void>) -> Verify { return Verify(method: .m_presentAlert__alertTitle_alertTitlealertMessage_alertMessagenextSectionName_nextSectionNameaction_actionimage_imageonCloseTapped_onCloseTappedokTapped_okTappednextSectionTapped_nextSectionTapped(`alertTitle`, `alertMessage`, `nextSectionName`, `action`, `image`, `onCloseTapped`, `okTapped`, `nextSectionTapped`))}
         public static func presentView(transitionStyle: Parameter<UIModalTransitionStyle>, view: Parameter<any View>, completion: Parameter<(() -> Void)?>) -> Verify { return Verify(method: .m_presentView__transitionStyle_transitionStyleview_viewcompletion_completion(`transitionStyle`, `view`, `completion`))}
         public static func presentView(transitionStyle: Parameter<UIModalTransitionStyle>, animated: Parameter<Bool>, content: Parameter<() -> any View>) -> Verify { return Verify(method: .m_presentView__transitionStyle_transitionStyleanimated_animatedcontent_content(`transitionStyle`, `animated`, `content`))}
+        public static func presentNativeAlert(title: Parameter<String?>, message: Parameter<String?>, actions: Parameter<[UIAlertAction]>) -> Verify { return Verify(method: .m_presentNativeAlert__title_titlemessage_messageactions_actions(`title`, `message`, `actions`))}
+        @MainActor
+		public static func showUpgradeInfo(productName: Parameter<String>, message: Parameter<String>, sku: Parameter<String>, courseID: Parameter<String>, screen: Parameter<CourseUpgradeScreen>, pacing: Parameter<String>, lmsPrice: Parameter<Double>) -> Verify { return Verify(method: .m_showUpgradeInfo__productName_productNamemessage_messagesku_skucourseID_courseIDscreen_screenpacing_pacinglmsPrice_lmsPrice(`productName`, `message`, `sku`, `courseID`, `screen`, `pacing`, `lmsPrice`))}
+        @MainActor
+		public static func hideUpgradeInfo(animated: Parameter<Bool>) -> Verify { return Verify(method: .m_hideUpgradeInfo__animated_animated(`animated`))}
+        @MainActor
+		public static func showUpgradeLoaderView(animated: Parameter<Bool>) -> Verify { return Verify(method: .m_showUpgradeLoaderView__animated_animated(`animated`))}
+        @MainActor
+		public static func hideUpgradeLoaderView(animated: Parameter<Bool>) -> Verify { return Verify(method: .m_hideUpgradeLoaderView__animated_animated(`animated`))}
+        @MainActor
+		public static func showRestoreProgressView() -> Verify { return Verify(method: .m_showRestoreProgressView)}
+        @MainActor
+		public static func hideRestoreProgressView() -> Verify { return Verify(method: .m_hideRestoreProgressView)}
+        @MainActor
+		public static func performNotificationRegistration() -> Verify { return Verify(method: .m_performNotificationRegistration)}
+        @MainActor
+		public static func showNotificationsPrimerIfNeeded() -> Verify { return Verify(method: .m_showNotificationsPrimerIfNeeded)}
+        public static func dismiss(animated: Parameter<Bool>) -> Verify { return Verify(method: .m_dismiss__animated_animated(`animated`))}
     }
 
     public struct Perform {
@@ -1694,8 +2180,8 @@ open class BaseRouterMock: BaseRouter, Mock {
         public static func backWithFade(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_backWithFade, performs: perform)
         }
-        public static func dismiss(animated: Parameter<Bool>, perform: @escaping (Bool) -> Void) -> Perform {
-            return Perform(method: .m_dismiss__animated_animated(`animated`), performs: perform)
+        public static func dismiss(animated: Parameter<Bool>, completion: Parameter<(() -> Void)?>, perform: @escaping (Bool, (() -> Void)?) -> Void) -> Perform {
+            return Perform(method: .m_dismiss__animated_animatedcompletion_completion(`animated`, `completion`), performs: perform)
         }
         public static func removeLastView(controllers: Parameter<Int>, perform: @escaping (Int) -> Void) -> Perform {
             return Perform(method: .m_removeLastView__controllers_controllers(`controllers`), performs: perform)
@@ -1735,6 +2221,44 @@ open class BaseRouterMock: BaseRouter, Mock {
         }
         public static func presentView(transitionStyle: Parameter<UIModalTransitionStyle>, animated: Parameter<Bool>, content: Parameter<() -> any View>, perform: @escaping (UIModalTransitionStyle, Bool, () -> any View) -> Void) -> Perform {
             return Perform(method: .m_presentView__transitionStyle_transitionStyleanimated_animatedcontent_content(`transitionStyle`, `animated`, `content`), performs: perform)
+        }
+        public static func presentNativeAlert(title: Parameter<String?>, message: Parameter<String?>, actions: Parameter<[UIAlertAction]>, perform: @escaping (String?, String?, [UIAlertAction]) -> Void) -> Perform {
+            return Perform(method: .m_presentNativeAlert__title_titlemessage_messageactions_actions(`title`, `message`, `actions`), performs: perform)
+        }
+        @MainActor
+		public static func showUpgradeInfo(productName: Parameter<String>, message: Parameter<String>, sku: Parameter<String>, courseID: Parameter<String>, screen: Parameter<CourseUpgradeScreen>, pacing: Parameter<String>, lmsPrice: Parameter<Double>, perform: @escaping (String, String, String, String, CourseUpgradeScreen, String, Double) -> Void) -> Perform {
+            return Perform(method: .m_showUpgradeInfo__productName_productNamemessage_messagesku_skucourseID_courseIDscreen_screenpacing_pacinglmsPrice_lmsPrice(`productName`, `message`, `sku`, `courseID`, `screen`, `pacing`, `lmsPrice`), performs: perform)
+        }
+        @MainActor
+		public static func hideUpgradeInfo(animated: Parameter<Bool>, perform: @escaping (Bool) -> Void) -> Perform {
+            return Perform(method: .m_hideUpgradeInfo__animated_animated(`animated`), performs: perform)
+        }
+        @MainActor
+		public static func showUpgradeLoaderView(animated: Parameter<Bool>, perform: @escaping (Bool) -> Void) -> Perform {
+            return Perform(method: .m_showUpgradeLoaderView__animated_animated(`animated`), performs: perform)
+        }
+        @MainActor
+		public static func hideUpgradeLoaderView(animated: Parameter<Bool>, perform: @escaping (Bool) -> Void) -> Perform {
+            return Perform(method: .m_hideUpgradeLoaderView__animated_animated(`animated`), performs: perform)
+        }
+        @MainActor
+		public static func showRestoreProgressView(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_showRestoreProgressView, performs: perform)
+        }
+        @MainActor
+		public static func hideRestoreProgressView(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_hideRestoreProgressView, performs: perform)
+        }
+        @MainActor
+		public static func performNotificationRegistration(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_performNotificationRegistration, performs: perform)
+        }
+        @MainActor
+		public static func showNotificationsPrimerIfNeeded(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_showNotificationsPrimerIfNeeded, performs: perform)
+        }
+        public static func dismiss(animated: Parameter<Bool>, perform: @escaping (Bool) -> Void) -> Perform {
+            return Perform(method: .m_dismiss__animated_animated(`animated`), performs: perform)
         }
     }
 
@@ -1812,7 +2336,7 @@ open class BaseRouterMock: BaseRouter, Mock {
 }
 
 // MARK: - CalendarManagerProtocol
-
+@MainActor
 open class CalendarManagerProtocolMock: CalendarManagerProtocol, Mock {
     public init(sequencing sequencingPolicy: SequencingPolicy = .lastWrittenResolvedFirst, stubbing stubbingPolicy: StubbingPolicy = .wrap, file: StaticString = #file, line: UInt = #line) {
         SwiftyMockyTestObserver.setup()
@@ -2196,6 +2720,540 @@ open class CalendarManagerProtocolMock: CalendarManagerProtocol, Mock {
     }
 }
 
+// MARK: - ConfigProtocol
+
+open class ConfigProtocolMock: ConfigProtocol, Mock {
+    public init(sequencing sequencingPolicy: SequencingPolicy = .lastWrittenResolvedFirst, stubbing stubbingPolicy: StubbingPolicy = .wrap, file: StaticString = #file, line: UInt = #line) {
+        SwiftyMockyTestObserver.setup()
+        self.sequencingPolicy = sequencingPolicy
+        self.stubbingPolicy = stubbingPolicy
+        self.file = file
+        self.line = line
+    }
+
+    var matcher: Matcher = Matcher.default
+    var stubbingPolicy: StubbingPolicy = .wrap
+    var sequencingPolicy: SequencingPolicy = .lastWrittenResolvedFirst
+
+    private var queue = DispatchQueue(label: "com.swiftymocky.invocations", qos: .userInteractive)
+    private var invocations: [MethodType] = []
+    private var methodReturnValues: [Given] = []
+    private var methodPerformValues: [Perform] = []
+    private var file: StaticString?
+    private var line: UInt?
+
+    public typealias PropertyStub = Given
+    public typealias MethodStub = Given
+    public typealias SubscriptStub = Given
+
+    /// Convenience method - call setupMock() to extend debug information when failure occurs
+    public func setupMock(file: StaticString = #file, line: UInt = #line) {
+        self.file = file
+        self.line = line
+    }
+
+    /// Clear mock internals. You can specify what to reset (invocations aka verify, givens or performs) or leave it empty to clear all mock internals
+    public func resetMock(_ scopes: MockScope...) {
+        let scopes: [MockScope] = scopes.isEmpty ? [.invocation, .given, .perform] : scopes
+        if scopes.contains(.invocation) { invocations = [] }
+        if scopes.contains(.given) { methodReturnValues = [] }
+        if scopes.contains(.perform) { methodPerformValues = [] }
+    }
+
+    public var baseURL: URL {
+		get {	invocations.append(.p_baseURL_get); return __p_baseURL ?? givenGetterValue(.p_baseURL_get, "ConfigProtocolMock - stub value for baseURL was not defined") }
+	}
+	private var __p_baseURL: (URL)?
+
+    public var baseSSOURL: URL {
+		get {	invocations.append(.p_baseSSOURL_get); return __p_baseSSOURL ?? givenGetterValue(.p_baseSSOURL_get, "ConfigProtocolMock - stub value for baseSSOURL was not defined") }
+	}
+	private var __p_baseSSOURL: (URL)?
+
+    public var ssoFinishedURL: URL {
+		get {	invocations.append(.p_ssoFinishedURL_get); return __p_ssoFinishedURL ?? givenGetterValue(.p_ssoFinishedURL_get, "ConfigProtocolMock - stub value for ssoFinishedURL was not defined") }
+	}
+	private var __p_ssoFinishedURL: (URL)?
+
+    public var ssoButtonTitle: [String: Any] {
+		get {	invocations.append(.p_ssoButtonTitle_get); return __p_ssoButtonTitle ?? givenGetterValue(.p_ssoButtonTitle_get, "ConfigProtocolMock - stub value for ssoButtonTitle was not defined") }
+	}
+	private var __p_ssoButtonTitle: ([String: Any])?
+
+    public var oAuthClientId: String {
+		get {	invocations.append(.p_oAuthClientId_get); return __p_oAuthClientId ?? givenGetterValue(.p_oAuthClientId_get, "ConfigProtocolMock - stub value for oAuthClientId was not defined") }
+	}
+	private var __p_oAuthClientId: (String)?
+
+    public var tokenType: TokenType {
+		get {	invocations.append(.p_tokenType_get); return __p_tokenType ?? givenGetterValue(.p_tokenType_get, "ConfigProtocolMock - stub value for tokenType was not defined") }
+	}
+	private var __p_tokenType: (TokenType)?
+
+    public var feedbackEmail: String {
+		get {	invocations.append(.p_feedbackEmail_get); return __p_feedbackEmail ?? givenGetterValue(.p_feedbackEmail_get, "ConfigProtocolMock - stub value for feedbackEmail was not defined") }
+	}
+	private var __p_feedbackEmail: (String)?
+
+    public var appStoreLink: String {
+		get {	invocations.append(.p_appStoreLink_get); return __p_appStoreLink ?? givenGetterValue(.p_appStoreLink_get, "ConfigProtocolMock - stub value for appStoreLink was not defined") }
+	}
+	private var __p_appStoreLink: (String)?
+
+    public var faq: URL? {
+		get {	invocations.append(.p_faq_get); return __p_faq ?? optionalGivenGetterValue(.p_faq_get, "ConfigProtocolMock - stub value for faq was not defined") }
+	}
+	private var __p_faq: (URL)?
+
+    public var platformName: String {
+		get {	invocations.append(.p_platformName_get); return __p_platformName ?? givenGetterValue(.p_platformName_get, "ConfigProtocolMock - stub value for platformName was not defined") }
+	}
+	private var __p_platformName: (String)?
+
+    public var agreement: AgreementConfig {
+		get {	invocations.append(.p_agreement_get); return __p_agreement ?? givenGetterValue(.p_agreement_get, "ConfigProtocolMock - stub value for agreement was not defined") }
+	}
+	private var __p_agreement: (AgreementConfig)?
+
+    public var firebase: FirebaseConfig {
+		get {	invocations.append(.p_firebase_get); return __p_firebase ?? givenGetterValue(.p_firebase_get, "ConfigProtocolMock - stub value for firebase was not defined") }
+	}
+	private var __p_firebase: (FirebaseConfig)?
+
+    public var facebook: FacebookConfig {
+		get {	invocations.append(.p_facebook_get); return __p_facebook ?? givenGetterValue(.p_facebook_get, "ConfigProtocolMock - stub value for facebook was not defined") }
+	}
+	private var __p_facebook: (FacebookConfig)?
+
+    public var microsoft: MicrosoftConfig {
+		get {	invocations.append(.p_microsoft_get); return __p_microsoft ?? givenGetterValue(.p_microsoft_get, "ConfigProtocolMock - stub value for microsoft was not defined") }
+	}
+	private var __p_microsoft: (MicrosoftConfig)?
+
+    public var google: GoogleConfig {
+		get {	invocations.append(.p_google_get); return __p_google ?? givenGetterValue(.p_google_get, "ConfigProtocolMock - stub value for google was not defined") }
+	}
+	private var __p_google: (GoogleConfig)?
+
+    public var appleSignIn: AppleSignInConfig {
+		get {	invocations.append(.p_appleSignIn_get); return __p_appleSignIn ?? givenGetterValue(.p_appleSignIn_get, "ConfigProtocolMock - stub value for appleSignIn was not defined") }
+	}
+	private var __p_appleSignIn: (AppleSignInConfig)?
+
+    public var features: FeaturesConfig {
+		get {	invocations.append(.p_features_get); return __p_features ?? givenGetterValue(.p_features_get, "ConfigProtocolMock - stub value for features was not defined") }
+	}
+	private var __p_features: (FeaturesConfig)?
+
+    public var theme: ThemeConfig {
+		get {	invocations.append(.p_theme_get); return __p_theme ?? givenGetterValue(.p_theme_get, "ConfigProtocolMock - stub value for theme was not defined") }
+	}
+	private var __p_theme: (ThemeConfig)?
+
+    public var uiComponents: UIComponentsConfig {
+		get {	invocations.append(.p_uiComponents_get); return __p_uiComponents ?? givenGetterValue(.p_uiComponents_get, "ConfigProtocolMock - stub value for uiComponents was not defined") }
+	}
+	private var __p_uiComponents: (UIComponentsConfig)?
+
+    public var discovery: DiscoveryConfig {
+		get {	invocations.append(.p_discovery_get); return __p_discovery ?? givenGetterValue(.p_discovery_get, "ConfigProtocolMock - stub value for discovery was not defined") }
+	}
+	private var __p_discovery: (DiscoveryConfig)?
+
+    public var dashboard: DashboardConfig {
+		get {	invocations.append(.p_dashboard_get); return __p_dashboard ?? givenGetterValue(.p_dashboard_get, "ConfigProtocolMock - stub value for dashboard was not defined") }
+	}
+	private var __p_dashboard: (DashboardConfig)?
+
+    public var braze: BrazeConfig {
+		get {	invocations.append(.p_braze_get); return __p_braze ?? givenGetterValue(.p_braze_get, "ConfigProtocolMock - stub value for braze was not defined") }
+	}
+	private var __p_braze: (BrazeConfig)?
+
+    public var branch: BranchConfig {
+		get {	invocations.append(.p_branch_get); return __p_branch ?? givenGetterValue(.p_branch_get, "ConfigProtocolMock - stub value for branch was not defined") }
+	}
+	private var __p_branch: (BranchConfig)?
+
+    public var program: DiscoveryConfig {
+		get {	invocations.append(.p_program_get); return __p_program ?? givenGetterValue(.p_program_get, "ConfigProtocolMock - stub value for program was not defined") }
+	}
+	private var __p_program: (DiscoveryConfig)?
+
+    public var URIScheme: String {
+		get {	invocations.append(.p_URIScheme_get); return __p_URIScheme ?? givenGetterValue(.p_URIScheme_get, "ConfigProtocolMock - stub value for URIScheme was not defined") }
+	}
+	private var __p_URIScheme: (String)?
+
+    public var ecommerceURL: String? {
+		get {	invocations.append(.p_ecommerceURL_get); return __p_ecommerceURL ?? optionalGivenGetterValue(.p_ecommerceURL_get, "ConfigProtocolMock - stub value for ecommerceURL was not defined") }
+	}
+	private var __p_ecommerceURL: (String)?
+
+    public var fullStory: FullStoryConfig {
+		get {	invocations.append(.p_fullStory_get); return __p_fullStory ?? givenGetterValue(.p_fullStory_get, "ConfigProtocolMock - stub value for fullStory was not defined") }
+	}
+	private var __p_fullStory: (FullStoryConfig)?
+
+    public var pushNotificationsEnabled: Bool {
+		get {	invocations.append(.p_pushNotificationsEnabled_get); return __p_pushNotificationsEnabled ?? givenGetterValue(.p_pushNotificationsEnabled_get, "ConfigProtocolMock - stub value for pushNotificationsEnabled was not defined") }
+	}
+	private var __p_pushNotificationsEnabled: (Bool)?
+
+    public var segment: SegmentConfig {
+		get {	invocations.append(.p_segment_get); return __p_segment ?? givenGetterValue(.p_segment_get, "ConfigProtocolMock - stub value for segment was not defined") }
+	}
+	private var __p_segment: (SegmentConfig)?
+
+
+
+
+
+
+    fileprivate enum MethodType {
+        case p_baseURL_get
+        case p_baseSSOURL_get
+        case p_ssoFinishedURL_get
+        case p_ssoButtonTitle_get
+        case p_oAuthClientId_get
+        case p_tokenType_get
+        case p_feedbackEmail_get
+        case p_appStoreLink_get
+        case p_faq_get
+        case p_platformName_get
+        case p_agreement_get
+        case p_firebase_get
+        case p_facebook_get
+        case p_microsoft_get
+        case p_google_get
+        case p_appleSignIn_get
+        case p_features_get
+        case p_theme_get
+        case p_uiComponents_get
+        case p_discovery_get
+        case p_dashboard_get
+        case p_braze_get
+        case p_branch_get
+        case p_program_get
+        case p_URIScheme_get
+        case p_ecommerceURL_get
+        case p_fullStory_get
+        case p_pushNotificationsEnabled_get
+        case p_segment_get
+
+        static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
+            switch (lhs, rhs) {            case (.p_baseURL_get,.p_baseURL_get): return Matcher.ComparisonResult.match
+            case (.p_baseSSOURL_get,.p_baseSSOURL_get): return Matcher.ComparisonResult.match
+            case (.p_ssoFinishedURL_get,.p_ssoFinishedURL_get): return Matcher.ComparisonResult.match
+            case (.p_ssoButtonTitle_get,.p_ssoButtonTitle_get): return Matcher.ComparisonResult.match
+            case (.p_oAuthClientId_get,.p_oAuthClientId_get): return Matcher.ComparisonResult.match
+            case (.p_tokenType_get,.p_tokenType_get): return Matcher.ComparisonResult.match
+            case (.p_feedbackEmail_get,.p_feedbackEmail_get): return Matcher.ComparisonResult.match
+            case (.p_appStoreLink_get,.p_appStoreLink_get): return Matcher.ComparisonResult.match
+            case (.p_faq_get,.p_faq_get): return Matcher.ComparisonResult.match
+            case (.p_platformName_get,.p_platformName_get): return Matcher.ComparisonResult.match
+            case (.p_agreement_get,.p_agreement_get): return Matcher.ComparisonResult.match
+            case (.p_firebase_get,.p_firebase_get): return Matcher.ComparisonResult.match
+            case (.p_facebook_get,.p_facebook_get): return Matcher.ComparisonResult.match
+            case (.p_microsoft_get,.p_microsoft_get): return Matcher.ComparisonResult.match
+            case (.p_google_get,.p_google_get): return Matcher.ComparisonResult.match
+            case (.p_appleSignIn_get,.p_appleSignIn_get): return Matcher.ComparisonResult.match
+            case (.p_features_get,.p_features_get): return Matcher.ComparisonResult.match
+            case (.p_theme_get,.p_theme_get): return Matcher.ComparisonResult.match
+            case (.p_uiComponents_get,.p_uiComponents_get): return Matcher.ComparisonResult.match
+            case (.p_discovery_get,.p_discovery_get): return Matcher.ComparisonResult.match
+            case (.p_dashboard_get,.p_dashboard_get): return Matcher.ComparisonResult.match
+            case (.p_braze_get,.p_braze_get): return Matcher.ComparisonResult.match
+            case (.p_branch_get,.p_branch_get): return Matcher.ComparisonResult.match
+            case (.p_program_get,.p_program_get): return Matcher.ComparisonResult.match
+            case (.p_URIScheme_get,.p_URIScheme_get): return Matcher.ComparisonResult.match
+            case (.p_ecommerceURL_get,.p_ecommerceURL_get): return Matcher.ComparisonResult.match
+            case (.p_fullStory_get,.p_fullStory_get): return Matcher.ComparisonResult.match
+            case (.p_pushNotificationsEnabled_get,.p_pushNotificationsEnabled_get): return Matcher.ComparisonResult.match
+            case (.p_segment_get,.p_segment_get): return Matcher.ComparisonResult.match
+            default: return .none
+            }
+        }
+
+        func intValue() -> Int {
+            switch self {
+            case .p_baseURL_get: return 0
+            case .p_baseSSOURL_get: return 0
+            case .p_ssoFinishedURL_get: return 0
+            case .p_ssoButtonTitle_get: return 0
+            case .p_oAuthClientId_get: return 0
+            case .p_tokenType_get: return 0
+            case .p_feedbackEmail_get: return 0
+            case .p_appStoreLink_get: return 0
+            case .p_faq_get: return 0
+            case .p_platformName_get: return 0
+            case .p_agreement_get: return 0
+            case .p_firebase_get: return 0
+            case .p_facebook_get: return 0
+            case .p_microsoft_get: return 0
+            case .p_google_get: return 0
+            case .p_appleSignIn_get: return 0
+            case .p_features_get: return 0
+            case .p_theme_get: return 0
+            case .p_uiComponents_get: return 0
+            case .p_discovery_get: return 0
+            case .p_dashboard_get: return 0
+            case .p_braze_get: return 0
+            case .p_branch_get: return 0
+            case .p_program_get: return 0
+            case .p_URIScheme_get: return 0
+            case .p_ecommerceURL_get: return 0
+            case .p_fullStory_get: return 0
+            case .p_pushNotificationsEnabled_get: return 0
+            case .p_segment_get: return 0
+            }
+        }
+        func assertionName() -> String {
+            switch self {
+            case .p_baseURL_get: return "[get] .baseURL"
+            case .p_baseSSOURL_get: return "[get] .baseSSOURL"
+            case .p_ssoFinishedURL_get: return "[get] .ssoFinishedURL"
+            case .p_ssoButtonTitle_get: return "[get] .ssoButtonTitle"
+            case .p_oAuthClientId_get: return "[get] .oAuthClientId"
+            case .p_tokenType_get: return "[get] .tokenType"
+            case .p_feedbackEmail_get: return "[get] .feedbackEmail"
+            case .p_appStoreLink_get: return "[get] .appStoreLink"
+            case .p_faq_get: return "[get] .faq"
+            case .p_platformName_get: return "[get] .platformName"
+            case .p_agreement_get: return "[get] .agreement"
+            case .p_firebase_get: return "[get] .firebase"
+            case .p_facebook_get: return "[get] .facebook"
+            case .p_microsoft_get: return "[get] .microsoft"
+            case .p_google_get: return "[get] .google"
+            case .p_appleSignIn_get: return "[get] .appleSignIn"
+            case .p_features_get: return "[get] .features"
+            case .p_theme_get: return "[get] .theme"
+            case .p_uiComponents_get: return "[get] .uiComponents"
+            case .p_discovery_get: return "[get] .discovery"
+            case .p_dashboard_get: return "[get] .dashboard"
+            case .p_braze_get: return "[get] .braze"
+            case .p_branch_get: return "[get] .branch"
+            case .p_program_get: return "[get] .program"
+            case .p_URIScheme_get: return "[get] .URIScheme"
+            case .p_ecommerceURL_get: return "[get] .ecommerceURL"
+            case .p_fullStory_get: return "[get] .fullStory"
+            case .p_pushNotificationsEnabled_get: return "[get] .pushNotificationsEnabled"
+            case .p_segment_get: return "[get] .segment"
+            }
+        }
+    }
+
+    open class Given: StubbedMethod {
+        fileprivate var method: MethodType
+
+        private init(method: MethodType, products: [StubProduct]) {
+            self.method = method
+            super.init(products)
+        }
+
+        public static func baseURL(getter defaultValue: URL...) -> PropertyStub {
+            return Given(method: .p_baseURL_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func baseSSOURL(getter defaultValue: URL...) -> PropertyStub {
+            return Given(method: .p_baseSSOURL_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func ssoFinishedURL(getter defaultValue: URL...) -> PropertyStub {
+            return Given(method: .p_ssoFinishedURL_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func ssoButtonTitle(getter defaultValue: [String: Any]...) -> PropertyStub {
+            return Given(method: .p_ssoButtonTitle_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func oAuthClientId(getter defaultValue: String...) -> PropertyStub {
+            return Given(method: .p_oAuthClientId_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func tokenType(getter defaultValue: TokenType...) -> PropertyStub {
+            return Given(method: .p_tokenType_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func feedbackEmail(getter defaultValue: String...) -> PropertyStub {
+            return Given(method: .p_feedbackEmail_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func appStoreLink(getter defaultValue: String...) -> PropertyStub {
+            return Given(method: .p_appStoreLink_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func faq(getter defaultValue: URL?...) -> PropertyStub {
+            return Given(method: .p_faq_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func platformName(getter defaultValue: String...) -> PropertyStub {
+            return Given(method: .p_platformName_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func agreement(getter defaultValue: AgreementConfig...) -> PropertyStub {
+            return Given(method: .p_agreement_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func firebase(getter defaultValue: FirebaseConfig...) -> PropertyStub {
+            return Given(method: .p_firebase_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func facebook(getter defaultValue: FacebookConfig...) -> PropertyStub {
+            return Given(method: .p_facebook_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func microsoft(getter defaultValue: MicrosoftConfig...) -> PropertyStub {
+            return Given(method: .p_microsoft_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func google(getter defaultValue: GoogleConfig...) -> PropertyStub {
+            return Given(method: .p_google_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func appleSignIn(getter defaultValue: AppleSignInConfig...) -> PropertyStub {
+            return Given(method: .p_appleSignIn_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func features(getter defaultValue: FeaturesConfig...) -> PropertyStub {
+            return Given(method: .p_features_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func theme(getter defaultValue: ThemeConfig...) -> PropertyStub {
+            return Given(method: .p_theme_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func uiComponents(getter defaultValue: UIComponentsConfig...) -> PropertyStub {
+            return Given(method: .p_uiComponents_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func discovery(getter defaultValue: DiscoveryConfig...) -> PropertyStub {
+            return Given(method: .p_discovery_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func dashboard(getter defaultValue: DashboardConfig...) -> PropertyStub {
+            return Given(method: .p_dashboard_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func braze(getter defaultValue: BrazeConfig...) -> PropertyStub {
+            return Given(method: .p_braze_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func branch(getter defaultValue: BranchConfig...) -> PropertyStub {
+            return Given(method: .p_branch_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func program(getter defaultValue: DiscoveryConfig...) -> PropertyStub {
+            return Given(method: .p_program_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func URIScheme(getter defaultValue: String...) -> PropertyStub {
+            return Given(method: .p_URIScheme_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func ecommerceURL(getter defaultValue: String?...) -> PropertyStub {
+            return Given(method: .p_ecommerceURL_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func fullStory(getter defaultValue: FullStoryConfig...) -> PropertyStub {
+            return Given(method: .p_fullStory_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func pushNotificationsEnabled(getter defaultValue: Bool...) -> PropertyStub {
+            return Given(method: .p_pushNotificationsEnabled_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func segment(getter defaultValue: SegmentConfig...) -> PropertyStub {
+            return Given(method: .p_segment_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+
+    }
+
+    public struct Verify {
+        fileprivate var method: MethodType
+
+        public static var baseURL: Verify { return Verify(method: .p_baseURL_get) }
+        public static var baseSSOURL: Verify { return Verify(method: .p_baseSSOURL_get) }
+        public static var ssoFinishedURL: Verify { return Verify(method: .p_ssoFinishedURL_get) }
+        public static var ssoButtonTitle: Verify { return Verify(method: .p_ssoButtonTitle_get) }
+        public static var oAuthClientId: Verify { return Verify(method: .p_oAuthClientId_get) }
+        public static var tokenType: Verify { return Verify(method: .p_tokenType_get) }
+        public static var feedbackEmail: Verify { return Verify(method: .p_feedbackEmail_get) }
+        public static var appStoreLink: Verify { return Verify(method: .p_appStoreLink_get) }
+        public static var faq: Verify { return Verify(method: .p_faq_get) }
+        public static var platformName: Verify { return Verify(method: .p_platformName_get) }
+        public static var agreement: Verify { return Verify(method: .p_agreement_get) }
+        public static var firebase: Verify { return Verify(method: .p_firebase_get) }
+        public static var facebook: Verify { return Verify(method: .p_facebook_get) }
+        public static var microsoft: Verify { return Verify(method: .p_microsoft_get) }
+        public static var google: Verify { return Verify(method: .p_google_get) }
+        public static var appleSignIn: Verify { return Verify(method: .p_appleSignIn_get) }
+        public static var features: Verify { return Verify(method: .p_features_get) }
+        public static var theme: Verify { return Verify(method: .p_theme_get) }
+        public static var uiComponents: Verify { return Verify(method: .p_uiComponents_get) }
+        public static var discovery: Verify { return Verify(method: .p_discovery_get) }
+        public static var dashboard: Verify { return Verify(method: .p_dashboard_get) }
+        public static var braze: Verify { return Verify(method: .p_braze_get) }
+        public static var branch: Verify { return Verify(method: .p_branch_get) }
+        public static var program: Verify { return Verify(method: .p_program_get) }
+        public static var URIScheme: Verify { return Verify(method: .p_URIScheme_get) }
+        public static var ecommerceURL: Verify { return Verify(method: .p_ecommerceURL_get) }
+        public static var fullStory: Verify { return Verify(method: .p_fullStory_get) }
+        public static var pushNotificationsEnabled: Verify { return Verify(method: .p_pushNotificationsEnabled_get) }
+        public static var segment: Verify { return Verify(method: .p_segment_get) }
+    }
+
+    public struct Perform {
+        fileprivate var method: MethodType
+        var performs: Any
+
+    }
+
+    public func given(_ method: Given) {
+        methodReturnValues.append(method)
+    }
+
+    public func perform(_ method: Perform) {
+        methodPerformValues.append(method)
+        methodPerformValues.sort { $0.method.intValue() < $1.method.intValue() }
+    }
+
+    public func verify(_ method: Verify, count: Count = Count.moreOrEqual(to: 1), file: StaticString = #file, line: UInt = #line) {
+        let fullMatches = matchingCalls(method, file: file, line: line)
+        let success = count.matches(fullMatches)
+        let assertionName = method.method.assertionName()
+        let feedback: String = {
+            guard !success else { return "" }
+            return Utils.closestCallsMessage(
+                for: self.invocations.map { invocation in
+                    matcher.set(file: file, line: line)
+                    defer { matcher.clearFileAndLine() }
+                    return MethodType.compareParameters(lhs: invocation, rhs: method.method, matcher: matcher)
+                },
+                name: assertionName
+            )
+        }()
+        MockyAssert(success, "Expected: \(count) invocations of `\(assertionName)`, but was: \(fullMatches).\(feedback)", file: file, line: line)
+    }
+
+    private func addInvocation(_ call: MethodType) {
+        self.queue.sync { invocations.append(call) }
+    }
+    private func methodReturnValue(_ method: MethodType) throws -> StubProduct {
+        matcher.set(file: self.file, line: self.line)
+        defer { matcher.clearFileAndLine() }
+        let candidates = sequencingPolicy.sorted(methodReturnValues, by: { $0.method.intValue() > $1.method.intValue() })
+        let matched = candidates.first(where: { $0.isValid && MethodType.compareParameters(lhs: $0.method, rhs: method, matcher: matcher).isFullMatch })
+        guard let product = matched?.getProduct(policy: self.stubbingPolicy) else { throw MockError.notStubed }
+        return product
+    }
+    private func methodPerformValue(_ method: MethodType) -> Any? {
+        matcher.set(file: self.file, line: self.line)
+        defer { matcher.clearFileAndLine() }
+        let matched = methodPerformValues.reversed().first { MethodType.compareParameters(lhs: $0.method, rhs: method, matcher: matcher).isFullMatch }
+        return matched?.performs
+    }
+    private func matchingCalls(_ method: MethodType, file: StaticString?, line: UInt?) -> [MethodType] {
+        matcher.set(file: file ?? self.file, line: line ?? self.line)
+        defer { matcher.clearFileAndLine() }
+        return invocations.filter { MethodType.compareParameters(lhs: $0, rhs: method, matcher: matcher).isFullMatch }
+    }
+    private func matchingCalls(_ method: Verify, file: StaticString?, line: UInt?) -> Int {
+        return matchingCalls(method.method, file: file, line: line).count
+    }
+    private func givenGetterValue<T>(_ method: MethodType, _ message: String) -> T {
+        do {
+            return try methodReturnValue(method).casted()
+        } catch {
+            onFatalFailure(message)
+            Failure(message)
+        }
+    }
+    private func optionalGivenGetterValue<T>(_ method: MethodType, _ message: String) -> T? {
+        do {
+            return try methodReturnValue(method).casted()
+        } catch {
+            return nil
+        }
+    }
+    private func onFatalFailure(_ message: String) {
+        guard let file = self.file, let line = self.line else { return } // Let if fail if cannot handle gratefully
+        SwiftyMockyTestObserver.handleFatalError(message: message, file: file, line: line)
+    }
+}
+
 // MARK: - ConnectivityProtocol
 
 open class ConnectivityProtocolMock: ConnectivityProtocol, Mock {
@@ -2472,6 +3530,60 @@ open class CoreAnalyticsMock: CoreAnalytics, Mock {
 		perform?(`event`, `bivalue`, `value`, `oldValue`)
     }
 
+    open func trackCourseUpgradePaymentError(_ event: AnalyticsEvent, biValue: EventBIValue, courseID: String, blockID: String?, pacing: String, localizedPrice: NSDecimalNumber?, localizedCurrencyCode: String?, lmsPrice: Double?, screen: CourseUpgradeScreen, error: String) {
+        addInvocation(.m_trackCourseUpgradePaymentError__eventbiValue_biValuecourseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenerror_error(Parameter<AnalyticsEvent>.value(`event`), Parameter<EventBIValue>.value(`biValue`), Parameter<String>.value(`courseID`), Parameter<String?>.value(`blockID`), Parameter<String>.value(`pacing`), Parameter<NSDecimalNumber?>.value(`localizedPrice`), Parameter<String?>.value(`localizedCurrencyCode`), Parameter<Double?>.value(`lmsPrice`), Parameter<CourseUpgradeScreen>.value(`screen`), Parameter<String>.value(`error`)))
+		let perform = methodPerformValue(.m_trackCourseUpgradePaymentError__eventbiValue_biValuecourseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenerror_error(Parameter<AnalyticsEvent>.value(`event`), Parameter<EventBIValue>.value(`biValue`), Parameter<String>.value(`courseID`), Parameter<String?>.value(`blockID`), Parameter<String>.value(`pacing`), Parameter<NSDecimalNumber?>.value(`localizedPrice`), Parameter<String?>.value(`localizedCurrencyCode`), Parameter<Double?>.value(`lmsPrice`), Parameter<CourseUpgradeScreen>.value(`screen`), Parameter<String>.value(`error`))) as? (AnalyticsEvent, EventBIValue, String, String?, String, NSDecimalNumber?, String?, Double?, CourseUpgradeScreen, String) -> Void
+		perform?(`event`, `biValue`, `courseID`, `blockID`, `pacing`, `localizedPrice`, `localizedCurrencyCode`, `lmsPrice`, `screen`, `error`)
+    }
+
+    open func trackCourseUpgradeError(courseID: String, blockID: String?, pacing: String, localizedPrice: NSDecimalNumber?, localizedCurrencyCode: String?, lmsPrice: Double?, screen: CourseUpgradeScreen, error: String, flowType: UpgradeMode) {
+        addInvocation(.m_trackCourseUpgradeError__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenerror_errorflowType_flowType(Parameter<String>.value(`courseID`), Parameter<String?>.value(`blockID`), Parameter<String>.value(`pacing`), Parameter<NSDecimalNumber?>.value(`localizedPrice`), Parameter<String?>.value(`localizedCurrencyCode`), Parameter<Double?>.value(`lmsPrice`), Parameter<CourseUpgradeScreen>.value(`screen`), Parameter<String>.value(`error`), Parameter<UpgradeMode>.value(`flowType`)))
+		let perform = methodPerformValue(.m_trackCourseUpgradeError__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenerror_errorflowType_flowType(Parameter<String>.value(`courseID`), Parameter<String?>.value(`blockID`), Parameter<String>.value(`pacing`), Parameter<NSDecimalNumber?>.value(`localizedPrice`), Parameter<String?>.value(`localizedCurrencyCode`), Parameter<Double?>.value(`lmsPrice`), Parameter<CourseUpgradeScreen>.value(`screen`), Parameter<String>.value(`error`), Parameter<UpgradeMode>.value(`flowType`))) as? (String, String?, String, NSDecimalNumber?, String?, Double?, CourseUpgradeScreen, String, UpgradeMode) -> Void
+		perform?(`courseID`, `blockID`, `pacing`, `localizedPrice`, `localizedCurrencyCode`, `lmsPrice`, `screen`, `error`, `flowType`)
+    }
+
+    open func trackCourseUpgradeErrorAction(courseID: String, blockID: String?, pacing: String, localizedPrice: NSDecimalNumber?, localizedCurrencyCode: String?, lmsPrice: Double?, screen: CourseUpgradeScreen, alertType: UpgradeAlertType, errorAction: String, error: String, flowType: UpgradeMode) {
+        addInvocation(.m_trackCourseUpgradeErrorAction__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenalertType_alertTypeerrorAction_errorActionerror_errorflowType_flowType(Parameter<String>.value(`courseID`), Parameter<String?>.value(`blockID`), Parameter<String>.value(`pacing`), Parameter<NSDecimalNumber?>.value(`localizedPrice`), Parameter<String?>.value(`localizedCurrencyCode`), Parameter<Double?>.value(`lmsPrice`), Parameter<CourseUpgradeScreen>.value(`screen`), Parameter<UpgradeAlertType>.value(`alertType`), Parameter<String>.value(`errorAction`), Parameter<String>.value(`error`), Parameter<UpgradeMode>.value(`flowType`)))
+		let perform = methodPerformValue(.m_trackCourseUpgradeErrorAction__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenalertType_alertTypeerrorAction_errorActionerror_errorflowType_flowType(Parameter<String>.value(`courseID`), Parameter<String?>.value(`blockID`), Parameter<String>.value(`pacing`), Parameter<NSDecimalNumber?>.value(`localizedPrice`), Parameter<String?>.value(`localizedCurrencyCode`), Parameter<Double?>.value(`lmsPrice`), Parameter<CourseUpgradeScreen>.value(`screen`), Parameter<UpgradeAlertType>.value(`alertType`), Parameter<String>.value(`errorAction`), Parameter<String>.value(`error`), Parameter<UpgradeMode>.value(`flowType`))) as? (String, String?, String, NSDecimalNumber?, String?, Double?, CourseUpgradeScreen, UpgradeAlertType, String, String, UpgradeMode) -> Void
+		perform?(`courseID`, `blockID`, `pacing`, `localizedPrice`, `localizedCurrencyCode`, `lmsPrice`, `screen`, `alertType`, `errorAction`, `error`, `flowType`)
+    }
+
+    open func trackCourseUpgradeSuccess(courseID: String, blockID: String?, pacing: String, localizedPrice: NSDecimalNumber?, localizedCurrencyCode: String?, lmsPrice: Double?, screen: CourseUpgradeScreen, flowType: UpgradeMode) {
+        addInvocation(.m_trackCourseUpgradeSuccess__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenflowType_flowType(Parameter<String>.value(`courseID`), Parameter<String?>.value(`blockID`), Parameter<String>.value(`pacing`), Parameter<NSDecimalNumber?>.value(`localizedPrice`), Parameter<String?>.value(`localizedCurrencyCode`), Parameter<Double?>.value(`lmsPrice`), Parameter<CourseUpgradeScreen>.value(`screen`), Parameter<UpgradeMode>.value(`flowType`)))
+		let perform = methodPerformValue(.m_trackCourseUpgradeSuccess__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenflowType_flowType(Parameter<String>.value(`courseID`), Parameter<String?>.value(`blockID`), Parameter<String>.value(`pacing`), Parameter<NSDecimalNumber?>.value(`localizedPrice`), Parameter<String?>.value(`localizedCurrencyCode`), Parameter<Double?>.value(`lmsPrice`), Parameter<CourseUpgradeScreen>.value(`screen`), Parameter<UpgradeMode>.value(`flowType`))) as? (String, String?, String, NSDecimalNumber?, String?, Double?, CourseUpgradeScreen, UpgradeMode) -> Void
+		perform?(`courseID`, `blockID`, `pacing`, `localizedPrice`, `localizedCurrencyCode`, `lmsPrice`, `screen`, `flowType`)
+    }
+
+    open func trackUpgradeNow(courseID: String, blockID: String?, pacing: String, screen: CourseUpgradeScreen, localizedPrice: NSDecimalNumber?, localizedCurrencyCode: String?, lmsPrice: Double?) {
+        addInvocation(.m_trackUpgradeNow__courseID_courseIDblockID_blockIDpacing_pacingscreen_screenlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPrice(Parameter<String>.value(`courseID`), Parameter<String?>.value(`blockID`), Parameter<String>.value(`pacing`), Parameter<CourseUpgradeScreen>.value(`screen`), Parameter<NSDecimalNumber?>.value(`localizedPrice`), Parameter<String?>.value(`localizedCurrencyCode`), Parameter<Double?>.value(`lmsPrice`)))
+		let perform = methodPerformValue(.m_trackUpgradeNow__courseID_courseIDblockID_blockIDpacing_pacingscreen_screenlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPrice(Parameter<String>.value(`courseID`), Parameter<String?>.value(`blockID`), Parameter<String>.value(`pacing`), Parameter<CourseUpgradeScreen>.value(`screen`), Parameter<NSDecimalNumber?>.value(`localizedPrice`), Parameter<String?>.value(`localizedCurrencyCode`), Parameter<Double?>.value(`lmsPrice`))) as? (String, String?, String, CourseUpgradeScreen, NSDecimalNumber?, String?, Double?) -> Void
+		perform?(`courseID`, `blockID`, `pacing`, `screen`, `localizedPrice`, `localizedCurrencyCode`, `lmsPrice`)
+    }
+
+    open func trackCourseUpgradeLoadError(courseID: String, blockID: String?, pacing: String, screen: CourseUpgradeScreen) {
+        addInvocation(.m_trackCourseUpgradeLoadError__courseID_courseIDblockID_blockIDpacing_pacingscreen_screen(Parameter<String>.value(`courseID`), Parameter<String?>.value(`blockID`), Parameter<String>.value(`pacing`), Parameter<CourseUpgradeScreen>.value(`screen`)))
+		let perform = methodPerformValue(.m_trackCourseUpgradeLoadError__courseID_courseIDblockID_blockIDpacing_pacingscreen_screen(Parameter<String>.value(`courseID`), Parameter<String?>.value(`blockID`), Parameter<String>.value(`pacing`), Parameter<CourseUpgradeScreen>.value(`screen`))) as? (String, String?, String, CourseUpgradeScreen) -> Void
+		perform?(`courseID`, `blockID`, `pacing`, `screen`)
+    }
+
+    open func trackCourseUnfulfilledPurchaseInitiated(courseID: String, pacing: String, screen: CourseUpgradeScreen, flowType: UpgradeMode) {
+        addInvocation(.m_trackCourseUnfulfilledPurchaseInitiated__courseID_courseIDpacing_pacingscreen_screenflowType_flowType(Parameter<String>.value(`courseID`), Parameter<String>.value(`pacing`), Parameter<CourseUpgradeScreen>.value(`screen`), Parameter<UpgradeMode>.value(`flowType`)))
+		let perform = methodPerformValue(.m_trackCourseUnfulfilledPurchaseInitiated__courseID_courseIDpacing_pacingscreen_screenflowType_flowType(Parameter<String>.value(`courseID`), Parameter<String>.value(`pacing`), Parameter<CourseUpgradeScreen>.value(`screen`), Parameter<UpgradeMode>.value(`flowType`))) as? (String, String, CourseUpgradeScreen, UpgradeMode) -> Void
+		perform?(`courseID`, `pacing`, `screen`, `flowType`)
+    }
+
+    open func trackRestorePurchaseClicked() {
+        addInvocation(.m_trackRestorePurchaseClicked)
+		let perform = methodPerformValue(.m_trackRestorePurchaseClicked) as? () -> Void
+		perform?()
+    }
+
+    open func trackValuePropViewed(courseID: String, pacing: String, lmsPrice: Double, screen: CourseUpgradeScreen) {
+        addInvocation(.m_trackValuePropViewed__courseID_courseIDpacing_pacinglmsPrice_lmsPricescreen_screen(Parameter<String>.value(`courseID`), Parameter<String>.value(`pacing`), Parameter<Double>.value(`lmsPrice`), Parameter<CourseUpgradeScreen>.value(`screen`)))
+		let perform = methodPerformValue(.m_trackValuePropViewed__courseID_courseIDpacing_pacinglmsPrice_lmsPricescreen_screen(Parameter<String>.value(`courseID`), Parameter<String>.value(`pacing`), Parameter<Double>.value(`lmsPrice`), Parameter<CourseUpgradeScreen>.value(`screen`))) as? (String, String, Double, CourseUpgradeScreen) -> Void
+		perform?(`courseID`, `pacing`, `lmsPrice`, `screen`)
+    }
+
     open func trackEvent(_ event: AnalyticsEvent) {
         addInvocation(.m_trackEvent__event(Parameter<AnalyticsEvent>.value(`event`)))
 		let perform = methodPerformValue(.m_trackEvent__event(Parameter<AnalyticsEvent>.value(`event`))) as? (AnalyticsEvent) -> Void
@@ -2504,6 +3616,15 @@ open class CoreAnalyticsMock: CoreAnalytics, Mock {
         case m_trackScreenEvent__eventbiValue_biValueparameters_parameters(Parameter<AnalyticsEvent>, Parameter<EventBIValue>, Parameter<[String: Any]?>)
         case m_appreview__eventbiValue_biValueaction_actionrating_rating(Parameter<AnalyticsEvent>, Parameter<EventBIValue>, Parameter<String?>, Parameter<Int?>)
         case m_videoQualityChanged__eventbivalue_bivaluevalue_valueoldValue_oldValue(Parameter<AnalyticsEvent>, Parameter<EventBIValue>, Parameter<String>, Parameter<String>)
+        case m_trackCourseUpgradePaymentError__eventbiValue_biValuecourseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenerror_error(Parameter<AnalyticsEvent>, Parameter<EventBIValue>, Parameter<String>, Parameter<String?>, Parameter<String>, Parameter<NSDecimalNumber?>, Parameter<String?>, Parameter<Double?>, Parameter<CourseUpgradeScreen>, Parameter<String>)
+        case m_trackCourseUpgradeError__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenerror_errorflowType_flowType(Parameter<String>, Parameter<String?>, Parameter<String>, Parameter<NSDecimalNumber?>, Parameter<String?>, Parameter<Double?>, Parameter<CourseUpgradeScreen>, Parameter<String>, Parameter<UpgradeMode>)
+        case m_trackCourseUpgradeErrorAction__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenalertType_alertTypeerrorAction_errorActionerror_errorflowType_flowType(Parameter<String>, Parameter<String?>, Parameter<String>, Parameter<NSDecimalNumber?>, Parameter<String?>, Parameter<Double?>, Parameter<CourseUpgradeScreen>, Parameter<UpgradeAlertType>, Parameter<String>, Parameter<String>, Parameter<UpgradeMode>)
+        case m_trackCourseUpgradeSuccess__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenflowType_flowType(Parameter<String>, Parameter<String?>, Parameter<String>, Parameter<NSDecimalNumber?>, Parameter<String?>, Parameter<Double?>, Parameter<CourseUpgradeScreen>, Parameter<UpgradeMode>)
+        case m_trackUpgradeNow__courseID_courseIDblockID_blockIDpacing_pacingscreen_screenlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPrice(Parameter<String>, Parameter<String?>, Parameter<String>, Parameter<CourseUpgradeScreen>, Parameter<NSDecimalNumber?>, Parameter<String?>, Parameter<Double?>)
+        case m_trackCourseUpgradeLoadError__courseID_courseIDblockID_blockIDpacing_pacingscreen_screen(Parameter<String>, Parameter<String?>, Parameter<String>, Parameter<CourseUpgradeScreen>)
+        case m_trackCourseUnfulfilledPurchaseInitiated__courseID_courseIDpacing_pacingscreen_screenflowType_flowType(Parameter<String>, Parameter<String>, Parameter<CourseUpgradeScreen>, Parameter<UpgradeMode>)
+        case m_trackRestorePurchaseClicked
+        case m_trackValuePropViewed__courseID_courseIDpacing_pacinglmsPrice_lmsPricescreen_screen(Parameter<String>, Parameter<String>, Parameter<Double>, Parameter<CourseUpgradeScreen>)
         case m_trackEvent__event(Parameter<AnalyticsEvent>)
         case m_trackEvent__eventbiValue_biValue(Parameter<AnalyticsEvent>, Parameter<EventBIValue>)
         case m_trackScreenEvent__event(Parameter<AnalyticsEvent>)
@@ -2553,6 +3674,97 @@ open class CoreAnalyticsMock: CoreAnalytics, Mock {
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsOldvalue, rhs: rhsOldvalue, with: matcher), lhsOldvalue, rhsOldvalue, "oldValue"))
 				return Matcher.ComparisonResult(results)
 
+            case (.m_trackCourseUpgradePaymentError__eventbiValue_biValuecourseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenerror_error(let lhsEvent, let lhsBivalue, let lhsCourseid, let lhsBlockid, let lhsPacing, let lhsLocalizedprice, let lhsLocalizedcurrencycode, let lhsLmsprice, let lhsScreen, let lhsError), .m_trackCourseUpgradePaymentError__eventbiValue_biValuecourseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenerror_error(let rhsEvent, let rhsBivalue, let rhsCourseid, let rhsBlockid, let rhsPacing, let rhsLocalizedprice, let rhsLocalizedcurrencycode, let rhsLmsprice, let rhsScreen, let rhsError)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsEvent, rhs: rhsEvent, with: matcher), lhsEvent, rhsEvent, "_ event"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsBivalue, rhs: rhsBivalue, with: matcher), lhsBivalue, rhsBivalue, "biValue"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseID"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsBlockid, rhs: rhsBlockid, with: matcher), lhsBlockid, rhsBlockid, "blockID"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPacing, rhs: rhsPacing, with: matcher), lhsPacing, rhsPacing, "pacing"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLocalizedprice, rhs: rhsLocalizedprice, with: matcher), lhsLocalizedprice, rhsLocalizedprice, "localizedPrice"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLocalizedcurrencycode, rhs: rhsLocalizedcurrencycode, with: matcher), lhsLocalizedcurrencycode, rhsLocalizedcurrencycode, "localizedCurrencyCode"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLmsprice, rhs: rhsLmsprice, with: matcher), lhsLmsprice, rhsLmsprice, "lmsPrice"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsScreen, rhs: rhsScreen, with: matcher), lhsScreen, rhsScreen, "screen"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsError, rhs: rhsError, with: matcher), lhsError, rhsError, "error"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_trackCourseUpgradeError__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenerror_errorflowType_flowType(let lhsCourseid, let lhsBlockid, let lhsPacing, let lhsLocalizedprice, let lhsLocalizedcurrencycode, let lhsLmsprice, let lhsScreen, let lhsError, let lhsFlowtype), .m_trackCourseUpgradeError__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenerror_errorflowType_flowType(let rhsCourseid, let rhsBlockid, let rhsPacing, let rhsLocalizedprice, let rhsLocalizedcurrencycode, let rhsLmsprice, let rhsScreen, let rhsError, let rhsFlowtype)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseID"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsBlockid, rhs: rhsBlockid, with: matcher), lhsBlockid, rhsBlockid, "blockID"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPacing, rhs: rhsPacing, with: matcher), lhsPacing, rhsPacing, "pacing"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLocalizedprice, rhs: rhsLocalizedprice, with: matcher), lhsLocalizedprice, rhsLocalizedprice, "localizedPrice"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLocalizedcurrencycode, rhs: rhsLocalizedcurrencycode, with: matcher), lhsLocalizedcurrencycode, rhsLocalizedcurrencycode, "localizedCurrencyCode"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLmsprice, rhs: rhsLmsprice, with: matcher), lhsLmsprice, rhsLmsprice, "lmsPrice"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsScreen, rhs: rhsScreen, with: matcher), lhsScreen, rhsScreen, "screen"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsError, rhs: rhsError, with: matcher), lhsError, rhsError, "error"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsFlowtype, rhs: rhsFlowtype, with: matcher), lhsFlowtype, rhsFlowtype, "flowType"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_trackCourseUpgradeErrorAction__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenalertType_alertTypeerrorAction_errorActionerror_errorflowType_flowType(let lhsCourseid, let lhsBlockid, let lhsPacing, let lhsLocalizedprice, let lhsLocalizedcurrencycode, let lhsLmsprice, let lhsScreen, let lhsAlerttype, let lhsErroraction, let lhsError, let lhsFlowtype), .m_trackCourseUpgradeErrorAction__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenalertType_alertTypeerrorAction_errorActionerror_errorflowType_flowType(let rhsCourseid, let rhsBlockid, let rhsPacing, let rhsLocalizedprice, let rhsLocalizedcurrencycode, let rhsLmsprice, let rhsScreen, let rhsAlerttype, let rhsErroraction, let rhsError, let rhsFlowtype)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseID"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsBlockid, rhs: rhsBlockid, with: matcher), lhsBlockid, rhsBlockid, "blockID"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPacing, rhs: rhsPacing, with: matcher), lhsPacing, rhsPacing, "pacing"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLocalizedprice, rhs: rhsLocalizedprice, with: matcher), lhsLocalizedprice, rhsLocalizedprice, "localizedPrice"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLocalizedcurrencycode, rhs: rhsLocalizedcurrencycode, with: matcher), lhsLocalizedcurrencycode, rhsLocalizedcurrencycode, "localizedCurrencyCode"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLmsprice, rhs: rhsLmsprice, with: matcher), lhsLmsprice, rhsLmsprice, "lmsPrice"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsScreen, rhs: rhsScreen, with: matcher), lhsScreen, rhsScreen, "screen"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsAlerttype, rhs: rhsAlerttype, with: matcher), lhsAlerttype, rhsAlerttype, "alertType"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsErroraction, rhs: rhsErroraction, with: matcher), lhsErroraction, rhsErroraction, "errorAction"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsError, rhs: rhsError, with: matcher), lhsError, rhsError, "error"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsFlowtype, rhs: rhsFlowtype, with: matcher), lhsFlowtype, rhsFlowtype, "flowType"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_trackCourseUpgradeSuccess__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenflowType_flowType(let lhsCourseid, let lhsBlockid, let lhsPacing, let lhsLocalizedprice, let lhsLocalizedcurrencycode, let lhsLmsprice, let lhsScreen, let lhsFlowtype), .m_trackCourseUpgradeSuccess__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenflowType_flowType(let rhsCourseid, let rhsBlockid, let rhsPacing, let rhsLocalizedprice, let rhsLocalizedcurrencycode, let rhsLmsprice, let rhsScreen, let rhsFlowtype)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseID"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsBlockid, rhs: rhsBlockid, with: matcher), lhsBlockid, rhsBlockid, "blockID"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPacing, rhs: rhsPacing, with: matcher), lhsPacing, rhsPacing, "pacing"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLocalizedprice, rhs: rhsLocalizedprice, with: matcher), lhsLocalizedprice, rhsLocalizedprice, "localizedPrice"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLocalizedcurrencycode, rhs: rhsLocalizedcurrencycode, with: matcher), lhsLocalizedcurrencycode, rhsLocalizedcurrencycode, "localizedCurrencyCode"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLmsprice, rhs: rhsLmsprice, with: matcher), lhsLmsprice, rhsLmsprice, "lmsPrice"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsScreen, rhs: rhsScreen, with: matcher), lhsScreen, rhsScreen, "screen"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsFlowtype, rhs: rhsFlowtype, with: matcher), lhsFlowtype, rhsFlowtype, "flowType"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_trackUpgradeNow__courseID_courseIDblockID_blockIDpacing_pacingscreen_screenlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPrice(let lhsCourseid, let lhsBlockid, let lhsPacing, let lhsScreen, let lhsLocalizedprice, let lhsLocalizedcurrencycode, let lhsLmsprice), .m_trackUpgradeNow__courseID_courseIDblockID_blockIDpacing_pacingscreen_screenlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPrice(let rhsCourseid, let rhsBlockid, let rhsPacing, let rhsScreen, let rhsLocalizedprice, let rhsLocalizedcurrencycode, let rhsLmsprice)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseID"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsBlockid, rhs: rhsBlockid, with: matcher), lhsBlockid, rhsBlockid, "blockID"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPacing, rhs: rhsPacing, with: matcher), lhsPacing, rhsPacing, "pacing"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsScreen, rhs: rhsScreen, with: matcher), lhsScreen, rhsScreen, "screen"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLocalizedprice, rhs: rhsLocalizedprice, with: matcher), lhsLocalizedprice, rhsLocalizedprice, "localizedPrice"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLocalizedcurrencycode, rhs: rhsLocalizedcurrencycode, with: matcher), lhsLocalizedcurrencycode, rhsLocalizedcurrencycode, "localizedCurrencyCode"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLmsprice, rhs: rhsLmsprice, with: matcher), lhsLmsprice, rhsLmsprice, "lmsPrice"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_trackCourseUpgradeLoadError__courseID_courseIDblockID_blockIDpacing_pacingscreen_screen(let lhsCourseid, let lhsBlockid, let lhsPacing, let lhsScreen), .m_trackCourseUpgradeLoadError__courseID_courseIDblockID_blockIDpacing_pacingscreen_screen(let rhsCourseid, let rhsBlockid, let rhsPacing, let rhsScreen)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseID"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsBlockid, rhs: rhsBlockid, with: matcher), lhsBlockid, rhsBlockid, "blockID"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPacing, rhs: rhsPacing, with: matcher), lhsPacing, rhsPacing, "pacing"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsScreen, rhs: rhsScreen, with: matcher), lhsScreen, rhsScreen, "screen"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_trackCourseUnfulfilledPurchaseInitiated__courseID_courseIDpacing_pacingscreen_screenflowType_flowType(let lhsCourseid, let lhsPacing, let lhsScreen, let lhsFlowtype), .m_trackCourseUnfulfilledPurchaseInitiated__courseID_courseIDpacing_pacingscreen_screenflowType_flowType(let rhsCourseid, let rhsPacing, let rhsScreen, let rhsFlowtype)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseID"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPacing, rhs: rhsPacing, with: matcher), lhsPacing, rhsPacing, "pacing"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsScreen, rhs: rhsScreen, with: matcher), lhsScreen, rhsScreen, "screen"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsFlowtype, rhs: rhsFlowtype, with: matcher), lhsFlowtype, rhsFlowtype, "flowType"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_trackRestorePurchaseClicked, .m_trackRestorePurchaseClicked): return .match
+
+            case (.m_trackValuePropViewed__courseID_courseIDpacing_pacinglmsPrice_lmsPricescreen_screen(let lhsCourseid, let lhsPacing, let lhsLmsprice, let lhsScreen), .m_trackValuePropViewed__courseID_courseIDpacing_pacinglmsPrice_lmsPricescreen_screen(let rhsCourseid, let rhsPacing, let rhsLmsprice, let rhsScreen)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseID"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPacing, rhs: rhsPacing, with: matcher), lhsPacing, rhsPacing, "pacing"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLmsprice, rhs: rhsLmsprice, with: matcher), lhsLmsprice, rhsLmsprice, "lmsPrice"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsScreen, rhs: rhsScreen, with: matcher), lhsScreen, rhsScreen, "screen"))
+				return Matcher.ComparisonResult(results)
+
             case (.m_trackEvent__event(let lhsEvent), .m_trackEvent__event(let rhsEvent)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsEvent, rhs: rhsEvent, with: matcher), lhsEvent, rhsEvent, "_ event"))
@@ -2586,6 +3798,15 @@ open class CoreAnalyticsMock: CoreAnalytics, Mock {
             case let .m_trackScreenEvent__eventbiValue_biValueparameters_parameters(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
             case let .m_appreview__eventbiValue_biValueaction_actionrating_rating(p0, p1, p2, p3): return p0.intValue + p1.intValue + p2.intValue + p3.intValue
             case let .m_videoQualityChanged__eventbivalue_bivaluevalue_valueoldValue_oldValue(p0, p1, p2, p3): return p0.intValue + p1.intValue + p2.intValue + p3.intValue
+            case let .m_trackCourseUpgradePaymentError__eventbiValue_biValuecourseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenerror_error(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9): return p0.intValue + p1.intValue + p2.intValue + p3.intValue + p4.intValue + p5.intValue + p6.intValue + p7.intValue + p8.intValue + p9.intValue
+            case let .m_trackCourseUpgradeError__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenerror_errorflowType_flowType(p0, p1, p2, p3, p4, p5, p6, p7, p8): return p0.intValue + p1.intValue + p2.intValue + p3.intValue + p4.intValue + p5.intValue + p6.intValue + p7.intValue + p8.intValue
+            case let .m_trackCourseUpgradeErrorAction__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenalertType_alertTypeerrorAction_errorActionerror_errorflowType_flowType(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10): return p0.intValue + p1.intValue + p2.intValue + p3.intValue + p4.intValue + p5.intValue + p6.intValue + p7.intValue + p8.intValue + p9.intValue + p10.intValue
+            case let .m_trackCourseUpgradeSuccess__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenflowType_flowType(p0, p1, p2, p3, p4, p5, p6, p7): return p0.intValue + p1.intValue + p2.intValue + p3.intValue + p4.intValue + p5.intValue + p6.intValue + p7.intValue
+            case let .m_trackUpgradeNow__courseID_courseIDblockID_blockIDpacing_pacingscreen_screenlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPrice(p0, p1, p2, p3, p4, p5, p6): return p0.intValue + p1.intValue + p2.intValue + p3.intValue + p4.intValue + p5.intValue + p6.intValue
+            case let .m_trackCourseUpgradeLoadError__courseID_courseIDblockID_blockIDpacing_pacingscreen_screen(p0, p1, p2, p3): return p0.intValue + p1.intValue + p2.intValue + p3.intValue
+            case let .m_trackCourseUnfulfilledPurchaseInitiated__courseID_courseIDpacing_pacingscreen_screenflowType_flowType(p0, p1, p2, p3): return p0.intValue + p1.intValue + p2.intValue + p3.intValue
+            case .m_trackRestorePurchaseClicked: return 0
+            case let .m_trackValuePropViewed__courseID_courseIDpacing_pacinglmsPrice_lmsPricescreen_screen(p0, p1, p2, p3): return p0.intValue + p1.intValue + p2.intValue + p3.intValue
             case let .m_trackEvent__event(p0): return p0.intValue
             case let .m_trackEvent__eventbiValue_biValue(p0, p1): return p0.intValue + p1.intValue
             case let .m_trackScreenEvent__event(p0): return p0.intValue
@@ -2600,6 +3821,15 @@ open class CoreAnalyticsMock: CoreAnalytics, Mock {
             case .m_trackScreenEvent__eventbiValue_biValueparameters_parameters: return ".trackScreenEvent(_:biValue:parameters:)"
             case .m_appreview__eventbiValue_biValueaction_actionrating_rating: return ".appreview(_:biValue:action:rating:)"
             case .m_videoQualityChanged__eventbivalue_bivaluevalue_valueoldValue_oldValue: return ".videoQualityChanged(_:bivalue:value:oldValue:)"
+            case .m_trackCourseUpgradePaymentError__eventbiValue_biValuecourseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenerror_error: return ".trackCourseUpgradePaymentError(_:biValue:courseID:blockID:pacing:localizedPrice:localizedCurrencyCode:lmsPrice:screen:error:)"
+            case .m_trackCourseUpgradeError__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenerror_errorflowType_flowType: return ".trackCourseUpgradeError(courseID:blockID:pacing:localizedPrice:localizedCurrencyCode:lmsPrice:screen:error:flowType:)"
+            case .m_trackCourseUpgradeErrorAction__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenalertType_alertTypeerrorAction_errorActionerror_errorflowType_flowType: return ".trackCourseUpgradeErrorAction(courseID:blockID:pacing:localizedPrice:localizedCurrencyCode:lmsPrice:screen:alertType:errorAction:error:flowType:)"
+            case .m_trackCourseUpgradeSuccess__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenflowType_flowType: return ".trackCourseUpgradeSuccess(courseID:blockID:pacing:localizedPrice:localizedCurrencyCode:lmsPrice:screen:flowType:)"
+            case .m_trackUpgradeNow__courseID_courseIDblockID_blockIDpacing_pacingscreen_screenlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPrice: return ".trackUpgradeNow(courseID:blockID:pacing:screen:localizedPrice:localizedCurrencyCode:lmsPrice:)"
+            case .m_trackCourseUpgradeLoadError__courseID_courseIDblockID_blockIDpacing_pacingscreen_screen: return ".trackCourseUpgradeLoadError(courseID:blockID:pacing:screen:)"
+            case .m_trackCourseUnfulfilledPurchaseInitiated__courseID_courseIDpacing_pacingscreen_screenflowType_flowType: return ".trackCourseUnfulfilledPurchaseInitiated(courseID:pacing:screen:flowType:)"
+            case .m_trackRestorePurchaseClicked: return ".trackRestorePurchaseClicked()"
+            case .m_trackValuePropViewed__courseID_courseIDpacing_pacinglmsPrice_lmsPricescreen_screen: return ".trackValuePropViewed(courseID:pacing:lmsPrice:screen:)"
             case .m_trackEvent__event: return ".trackEvent(_:)"
             case .m_trackEvent__eventbiValue_biValue: return ".trackEvent(_:biValue:)"
             case .m_trackScreenEvent__event: return ".trackScreenEvent(_:)"
@@ -2628,6 +3858,15 @@ open class CoreAnalyticsMock: CoreAnalytics, Mock {
         public static func trackScreenEvent(_ event: Parameter<AnalyticsEvent>, biValue: Parameter<EventBIValue>, parameters: Parameter<[String: Any]?>) -> Verify { return Verify(method: .m_trackScreenEvent__eventbiValue_biValueparameters_parameters(`event`, `biValue`, `parameters`))}
         public static func appreview(_ event: Parameter<AnalyticsEvent>, biValue: Parameter<EventBIValue>, action: Parameter<String?>, rating: Parameter<Int?>) -> Verify { return Verify(method: .m_appreview__eventbiValue_biValueaction_actionrating_rating(`event`, `biValue`, `action`, `rating`))}
         public static func videoQualityChanged(_ event: Parameter<AnalyticsEvent>, bivalue: Parameter<EventBIValue>, value: Parameter<String>, oldValue: Parameter<String>) -> Verify { return Verify(method: .m_videoQualityChanged__eventbivalue_bivaluevalue_valueoldValue_oldValue(`event`, `bivalue`, `value`, `oldValue`))}
+        public static func trackCourseUpgradePaymentError(_ event: Parameter<AnalyticsEvent>, biValue: Parameter<EventBIValue>, courseID: Parameter<String>, blockID: Parameter<String?>, pacing: Parameter<String>, localizedPrice: Parameter<NSDecimalNumber?>, localizedCurrencyCode: Parameter<String?>, lmsPrice: Parameter<Double?>, screen: Parameter<CourseUpgradeScreen>, error: Parameter<String>) -> Verify { return Verify(method: .m_trackCourseUpgradePaymentError__eventbiValue_biValuecourseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenerror_error(`event`, `biValue`, `courseID`, `blockID`, `pacing`, `localizedPrice`, `localizedCurrencyCode`, `lmsPrice`, `screen`, `error`))}
+        public static func trackCourseUpgradeError(courseID: Parameter<String>, blockID: Parameter<String?>, pacing: Parameter<String>, localizedPrice: Parameter<NSDecimalNumber?>, localizedCurrencyCode: Parameter<String?>, lmsPrice: Parameter<Double?>, screen: Parameter<CourseUpgradeScreen>, error: Parameter<String>, flowType: Parameter<UpgradeMode>) -> Verify { return Verify(method: .m_trackCourseUpgradeError__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenerror_errorflowType_flowType(`courseID`, `blockID`, `pacing`, `localizedPrice`, `localizedCurrencyCode`, `lmsPrice`, `screen`, `error`, `flowType`))}
+        public static func trackCourseUpgradeErrorAction(courseID: Parameter<String>, blockID: Parameter<String?>, pacing: Parameter<String>, localizedPrice: Parameter<NSDecimalNumber?>, localizedCurrencyCode: Parameter<String?>, lmsPrice: Parameter<Double?>, screen: Parameter<CourseUpgradeScreen>, alertType: Parameter<UpgradeAlertType>, errorAction: Parameter<String>, error: Parameter<String>, flowType: Parameter<UpgradeMode>) -> Verify { return Verify(method: .m_trackCourseUpgradeErrorAction__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenalertType_alertTypeerrorAction_errorActionerror_errorflowType_flowType(`courseID`, `blockID`, `pacing`, `localizedPrice`, `localizedCurrencyCode`, `lmsPrice`, `screen`, `alertType`, `errorAction`, `error`, `flowType`))}
+        public static func trackCourseUpgradeSuccess(courseID: Parameter<String>, blockID: Parameter<String?>, pacing: Parameter<String>, localizedPrice: Parameter<NSDecimalNumber?>, localizedCurrencyCode: Parameter<String?>, lmsPrice: Parameter<Double?>, screen: Parameter<CourseUpgradeScreen>, flowType: Parameter<UpgradeMode>) -> Verify { return Verify(method: .m_trackCourseUpgradeSuccess__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenflowType_flowType(`courseID`, `blockID`, `pacing`, `localizedPrice`, `localizedCurrencyCode`, `lmsPrice`, `screen`, `flowType`))}
+        public static func trackUpgradeNow(courseID: Parameter<String>, blockID: Parameter<String?>, pacing: Parameter<String>, screen: Parameter<CourseUpgradeScreen>, localizedPrice: Parameter<NSDecimalNumber?>, localizedCurrencyCode: Parameter<String?>, lmsPrice: Parameter<Double?>) -> Verify { return Verify(method: .m_trackUpgradeNow__courseID_courseIDblockID_blockIDpacing_pacingscreen_screenlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPrice(`courseID`, `blockID`, `pacing`, `screen`, `localizedPrice`, `localizedCurrencyCode`, `lmsPrice`))}
+        public static func trackCourseUpgradeLoadError(courseID: Parameter<String>, blockID: Parameter<String?>, pacing: Parameter<String>, screen: Parameter<CourseUpgradeScreen>) -> Verify { return Verify(method: .m_trackCourseUpgradeLoadError__courseID_courseIDblockID_blockIDpacing_pacingscreen_screen(`courseID`, `blockID`, `pacing`, `screen`))}
+        public static func trackCourseUnfulfilledPurchaseInitiated(courseID: Parameter<String>, pacing: Parameter<String>, screen: Parameter<CourseUpgradeScreen>, flowType: Parameter<UpgradeMode>) -> Verify { return Verify(method: .m_trackCourseUnfulfilledPurchaseInitiated__courseID_courseIDpacing_pacingscreen_screenflowType_flowType(`courseID`, `pacing`, `screen`, `flowType`))}
+        public static func trackRestorePurchaseClicked() -> Verify { return Verify(method: .m_trackRestorePurchaseClicked)}
+        public static func trackValuePropViewed(courseID: Parameter<String>, pacing: Parameter<String>, lmsPrice: Parameter<Double>, screen: Parameter<CourseUpgradeScreen>) -> Verify { return Verify(method: .m_trackValuePropViewed__courseID_courseIDpacing_pacinglmsPrice_lmsPricescreen_screen(`courseID`, `pacing`, `lmsPrice`, `screen`))}
         public static func trackEvent(_ event: Parameter<AnalyticsEvent>) -> Verify { return Verify(method: .m_trackEvent__event(`event`))}
         public static func trackEvent(_ event: Parameter<AnalyticsEvent>, biValue: Parameter<EventBIValue>) -> Verify { return Verify(method: .m_trackEvent__eventbiValue_biValue(`event`, `biValue`))}
         public static func trackScreenEvent(_ event: Parameter<AnalyticsEvent>) -> Verify { return Verify(method: .m_trackScreenEvent__event(`event`))}
@@ -2655,6 +3894,33 @@ open class CoreAnalyticsMock: CoreAnalytics, Mock {
         }
         public static func videoQualityChanged(_ event: Parameter<AnalyticsEvent>, bivalue: Parameter<EventBIValue>, value: Parameter<String>, oldValue: Parameter<String>, perform: @escaping (AnalyticsEvent, EventBIValue, String, String) -> Void) -> Perform {
             return Perform(method: .m_videoQualityChanged__eventbivalue_bivaluevalue_valueoldValue_oldValue(`event`, `bivalue`, `value`, `oldValue`), performs: perform)
+        }
+        public static func trackCourseUpgradePaymentError(_ event: Parameter<AnalyticsEvent>, biValue: Parameter<EventBIValue>, courseID: Parameter<String>, blockID: Parameter<String?>, pacing: Parameter<String>, localizedPrice: Parameter<NSDecimalNumber?>, localizedCurrencyCode: Parameter<String?>, lmsPrice: Parameter<Double?>, screen: Parameter<CourseUpgradeScreen>, error: Parameter<String>, perform: @escaping (AnalyticsEvent, EventBIValue, String, String?, String, NSDecimalNumber?, String?, Double?, CourseUpgradeScreen, String) -> Void) -> Perform {
+            return Perform(method: .m_trackCourseUpgradePaymentError__eventbiValue_biValuecourseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenerror_error(`event`, `biValue`, `courseID`, `blockID`, `pacing`, `localizedPrice`, `localizedCurrencyCode`, `lmsPrice`, `screen`, `error`), performs: perform)
+        }
+        public static func trackCourseUpgradeError(courseID: Parameter<String>, blockID: Parameter<String?>, pacing: Parameter<String>, localizedPrice: Parameter<NSDecimalNumber?>, localizedCurrencyCode: Parameter<String?>, lmsPrice: Parameter<Double?>, screen: Parameter<CourseUpgradeScreen>, error: Parameter<String>, flowType: Parameter<UpgradeMode>, perform: @escaping (String, String?, String, NSDecimalNumber?, String?, Double?, CourseUpgradeScreen, String, UpgradeMode) -> Void) -> Perform {
+            return Perform(method: .m_trackCourseUpgradeError__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenerror_errorflowType_flowType(`courseID`, `blockID`, `pacing`, `localizedPrice`, `localizedCurrencyCode`, `lmsPrice`, `screen`, `error`, `flowType`), performs: perform)
+        }
+        public static func trackCourseUpgradeErrorAction(courseID: Parameter<String>, blockID: Parameter<String?>, pacing: Parameter<String>, localizedPrice: Parameter<NSDecimalNumber?>, localizedCurrencyCode: Parameter<String?>, lmsPrice: Parameter<Double?>, screen: Parameter<CourseUpgradeScreen>, alertType: Parameter<UpgradeAlertType>, errorAction: Parameter<String>, error: Parameter<String>, flowType: Parameter<UpgradeMode>, perform: @escaping (String, String?, String, NSDecimalNumber?, String?, Double?, CourseUpgradeScreen, UpgradeAlertType, String, String, UpgradeMode) -> Void) -> Perform {
+            return Perform(method: .m_trackCourseUpgradeErrorAction__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenalertType_alertTypeerrorAction_errorActionerror_errorflowType_flowType(`courseID`, `blockID`, `pacing`, `localizedPrice`, `localizedCurrencyCode`, `lmsPrice`, `screen`, `alertType`, `errorAction`, `error`, `flowType`), performs: perform)
+        }
+        public static func trackCourseUpgradeSuccess(courseID: Parameter<String>, blockID: Parameter<String?>, pacing: Parameter<String>, localizedPrice: Parameter<NSDecimalNumber?>, localizedCurrencyCode: Parameter<String?>, lmsPrice: Parameter<Double?>, screen: Parameter<CourseUpgradeScreen>, flowType: Parameter<UpgradeMode>, perform: @escaping (String, String?, String, NSDecimalNumber?, String?, Double?, CourseUpgradeScreen, UpgradeMode) -> Void) -> Perform {
+            return Perform(method: .m_trackCourseUpgradeSuccess__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenflowType_flowType(`courseID`, `blockID`, `pacing`, `localizedPrice`, `localizedCurrencyCode`, `lmsPrice`, `screen`, `flowType`), performs: perform)
+        }
+        public static func trackUpgradeNow(courseID: Parameter<String>, blockID: Parameter<String?>, pacing: Parameter<String>, screen: Parameter<CourseUpgradeScreen>, localizedPrice: Parameter<NSDecimalNumber?>, localizedCurrencyCode: Parameter<String?>, lmsPrice: Parameter<Double?>, perform: @escaping (String, String?, String, CourseUpgradeScreen, NSDecimalNumber?, String?, Double?) -> Void) -> Perform {
+            return Perform(method: .m_trackUpgradeNow__courseID_courseIDblockID_blockIDpacing_pacingscreen_screenlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPrice(`courseID`, `blockID`, `pacing`, `screen`, `localizedPrice`, `localizedCurrencyCode`, `lmsPrice`), performs: perform)
+        }
+        public static func trackCourseUpgradeLoadError(courseID: Parameter<String>, blockID: Parameter<String?>, pacing: Parameter<String>, screen: Parameter<CourseUpgradeScreen>, perform: @escaping (String, String?, String, CourseUpgradeScreen) -> Void) -> Perform {
+            return Perform(method: .m_trackCourseUpgradeLoadError__courseID_courseIDblockID_blockIDpacing_pacingscreen_screen(`courseID`, `blockID`, `pacing`, `screen`), performs: perform)
+        }
+        public static func trackCourseUnfulfilledPurchaseInitiated(courseID: Parameter<String>, pacing: Parameter<String>, screen: Parameter<CourseUpgradeScreen>, flowType: Parameter<UpgradeMode>, perform: @escaping (String, String, CourseUpgradeScreen, UpgradeMode) -> Void) -> Perform {
+            return Perform(method: .m_trackCourseUnfulfilledPurchaseInitiated__courseID_courseIDpacing_pacingscreen_screenflowType_flowType(`courseID`, `pacing`, `screen`, `flowType`), performs: perform)
+        }
+        public static func trackRestorePurchaseClicked(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_trackRestorePurchaseClicked, performs: perform)
+        }
+        public static func trackValuePropViewed(courseID: Parameter<String>, pacing: Parameter<String>, lmsPrice: Parameter<Double>, screen: Parameter<CourseUpgradeScreen>, perform: @escaping (String, String, Double, CourseUpgradeScreen) -> Void) -> Perform {
+            return Perform(method: .m_trackValuePropViewed__courseID_courseIDpacing_pacinglmsPrice_lmsPricescreen_screen(`courseID`, `pacing`, `lmsPrice`, `screen`), performs: perform)
         }
         public static func trackEvent(_ event: Parameter<AnalyticsEvent>, perform: @escaping (AnalyticsEvent) -> Void) -> Perform {
             return Perform(method: .m_trackEvent__event(`event`), performs: perform)
@@ -2789,154 +4055,148 @@ open class CorePersistenceProtocolMock: CorePersistenceProtocol, Mock {
 
     open func set(userId: Int) {
         addInvocation(.m_set__userId_userId(Parameter<Int>.value(`userId`)))
-        let perform = methodPerformValue(.m_set__userId_userId(Parameter<Int>.value(`userId`))) as? (Int) -> Void
-        perform?(`userId`)
+		let perform = methodPerformValue(.m_set__userId_userId(Parameter<Int>.value(`userId`))) as? (Int) -> Void
+		perform?(`userId`)
     }
 
     open func getUserID() -> Int? {
         addInvocation(.m_getUserID)
-        let perform = methodPerformValue(.m_getUserID) as? () -> Void
-        perform?()
-        var __value: Int? = nil
-        do {
-            __value = try methodReturnValue(.m_getUserID).casted()
-        } catch {
-            // do nothing
-        }
-        return __value
+		let perform = methodPerformValue(.m_getUserID) as? () -> Void
+		perform?()
+		var __value: Int? = nil
+		do {
+		    __value = try methodReturnValue(.m_getUserID).casted()
+		} catch {
+			// do nothing
+		}
+		return __value
     }
 
     @MainActor
-    open func publisher() throws -> AnyPublisher<Int, Never> {
+	open func publisher() throws -> AnyPublisher<Int, Never> {
         addInvocation(.m_publisher)
-        let perform = methodPerformValue(.m_publisher) as? () -> Void
-        perform?()
-        var __value: AnyPublisher<Int, Never>
-        do {
-            __value = try methodReturnValue(.m_publisher).casted()
-        } catch MockError.notStubed {
-            onFatalFailure("Stub return value not specified for publisher(). Use given")
-            Failure("Stub return value not specified for publisher(). Use given")
-        } catch {
-            throw error
-        }
-        return __value
+		let perform = methodPerformValue(.m_publisher) as? () -> Void
+		perform?()
+		var __value: AnyPublisher<Int, Never>
+		do {
+		    __value = try methodReturnValue(.m_publisher).casted()
+		} catch MockError.notStubed {
+			onFatalFailure("Stub return value not specified for publisher(). Use given")
+			Failure("Stub return value not specified for publisher(). Use given")
+		} catch {
+		    throw error
+		}
+		return __value
     }
 
     open func addToDownloadQueue(tasks: [DownloadDataTask]) {
         addInvocation(.m_addToDownloadQueue__tasks_tasks(Parameter<[DownloadDataTask]>.value(`tasks`)))
-        let perform = methodPerformValue(.m_addToDownloadQueue__tasks_tasks(Parameter<[DownloadDataTask]>.value(`tasks`))) as? ([DownloadDataTask]) -> Void
-        perform?(`tasks`)
+		let perform = methodPerformValue(.m_addToDownloadQueue__tasks_tasks(Parameter<[DownloadDataTask]>.value(`tasks`))) as? ([DownloadDataTask]) -> Void
+		perform?(`tasks`)
     }
 
     open func saveOfflineProgress(progress: OfflineProgress) {
         addInvocation(.m_saveOfflineProgress__progress_progress(Parameter<OfflineProgress>.value(`progress`)))
-        let perform = methodPerformValue(.m_saveOfflineProgress__progress_progress(Parameter<OfflineProgress>.value(`progress`))) as? (OfflineProgress) -> Void
-        perform?(`progress`)
+		let perform = methodPerformValue(.m_saveOfflineProgress__progress_progress(Parameter<OfflineProgress>.value(`progress`))) as? (OfflineProgress) -> Void
+		perform?(`progress`)
     }
 
     open func loadProgress(for blockID: String) -> OfflineProgress? {
         addInvocation(.m_loadProgress__for_blockID(Parameter<String>.value(`blockID`)))
-        let perform = methodPerformValue(.m_loadProgress__for_blockID(Parameter<String>.value(`blockID`))) as? (String) -> Void
-        perform?(`blockID`)
-        var __value: OfflineProgress? = nil
-        do {
-            __value = try methodReturnValue(.m_loadProgress__for_blockID(Parameter<String>.value(`blockID`))).casted()
-        } catch {
-            // do nothing
-        }
-        return __value
+		let perform = methodPerformValue(.m_loadProgress__for_blockID(Parameter<String>.value(`blockID`))) as? (String) -> Void
+		perform?(`blockID`)
+		var __value: OfflineProgress? = nil
+		do {
+		    __value = try methodReturnValue(.m_loadProgress__for_blockID(Parameter<String>.value(`blockID`))).casted()
+		} catch {
+			// do nothing
+		}
+		return __value
     }
 
     open func loadAllOfflineProgress() -> [OfflineProgress] {
         addInvocation(.m_loadAllOfflineProgress)
-        let perform = methodPerformValue(.m_loadAllOfflineProgress) as? () -> Void
-        perform?()
-        var __value: [OfflineProgress]
-        do {
-            __value = try methodReturnValue(.m_loadAllOfflineProgress).casted()
-        } catch {
-            onFatalFailure("Stub return value not specified for loadAllOfflineProgress(). Use given")
-            Failure("Stub return value not specified for loadAllOfflineProgress(). Use given")
-        }
-        return __value
+		let perform = methodPerformValue(.m_loadAllOfflineProgress) as? () -> Void
+		perform?()
+		var __value: [OfflineProgress]
+		do {
+		    __value = try methodReturnValue(.m_loadAllOfflineProgress).casted()
+		} catch {
+			onFatalFailure("Stub return value not specified for loadAllOfflineProgress(). Use given")
+			Failure("Stub return value not specified for loadAllOfflineProgress(). Use given")
+		}
+		return __value
     }
 
     open func deleteProgress(for blockID: String) {
         addInvocation(.m_deleteProgress__for_blockID(Parameter<String>.value(`blockID`)))
-        let perform = methodPerformValue(.m_deleteProgress__for_blockID(Parameter<String>.value(`blockID`))) as? (String) -> Void
-        perform?(`blockID`)
+		let perform = methodPerformValue(.m_deleteProgress__for_blockID(Parameter<String>.value(`blockID`))) as? (String) -> Void
+		perform?(`blockID`)
     }
 
     open func deleteAllProgress() {
         addInvocation(.m_deleteAllProgress)
-        let perform = methodPerformValue(.m_deleteAllProgress) as? () -> Void
-        perform?()
+		let perform = methodPerformValue(.m_deleteAllProgress) as? () -> Void
+		perform?()
     }
 
     open func addToDownloadQueue(blocks: [CourseBlock], downloadQuality: DownloadQuality) {
         addInvocation(.m_addToDownloadQueue__blocks_blocksdownloadQuality_downloadQuality(Parameter<[CourseBlock]>.value(`blocks`), Parameter<DownloadQuality>.value(`downloadQuality`)))
-        let perform = methodPerformValue(.m_addToDownloadQueue__blocks_blocksdownloadQuality_downloadQuality(Parameter<[CourseBlock]>.value(`blocks`), Parameter<DownloadQuality>.value(`downloadQuality`))) as? ([CourseBlock], DownloadQuality) -> Void
-        perform?(`blocks`, `downloadQuality`)
+		let perform = methodPerformValue(.m_addToDownloadQueue__blocks_blocksdownloadQuality_downloadQuality(Parameter<[CourseBlock]>.value(`blocks`), Parameter<DownloadQuality>.value(`downloadQuality`))) as? ([CourseBlock], DownloadQuality) -> Void
+		perform?(`blocks`, `downloadQuality`)
     }
 
     open func updateTask(task: DownloadDataTask) {
         addInvocation(.m_updateTask__task_task(Parameter<DownloadDataTask>.value(`task`)))
-        let perform = methodPerformValue(.m_updateTask__task_task(Parameter<DownloadDataTask>.value(`task`))) as? (DownloadDataTask) -> Void
-        perform?(`task`)
-    }
-
-    open func saveDownloadDataTask(_ task: DownloadDataTask) {
-        addInvocation(.m_saveDownloadDataTask__task(Parameter<DownloadDataTask>.value(`task`)))
-        let perform = methodPerformValue(.m_saveDownloadDataTask__task(Parameter<DownloadDataTask>.value(`task`))) as? (DownloadDataTask) -> Void
-        perform?(`task`)
+		let perform = methodPerformValue(.m_updateTask__task_task(Parameter<DownloadDataTask>.value(`task`))) as? (DownloadDataTask) -> Void
+		perform?(`task`)
     }
 
     open func downloadDataTask(for blockId: String) -> DownloadDataTask? {
         addInvocation(.m_downloadDataTask__for_blockId(Parameter<String>.value(`blockId`)))
-        let perform = methodPerformValue(.m_downloadDataTask__for_blockId(Parameter<String>.value(`blockId`))) as? (String) -> Void
-        perform?(`blockId`)
-        var __value: DownloadDataTask? = nil
-        do {
-            __value = try methodReturnValue(.m_downloadDataTask__for_blockId(Parameter<String>.value(`blockId`))).casted()
-        } catch {
-            // do nothing
-        }
-        return __value
+		let perform = methodPerformValue(.m_downloadDataTask__for_blockId(Parameter<String>.value(`blockId`))) as? (String) -> Void
+		perform?(`blockId`)
+		var __value: DownloadDataTask? = nil
+		do {
+		    __value = try methodReturnValue(.m_downloadDataTask__for_blockId(Parameter<String>.value(`blockId`))).casted()
+		} catch {
+			// do nothing
+		}
+		return __value
     }
 
     open func getDownloadDataTasks() -> [DownloadDataTask] {
         addInvocation(.m_getDownloadDataTasks)
-        let perform = methodPerformValue(.m_getDownloadDataTasks) as? () -> Void
-        perform?()
-        var __value: [DownloadDataTask]
-        do {
-            __value = try methodReturnValue(.m_getDownloadDataTasks).casted()
-        } catch {
-            onFatalFailure("Stub return value not specified for getDownloadDataTasks(). Use given")
-            Failure("Stub return value not specified for getDownloadDataTasks(). Use given")
-        }
-        return __value
+		let perform = methodPerformValue(.m_getDownloadDataTasks) as? () -> Void
+		perform?()
+		var __value: [DownloadDataTask]
+		do {
+		    __value = try methodReturnValue(.m_getDownloadDataTasks).casted()
+		} catch {
+			onFatalFailure("Stub return value not specified for getDownloadDataTasks(). Use given")
+			Failure("Stub return value not specified for getDownloadDataTasks(). Use given")
+		}
+		return __value
     }
 
     open func getDownloadDataTasksForCourse(_ courseId: String) -> [DownloadDataTask] {
         addInvocation(.m_getDownloadDataTasksForCourse__courseId(Parameter<String>.value(`courseId`)))
-        let perform = methodPerformValue(.m_getDownloadDataTasksForCourse__courseId(Parameter<String>.value(`courseId`))) as? (String) -> Void
-        perform?(`courseId`)
-        var __value: [DownloadDataTask]
-        do {
-            __value = try methodReturnValue(.m_getDownloadDataTasksForCourse__courseId(Parameter<String>.value(`courseId`))).casted()
-        } catch {
-            onFatalFailure("Stub return value not specified for getDownloadDataTasksForCourse(_ courseId: String). Use given")
-            Failure("Stub return value not specified for getDownloadDataTasksForCourse(_ courseId: String). Use given")
-        }
-        return __value
+		let perform = methodPerformValue(.m_getDownloadDataTasksForCourse__courseId(Parameter<String>.value(`courseId`))) as? (String) -> Void
+		perform?(`courseId`)
+		var __value: [DownloadDataTask]
+		do {
+		    __value = try methodReturnValue(.m_getDownloadDataTasksForCourse__courseId(Parameter<String>.value(`courseId`))).casted()
+		} catch {
+			onFatalFailure("Stub return value not specified for getDownloadDataTasksForCourse(_ courseId: String). Use given")
+			Failure("Stub return value not specified for getDownloadDataTasksForCourse(_ courseId: String). Use given")
+		}
+		return __value
     }
 
     open func deleteDownloadDataTasks(ids: [String]) {
         addInvocation(.m_deleteDownloadDataTasks__ids_ids(Parameter<[String]>.value(`ids`)))
-        let perform = methodPerformValue(.m_deleteDownloadDataTasks__ids_ids(Parameter<[String]>.value(`ids`))) as? ([String]) -> Void
-        perform?(`ids`)
+		let perform = methodPerformValue(.m_deleteDownloadDataTasks__ids_ids(Parameter<[String]>.value(`ids`))) as? ([String]) -> Void
+		perform?(`ids`)
     }
 
 
@@ -2952,7 +4212,6 @@ open class CorePersistenceProtocolMock: CorePersistenceProtocol, Mock {
         case m_deleteAllProgress
         case m_addToDownloadQueue__blocks_blocksdownloadQuality_downloadQuality(Parameter<[CourseBlock]>, Parameter<DownloadQuality>)
         case m_updateTask__task_task(Parameter<DownloadDataTask>)
-        case m_saveDownloadDataTask__task(Parameter<DownloadDataTask>)
         case m_downloadDataTask__for_blockId(Parameter<String>)
         case m_getDownloadDataTasks
         case m_getDownloadDataTasksForCourse__courseId(Parameter<String>)
@@ -2961,70 +4220,65 @@ open class CorePersistenceProtocolMock: CorePersistenceProtocol, Mock {
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
             case (.m_set__userId_userId(let lhsUserid), .m_set__userId_userId(let rhsUserid)):
-                var results: [Matcher.ParameterComparisonResult] = []
-                results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsUserid, rhs: rhsUserid, with: matcher), lhsUserid, rhsUserid, "userId"))
-                return Matcher.ComparisonResult(results)
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsUserid, rhs: rhsUserid, with: matcher), lhsUserid, rhsUserid, "userId"))
+				return Matcher.ComparisonResult(results)
 
             case (.m_getUserID, .m_getUserID): return .match
 
             case (.m_publisher, .m_publisher): return .match
 
             case (.m_addToDownloadQueue__tasks_tasks(let lhsTasks), .m_addToDownloadQueue__tasks_tasks(let rhsTasks)):
-                var results: [Matcher.ParameterComparisonResult] = []
-                results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsTasks, rhs: rhsTasks, with: matcher), lhsTasks, rhsTasks, "tasks"))
-                return Matcher.ComparisonResult(results)
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsTasks, rhs: rhsTasks, with: matcher), lhsTasks, rhsTasks, "tasks"))
+				return Matcher.ComparisonResult(results)
 
             case (.m_saveOfflineProgress__progress_progress(let lhsProgress), .m_saveOfflineProgress__progress_progress(let rhsProgress)):
-                var results: [Matcher.ParameterComparisonResult] = []
-                results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsProgress, rhs: rhsProgress, with: matcher), lhsProgress, rhsProgress, "progress"))
-                return Matcher.ComparisonResult(results)
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsProgress, rhs: rhsProgress, with: matcher), lhsProgress, rhsProgress, "progress"))
+				return Matcher.ComparisonResult(results)
 
             case (.m_loadProgress__for_blockID(let lhsBlockid), .m_loadProgress__for_blockID(let rhsBlockid)):
-                var results: [Matcher.ParameterComparisonResult] = []
-                results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsBlockid, rhs: rhsBlockid, with: matcher), lhsBlockid, rhsBlockid, "for blockID"))
-                return Matcher.ComparisonResult(results)
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsBlockid, rhs: rhsBlockid, with: matcher), lhsBlockid, rhsBlockid, "for blockID"))
+				return Matcher.ComparisonResult(results)
 
             case (.m_loadAllOfflineProgress, .m_loadAllOfflineProgress): return .match
 
             case (.m_deleteProgress__for_blockID(let lhsBlockid), .m_deleteProgress__for_blockID(let rhsBlockid)):
-                var results: [Matcher.ParameterComparisonResult] = []
-                results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsBlockid, rhs: rhsBlockid, with: matcher), lhsBlockid, rhsBlockid, "for blockID"))
-                return Matcher.ComparisonResult(results)
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsBlockid, rhs: rhsBlockid, with: matcher), lhsBlockid, rhsBlockid, "for blockID"))
+				return Matcher.ComparisonResult(results)
 
             case (.m_deleteAllProgress, .m_deleteAllProgress): return .match
 
             case (.m_addToDownloadQueue__blocks_blocksdownloadQuality_downloadQuality(let lhsBlocks, let lhsDownloadquality), .m_addToDownloadQueue__blocks_blocksdownloadQuality_downloadQuality(let rhsBlocks, let rhsDownloadquality)):
-                var results: [Matcher.ParameterComparisonResult] = []
-                results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsBlocks, rhs: rhsBlocks, with: matcher), lhsBlocks, rhsBlocks, "blocks"))
-                results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsDownloadquality, rhs: rhsDownloadquality, with: matcher), lhsDownloadquality, rhsDownloadquality, "downloadQuality"))
-                return Matcher.ComparisonResult(results)
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsBlocks, rhs: rhsBlocks, with: matcher), lhsBlocks, rhsBlocks, "blocks"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsDownloadquality, rhs: rhsDownloadquality, with: matcher), lhsDownloadquality, rhsDownloadquality, "downloadQuality"))
+				return Matcher.ComparisonResult(results)
 
             case (.m_updateTask__task_task(let lhsTask), .m_updateTask__task_task(let rhsTask)):
-                var results: [Matcher.ParameterComparisonResult] = []
-                results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsTask, rhs: rhsTask, with: matcher), lhsTask, rhsTask, "task"))
-                return Matcher.ComparisonResult(results)
-
-            case (.m_saveDownloadDataTask__task(let lhsTask), .m_saveDownloadDataTask__task(let rhsTask)):
-                var results: [Matcher.ParameterComparisonResult] = []
-                results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsTask, rhs: rhsTask, with: matcher), lhsTask, rhsTask, "_ task"))
-                return Matcher.ComparisonResult(results)
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsTask, rhs: rhsTask, with: matcher), lhsTask, rhsTask, "task"))
+				return Matcher.ComparisonResult(results)
 
             case (.m_downloadDataTask__for_blockId(let lhsBlockid), .m_downloadDataTask__for_blockId(let rhsBlockid)):
-                var results: [Matcher.ParameterComparisonResult] = []
-                results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsBlockid, rhs: rhsBlockid, with: matcher), lhsBlockid, rhsBlockid, "for blockId"))
-                return Matcher.ComparisonResult(results)
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsBlockid, rhs: rhsBlockid, with: matcher), lhsBlockid, rhsBlockid, "for blockId"))
+				return Matcher.ComparisonResult(results)
 
             case (.m_getDownloadDataTasks, .m_getDownloadDataTasks): return .match
 
             case (.m_getDownloadDataTasksForCourse__courseId(let lhsCourseid), .m_getDownloadDataTasksForCourse__courseId(let rhsCourseid)):
-                var results: [Matcher.ParameterComparisonResult] = []
-                results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "_ courseId"))
-                return Matcher.ComparisonResult(results)
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "_ courseId"))
+				return Matcher.ComparisonResult(results)
 
             case (.m_deleteDownloadDataTasks__ids_ids(let lhsIds), .m_deleteDownloadDataTasks__ids_ids(let rhsIds)):
-                var results: [Matcher.ParameterComparisonResult] = []
-                results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsIds, rhs: rhsIds, with: matcher), lhsIds, rhsIds, "ids"))
-                return Matcher.ComparisonResult(results)
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsIds, rhs: rhsIds, with: matcher), lhsIds, rhsIds, "ids"))
+				return Matcher.ComparisonResult(results)
             default: return .none
             }
         }
@@ -3042,7 +4296,6 @@ open class CorePersistenceProtocolMock: CorePersistenceProtocol, Mock {
             case .m_deleteAllProgress: return 0
             case let .m_addToDownloadQueue__blocks_blocksdownloadQuality_downloadQuality(p0, p1): return p0.intValue + p1.intValue
             case let .m_updateTask__task_task(p0): return p0.intValue
-            case let .m_saveDownloadDataTask__task(p0): return p0.intValue
             case let .m_downloadDataTask__for_blockId(p0): return p0.intValue
             case .m_getDownloadDataTasks: return 0
             case let .m_getDownloadDataTasksForCourse__courseId(p0): return p0.intValue
@@ -3062,7 +4315,6 @@ open class CorePersistenceProtocolMock: CorePersistenceProtocol, Mock {
             case .m_deleteAllProgress: return ".deleteAllProgress()"
             case .m_addToDownloadQueue__blocks_blocksdownloadQuality_downloadQuality: return ".addToDownloadQueue(blocks:downloadQuality:)"
             case .m_updateTask__task_task: return ".updateTask(task:)"
-            case .m_saveDownloadDataTask__task: return ".saveDownloadDataTask(_:)"
             case .m_downloadDataTask__for_blockId: return ".downloadDataTask(for:)"
             case .m_getDownloadDataTasks: return ".getDownloadDataTasks()"
             case .m_getDownloadDataTasksForCourse__courseId: return ".getDownloadDataTasksForCourse(_:)"
@@ -3084,7 +4336,7 @@ open class CorePersistenceProtocolMock: CorePersistenceProtocol, Mock {
             return Given(method: .m_getUserID, products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
         @MainActor
-        public static func publisher(willReturn: AnyPublisher<Int, Never>...) -> MethodStub {
+		public static func publisher(willReturn: AnyPublisher<Int, Never>...) -> MethodStub {
             return Given(method: .m_publisher, products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
         public static func loadProgress(for blockID: Parameter<String>, willReturn: OfflineProgress?...) -> MethodStub {
@@ -3104,57 +4356,57 @@ open class CorePersistenceProtocolMock: CorePersistenceProtocol, Mock {
         }
         public static func getUserID(willProduce: (Stubber<Int?>) -> Void) -> MethodStub {
             let willReturn: [Int?] = []
-            let given: Given = { return Given(method: .m_getUserID, products: willReturn.map({ StubProduct.return($0 as Any) })) }()
-            let stubber = given.stub(for: (Int?).self)
-            willProduce(stubber)
-            return given
+			let given: Given = { return Given(method: .m_getUserID, products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (Int?).self)
+			willProduce(stubber)
+			return given
         }
         public static func loadProgress(for blockID: Parameter<String>, willProduce: (Stubber<OfflineProgress?>) -> Void) -> MethodStub {
             let willReturn: [OfflineProgress?] = []
-            let given: Given = { return Given(method: .m_loadProgress__for_blockID(`blockID`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
-            let stubber = given.stub(for: (OfflineProgress?).self)
-            willProduce(stubber)
-            return given
+			let given: Given = { return Given(method: .m_loadProgress__for_blockID(`blockID`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (OfflineProgress?).self)
+			willProduce(stubber)
+			return given
         }
         public static func loadAllOfflineProgress(willProduce: (Stubber<[OfflineProgress]>) -> Void) -> MethodStub {
             let willReturn: [[OfflineProgress]] = []
-            let given: Given = { return Given(method: .m_loadAllOfflineProgress, products: willReturn.map({ StubProduct.return($0 as Any) })) }()
-            let stubber = given.stub(for: ([OfflineProgress]).self)
-            willProduce(stubber)
-            return given
+			let given: Given = { return Given(method: .m_loadAllOfflineProgress, products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: ([OfflineProgress]).self)
+			willProduce(stubber)
+			return given
         }
         public static func downloadDataTask(for blockId: Parameter<String>, willProduce: (Stubber<DownloadDataTask?>) -> Void) -> MethodStub {
             let willReturn: [DownloadDataTask?] = []
-            let given: Given = { return Given(method: .m_downloadDataTask__for_blockId(`blockId`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
-            let stubber = given.stub(for: (DownloadDataTask?).self)
-            willProduce(stubber)
-            return given
+			let given: Given = { return Given(method: .m_downloadDataTask__for_blockId(`blockId`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (DownloadDataTask?).self)
+			willProduce(stubber)
+			return given
         }
         public static func getDownloadDataTasks(willProduce: (Stubber<[DownloadDataTask]>) -> Void) -> MethodStub {
             let willReturn: [[DownloadDataTask]] = []
-            let given: Given = { return Given(method: .m_getDownloadDataTasks, products: willReturn.map({ StubProduct.return($0 as Any) })) }()
-            let stubber = given.stub(for: ([DownloadDataTask]).self)
-            willProduce(stubber)
-            return given
+			let given: Given = { return Given(method: .m_getDownloadDataTasks, products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: ([DownloadDataTask]).self)
+			willProduce(stubber)
+			return given
         }
         public static func getDownloadDataTasksForCourse(_ courseId: Parameter<String>, willProduce: (Stubber<[DownloadDataTask]>) -> Void) -> MethodStub {
             let willReturn: [[DownloadDataTask]] = []
-            let given: Given = { return Given(method: .m_getDownloadDataTasksForCourse__courseId(`courseId`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
-            let stubber = given.stub(for: ([DownloadDataTask]).self)
-            willProduce(stubber)
-            return given
+			let given: Given = { return Given(method: .m_getDownloadDataTasksForCourse__courseId(`courseId`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: ([DownloadDataTask]).self)
+			willProduce(stubber)
+			return given
         }
         @MainActor
-        public static func publisher(willThrow: Error...) -> MethodStub {
+		public static func publisher(willThrow: Error...) -> MethodStub {
             return Given(method: .m_publisher, products: willThrow.map({ StubProduct.throw($0) }))
         }
         @MainActor
-        public static func publisher(willProduce: (StubberThrows<AnyPublisher<Int, Never>>) -> Void) -> MethodStub {
+		public static func publisher(willProduce: (StubberThrows<AnyPublisher<Int, Never>>) -> Void) -> MethodStub {
             let willThrow: [Error] = []
-            let given: Given = { return Given(method: .m_publisher, products: willThrow.map({ StubProduct.throw($0) })) }()
-            let stubber = given.stubThrows(for: (AnyPublisher<Int, Never>).self)
-            willProduce(stubber)
-            return given
+			let given: Given = { return Given(method: .m_publisher, products: willThrow.map({ StubProduct.throw($0) })) }()
+			let stubber = given.stubThrows(for: (AnyPublisher<Int, Never>).self)
+			willProduce(stubber)
+			return given
         }
     }
 
@@ -3164,7 +4416,7 @@ open class CorePersistenceProtocolMock: CorePersistenceProtocol, Mock {
         public static func set(userId: Parameter<Int>) -> Verify { return Verify(method: .m_set__userId_userId(`userId`))}
         public static func getUserID() -> Verify { return Verify(method: .m_getUserID)}
         @MainActor
-        public static func publisher() -> Verify { return Verify(method: .m_publisher)}
+		public static func publisher() -> Verify { return Verify(method: .m_publisher)}
         public static func addToDownloadQueue(tasks: Parameter<[DownloadDataTask]>) -> Verify { return Verify(method: .m_addToDownloadQueue__tasks_tasks(`tasks`))}
         public static func saveOfflineProgress(progress: Parameter<OfflineProgress>) -> Verify { return Verify(method: .m_saveOfflineProgress__progress_progress(`progress`))}
         public static func loadProgress(for blockID: Parameter<String>) -> Verify { return Verify(method: .m_loadProgress__for_blockID(`blockID`))}
@@ -3173,7 +4425,6 @@ open class CorePersistenceProtocolMock: CorePersistenceProtocol, Mock {
         public static func deleteAllProgress() -> Verify { return Verify(method: .m_deleteAllProgress)}
         public static func addToDownloadQueue(blocks: Parameter<[CourseBlock]>, downloadQuality: Parameter<DownloadQuality>) -> Verify { return Verify(method: .m_addToDownloadQueue__blocks_blocksdownloadQuality_downloadQuality(`blocks`, `downloadQuality`))}
         public static func updateTask(task: Parameter<DownloadDataTask>) -> Verify { return Verify(method: .m_updateTask__task_task(`task`))}
-        public static func saveDownloadDataTask(_ task: Parameter<DownloadDataTask>) -> Verify { return Verify(method: .m_saveDownloadDataTask__task(`task`))}
         public static func downloadDataTask(for blockId: Parameter<String>) -> Verify { return Verify(method: .m_downloadDataTask__for_blockId(`blockId`))}
         public static func getDownloadDataTasks() -> Verify { return Verify(method: .m_getDownloadDataTasks)}
         public static func getDownloadDataTasksForCourse(_ courseId: Parameter<String>) -> Verify { return Verify(method: .m_getDownloadDataTasksForCourse__courseId(`courseId`))}
@@ -3191,7 +4442,7 @@ open class CorePersistenceProtocolMock: CorePersistenceProtocol, Mock {
             return Perform(method: .m_getUserID, performs: perform)
         }
         @MainActor
-        public static func publisher(perform: @escaping () -> Void) -> Perform {
+		public static func publisher(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_publisher, performs: perform)
         }
         public static func addToDownloadQueue(tasks: Parameter<[DownloadDataTask]>, perform: @escaping ([DownloadDataTask]) -> Void) -> Perform {
@@ -3217,9 +4468,6 @@ open class CorePersistenceProtocolMock: CorePersistenceProtocol, Mock {
         }
         public static func updateTask(task: Parameter<DownloadDataTask>, perform: @escaping (DownloadDataTask) -> Void) -> Perform {
             return Perform(method: .m_updateTask__task_task(`task`), performs: perform)
-        }
-        public static func saveDownloadDataTask(_ task: Parameter<DownloadDataTask>, perform: @escaping (DownloadDataTask) -> Void) -> Perform {
-            return Perform(method: .m_saveDownloadDataTask__task(`task`), performs: perform)
         }
         public static func downloadDataTask(for blockId: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
             return Perform(method: .m_downloadDataTask__for_blockId(`blockId`), performs: perform)
@@ -3308,6 +4556,1172 @@ open class CorePersistenceProtocolMock: CorePersistenceProtocol, Mock {
     }
 }
 
+// MARK: - CoreStorage
+
+open class CoreStorageMock: CoreStorage, Mock {
+    public init(sequencing sequencingPolicy: SequencingPolicy = .lastWrittenResolvedFirst, stubbing stubbingPolicy: StubbingPolicy = .wrap, file: StaticString = #file, line: UInt = #line) {
+        SwiftyMockyTestObserver.setup()
+        self.sequencingPolicy = sequencingPolicy
+        self.stubbingPolicy = stubbingPolicy
+        self.file = file
+        self.line = line
+    }
+
+    var matcher: Matcher = Matcher.default
+    var stubbingPolicy: StubbingPolicy = .wrap
+    var sequencingPolicy: SequencingPolicy = .lastWrittenResolvedFirst
+
+    private var queue = DispatchQueue(label: "com.swiftymocky.invocations", qos: .userInteractive)
+    private var invocations: [MethodType] = []
+    private var methodReturnValues: [Given] = []
+    private var methodPerformValues: [Perform] = []
+    private var file: StaticString?
+    private var line: UInt?
+
+    public typealias PropertyStub = Given
+    public typealias MethodStub = Given
+    public typealias SubscriptStub = Given
+
+    /// Convenience method - call setupMock() to extend debug information when failure occurs
+    public func setupMock(file: StaticString = #file, line: UInt = #line) {
+        self.file = file
+        self.line = line
+    }
+
+    /// Clear mock internals. You can specify what to reset (invocations aka verify, givens or performs) or leave it empty to clear all mock internals
+    public func resetMock(_ scopes: MockScope...) {
+        let scopes: [MockScope] = scopes.isEmpty ? [.invocation, .given, .perform] : scopes
+        if scopes.contains(.invocation) { invocations = [] }
+        if scopes.contains(.given) { methodReturnValues = [] }
+        if scopes.contains(.perform) { methodPerformValues = [] }
+    }
+
+    public var accessToken: String? {
+		get {	invocations.append(.p_accessToken_get); return __p_accessToken ?? optionalGivenGetterValue(.p_accessToken_get, "CoreStorageMock - stub value for accessToken was not defined") }
+		set {	invocations.append(.p_accessToken_set(.value(newValue))); __p_accessToken = newValue }
+	}
+	private var __p_accessToken: (String)?
+
+    public var refreshToken: String? {
+		get {	invocations.append(.p_refreshToken_get); return __p_refreshToken ?? optionalGivenGetterValue(.p_refreshToken_get, "CoreStorageMock - stub value for refreshToken was not defined") }
+		set {	invocations.append(.p_refreshToken_set(.value(newValue))); __p_refreshToken = newValue }
+	}
+	private var __p_refreshToken: (String)?
+
+    public var pushToken: String? {
+		get {	invocations.append(.p_pushToken_get); return __p_pushToken ?? optionalGivenGetterValue(.p_pushToken_get, "CoreStorageMock - stub value for pushToken was not defined") }
+		set {	invocations.append(.p_pushToken_set(.value(newValue))); __p_pushToken = newValue }
+	}
+	private var __p_pushToken: (String)?
+
+    public var appleSignFullName: String? {
+		get {	invocations.append(.p_appleSignFullName_get); return __p_appleSignFullName ?? optionalGivenGetterValue(.p_appleSignFullName_get, "CoreStorageMock - stub value for appleSignFullName was not defined") }
+		set {	invocations.append(.p_appleSignFullName_set(.value(newValue))); __p_appleSignFullName = newValue }
+	}
+	private var __p_appleSignFullName: (String)?
+
+    public var appleSignEmail: String? {
+		get {	invocations.append(.p_appleSignEmail_get); return __p_appleSignEmail ?? optionalGivenGetterValue(.p_appleSignEmail_get, "CoreStorageMock - stub value for appleSignEmail was not defined") }
+		set {	invocations.append(.p_appleSignEmail_set(.value(newValue))); __p_appleSignEmail = newValue }
+	}
+	private var __p_appleSignEmail: (String)?
+
+    public var cookiesDate: Date? {
+		get {	invocations.append(.p_cookiesDate_get); return __p_cookiesDate ?? optionalGivenGetterValue(.p_cookiesDate_get, "CoreStorageMock - stub value for cookiesDate was not defined") }
+		set {	invocations.append(.p_cookiesDate_set(.value(newValue))); __p_cookiesDate = newValue }
+	}
+	private var __p_cookiesDate: (Date)?
+
+    public var reviewLastShownVersion: String? {
+		get {	invocations.append(.p_reviewLastShownVersion_get); return __p_reviewLastShownVersion ?? optionalGivenGetterValue(.p_reviewLastShownVersion_get, "CoreStorageMock - stub value for reviewLastShownVersion was not defined") }
+		set {	invocations.append(.p_reviewLastShownVersion_set(.value(newValue))); __p_reviewLastShownVersion = newValue }
+	}
+	private var __p_reviewLastShownVersion: (String)?
+
+    public var lastReviewDate: Date? {
+		get {	invocations.append(.p_lastReviewDate_get); return __p_lastReviewDate ?? optionalGivenGetterValue(.p_lastReviewDate_get, "CoreStorageMock - stub value for lastReviewDate was not defined") }
+		set {	invocations.append(.p_lastReviewDate_set(.value(newValue))); __p_lastReviewDate = newValue }
+	}
+	private var __p_lastReviewDate: (Date)?
+
+    public var user: DataLayer.User? {
+		get {	invocations.append(.p_user_get); return __p_user ?? optionalGivenGetterValue(.p_user_get, "CoreStorageMock - stub value for user was not defined") }
+		set {	invocations.append(.p_user_set(.value(newValue))); __p_user = newValue }
+	}
+	private var __p_user: (DataLayer.User)?
+
+    public var userSettings: UserSettings? {
+		get {	invocations.append(.p_userSettings_get); return __p_userSettings ?? optionalGivenGetterValue(.p_userSettings_get, "CoreStorageMock - stub value for userSettings was not defined") }
+		set {	invocations.append(.p_userSettings_set(.value(newValue))); __p_userSettings = newValue }
+	}
+	private var __p_userSettings: (UserSettings)?
+
+    public var resetAppSupportDirectoryUserData: Bool? {
+		get {	invocations.append(.p_resetAppSupportDirectoryUserData_get); return __p_resetAppSupportDirectoryUserData ?? optionalGivenGetterValue(.p_resetAppSupportDirectoryUserData_get, "CoreStorageMock - stub value for resetAppSupportDirectoryUserData was not defined") }
+		set {	invocations.append(.p_resetAppSupportDirectoryUserData_set(.value(newValue))); __p_resetAppSupportDirectoryUserData = newValue }
+	}
+	private var __p_resetAppSupportDirectoryUserData: (Bool)?
+
+    public var lastUsedSocialAuth: String? {
+		get {	invocations.append(.p_lastUsedSocialAuth_get); return __p_lastUsedSocialAuth ?? optionalGivenGetterValue(.p_lastUsedSocialAuth_get, "CoreStorageMock - stub value for lastUsedSocialAuth was not defined") }
+		set {	invocations.append(.p_lastUsedSocialAuth_set(.value(newValue))); __p_lastUsedSocialAuth = newValue }
+	}
+	private var __p_lastUsedSocialAuth: (String)?
+
+    public var discussionNotificationsSettingStatus: Bool? {
+		get {	invocations.append(.p_discussionNotificationsSettingStatus_get); return __p_discussionNotificationsSettingStatus ?? optionalGivenGetterValue(.p_discussionNotificationsSettingStatus_get, "CoreStorageMock - stub value for discussionNotificationsSettingStatus was not defined") }
+		set {	invocations.append(.p_discussionNotificationsSettingStatus_set(.value(newValue))); __p_discussionNotificationsSettingStatus = newValue }
+	}
+	private var __p_discussionNotificationsSettingStatus: (Bool)?
+
+    public var useRelativeDates: Bool {
+		get {	invocations.append(.p_useRelativeDates_get); return __p_useRelativeDates ?? givenGetterValue(.p_useRelativeDates_get, "CoreStorageMock - stub value for useRelativeDates was not defined") }
+		set {	invocations.append(.p_useRelativeDates_set(.value(newValue))); __p_useRelativeDates = newValue }
+	}
+	private var __p_useRelativeDates: (Bool)?
+
+
+
+
+
+    open func clear() {
+        addInvocation(.m_clear)
+		let perform = methodPerformValue(.m_clear) as? () -> Void
+		perform?()
+    }
+
+
+    fileprivate enum MethodType {
+        case m_clear
+        case p_accessToken_get
+		case p_accessToken_set(Parameter<String?>)
+        case p_refreshToken_get
+		case p_refreshToken_set(Parameter<String?>)
+        case p_pushToken_get
+		case p_pushToken_set(Parameter<String?>)
+        case p_appleSignFullName_get
+		case p_appleSignFullName_set(Parameter<String?>)
+        case p_appleSignEmail_get
+		case p_appleSignEmail_set(Parameter<String?>)
+        case p_cookiesDate_get
+		case p_cookiesDate_set(Parameter<Date?>)
+        case p_reviewLastShownVersion_get
+		case p_reviewLastShownVersion_set(Parameter<String?>)
+        case p_lastReviewDate_get
+		case p_lastReviewDate_set(Parameter<Date?>)
+        case p_user_get
+		case p_user_set(Parameter<DataLayer.User?>)
+        case p_userSettings_get
+		case p_userSettings_set(Parameter<UserSettings?>)
+        case p_resetAppSupportDirectoryUserData_get
+		case p_resetAppSupportDirectoryUserData_set(Parameter<Bool?>)
+        case p_lastUsedSocialAuth_get
+		case p_lastUsedSocialAuth_set(Parameter<String?>)
+        case p_discussionNotificationsSettingStatus_get
+		case p_discussionNotificationsSettingStatus_set(Parameter<Bool?>)
+        case p_useRelativeDates_get
+		case p_useRelativeDates_set(Parameter<Bool>)
+
+        static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
+            switch (lhs, rhs) {
+            case (.m_clear, .m_clear): return .match
+            case (.p_accessToken_get,.p_accessToken_get): return Matcher.ComparisonResult.match
+			case (.p_accessToken_set(let left),.p_accessToken_set(let right)): return Matcher.ComparisonResult([Matcher.ParameterComparisonResult(Parameter<String?>.compare(lhs: left, rhs: right, with: matcher), left, right, "newValue")])
+            case (.p_refreshToken_get,.p_refreshToken_get): return Matcher.ComparisonResult.match
+			case (.p_refreshToken_set(let left),.p_refreshToken_set(let right)): return Matcher.ComparisonResult([Matcher.ParameterComparisonResult(Parameter<String?>.compare(lhs: left, rhs: right, with: matcher), left, right, "newValue")])
+            case (.p_pushToken_get,.p_pushToken_get): return Matcher.ComparisonResult.match
+			case (.p_pushToken_set(let left),.p_pushToken_set(let right)): return Matcher.ComparisonResult([Matcher.ParameterComparisonResult(Parameter<String?>.compare(lhs: left, rhs: right, with: matcher), left, right, "newValue")])
+            case (.p_appleSignFullName_get,.p_appleSignFullName_get): return Matcher.ComparisonResult.match
+			case (.p_appleSignFullName_set(let left),.p_appleSignFullName_set(let right)): return Matcher.ComparisonResult([Matcher.ParameterComparisonResult(Parameter<String?>.compare(lhs: left, rhs: right, with: matcher), left, right, "newValue")])
+            case (.p_appleSignEmail_get,.p_appleSignEmail_get): return Matcher.ComparisonResult.match
+			case (.p_appleSignEmail_set(let left),.p_appleSignEmail_set(let right)): return Matcher.ComparisonResult([Matcher.ParameterComparisonResult(Parameter<String?>.compare(lhs: left, rhs: right, with: matcher), left, right, "newValue")])
+            case (.p_cookiesDate_get,.p_cookiesDate_get): return Matcher.ComparisonResult.match
+			case (.p_cookiesDate_set(let left),.p_cookiesDate_set(let right)): return Matcher.ComparisonResult([Matcher.ParameterComparisonResult(Parameter<Date?>.compare(lhs: left, rhs: right, with: matcher), left, right, "newValue")])
+            case (.p_reviewLastShownVersion_get,.p_reviewLastShownVersion_get): return Matcher.ComparisonResult.match
+			case (.p_reviewLastShownVersion_set(let left),.p_reviewLastShownVersion_set(let right)): return Matcher.ComparisonResult([Matcher.ParameterComparisonResult(Parameter<String?>.compare(lhs: left, rhs: right, with: matcher), left, right, "newValue")])
+            case (.p_lastReviewDate_get,.p_lastReviewDate_get): return Matcher.ComparisonResult.match
+			case (.p_lastReviewDate_set(let left),.p_lastReviewDate_set(let right)): return Matcher.ComparisonResult([Matcher.ParameterComparisonResult(Parameter<Date?>.compare(lhs: left, rhs: right, with: matcher), left, right, "newValue")])
+            case (.p_user_get,.p_user_get): return Matcher.ComparisonResult.match
+			case (.p_user_set(let left),.p_user_set(let right)): return Matcher.ComparisonResult([Matcher.ParameterComparisonResult(Parameter<DataLayer.User?>.compare(lhs: left, rhs: right, with: matcher), left, right, "newValue")])
+            case (.p_userSettings_get,.p_userSettings_get): return Matcher.ComparisonResult.match
+			case (.p_userSettings_set(let left),.p_userSettings_set(let right)): return Matcher.ComparisonResult([Matcher.ParameterComparisonResult(Parameter<UserSettings?>.compare(lhs: left, rhs: right, with: matcher), left, right, "newValue")])
+            case (.p_resetAppSupportDirectoryUserData_get,.p_resetAppSupportDirectoryUserData_get): return Matcher.ComparisonResult.match
+			case (.p_resetAppSupportDirectoryUserData_set(let left),.p_resetAppSupportDirectoryUserData_set(let right)): return Matcher.ComparisonResult([Matcher.ParameterComparisonResult(Parameter<Bool?>.compare(lhs: left, rhs: right, with: matcher), left, right, "newValue")])
+            case (.p_lastUsedSocialAuth_get,.p_lastUsedSocialAuth_get): return Matcher.ComparisonResult.match
+			case (.p_lastUsedSocialAuth_set(let left),.p_lastUsedSocialAuth_set(let right)): return Matcher.ComparisonResult([Matcher.ParameterComparisonResult(Parameter<String?>.compare(lhs: left, rhs: right, with: matcher), left, right, "newValue")])
+            case (.p_discussionNotificationsSettingStatus_get,.p_discussionNotificationsSettingStatus_get): return Matcher.ComparisonResult.match
+			case (.p_discussionNotificationsSettingStatus_set(let left),.p_discussionNotificationsSettingStatus_set(let right)): return Matcher.ComparisonResult([Matcher.ParameterComparisonResult(Parameter<Bool?>.compare(lhs: left, rhs: right, with: matcher), left, right, "newValue")])
+            case (.p_useRelativeDates_get,.p_useRelativeDates_get): return Matcher.ComparisonResult.match
+			case (.p_useRelativeDates_set(let left),.p_useRelativeDates_set(let right)): return Matcher.ComparisonResult([Matcher.ParameterComparisonResult(Parameter<Bool>.compare(lhs: left, rhs: right, with: matcher), left, right, "newValue")])
+            default: return .none
+            }
+        }
+
+        func intValue() -> Int {
+            switch self {
+            case .m_clear: return 0
+            case .p_accessToken_get: return 0
+			case .p_accessToken_set(let newValue): return newValue.intValue
+            case .p_refreshToken_get: return 0
+			case .p_refreshToken_set(let newValue): return newValue.intValue
+            case .p_pushToken_get: return 0
+			case .p_pushToken_set(let newValue): return newValue.intValue
+            case .p_appleSignFullName_get: return 0
+			case .p_appleSignFullName_set(let newValue): return newValue.intValue
+            case .p_appleSignEmail_get: return 0
+			case .p_appleSignEmail_set(let newValue): return newValue.intValue
+            case .p_cookiesDate_get: return 0
+			case .p_cookiesDate_set(let newValue): return newValue.intValue
+            case .p_reviewLastShownVersion_get: return 0
+			case .p_reviewLastShownVersion_set(let newValue): return newValue.intValue
+            case .p_lastReviewDate_get: return 0
+			case .p_lastReviewDate_set(let newValue): return newValue.intValue
+            case .p_user_get: return 0
+			case .p_user_set(let newValue): return newValue.intValue
+            case .p_userSettings_get: return 0
+			case .p_userSettings_set(let newValue): return newValue.intValue
+            case .p_resetAppSupportDirectoryUserData_get: return 0
+			case .p_resetAppSupportDirectoryUserData_set(let newValue): return newValue.intValue
+            case .p_lastUsedSocialAuth_get: return 0
+			case .p_lastUsedSocialAuth_set(let newValue): return newValue.intValue
+            case .p_discussionNotificationsSettingStatus_get: return 0
+			case .p_discussionNotificationsSettingStatus_set(let newValue): return newValue.intValue
+            case .p_useRelativeDates_get: return 0
+			case .p_useRelativeDates_set(let newValue): return newValue.intValue
+            }
+        }
+        func assertionName() -> String {
+            switch self {
+            case .m_clear: return ".clear()"
+            case .p_accessToken_get: return "[get] .accessToken"
+			case .p_accessToken_set: return "[set] .accessToken"
+            case .p_refreshToken_get: return "[get] .refreshToken"
+			case .p_refreshToken_set: return "[set] .refreshToken"
+            case .p_pushToken_get: return "[get] .pushToken"
+			case .p_pushToken_set: return "[set] .pushToken"
+            case .p_appleSignFullName_get: return "[get] .appleSignFullName"
+			case .p_appleSignFullName_set: return "[set] .appleSignFullName"
+            case .p_appleSignEmail_get: return "[get] .appleSignEmail"
+			case .p_appleSignEmail_set: return "[set] .appleSignEmail"
+            case .p_cookiesDate_get: return "[get] .cookiesDate"
+			case .p_cookiesDate_set: return "[set] .cookiesDate"
+            case .p_reviewLastShownVersion_get: return "[get] .reviewLastShownVersion"
+			case .p_reviewLastShownVersion_set: return "[set] .reviewLastShownVersion"
+            case .p_lastReviewDate_get: return "[get] .lastReviewDate"
+			case .p_lastReviewDate_set: return "[set] .lastReviewDate"
+            case .p_user_get: return "[get] .user"
+			case .p_user_set: return "[set] .user"
+            case .p_userSettings_get: return "[get] .userSettings"
+			case .p_userSettings_set: return "[set] .userSettings"
+            case .p_resetAppSupportDirectoryUserData_get: return "[get] .resetAppSupportDirectoryUserData"
+			case .p_resetAppSupportDirectoryUserData_set: return "[set] .resetAppSupportDirectoryUserData"
+            case .p_lastUsedSocialAuth_get: return "[get] .lastUsedSocialAuth"
+			case .p_lastUsedSocialAuth_set: return "[set] .lastUsedSocialAuth"
+            case .p_discussionNotificationsSettingStatus_get: return "[get] .discussionNotificationsSettingStatus"
+			case .p_discussionNotificationsSettingStatus_set: return "[set] .discussionNotificationsSettingStatus"
+            case .p_useRelativeDates_get: return "[get] .useRelativeDates"
+			case .p_useRelativeDates_set: return "[set] .useRelativeDates"
+            }
+        }
+    }
+
+    open class Given: StubbedMethod {
+        fileprivate var method: MethodType
+
+        private init(method: MethodType, products: [StubProduct]) {
+            self.method = method
+            super.init(products)
+        }
+
+        public static func accessToken(getter defaultValue: String?...) -> PropertyStub {
+            return Given(method: .p_accessToken_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func refreshToken(getter defaultValue: String?...) -> PropertyStub {
+            return Given(method: .p_refreshToken_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func pushToken(getter defaultValue: String?...) -> PropertyStub {
+            return Given(method: .p_pushToken_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func appleSignFullName(getter defaultValue: String?...) -> PropertyStub {
+            return Given(method: .p_appleSignFullName_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func appleSignEmail(getter defaultValue: String?...) -> PropertyStub {
+            return Given(method: .p_appleSignEmail_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func cookiesDate(getter defaultValue: Date?...) -> PropertyStub {
+            return Given(method: .p_cookiesDate_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func reviewLastShownVersion(getter defaultValue: String?...) -> PropertyStub {
+            return Given(method: .p_reviewLastShownVersion_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func lastReviewDate(getter defaultValue: Date?...) -> PropertyStub {
+            return Given(method: .p_lastReviewDate_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func user(getter defaultValue: DataLayer.User?...) -> PropertyStub {
+            return Given(method: .p_user_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func userSettings(getter defaultValue: UserSettings?...) -> PropertyStub {
+            return Given(method: .p_userSettings_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func resetAppSupportDirectoryUserData(getter defaultValue: Bool?...) -> PropertyStub {
+            return Given(method: .p_resetAppSupportDirectoryUserData_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func lastUsedSocialAuth(getter defaultValue: String?...) -> PropertyStub {
+            return Given(method: .p_lastUsedSocialAuth_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func discussionNotificationsSettingStatus(getter defaultValue: Bool?...) -> PropertyStub {
+            return Given(method: .p_discussionNotificationsSettingStatus_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func useRelativeDates(getter defaultValue: Bool...) -> PropertyStub {
+            return Given(method: .p_useRelativeDates_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
+
+    }
+
+    public struct Verify {
+        fileprivate var method: MethodType
+
+        public static func clear() -> Verify { return Verify(method: .m_clear)}
+        public static var accessToken: Verify { return Verify(method: .p_accessToken_get) }
+		public static func accessToken(set newValue: Parameter<String?>) -> Verify { return Verify(method: .p_accessToken_set(newValue)) }
+        public static var refreshToken: Verify { return Verify(method: .p_refreshToken_get) }
+		public static func refreshToken(set newValue: Parameter<String?>) -> Verify { return Verify(method: .p_refreshToken_set(newValue)) }
+        public static var pushToken: Verify { return Verify(method: .p_pushToken_get) }
+		public static func pushToken(set newValue: Parameter<String?>) -> Verify { return Verify(method: .p_pushToken_set(newValue)) }
+        public static var appleSignFullName: Verify { return Verify(method: .p_appleSignFullName_get) }
+		public static func appleSignFullName(set newValue: Parameter<String?>) -> Verify { return Verify(method: .p_appleSignFullName_set(newValue)) }
+        public static var appleSignEmail: Verify { return Verify(method: .p_appleSignEmail_get) }
+		public static func appleSignEmail(set newValue: Parameter<String?>) -> Verify { return Verify(method: .p_appleSignEmail_set(newValue)) }
+        public static var cookiesDate: Verify { return Verify(method: .p_cookiesDate_get) }
+		public static func cookiesDate(set newValue: Parameter<Date?>) -> Verify { return Verify(method: .p_cookiesDate_set(newValue)) }
+        public static var reviewLastShownVersion: Verify { return Verify(method: .p_reviewLastShownVersion_get) }
+		public static func reviewLastShownVersion(set newValue: Parameter<String?>) -> Verify { return Verify(method: .p_reviewLastShownVersion_set(newValue)) }
+        public static var lastReviewDate: Verify { return Verify(method: .p_lastReviewDate_get) }
+		public static func lastReviewDate(set newValue: Parameter<Date?>) -> Verify { return Verify(method: .p_lastReviewDate_set(newValue)) }
+        public static var user: Verify { return Verify(method: .p_user_get) }
+		public static func user(set newValue: Parameter<DataLayer.User?>) -> Verify { return Verify(method: .p_user_set(newValue)) }
+        public static var userSettings: Verify { return Verify(method: .p_userSettings_get) }
+		public static func userSettings(set newValue: Parameter<UserSettings?>) -> Verify { return Verify(method: .p_userSettings_set(newValue)) }
+        public static var resetAppSupportDirectoryUserData: Verify { return Verify(method: .p_resetAppSupportDirectoryUserData_get) }
+		public static func resetAppSupportDirectoryUserData(set newValue: Parameter<Bool?>) -> Verify { return Verify(method: .p_resetAppSupportDirectoryUserData_set(newValue)) }
+        public static var lastUsedSocialAuth: Verify { return Verify(method: .p_lastUsedSocialAuth_get) }
+		public static func lastUsedSocialAuth(set newValue: Parameter<String?>) -> Verify { return Verify(method: .p_lastUsedSocialAuth_set(newValue)) }
+        public static var discussionNotificationsSettingStatus: Verify { return Verify(method: .p_discussionNotificationsSettingStatus_get) }
+		public static func discussionNotificationsSettingStatus(set newValue: Parameter<Bool?>) -> Verify { return Verify(method: .p_discussionNotificationsSettingStatus_set(newValue)) }
+        public static var useRelativeDates: Verify { return Verify(method: .p_useRelativeDates_get) }
+		public static func useRelativeDates(set newValue: Parameter<Bool>) -> Verify { return Verify(method: .p_useRelativeDates_set(newValue)) }
+    }
+
+    public struct Perform {
+        fileprivate var method: MethodType
+        var performs: Any
+
+        public static func clear(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_clear, performs: perform)
+        }
+    }
+
+    public func given(_ method: Given) {
+        methodReturnValues.append(method)
+    }
+
+    public func perform(_ method: Perform) {
+        methodPerformValues.append(method)
+        methodPerformValues.sort { $0.method.intValue() < $1.method.intValue() }
+    }
+
+    public func verify(_ method: Verify, count: Count = Count.moreOrEqual(to: 1), file: StaticString = #file, line: UInt = #line) {
+        let fullMatches = matchingCalls(method, file: file, line: line)
+        let success = count.matches(fullMatches)
+        let assertionName = method.method.assertionName()
+        let feedback: String = {
+            guard !success else { return "" }
+            return Utils.closestCallsMessage(
+                for: self.invocations.map { invocation in
+                    matcher.set(file: file, line: line)
+                    defer { matcher.clearFileAndLine() }
+                    return MethodType.compareParameters(lhs: invocation, rhs: method.method, matcher: matcher)
+                },
+                name: assertionName
+            )
+        }()
+        MockyAssert(success, "Expected: \(count) invocations of `\(assertionName)`, but was: \(fullMatches).\(feedback)", file: file, line: line)
+    }
+
+    private func addInvocation(_ call: MethodType) {
+        self.queue.sync { invocations.append(call) }
+    }
+    private func methodReturnValue(_ method: MethodType) throws -> StubProduct {
+        matcher.set(file: self.file, line: self.line)
+        defer { matcher.clearFileAndLine() }
+        let candidates = sequencingPolicy.sorted(methodReturnValues, by: { $0.method.intValue() > $1.method.intValue() })
+        let matched = candidates.first(where: { $0.isValid && MethodType.compareParameters(lhs: $0.method, rhs: method, matcher: matcher).isFullMatch })
+        guard let product = matched?.getProduct(policy: self.stubbingPolicy) else { throw MockError.notStubed }
+        return product
+    }
+    private func methodPerformValue(_ method: MethodType) -> Any? {
+        matcher.set(file: self.file, line: self.line)
+        defer { matcher.clearFileAndLine() }
+        let matched = methodPerformValues.reversed().first { MethodType.compareParameters(lhs: $0.method, rhs: method, matcher: matcher).isFullMatch }
+        return matched?.performs
+    }
+    private func matchingCalls(_ method: MethodType, file: StaticString?, line: UInt?) -> [MethodType] {
+        matcher.set(file: file ?? self.file, line: line ?? self.line)
+        defer { matcher.clearFileAndLine() }
+        return invocations.filter { MethodType.compareParameters(lhs: $0, rhs: method, matcher: matcher).isFullMatch }
+    }
+    private func matchingCalls(_ method: Verify, file: StaticString?, line: UInt?) -> Int {
+        return matchingCalls(method.method, file: file, line: line).count
+    }
+    private func givenGetterValue<T>(_ method: MethodType, _ message: String) -> T {
+        do {
+            return try methodReturnValue(method).casted()
+        } catch {
+            onFatalFailure(message)
+            Failure(message)
+        }
+    }
+    private func optionalGivenGetterValue<T>(_ method: MethodType, _ message: String) -> T? {
+        do {
+            return try methodReturnValue(method).casted()
+        } catch {
+            return nil
+        }
+    }
+    private func onFatalFailure(_ message: String) {
+        guard let file = self.file, let line = self.line else { return } // Let if fail if cannot handle gratefully
+        SwiftyMockyTestObserver.handleFatalError(message: message, file: file, line: line)
+    }
+}
+
+// MARK: - CourseUpgradeHandlerProtocol
+@MainActor
+open class CourseUpgradeHandlerProtocolMock: CourseUpgradeHandlerProtocol, Mock {
+    public init(sequencing sequencingPolicy: SequencingPolicy = .lastWrittenResolvedFirst, stubbing stubbingPolicy: StubbingPolicy = .wrap, file: StaticString = #file, line: UInt = #line) {
+        SwiftyMockyTestObserver.setup()
+        self.sequencingPolicy = sequencingPolicy
+        self.stubbingPolicy = stubbingPolicy
+        self.file = file
+        self.line = line
+    }
+
+    var matcher: Matcher = Matcher.default
+    var stubbingPolicy: StubbingPolicy = .wrap
+    var sequencingPolicy: SequencingPolicy = .lastWrittenResolvedFirst
+
+    private var queue = DispatchQueue(label: "com.swiftymocky.invocations", qos: .userInteractive)
+    private var invocations: [MethodType] = []
+    private var methodReturnValues: [Given] = []
+    private var methodPerformValues: [Perform] = []
+    private var file: StaticString?
+    private var line: UInt?
+
+    public typealias PropertyStub = Given
+    public typealias MethodStub = Given
+    public typealias SubscriptStub = Given
+
+    /// Convenience method - call setupMock() to extend debug information when failure occurs
+    public func setupMock(file: StaticString = #file, line: UInt = #line) {
+        self.file = file
+        self.line = line
+    }
+
+    /// Clear mock internals. You can specify what to reset (invocations aka verify, givens or performs) or leave it empty to clear all mock internals
+    public func resetMock(_ scopes: MockScope...) {
+        let scopes: [MockScope] = scopes.isEmpty ? [.invocation, .given, .perform] : scopes
+        if scopes.contains(.invocation) { invocations = [] }
+        if scopes.contains(.given) { methodReturnValues = [] }
+        if scopes.contains(.perform) { methodPerformValues = [] }
+    }
+
+
+
+
+
+    open func upgradeCourse(sku: String?, mode: UpgradeMode, productInfo: StoreProductInfo?, pacing: String, courseID: String, lmsPrice: Double, componentID: String?, screen: CourseUpgradeScreen, completion: UpgradeCompletionHandler?) {
+        addInvocation(.m_upgradeCourse__sku_skumode_modeproductInfo_productInfopacing_pacingcourseID_courseIDlmsPrice_lmsPricecomponentID_componentIDscreen_screencompletion_completion(Parameter<String?>.value(`sku`), Parameter<UpgradeMode>.value(`mode`), Parameter<StoreProductInfo?>.value(`productInfo`), Parameter<String>.value(`pacing`), Parameter<String>.value(`courseID`), Parameter<Double>.value(`lmsPrice`), Parameter<String?>.value(`componentID`), Parameter<CourseUpgradeScreen>.value(`screen`), Parameter<UpgradeCompletionHandler?>.value(`completion`)))
+		let perform = methodPerformValue(.m_upgradeCourse__sku_skumode_modeproductInfo_productInfopacing_pacingcourseID_courseIDlmsPrice_lmsPricecomponentID_componentIDscreen_screencompletion_completion(Parameter<String?>.value(`sku`), Parameter<UpgradeMode>.value(`mode`), Parameter<StoreProductInfo?>.value(`productInfo`), Parameter<String>.value(`pacing`), Parameter<String>.value(`courseID`), Parameter<Double>.value(`lmsPrice`), Parameter<String?>.value(`componentID`), Parameter<CourseUpgradeScreen>.value(`screen`), Parameter<UpgradeCompletionHandler?>.value(`completion`))) as? (String?, UpgradeMode, StoreProductInfo?, String, String, Double, String?, CourseUpgradeScreen, UpgradeCompletionHandler?) -> Void
+		perform?(`sku`, `mode`, `productInfo`, `pacing`, `courseID`, `lmsPrice`, `componentID`, `screen`, `completion`)
+    }
+
+    open func fetchProduct(sku: String) throws -> StoreProductInfo {
+        addInvocation(.m_fetchProduct__sku_sku(Parameter<String>.value(`sku`)))
+		let perform = methodPerformValue(.m_fetchProduct__sku_sku(Parameter<String>.value(`sku`))) as? (String) -> Void
+		perform?(`sku`)
+		var __value: StoreProductInfo
+		do {
+		    __value = try methodReturnValue(.m_fetchProduct__sku_sku(Parameter<String>.value(`sku`))).casted()
+		} catch MockError.notStubed {
+			onFatalFailure("Stub return value not specified for fetchProduct(sku: String). Use given")
+			Failure("Stub return value not specified for fetchProduct(sku: String). Use given")
+		} catch {
+		    throw error
+		}
+		return __value
+    }
+
+
+    fileprivate enum MethodType {
+        case m_upgradeCourse__sku_skumode_modeproductInfo_productInfopacing_pacingcourseID_courseIDlmsPrice_lmsPricecomponentID_componentIDscreen_screencompletion_completion(Parameter<String?>, Parameter<UpgradeMode>, Parameter<StoreProductInfo?>, Parameter<String>, Parameter<String>, Parameter<Double>, Parameter<String?>, Parameter<CourseUpgradeScreen>, Parameter<UpgradeCompletionHandler?>)
+        case m_fetchProduct__sku_sku(Parameter<String>)
+
+        static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
+            switch (lhs, rhs) {
+            case (.m_upgradeCourse__sku_skumode_modeproductInfo_productInfopacing_pacingcourseID_courseIDlmsPrice_lmsPricecomponentID_componentIDscreen_screencompletion_completion(let lhsSku, let lhsMode, let lhsProductinfo, let lhsPacing, let lhsCourseid, let lhsLmsprice, let lhsComponentid, let lhsScreen, let lhsCompletion), .m_upgradeCourse__sku_skumode_modeproductInfo_productInfopacing_pacingcourseID_courseIDlmsPrice_lmsPricecomponentID_componentIDscreen_screencompletion_completion(let rhsSku, let rhsMode, let rhsProductinfo, let rhsPacing, let rhsCourseid, let rhsLmsprice, let rhsComponentid, let rhsScreen, let rhsCompletion)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsSku, rhs: rhsSku, with: matcher), lhsSku, rhsSku, "sku"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsMode, rhs: rhsMode, with: matcher), lhsMode, rhsMode, "mode"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsProductinfo, rhs: rhsProductinfo, with: matcher), lhsProductinfo, rhsProductinfo, "productInfo"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPacing, rhs: rhsPacing, with: matcher), lhsPacing, rhsPacing, "pacing"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseID"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLmsprice, rhs: rhsLmsprice, with: matcher), lhsLmsprice, rhsLmsprice, "lmsPrice"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsComponentid, rhs: rhsComponentid, with: matcher), lhsComponentid, rhsComponentid, "componentID"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsScreen, rhs: rhsScreen, with: matcher), lhsScreen, rhsScreen, "screen"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCompletion, rhs: rhsCompletion, with: matcher), lhsCompletion, rhsCompletion, "completion"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_fetchProduct__sku_sku(let lhsSku), .m_fetchProduct__sku_sku(let rhsSku)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsSku, rhs: rhsSku, with: matcher), lhsSku, rhsSku, "sku"))
+				return Matcher.ComparisonResult(results)
+            default: return .none
+            }
+        }
+
+        func intValue() -> Int {
+            switch self {
+            case let .m_upgradeCourse__sku_skumode_modeproductInfo_productInfopacing_pacingcourseID_courseIDlmsPrice_lmsPricecomponentID_componentIDscreen_screencompletion_completion(p0, p1, p2, p3, p4, p5, p6, p7, p8): return p0.intValue + p1.intValue + p2.intValue + p3.intValue + p4.intValue + p5.intValue + p6.intValue + p7.intValue + p8.intValue
+            case let .m_fetchProduct__sku_sku(p0): return p0.intValue
+            }
+        }
+        func assertionName() -> String {
+            switch self {
+            case .m_upgradeCourse__sku_skumode_modeproductInfo_productInfopacing_pacingcourseID_courseIDlmsPrice_lmsPricecomponentID_componentIDscreen_screencompletion_completion: return ".upgradeCourse(sku:mode:productInfo:pacing:courseID:lmsPrice:componentID:screen:completion:)"
+            case .m_fetchProduct__sku_sku: return ".fetchProduct(sku:)"
+            }
+        }
+    }
+
+    open class Given: StubbedMethod {
+        fileprivate var method: MethodType
+
+        private init(method: MethodType, products: [StubProduct]) {
+            self.method = method
+            super.init(products)
+        }
+
+
+        public static func fetchProduct(sku: Parameter<String>, willReturn: StoreProductInfo...) -> MethodStub {
+            return Given(method: .m_fetchProduct__sku_sku(`sku`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func fetchProduct(sku: Parameter<String>, willThrow: Error...) -> MethodStub {
+            return Given(method: .m_fetchProduct__sku_sku(`sku`), products: willThrow.map({ StubProduct.throw($0) }))
+        }
+        public static func fetchProduct(sku: Parameter<String>, willProduce: (StubberThrows<StoreProductInfo>) -> Void) -> MethodStub {
+            let willThrow: [Error] = []
+			let given: Given = { return Given(method: .m_fetchProduct__sku_sku(`sku`), products: willThrow.map({ StubProduct.throw($0) })) }()
+			let stubber = given.stubThrows(for: (StoreProductInfo).self)
+			willProduce(stubber)
+			return given
+        }
+    }
+
+    public struct Verify {
+        fileprivate var method: MethodType
+
+        public static func upgradeCourse(sku: Parameter<String?>, mode: Parameter<UpgradeMode>, productInfo: Parameter<StoreProductInfo?>, pacing: Parameter<String>, courseID: Parameter<String>, lmsPrice: Parameter<Double>, componentID: Parameter<String?>, screen: Parameter<CourseUpgradeScreen>, completion: Parameter<UpgradeCompletionHandler?>) -> Verify { return Verify(method: .m_upgradeCourse__sku_skumode_modeproductInfo_productInfopacing_pacingcourseID_courseIDlmsPrice_lmsPricecomponentID_componentIDscreen_screencompletion_completion(`sku`, `mode`, `productInfo`, `pacing`, `courseID`, `lmsPrice`, `componentID`, `screen`, `completion`))}
+        public static func fetchProduct(sku: Parameter<String>) -> Verify { return Verify(method: .m_fetchProduct__sku_sku(`sku`))}
+    }
+
+    public struct Perform {
+        fileprivate var method: MethodType
+        var performs: Any
+
+        public static func upgradeCourse(sku: Parameter<String?>, mode: Parameter<UpgradeMode>, productInfo: Parameter<StoreProductInfo?>, pacing: Parameter<String>, courseID: Parameter<String>, lmsPrice: Parameter<Double>, componentID: Parameter<String?>, screen: Parameter<CourseUpgradeScreen>, completion: Parameter<UpgradeCompletionHandler?>, perform: @escaping (String?, UpgradeMode, StoreProductInfo?, String, String, Double, String?, CourseUpgradeScreen, UpgradeCompletionHandler?) -> Void) -> Perform {
+            return Perform(method: .m_upgradeCourse__sku_skumode_modeproductInfo_productInfopacing_pacingcourseID_courseIDlmsPrice_lmsPricecomponentID_componentIDscreen_screencompletion_completion(`sku`, `mode`, `productInfo`, `pacing`, `courseID`, `lmsPrice`, `componentID`, `screen`, `completion`), performs: perform)
+        }
+        public static func fetchProduct(sku: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
+            return Perform(method: .m_fetchProduct__sku_sku(`sku`), performs: perform)
+        }
+    }
+
+    public func given(_ method: Given) {
+        methodReturnValues.append(method)
+    }
+
+    public func perform(_ method: Perform) {
+        methodPerformValues.append(method)
+        methodPerformValues.sort { $0.method.intValue() < $1.method.intValue() }
+    }
+
+    public func verify(_ method: Verify, count: Count = Count.moreOrEqual(to: 1), file: StaticString = #file, line: UInt = #line) {
+        let fullMatches = matchingCalls(method, file: file, line: line)
+        let success = count.matches(fullMatches)
+        let assertionName = method.method.assertionName()
+        let feedback: String = {
+            guard !success else { return "" }
+            return Utils.closestCallsMessage(
+                for: self.invocations.map { invocation in
+                    matcher.set(file: file, line: line)
+                    defer { matcher.clearFileAndLine() }
+                    return MethodType.compareParameters(lhs: invocation, rhs: method.method, matcher: matcher)
+                },
+                name: assertionName
+            )
+        }()
+        MockyAssert(success, "Expected: \(count) invocations of `\(assertionName)`, but was: \(fullMatches).\(feedback)", file: file, line: line)
+    }
+
+    private func addInvocation(_ call: MethodType) {
+        self.queue.sync { invocations.append(call) }
+    }
+    private func methodReturnValue(_ method: MethodType) throws -> StubProduct {
+        matcher.set(file: self.file, line: self.line)
+        defer { matcher.clearFileAndLine() }
+        let candidates = sequencingPolicy.sorted(methodReturnValues, by: { $0.method.intValue() > $1.method.intValue() })
+        let matched = candidates.first(where: { $0.isValid && MethodType.compareParameters(lhs: $0.method, rhs: method, matcher: matcher).isFullMatch })
+        guard let product = matched?.getProduct(policy: self.stubbingPolicy) else { throw MockError.notStubed }
+        return product
+    }
+    private func methodPerformValue(_ method: MethodType) -> Any? {
+        matcher.set(file: self.file, line: self.line)
+        defer { matcher.clearFileAndLine() }
+        let matched = methodPerformValues.reversed().first { MethodType.compareParameters(lhs: $0.method, rhs: method, matcher: matcher).isFullMatch }
+        return matched?.performs
+    }
+    private func matchingCalls(_ method: MethodType, file: StaticString?, line: UInt?) -> [MethodType] {
+        matcher.set(file: file ?? self.file, line: line ?? self.line)
+        defer { matcher.clearFileAndLine() }
+        return invocations.filter { MethodType.compareParameters(lhs: $0, rhs: method, matcher: matcher).isFullMatch }
+    }
+    private func matchingCalls(_ method: Verify, file: StaticString?, line: UInt?) -> Int {
+        return matchingCalls(method.method, file: file, line: line).count
+    }
+    private func givenGetterValue<T>(_ method: MethodType, _ message: String) -> T {
+        do {
+            return try methodReturnValue(method).casted()
+        } catch {
+            onFatalFailure(message)
+            Failure(message)
+        }
+    }
+    private func optionalGivenGetterValue<T>(_ method: MethodType, _ message: String) -> T? {
+        do {
+            return try methodReturnValue(method).casted()
+        } catch {
+            return nil
+        }
+    }
+    private func onFatalFailure(_ message: String) {
+        guard let file = self.file, let line = self.line else { return } // Let if fail if cannot handle gratefully
+        SwiftyMockyTestObserver.handleFatalError(message: message, file: file, line: line)
+    }
+}
+
+// MARK: - CourseUpgradeHelperProtocol
+
+open class CourseUpgradeHelperProtocolMock: CourseUpgradeHelperProtocol, Mock {
+    public init(sequencing sequencingPolicy: SequencingPolicy = .lastWrittenResolvedFirst, stubbing stubbingPolicy: StubbingPolicy = .wrap, file: StaticString = #file, line: UInt = #line) {
+        SwiftyMockyTestObserver.setup()
+        self.sequencingPolicy = sequencingPolicy
+        self.stubbingPolicy = stubbingPolicy
+        self.file = file
+        self.line = line
+    }
+
+    var matcher: Matcher = Matcher.default
+    var stubbingPolicy: StubbingPolicy = .wrap
+    var sequencingPolicy: SequencingPolicy = .lastWrittenResolvedFirst
+
+    private var queue = DispatchQueue(label: "com.swiftymocky.invocations", qos: .userInteractive)
+    private var invocations: [MethodType] = []
+    private var methodReturnValues: [Given] = []
+    private var methodPerformValues: [Perform] = []
+    private var file: StaticString?
+    private var line: UInt?
+
+    public typealias PropertyStub = Given
+    public typealias MethodStub = Given
+    public typealias SubscriptStub = Given
+
+    /// Convenience method - call setupMock() to extend debug information when failure occurs
+    public func setupMock(file: StaticString = #file, line: UInt = #line) {
+        self.file = file
+        self.line = line
+    }
+
+    /// Clear mock internals. You can specify what to reset (invocations aka verify, givens or performs) or leave it empty to clear all mock internals
+    public func resetMock(_ scopes: MockScope...) {
+        let scopes: [MockScope] = scopes.isEmpty ? [.invocation, .given, .perform] : scopes
+        if scopes.contains(.invocation) { invocations = [] }
+        if scopes.contains(.given) { methodReturnValues = [] }
+        if scopes.contains(.perform) { methodPerformValues = [] }
+    }
+
+
+
+
+
+    open func setData(courseID: String, pacing: String, blockID: String?, localizedPrice: NSDecimalNumber?, localizedCurrencyCode: String?, lmsPrice: Double?, screen: CourseUpgradeScreen) {
+        addInvocation(.m_setData__courseID_courseIDpacing_pacingblockID_blockIDlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screen(Parameter<String>.value(`courseID`), Parameter<String>.value(`pacing`), Parameter<String?>.value(`blockID`), Parameter<NSDecimalNumber?>.value(`localizedPrice`), Parameter<String?>.value(`localizedCurrencyCode`), Parameter<Double?>.value(`lmsPrice`), Parameter<CourseUpgradeScreen>.value(`screen`)))
+		let perform = methodPerformValue(.m_setData__courseID_courseIDpacing_pacingblockID_blockIDlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screen(Parameter<String>.value(`courseID`), Parameter<String>.value(`pacing`), Parameter<String?>.value(`blockID`), Parameter<NSDecimalNumber?>.value(`localizedPrice`), Parameter<String?>.value(`localizedCurrencyCode`), Parameter<Double?>.value(`lmsPrice`), Parameter<CourseUpgradeScreen>.value(`screen`))) as? (String, String, String?, NSDecimalNumber?, String?, Double?, CourseUpgradeScreen) -> Void
+		perform?(`courseID`, `pacing`, `blockID`, `localizedPrice`, `localizedCurrencyCode`, `lmsPrice`, `screen`)
+    }
+
+    open func handleCourseUpgrade(upgradeHadler: CourseUpgradeHandler, state: UpgradeCompletionState, delegate: CourseUpgradeHelperDelegate?) {
+        addInvocation(.m_handleCourseUpgrade__upgradeHadler_upgradeHadlerstate_statedelegate_delegate(Parameter<CourseUpgradeHandler>.value(`upgradeHadler`), Parameter<UpgradeCompletionState>.value(`state`), Parameter<CourseUpgradeHelperDelegate?>.value(`delegate`)))
+		let perform = methodPerformValue(.m_handleCourseUpgrade__upgradeHadler_upgradeHadlerstate_statedelegate_delegate(Parameter<CourseUpgradeHandler>.value(`upgradeHadler`), Parameter<UpgradeCompletionState>.value(`state`), Parameter<CourseUpgradeHelperDelegate?>.value(`delegate`))) as? (CourseUpgradeHandler, UpgradeCompletionState, CourseUpgradeHelperDelegate?) -> Void
+		perform?(`upgradeHadler`, `state`, `delegate`)
+    }
+
+    open func showRestorePurchasesAlert() {
+        addInvocation(.m_showRestorePurchasesAlert)
+		let perform = methodPerformValue(.m_showRestorePurchasesAlert) as? () -> Void
+		perform?()
+    }
+
+
+    fileprivate enum MethodType {
+        case m_setData__courseID_courseIDpacing_pacingblockID_blockIDlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screen(Parameter<String>, Parameter<String>, Parameter<String?>, Parameter<NSDecimalNumber?>, Parameter<String?>, Parameter<Double?>, Parameter<CourseUpgradeScreen>)
+        case m_handleCourseUpgrade__upgradeHadler_upgradeHadlerstate_statedelegate_delegate(Parameter<CourseUpgradeHandler>, Parameter<UpgradeCompletionState>, Parameter<CourseUpgradeHelperDelegate?>)
+        case m_showRestorePurchasesAlert
+
+        static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
+            switch (lhs, rhs) {
+            case (.m_setData__courseID_courseIDpacing_pacingblockID_blockIDlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screen(let lhsCourseid, let lhsPacing, let lhsBlockid, let lhsLocalizedprice, let lhsLocalizedcurrencycode, let lhsLmsprice, let lhsScreen), .m_setData__courseID_courseIDpacing_pacingblockID_blockIDlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screen(let rhsCourseid, let rhsPacing, let rhsBlockid, let rhsLocalizedprice, let rhsLocalizedcurrencycode, let rhsLmsprice, let rhsScreen)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseID"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPacing, rhs: rhsPacing, with: matcher), lhsPacing, rhsPacing, "pacing"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsBlockid, rhs: rhsBlockid, with: matcher), lhsBlockid, rhsBlockid, "blockID"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLocalizedprice, rhs: rhsLocalizedprice, with: matcher), lhsLocalizedprice, rhsLocalizedprice, "localizedPrice"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLocalizedcurrencycode, rhs: rhsLocalizedcurrencycode, with: matcher), lhsLocalizedcurrencycode, rhsLocalizedcurrencycode, "localizedCurrencyCode"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLmsprice, rhs: rhsLmsprice, with: matcher), lhsLmsprice, rhsLmsprice, "lmsPrice"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsScreen, rhs: rhsScreen, with: matcher), lhsScreen, rhsScreen, "screen"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_handleCourseUpgrade__upgradeHadler_upgradeHadlerstate_statedelegate_delegate(let lhsUpgradehadler, let lhsState, let lhsDelegate), .m_handleCourseUpgrade__upgradeHadler_upgradeHadlerstate_statedelegate_delegate(let rhsUpgradehadler, let rhsState, let rhsDelegate)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsUpgradehadler, rhs: rhsUpgradehadler, with: matcher), lhsUpgradehadler, rhsUpgradehadler, "upgradeHadler"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsState, rhs: rhsState, with: matcher), lhsState, rhsState, "state"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsDelegate, rhs: rhsDelegate, with: matcher), lhsDelegate, rhsDelegate, "delegate"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_showRestorePurchasesAlert, .m_showRestorePurchasesAlert): return .match
+            default: return .none
+            }
+        }
+
+        func intValue() -> Int {
+            switch self {
+            case let .m_setData__courseID_courseIDpacing_pacingblockID_blockIDlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screen(p0, p1, p2, p3, p4, p5, p6): return p0.intValue + p1.intValue + p2.intValue + p3.intValue + p4.intValue + p5.intValue + p6.intValue
+            case let .m_handleCourseUpgrade__upgradeHadler_upgradeHadlerstate_statedelegate_delegate(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
+            case .m_showRestorePurchasesAlert: return 0
+            }
+        }
+        func assertionName() -> String {
+            switch self {
+            case .m_setData__courseID_courseIDpacing_pacingblockID_blockIDlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screen: return ".setData(courseID:pacing:blockID:localizedPrice:localizedCurrencyCode:lmsPrice:screen:)"
+            case .m_handleCourseUpgrade__upgradeHadler_upgradeHadlerstate_statedelegate_delegate: return ".handleCourseUpgrade(upgradeHadler:state:delegate:)"
+            case .m_showRestorePurchasesAlert: return ".showRestorePurchasesAlert()"
+            }
+        }
+    }
+
+    open class Given: StubbedMethod {
+        fileprivate var method: MethodType
+
+        private init(method: MethodType, products: [StubProduct]) {
+            self.method = method
+            super.init(products)
+        }
+
+
+    }
+
+    public struct Verify {
+        fileprivate var method: MethodType
+
+        public static func setData(courseID: Parameter<String>, pacing: Parameter<String>, blockID: Parameter<String?>, localizedPrice: Parameter<NSDecimalNumber?>, localizedCurrencyCode: Parameter<String?>, lmsPrice: Parameter<Double?>, screen: Parameter<CourseUpgradeScreen>) -> Verify { return Verify(method: .m_setData__courseID_courseIDpacing_pacingblockID_blockIDlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screen(`courseID`, `pacing`, `blockID`, `localizedPrice`, `localizedCurrencyCode`, `lmsPrice`, `screen`))}
+        public static func handleCourseUpgrade(upgradeHadler: Parameter<CourseUpgradeHandler>, state: Parameter<UpgradeCompletionState>, delegate: Parameter<CourseUpgradeHelperDelegate?>) -> Verify { return Verify(method: .m_handleCourseUpgrade__upgradeHadler_upgradeHadlerstate_statedelegate_delegate(`upgradeHadler`, `state`, `delegate`))}
+        public static func showRestorePurchasesAlert() -> Verify { return Verify(method: .m_showRestorePurchasesAlert)}
+    }
+
+    public struct Perform {
+        fileprivate var method: MethodType
+        var performs: Any
+
+        public static func setData(courseID: Parameter<String>, pacing: Parameter<String>, blockID: Parameter<String?>, localizedPrice: Parameter<NSDecimalNumber?>, localizedCurrencyCode: Parameter<String?>, lmsPrice: Parameter<Double?>, screen: Parameter<CourseUpgradeScreen>, perform: @escaping (String, String, String?, NSDecimalNumber?, String?, Double?, CourseUpgradeScreen) -> Void) -> Perform {
+            return Perform(method: .m_setData__courseID_courseIDpacing_pacingblockID_blockIDlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screen(`courseID`, `pacing`, `blockID`, `localizedPrice`, `localizedCurrencyCode`, `lmsPrice`, `screen`), performs: perform)
+        }
+        public static func handleCourseUpgrade(upgradeHadler: Parameter<CourseUpgradeHandler>, state: Parameter<UpgradeCompletionState>, delegate: Parameter<CourseUpgradeHelperDelegate?>, perform: @escaping (CourseUpgradeHandler, UpgradeCompletionState, CourseUpgradeHelperDelegate?) -> Void) -> Perform {
+            return Perform(method: .m_handleCourseUpgrade__upgradeHadler_upgradeHadlerstate_statedelegate_delegate(`upgradeHadler`, `state`, `delegate`), performs: perform)
+        }
+        public static func showRestorePurchasesAlert(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_showRestorePurchasesAlert, performs: perform)
+        }
+    }
+
+    public func given(_ method: Given) {
+        methodReturnValues.append(method)
+    }
+
+    public func perform(_ method: Perform) {
+        methodPerformValues.append(method)
+        methodPerformValues.sort { $0.method.intValue() < $1.method.intValue() }
+    }
+
+    public func verify(_ method: Verify, count: Count = Count.moreOrEqual(to: 1), file: StaticString = #file, line: UInt = #line) {
+        let fullMatches = matchingCalls(method, file: file, line: line)
+        let success = count.matches(fullMatches)
+        let assertionName = method.method.assertionName()
+        let feedback: String = {
+            guard !success else { return "" }
+            return Utils.closestCallsMessage(
+                for: self.invocations.map { invocation in
+                    matcher.set(file: file, line: line)
+                    defer { matcher.clearFileAndLine() }
+                    return MethodType.compareParameters(lhs: invocation, rhs: method.method, matcher: matcher)
+                },
+                name: assertionName
+            )
+        }()
+        MockyAssert(success, "Expected: \(count) invocations of `\(assertionName)`, but was: \(fullMatches).\(feedback)", file: file, line: line)
+    }
+
+    private func addInvocation(_ call: MethodType) {
+        self.queue.sync { invocations.append(call) }
+    }
+    private func methodReturnValue(_ method: MethodType) throws -> StubProduct {
+        matcher.set(file: self.file, line: self.line)
+        defer { matcher.clearFileAndLine() }
+        let candidates = sequencingPolicy.sorted(methodReturnValues, by: { $0.method.intValue() > $1.method.intValue() })
+        let matched = candidates.first(where: { $0.isValid && MethodType.compareParameters(lhs: $0.method, rhs: method, matcher: matcher).isFullMatch })
+        guard let product = matched?.getProduct(policy: self.stubbingPolicy) else { throw MockError.notStubed }
+        return product
+    }
+    private func methodPerformValue(_ method: MethodType) -> Any? {
+        matcher.set(file: self.file, line: self.line)
+        defer { matcher.clearFileAndLine() }
+        let matched = methodPerformValues.reversed().first { MethodType.compareParameters(lhs: $0.method, rhs: method, matcher: matcher).isFullMatch }
+        return matched?.performs
+    }
+    private func matchingCalls(_ method: MethodType, file: StaticString?, line: UInt?) -> [MethodType] {
+        matcher.set(file: file ?? self.file, line: line ?? self.line)
+        defer { matcher.clearFileAndLine() }
+        return invocations.filter { MethodType.compareParameters(lhs: $0, rhs: method, matcher: matcher).isFullMatch }
+    }
+    private func matchingCalls(_ method: Verify, file: StaticString?, line: UInt?) -> Int {
+        return matchingCalls(method.method, file: file, line: line).count
+    }
+    private func givenGetterValue<T>(_ method: MethodType, _ message: String) -> T {
+        do {
+            return try methodReturnValue(method).casted()
+        } catch {
+            onFatalFailure(message)
+            Failure(message)
+        }
+    }
+    private func optionalGivenGetterValue<T>(_ method: MethodType, _ message: String) -> T? {
+        do {
+            return try methodReturnValue(method).casted()
+        } catch {
+            return nil
+        }
+    }
+    private func onFatalFailure(_ message: String) {
+        guard let file = self.file, let line = self.line else { return } // Let if fail if cannot handle gratefully
+        SwiftyMockyTestObserver.handleFatalError(message: message, file: file, line: line)
+    }
+}
+
+// MARK: - CourseUpgradeInteractorProtocol
+@MainActor
+open class CourseUpgradeInteractorProtocolMock: CourseUpgradeInteractorProtocol, Mock {
+    public init(sequencing sequencingPolicy: SequencingPolicy = .lastWrittenResolvedFirst, stubbing stubbingPolicy: StubbingPolicy = .wrap, file: StaticString = #file, line: UInt = #line) {
+        SwiftyMockyTestObserver.setup()
+        self.sequencingPolicy = sequencingPolicy
+        self.stubbingPolicy = stubbingPolicy
+        self.file = file
+        self.line = line
+    }
+
+    var matcher: Matcher = Matcher.default
+    var stubbingPolicy: StubbingPolicy = .wrap
+    var sequencingPolicy: SequencingPolicy = .lastWrittenResolvedFirst
+
+    private var queue = DispatchQueue(label: "com.swiftymocky.invocations", qos: .userInteractive)
+    private var invocations: [MethodType] = []
+    private var methodReturnValues: [Given] = []
+    private var methodPerformValues: [Perform] = []
+    private var file: StaticString?
+    private var line: UInt?
+
+    public typealias PropertyStub = Given
+    public typealias MethodStub = Given
+    public typealias SubscriptStub = Given
+
+    /// Convenience method - call setupMock() to extend debug information when failure occurs
+    public func setupMock(file: StaticString = #file, line: UInt = #line) {
+        self.file = file
+        self.line = line
+    }
+
+    /// Clear mock internals. You can specify what to reset (invocations aka verify, givens or performs) or leave it empty to clear all mock internals
+    public func resetMock(_ scopes: MockScope...) {
+        let scopes: [MockScope] = scopes.isEmpty ? [.invocation, .given, .perform] : scopes
+        if scopes.contains(.invocation) { invocations = [] }
+        if scopes.contains(.given) { methodReturnValues = [] }
+        if scopes.contains(.perform) { methodPerformValues = [] }
+    }
+
+
+
+
+
+    open func addBasket(sku: String) throws -> UpgradeBasket {
+        addInvocation(.m_addBasket__sku_sku(Parameter<String>.value(`sku`)))
+		let perform = methodPerformValue(.m_addBasket__sku_sku(Parameter<String>.value(`sku`))) as? (String) -> Void
+		perform?(`sku`)
+		var __value: UpgradeBasket
+		do {
+		    __value = try methodReturnValue(.m_addBasket__sku_sku(Parameter<String>.value(`sku`))).casted()
+		} catch MockError.notStubed {
+			onFatalFailure("Stub return value not specified for addBasket(sku: String). Use given")
+			Failure("Stub return value not specified for addBasket(sku: String). Use given")
+		} catch {
+		    throw error
+		}
+		return __value
+    }
+
+    open func checkoutBasket(basketID: Int) throws -> CheckoutBasket {
+        addInvocation(.m_checkoutBasket__basketID_basketID(Parameter<Int>.value(`basketID`)))
+		let perform = methodPerformValue(.m_checkoutBasket__basketID_basketID(Parameter<Int>.value(`basketID`))) as? (Int) -> Void
+		perform?(`basketID`)
+		var __value: CheckoutBasket
+		do {
+		    __value = try methodReturnValue(.m_checkoutBasket__basketID_basketID(Parameter<Int>.value(`basketID`))).casted()
+		} catch MockError.notStubed {
+			onFatalFailure("Stub return value not specified for checkoutBasket(basketID: Int). Use given")
+			Failure("Stub return value not specified for checkoutBasket(basketID: Int). Use given")
+		} catch {
+		    throw error
+		}
+		return __value
+    }
+
+    @discardableResult
+	open func fulfillCheckout(basketID: Int, price: NSDecimalNumber, currencyCode: String, receipt: String) throws -> FulfillCheckout {
+        addInvocation(.m_fulfillCheckout__basketID_basketIDprice_pricecurrencyCode_currencyCodereceipt_receipt(Parameter<Int>.value(`basketID`), Parameter<NSDecimalNumber>.value(`price`), Parameter<String>.value(`currencyCode`), Parameter<String>.value(`receipt`)))
+		let perform = methodPerformValue(.m_fulfillCheckout__basketID_basketIDprice_pricecurrencyCode_currencyCodereceipt_receipt(Parameter<Int>.value(`basketID`), Parameter<NSDecimalNumber>.value(`price`), Parameter<String>.value(`currencyCode`), Parameter<String>.value(`receipt`))) as? (Int, NSDecimalNumber, String, String) -> Void
+		perform?(`basketID`, `price`, `currencyCode`, `receipt`)
+		var __value: FulfillCheckout
+		do {
+		    __value = try methodReturnValue(.m_fulfillCheckout__basketID_basketIDprice_pricecurrencyCode_currencyCodereceipt_receipt(Parameter<Int>.value(`basketID`), Parameter<NSDecimalNumber>.value(`price`), Parameter<String>.value(`currencyCode`), Parameter<String>.value(`receipt`))).casted()
+		} catch MockError.notStubed {
+			onFatalFailure("Stub return value not specified for fulfillCheckout(basketID: Int, price: NSDecimalNumber, currencyCode: String, receipt: String). Use given")
+			Failure("Stub return value not specified for fulfillCheckout(basketID: Int, price: NSDecimalNumber, currencyCode: String, receipt: String). Use given")
+		} catch {
+		    throw error
+		}
+		return __value
+    }
+
+
+    fileprivate enum MethodType {
+        case m_addBasket__sku_sku(Parameter<String>)
+        case m_checkoutBasket__basketID_basketID(Parameter<Int>)
+        case m_fulfillCheckout__basketID_basketIDprice_pricecurrencyCode_currencyCodereceipt_receipt(Parameter<Int>, Parameter<NSDecimalNumber>, Parameter<String>, Parameter<String>)
+
+        static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
+            switch (lhs, rhs) {
+            case (.m_addBasket__sku_sku(let lhsSku), .m_addBasket__sku_sku(let rhsSku)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsSku, rhs: rhsSku, with: matcher), lhsSku, rhsSku, "sku"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_checkoutBasket__basketID_basketID(let lhsBasketid), .m_checkoutBasket__basketID_basketID(let rhsBasketid)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsBasketid, rhs: rhsBasketid, with: matcher), lhsBasketid, rhsBasketid, "basketID"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_fulfillCheckout__basketID_basketIDprice_pricecurrencyCode_currencyCodereceipt_receipt(let lhsBasketid, let lhsPrice, let lhsCurrencycode, let lhsReceipt), .m_fulfillCheckout__basketID_basketIDprice_pricecurrencyCode_currencyCodereceipt_receipt(let rhsBasketid, let rhsPrice, let rhsCurrencycode, let rhsReceipt)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsBasketid, rhs: rhsBasketid, with: matcher), lhsBasketid, rhsBasketid, "basketID"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPrice, rhs: rhsPrice, with: matcher), lhsPrice, rhsPrice, "price"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCurrencycode, rhs: rhsCurrencycode, with: matcher), lhsCurrencycode, rhsCurrencycode, "currencyCode"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsReceipt, rhs: rhsReceipt, with: matcher), lhsReceipt, rhsReceipt, "receipt"))
+				return Matcher.ComparisonResult(results)
+            default: return .none
+            }
+        }
+
+        func intValue() -> Int {
+            switch self {
+            case let .m_addBasket__sku_sku(p0): return p0.intValue
+            case let .m_checkoutBasket__basketID_basketID(p0): return p0.intValue
+            case let .m_fulfillCheckout__basketID_basketIDprice_pricecurrencyCode_currencyCodereceipt_receipt(p0, p1, p2, p3): return p0.intValue + p1.intValue + p2.intValue + p3.intValue
+            }
+        }
+        func assertionName() -> String {
+            switch self {
+            case .m_addBasket__sku_sku: return ".addBasket(sku:)"
+            case .m_checkoutBasket__basketID_basketID: return ".checkoutBasket(basketID:)"
+            case .m_fulfillCheckout__basketID_basketIDprice_pricecurrencyCode_currencyCodereceipt_receipt: return ".fulfillCheckout(basketID:price:currencyCode:receipt:)"
+            }
+        }
+    }
+
+    open class Given: StubbedMethod {
+        fileprivate var method: MethodType
+
+        private init(method: MethodType, products: [StubProduct]) {
+            self.method = method
+            super.init(products)
+        }
+
+
+        public static func addBasket(sku: Parameter<String>, willReturn: UpgradeBasket...) -> MethodStub {
+            return Given(method: .m_addBasket__sku_sku(`sku`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func checkoutBasket(basketID: Parameter<Int>, willReturn: CheckoutBasket...) -> MethodStub {
+            return Given(method: .m_checkoutBasket__basketID_basketID(`basketID`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        @discardableResult
+		public static func fulfillCheckout(basketID: Parameter<Int>, price: Parameter<NSDecimalNumber>, currencyCode: Parameter<String>, receipt: Parameter<String>, willReturn: FulfillCheckout...) -> MethodStub {
+            return Given(method: .m_fulfillCheckout__basketID_basketIDprice_pricecurrencyCode_currencyCodereceipt_receipt(`basketID`, `price`, `currencyCode`, `receipt`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func addBasket(sku: Parameter<String>, willThrow: Error...) -> MethodStub {
+            return Given(method: .m_addBasket__sku_sku(`sku`), products: willThrow.map({ StubProduct.throw($0) }))
+        }
+        public static func addBasket(sku: Parameter<String>, willProduce: (StubberThrows<UpgradeBasket>) -> Void) -> MethodStub {
+            let willThrow: [Error] = []
+			let given: Given = { return Given(method: .m_addBasket__sku_sku(`sku`), products: willThrow.map({ StubProduct.throw($0) })) }()
+			let stubber = given.stubThrows(for: (UpgradeBasket).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func checkoutBasket(basketID: Parameter<Int>, willThrow: Error...) -> MethodStub {
+            return Given(method: .m_checkoutBasket__basketID_basketID(`basketID`), products: willThrow.map({ StubProduct.throw($0) }))
+        }
+        public static func checkoutBasket(basketID: Parameter<Int>, willProduce: (StubberThrows<CheckoutBasket>) -> Void) -> MethodStub {
+            let willThrow: [Error] = []
+			let given: Given = { return Given(method: .m_checkoutBasket__basketID_basketID(`basketID`), products: willThrow.map({ StubProduct.throw($0) })) }()
+			let stubber = given.stubThrows(for: (CheckoutBasket).self)
+			willProduce(stubber)
+			return given
+        }
+        @discardableResult
+		public static func fulfillCheckout(basketID: Parameter<Int>, price: Parameter<NSDecimalNumber>, currencyCode: Parameter<String>, receipt: Parameter<String>, willThrow: Error...) -> MethodStub {
+            return Given(method: .m_fulfillCheckout__basketID_basketIDprice_pricecurrencyCode_currencyCodereceipt_receipt(`basketID`, `price`, `currencyCode`, `receipt`), products: willThrow.map({ StubProduct.throw($0) }))
+        }
+        @discardableResult
+		public static func fulfillCheckout(basketID: Parameter<Int>, price: Parameter<NSDecimalNumber>, currencyCode: Parameter<String>, receipt: Parameter<String>, willProduce: (StubberThrows<FulfillCheckout>) -> Void) -> MethodStub {
+            let willThrow: [Error] = []
+			let given: Given = { return Given(method: .m_fulfillCheckout__basketID_basketIDprice_pricecurrencyCode_currencyCodereceipt_receipt(`basketID`, `price`, `currencyCode`, `receipt`), products: willThrow.map({ StubProduct.throw($0) })) }()
+			let stubber = given.stubThrows(for: (FulfillCheckout).self)
+			willProduce(stubber)
+			return given
+        }
+    }
+
+    public struct Verify {
+        fileprivate var method: MethodType
+
+        public static func addBasket(sku: Parameter<String>) -> Verify { return Verify(method: .m_addBasket__sku_sku(`sku`))}
+        public static func checkoutBasket(basketID: Parameter<Int>) -> Verify { return Verify(method: .m_checkoutBasket__basketID_basketID(`basketID`))}
+        @discardableResult
+		public static func fulfillCheckout(basketID: Parameter<Int>, price: Parameter<NSDecimalNumber>, currencyCode: Parameter<String>, receipt: Parameter<String>) -> Verify { return Verify(method: .m_fulfillCheckout__basketID_basketIDprice_pricecurrencyCode_currencyCodereceipt_receipt(`basketID`, `price`, `currencyCode`, `receipt`))}
+    }
+
+    public struct Perform {
+        fileprivate var method: MethodType
+        var performs: Any
+
+        public static func addBasket(sku: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
+            return Perform(method: .m_addBasket__sku_sku(`sku`), performs: perform)
+        }
+        public static func checkoutBasket(basketID: Parameter<Int>, perform: @escaping (Int) -> Void) -> Perform {
+            return Perform(method: .m_checkoutBasket__basketID_basketID(`basketID`), performs: perform)
+        }
+        @discardableResult
+		public static func fulfillCheckout(basketID: Parameter<Int>, price: Parameter<NSDecimalNumber>, currencyCode: Parameter<String>, receipt: Parameter<String>, perform: @escaping (Int, NSDecimalNumber, String, String) -> Void) -> Perform {
+            return Perform(method: .m_fulfillCheckout__basketID_basketIDprice_pricecurrencyCode_currencyCodereceipt_receipt(`basketID`, `price`, `currencyCode`, `receipt`), performs: perform)
+        }
+    }
+
+    public func given(_ method: Given) {
+        methodReturnValues.append(method)
+    }
+
+    public func perform(_ method: Perform) {
+        methodPerformValues.append(method)
+        methodPerformValues.sort { $0.method.intValue() < $1.method.intValue() }
+    }
+
+    public func verify(_ method: Verify, count: Count = Count.moreOrEqual(to: 1), file: StaticString = #file, line: UInt = #line) {
+        let fullMatches = matchingCalls(method, file: file, line: line)
+        let success = count.matches(fullMatches)
+        let assertionName = method.method.assertionName()
+        let feedback: String = {
+            guard !success else { return "" }
+            return Utils.closestCallsMessage(
+                for: self.invocations.map { invocation in
+                    matcher.set(file: file, line: line)
+                    defer { matcher.clearFileAndLine() }
+                    return MethodType.compareParameters(lhs: invocation, rhs: method.method, matcher: matcher)
+                },
+                name: assertionName
+            )
+        }()
+        MockyAssert(success, "Expected: \(count) invocations of `\(assertionName)`, but was: \(fullMatches).\(feedback)", file: file, line: line)
+    }
+
+    private func addInvocation(_ call: MethodType) {
+        self.queue.sync { invocations.append(call) }
+    }
+    private func methodReturnValue(_ method: MethodType) throws -> StubProduct {
+        matcher.set(file: self.file, line: self.line)
+        defer { matcher.clearFileAndLine() }
+        let candidates = sequencingPolicy.sorted(methodReturnValues, by: { $0.method.intValue() > $1.method.intValue() })
+        let matched = candidates.first(where: { $0.isValid && MethodType.compareParameters(lhs: $0.method, rhs: method, matcher: matcher).isFullMatch })
+        guard let product = matched?.getProduct(policy: self.stubbingPolicy) else { throw MockError.notStubed }
+        return product
+    }
+    private func methodPerformValue(_ method: MethodType) -> Any? {
+        matcher.set(file: self.file, line: self.line)
+        defer { matcher.clearFileAndLine() }
+        let matched = methodPerformValues.reversed().first { MethodType.compareParameters(lhs: $0.method, rhs: method, matcher: matcher).isFullMatch }
+        return matched?.performs
+    }
+    private func matchingCalls(_ method: MethodType, file: StaticString?, line: UInt?) -> [MethodType] {
+        matcher.set(file: file ?? self.file, line: line ?? self.line)
+        defer { matcher.clearFileAndLine() }
+        return invocations.filter { MethodType.compareParameters(lhs: $0, rhs: method, matcher: matcher).isFullMatch }
+    }
+    private func matchingCalls(_ method: Verify, file: StaticString?, line: UInt?) -> Int {
+        return matchingCalls(method.method, file: file, line: line).count
+    }
+    private func givenGetterValue<T>(_ method: MethodType, _ message: String) -> T {
+        do {
+            return try methodReturnValue(method).casted()
+        } catch {
+            onFatalFailure(message)
+            Failure(message)
+        }
+    }
+    private func optionalGivenGetterValue<T>(_ method: MethodType, _ message: String) -> T? {
+        do {
+            return try methodReturnValue(method).casted()
+        } catch {
+            return nil
+        }
+    }
+    private func onFatalFailure(_ message: String) {
+        guard let file = self.file, let line = self.line else { return } // Let if fail if cannot handle gratefully
+        SwiftyMockyTestObserver.handleFatalError(message: message, file: file, line: line)
+    }
+}
 
 // MARK: - DownloadManagerProtocol
 
@@ -3355,193 +5769,193 @@ open class DownloadManagerProtocolMock: DownloadManagerProtocol, Mock {
 
     open func getCurrentDownloadTask() -> DownloadDataTask? {
         addInvocation(.m_getCurrentDownloadTask)
-        let perform = methodPerformValue(.m_getCurrentDownloadTask) as? () -> Void
-        perform?()
-        var __value: DownloadDataTask? = nil
-        do {
-            __value = try methodReturnValue(.m_getCurrentDownloadTask).casted()
-        } catch {
-            // do nothing
-        }
-        return __value
+		let perform = methodPerformValue(.m_getCurrentDownloadTask) as? () -> Void
+		perform?()
+		var __value: DownloadDataTask? = nil
+		do {
+		    __value = try methodReturnValue(.m_getCurrentDownloadTask).casted()
+		} catch {
+			// do nothing
+		}
+		return __value
     }
 
     open func eventPublisher() -> AnyPublisher<DownloadManagerEvent, Never> {
         addInvocation(.m_eventPublisher)
-        let perform = methodPerformValue(.m_eventPublisher) as? () -> Void
-        perform?()
-        var __value: AnyPublisher<DownloadManagerEvent, Never>
-        do {
-            __value = try methodReturnValue(.m_eventPublisher).casted()
-        } catch {
-            onFatalFailure("Stub return value not specified for eventPublisher(). Use given")
-            Failure("Stub return value not specified for eventPublisher(). Use given")
-        }
-        return __value
+		let perform = methodPerformValue(.m_eventPublisher) as? () -> Void
+		perform?()
+		var __value: AnyPublisher<DownloadManagerEvent, Never>
+		do {
+		    __value = try methodReturnValue(.m_eventPublisher).casted()
+		} catch {
+			onFatalFailure("Stub return value not specified for eventPublisher(). Use given")
+			Failure("Stub return value not specified for eventPublisher(). Use given")
+		}
+		return __value
     }
 
     open func addToDownloadQueue(blocks: [CourseBlock]) throws {
         addInvocation(.m_addToDownloadQueue__blocks_blocks(Parameter<[CourseBlock]>.value(`blocks`)))
-        let perform = methodPerformValue(.m_addToDownloadQueue__blocks_blocks(Parameter<[CourseBlock]>.value(`blocks`))) as? ([CourseBlock]) -> Void
-        perform?(`blocks`)
-        do {
-            _ = try methodReturnValue(.m_addToDownloadQueue__blocks_blocks(Parameter<[CourseBlock]>.value(`blocks`))).casted() as Void
-        } catch MockError.notStubed {
-            // do nothing
-        } catch {
-            throw error
-        }
+		let perform = methodPerformValue(.m_addToDownloadQueue__blocks_blocks(Parameter<[CourseBlock]>.value(`blocks`))) as? ([CourseBlock]) -> Void
+		perform?(`blocks`)
+		do {
+		    _ = try methodReturnValue(.m_addToDownloadQueue__blocks_blocks(Parameter<[CourseBlock]>.value(`blocks`))).casted() as Void
+		} catch MockError.notStubed {
+			// do nothing
+		} catch {
+		    throw error
+		}
     }
 
     open func getDownloadTasks() -> [DownloadDataTask] {
         addInvocation(.m_getDownloadTasks)
-        let perform = methodPerformValue(.m_getDownloadTasks) as? () -> Void
-        perform?()
-        var __value: [DownloadDataTask]
-        do {
-            __value = try methodReturnValue(.m_getDownloadTasks).casted()
-        } catch {
-            onFatalFailure("Stub return value not specified for getDownloadTasks(). Use given")
-            Failure("Stub return value not specified for getDownloadTasks(). Use given")
-        }
-        return __value
+		let perform = methodPerformValue(.m_getDownloadTasks) as? () -> Void
+		perform?()
+		var __value: [DownloadDataTask]
+		do {
+		    __value = try methodReturnValue(.m_getDownloadTasks).casted()
+		} catch {
+			onFatalFailure("Stub return value not specified for getDownloadTasks(). Use given")
+			Failure("Stub return value not specified for getDownloadTasks(). Use given")
+		}
+		return __value
     }
 
     open func getDownloadTasksForCourse(_ courseId: String) -> [DownloadDataTask] {
         addInvocation(.m_getDownloadTasksForCourse__courseId(Parameter<String>.value(`courseId`)))
-        let perform = methodPerformValue(.m_getDownloadTasksForCourse__courseId(Parameter<String>.value(`courseId`))) as? (String) -> Void
-        perform?(`courseId`)
-        var __value: [DownloadDataTask]
-        do {
-            __value = try methodReturnValue(.m_getDownloadTasksForCourse__courseId(Parameter<String>.value(`courseId`))).casted()
-        } catch {
-            onFatalFailure("Stub return value not specified for getDownloadTasksForCourse(_ courseId: String). Use given")
-            Failure("Stub return value not specified for getDownloadTasksForCourse(_ courseId: String). Use given")
-        }
-        return __value
+		let perform = methodPerformValue(.m_getDownloadTasksForCourse__courseId(Parameter<String>.value(`courseId`))) as? (String) -> Void
+		perform?(`courseId`)
+		var __value: [DownloadDataTask]
+		do {
+		    __value = try methodReturnValue(.m_getDownloadTasksForCourse__courseId(Parameter<String>.value(`courseId`))).casted()
+		} catch {
+			onFatalFailure("Stub return value not specified for getDownloadTasksForCourse(_ courseId: String). Use given")
+			Failure("Stub return value not specified for getDownloadTasksForCourse(_ courseId: String). Use given")
+		}
+		return __value
     }
 
     open func cancelDownloading(courseId: String, blocks: [CourseBlock]) throws {
         addInvocation(.m_cancelDownloading__courseId_courseIdblocks_blocks(Parameter<String>.value(`courseId`), Parameter<[CourseBlock]>.value(`blocks`)))
-        let perform = methodPerformValue(.m_cancelDownloading__courseId_courseIdblocks_blocks(Parameter<String>.value(`courseId`), Parameter<[CourseBlock]>.value(`blocks`))) as? (String, [CourseBlock]) -> Void
-        perform?(`courseId`, `blocks`)
-        do {
-            _ = try methodReturnValue(.m_cancelDownloading__courseId_courseIdblocks_blocks(Parameter<String>.value(`courseId`), Parameter<[CourseBlock]>.value(`blocks`))).casted() as Void
-        } catch MockError.notStubed {
-            // do nothing
-        } catch {
-            throw error
-        }
+		let perform = methodPerformValue(.m_cancelDownloading__courseId_courseIdblocks_blocks(Parameter<String>.value(`courseId`), Parameter<[CourseBlock]>.value(`blocks`))) as? (String, [CourseBlock]) -> Void
+		perform?(`courseId`, `blocks`)
+		do {
+		    _ = try methodReturnValue(.m_cancelDownloading__courseId_courseIdblocks_blocks(Parameter<String>.value(`courseId`), Parameter<[CourseBlock]>.value(`blocks`))).casted() as Void
+		} catch MockError.notStubed {
+			// do nothing
+		} catch {
+		    throw error
+		}
     }
 
     open func cancelDownloading(task: DownloadDataTask) throws {
         addInvocation(.m_cancelDownloading__task_task(Parameter<DownloadDataTask>.value(`task`)))
-        let perform = methodPerformValue(.m_cancelDownloading__task_task(Parameter<DownloadDataTask>.value(`task`))) as? (DownloadDataTask) -> Void
-        perform?(`task`)
-        do {
-            _ = try methodReturnValue(.m_cancelDownloading__task_task(Parameter<DownloadDataTask>.value(`task`))).casted() as Void
-        } catch MockError.notStubed {
-            // do nothing
-        } catch {
-            throw error
-        }
+		let perform = methodPerformValue(.m_cancelDownloading__task_task(Parameter<DownloadDataTask>.value(`task`))) as? (DownloadDataTask) -> Void
+		perform?(`task`)
+		do {
+		    _ = try methodReturnValue(.m_cancelDownloading__task_task(Parameter<DownloadDataTask>.value(`task`))).casted() as Void
+		} catch MockError.notStubed {
+			// do nothing
+		} catch {
+		    throw error
+		}
     }
 
     open func cancelDownloading(courseId: String) throws {
         addInvocation(.m_cancelDownloading__courseId_courseId(Parameter<String>.value(`courseId`)))
-        let perform = methodPerformValue(.m_cancelDownloading__courseId_courseId(Parameter<String>.value(`courseId`))) as? (String) -> Void
-        perform?(`courseId`)
-        do {
-            _ = try methodReturnValue(.m_cancelDownloading__courseId_courseId(Parameter<String>.value(`courseId`))).casted() as Void
-        } catch MockError.notStubed {
-            // do nothing
-        } catch {
-            throw error
-        }
+		let perform = methodPerformValue(.m_cancelDownloading__courseId_courseId(Parameter<String>.value(`courseId`))) as? (String) -> Void
+		perform?(`courseId`)
+		do {
+		    _ = try methodReturnValue(.m_cancelDownloading__courseId_courseId(Parameter<String>.value(`courseId`))).casted() as Void
+		} catch MockError.notStubed {
+			// do nothing
+		} catch {
+		    throw error
+		}
     }
 
     open func cancelAllDownloading() throws {
         addInvocation(.m_cancelAllDownloading)
-        let perform = methodPerformValue(.m_cancelAllDownloading) as? () -> Void
-        perform?()
-        do {
-            _ = try methodReturnValue(.m_cancelAllDownloading).casted() as Void
-        } catch MockError.notStubed {
-            // do nothing
-        } catch {
-            throw error
-        }
+		let perform = methodPerformValue(.m_cancelAllDownloading) as? () -> Void
+		perform?()
+		do {
+		    _ = try methodReturnValue(.m_cancelAllDownloading).casted() as Void
+		} catch MockError.notStubed {
+			// do nothing
+		} catch {
+		    throw error
+		}
     }
 
     open func deleteAll() {
         addInvocation(.m_deleteAll)
-        let perform = methodPerformValue(.m_deleteAll) as? () -> Void
-        perform?()
+		let perform = methodPerformValue(.m_deleteAll) as? () -> Void
+		perform?()
     }
 
     open func fileUrl(for blockId: String) -> URL? {
         addInvocation(.m_fileUrl__for_blockId(Parameter<String>.value(`blockId`)))
-        let perform = methodPerformValue(.m_fileUrl__for_blockId(Parameter<String>.value(`blockId`))) as? (String) -> Void
-        perform?(`blockId`)
-        var __value: URL? = nil
-        do {
-            __value = try methodReturnValue(.m_fileUrl__for_blockId(Parameter<String>.value(`blockId`))).casted()
-        } catch {
-            // do nothing
-        }
-        return __value
+		let perform = methodPerformValue(.m_fileUrl__for_blockId(Parameter<String>.value(`blockId`))) as? (String) -> Void
+		perform?(`blockId`)
+		var __value: URL? = nil
+		do {
+		    __value = try methodReturnValue(.m_fileUrl__for_blockId(Parameter<String>.value(`blockId`))).casted()
+		} catch {
+			// do nothing
+		}
+		return __value
     }
 
     open func resumeDownloading() throws {
         addInvocation(.m_resumeDownloading)
-        let perform = methodPerformValue(.m_resumeDownloading) as? () -> Void
-        perform?()
-        do {
-            _ = try methodReturnValue(.m_resumeDownloading).casted() as Void
-        } catch MockError.notStubed {
-            // do nothing
-        } catch {
-            throw error
-        }
+		let perform = methodPerformValue(.m_resumeDownloading) as? () -> Void
+		perform?()
+		do {
+		    _ = try methodReturnValue(.m_resumeDownloading).casted() as Void
+		} catch MockError.notStubed {
+			// do nothing
+		} catch {
+		    throw error
+		}
     }
 
     open func isLargeVideosSize(blocks: [CourseBlock]) -> Bool {
         addInvocation(.m_isLargeVideosSize__blocks_blocks(Parameter<[CourseBlock]>.value(`blocks`)))
-        let perform = methodPerformValue(.m_isLargeVideosSize__blocks_blocks(Parameter<[CourseBlock]>.value(`blocks`))) as? ([CourseBlock]) -> Void
-        perform?(`blocks`)
-        var __value: Bool
-        do {
-            __value = try methodReturnValue(.m_isLargeVideosSize__blocks_blocks(Parameter<[CourseBlock]>.value(`blocks`))).casted()
-        } catch {
-            onFatalFailure("Stub return value not specified for isLargeVideosSize(blocks: [CourseBlock]). Use given")
-            Failure("Stub return value not specified for isLargeVideosSize(blocks: [CourseBlock]). Use given")
-        }
-        return __value
+		let perform = methodPerformValue(.m_isLargeVideosSize__blocks_blocks(Parameter<[CourseBlock]>.value(`blocks`))) as? ([CourseBlock]) -> Void
+		perform?(`blocks`)
+		var __value: Bool
+		do {
+		    __value = try methodReturnValue(.m_isLargeVideosSize__blocks_blocks(Parameter<[CourseBlock]>.value(`blocks`))).casted()
+		} catch {
+			onFatalFailure("Stub return value not specified for isLargeVideosSize(blocks: [CourseBlock]). Use given")
+			Failure("Stub return value not specified for isLargeVideosSize(blocks: [CourseBlock]). Use given")
+		}
+		return __value
     }
 
     open func removeAppSupportDirectoryUnusedContent() {
         addInvocation(.m_removeAppSupportDirectoryUnusedContent)
-        let perform = methodPerformValue(.m_removeAppSupportDirectoryUnusedContent) as? () -> Void
-        perform?()
+		let perform = methodPerformValue(.m_removeAppSupportDirectoryUnusedContent) as? () -> Void
+		perform?()
     }
 
     open func delete(blocks: [CourseBlock], courseId: String) {
         addInvocation(.m_delete__blocks_blockscourseId_courseId(Parameter<[CourseBlock]>.value(`blocks`), Parameter<String>.value(`courseId`)))
-        let perform = methodPerformValue(.m_delete__blocks_blockscourseId_courseId(Parameter<[CourseBlock]>.value(`blocks`), Parameter<String>.value(`courseId`))) as? ([CourseBlock], String) -> Void
-        perform?(`blocks`, `courseId`)
+		let perform = methodPerformValue(.m_delete__blocks_blockscourseId_courseId(Parameter<[CourseBlock]>.value(`blocks`), Parameter<String>.value(`courseId`))) as? ([CourseBlock], String) -> Void
+		perform?(`blocks`, `courseId`)
     }
 
     open func downloadTask(for blockId: String) -> DownloadDataTask? {
         addInvocation(.m_downloadTask__for_blockId(Parameter<String>.value(`blockId`)))
-        let perform = methodPerformValue(.m_downloadTask__for_blockId(Parameter<String>.value(`blockId`))) as? (String) -> Void
-        perform?(`blockId`)
-        var __value: DownloadDataTask? = nil
-        do {
-            __value = try methodReturnValue(.m_downloadTask__for_blockId(Parameter<String>.value(`blockId`))).casted()
-        } catch {
-            // do nothing
-        }
-        return __value
+		let perform = methodPerformValue(.m_downloadTask__for_blockId(Parameter<String>.value(`blockId`))) as? (String) -> Void
+		perform?(`blockId`)
+		var __value: DownloadDataTask? = nil
+		do {
+		    __value = try methodReturnValue(.m_downloadTask__for_blockId(Parameter<String>.value(`blockId`))).casted()
+		} catch {
+			// do nothing
+		}
+		return __value
     }
 
 
@@ -3570,61 +5984,61 @@ open class DownloadManagerProtocolMock: DownloadManagerProtocol, Mock {
             case (.m_eventPublisher, .m_eventPublisher): return .match
 
             case (.m_addToDownloadQueue__blocks_blocks(let lhsBlocks), .m_addToDownloadQueue__blocks_blocks(let rhsBlocks)):
-                var results: [Matcher.ParameterComparisonResult] = []
-                results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsBlocks, rhs: rhsBlocks, with: matcher), lhsBlocks, rhsBlocks, "blocks"))
-                return Matcher.ComparisonResult(results)
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsBlocks, rhs: rhsBlocks, with: matcher), lhsBlocks, rhsBlocks, "blocks"))
+				return Matcher.ComparisonResult(results)
 
             case (.m_getDownloadTasks, .m_getDownloadTasks): return .match
 
             case (.m_getDownloadTasksForCourse__courseId(let lhsCourseid), .m_getDownloadTasksForCourse__courseId(let rhsCourseid)):
-                var results: [Matcher.ParameterComparisonResult] = []
-                results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "_ courseId"))
-                return Matcher.ComparisonResult(results)
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "_ courseId"))
+				return Matcher.ComparisonResult(results)
 
             case (.m_cancelDownloading__courseId_courseIdblocks_blocks(let lhsCourseid, let lhsBlocks), .m_cancelDownloading__courseId_courseIdblocks_blocks(let rhsCourseid, let rhsBlocks)):
-                var results: [Matcher.ParameterComparisonResult] = []
-                results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseId"))
-                results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsBlocks, rhs: rhsBlocks, with: matcher), lhsBlocks, rhsBlocks, "blocks"))
-                return Matcher.ComparisonResult(results)
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseId"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsBlocks, rhs: rhsBlocks, with: matcher), lhsBlocks, rhsBlocks, "blocks"))
+				return Matcher.ComparisonResult(results)
 
             case (.m_cancelDownloading__task_task(let lhsTask), .m_cancelDownloading__task_task(let rhsTask)):
-                var results: [Matcher.ParameterComparisonResult] = []
-                results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsTask, rhs: rhsTask, with: matcher), lhsTask, rhsTask, "task"))
-                return Matcher.ComparisonResult(results)
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsTask, rhs: rhsTask, with: matcher), lhsTask, rhsTask, "task"))
+				return Matcher.ComparisonResult(results)
 
             case (.m_cancelDownloading__courseId_courseId(let lhsCourseid), .m_cancelDownloading__courseId_courseId(let rhsCourseid)):
-                var results: [Matcher.ParameterComparisonResult] = []
-                results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseId"))
-                return Matcher.ComparisonResult(results)
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseId"))
+				return Matcher.ComparisonResult(results)
 
             case (.m_cancelAllDownloading, .m_cancelAllDownloading): return .match
 
             case (.m_deleteAll, .m_deleteAll): return .match
 
             case (.m_fileUrl__for_blockId(let lhsBlockid), .m_fileUrl__for_blockId(let rhsBlockid)):
-                var results: [Matcher.ParameterComparisonResult] = []
-                results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsBlockid, rhs: rhsBlockid, with: matcher), lhsBlockid, rhsBlockid, "for blockId"))
-                return Matcher.ComparisonResult(results)
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsBlockid, rhs: rhsBlockid, with: matcher), lhsBlockid, rhsBlockid, "for blockId"))
+				return Matcher.ComparisonResult(results)
 
             case (.m_resumeDownloading, .m_resumeDownloading): return .match
 
             case (.m_isLargeVideosSize__blocks_blocks(let lhsBlocks), .m_isLargeVideosSize__blocks_blocks(let rhsBlocks)):
-                var results: [Matcher.ParameterComparisonResult] = []
-                results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsBlocks, rhs: rhsBlocks, with: matcher), lhsBlocks, rhsBlocks, "blocks"))
-                return Matcher.ComparisonResult(results)
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsBlocks, rhs: rhsBlocks, with: matcher), lhsBlocks, rhsBlocks, "blocks"))
+				return Matcher.ComparisonResult(results)
 
             case (.m_removeAppSupportDirectoryUnusedContent, .m_removeAppSupportDirectoryUnusedContent): return .match
 
             case (.m_delete__blocks_blockscourseId_courseId(let lhsBlocks, let lhsCourseid), .m_delete__blocks_blockscourseId_courseId(let rhsBlocks, let rhsCourseid)):
-                var results: [Matcher.ParameterComparisonResult] = []
-                results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsBlocks, rhs: rhsBlocks, with: matcher), lhsBlocks, rhsBlocks, "blocks"))
-                results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseId"))
-                return Matcher.ComparisonResult(results)
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsBlocks, rhs: rhsBlocks, with: matcher), lhsBlocks, rhsBlocks, "blocks"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseId"))
+				return Matcher.ComparisonResult(results)
 
             case (.m_downloadTask__for_blockId(let lhsBlockid), .m_downloadTask__for_blockId(let rhsBlockid)):
-                var results: [Matcher.ParameterComparisonResult] = []
-                results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsBlockid, rhs: rhsBlockid, with: matcher), lhsBlockid, rhsBlockid, "for blockId"))
-                return Matcher.ComparisonResult(results)
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsBlockid, rhs: rhsBlockid, with: matcher), lhsBlockid, rhsBlockid, "for blockId"))
+				return Matcher.ComparisonResult(results)
             default: return .none
             }
         }
@@ -3703,112 +6117,112 @@ open class DownloadManagerProtocolMock: DownloadManagerProtocol, Mock {
         }
         public static func getCurrentDownloadTask(willProduce: (Stubber<DownloadDataTask?>) -> Void) -> MethodStub {
             let willReturn: [DownloadDataTask?] = []
-            let given: Given = { return Given(method: .m_getCurrentDownloadTask, products: willReturn.map({ StubProduct.return($0 as Any) })) }()
-            let stubber = given.stub(for: (DownloadDataTask?).self)
-            willProduce(stubber)
-            return given
+			let given: Given = { return Given(method: .m_getCurrentDownloadTask, products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (DownloadDataTask?).self)
+			willProduce(stubber)
+			return given
         }
         public static func eventPublisher(willProduce: (Stubber<AnyPublisher<DownloadManagerEvent, Never>>) -> Void) -> MethodStub {
             let willReturn: [AnyPublisher<DownloadManagerEvent, Never>] = []
-            let given: Given = { return Given(method: .m_eventPublisher, products: willReturn.map({ StubProduct.return($0 as Any) })) }()
-            let stubber = given.stub(for: (AnyPublisher<DownloadManagerEvent, Never>).self)
-            willProduce(stubber)
-            return given
+			let given: Given = { return Given(method: .m_eventPublisher, products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (AnyPublisher<DownloadManagerEvent, Never>).self)
+			willProduce(stubber)
+			return given
         }
         public static func getDownloadTasks(willProduce: (Stubber<[DownloadDataTask]>) -> Void) -> MethodStub {
             let willReturn: [[DownloadDataTask]] = []
-            let given: Given = { return Given(method: .m_getDownloadTasks, products: willReturn.map({ StubProduct.return($0 as Any) })) }()
-            let stubber = given.stub(for: ([DownloadDataTask]).self)
-            willProduce(stubber)
-            return given
+			let given: Given = { return Given(method: .m_getDownloadTasks, products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: ([DownloadDataTask]).self)
+			willProduce(stubber)
+			return given
         }
         public static func getDownloadTasksForCourse(_ courseId: Parameter<String>, willProduce: (Stubber<[DownloadDataTask]>) -> Void) -> MethodStub {
             let willReturn: [[DownloadDataTask]] = []
-            let given: Given = { return Given(method: .m_getDownloadTasksForCourse__courseId(`courseId`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
-            let stubber = given.stub(for: ([DownloadDataTask]).self)
-            willProduce(stubber)
-            return given
+			let given: Given = { return Given(method: .m_getDownloadTasksForCourse__courseId(`courseId`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: ([DownloadDataTask]).self)
+			willProduce(stubber)
+			return given
         }
         public static func fileUrl(for blockId: Parameter<String>, willProduce: (Stubber<URL?>) -> Void) -> MethodStub {
             let willReturn: [URL?] = []
-            let given: Given = { return Given(method: .m_fileUrl__for_blockId(`blockId`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
-            let stubber = given.stub(for: (URL?).self)
-            willProduce(stubber)
-            return given
+			let given: Given = { return Given(method: .m_fileUrl__for_blockId(`blockId`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (URL?).self)
+			willProduce(stubber)
+			return given
         }
         public static func isLargeVideosSize(blocks: Parameter<[CourseBlock]>, willProduce: (Stubber<Bool>) -> Void) -> MethodStub {
             let willReturn: [Bool] = []
-            let given: Given = { return Given(method: .m_isLargeVideosSize__blocks_blocks(`blocks`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
-            let stubber = given.stub(for: (Bool).self)
-            willProduce(stubber)
-            return given
+			let given: Given = { return Given(method: .m_isLargeVideosSize__blocks_blocks(`blocks`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (Bool).self)
+			willProduce(stubber)
+			return given
         }
         public static func downloadTask(for blockId: Parameter<String>, willProduce: (Stubber<DownloadDataTask?>) -> Void) -> MethodStub {
             let willReturn: [DownloadDataTask?] = []
-            let given: Given = { return Given(method: .m_downloadTask__for_blockId(`blockId`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
-            let stubber = given.stub(for: (DownloadDataTask?).self)
-            willProduce(stubber)
-            return given
+			let given: Given = { return Given(method: .m_downloadTask__for_blockId(`blockId`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (DownloadDataTask?).self)
+			willProduce(stubber)
+			return given
         }
         public static func addToDownloadQueue(blocks: Parameter<[CourseBlock]>, willThrow: Error...) -> MethodStub {
             return Given(method: .m_addToDownloadQueue__blocks_blocks(`blocks`), products: willThrow.map({ StubProduct.throw($0) }))
         }
         public static func addToDownloadQueue(blocks: Parameter<[CourseBlock]>, willProduce: (StubberThrows<Void>) -> Void) -> MethodStub {
             let willThrow: [Error] = []
-            let given: Given = { return Given(method: .m_addToDownloadQueue__blocks_blocks(`blocks`), products: willThrow.map({ StubProduct.throw($0) })) }()
-            let stubber = given.stubThrows(for: (Void).self)
-            willProduce(stubber)
-            return given
+			let given: Given = { return Given(method: .m_addToDownloadQueue__blocks_blocks(`blocks`), products: willThrow.map({ StubProduct.throw($0) })) }()
+			let stubber = given.stubThrows(for: (Void).self)
+			willProduce(stubber)
+			return given
         }
         public static func cancelDownloading(courseId: Parameter<String>, blocks: Parameter<[CourseBlock]>, willThrow: Error...) -> MethodStub {
             return Given(method: .m_cancelDownloading__courseId_courseIdblocks_blocks(`courseId`, `blocks`), products: willThrow.map({ StubProduct.throw($0) }))
         }
         public static func cancelDownloading(courseId: Parameter<String>, blocks: Parameter<[CourseBlock]>, willProduce: (StubberThrows<Void>) -> Void) -> MethodStub {
             let willThrow: [Error] = []
-            let given: Given = { return Given(method: .m_cancelDownloading__courseId_courseIdblocks_blocks(`courseId`, `blocks`), products: willThrow.map({ StubProduct.throw($0) })) }()
-            let stubber = given.stubThrows(for: (Void).self)
-            willProduce(stubber)
-            return given
+			let given: Given = { return Given(method: .m_cancelDownloading__courseId_courseIdblocks_blocks(`courseId`, `blocks`), products: willThrow.map({ StubProduct.throw($0) })) }()
+			let stubber = given.stubThrows(for: (Void).self)
+			willProduce(stubber)
+			return given
         }
         public static func cancelDownloading(task: Parameter<DownloadDataTask>, willThrow: Error...) -> MethodStub {
             return Given(method: .m_cancelDownloading__task_task(`task`), products: willThrow.map({ StubProduct.throw($0) }))
         }
         public static func cancelDownloading(task: Parameter<DownloadDataTask>, willProduce: (StubberThrows<Void>) -> Void) -> MethodStub {
             let willThrow: [Error] = []
-            let given: Given = { return Given(method: .m_cancelDownloading__task_task(`task`), products: willThrow.map({ StubProduct.throw($0) })) }()
-            let stubber = given.stubThrows(for: (Void).self)
-            willProduce(stubber)
-            return given
+			let given: Given = { return Given(method: .m_cancelDownloading__task_task(`task`), products: willThrow.map({ StubProduct.throw($0) })) }()
+			let stubber = given.stubThrows(for: (Void).self)
+			willProduce(stubber)
+			return given
         }
         public static func cancelDownloading(courseId: Parameter<String>, willThrow: Error...) -> MethodStub {
             return Given(method: .m_cancelDownloading__courseId_courseId(`courseId`), products: willThrow.map({ StubProduct.throw($0) }))
         }
         public static func cancelDownloading(courseId: Parameter<String>, willProduce: (StubberThrows<Void>) -> Void) -> MethodStub {
             let willThrow: [Error] = []
-            let given: Given = { return Given(method: .m_cancelDownloading__courseId_courseId(`courseId`), products: willThrow.map({ StubProduct.throw($0) })) }()
-            let stubber = given.stubThrows(for: (Void).self)
-            willProduce(stubber)
-            return given
+			let given: Given = { return Given(method: .m_cancelDownloading__courseId_courseId(`courseId`), products: willThrow.map({ StubProduct.throw($0) })) }()
+			let stubber = given.stubThrows(for: (Void).self)
+			willProduce(stubber)
+			return given
         }
         public static func cancelAllDownloading(willThrow: Error...) -> MethodStub {
             return Given(method: .m_cancelAllDownloading, products: willThrow.map({ StubProduct.throw($0) }))
         }
         public static func cancelAllDownloading(willProduce: (StubberThrows<Void>) -> Void) -> MethodStub {
             let willThrow: [Error] = []
-            let given: Given = { return Given(method: .m_cancelAllDownloading, products: willThrow.map({ StubProduct.throw($0) })) }()
-            let stubber = given.stubThrows(for: (Void).self)
-            willProduce(stubber)
-            return given
+			let given: Given = { return Given(method: .m_cancelAllDownloading, products: willThrow.map({ StubProduct.throw($0) })) }()
+			let stubber = given.stubThrows(for: (Void).self)
+			willProduce(stubber)
+			return given
         }
         public static func resumeDownloading(willThrow: Error...) -> MethodStub {
             return Given(method: .m_resumeDownloading, products: willThrow.map({ StubProduct.throw($0) }))
         }
         public static func resumeDownloading(willProduce: (StubberThrows<Void>) -> Void) -> MethodStub {
             let willThrow: [Error] = []
-            let given: Given = { return Given(method: .m_resumeDownloading, products: willThrow.map({ StubProduct.throw($0) })) }()
-            let stubber = given.stubThrows(for: (Void).self)
-            willProduce(stubber)
-            return given
+			let given: Given = { return Given(method: .m_resumeDownloading, products: willThrow.map({ StubProduct.throw($0) })) }()
+			let stubber = given.stubThrows(for: (Void).self)
+			willProduce(stubber)
+			return given
         }
     }
 
@@ -4159,9 +6573,9 @@ open class OfflineSyncInteractorProtocolMock: OfflineSyncInteractorProtocol, Moc
     }
 }
 
-// MARK: - WebviewCookiesUpdateProtocol
-
-open class WebviewCookiesUpdateProtocolMock: WebviewCookiesUpdateProtocol, Mock {
+// MARK: - StoreKitHandlerProtocol
+@MainActor
+open class StoreKitHandlerProtocolMock: StoreKitHandlerProtocol, Mock {
     public init(sequencing sequencingPolicy: SequencingPolicy = .lastWrittenResolvedFirst, stubbing stubbingPolicy: StubbingPolicy = .wrap, file: StaticString = #file, line: UInt = #line) {
         SwiftyMockyTestObserver.setup()
         self.sequencingPolicy = sequencingPolicy
@@ -4199,90 +6613,144 @@ open class WebviewCookiesUpdateProtocolMock: WebviewCookiesUpdateProtocol, Mock 
         if scopes.contains(.perform) { methodPerformValues = [] }
     }
 
-    public var authInteractor: AuthInteractorProtocol {
-		get {	invocations.append(.p_authInteractor_get); return __p_authInteractor ?? givenGetterValue(.p_authInteractor_get, "WebviewCookiesUpdateProtocolMock - stub value for authInteractor was not defined") }
-	}
-	private var __p_authInteractor: (AuthInteractorProtocol)?
-
-    public var cookiesReady: Bool {
-		get {	invocations.append(.p_cookiesReady_get); return __p_cookiesReady ?? givenGetterValue(.p_cookiesReady_get, "WebviewCookiesUpdateProtocolMock - stub value for cookiesReady was not defined") }
-		set {	invocations.append(.p_cookiesReady_set(.value(newValue))); __p_cookiesReady = newValue }
-	}
-	private var __p_cookiesReady: (Bool)?
-
-    public var updatingCookies: Bool {
-		get {	invocations.append(.p_updatingCookies_get); return __p_updatingCookies ?? givenGetterValue(.p_updatingCookies_get, "WebviewCookiesUpdateProtocolMock - stub value for updatingCookies was not defined") }
-		set {	invocations.append(.p_updatingCookies_set(.value(newValue))); __p_updatingCookies = newValue }
-	}
-	private var __p_updatingCookies: (Bool)?
-
-    public var errorMessage: String? {
-		get {	invocations.append(.p_errorMessage_get); return __p_errorMessage ?? optionalGivenGetterValue(.p_errorMessage_get, "WebviewCookiesUpdateProtocolMock - stub value for errorMessage was not defined") }
-		set {	invocations.append(.p_errorMessage_set(.value(newValue))); __p_errorMessage = newValue }
-	}
-	private var __p_errorMessage: (String)?
 
 
 
 
+    open func fetchProduct(sku: String) throws -> StoreProductInfo {
+        addInvocation(.m_fetchProduct__sku_sku(Parameter<String>.value(`sku`)))
+		let perform = methodPerformValue(.m_fetchProduct__sku_sku(Parameter<String>.value(`sku`))) as? (String) -> Void
+		perform?(`sku`)
+		var __value: StoreProductInfo
+		do {
+		    __value = try methodReturnValue(.m_fetchProduct__sku_sku(Parameter<String>.value(`sku`))).casted()
+		} catch MockError.notStubed {
+			onFatalFailure("Stub return value not specified for fetchProduct(sku: String). Use given")
+			Failure("Stub return value not specified for fetchProduct(sku: String). Use given")
+		} catch {
+		    throw error
+		}
+		return __value
+    }
 
-    open func updateCookies(force: Bool, retryCount: Int) {
-        addInvocation(.m_updateCookies__force_forceretryCount_retryCount(Parameter<Bool>.value(`force`), Parameter<Int>.value(`retryCount`)))
-		let perform = methodPerformValue(.m_updateCookies__force_forceretryCount_retryCount(Parameter<Bool>.value(`force`), Parameter<Int>.value(`retryCount`))) as? (Bool, Int) -> Void
-		perform?(`force`, `retryCount`)
+    open func fetchProduct(sku: String, completion: @escaping (StoreProductInfo?, Error?) -> Void) {
+        addInvocation(.m_fetchProduct__sku_skucompletion_completion(Parameter<String>.value(`sku`), Parameter<(StoreProductInfo?, Error?) -> Void>.value(`completion`)))
+		let perform = methodPerformValue(.m_fetchProduct__sku_skucompletion_completion(Parameter<String>.value(`sku`), Parameter<(StoreProductInfo?, Error?) -> Void>.value(`completion`))) as? (String, @escaping (StoreProductInfo?, Error?) -> Void) -> Void
+		perform?(`sku`, `completion`)
+    }
+
+    open func completeTransactions() {
+        addInvocation(.m_completeTransactions)
+		let perform = methodPerformValue(.m_completeTransactions) as? () -> Void
+		perform?()
+    }
+
+    open func purchaseProduct(_ identifier: String) -> StoreKitUpgradeResponse {
+        addInvocation(.m_purchaseProduct__identifier(Parameter<String>.value(`identifier`)))
+		let perform = methodPerformValue(.m_purchaseProduct__identifier(Parameter<String>.value(`identifier`))) as? (String) -> Void
+		perform?(`identifier`)
+		var __value: StoreKitUpgradeResponse
+		do {
+		    __value = try methodReturnValue(.m_purchaseProduct__identifier(Parameter<String>.value(`identifier`))).casted()
+		} catch {
+			onFatalFailure("Stub return value not specified for purchaseProduct(_ identifier: String). Use given")
+			Failure("Stub return value not specified for purchaseProduct(_ identifier: String). Use given")
+		}
+		return __value
+    }
+
+    open func purchaseProduct(_ identifier: String, completion: PurchaseCompletionHandler?) {
+        addInvocation(.m_purchaseProduct__identifiercompletion_completion(Parameter<String>.value(`identifier`), Parameter<PurchaseCompletionHandler?>.value(`completion`)))
+		let perform = methodPerformValue(.m_purchaseProduct__identifiercompletion_completion(Parameter<String>.value(`identifier`), Parameter<PurchaseCompletionHandler?>.value(`completion`))) as? (String, PurchaseCompletionHandler?) -> Void
+		perform?(`identifier`, `completion`)
+    }
+
+    open func purchaseReceipt(completion: PurchaseCompletionHandler?) {
+        addInvocation(.m_purchaseReceipt__completion_completion(Parameter<PurchaseCompletionHandler?>.value(`completion`)))
+		let perform = methodPerformValue(.m_purchaseReceipt__completion_completion(Parameter<PurchaseCompletionHandler?>.value(`completion`))) as? (PurchaseCompletionHandler?) -> Void
+		perform?(`completion`)
+    }
+
+    open func purchaseReceipt() -> StoreKitUpgradeResponse {
+        addInvocation(.m_purchaseReceipt)
+		let perform = methodPerformValue(.m_purchaseReceipt) as? () -> Void
+		perform?()
+		var __value: StoreKitUpgradeResponse
+		do {
+		    __value = try methodReturnValue(.m_purchaseReceipt).casted()
+		} catch {
+			onFatalFailure("Stub return value not specified for purchaseReceipt(). Use given")
+			Failure("Stub return value not specified for purchaseReceipt(). Use given")
+		}
+		return __value
     }
 
 
     fileprivate enum MethodType {
-        case m_updateCookies__force_forceretryCount_retryCount(Parameter<Bool>, Parameter<Int>)
-        case p_authInteractor_get
-        case p_cookiesReady_get
-		case p_cookiesReady_set(Parameter<Bool>)
-        case p_updatingCookies_get
-		case p_updatingCookies_set(Parameter<Bool>)
-        case p_errorMessage_get
-		case p_errorMessage_set(Parameter<String?>)
+        case m_fetchProduct__sku_sku(Parameter<String>)
+        case m_fetchProduct__sku_skucompletion_completion(Parameter<String>, Parameter<(StoreProductInfo?, Error?) -> Void>)
+        case m_completeTransactions
+        case m_purchaseProduct__identifier(Parameter<String>)
+        case m_purchaseProduct__identifiercompletion_completion(Parameter<String>, Parameter<PurchaseCompletionHandler?>)
+        case m_purchaseReceipt__completion_completion(Parameter<PurchaseCompletionHandler?>)
+        case m_purchaseReceipt
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
-            case (.m_updateCookies__force_forceretryCount_retryCount(let lhsForce, let lhsRetrycount), .m_updateCookies__force_forceretryCount_retryCount(let rhsForce, let rhsRetrycount)):
+            case (.m_fetchProduct__sku_sku(let lhsSku), .m_fetchProduct__sku_sku(let rhsSku)):
 				var results: [Matcher.ParameterComparisonResult] = []
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsForce, rhs: rhsForce, with: matcher), lhsForce, rhsForce, "force"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsRetrycount, rhs: rhsRetrycount, with: matcher), lhsRetrycount, rhsRetrycount, "retryCount"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsSku, rhs: rhsSku, with: matcher), lhsSku, rhsSku, "sku"))
 				return Matcher.ComparisonResult(results)
-            case (.p_authInteractor_get,.p_authInteractor_get): return Matcher.ComparisonResult.match
-            case (.p_cookiesReady_get,.p_cookiesReady_get): return Matcher.ComparisonResult.match
-			case (.p_cookiesReady_set(let left),.p_cookiesReady_set(let right)): return Matcher.ComparisonResult([Matcher.ParameterComparisonResult(Parameter<Bool>.compare(lhs: left, rhs: right, with: matcher), left, right, "newValue")])
-            case (.p_updatingCookies_get,.p_updatingCookies_get): return Matcher.ComparisonResult.match
-			case (.p_updatingCookies_set(let left),.p_updatingCookies_set(let right)): return Matcher.ComparisonResult([Matcher.ParameterComparisonResult(Parameter<Bool>.compare(lhs: left, rhs: right, with: matcher), left, right, "newValue")])
-            case (.p_errorMessage_get,.p_errorMessage_get): return Matcher.ComparisonResult.match
-			case (.p_errorMessage_set(let left),.p_errorMessage_set(let right)): return Matcher.ComparisonResult([Matcher.ParameterComparisonResult(Parameter<String?>.compare(lhs: left, rhs: right, with: matcher), left, right, "newValue")])
+
+            case (.m_fetchProduct__sku_skucompletion_completion(let lhsSku, let lhsCompletion), .m_fetchProduct__sku_skucompletion_completion(let rhsSku, let rhsCompletion)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsSku, rhs: rhsSku, with: matcher), lhsSku, rhsSku, "sku"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCompletion, rhs: rhsCompletion, with: matcher), lhsCompletion, rhsCompletion, "completion"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_completeTransactions, .m_completeTransactions): return .match
+
+            case (.m_purchaseProduct__identifier(let lhsIdentifier), .m_purchaseProduct__identifier(let rhsIdentifier)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsIdentifier, rhs: rhsIdentifier, with: matcher), lhsIdentifier, rhsIdentifier, "_ identifier"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_purchaseProduct__identifiercompletion_completion(let lhsIdentifier, let lhsCompletion), .m_purchaseProduct__identifiercompletion_completion(let rhsIdentifier, let rhsCompletion)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsIdentifier, rhs: rhsIdentifier, with: matcher), lhsIdentifier, rhsIdentifier, "_ identifier"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCompletion, rhs: rhsCompletion, with: matcher), lhsCompletion, rhsCompletion, "completion"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_purchaseReceipt__completion_completion(let lhsCompletion), .m_purchaseReceipt__completion_completion(let rhsCompletion)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCompletion, rhs: rhsCompletion, with: matcher), lhsCompletion, rhsCompletion, "completion"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_purchaseReceipt, .m_purchaseReceipt): return .match
             default: return .none
             }
         }
 
         func intValue() -> Int {
             switch self {
-            case let .m_updateCookies__force_forceretryCount_retryCount(p0, p1): return p0.intValue + p1.intValue
-            case .p_authInteractor_get: return 0
-            case .p_cookiesReady_get: return 0
-			case .p_cookiesReady_set(let newValue): return newValue.intValue
-            case .p_updatingCookies_get: return 0
-			case .p_updatingCookies_set(let newValue): return newValue.intValue
-            case .p_errorMessage_get: return 0
-			case .p_errorMessage_set(let newValue): return newValue.intValue
+            case let .m_fetchProduct__sku_sku(p0): return p0.intValue
+            case let .m_fetchProduct__sku_skucompletion_completion(p0, p1): return p0.intValue + p1.intValue
+            case .m_completeTransactions: return 0
+            case let .m_purchaseProduct__identifier(p0): return p0.intValue
+            case let .m_purchaseProduct__identifiercompletion_completion(p0, p1): return p0.intValue + p1.intValue
+            case let .m_purchaseReceipt__completion_completion(p0): return p0.intValue
+            case .m_purchaseReceipt: return 0
             }
         }
         func assertionName() -> String {
             switch self {
-            case .m_updateCookies__force_forceretryCount_retryCount: return ".updateCookies(force:retryCount:)"
-            case .p_authInteractor_get: return "[get] .authInteractor"
-            case .p_cookiesReady_get: return "[get] .cookiesReady"
-			case .p_cookiesReady_set: return "[set] .cookiesReady"
-            case .p_updatingCookies_get: return "[get] .updatingCookies"
-			case .p_updatingCookies_set: return "[set] .updatingCookies"
-            case .p_errorMessage_get: return "[get] .errorMessage"
-			case .p_errorMessage_set: return "[set] .errorMessage"
+            case .m_fetchProduct__sku_sku: return ".fetchProduct(sku:)"
+            case .m_fetchProduct__sku_skucompletion_completion: return ".fetchProduct(sku:completion:)"
+            case .m_completeTransactions: return ".completeTransactions()"
+            case .m_purchaseProduct__identifier: return ".purchaseProduct(_:)"
+            case .m_purchaseProduct__identifiercompletion_completion: return ".purchaseProduct(_:completion:)"
+            case .m_purchaseReceipt__completion_completion: return ".purchaseReceipt(completion:)"
+            case .m_purchaseReceipt: return ".purchaseReceipt()"
             }
         }
     }
@@ -4295,40 +6763,78 @@ open class WebviewCookiesUpdateProtocolMock: WebviewCookiesUpdateProtocol, Mock 
             super.init(products)
         }
 
-        public static func authInteractor(getter defaultValue: AuthInteractorProtocol...) -> PropertyStub {
-            return Given(method: .p_authInteractor_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
-        }
-        public static func cookiesReady(getter defaultValue: Bool...) -> PropertyStub {
-            return Given(method: .p_cookiesReady_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
-        }
-        public static func updatingCookies(getter defaultValue: Bool...) -> PropertyStub {
-            return Given(method: .p_updatingCookies_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
-        }
-        public static func errorMessage(getter defaultValue: String?...) -> PropertyStub {
-            return Given(method: .p_errorMessage_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
-        }
 
+        public static func fetchProduct(sku: Parameter<String>, willReturn: StoreProductInfo...) -> MethodStub {
+            return Given(method: .m_fetchProduct__sku_sku(`sku`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func purchaseProduct(_ identifier: Parameter<String>, willReturn: StoreKitUpgradeResponse...) -> MethodStub {
+            return Given(method: .m_purchaseProduct__identifier(`identifier`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func purchaseReceipt(willReturn: StoreKitUpgradeResponse...) -> MethodStub {
+            return Given(method: .m_purchaseReceipt, products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func purchaseProduct(_ identifier: Parameter<String>, willProduce: (Stubber<StoreKitUpgradeResponse>) -> Void) -> MethodStub {
+            let willReturn: [StoreKitUpgradeResponse] = []
+			let given: Given = { return Given(method: .m_purchaseProduct__identifier(`identifier`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (StoreKitUpgradeResponse).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func purchaseReceipt(willProduce: (Stubber<StoreKitUpgradeResponse>) -> Void) -> MethodStub {
+            let willReturn: [StoreKitUpgradeResponse] = []
+			let given: Given = { return Given(method: .m_purchaseReceipt, products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (StoreKitUpgradeResponse).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func fetchProduct(sku: Parameter<String>, willThrow: Error...) -> MethodStub {
+            return Given(method: .m_fetchProduct__sku_sku(`sku`), products: willThrow.map({ StubProduct.throw($0) }))
+        }
+        public static func fetchProduct(sku: Parameter<String>, willProduce: (StubberThrows<StoreProductInfo>) -> Void) -> MethodStub {
+            let willThrow: [Error] = []
+			let given: Given = { return Given(method: .m_fetchProduct__sku_sku(`sku`), products: willThrow.map({ StubProduct.throw($0) })) }()
+			let stubber = given.stubThrows(for: (StoreProductInfo).self)
+			willProduce(stubber)
+			return given
+        }
     }
 
     public struct Verify {
         fileprivate var method: MethodType
 
-        public static func updateCookies(force: Parameter<Bool>, retryCount: Parameter<Int>) -> Verify { return Verify(method: .m_updateCookies__force_forceretryCount_retryCount(`force`, `retryCount`))}
-        public static var authInteractor: Verify { return Verify(method: .p_authInteractor_get) }
-        public static var cookiesReady: Verify { return Verify(method: .p_cookiesReady_get) }
-		public static func cookiesReady(set newValue: Parameter<Bool>) -> Verify { return Verify(method: .p_cookiesReady_set(newValue)) }
-        public static var updatingCookies: Verify { return Verify(method: .p_updatingCookies_get) }
-		public static func updatingCookies(set newValue: Parameter<Bool>) -> Verify { return Verify(method: .p_updatingCookies_set(newValue)) }
-        public static var errorMessage: Verify { return Verify(method: .p_errorMessage_get) }
-		public static func errorMessage(set newValue: Parameter<String?>) -> Verify { return Verify(method: .p_errorMessage_set(newValue)) }
+        public static func fetchProduct(sku: Parameter<String>) -> Verify { return Verify(method: .m_fetchProduct__sku_sku(`sku`))}
+        public static func fetchProduct(sku: Parameter<String>, completion: Parameter<(StoreProductInfo?, Error?) -> Void>) -> Verify { return Verify(method: .m_fetchProduct__sku_skucompletion_completion(`sku`, `completion`))}
+        public static func completeTransactions() -> Verify { return Verify(method: .m_completeTransactions)}
+        public static func purchaseProduct(_ identifier: Parameter<String>) -> Verify { return Verify(method: .m_purchaseProduct__identifier(`identifier`))}
+        public static func purchaseProduct(_ identifier: Parameter<String>, completion: Parameter<PurchaseCompletionHandler?>) -> Verify { return Verify(method: .m_purchaseProduct__identifiercompletion_completion(`identifier`, `completion`))}
+        public static func purchaseReceipt(completion: Parameter<PurchaseCompletionHandler?>) -> Verify { return Verify(method: .m_purchaseReceipt__completion_completion(`completion`))}
+        public static func purchaseReceipt() -> Verify { return Verify(method: .m_purchaseReceipt)}
     }
 
     public struct Perform {
         fileprivate var method: MethodType
         var performs: Any
 
-        public static func updateCookies(force: Parameter<Bool>, retryCount: Parameter<Int>, perform: @escaping (Bool, Int) -> Void) -> Perform {
-            return Perform(method: .m_updateCookies__force_forceretryCount_retryCount(`force`, `retryCount`), performs: perform)
+        public static func fetchProduct(sku: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
+            return Perform(method: .m_fetchProduct__sku_sku(`sku`), performs: perform)
+        }
+        public static func fetchProduct(sku: Parameter<String>, completion: Parameter<(StoreProductInfo?, Error?) -> Void>, perform: @escaping (String, @escaping (StoreProductInfo?, Error?) -> Void) -> Void) -> Perform {
+            return Perform(method: .m_fetchProduct__sku_skucompletion_completion(`sku`, `completion`), performs: perform)
+        }
+        public static func completeTransactions(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_completeTransactions, performs: perform)
+        }
+        public static func purchaseProduct(_ identifier: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
+            return Perform(method: .m_purchaseProduct__identifier(`identifier`), performs: perform)
+        }
+        public static func purchaseProduct(_ identifier: Parameter<String>, completion: Parameter<PurchaseCompletionHandler?>, perform: @escaping (String, PurchaseCompletionHandler?) -> Void) -> Perform {
+            return Perform(method: .m_purchaseProduct__identifiercompletion_completion(`identifier`, `completion`), performs: perform)
+        }
+        public static func purchaseReceipt(completion: Parameter<PurchaseCompletionHandler?>, perform: @escaping (PurchaseCompletionHandler?) -> Void) -> Perform {
+            return Perform(method: .m_purchaseReceipt__completion_completion(`completion`), performs: perform)
+        }
+        public static func purchaseReceipt(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_purchaseReceipt, performs: perform)
         }
     }
 
