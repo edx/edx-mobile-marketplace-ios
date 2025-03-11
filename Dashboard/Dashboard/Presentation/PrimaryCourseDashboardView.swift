@@ -144,8 +144,8 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
                                                             )
                                                         }
                                                     },
-                                                    iapService: viewModel.iapService,
-                                                    configuration: nil
+                                                    iapManager: viewModel.iapManager,
+                                                    configuration: viewModel.iapManager?.configuration(for: primary)
                                                 )
                                             }
                                             if !enrollments.courses.isEmpty {
@@ -404,7 +404,7 @@ struct PrimaryCourseDashboardView_Previews: PreviewProvider {
             serverConfig: ServerConfigProtocolMock(),
             notificationsInteractor: NotificationsInteractor.mock,
             storage: CoreStorageMock(),
-            iapService: nil
+            iapManager: nil
         )
         
         PrimaryCourseDashboardView(

@@ -8,7 +8,6 @@ import OEXFoundation
 
 public struct EDXIAPConfiguration: IAPConfiguration {
     public var productName: String
-    public var message: String
     public var sku: String
     public var courseID: String
     public var isSelfPaced: Bool
@@ -16,14 +15,12 @@ public struct EDXIAPConfiguration: IAPConfiguration {
     
     public init(
         productName: String,
-        message: String,
         sku: String,
         courseID: String,
         isSelfPaced: Bool,
         lmsPrice: Double
     ) {
         self.productName = productName
-        self.message = message
         self.sku = sku
         self.courseID = courseID
         self.isSelfPaced = isSelfPaced

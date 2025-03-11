@@ -6,8 +6,11 @@
 //
 
 import OEXFoundation
+import SwiftUI
+
+@MainActor
 public protocol IAPManagerProtocol {
-    var iapService: (any IAPServiceProtocol)? { get }
+    var iapService: AnyIAPService? { get }
     func configuration(for primaryCourse: PrimaryCourse) -> IAPConfiguration
-    func dashboardPrimaryCardButton(configuration: IAPConfiguration)
+    func dashboardPrimaryCardButton(configuration: IAPConfiguration) -> AnyView?
 }

@@ -14,7 +14,7 @@ public class PluginManager {
     private(set) var analyticsServices: [AnalyticsService] = []
     private(set) var pushNotificationsProviders: [PushNotificationsProvider] = []
     private(set) var pushNotificationsListeners: [PushNotificationsListener] = []
-    public private(set) var iapService: (any IAPServiceProtocol)?
+    public private(set) var iapService: AnyIAPService?
     
     @MainActor
     public init() { }
@@ -31,8 +31,9 @@ public class PluginManager {
         pushNotificationsListeners.append(pushNotificationsListener)
     }
     
+    @MainActor
     func setIAPService(_ iapService: any IAPServiceProtocol) {
-        self.iapService = iapService
+        self.iapService = AnyIAPService(iapService)
     }
 }
 
@@ -40,10 +41,17 @@ public class PluginManager {
 import Core
 import EDXIAPService
 extension PluginManager: IAPManagerProtocol {
-    public func configuration(for primaryCourse: PrimaryCourse) -> IAPConfiguration {
-        EDXIAPConfiguration(productName: "", message: "", sku: "", courseID: "", isSelfPaced: false, lmsPrice: .zero)
+    public func configuration(for primary: PrimaryCourse) -> IAPConfiguration {
+        EDXIAPConfiguration(
+            productName: primary.name,
+            sku: primary.sku ?? "",
+            courseID: primary.courseID,
+            isSelfPaced: primary.isSelfPaced,
+            lmsPrice: primary.lmsPrice ?? .zero
+        )
     }
-    public func dashboardPrimaryCardButton(configuration: IAPConfiguration) {
-        
+
+    public func dashboardPrimaryCardButton(configuration: IAPConfiguration) -> AnyView? {
+        iapService?.dashboardPrimaryCardButton(configuration: configuration)
     }
 }

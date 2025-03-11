@@ -33,7 +33,7 @@ public struct PrimaryCardView: View {
     private var resumeAction: () -> Void
     private var upgradeAction: () -> Void
     private var isUpgradeable: Bool
-    private let iapService: (any IAPServiceProtocol)?
+    private let iapManager: IAPManagerProtocol?
     @Environment(\.isHorizontal) var isHorizontal
     private var canShowFutureAssignments: Bool {
         return !isUpgradeable || pastAssignments.count <= 0
@@ -62,7 +62,7 @@ public struct PrimaryCardView: View {
         resumeAction: @escaping () -> Void,
         isUpgradeable: Bool,
         upgradeAction: @escaping () -> Void,
-        iapService: (any IAPServiceProtocol)?,
+        iapManager: IAPManagerProtocol?,
         configuration: IAPConfiguration?
     ) {
         self.courseName = courseName
@@ -85,7 +85,7 @@ public struct PrimaryCardView: View {
         self.startType = startType
         self.isUpgradeable = isUpgradeable
         self.upgradeAction = upgradeAction
-        self.iapService = iapService
+        self.iapManager = iapManager
         self.configuration = configuration
     }
     
@@ -209,7 +209,7 @@ public struct PrimaryCardView: View {
             
             // Upgrade button
             if isUpgradeable, let configuration {
-//                iapService?.dashboardPrimaryCardButton(configuration: configuration)
+                iapManager?.dashboardPrimaryCardButton(configuration: configuration)
             }
             
             // ResumeButton
@@ -372,7 +372,7 @@ struct PrimaryCardView_Previews: PreviewProvider {
                 resumeAction: {},
                 isUpgradeable: false,
                 upgradeAction: {},
-                iapService: nil,
+                iapManager: nil,
                 configuration: nil
             )
             .loadFonts()

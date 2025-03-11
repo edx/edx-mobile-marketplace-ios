@@ -226,7 +226,7 @@ class ScreenAssembly: Assembly {
                 serverConfig: r.resolve(ServerConfigProtocol.self)!,
                 notificationsInteractor: r.resolve(NotificationsInteractorProtocol.self)!,
                 storage: r.resolve(CoreStorage.self)!,
-                iapService: r.resolve(PluginManager.self)!.iapService
+                iapManager: r.resolve(PluginManager.self)!
             )
         }
         

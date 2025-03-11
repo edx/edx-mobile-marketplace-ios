@@ -4,14 +4,13 @@ import OEXFoundation
 import SwiftUI
 
 public class EDXIAPService: IAPServiceProtocol {
-    public func courseButton(configuration: EDXIAPConfiguration) -> AnyView {
+    public typealias Configuration = EDXIAPConfiguration
+    public func courseButton(configuration: Configuration) -> AnyView {
         AnyView(
             EmptyView()
         )
     }
-    
-    public typealias Configuration = EDXIAPConfiguration
-    
+
     let router: RouterProtocol = Router()
     public let style: EDXIAPStyle
     
@@ -20,30 +19,12 @@ public class EDXIAPService: IAPServiceProtocol {
         
     }
     
-    public func dashboardPrimaryCardButton(configuration: EDXIAPConfiguration) -> AnyView {
+    public func dashboardPrimaryCardButton(configuration: Configuration) -> AnyView {
         AnyView(
             PrimaryCardButton(style: style.dashboardButton, action: { [weak self] in
                 guard let self else { return }
                 self.router.navigateToUpgrade(style: self.style.upgradeInfoView, configuration: configuration)
             })
-        )
-    }
-    
-    public func configuration(
-        productName: String,
-        message: String,
-        sku: String,
-        courseID: String,
-        isSelfPaced: Bool,
-        lmsPrice: Double
-    ) -> IAPConfiguration {
-        EDXIAPConfiguration(
-            productName: productName,
-            message: message,
-            sku: sku,
-            courseID: courseID,
-            isSelfPaced: isSelfPaced,
-            lmsPrice: lmsPrice
         )
     }
 }
