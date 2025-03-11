@@ -144,7 +144,8 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
                                                             )
                                                         }
                                                     },
-                                                    iapService: viewModel.iapService
+                                                    iapService: viewModel.iapService,
+                                                    configuration: nil
                                                 )
                                             }
                                             if !enrollments.courses.isEmpty {

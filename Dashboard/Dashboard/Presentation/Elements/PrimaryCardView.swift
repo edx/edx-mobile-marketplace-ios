@@ -33,12 +33,13 @@ public struct PrimaryCardView: View {
     private var resumeAction: () -> Void
     private var upgradeAction: () -> Void
     private var isUpgradeable: Bool
-    private let iapService: V2IAPServiceProtocol?
+    private let iapService: (any IAPServiceProtocol)?
     @Environment(\.isHorizontal) var isHorizontal
     private var canShowFutureAssignments: Bool {
         return !isUpgradeable || pastAssignments.count <= 0
     }
     private let useRelativeDates: Bool
+    private let configuration: IAPConfiguration?
     
     public init(
         courseName: String,
@@ -61,7 +62,8 @@ public struct PrimaryCardView: View {
         resumeAction: @escaping () -> Void,
         isUpgradeable: Bool,
         upgradeAction: @escaping () -> Void,
-        iapService: V2IAPServiceProtocol?
+        iapService: (any IAPServiceProtocol)?,
+        configuration: IAPConfiguration?
     ) {
         self.courseName = courseName
         self.org = org
@@ -84,6 +86,7 @@ public struct PrimaryCardView: View {
         self.isUpgradeable = isUpgradeable
         self.upgradeAction = upgradeAction
         self.iapService = iapService
+        self.configuration = configuration
     }
     
     public var body: some View {
@@ -205,15 +208,8 @@ public struct PrimaryCardView: View {
             }
             
             // Upgrade button
-            if isUpgradeable {
-                courseButton(
-                    title: CoreLocalization.CourseUpgrade.Button.upgrade,
-                    description: nil,
-                    icon: CoreAssets.trophy.swiftUIImage,
-                    selected: false,
-                    bgColor: Theme.Colors.primaryCardUpgradeBG,
-                    action: upgradeAction
-                )
+            if isUpgradeable, let configuration {
+//                iapService?.dashboardPrimaryCardButton(configuration: configuration)
             }
             
             // ResumeButton
@@ -333,7 +329,6 @@ public struct PrimaryCardView: View {
                     .font(Theme.Fonts.labelMedium)
                     .foregroundStyle(Theme.Colors.textSecondaryLight)
             }
-            iapService?.someTestView()
         }
         .padding(.top, 10)
         .padding(.horizontal, 12)
@@ -377,7 +372,8 @@ struct PrimaryCardView_Previews: PreviewProvider {
                 resumeAction: {},
                 isUpgradeable: false,
                 upgradeAction: {},
-                iapService: nil
+                iapService: nil,
+                configuration: nil
             )
             .loadFonts()
         }

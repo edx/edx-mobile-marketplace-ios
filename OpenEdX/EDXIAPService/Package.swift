@@ -24,6 +24,10 @@ let package = Package(
             name: "EDXIAPService",
             dependencies: [
                 .product(name: "OEXFoundation", package: "openedx-app-foundation-ios")
+            ],
+            resources: [
+                .process("Assets.xcassets"),
+                .process("fonts_file.ttf")
             ]
         ),
         .testTarget(
