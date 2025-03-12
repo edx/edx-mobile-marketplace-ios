@@ -357,6 +357,8 @@ public enum AnalyticsEvent: String {
     case notificationBellClicked = "Notification:Bell Clicked"
     case notificationDiscussionPrimerViewed = "Notification:Discussion Primer Viewed"
     case notificationDiscussionPrimerAction = "Notification:Discussion Primer Action"
+    case notificationDiscussionPushReceived = "Notification:Discussion Push Received"
+    case notificationDiscussionPushTapped = "Notification:Discussion Push Tapped"
 }
 
 public enum EventBIValue: String {
@@ -494,6 +496,8 @@ public enum EventBIValue: String {
     case notificationBellClicked = "edx.bi.app.notification.bell.clicked"
     case notificationDiscussionPrimerViewed = "edx.bi.app.notification.primer.discussion.viewed"
     case notificationDiscussionPrimerAction = "edx.bi.app.notification.primer.discussion.action"
+    case notificationDiscussionPushReceived = "edx.bi.app.notification.push.discussion.received"
+    case notificationDiscussionPushTapped = "edx.bi.app.notification.push.discussion.tapped"
 }
 
 public struct EventParamKey {

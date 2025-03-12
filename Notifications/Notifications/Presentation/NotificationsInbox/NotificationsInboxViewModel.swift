@@ -212,14 +212,16 @@ public class NotificationsInboxViewModel: ObservableObject {
 
     func trackInboxItemClicked(notification: SingleNotification) {
         analytics.notificationInboxItemClicked(
-            notificationDomain: notification.appName ?? "",
-            notificationType: notification.notificationType ?? "",
-            notificationID: String(notification.id),
-            courseID: notification.courseId,
-            topicID: notification.contentContext?.topicId,
-            threadID: notification.contentContext?.threadId,
-            responseID: notification.contentContext?.parentId,
-            commentID: notification.contentContext?.commentId
+            NotificationInfo(
+                notificationDomain: notification.appName ?? "",
+                notificationType: notification.notificationType ?? "",
+                notificationID: String(notification.id),
+                courseID: notification.courseId,
+                topicID: notification.contentContext?.topicId,
+                threadID: notification.contentContext?.threadId,
+                responseID: notification.contentContext?.parentId,
+                commentID: notification.contentContext?.commentId
+            )
         )
     }
     

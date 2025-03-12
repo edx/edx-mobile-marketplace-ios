@@ -1440,6 +1440,8 @@ class AnalyticsManager: AuthorizationAnalytics,
         logScreenEvent(.courseUpgradeValuePropViewed, parameters: parameters)
     }
     
+    // MARK: - Notifications
+
     public func notificationScreenEvent(_ event: AnalyticsEvent, biValue: EventBIValue) {
         let parameters = [
             EventParamKey.category: EventCategory.notifications,
@@ -1516,33 +1518,30 @@ class AnalyticsManager: AuthorizationAnalytics,
         logEvent(.notificationPushNotificationsSettingClicked, parameters: parameters)
     }
 
-    public func notificationInboxItemClicked(
-        notificationDomain: String,
-        notificationType: String,
-        notificationID: String,
-        courseID: String?,
-        topicID: String?,
-        threadID: String?,
-        responseID: String?,
-        commentID: String?
-    ) {
+    private func parameters(for notificationInfo: NotificationInfo) -> [String: Any] {
         var parameters: [String: Any] = [
-            EventParamKey.category: EventCategory.notifications,
-            EventParamKey.name: EventBIValue.notificationAppPermissionRationaleDialogAction.rawValue,
-            EventParamKey.notificationDomain: notificationDomain,
-            EventParamKey.notificationType: notificationType,
-            EventParamKey.notificationID: notificationID
+            EventParamKey.notificationDomain: notificationInfo.notificationDomain,
+            EventParamKey.notificationType: notificationInfo.notificationType,
+            EventParamKey.notificationID: notificationInfo.notificationID
         ]
-        parameters.setObjectOrNil(courseID, forKey: EventParamKey.courseID)
-        parameters.setObjectOrNil(topicID, forKey: EventParamKey.topicID)
-        parameters.setObjectOrNil(threadID, forKey: EventParamKey.threadID)
-        parameters.setObjectOrNil(responseID, forKey: EventParamKey.responseID)
-        parameters.setObjectOrNil(commentID, forKey: EventParamKey.commentID)
+        parameters.setObjectOrNil(notificationInfo.courseID, forKey: EventParamKey.courseID)
+        parameters.setObjectOrNil(notificationInfo.topicID, forKey: EventParamKey.topicID)
+        parameters.setObjectOrNil(notificationInfo.threadID, forKey: EventParamKey.threadID)
+        parameters.setObjectOrNil(notificationInfo.responseID, forKey: EventParamKey.responseID)
+        parameters.setObjectOrNil(notificationInfo.commentID, forKey: EventParamKey.commentID)
+        return parameters
+    }
+
+    public func notificationInboxItemClicked(_ notificationInfo: NotificationInfo) {
+        let parameters: [String: Any] = [
+            EventParamKey.category: EventCategory.notifications,
+            EventParamKey.name: EventBIValue.notificationInboxItemClicked.rawValue
+        ].merging(parameters(for: notificationInfo)) { $1 }
 
         logEvent(.notificationInboxItemClicked, parameters: parameters)
     }
 
-    func notificationBellClicked() {
+    public func notificationBellClicked() {
         let parameters: [String: Any] = [
             EventParamKey.category: EventCategory.notifications,
             EventParamKey.name: EventBIValue.notificationBellClicked.rawValue
@@ -1551,7 +1550,7 @@ class AnalyticsManager: AuthorizationAnalytics,
         logEvent(.notificationBellClicked, parameters: parameters)
     }
 
-    func notificationDiscussionPrimerViewed(dialogFrequency: Int) {
+    public func notificationDiscussionPrimerViewed(dialogFrequency: Int) {
         let parameters: [String: Any] = [
             EventParamKey.category: EventCategory.notifications,
             EventParamKey.name: EventBIValue.notificationDiscussionPrimerViewed.rawValue,
@@ -1561,7 +1560,7 @@ class AnalyticsManager: AuthorizationAnalytics,
         logScreenEvent(.notificationDiscussionPrimerViewed, parameters: parameters)
     }
 
-    func notificationDiscussionPrimerAction(action: String) {
+    public func notificationDiscussionPrimerAction(action: String) {
         let parameters: [String: Any] = [
             EventParamKey.category: EventCategory.notifications,
             EventParamKey.name: EventBIValue.notificationDiscussionPrimerAction.rawValue,
@@ -1569,6 +1568,24 @@ class AnalyticsManager: AuthorizationAnalytics,
         ]
 
         logEvent(.notificationDiscussionPrimerAction, parameters: parameters)
+    }
+
+    public func notificationDiscussionPushReceived(_ notificationInfo: NotificationInfo) {
+        let parameters: [String: Any] = [
+            EventParamKey.category: EventCategory.notifications,
+            EventParamKey.name: EventBIValue.notificationDiscussionPushReceived.rawValue
+        ].merging(parameters(for: notificationInfo)) { $1 }
+
+        logEvent(.notificationDiscussionPushReceived, parameters: parameters)
+    }
+
+    public func notificationDiscussionPushTapped(_ notificationInfo: NotificationInfo) {
+        let parameters: [String: Any] = [
+            EventParamKey.category: EventCategory.notifications,
+            EventParamKey.name: EventBIValue.notificationDiscussionPushTapped.rawValue
+        ].merging(parameters(for: notificationInfo)) { $1 }
+
+        logEvent(.notificationDiscussionPushTapped, parameters: parameters)
     }
 }
 
