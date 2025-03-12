@@ -1450,7 +1450,7 @@ class AnalyticsManager: AuthorizationAnalytics,
     }
     
     public func notificationDiscussionPreferenceToggle(action: Bool) {
-        var parameters: [String: Any] = [
+        let parameters: [String: Any] = [
             EventParamKey.category: EventCategory.notifications,
             EventParamKey.name: EventBIValue.notificationDiscussionPreferenceToggle.rawValue,
             EventParamKey.action: action
@@ -1460,17 +1460,17 @@ class AnalyticsManager: AuthorizationAnalytics,
     }
     
     public func notificationPreferencesToggleBatchState(discussionsActivity: Bool) {
-        var parameters: [String: Any] = [
+        let parameters: [String: Any] = [
             EventParamKey.category: EventCategory.notifications,
             EventParamKey.name: EventBIValue.notificationPreferencesToggleBatchState.rawValue,
-            EventParamKey.discussionsActivity: discussionsActivity,
+            EventParamKey.discussionsActivity: discussionsActivity
         ]
         
         logEvent(.notificationPreferencesToggleBatchState, parameters: parameters)
     }
     
     public func notificationSystemPermissionDialogAction(action: String) {
-        var parameters: [String: Any] = [
+        let parameters: [String: Any] = [
             EventParamKey.category: EventCategory.notifications,
             EventParamKey.name: EventBIValue.notificationSystemPermissionDialogAction.rawValue,
             EventParamKey.action: action
@@ -1480,7 +1480,7 @@ class AnalyticsManager: AuthorizationAnalytics,
     }
     
     public func notificationAppPermissionRationaleDialogAction(action: String) {
-        var parameters: [String: Any] = [
+        let parameters: [String: Any] = [
             EventParamKey.category: EventCategory.notifications,
             EventParamKey.name: EventBIValue.notificationAppPermissionRationaleDialogAction.rawValue,
             EventParamKey.action: action
@@ -1490,7 +1490,7 @@ class AnalyticsManager: AuthorizationAnalytics,
     }
 
     public func notificationInboxMenuClicked() {
-        var parameters: [String: Any] = [
+        let parameters: [String: Any] = [
             EventParamKey.category: EventCategory.notifications,
             EventParamKey.name: EventBIValue.notificationInboxMenuClicked.rawValue
         ]
@@ -1499,7 +1499,7 @@ class AnalyticsManager: AuthorizationAnalytics,
     }
 
     public func notificationMarkAllReadClicked() {
-        var parameters: [String: Any] = [
+        let parameters: [String: Any] = [
             EventParamKey.category: EventCategory.notifications,
             EventParamKey.name: EventBIValue.notificationMarkAllReadClicked.rawValue
         ]
@@ -1508,7 +1508,7 @@ class AnalyticsManager: AuthorizationAnalytics,
     }
 
     public func notificationPushNotificationsSettingClicked() {
-        var parameters: [String: Any] = [
+        let parameters: [String: Any] = [
             EventParamKey.category: EventCategory.notifications,
             EventParamKey.name: EventBIValue.notificationPushNotificationsSettingClicked.rawValue
         ]
@@ -1540,6 +1540,35 @@ class AnalyticsManager: AuthorizationAnalytics,
         parameters.setObjectOrNil(commentID, forKey: EventParamKey.commentID)
 
         logEvent(.notificationInboxItemClicked, parameters: parameters)
+    }
+
+    func notificationBellClicked() {
+        let parameters: [String: Any] = [
+            EventParamKey.category: EventCategory.notifications,
+            EventParamKey.name: EventBIValue.notificationBellClicked.rawValue
+        ]
+
+        logEvent(.notificationBellClicked, parameters: parameters)
+    }
+
+    func notificationDiscussionPrimerViewed(dialogFrequency: Int) {
+        let parameters: [String: Any] = [
+            EventParamKey.category: EventCategory.notifications,
+            EventParamKey.name: EventBIValue.notificationDiscussionPrimerViewed.rawValue,
+            EventParamKey.dialogFrequency: dialogFrequency
+        ]
+
+        logScreenEvent(.notificationDiscussionPrimerViewed, parameters: parameters)
+    }
+
+    func notificationDiscussionPrimerAction(action: String) {
+        let parameters: [String: Any] = [
+            EventParamKey.category: EventCategory.notifications,
+            EventParamKey.name: EventBIValue.notificationDiscussionPrimerAction.rawValue,
+            EventParamKey.action: action
+        ]
+
+        logEvent(.notificationDiscussionPrimerAction, parameters: parameters)
     }
 }
 

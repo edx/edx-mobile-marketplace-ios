@@ -17,13 +17,16 @@ public final class NotificationsPrimerViewModel: ObservableObject {
 
     private let interactor: NotificationsInteractorProtocol
     private let router: NotificationsRouter
+    private let analytics: NotificationsAnalytics
 
     public init(
         interactor: NotificationsInteractorProtocol,
-        router: NotificationsRouter
+        router: NotificationsRouter,
+        analytics: NotificationsAnalytics
     ) {
         self.interactor = interactor
         self.router = router
+        self.analytics = analytics
 
         addObservers()
     }
@@ -33,16 +36,23 @@ public final class NotificationsPrimerViewModel: ObservableObject {
     }
 
     func markAsShown() {
+        trackScreenEvent()
         interactor.markPrimerAsShown()
     }
 
-    func notify() {
+    func notifyMe() {
+        trackDiscussionPrimerAction(action: "notify_me")
         Task {
             await requestNotificationPermissions()
         }
     }
 
-    func dismiss() {
+    func noThanks() {
+        trackDiscussionPrimerAction(action: "no_thanks")
+        dismiss()
+    }
+
+    private func dismiss() {
         router.dismiss()
     }
 
@@ -64,13 +74,15 @@ public final class NotificationsPrimerViewModel: ObservableObject {
     
     @objc private func didBecomeActive() {
         if openedSettings {
-            refreshSettings()
+            Task {
+                await enableNotificationsIfAuthorized()
+            }
         }
     }
 
     @objc private func refreshSettings() {
         Task {
-            await enableNotificationsIfAuthorized()
+            await enableNotificationsIfAuthorized(track: true)
         }
     }
 
@@ -81,6 +93,7 @@ public final class NotificationsPrimerViewModel: ObservableObject {
         let settings = await UNUserNotificationCenter.current().notificationSettings()
         if settings.authorizationStatus == .notDetermined {
             router.performNotificationRegistration()
+            trackSystemPermissionDialogViewed()
         } else {
             showPermissionNeededAlert()
         }
@@ -92,6 +105,7 @@ public final class NotificationsPrimerViewModel: ObservableObject {
                 title: NotificationsLocalization.Alert.continue,
                 style: .default,
                 handler: { [weak self] _ in
+                    self?.trackAppPermissionRationaleDialogAction(action: "continue")
                     self?.openSettingsOrDismiss()
                 }
             ),
@@ -99,6 +113,7 @@ public final class NotificationsPrimerViewModel: ObservableObject {
                 title: NotificationsLocalization.Alert.cancel,
                 style: .default,
                 handler: { [weak self] _ in
+                    self?.trackAppPermissionRationaleDialogAction(action: "cancel")
                     self?.dismiss()
                 }
             )
@@ -109,6 +124,7 @@ public final class NotificationsPrimerViewModel: ObservableObject {
             message: NotificationsLocalization.Alert.permissionMessage,
             actions: actions
         )
+        trackAppPermissionRationaleDialogViewed()
     }
 
     private func openSettingsOrDismiss() {
@@ -123,12 +139,51 @@ public final class NotificationsPrimerViewModel: ObservableObject {
     }
 
     @MainActor
-    private func enableNotificationsIfAuthorized() async {
+    private func enableNotificationsIfAuthorized(track: Bool = false) async {
         let settings = await UNUserNotificationCenter.current().notificationSettings()
         if settings.authorizationStatus == .authorized {
+            if track {
+                trackSystemPermissionDialogAction(action: "allow")
+            }
             _ = try? await interactor.updateNotificationsPreferences(value: true)
+        } else if settings.authorizationStatus == .denied {
+            if track {
+                trackSystemPermissionDialogAction(action: "dont_allow")
+            }
         }
 
         dismiss()
+    }
+
+    private func trackScreenEvent() {
+        analytics.notificationDiscussionPrimerViewed(
+            dialogFrequency: interactor.primerFrequency()
+        )
+    }
+
+    private func trackDiscussionPrimerAction(action: String) {
+        analytics.notificationDiscussionPrimerAction(action: action)
+    }
+
+    private func trackSystemPermissionDialogViewed() {
+        analytics.notificationScreenEvent(
+            .notificationSystemPermissionDialogViewed,
+            biValue: .notificationSystemPermissionDialogViewed
+        )
+    }
+
+    private func trackSystemPermissionDialogAction(action: String) {
+        analytics.notificationSystemPermissionDialogAction(action: action)
+    }
+
+    private func trackAppPermissionRationaleDialogViewed() {
+        analytics.notificationScreenEvent(
+            .notificationAppPermissionRationaleDialogViewed,
+            biValue: .notificationAppPermissionRationaleDialogViewed
+        )
+    }
+
+    private func trackAppPermissionRationaleDialogAction(action: String) {
+        analytics.notificationAppPermissionRationaleDialogAction(action: action)
     }
 }

@@ -133,4 +133,8 @@ public class PrimaryCourseDashboardViewModel: ObservableObject {
         let appNotificationCount = try? await notificationsInteractor.getNotificationsCount()
         hasUnreadNotifications = appNotificationCount?.discussion ?? 0 > 0
     }
+
+    func trackNotificationBellClicked() {
+        analytics.notificationBellClicked()
+    }
 }

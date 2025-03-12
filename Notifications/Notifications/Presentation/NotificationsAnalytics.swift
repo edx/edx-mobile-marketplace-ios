@@ -28,6 +28,8 @@ public protocol NotificationsAnalytics {
         responseID: String?,
         commentID: String?
     )
+    func notificationDiscussionPrimerViewed(dialogFrequency: Int)
+    func notificationDiscussionPrimerAction(action: String)
 }
 
 #if DEBUG
@@ -50,5 +52,7 @@ final class NotificationsAnalyticsMock: NotificationsAnalytics {
         responseID: String?,
         commentID: String?
     ) {}
+    func notificationDiscussionPrimerViewed(dialogFrequency: Int) {}
+    func notificationDiscussionPrimerAction(action: String) {}
 }
 #endif

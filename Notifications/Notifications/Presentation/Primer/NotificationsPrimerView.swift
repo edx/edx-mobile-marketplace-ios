@@ -97,7 +97,7 @@ public struct NotificationsPrimerView: View {
         StyledButton(
             NotificationsLocalization.Primer.yesNotifyMe,
             action: {
-                viewModel.notify()
+                viewModel.notifyMe()
             },
             color: Theme.Colors.accentButtonColor,
             textColor: Theme.Colors.styledButtonText,
@@ -111,7 +111,7 @@ public struct NotificationsPrimerView: View {
         StyledButton(
             NotificationsLocalization.Primer.noThanks,
             action: {
-                viewModel.dismiss()
+                viewModel.noThanks()
             },
             color: .clear,
             textColor: Theme.Colors.resumeButtonText,
@@ -143,7 +143,8 @@ public struct NotificationsPrimerView: View {
     NotificationsPrimerView(
         viewModel: NotificationsPrimerViewModel(
             interactor: NotificationsInteractor.mock,
-            router: NotificationsRouterMock()
+            router: NotificationsRouterMock(),
+            analytics: NotificationsAnalyticsMock()
         )
     )
 }
