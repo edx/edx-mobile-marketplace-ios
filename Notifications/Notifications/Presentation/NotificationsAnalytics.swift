@@ -44,8 +44,10 @@ public protocol NotificationsAnalytics {
     func notificationScreenEvent(_ event: AnalyticsEvent, biValue: EventBIValue)
     func notificationDiscussionPreferenceToggle(action: Bool)
     func notificationPreferencesToggleBatchState(discussionsActivity: Bool)
-    func notificationSystemPermissionDialogAction(action: String)
-    func notificationAppPermissionRationaleDialogAction(action: String)
+    func notificationSystemPermissionDialogViewed(source: String)
+    func notificationSystemPermissionDialogAction(source: String, action: String)
+    func notificationAppPermissionRationaleDialogViewed(source: String)
+    func notificationAppPermissionRationaleDialogAction(source: String, action: String)
     func notificationInboxMenuClicked()
     func notificationMarkAllReadClicked()
     func notificationPushNotificationsSettingClicked()
@@ -61,8 +63,10 @@ final class NotificationsAnalyticsMock: NotificationsAnalytics {
     func notificationScreenEvent(_ event: AnalyticsEvent, biValue: EventBIValue) {}
     func notificationDiscussionPreferenceToggle(action: Bool) {}
     func notificationPreferencesToggleBatchState(discussionsActivity: Bool) {}
-    func notificationSystemPermissionDialogAction(action: String) {}
-    func notificationAppPermissionRationaleDialogAction(action: String) {}
+    func notificationSystemPermissionDialogViewed(source: String) {}
+    func notificationSystemPermissionDialogAction(source: String, action: String) {}
+    func notificationAppPermissionRationaleDialogViewed(source: String) {}
+    func notificationAppPermissionRationaleDialogAction(source: String, action: String) {}
     func notificationInboxMenuClicked() {}
     func notificationMarkAllReadClicked() {}
     func notificationPushNotificationsSettingClicked() {}

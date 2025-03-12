@@ -566,6 +566,7 @@ public struct EventParamKey {
     public static let discussionsActivity = "discussions_activity"
     public static let status_code = "status_code"
     public static let dialogFrequency = "dialog_frequency"
+    public static let source = "source"
 }
 
 public struct EventCategory {

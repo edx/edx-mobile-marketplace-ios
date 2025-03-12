@@ -1470,21 +1470,43 @@ class AnalyticsManager: AuthorizationAnalytics,
         
         logEvent(.notificationPreferencesToggleBatchState, parameters: parameters)
     }
-    
-    public func notificationSystemPermissionDialogAction(action: String) {
+
+    public func notificationSystemPermissionDialogViewed(source: String) {
+        let parameters = [
+            EventParamKey.category: EventCategory.notifications,
+            EventParamKey.name: EventBIValue.notificationSystemPermissionDialogViewed.rawValue,
+            EventParamKey.source: source
+        ]
+
+        logScreenEvent(.notificationSystemPermissionDialogViewed, parameters: parameters)
+    }
+
+    public func notificationSystemPermissionDialogAction(source: String, action: String) {
         let parameters: [String: Any] = [
             EventParamKey.category: EventCategory.notifications,
             EventParamKey.name: EventBIValue.notificationSystemPermissionDialogAction.rawValue,
+            EventParamKey.source: source,
             EventParamKey.action: action
         ]
         
         logEvent(.notificationSystemPermissionDialogAction, parameters: parameters)
     }
-    
-    public func notificationAppPermissionRationaleDialogAction(action: String) {
+
+    public func notificationAppPermissionRationaleDialogViewed(source: String) {
+        let parameters = [
+            EventParamKey.category: EventCategory.notifications,
+            EventParamKey.name: EventBIValue.notificationAppPermissionRationaleDialogViewed.rawValue,
+            EventParamKey.source: source
+        ]
+
+        logScreenEvent(.notificationAppPermissionRationaleDialogViewed, parameters: parameters)
+    }
+
+    public func notificationAppPermissionRationaleDialogAction(source: String, action: String) {
         let parameters: [String: Any] = [
             EventParamKey.category: EventCategory.notifications,
             EventParamKey.name: EventBIValue.notificationAppPermissionRationaleDialogAction.rawValue,
+            EventParamKey.source: source,
             EventParamKey.action: action
         ]
         

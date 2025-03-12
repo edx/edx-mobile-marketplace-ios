@@ -35,6 +35,14 @@ public class NotificationsSettingsViewModel: ObservableObject {
         }
     }
     
+    private enum Constants {
+        static let allow = "allow"
+        static let dontAllow = "dont_allow"
+        static let cancel = "cancel"
+        static let `continue` = "continue"
+        static let pushSettings = "push_settings"
+    }
+
     public init(
         interactor: NotificationsInteractorProtocol,
         analytics: NotificationsAnalytics,
@@ -116,12 +124,12 @@ public class NotificationsSettingsViewModel: ObservableObject {
             } else if settings.authorizationStatus == .denied {
                 self?.authorizationStatus = .denied
                 if track {
-                    self?.trackSystemPermissionDialogAction(action: "dont_allow")
+                    self?.trackSystemPermissionDialogAction(action: Constants.dontAllow)
                 }
             } else if settings.authorizationStatus == .authorized {
                 self?.authorizationStatus = .authorized
                 if track {
-                    self?.trackSystemPermissionDialogAction(action: "allow")
+                    self?.trackSystemPermissionDialogAction(action: Constants.allow)
                 }
                 if autoUpdate {
                     Task {
@@ -138,8 +146,8 @@ public class NotificationsSettingsViewModel: ObservableObject {
                 title: NotificationsLocalization.Alert.continue,
                 style: .default,
                 handler: { [weak self] _ in
-                    self?.trackAppPermissionRationaleDialogAction(action: "continue")
-                    
+                    self?.trackAppPermissionRationaleDialogAction(action: Constants.continue)
+
                     if self?.authorizationStatus == .notDetermined {
                         Task {
                             await self?.showSystemPermissionAlert()
@@ -157,7 +165,7 @@ public class NotificationsSettingsViewModel: ObservableObject {
                 title: NotificationsLocalization.Alert.cancel,
                 style: .default,
                 handler: { [weak self] _ in
-                    self?.trackAppPermissionRationaleDialogAction(action: "cancel")
+                    self?.trackAppPermissionRationaleDialogAction(action: Constants.cancel)
                 }
             )
         ]
@@ -201,6 +209,8 @@ public class NotificationsSettingsViewModel: ObservableObject {
         NotificationCenter.default.removeObserver(self)
     }
 
+    // MARK: - Analytics
+
     func trackScreenEvent() {
         analytics.notificationScreenEvent(.notificationSettings, biValue: .notificationSettings)
     }
@@ -216,24 +226,24 @@ public class NotificationsSettingsViewModel: ObservableObject {
     }
     
     func trackSystemPermissionDialogViewed() {
-        analytics.notificationScreenEvent(
-            .notificationSystemPermissionDialogViewed,
-            biValue: .notificationSystemPermissionDialogViewed
-        )
+        analytics.notificationSystemPermissionDialogViewed(source: Constants.pushSettings)
     }
     
     func trackSystemPermissionDialogAction(action: String) {
-        analytics.notificationSystemPermissionDialogAction(action: action)
-    }
-    
-    func trackAppPermissionRationaleDialogViewed() {
-        analytics.notificationScreenEvent(
-            .notificationAppPermissionRationaleDialogViewed,
-            biValue: .notificationAppPermissionRationaleDialogViewed
+        analytics.notificationSystemPermissionDialogAction(
+            source: Constants.pushSettings,
+            action: action
         )
     }
     
+    func trackAppPermissionRationaleDialogViewed() {
+        analytics.notificationAppPermissionRationaleDialogViewed(source: Constants.pushSettings)
+    }
+    
     func trackAppPermissionRationaleDialogAction(action: String) {
-        analytics.notificationAppPermissionRationaleDialogAction(action: action)
+        analytics.notificationAppPermissionRationaleDialogAction(
+            source: Constants.pushSettings,
+            action: action
+        )
     }
 }
