@@ -171,7 +171,7 @@ public class BaseResponsesViewModel {
     
     func addNewPost(_ post: Post) {
         let newPostWithAvatar = post
-        postComments?.comments.append(newPostWithAvatar)
+        postComments?.comments.insert(newPostWithAvatar, at: 0)
         itemsCount += 1
     }
     
