@@ -194,7 +194,7 @@ public struct ResponsesView: View {
                         viewModel.sendThreadPostsCountState()
                         viewModel.addNewPost(newComment)
                         withAnimation {
-                            if !(viewModel.postComments?.comments.isEmpty ?? true) {
+                            if viewModel.postComments?.comments.isEmpty == false {
                                 scroll.scrollTo(0, anchor: .bottom)
                             }
                         }
