@@ -40,6 +40,7 @@ public class DeepLinkManager: NotificationsDeepLinkManager {
     private let discussionInteractor: DiscussionInteractorProtocol
     private let courseInteractor: CourseInteractorProtocol
     private let profileInteractor: ProfileInteractorProtocol
+    private let notificationsInteractor: NotificationsInteractorProtocol
     
     var userloggedIn: Bool {
         return !(storage.user?.username?.isEmpty ?? true)
@@ -52,7 +53,8 @@ public class DeepLinkManager: NotificationsDeepLinkManager {
         discoveryInteractor: DiscoveryInteractorProtocol,
         discussionInteractor: DiscussionInteractorProtocol,
         courseInteractor: CourseInteractorProtocol,
-        profileInteractor: ProfileInteractorProtocol
+        profileInteractor: ProfileInteractorProtocol,
+        notificationsInteractor: NotificationsInteractorProtocol
     ) {
         self.config = config
         self.router = router
@@ -61,6 +63,7 @@ public class DeepLinkManager: NotificationsDeepLinkManager {
         self.discussionInteractor = discussionInteractor
         self.courseInteractor = courseInteractor
         self.profileInteractor = profileInteractor
+        self.notificationsInteractor = notificationsInteractor
         
         services = servicesFor(config: config)
     }
@@ -285,9 +288,10 @@ public class DeepLinkManager: NotificationsDeepLinkManager {
                             return
                         }
                         
-                        if let notificationID = link.notificationID, !notificationID.isEmpty,
-                           let viewModel = Container.shared.resolve(NotificationsInboxViewModel.self) {
-                            _ = try? await viewModel.markNotificationAsRead(notificationId: notificationID)
+                        if let notificationID = link.notificationID, !notificationID.isEmpty {
+                            _ = try? await self.notificationsInteractor.markNotificationAsRead(
+                                notificationId: notificationID
+                            )
                         }
                         
                         await self.showCourseDiscussion(
