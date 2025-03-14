@@ -13,6 +13,7 @@ import Discussion
 import Course
 import Profile
 import Notifications
+import Swinject
 
 // swiftlint:disable function_body_length type_body_length
 //sourcery: AutoMockable
@@ -39,6 +40,7 @@ public class DeepLinkManager: NotificationsDeepLinkManager {
     private let discussionInteractor: DiscussionInteractorProtocol
     private let courseInteractor: CourseInteractorProtocol
     private let profileInteractor: ProfileInteractorProtocol
+    private let notificationsInteractor: NotificationsInteractorProtocol
     
     var userloggedIn: Bool {
         return !(storage.user?.username?.isEmpty ?? true)
@@ -51,7 +53,8 @@ public class DeepLinkManager: NotificationsDeepLinkManager {
         discoveryInteractor: DiscoveryInteractorProtocol,
         discussionInteractor: DiscussionInteractorProtocol,
         courseInteractor: CourseInteractorProtocol,
-        profileInteractor: ProfileInteractorProtocol
+        profileInteractor: ProfileInteractorProtocol,
+        notificationsInteractor: NotificationsInteractorProtocol
     ) {
         self.config = config
         self.router = router
@@ -60,6 +63,7 @@ public class DeepLinkManager: NotificationsDeepLinkManager {
         self.discussionInteractor = discussionInteractor
         self.courseInteractor = courseInteractor
         self.profileInteractor = profileInteractor
+        self.notificationsInteractor = notificationsInteractor
         
         services = servicesFor(config: config)
     }
@@ -283,6 +287,13 @@ public class DeepLinkManager: NotificationsDeepLinkManager {
                         ) else {
                             return
                         }
+                        
+                        if let notificationID = link.notificationID, !notificationID.isEmpty {
+                            _ = try? await self.notificationsInteractor.markNotificationAsRead(
+                                notificationId: notificationID
+                            )
+                        }
+                        
                         await self.showCourseDiscussion(
                             link: link,
                             courseDetails: courseDetails,
@@ -333,6 +344,11 @@ public class DeepLinkManager: NotificationsDeepLinkManager {
         courseDetails: CourseDetails,
         isBlackedOut: Bool
     ) async {
+        let responseId = link.parentID?.isEmpty == false &&
+        link.commentID?.isEmpty == false
+        ? link.parentID
+        : link.commentID
+
         switch link.type {
         case .discussionTopic:
             guard let topicID = link.topicID,
@@ -373,7 +389,8 @@ public class DeepLinkManager: NotificationsDeepLinkManager {
                 let userThread = try? await discussionInteractor.getThread(threadID: threadID) {
                 router.showThread(
                     userThread: userThread,
-                    isBlackedOut: isBlackedOut
+                    isBlackedOut: isBlackedOut,
+                    responseID: responseId
                 )
             }
         case .discussionComment, .forumResponse:
@@ -396,7 +413,8 @@ public class DeepLinkManager: NotificationsDeepLinkManager {
                 let userThread = try? await discussionInteractor.getThread(threadID: threadID) {
                 router.showThread(
                     userThread: userThread,
-                    isBlackedOut: isBlackedOut
+                    isBlackedOut: isBlackedOut,
+                    responseID: responseId
                 )
             }
 
@@ -433,7 +451,8 @@ public class DeepLinkManager: NotificationsDeepLinkManager {
                 let userThread = try? await discussionInteractor.getThread(threadID: threadID) {
                 router.showThread(
                     userThread: userThread,
-                    isBlackedOut: isBlackedOut
+                    isBlackedOut: isBlackedOut,
+                    responseID: responseId
                 )
             }
             
