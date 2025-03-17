@@ -491,7 +491,8 @@ public enum EventBIValue: String {
     case notificationInbox = "edx.bi.app.notification.inbox"
     case notificationInboxMenuClicked = "edx.bi.app.notification.inbox.menu.clicked"
     case notificationMarkAllReadClicked = "edx.bi.app.notification.inbox.mark_all_read.clicked"
-    case notificationPushNotificationsSettingClicked = "edx.bi.app.notification.inbox.push_notifications_setting.clicked"
+    case notificationPushNotificationsSettingClicked =
+            "edx.bi.app.notification.inbox.push_notifications_setting.clicked"
     case notificationInboxItemClicked = "edx.bi.app.notification.inbox.item.clicked"
     case notificationBellClicked = "edx.bi.app.notification.bell.clicked"
     case notificationDiscussionPrimerViewed = "edx.bi.app.notification.primer.discussion.viewed"
