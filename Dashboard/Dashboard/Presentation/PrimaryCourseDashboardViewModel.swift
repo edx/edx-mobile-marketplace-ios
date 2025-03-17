@@ -135,6 +135,6 @@ public class PrimaryCourseDashboardViewModel: ObservableObject {
     }
 
     func trackNotificationBellClicked() {
-        analytics.notificationBellClicked()
+        analytics.notificationBellClicked(unreadNotifications: hasUnreadNotifications)
     }
 }

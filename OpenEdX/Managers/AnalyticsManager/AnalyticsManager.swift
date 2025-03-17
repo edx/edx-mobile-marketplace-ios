@@ -1563,10 +1563,11 @@ class AnalyticsManager: AuthorizationAnalytics,
         logEvent(.notificationInboxItemClicked, parameters: parameters)
     }
 
-    public func notificationBellClicked() {
+    public func notificationBellClicked(unreadNotifications: Bool) {
         let parameters: [String: Any] = [
             EventParamKey.category: EventCategory.notifications,
-            EventParamKey.name: EventBIValue.notificationBellClicked.rawValue
+            EventParamKey.name: EventBIValue.notificationBellClicked.rawValue,
+            EventParamKey.unreadNotifications: unreadNotifications
         ]
 
         logEvent(.notificationBellClicked, parameters: parameters)

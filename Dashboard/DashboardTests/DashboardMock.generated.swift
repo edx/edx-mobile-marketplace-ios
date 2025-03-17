@@ -2667,10 +2667,10 @@ open class DashboardAnalyticsMock: DashboardAnalytics, Mock {
 		perform?()
     }
 
-    open func notificationBellClicked() {
-        addInvocation(.m_notificationBellClicked)
-		let perform = methodPerformValue(.m_notificationBellClicked) as? () -> Void
-		perform?()
+    open func notificationBellClicked(unreadNotifications: Bool) {
+        addInvocation(.m_notificationBellClicked__unreadNotifications_unreadNotifications(Parameter<Bool>.value(`unreadNotifications`)))
+		let perform = methodPerformValue(.m_notificationBellClicked__unreadNotifications_unreadNotifications(Parameter<Bool>.value(`unreadNotifications`))) as? (Bool) -> Void
+		perform?(`unreadNotifications`)
     }
 
 
@@ -2678,7 +2678,7 @@ open class DashboardAnalyticsMock: DashboardAnalytics, Mock {
         case m_dashboardCourseClicked__courseID_courseIDcourseName_courseName(Parameter<String>, Parameter<String>)
         case m_mainProgramsClicked
         case m_mainCoursesClicked
-        case m_notificationBellClicked
+        case m_notificationBellClicked__unreadNotifications_unreadNotifications(Parameter<Bool>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
@@ -2692,7 +2692,10 @@ open class DashboardAnalyticsMock: DashboardAnalytics, Mock {
 
             case (.m_mainCoursesClicked, .m_mainCoursesClicked): return .match
 
-            case (.m_notificationBellClicked, .m_notificationBellClicked): return .match
+            case (.m_notificationBellClicked__unreadNotifications_unreadNotifications(let lhsUnreadnotifications), .m_notificationBellClicked__unreadNotifications_unreadNotifications(let rhsUnreadnotifications)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsUnreadnotifications, rhs: rhsUnreadnotifications, with: matcher), lhsUnreadnotifications, rhsUnreadnotifications, "unreadNotifications"))
+				return Matcher.ComparisonResult(results)
             default: return .none
             }
         }
@@ -2702,7 +2705,7 @@ open class DashboardAnalyticsMock: DashboardAnalytics, Mock {
             case let .m_dashboardCourseClicked__courseID_courseIDcourseName_courseName(p0, p1): return p0.intValue + p1.intValue
             case .m_mainProgramsClicked: return 0
             case .m_mainCoursesClicked: return 0
-            case .m_notificationBellClicked: return 0
+            case let .m_notificationBellClicked__unreadNotifications_unreadNotifications(p0): return p0.intValue
             }
         }
         func assertionName() -> String {
@@ -2710,7 +2713,7 @@ open class DashboardAnalyticsMock: DashboardAnalytics, Mock {
             case .m_dashboardCourseClicked__courseID_courseIDcourseName_courseName: return ".dashboardCourseClicked(courseID:courseName:)"
             case .m_mainProgramsClicked: return ".mainProgramsClicked()"
             case .m_mainCoursesClicked: return ".mainCoursesClicked()"
-            case .m_notificationBellClicked: return ".notificationBellClicked()"
+            case .m_notificationBellClicked__unreadNotifications_unreadNotifications: return ".notificationBellClicked(unreadNotifications:)"
             }
         }
     }
@@ -2732,7 +2735,7 @@ open class DashboardAnalyticsMock: DashboardAnalytics, Mock {
         public static func dashboardCourseClicked(courseID: Parameter<String>, courseName: Parameter<String>) -> Verify { return Verify(method: .m_dashboardCourseClicked__courseID_courseIDcourseName_courseName(`courseID`, `courseName`))}
         public static func mainProgramsClicked() -> Verify { return Verify(method: .m_mainProgramsClicked)}
         public static func mainCoursesClicked() -> Verify { return Verify(method: .m_mainCoursesClicked)}
-        public static func notificationBellClicked() -> Verify { return Verify(method: .m_notificationBellClicked)}
+        public static func notificationBellClicked(unreadNotifications: Parameter<Bool>) -> Verify { return Verify(method: .m_notificationBellClicked__unreadNotifications_unreadNotifications(`unreadNotifications`))}
     }
 
     public struct Perform {
@@ -2748,8 +2751,8 @@ open class DashboardAnalyticsMock: DashboardAnalytics, Mock {
         public static func mainCoursesClicked(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_mainCoursesClicked, performs: perform)
         }
-        public static func notificationBellClicked(perform: @escaping () -> Void) -> Perform {
-            return Perform(method: .m_notificationBellClicked, performs: perform)
+        public static func notificationBellClicked(unreadNotifications: Parameter<Bool>, perform: @escaping (Bool) -> Void) -> Perform {
+            return Perform(method: .m_notificationBellClicked__unreadNotifications_unreadNotifications(`unreadNotifications`), performs: perform)
         }
     }
 
