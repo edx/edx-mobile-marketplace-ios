@@ -13,7 +13,6 @@ import Discussion
 import Course
 import Profile
 import Notifications
-import Swinject
 
 // swiftlint:disable function_body_length type_body_length
 //sourcery: AutoMockable

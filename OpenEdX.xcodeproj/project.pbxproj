@@ -55,6 +55,7 @@
 		14D912D32C25483F0077CCCE /* FullStory in Frameworks */ = {isa = PBXBuildFile; productRef = 14D912D22C25483F0077CCCE /* FullStory */; };
 		14D912D72C2551F60077CCCE /* FullStoryAnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D912D62C2551F60077CCCE /* FullStoryAnalyticsService.swift */; };
 		1924EDE8164C7AB17AD4946B /* Pods_App_OpenEdX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC49621A0942E5EE74BDC895 /* Pods_App_OpenEdX.framework */; };
+		94AE32322D8838E400FA048D /* Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AE32312D8838DE00FA048D /* Payload.swift */; };
 		A500668B2B613ED10024680B /* PushNotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A500668A2B613ED10024680B /* PushNotificationsManager.swift */; };
 		A500668D2B6143000024680B /* FCMProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A500668C2B6143000024680B /* FCMProvider.swift */; };
 		A50066912B61467B0024680B /* BrazeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50066902B61467B0024680B /* BrazeProvider.swift */; };
@@ -173,6 +174,7 @@
 		14D912D62C2551F60077CCCE /* FullStoryAnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullStoryAnalyticsService.swift; sourceTree = "<group>"; };
 		1BB1F1D0FABF8788646FBAF2 /* Pods-App-OpenEdX.debugstage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-OpenEdX.debugstage.xcconfig"; path = "Target Support Files/Pods-App-OpenEdX/Pods-App-OpenEdX.debugstage.xcconfig"; sourceTree = "<group>"; };
 		37C50995093E34142FDE0ED9 /* Pods-App-OpenEdX.releasedev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-OpenEdX.releasedev.xcconfig"; path = "Target Support Files/Pods-App-OpenEdX/Pods-App-OpenEdX.releasedev.xcconfig"; sourceTree = "<group>"; };
+		94AE32312D8838DE00FA048D /* Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payload.swift; sourceTree = "<group>"; };
 		A500668A2B613ED10024680B /* PushNotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationsManager.swift; sourceTree = "<group>"; };
 		A500668C2B6143000024680B /* FCMProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMProvider.swift; sourceTree = "<group>"; };
 		A50066902B61467B0024680B /* BrazeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrazeProvider.swift; sourceTree = "<group>"; };
@@ -360,6 +362,7 @@
 		A50066882B613E800024680B /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				94AE32312D8838DE00FA048D /* Payload.swift */,
 				065275362BB1B4070093BCCA /* PipManager.swift */,
 				A59568932B6162E400ED4F90 /* DeepLinkManager */,
 				A50066872B613E4B0024680B /* PushNotificationsManager */,
@@ -669,6 +672,7 @@
 				0293A2032A6FCA590090A336 /* CorePersistence.swift in Sources */,
 				0770DE1E28D084E8006D8A5D /* AppAssembly.swift in Sources */,
 				A5462D9C2B864AE0003B96A5 /* BranchService.swift in Sources */,
+				94AE32322D8838E400FA048D /* Payload.swift in Sources */,
 				A50066932B614DCD0024680B /* FCMListener.swift in Sources */,
 				A59702292B83C87900CA064C /* FirebaseAnalyticsService.swift in Sources */,
 				A500668D2B6143000024680B /* FCMProvider.swift in Sources */,

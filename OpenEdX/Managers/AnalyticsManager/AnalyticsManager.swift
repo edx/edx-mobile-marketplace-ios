@@ -1525,7 +1525,8 @@ class AnalyticsManager: AuthorizationAnalytics,
     public func notificationMarkAllReadClicked() {
         let parameters: [String: Any] = [
             EventParamKey.category: EventCategory.notifications,
-            EventParamKey.name: EventBIValue.notificationMarkAllReadClicked.rawValue
+            EventParamKey.name: EventBIValue.notificationMarkAllReadClicked.rawValue,
+            EventParamKey.notificationDomain: EventCategory.discussion
         ]
 
         logEvent(.notificationMarkAllReadClicked, parameters: parameters)
