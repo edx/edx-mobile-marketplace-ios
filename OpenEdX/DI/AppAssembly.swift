@@ -203,7 +203,8 @@ class AppAssembly: Assembly {
                 discoveryInteractor: r.resolve(DiscoveryInteractorProtocol.self)!,
                 discussionInteractor: r.resolve(DiscussionInteractorProtocol.self)!,
                 courseInteractor: r.resolve(CourseInteractorProtocol.self)!,
-                profileInteractor: r.resolve(ProfileInteractorProtocol.self)!
+                profileInteractor: r.resolve(ProfileInteractorProtocol.self)!,
+                notificationsInteractor: r.resolve(NotificationsInteractorProtocol.self)!
             )
         }.inObjectScope(.container)
         

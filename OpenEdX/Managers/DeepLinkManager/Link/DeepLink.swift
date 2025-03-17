@@ -40,6 +40,7 @@ private enum DeepLinkKeys: String, RawStringExtractable {
     case pathID = "path_id"
     case screenName = "screen_name"
     case notificationType = "notification_type"
+    case notificationID = "notification_id"
     case topicID = "topic_id"
     case threadID = "thread_id"
     case commentID = "comment_id"
@@ -50,6 +51,7 @@ private enum DeepLinkKeys: String, RawStringExtractable {
 public class DeepLink {
     let courseID: String?
     let screenName: String?
+    let notificationID: String?
     let notificationType: String?
     let pathID: String?
     let topicID: String?
@@ -62,6 +64,7 @@ public class DeepLink {
     init(dictionary: [AnyHashable: Any]) {
         courseID = dictionary[DeepLinkKeys.courseID.rawValue] as? String
         screenName = dictionary[DeepLinkKeys.screenName.rawValue] as? String
+        notificationID = dictionary[DeepLinkKeys.notificationID.rawValue] as? String
         notificationType = dictionary[DeepLinkKeys.notificationType.rawValue] as? String
         pathID = dictionary[DeepLinkKeys.pathID.rawValue] as? String
         topicID = dictionary[DeepLinkKeys.topicID.rawValue] as? String

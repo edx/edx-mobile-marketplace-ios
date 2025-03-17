@@ -134,7 +134,7 @@ public class NotificationsInboxViewModel: ObservableObject {
     }
     
     @MainActor
-    func markNotificationAsRead(notificationId: String) async {
+    public func markNotificationAsRead(notificationId: String) async {
         do {
             _ = try await interactor.markNotificationAsRead(notificationId: notificationId)
         } catch {
