@@ -270,14 +270,14 @@ public extension DataLayer {
     
     struct ContentContext: Codable {
         public let topicId: String?
-        public let parentId: String?
+        public let responseId: String?
         public let threadId: String?
         public let commentId: String?
         public let postTitle: String?
         
         enum CodingKeys: String, CodingKey {
             case topicId = "topic_id"
-            case parentId = "parent_id"
+            case responseId = "response_id"
             case threadId = "thread_id"
             case commentId = "comment_id"
             case postTitle = "post_title"
@@ -285,13 +285,13 @@ public extension DataLayer {
         
         public init(
             topicId: String?,
-            parentId: String?,
+            responseId: String?,
             threadId: String?,
             commentId: String?,
             postTitle: String?
         ) {
             self.topicId = topicId
-            self.parentId = parentId
+            self.responseId = responseId
             self.threadId = threadId
             self.commentId = commentId
             self.postTitle = postTitle
@@ -314,7 +314,7 @@ public extension DataLayer.Notifications {
                     notificationType: result.notificationType,
                     contentContext: ContentContext(
                         topicId: result.contentContext?.topicId,
-                        parentId: result.contentContext?.parentId,
+                        responseId: result.contentContext?.responseId,
                         threadId: result.contentContext?.threadId,
                         commentId: result.contentContext?.commentId,
                         postTitle: result.contentContext?.postTitle

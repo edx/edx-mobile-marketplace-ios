@@ -44,7 +44,7 @@ private enum DeepLinkKeys: String, RawStringExtractable {
     case topicID = "topic_id"
     case threadID = "thread_id"
     case commentID = "comment_id"
-    case parentID = "parent_id"
+    case responseID = "response_id"
     case componentID = "component_id"
 }
 
@@ -57,7 +57,7 @@ public class DeepLink {
     let topicID: String?
     let threadID: String?
     let commentID: String?
-    let parentID: String?
+    let responseID: String?
     let componentID: String?
     var type: DeepLinkType
     
@@ -71,9 +71,9 @@ public class DeepLink {
         threadID = dictionary[DeepLinkKeys.threadID.rawValue] as? String
         commentID = dictionary[DeepLinkKeys.commentID.rawValue] as? String
         componentID = dictionary[DeepLinkKeys.componentID.rawValue] as? String
-        parentID = dictionary[DeepLinkKeys.parentID.rawValue] as? String
+        responseID = dictionary[DeepLinkKeys.responseID.rawValue] as? String
         type = DeepLinkType(
-            rawValue: screenName ?? notificationType ?? DeepLinkType.none.rawValue
+            rawValue: screenName ?? DeepLinkType.none.rawValue
         ) ?? .none
     }
 }
