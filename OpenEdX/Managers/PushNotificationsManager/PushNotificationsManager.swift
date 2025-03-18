@@ -199,7 +199,7 @@ private extension NotificationInfo {
             courseID: payload[.courseID],
             topicID: payload[.topicID],
             threadID: payload[.threadID],
-            responseID: payload[.parentID],
+            responseID: payload[.responseID],
             commentID: payload[.commentID]
         )
     }

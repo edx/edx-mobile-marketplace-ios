@@ -219,7 +219,7 @@ public class NotificationsInboxViewModel: ObservableObject {
                 courseID: notification.courseId,
                 topicID: notification.contentContext?.topicId,
                 threadID: notification.contentContext?.threadId,
-                responseID: notification.contentContext?.parentId,
+                responseID: notification.contentContext?.responseId,
                 commentID: notification.contentContext?.commentId
             )
         )
