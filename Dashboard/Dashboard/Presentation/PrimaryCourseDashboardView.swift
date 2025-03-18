@@ -335,6 +335,7 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
                         Spacer()
                         if viewModel.config.pushNotificationsEnabled {
                             Button(action: {
+                                viewModel.trackNotificationBellClicked()
                                 viewModel.setNotificationMarkAsRead()
                                 router.showNotificationsScreen()
                             }, label: {
