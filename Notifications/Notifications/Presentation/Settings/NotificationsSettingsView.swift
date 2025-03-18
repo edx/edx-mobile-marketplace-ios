@@ -40,6 +40,7 @@ public struct NotificationsSettingsView: View {
                             BackNavigationButton(
                                 color: Theme.Colors.loginNavigationText,
                                 action: {
+                                    viewModel.trackPreferencesToggleBatchState()
                                     viewModel.router.back()
                                 }
                             )
@@ -88,6 +89,7 @@ public struct NotificationsSettingsView: View {
         .ignoresSafeArea(.all, edges: .horizontal)
         .animation(.default, value: viewModel.showError)
         .onFirstAppear {
+            viewModel.trackScreenEvent()
             Task {
                 await viewModel.getNotificationsPreferences()
             }

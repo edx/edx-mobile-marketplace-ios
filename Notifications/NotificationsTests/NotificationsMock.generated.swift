@@ -3279,55 +3279,183 @@ open class NotificationsAnalyticsMock: NotificationsAnalytics, Mock {
 
 
 
-    open func notificationsScreenEvent(event: AnalyticsEvent, biValue: EventBIValue) {
-        addInvocation(.m_notificationsScreenEvent__event_eventbiValue_biValue(Parameter<AnalyticsEvent>.value(`event`), Parameter<EventBIValue>.value(`biValue`)))
-		let perform = methodPerformValue(.m_notificationsScreenEvent__event_eventbiValue_biValue(Parameter<AnalyticsEvent>.value(`event`), Parameter<EventBIValue>.value(`biValue`))) as? (AnalyticsEvent, EventBIValue) -> Void
+    open func notificationScreenEvent(_ event: AnalyticsEvent, biValue: EventBIValue) {
+        addInvocation(.m_notificationScreenEvent__eventbiValue_biValue(Parameter<AnalyticsEvent>.value(`event`), Parameter<EventBIValue>.value(`biValue`)))
+		let perform = methodPerformValue(.m_notificationScreenEvent__eventbiValue_biValue(Parameter<AnalyticsEvent>.value(`event`), Parameter<EventBIValue>.value(`biValue`))) as? (AnalyticsEvent, EventBIValue) -> Void
 		perform?(`event`, `biValue`)
     }
 
-    open func notificationsDiscussionPermissionToggleEvent(action: Bool) {
-        addInvocation(.m_notificationsDiscussionPermissionToggleEvent__action_action(Parameter<Bool>.value(`action`)))
-		let perform = methodPerformValue(.m_notificationsDiscussionPermissionToggleEvent__action_action(Parameter<Bool>.value(`action`))) as? (Bool) -> Void
+    open func notificationDiscussionPreferenceToggle(action: Bool) {
+        addInvocation(.m_notificationDiscussionPreferenceToggle__action_action(Parameter<Bool>.value(`action`)))
+		let perform = methodPerformValue(.m_notificationDiscussionPreferenceToggle__action_action(Parameter<Bool>.value(`action`))) as? (Bool) -> Void
 		perform?(`action`)
     }
 
-    open func notificationInbox() {
-        addInvocation(.m_notificationInbox)
-		let perform = methodPerformValue(.m_notificationInbox) as? () -> Void
+    open func notificationPreferencesToggleBatchState(discussionsActivity: Bool) {
+        addInvocation(.m_notificationPreferencesToggleBatchState__discussionsActivity_discussionsActivity(Parameter<Bool>.value(`discussionsActivity`)))
+		let perform = methodPerformValue(.m_notificationPreferencesToggleBatchState__discussionsActivity_discussionsActivity(Parameter<Bool>.value(`discussionsActivity`))) as? (Bool) -> Void
+		perform?(`discussionsActivity`)
+    }
+
+    open func notificationSystemPermissionDialogViewed(source: String) {
+        addInvocation(.m_notificationSystemPermissionDialogViewed__source_source(Parameter<String>.value(`source`)))
+		let perform = methodPerformValue(.m_notificationSystemPermissionDialogViewed__source_source(Parameter<String>.value(`source`))) as? (String) -> Void
+		perform?(`source`)
+    }
+
+    open func notificationSystemPermissionDialogAction(source: String, action: String) {
+        addInvocation(.m_notificationSystemPermissionDialogAction__source_sourceaction_action(Parameter<String>.value(`source`), Parameter<String>.value(`action`)))
+		let perform = methodPerformValue(.m_notificationSystemPermissionDialogAction__source_sourceaction_action(Parameter<String>.value(`source`), Parameter<String>.value(`action`))) as? (String, String) -> Void
+		perform?(`source`, `action`)
+    }
+
+    open func notificationAppPermissionRationaleDialogViewed(source: String) {
+        addInvocation(.m_notificationAppPermissionRationaleDialogViewed__source_source(Parameter<String>.value(`source`)))
+		let perform = methodPerformValue(.m_notificationAppPermissionRationaleDialogViewed__source_source(Parameter<String>.value(`source`))) as? (String) -> Void
+		perform?(`source`)
+    }
+
+    open func notificationAppPermissionRationaleDialogAction(source: String, action: String) {
+        addInvocation(.m_notificationAppPermissionRationaleDialogAction__source_sourceaction_action(Parameter<String>.value(`source`), Parameter<String>.value(`action`)))
+		let perform = methodPerformValue(.m_notificationAppPermissionRationaleDialogAction__source_sourceaction_action(Parameter<String>.value(`source`), Parameter<String>.value(`action`))) as? (String, String) -> Void
+		perform?(`source`, `action`)
+    }
+
+    open func notificationInboxMenuClicked() {
+        addInvocation(.m_notificationInboxMenuClicked)
+		let perform = methodPerformValue(.m_notificationInboxMenuClicked) as? () -> Void
 		perform?()
     }
 
-    open func notificationTapped(notificationType: String) {
-        addInvocation(.m_notificationTapped__notificationType_notificationType(Parameter<String>.value(`notificationType`)))
-		let perform = methodPerformValue(.m_notificationTapped__notificationType_notificationType(Parameter<String>.value(`notificationType`))) as? (String) -> Void
-		perform?(`notificationType`)
+    open func notificationMarkAllReadClicked() {
+        addInvocation(.m_notificationMarkAllReadClicked)
+		let perform = methodPerformValue(.m_notificationMarkAllReadClicked) as? () -> Void
+		perform?()
+    }
+
+    open func notificationPushNotificationsSettingClicked() {
+        addInvocation(.m_notificationPushNotificationsSettingClicked)
+		let perform = methodPerformValue(.m_notificationPushNotificationsSettingClicked) as? () -> Void
+		perform?()
+    }
+
+    open func notificationInboxItemClicked(_ notificationInfo: NotificationInfo) {
+        addInvocation(.m_notificationInboxItemClicked__notificationInfo(Parameter<NotificationInfo>.value(`notificationInfo`)))
+		let perform = methodPerformValue(.m_notificationInboxItemClicked__notificationInfo(Parameter<NotificationInfo>.value(`notificationInfo`))) as? (NotificationInfo) -> Void
+		perform?(`notificationInfo`)
+    }
+
+    open func notificationDiscussionPrimerViewed(dialogFrequency: Int) {
+        addInvocation(.m_notificationDiscussionPrimerViewed__dialogFrequency_dialogFrequency(Parameter<Int>.value(`dialogFrequency`)))
+		let perform = methodPerformValue(.m_notificationDiscussionPrimerViewed__dialogFrequency_dialogFrequency(Parameter<Int>.value(`dialogFrequency`))) as? (Int) -> Void
+		perform?(`dialogFrequency`)
+    }
+
+    open func notificationDiscussionPrimerAction(action: String) {
+        addInvocation(.m_notificationDiscussionPrimerAction__action_action(Parameter<String>.value(`action`)))
+		let perform = methodPerformValue(.m_notificationDiscussionPrimerAction__action_action(Parameter<String>.value(`action`))) as? (String) -> Void
+		perform?(`action`)
+    }
+
+    open func notificationDiscussionPushReceived(_ notificationInfo: NotificationInfo) {
+        addInvocation(.m_notificationDiscussionPushReceived__notificationInfo(Parameter<NotificationInfo>.value(`notificationInfo`)))
+		let perform = methodPerformValue(.m_notificationDiscussionPushReceived__notificationInfo(Parameter<NotificationInfo>.value(`notificationInfo`))) as? (NotificationInfo) -> Void
+		perform?(`notificationInfo`)
+    }
+
+    open func notificationDiscussionPushTapped(_ notificationInfo: NotificationInfo) {
+        addInvocation(.m_notificationDiscussionPushTapped__notificationInfo(Parameter<NotificationInfo>.value(`notificationInfo`)))
+		let perform = methodPerformValue(.m_notificationDiscussionPushTapped__notificationInfo(Parameter<NotificationInfo>.value(`notificationInfo`))) as? (NotificationInfo) -> Void
+		perform?(`notificationInfo`)
     }
 
 
     fileprivate enum MethodType {
-        case m_notificationsScreenEvent__event_eventbiValue_biValue(Parameter<AnalyticsEvent>, Parameter<EventBIValue>)
-        case m_notificationsDiscussionPermissionToggleEvent__action_action(Parameter<Bool>)
-        case m_notificationInbox
-        case m_notificationTapped__notificationType_notificationType(Parameter<String>)
+        case m_notificationScreenEvent__eventbiValue_biValue(Parameter<AnalyticsEvent>, Parameter<EventBIValue>)
+        case m_notificationDiscussionPreferenceToggle__action_action(Parameter<Bool>)
+        case m_notificationPreferencesToggleBatchState__discussionsActivity_discussionsActivity(Parameter<Bool>)
+        case m_notificationSystemPermissionDialogViewed__source_source(Parameter<String>)
+        case m_notificationSystemPermissionDialogAction__source_sourceaction_action(Parameter<String>, Parameter<String>)
+        case m_notificationAppPermissionRationaleDialogViewed__source_source(Parameter<String>)
+        case m_notificationAppPermissionRationaleDialogAction__source_sourceaction_action(Parameter<String>, Parameter<String>)
+        case m_notificationInboxMenuClicked
+        case m_notificationMarkAllReadClicked
+        case m_notificationPushNotificationsSettingClicked
+        case m_notificationInboxItemClicked__notificationInfo(Parameter<NotificationInfo>)
+        case m_notificationDiscussionPrimerViewed__dialogFrequency_dialogFrequency(Parameter<Int>)
+        case m_notificationDiscussionPrimerAction__action_action(Parameter<String>)
+        case m_notificationDiscussionPushReceived__notificationInfo(Parameter<NotificationInfo>)
+        case m_notificationDiscussionPushTapped__notificationInfo(Parameter<NotificationInfo>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
-            case (.m_notificationsScreenEvent__event_eventbiValue_biValue(let lhsEvent, let lhsBivalue), .m_notificationsScreenEvent__event_eventbiValue_biValue(let rhsEvent, let rhsBivalue)):
+            case (.m_notificationScreenEvent__eventbiValue_biValue(let lhsEvent, let lhsBivalue), .m_notificationScreenEvent__eventbiValue_biValue(let rhsEvent, let rhsBivalue)):
 				var results: [Matcher.ParameterComparisonResult] = []
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsEvent, rhs: rhsEvent, with: matcher), lhsEvent, rhsEvent, "event"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsEvent, rhs: rhsEvent, with: matcher), lhsEvent, rhsEvent, "_ event"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsBivalue, rhs: rhsBivalue, with: matcher), lhsBivalue, rhsBivalue, "biValue"))
 				return Matcher.ComparisonResult(results)
 
-            case (.m_notificationsDiscussionPermissionToggleEvent__action_action(let lhsAction), .m_notificationsDiscussionPermissionToggleEvent__action_action(let rhsAction)):
+            case (.m_notificationDiscussionPreferenceToggle__action_action(let lhsAction), .m_notificationDiscussionPreferenceToggle__action_action(let rhsAction)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsAction, rhs: rhsAction, with: matcher), lhsAction, rhsAction, "action"))
 				return Matcher.ComparisonResult(results)
 
-            case (.m_notificationInbox, .m_notificationInbox): return .match
-
-            case (.m_notificationTapped__notificationType_notificationType(let lhsNotificationtype), .m_notificationTapped__notificationType_notificationType(let rhsNotificationtype)):
+            case (.m_notificationPreferencesToggleBatchState__discussionsActivity_discussionsActivity(let lhsDiscussionsactivity), .m_notificationPreferencesToggleBatchState__discussionsActivity_discussionsActivity(let rhsDiscussionsactivity)):
 				var results: [Matcher.ParameterComparisonResult] = []
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsNotificationtype, rhs: rhsNotificationtype, with: matcher), lhsNotificationtype, rhsNotificationtype, "notificationType"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsDiscussionsactivity, rhs: rhsDiscussionsactivity, with: matcher), lhsDiscussionsactivity, rhsDiscussionsactivity, "discussionsActivity"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_notificationSystemPermissionDialogViewed__source_source(let lhsSource), .m_notificationSystemPermissionDialogViewed__source_source(let rhsSource)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsSource, rhs: rhsSource, with: matcher), lhsSource, rhsSource, "source"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_notificationSystemPermissionDialogAction__source_sourceaction_action(let lhsSource, let lhsAction), .m_notificationSystemPermissionDialogAction__source_sourceaction_action(let rhsSource, let rhsAction)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsSource, rhs: rhsSource, with: matcher), lhsSource, rhsSource, "source"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsAction, rhs: rhsAction, with: matcher), lhsAction, rhsAction, "action"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_notificationAppPermissionRationaleDialogViewed__source_source(let lhsSource), .m_notificationAppPermissionRationaleDialogViewed__source_source(let rhsSource)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsSource, rhs: rhsSource, with: matcher), lhsSource, rhsSource, "source"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_notificationAppPermissionRationaleDialogAction__source_sourceaction_action(let lhsSource, let lhsAction), .m_notificationAppPermissionRationaleDialogAction__source_sourceaction_action(let rhsSource, let rhsAction)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsSource, rhs: rhsSource, with: matcher), lhsSource, rhsSource, "source"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsAction, rhs: rhsAction, with: matcher), lhsAction, rhsAction, "action"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_notificationInboxMenuClicked, .m_notificationInboxMenuClicked): return .match
+
+            case (.m_notificationMarkAllReadClicked, .m_notificationMarkAllReadClicked): return .match
+
+            case (.m_notificationPushNotificationsSettingClicked, .m_notificationPushNotificationsSettingClicked): return .match
+
+            case (.m_notificationInboxItemClicked__notificationInfo(let lhsNotificationinfo), .m_notificationInboxItemClicked__notificationInfo(let rhsNotificationinfo)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsNotificationinfo, rhs: rhsNotificationinfo, with: matcher), lhsNotificationinfo, rhsNotificationinfo, "_ notificationInfo"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_notificationDiscussionPrimerViewed__dialogFrequency_dialogFrequency(let lhsDialogfrequency), .m_notificationDiscussionPrimerViewed__dialogFrequency_dialogFrequency(let rhsDialogfrequency)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsDialogfrequency, rhs: rhsDialogfrequency, with: matcher), lhsDialogfrequency, rhsDialogfrequency, "dialogFrequency"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_notificationDiscussionPrimerAction__action_action(let lhsAction), .m_notificationDiscussionPrimerAction__action_action(let rhsAction)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsAction, rhs: rhsAction, with: matcher), lhsAction, rhsAction, "action"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_notificationDiscussionPushReceived__notificationInfo(let lhsNotificationinfo), .m_notificationDiscussionPushReceived__notificationInfo(let rhsNotificationinfo)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsNotificationinfo, rhs: rhsNotificationinfo, with: matcher), lhsNotificationinfo, rhsNotificationinfo, "_ notificationInfo"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_notificationDiscussionPushTapped__notificationInfo(let lhsNotificationinfo), .m_notificationDiscussionPushTapped__notificationInfo(let rhsNotificationinfo)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsNotificationinfo, rhs: rhsNotificationinfo, with: matcher), lhsNotificationinfo, rhsNotificationinfo, "_ notificationInfo"))
 				return Matcher.ComparisonResult(results)
             default: return .none
             }
@@ -3335,18 +3463,40 @@ open class NotificationsAnalyticsMock: NotificationsAnalytics, Mock {
 
         func intValue() -> Int {
             switch self {
-            case let .m_notificationsScreenEvent__event_eventbiValue_biValue(p0, p1): return p0.intValue + p1.intValue
-            case let .m_notificationsDiscussionPermissionToggleEvent__action_action(p0): return p0.intValue
-            case .m_notificationInbox: return 0
-            case let .m_notificationTapped__notificationType_notificationType(p0): return p0.intValue
+            case let .m_notificationScreenEvent__eventbiValue_biValue(p0, p1): return p0.intValue + p1.intValue
+            case let .m_notificationDiscussionPreferenceToggle__action_action(p0): return p0.intValue
+            case let .m_notificationPreferencesToggleBatchState__discussionsActivity_discussionsActivity(p0): return p0.intValue
+            case let .m_notificationSystemPermissionDialogViewed__source_source(p0): return p0.intValue
+            case let .m_notificationSystemPermissionDialogAction__source_sourceaction_action(p0, p1): return p0.intValue + p1.intValue
+            case let .m_notificationAppPermissionRationaleDialogViewed__source_source(p0): return p0.intValue
+            case let .m_notificationAppPermissionRationaleDialogAction__source_sourceaction_action(p0, p1): return p0.intValue + p1.intValue
+            case .m_notificationInboxMenuClicked: return 0
+            case .m_notificationMarkAllReadClicked: return 0
+            case .m_notificationPushNotificationsSettingClicked: return 0
+            case let .m_notificationInboxItemClicked__notificationInfo(p0): return p0.intValue
+            case let .m_notificationDiscussionPrimerViewed__dialogFrequency_dialogFrequency(p0): return p0.intValue
+            case let .m_notificationDiscussionPrimerAction__action_action(p0): return p0.intValue
+            case let .m_notificationDiscussionPushReceived__notificationInfo(p0): return p0.intValue
+            case let .m_notificationDiscussionPushTapped__notificationInfo(p0): return p0.intValue
             }
         }
         func assertionName() -> String {
             switch self {
-            case .m_notificationsScreenEvent__event_eventbiValue_biValue: return ".notificationsScreenEvent(event:biValue:)"
-            case .m_notificationsDiscussionPermissionToggleEvent__action_action: return ".notificationsDiscussionPermissionToggleEvent(action:)"
-            case .m_notificationInbox: return ".notificationInbox()"
-            case .m_notificationTapped__notificationType_notificationType: return ".notificationTapped(notificationType:)"
+            case .m_notificationScreenEvent__eventbiValue_biValue: return ".notificationScreenEvent(_:biValue:)"
+            case .m_notificationDiscussionPreferenceToggle__action_action: return ".notificationDiscussionPreferenceToggle(action:)"
+            case .m_notificationPreferencesToggleBatchState__discussionsActivity_discussionsActivity: return ".notificationPreferencesToggleBatchState(discussionsActivity:)"
+            case .m_notificationSystemPermissionDialogViewed__source_source: return ".notificationSystemPermissionDialogViewed(source:)"
+            case .m_notificationSystemPermissionDialogAction__source_sourceaction_action: return ".notificationSystemPermissionDialogAction(source:action:)"
+            case .m_notificationAppPermissionRationaleDialogViewed__source_source: return ".notificationAppPermissionRationaleDialogViewed(source:)"
+            case .m_notificationAppPermissionRationaleDialogAction__source_sourceaction_action: return ".notificationAppPermissionRationaleDialogAction(source:action:)"
+            case .m_notificationInboxMenuClicked: return ".notificationInboxMenuClicked()"
+            case .m_notificationMarkAllReadClicked: return ".notificationMarkAllReadClicked()"
+            case .m_notificationPushNotificationsSettingClicked: return ".notificationPushNotificationsSettingClicked()"
+            case .m_notificationInboxItemClicked__notificationInfo: return ".notificationInboxItemClicked(_:)"
+            case .m_notificationDiscussionPrimerViewed__dialogFrequency_dialogFrequency: return ".notificationDiscussionPrimerViewed(dialogFrequency:)"
+            case .m_notificationDiscussionPrimerAction__action_action: return ".notificationDiscussionPrimerAction(action:)"
+            case .m_notificationDiscussionPushReceived__notificationInfo: return ".notificationDiscussionPushReceived(_:)"
+            case .m_notificationDiscussionPushTapped__notificationInfo: return ".notificationDiscussionPushTapped(_:)"
             }
         }
     }
@@ -3365,27 +3515,71 @@ open class NotificationsAnalyticsMock: NotificationsAnalytics, Mock {
     public struct Verify {
         fileprivate var method: MethodType
 
-        public static func notificationsScreenEvent(event: Parameter<AnalyticsEvent>, biValue: Parameter<EventBIValue>) -> Verify { return Verify(method: .m_notificationsScreenEvent__event_eventbiValue_biValue(`event`, `biValue`))}
-        public static func notificationsDiscussionPermissionToggleEvent(action: Parameter<Bool>) -> Verify { return Verify(method: .m_notificationsDiscussionPermissionToggleEvent__action_action(`action`))}
-        public static func notificationInbox() -> Verify { return Verify(method: .m_notificationInbox)}
-        public static func notificationTapped(notificationType: Parameter<String>) -> Verify { return Verify(method: .m_notificationTapped__notificationType_notificationType(`notificationType`))}
+        public static func notificationScreenEvent(_ event: Parameter<AnalyticsEvent>, biValue: Parameter<EventBIValue>) -> Verify { return Verify(method: .m_notificationScreenEvent__eventbiValue_biValue(`event`, `biValue`))}
+        public static func notificationDiscussionPreferenceToggle(action: Parameter<Bool>) -> Verify { return Verify(method: .m_notificationDiscussionPreferenceToggle__action_action(`action`))}
+        public static func notificationPreferencesToggleBatchState(discussionsActivity: Parameter<Bool>) -> Verify { return Verify(method: .m_notificationPreferencesToggleBatchState__discussionsActivity_discussionsActivity(`discussionsActivity`))}
+        public static func notificationSystemPermissionDialogViewed(source: Parameter<String>) -> Verify { return Verify(method: .m_notificationSystemPermissionDialogViewed__source_source(`source`))}
+        public static func notificationSystemPermissionDialogAction(source: Parameter<String>, action: Parameter<String>) -> Verify { return Verify(method: .m_notificationSystemPermissionDialogAction__source_sourceaction_action(`source`, `action`))}
+        public static func notificationAppPermissionRationaleDialogViewed(source: Parameter<String>) -> Verify { return Verify(method: .m_notificationAppPermissionRationaleDialogViewed__source_source(`source`))}
+        public static func notificationAppPermissionRationaleDialogAction(source: Parameter<String>, action: Parameter<String>) -> Verify { return Verify(method: .m_notificationAppPermissionRationaleDialogAction__source_sourceaction_action(`source`, `action`))}
+        public static func notificationInboxMenuClicked() -> Verify { return Verify(method: .m_notificationInboxMenuClicked)}
+        public static func notificationMarkAllReadClicked() -> Verify { return Verify(method: .m_notificationMarkAllReadClicked)}
+        public static func notificationPushNotificationsSettingClicked() -> Verify { return Verify(method: .m_notificationPushNotificationsSettingClicked)}
+        public static func notificationInboxItemClicked(_ notificationInfo: Parameter<NotificationInfo>) -> Verify { return Verify(method: .m_notificationInboxItemClicked__notificationInfo(`notificationInfo`))}
+        public static func notificationDiscussionPrimerViewed(dialogFrequency: Parameter<Int>) -> Verify { return Verify(method: .m_notificationDiscussionPrimerViewed__dialogFrequency_dialogFrequency(`dialogFrequency`))}
+        public static func notificationDiscussionPrimerAction(action: Parameter<String>) -> Verify { return Verify(method: .m_notificationDiscussionPrimerAction__action_action(`action`))}
+        public static func notificationDiscussionPushReceived(_ notificationInfo: Parameter<NotificationInfo>) -> Verify { return Verify(method: .m_notificationDiscussionPushReceived__notificationInfo(`notificationInfo`))}
+        public static func notificationDiscussionPushTapped(_ notificationInfo: Parameter<NotificationInfo>) -> Verify { return Verify(method: .m_notificationDiscussionPushTapped__notificationInfo(`notificationInfo`))}
     }
 
     public struct Perform {
         fileprivate var method: MethodType
         var performs: Any
 
-        public static func notificationsScreenEvent(event: Parameter<AnalyticsEvent>, biValue: Parameter<EventBIValue>, perform: @escaping (AnalyticsEvent, EventBIValue) -> Void) -> Perform {
-            return Perform(method: .m_notificationsScreenEvent__event_eventbiValue_biValue(`event`, `biValue`), performs: perform)
+        public static func notificationScreenEvent(_ event: Parameter<AnalyticsEvent>, biValue: Parameter<EventBIValue>, perform: @escaping (AnalyticsEvent, EventBIValue) -> Void) -> Perform {
+            return Perform(method: .m_notificationScreenEvent__eventbiValue_biValue(`event`, `biValue`), performs: perform)
         }
-        public static func notificationsDiscussionPermissionToggleEvent(action: Parameter<Bool>, perform: @escaping (Bool) -> Void) -> Perform {
-            return Perform(method: .m_notificationsDiscussionPermissionToggleEvent__action_action(`action`), performs: perform)
+        public static func notificationDiscussionPreferenceToggle(action: Parameter<Bool>, perform: @escaping (Bool) -> Void) -> Perform {
+            return Perform(method: .m_notificationDiscussionPreferenceToggle__action_action(`action`), performs: perform)
         }
-        public static func notificationInbox(perform: @escaping () -> Void) -> Perform {
-            return Perform(method: .m_notificationInbox, performs: perform)
+        public static func notificationPreferencesToggleBatchState(discussionsActivity: Parameter<Bool>, perform: @escaping (Bool) -> Void) -> Perform {
+            return Perform(method: .m_notificationPreferencesToggleBatchState__discussionsActivity_discussionsActivity(`discussionsActivity`), performs: perform)
         }
-        public static func notificationTapped(notificationType: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
-            return Perform(method: .m_notificationTapped__notificationType_notificationType(`notificationType`), performs: perform)
+        public static func notificationSystemPermissionDialogViewed(source: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
+            return Perform(method: .m_notificationSystemPermissionDialogViewed__source_source(`source`), performs: perform)
+        }
+        public static func notificationSystemPermissionDialogAction(source: Parameter<String>, action: Parameter<String>, perform: @escaping (String, String) -> Void) -> Perform {
+            return Perform(method: .m_notificationSystemPermissionDialogAction__source_sourceaction_action(`source`, `action`), performs: perform)
+        }
+        public static func notificationAppPermissionRationaleDialogViewed(source: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
+            return Perform(method: .m_notificationAppPermissionRationaleDialogViewed__source_source(`source`), performs: perform)
+        }
+        public static func notificationAppPermissionRationaleDialogAction(source: Parameter<String>, action: Parameter<String>, perform: @escaping (String, String) -> Void) -> Perform {
+            return Perform(method: .m_notificationAppPermissionRationaleDialogAction__source_sourceaction_action(`source`, `action`), performs: perform)
+        }
+        public static func notificationInboxMenuClicked(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_notificationInboxMenuClicked, performs: perform)
+        }
+        public static func notificationMarkAllReadClicked(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_notificationMarkAllReadClicked, performs: perform)
+        }
+        public static func notificationPushNotificationsSettingClicked(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_notificationPushNotificationsSettingClicked, performs: perform)
+        }
+        public static func notificationInboxItemClicked(_ notificationInfo: Parameter<NotificationInfo>, perform: @escaping (NotificationInfo) -> Void) -> Perform {
+            return Perform(method: .m_notificationInboxItemClicked__notificationInfo(`notificationInfo`), performs: perform)
+        }
+        public static func notificationDiscussionPrimerViewed(dialogFrequency: Parameter<Int>, perform: @escaping (Int) -> Void) -> Perform {
+            return Perform(method: .m_notificationDiscussionPrimerViewed__dialogFrequency_dialogFrequency(`dialogFrequency`), performs: perform)
+        }
+        public static func notificationDiscussionPrimerAction(action: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
+            return Perform(method: .m_notificationDiscussionPrimerAction__action_action(`action`), performs: perform)
+        }
+        public static func notificationDiscussionPushReceived(_ notificationInfo: Parameter<NotificationInfo>, perform: @escaping (NotificationInfo) -> Void) -> Perform {
+            return Perform(method: .m_notificationDiscussionPushReceived__notificationInfo(`notificationInfo`), performs: perform)
+        }
+        public static func notificationDiscussionPushTapped(_ notificationInfo: Parameter<NotificationInfo>, perform: @escaping (NotificationInfo) -> Void) -> Perform {
+            return Perform(method: .m_notificationDiscussionPushTapped__notificationInfo(`notificationInfo`), performs: perform)
         }
     }
 
@@ -3632,6 +3826,20 @@ open class NotificationsInteractorProtocolMock: NotificationsInteractorProtocol,
 		return __value
     }
 
+    open func primerFrequency() -> Int {
+        addInvocation(.m_primerFrequency)
+		let perform = methodPerformValue(.m_primerFrequency) as? () -> Void
+		perform?()
+		var __value: Int
+		do {
+		    __value = try methodReturnValue(.m_primerFrequency).casted()
+		} catch {
+			onFatalFailure("Stub return value not specified for primerFrequency(). Use given")
+			Failure("Stub return value not specified for primerFrequency(). Use given")
+		}
+		return __value
+    }
+
     open func markPrimerAsShown() {
         addInvocation(.m_markPrimerAsShown)
 		let perform = methodPerformValue(.m_markPrimerAsShown) as? () -> Void
@@ -3648,6 +3856,7 @@ open class NotificationsInteractorProtocolMock: NotificationsInteractorProtocol,
         case m_markNotificationAsRead__notificationId_notificationId(Parameter<String>)
         case m_markAllNotificationsAsRead
         case m_shouldShowPrimer
+        case m_primerFrequency
         case m_markPrimerAsShown
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
@@ -3677,6 +3886,8 @@ open class NotificationsInteractorProtocolMock: NotificationsInteractorProtocol,
 
             case (.m_shouldShowPrimer, .m_shouldShowPrimer): return .match
 
+            case (.m_primerFrequency, .m_primerFrequency): return .match
+
             case (.m_markPrimerAsShown, .m_markPrimerAsShown): return .match
             default: return .none
             }
@@ -3692,6 +3903,7 @@ open class NotificationsInteractorProtocolMock: NotificationsInteractorProtocol,
             case let .m_markNotificationAsRead__notificationId_notificationId(p0): return p0.intValue
             case .m_markAllNotificationsAsRead: return 0
             case .m_shouldShowPrimer: return 0
+            case .m_primerFrequency: return 0
             case .m_markPrimerAsShown: return 0
             }
         }
@@ -3705,6 +3917,7 @@ open class NotificationsInteractorProtocolMock: NotificationsInteractorProtocol,
             case .m_markNotificationAsRead__notificationId_notificationId: return ".markNotificationAsRead(notificationId:)"
             case .m_markAllNotificationsAsRead: return ".markAllNotificationsAsRead()"
             case .m_shouldShowPrimer: return ".shouldShowPrimer()"
+            case .m_primerFrequency: return ".primerFrequency()"
             case .m_markPrimerAsShown: return ".markPrimerAsShown()"
             }
         }
@@ -3743,10 +3956,20 @@ open class NotificationsInteractorProtocolMock: NotificationsInteractorProtocol,
         public static func shouldShowPrimer(willReturn: Bool...) -> MethodStub {
             return Given(method: .m_shouldShowPrimer, products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
+        public static func primerFrequency(willReturn: Int...) -> MethodStub {
+            return Given(method: .m_primerFrequency, products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
         public static func shouldShowPrimer(willProduce: (Stubber<Bool>) -> Void) -> MethodStub {
             let willReturn: [Bool] = []
 			let given: Given = { return Given(method: .m_shouldShowPrimer, products: willReturn.map({ StubProduct.return($0 as Any) })) }()
 			let stubber = given.stub(for: (Bool).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func primerFrequency(willProduce: (Stubber<Int>) -> Void) -> MethodStub {
+            let willReturn: [Int] = []
+			let given: Given = { return Given(method: .m_primerFrequency, products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (Int).self)
 			willProduce(stubber)
 			return given
         }
@@ -3833,6 +4056,7 @@ open class NotificationsInteractorProtocolMock: NotificationsInteractorProtocol,
         public static func markNotificationAsRead(notificationId: Parameter<String>) -> Verify { return Verify(method: .m_markNotificationAsRead__notificationId_notificationId(`notificationId`))}
         public static func markAllNotificationsAsRead() -> Verify { return Verify(method: .m_markAllNotificationsAsRead)}
         public static func shouldShowPrimer() -> Verify { return Verify(method: .m_shouldShowPrimer)}
+        public static func primerFrequency() -> Verify { return Verify(method: .m_primerFrequency)}
         public static func markPrimerAsShown() -> Verify { return Verify(method: .m_markPrimerAsShown)}
     }
 
@@ -3863,6 +4087,9 @@ open class NotificationsInteractorProtocolMock: NotificationsInteractorProtocol,
         }
         public static func shouldShowPrimer(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_shouldShowPrimer, performs: perform)
+        }
+        public static func primerFrequency(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_primerFrequency, performs: perform)
         }
         public static func markPrimerAsShown(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_markPrimerAsShown, performs: perform)

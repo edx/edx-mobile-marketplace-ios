@@ -1440,37 +1440,176 @@ class AnalyticsManager: AuthorizationAnalytics,
         logScreenEvent(.courseUpgradeValuePropViewed, parameters: parameters)
     }
     
-    public func notificationsScreenEvent(event: AnalyticsEvent, biValue: EventBIValue) {
-        
-    }
-    
-    public func notificationsDiscussionPermissionToggleEvent(action: Bool) {
-        var parameters: [String: Any] = [
-            EventParamKey.action: action,
+    // MARK: - Notifications
+
+    public func notificationScreenEvent(_ event: AnalyticsEvent, biValue: EventBIValue) {
+        let parameters = [
             EventParamKey.category: EventCategory.notifications,
-            EventParamKey.name: EventBIValue.notificationDiscussionPermissionToggle.rawValue
+            EventParamKey.name: biValue.rawValue
         ]
         
-        logEvent(.notificationDiscussionPermissionToggle, parameters: parameters)
+        logScreenEvent(event, parameters: parameters)
     }
     
-    public func notificationInbox() {
-        var parameters: [String: Any] = [
-            EventParamKey.name: EventBIValue.notificationInbox.rawValue
-        ]
-        
-        logEvent(.notificationInbox, parameters: parameters)
-    }
-    
-    public func notificationTapped(notificationType: String) {
-        var parameters: [String: Any] = [
+    public func notificationDiscussionPreferenceToggle(action: Bool) {
+        let parameters: [String: Any] = [
             EventParamKey.category: EventCategory.notifications,
-            EventParamKey.notificationCategory: EventCategory.discussion,
-            EventParamKey.notificationType: notificationType,
-            EventParamKey.name: EventBIValue.notificationTapped.rawValue
+            EventParamKey.name: EventBIValue.notificationDiscussionPreferenceToggle.rawValue,
+            EventParamKey.action: action
         ]
         
-        logEvent(.notificationTapped, parameters: parameters)
+        logEvent(.notificationDiscussionPreferenceToggle, parameters: parameters)
+    }
+    
+    public func notificationPreferencesToggleBatchState(discussionsActivity: Bool) {
+        let parameters: [String: Any] = [
+            EventParamKey.category: EventCategory.notifications,
+            EventParamKey.name: EventBIValue.notificationPreferencesToggleBatchState.rawValue,
+            EventParamKey.discussionsActivity: discussionsActivity
+        ]
+        
+        logEvent(.notificationPreferencesToggleBatchState, parameters: parameters)
+    }
+
+    public func notificationSystemPermissionDialogViewed(source: String) {
+        let parameters = [
+            EventParamKey.category: EventCategory.notifications,
+            EventParamKey.name: EventBIValue.notificationSystemPermissionDialogViewed.rawValue,
+            EventParamKey.source: source
+        ]
+
+        logScreenEvent(.notificationSystemPermissionDialogViewed, parameters: parameters)
+    }
+
+    public func notificationSystemPermissionDialogAction(source: String, action: String) {
+        let parameters: [String: Any] = [
+            EventParamKey.category: EventCategory.notifications,
+            EventParamKey.name: EventBIValue.notificationSystemPermissionDialogAction.rawValue,
+            EventParamKey.source: source,
+            EventParamKey.action: action
+        ]
+        
+        logEvent(.notificationSystemPermissionDialogAction, parameters: parameters)
+    }
+
+    public func notificationAppPermissionRationaleDialogViewed(source: String) {
+        let parameters = [
+            EventParamKey.category: EventCategory.notifications,
+            EventParamKey.name: EventBIValue.notificationAppPermissionRationaleDialogViewed.rawValue,
+            EventParamKey.source: source
+        ]
+
+        logScreenEvent(.notificationAppPermissionRationaleDialogViewed, parameters: parameters)
+    }
+
+    public func notificationAppPermissionRationaleDialogAction(source: String, action: String) {
+        let parameters: [String: Any] = [
+            EventParamKey.category: EventCategory.notifications,
+            EventParamKey.name: EventBIValue.notificationAppPermissionRationaleDialogAction.rawValue,
+            EventParamKey.source: source,
+            EventParamKey.action: action
+        ]
+        
+        logEvent(.notificationAppPermissionRationaleDialogAction, parameters: parameters)
+    }
+
+    public func notificationInboxMenuClicked() {
+        let parameters: [String: Any] = [
+            EventParamKey.category: EventCategory.notifications,
+            EventParamKey.name: EventBIValue.notificationInboxMenuClicked.rawValue
+        ]
+
+        logEvent(.notificationInboxMenuClicked, parameters: parameters)
+    }
+
+    public func notificationMarkAllReadClicked() {
+        let parameters: [String: Any] = [
+            EventParamKey.category: EventCategory.notifications,
+            EventParamKey.name: EventBIValue.notificationMarkAllReadClicked.rawValue,
+            EventParamKey.notificationDomain: EventCategory.discussion
+        ]
+
+        logEvent(.notificationMarkAllReadClicked, parameters: parameters)
+    }
+
+    public func notificationPushNotificationsSettingClicked() {
+        let parameters: [String: Any] = [
+            EventParamKey.category: EventCategory.notifications,
+            EventParamKey.name: EventBIValue.notificationPushNotificationsSettingClicked.rawValue
+        ]
+
+        logEvent(.notificationPushNotificationsSettingClicked, parameters: parameters)
+    }
+
+    private func parameters(for notificationInfo: NotificationInfo) -> [String: Any] {
+        var parameters: [String: Any] = [
+            EventParamKey.notificationDomain: notificationInfo.notificationDomain,
+            EventParamKey.notificationType: notificationInfo.notificationType,
+            EventParamKey.notificationID: notificationInfo.notificationID
+        ]
+        parameters.setObjectOrNil(notificationInfo.courseID, forKey: EventParamKey.courseID)
+        parameters.setObjectOrNil(notificationInfo.topicID, forKey: EventParamKey.topicID)
+        parameters.setObjectOrNil(notificationInfo.threadID, forKey: EventParamKey.threadID)
+        parameters.setObjectOrNil(notificationInfo.responseID, forKey: EventParamKey.responseID)
+        parameters.setObjectOrNil(notificationInfo.commentID, forKey: EventParamKey.commentID)
+        return parameters
+    }
+
+    public func notificationInboxItemClicked(_ notificationInfo: NotificationInfo) {
+        let parameters: [String: Any] = [
+            EventParamKey.category: EventCategory.notifications,
+            EventParamKey.name: EventBIValue.notificationInboxItemClicked.rawValue
+        ].merging(parameters(for: notificationInfo)) { $1 }
+
+        logEvent(.notificationInboxItemClicked, parameters: parameters)
+    }
+
+    public func notificationBellClicked(unreadNotifications: Bool) {
+        let parameters: [String: Any] = [
+            EventParamKey.category: EventCategory.notifications,
+            EventParamKey.name: EventBIValue.notificationBellClicked.rawValue,
+            EventParamKey.unreadNotifications: unreadNotifications
+        ]
+
+        logEvent(.notificationBellClicked, parameters: parameters)
+    }
+
+    public func notificationDiscussionPrimerViewed(dialogFrequency: Int) {
+        let parameters: [String: Any] = [
+            EventParamKey.category: EventCategory.notifications,
+            EventParamKey.name: EventBIValue.notificationDiscussionPrimerViewed.rawValue,
+            EventParamKey.dialogFrequency: dialogFrequency
+        ]
+
+        logScreenEvent(.notificationDiscussionPrimerViewed, parameters: parameters)
+    }
+
+    public func notificationDiscussionPrimerAction(action: String) {
+        let parameters: [String: Any] = [
+            EventParamKey.category: EventCategory.notifications,
+            EventParamKey.name: EventBIValue.notificationDiscussionPrimerAction.rawValue,
+            EventParamKey.action: action
+        ]
+
+        logEvent(.notificationDiscussionPrimerAction, parameters: parameters)
+    }
+
+    public func notificationDiscussionPushReceived(_ notificationInfo: NotificationInfo) {
+        let parameters: [String: Any] = [
+            EventParamKey.category: EventCategory.notifications,
+            EventParamKey.name: EventBIValue.notificationDiscussionPushReceived.rawValue
+        ].merging(parameters(for: notificationInfo)) { $1 }
+
+        logEvent(.notificationDiscussionPushReceived, parameters: parameters)
+    }
+
+    public func notificationDiscussionPushTapped(_ notificationInfo: NotificationInfo) {
+        let parameters: [String: Any] = [
+            EventParamKey.category: EventCategory.notifications,
+            EventParamKey.name: EventBIValue.notificationDiscussionPushTapped.rawValue
+        ].merging(parameters(for: notificationInfo)) { $1 }
+
+        logEvent(.notificationDiscussionPushTapped, parameters: parameters)
     }
 }
 

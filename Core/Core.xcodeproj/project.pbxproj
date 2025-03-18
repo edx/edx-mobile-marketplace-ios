@@ -184,6 +184,7 @@
 		942A98552D4BD91700DD8BBC /* PaginationTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942A98542D4BD91700DD8BBC /* PaginationTask.swift */; };
 		942A98572D4BD92B00DD8BBC /* PaginationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942A98562D4BD92B00DD8BBC /* PaginationResult.swift */; };
 		942A98592D4CAF5200DD8BBC /* ScreenStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942A98582D4CAF5200DD8BBC /* ScreenStateView.swift */; };
+		9496765D2D7EA32D003CA430 /* OnPressButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9496765C2D7EA32D003CA430 /* OnPressButtonStyle.swift */; };
 		9499F1262D41375B00558D59 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9499F1252D41375B00558D59 /* AppEnvironment.swift */; };
 		973CCD7B2D3660D100949756 /* HTML2TextParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CCD792D3660D100949756 /* HTML2TextParser.swift */; };
 		973CCD7C2D3660D100949756 /* AttributedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CCD782D3660D100949756 /* AttributedText.swift */; };
@@ -423,6 +424,7 @@
 		942A98542D4BD91700DD8BBC /* PaginationTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationTask.swift; sourceTree = "<group>"; };
 		942A98562D4BD92B00DD8BBC /* PaginationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationResult.swift; sourceTree = "<group>"; };
 		942A98582D4CAF5200DD8BBC /* ScreenStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenStateView.swift; sourceTree = "<group>"; };
+		9496765C2D7EA32D003CA430 /* OnPressButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnPressButtonStyle.swift; sourceTree = "<group>"; };
 		9499F1252D41375B00558D59 /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
 		973CCD782D3660D100949756 /* AttributedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedText.swift; sourceTree = "<group>"; };
 		973CCD792D3660D100949756 /* HTML2TextParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTML2TextParser.swift; sourceTree = "<group>"; };
@@ -905,6 +907,7 @@
 				06DEA4A22BBD66A700110D20 /* BackNavigationButton.swift */,
 				06DEA4A42BBD66D700110D20 /* BackNavigationButtonViewModel.swift */,
 				942A98582D4CAF5200DD8BBC /* ScreenStateView.swift */,
+				9496765C2D7EA32D003CA430 /* OnPressButtonStyle.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -1455,6 +1458,7 @@
 				024D723529C8BB1A006D36ED /* NavigationBar.swift in Sources */,
 				BA8B3A2F2AD546A700D25EF5 /* DebugLog.swift in Sources */,
 				14A832612BD8B5F100E5654D /* CourseUpgradeHelper.swift in Sources */,
+				9496765D2D7EA32D003CA430 /* OnPressButtonStyle.swift in Sources */,
 				0727877928D23BE0002E9142 /* RequestInterceptor.swift in Sources */,
 				BA8FA66E2AD59E7D00EA029A /* FacebookAuthProvider.swift in Sources */,
 				142BBEB32C2EE49C00D57CEC /* CourseAccessMessageView.swift in Sources */,

@@ -40,7 +40,8 @@ public struct NotificationsInboxView: View {
                 }
             }
             .onFirstAppear {
-                viewModel.trackNotificationInbox()
+                viewModel.trackScreenEvent()
+
                 Task {
                     await viewModel.loadNotifications()
                     await viewModel.markNotificationsAsSeen()
@@ -99,6 +100,9 @@ public struct NotificationsInboxView: View {
                     .foregroundColor(Theme.Colors.textPrimary)
                     .accessibilityIdentifier("three_dots_menu")
             }
+            .buttonStyle(OnPressButtonStyle {
+                viewModel.trackInboxMenuClicked()
+            })
         }
         .padding(.bottom, 4)
     }

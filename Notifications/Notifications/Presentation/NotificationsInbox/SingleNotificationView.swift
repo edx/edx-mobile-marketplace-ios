@@ -24,11 +24,10 @@ struct SingleNotificationView: View {
     var body: some View {
         Button(
             action: {
+                viewModel.trackInboxItemClicked(notification: notification)
+
                 Task {
                     await viewModel.showDiscussions(notification)
-                    viewModel.trackNotificationTapped(
-                        notificationType: notification.notificationType ?? ""
-                    )
                     await viewModel.markNotificationAsRead(notificationId: String(notification.id))
                     var updatedNotification = notification
                     updatedNotification.lastRead = Date()
