@@ -43,7 +43,7 @@ public class DeepLink {
     let topicID: String?
     let threadID: String?
     let commentID: String?
-    let parentID: String?
+    let responseID: String?
     let componentID: String?
     var type: DeepLinkType
     
@@ -58,9 +58,9 @@ public class DeepLink {
         threadID = payload[.threadID]
         commentID = payload[.commentID]
         componentID = payload[.componentID]
-        parentID = payload[.parentID]
+        responseID = payload[.responseID]
         type = DeepLinkType(
-            rawValue: screenName ?? notificationType ?? DeepLinkType.none.rawValue
+            rawValue: screenName ?? DeepLinkType.none.rawValue
         ) ?? .none
     }
 }

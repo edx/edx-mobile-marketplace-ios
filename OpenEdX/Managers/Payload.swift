@@ -16,7 +16,7 @@ enum PayloadKey: String {
     case courseID = "course_id"
     case topicID = "topic_id"
     case threadID = "thread_id"
-    case parentID = "parent_id"
+    case responseID = "response_id"
     case commentID = "comment_id"
     case componentID = "component_id"
 }
