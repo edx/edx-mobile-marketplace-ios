@@ -5,24 +5,24 @@
 //  Created by Saeed Bashir on 6/4/24.
 //
 
-import Foundation
 import SwiftUI
-import Theme
 
 public struct RestoreInProgressView: View {
+    private let style: EDXIAPStyle
     
-    public init() {
+    init(style: EDXIAPStyle) {
+        self.style = style
     }
     
     public var body: some View {
         ZStack(alignment: .center) {
             VStack(spacing: 20) {
-                Text(CoreLocalization.CourseUpgrade.Restore.inprogressText)
-                    .foregroundColor(Theme.Colors.white)
-                    .font(Theme.Fonts.bodyLarge)
+                Text(Texts.Restore.inprogressText)
+                    .foregroundColor(style.mainColors.whiteColor)
+                    .font(Fonts.bodyLarge.swiftUI())
                     .accessibilityIdentifier("restore_inprogress_text")
                 
-                ProgressBar(size: 40, lineWidth: 8)
+                ProgressBar(size: 40, lineWidth: 8, accentColor: style.mainColors.accentColor)
                     .padding(20)
                     .accessibilityIdentifier("progressbar")
             }

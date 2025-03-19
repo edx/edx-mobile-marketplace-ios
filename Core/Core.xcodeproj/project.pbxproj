@@ -90,15 +90,11 @@
 		02F6EF3B28D9B8EC00835477 /* CourseCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F6EF3A28D9B8EC00835477 /* CourseCellView.swift */; };
 		02F6EF4A28D9F0A700835477 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F6EF4928D9F0A700835477 /* DateExtension.swift */; };
 		0604C9AA2B22FACF00AD5DBF /* UIComponentsConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0604C9A92B22FACF00AD5DBF /* UIComponentsConfig.swift */; };
-		062C69A82C198323002BD311 /* PaymentSnakbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062C69A22C198323002BD311 /* PaymentSnakbarView.swift */; };
 		062C69A92C198323002BD311 /* UpgradeCourseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062C69A32C198323002BD311 /* UpgradeCourseView.swift */; };
 		062C69AA2C198323002BD311 /* UpgradeInfoSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062C69A42C198323002BD311 /* UpgradeInfoSheetView.swift */; };
 		062C69AB2C198323002BD311 /* UpgradeCourseViewMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062C69A52C198323002BD311 /* UpgradeCourseViewMessage.swift */; };
 		062C69AC2C198323002BD311 /* UpgradeInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062C69A62C198323002BD311 /* UpgradeInfoView.swift */; };
-		062C69AD2C198323002BD311 /* UpgradeInfoCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062C69A72C198323002BD311 /* UpgradeInfoCellView.swift */; };
-		062C69B32C198337002BD311 /* PaymentSnackbarModifierViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062C69AE2C198337002BD311 /* PaymentSnackbarModifierViewModel.swift */; };
 		062C69B42C198337002BD311 /* UpgradeInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062C69AF2C198337002BD311 /* UpgradeInfoViewModel.swift */; };
-		062C69B52C198337002BD311 /* PaymentSnackbarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062C69B12C198337002BD311 /* PaymentSnackbarModifier.swift */; };
 		062C69BB2C199C2A002BD311 /* MainTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062C69B92C199C2A002BD311 /* MainTab.swift */; };
 		064987932B4D69FF0071642A /* DragAndDropCssInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0649878A2B4D69FE0071642A /* DragAndDropCssInjection.swift */; };
 		064987942B4D69FF0071642A /* WebviewInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0649878B2B4D69FE0071642A /* WebviewInjection.swift */; };
@@ -149,7 +145,6 @@
 		141F1D302B7328D4009E81EB /* WebviewCookiesUpdateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141F1D2F2B7328D4009E81EB /* WebviewCookiesUpdateProtocol.swift */; };
 		142BBEB32C2EE49C00D57CEC /* CourseAccessMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142BBEB22C2EE49C00D57CEC /* CourseAccessMessageView.swift */; };
 		14769D3C2B9822EE00AB36D4 /* CoreAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14769D3B2B9822EE00AB36D4 /* CoreAnalytics.swift */; };
-		149936CE2BEB4F8900B4C89F /* CourseUpgradeUnlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149936CD2BEB4F8900B4C89F /* CourseUpgradeUnlockView.swift */; };
 		14A832522BD7537A00E5654D /* StorekitHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A832512BD7537A00E5654D /* StorekitHandler.swift */; };
 		14A832572BD75D6100E5654D /* CourseUpgradeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A832562BD75D6100E5654D /* CourseUpgradeHandler.swift */; };
 		14A832592BD75EC400E5654D /* CourseUpgradeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A832582BD75EC400E5654D /* CourseUpgradeInteractor.swift */; };
@@ -160,7 +155,6 @@
 		14A832682BDA8B6000E5654D /* UIAlertController+BlockActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A832672BDA8B6000E5654D /* UIAlertController+BlockActions.swift */; };
 		14DE13DA2BDF7E5E0059168F /* IAPConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DE13D92BDF7E5E0059168F /* IAPConfig.swift */; };
 		14DE13DC2BDF83350059168F /* ServerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DE13DB2BDF83350059168F /* ServerConfig.swift */; };
-		14F8E66B2C0F4D1200E4EF69 /* RestoreInProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F8E66A2C0F4D1200E4EF69 /* RestoreInProgressView.swift */; };
 		5E58740A2AA9DF20F4644191 /* Pods_App_Core_CoreTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33FA09A20AAE2B2A0BA89190 /* Pods_App_Core_CoreTests.framework */; };
 		942A984E2D4B598C00DD8BBC /* PaginationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942A984D2D4B598C00DD8BBC /* PaginationManager.swift */; };
 		942A98552D4BD91700DD8BBC /* PaginationTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942A98542D4BD91700DD8BBC /* PaginationTask.swift */; };
@@ -329,15 +323,11 @@
 		0604C9A92B22FACF00AD5DBF /* UIComponentsConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIComponentsConfig.swift; sourceTree = "<group>"; };
 		06078B6E2BA49C3100576798 /* Dictionary+JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+JSON.swift"; sourceTree = "<group>"; };
 		06078B6F2BA49C3100576798 /* String+JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+JSON.swift"; sourceTree = "<group>"; };
-		062C69A22C198323002BD311 /* PaymentSnakbarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentSnakbarView.swift; sourceTree = "<group>"; };
 		062C69A32C198323002BD311 /* UpgradeCourseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradeCourseView.swift; sourceTree = "<group>"; };
 		062C69A42C198323002BD311 /* UpgradeInfoSheetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradeInfoSheetView.swift; sourceTree = "<group>"; };
 		062C69A52C198323002BD311 /* UpgradeCourseViewMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradeCourseViewMessage.swift; sourceTree = "<group>"; };
 		062C69A62C198323002BD311 /* UpgradeInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradeInfoView.swift; sourceTree = "<group>"; };
-		062C69A72C198323002BD311 /* UpgradeInfoCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradeInfoCellView.swift; sourceTree = "<group>"; };
-		062C69AE2C198337002BD311 /* PaymentSnackbarModifierViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentSnackbarModifierViewModel.swift; sourceTree = "<group>"; };
 		062C69AF2C198337002BD311 /* UpgradeInfoViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradeInfoViewModel.swift; sourceTree = "<group>"; };
-		062C69B12C198337002BD311 /* PaymentSnackbarModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentSnackbarModifier.swift; sourceTree = "<group>"; };
 		062C69B92C199C2A002BD311 /* MainTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTab.swift; sourceTree = "<group>"; };
 		0649878A2B4D69FE0071642A /* DragAndDropCssInjection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DragAndDropCssInjection.swift; sourceTree = "<group>"; };
 		0649878B2B4D69FE0071642A /* WebviewInjection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebviewInjection.swift; sourceTree = "<group>"; };
@@ -392,7 +382,6 @@
 		141F1D2F2B7328D4009E81EB /* WebviewCookiesUpdateProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebviewCookiesUpdateProtocol.swift; sourceTree = "<group>"; };
 		142BBEB22C2EE49C00D57CEC /* CourseAccessMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseAccessMessageView.swift; sourceTree = "<group>"; };
 		14769D3B2B9822EE00AB36D4 /* CoreAnalytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreAnalytics.swift; sourceTree = "<group>"; };
-		149936CD2BEB4F8900B4C89F /* CourseUpgradeUnlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseUpgradeUnlockView.swift; sourceTree = "<group>"; };
 		14A832512BD7537A00E5654D /* StorekitHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorekitHandler.swift; sourceTree = "<group>"; };
 		14A832562BD75D6100E5654D /* CourseUpgradeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseUpgradeHandler.swift; sourceTree = "<group>"; };
 		14A832582BD75EC400E5654D /* CourseUpgradeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseUpgradeInteractor.swift; sourceTree = "<group>"; };
@@ -404,7 +393,6 @@
 		14D912DA2C257E9E0077CCCE /* FullStoryConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullStoryConfigTests.swift; sourceTree = "<group>"; };
 		14DE13D92BDF7E5E0059168F /* IAPConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPConfig.swift; sourceTree = "<group>"; };
 		14DE13DB2BDF83350059168F /* ServerConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfig.swift; sourceTree = "<group>"; };
-		14F8E66A2C0F4D1200E4EF69 /* RestoreInProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreInProgressView.swift; sourceTree = "<group>"; };
 		1A154A95AF4EE85A4A1C083B /* Pods-App-Core.releasedev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Core.releasedev.xcconfig"; path = "Target Support Files/Pods-App-Core/Pods-App-Core.releasedev.xcconfig"; sourceTree = "<group>"; };
 		2B7E6FE7843FC4CF2BFA712D /* Pods-App-Core.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Core.debug.xcconfig"; path = "Target Support Files/Pods-App-Core/Pods-App-Core.debug.xcconfig"; sourceTree = "<group>"; };
 		33FA09A20AAE2B2A0BA89190 /* Pods_App_Core_CoreTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_App_Core_CoreTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -613,18 +601,9 @@
 		062C69B02C198337002BD311 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				062C69AE2C198337002BD311 /* PaymentSnackbarModifierViewModel.swift */,
 				062C69AF2C198337002BD311 /* UpgradeInfoViewModel.swift */,
 			);
 			path = ViewModels;
-			sourceTree = "<group>";
-		};
-		062C69B22C198337002BD311 /* Modifiers */ = {
-			isa = PBXGroup;
-			children = (
-				062C69B12C198337002BD311 /* PaymentSnackbarModifier.swift */,
-			);
-			path = Modifiers;
 			sourceTree = "<group>";
 		};
 		062C69BA2C199C2A002BD311 /* Enums */ = {
@@ -920,14 +899,10 @@
 		149936CF2BEB9C4900B4C89F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				062C69A22C198323002BD311 /* PaymentSnakbarView.swift */,
 				062C69A32C198323002BD311 /* UpgradeCourseView.swift */,
 				062C69A52C198323002BD311 /* UpgradeCourseViewMessage.swift */,
-				062C69A72C198323002BD311 /* UpgradeInfoCellView.swift */,
 				062C69A42C198323002BD311 /* UpgradeInfoSheetView.swift */,
 				062C69A62C198323002BD311 /* UpgradeInfoView.swift */,
-				149936CD2BEB4F8900B4C89F /* CourseUpgradeUnlockView.swift */,
-				14F8E66A2C0F4D1200E4EF69 /* RestoreInProgressView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -935,7 +910,6 @@
 		14A832502BD7533000E5654D /* CourseUpgrade */ = {
 			isa = PBXGroup;
 			children = (
-				062C69B22C198337002BD311 /* Modifiers */,
 				062C69B02C198337002BD311 /* ViewModels */,
 				06EA8A4B2BFDFF5F005DFB90 /* Models */,
 				06EA8A462BFDFEE7005DFB90 /* Protocols */,
@@ -1373,10 +1347,8 @@
 				0727877728D23847002E9142 /* DataLayer.swift in Sources */,
 				0241666B28F5A78B00082765 /* HTMLFormattedText.swift in Sources */,
 				02D800CC29348F460099CF16 /* ImagePicker.swift in Sources */,
-				062C69A82C198323002BD311 /* PaymentSnakbarView.swift in Sources */,
 				027BD3B92909476200392132 /* KeyboardAvoidingModifier.swift in Sources */,
 				BA4AFB422B5A7A0900A21367 /* VideoDownloadQualityView.swift in Sources */,
-				062C69B52C198337002BD311 /* PaymentSnackbarModifier.swift in Sources */,
 				02A8C5812C05DBB4004B91FF /* Data_EnrollmentsStatus.swift in Sources */,
 				06BEEA0E2B6A55C500D25A97 /* ColorInversionInjection.swift in Sources */,
 				064987972B4D69FF0071642A /* WebView.swift in Sources */,
@@ -1399,7 +1371,6 @@
 				E0D586362B314CD3009B4BA7 /* LogistrationBottomView.swift in Sources */,
 				942A98572D4BD92B00DD8BBC /* PaginationResult.swift in Sources */,
 				0727878128D25EFD002E9142 /* SnackBarView.swift in Sources */,
-				062C69AD2C198323002BD311 /* UpgradeInfoCellView.swift in Sources */,
 				021D924828DC860C00ACC565 /* Data_UserProfile.swift in Sources */,
 				BA593F1C2AF8E498009ADB51 /* ScrollSlidingTabBar.swift in Sources */,
 				9499F1262D41375B00558D59 /* AppEnvironment.swift in Sources */,
@@ -1422,9 +1393,7 @@
 				027BD3AE2909475000392132 /* KeyboardScrollerOptions.swift in Sources */,
 				BAFB99922B14E23D007D09F9 /* AppleSignInConfig.swift in Sources */,
 				141F1D302B7328D4009E81EB /* WebviewCookiesUpdateProtocol.swift in Sources */,
-				062C69B32C198337002BD311 /* PaymentSnackbarModifierViewModel.swift in Sources */,
 				064987992B4D69FF0071642A /* WebViewScriptInjectionProtocol.swift in Sources */,
-				14F8E66B2C0F4D1200E4EF69 /* RestoreInProgressView.swift in Sources */,
 				070019AE28F701B200D5FC78 /* Certificate.swift in Sources */,
 				BA4AFB442B6A5AF100A21367 /* CheckBoxView.swift in Sources */,
 				076F297F2A1F80C800967E7D /* Pagination.swift in Sources */,
@@ -1535,7 +1504,6 @@
 				0727878928D31734002E9142 /* User.swift in Sources */,
 				A53A32352B233DEC005FE38A /* ThemeConfig.swift in Sources */,
 				02280F5B294B4E6F0032823A /* Connectivity.swift in Sources */,
-				149936CE2BEB4F8900B4C89F /* CourseUpgradeUnlockView.swift in Sources */,
 				06EA8A4A2BFDFF25005DFB90 /* CourseUpgradeInteractorProtocol.swift in Sources */,
 				0254D1912BCD699F000CDE89 /* RefreshProgressView.swift in Sources */,
 				062C69AB2C198323002BD311 /* UpgradeCourseViewMessage.swift in Sources */,

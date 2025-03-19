@@ -6,11 +6,16 @@
 //
 
 import SwiftUI
-import Theme
 import OEXFoundation
 
 public struct PaymentSnackbarModifier: ViewModifier {
     @StateObject var viewModel: PaymentSnackbarModifierViewModel = .init()
+    private let style: EDXIAPStyle
+    
+    init(style: EDXIAPStyle) {
+        self.style = style
+    }
+    
     public func body(content: Content) -> some View {
             content
                 .onAppear {
@@ -22,10 +27,10 @@ public struct PaymentSnackbarModifier: ViewModifier {
                 .overlay(alignment: .bottom) {
                     ZStack(alignment: .bottom) {
                         if viewModel.showPaymentSuccess {
-                            PaymentSnakbarView()
+                            PaymentSnakbarView(style: style)
                                 .transition(.move(edge: .bottom))
                                 .onAppear {
-                                    doAfter(Theme.Timeout.snackbarMessageLongTimeout) {
+                                    doAfter(Assets.Timeouts.snackbarMessageLongTimeout) {
                                         viewModel.showPaymentSuccess = false
                                     }
                                 }
@@ -40,7 +45,7 @@ public struct PaymentSnackbarModifier: ViewModifier {
 }
 
 extension View {
-    public func paymentSnackbar() -> some View {
-        modifier(PaymentSnackbarModifier())
+    public func paymentSnackbar(style: EDXIAPStyle) -> some View {
+        modifier(PaymentSnackbarModifier(style: style))
     }
 }
