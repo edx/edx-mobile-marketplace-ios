@@ -19,7 +19,7 @@ public struct EDXProduct: IAPProduct {
     }
 }
 
-public class EDXIAPService: IAPServiceProtocol {
+public class EDXIAPService: IAPServiceProtocol, EDXIAPHelperProtocol {
     public typealias Product = EDXProduct
     public typealias ProductInfo = EDXProductInfo
     
@@ -37,6 +37,10 @@ public class EDXIAPService: IAPServiceProtocol {
         provider.product(for: object)
     }
     
+    public func info(for product: EDXProduct) async -> ProductInfo? {
+        await provider.requestInfo(for: product)
+    }
+    
     public func buy(product: Product) {}
     
     public func view(for object: Any) -> AnyView? {
@@ -44,9 +48,15 @@ public class EDXIAPService: IAPServiceProtocol {
         return AnyView(
             PrimaryCardButton(style: style.dashboardButton, action: { [weak self] in
                 guard let self else { return }
-                self.router.navigateToUpgrade(style: self.style.upgradeInfoView, product: product)
+                self.router.navigateToUpgrade(style: self.style.upgradeInfoView, product: product, helper: self)
             })
         )
         
     }
+}
+
+@MainActor
+protocol EDXIAPHelperProtocol {
+    func product(for object: Any) -> EDXProduct?
+    func info(for product: EDXProduct) async -> EDXProductInfo?
 }

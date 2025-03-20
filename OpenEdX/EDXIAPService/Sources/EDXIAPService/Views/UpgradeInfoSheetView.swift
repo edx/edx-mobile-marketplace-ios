@@ -12,11 +12,13 @@ struct UpgradeInfoSheetView: View {
 //    @ObservedObject var viewModel: UpgradeInfoViewModel
     let style: EDXUpgradeInfoViewStyle
     let product: EDXProduct
+    let helper: EDXIAPHelperProtocol
     
-    init(style: EDXUpgradeInfoViewStyle, product: EDXProduct/*, viewModel: UpgradeInfoViewModel*/) {
+    init(style: EDXUpgradeInfoViewStyle, product: EDXProduct, helper: EDXIAPHelperProtocol/*, viewModel: UpgradeInfoViewModel*/) {
 //        self.viewModel = viewModel
         self.style = style
         self.product = product
+        self.helper = helper
     }
     
     var body: some View {

@@ -8,5 +8,5 @@ import OEXFoundation
 
 @MainActor
 protocol RouterProtocol {
-    func navigateToUpgrade(style: EDXUpgradeInfoViewStyle, product: EDXProduct)
+    func navigateToUpgrade(style: EDXUpgradeInfoViewStyle, product: EDXProduct, helper: EDXIAPHelperProtocol)
 }
