@@ -6,11 +6,15 @@
 //
 
 import SwiftUI
-import Theme
 
 public struct CourseUpgradeUnlockView: View {
     @Environment(\.isHorizontal) var isHorizontal
-    public init() {}
+    
+    private let style: EDXIAPStyle
+    
+    init(style: EDXIAPStyle) {
+        self.style = style
+    }
     
     public var body: some View {
         if isHorizontal {
@@ -23,34 +27,34 @@ public struct CourseUpgradeUnlockView: View {
     @ViewBuilder
     var verticalLayout: some View {
         ZStack(alignment: .center) {
-            Theme.Colors.background
+            style.mainColors.background
             VStack(spacing: 0) {
                 VStack(spacing: 25) {
                     Spacer()
-                    ThemeAssets.campaignLaunch.swiftUIImage
+                    Assets.Images.campaignLaunch.swiftUI()
                         .resizable()
                         .frame(maxWidth: 125, maxHeight: 125)
                     
                     VStack(spacing: 0) {
-                        Text(CoreLocalization.CourseUpgrade.unlockingText)
-                            .foregroundColor(Theme.Colors.textPrimary)
-                            .font(Theme.Fonts.headlineSmall)
+                        Text(Texts.UpgradeInfo.unlockingText)
+                            .foregroundColor(style.mainColors.textPrimary)
+                            .font(Fonts.headlineSmall.swiftUI())
                             .padding(0)
-                        Text(CoreLocalization.CourseUpgrade.unlockingFullAccess)
-                            .foregroundColor(Theme.Colors.accentColor)
-                            .font(Theme.Fonts.headlineSmall)
+                        Text(Texts.UpgradeInfo.unlockingFullAccess)
+                            .foregroundColor(style.mainColors.accentColor)
+                            .font(Fonts.headlineSmall.swiftUI())
                             .fontWeight(.heavy)
                             .padding(0)
-                        Text(CoreLocalization.CourseUpgrade.unlockingToCourse)
-                            .foregroundColor(Theme.Colors.textPrimary)
-                            .font(Theme.Fonts.headlineSmall)
+                        Text(Texts.UpgradeInfo.unlockingToCourse)
+                            .foregroundColor(style.mainColors.textPrimary)
+                            .font(Fonts.headlineSmall.swiftUI())
                             .padding(0)
                     }
                     .accessibilityIdentifier("unlock_text")
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 ZStack {
-                    ProgressBar(size: 45, lineWidth: 8)
+                    ProgressBar(size: 45, lineWidth: 8, accentColor: style.mainColors.accentColor)
                         .padding(20)
                         .accessibilityIdentifier("progressbar")
                 }
@@ -64,33 +68,33 @@ public struct CourseUpgradeUnlockView: View {
     @ViewBuilder
     var horizontalLayout: some View {
         ZStack(alignment: .center) {
-            Theme.Colors.background
+            style.mainColors.background
             VStack(spacing: 0) {
                 VStack(spacing: 25) {
                     
-                    ThemeAssets.campaignLaunch.swiftUIImage
+                    Assets.Images.campaignLaunch.swiftUI()
                         .resizable()
                         .frame(maxWidth: 125, maxHeight: 125)
                     
                     VStack(spacing: 0) {
-                        Text(CoreLocalization.CourseUpgrade.unlockingText)
-                            .foregroundColor(Theme.Colors.textPrimary)
-                            .font(Theme.Fonts.headlineSmall)
+                        Text(Texts.UpgradeInfo.unlockingText)
+                            .foregroundColor(style.mainColors.textPrimary)
+                            .font(Fonts.headlineSmall.swiftUI())
                             .padding(0)
-                        Text(CoreLocalization.CourseUpgrade.unlockingFullAccess)
-                            .foregroundColor(Theme.Colors.accentColor)
-                            .font(Theme.Fonts.headlineSmall)
+                        Text(Texts.UpgradeInfo.unlockingFullAccess)
+                            .foregroundColor(style.mainColors.accentColor)
+                            .font(Fonts.headlineSmall.swiftUI())
                             .fontWeight(.heavy)
                             .padding(0)
-                        Text(CoreLocalization.CourseUpgrade.unlockingToCourse)
-                            .foregroundColor(Theme.Colors.textPrimary)
-                            .font(Theme.Fonts.headlineSmall)
+                        Text(Texts.UpgradeInfo.unlockingToCourse)
+                            .foregroundColor(style.mainColors.textPrimary)
+                            .font(Fonts.headlineSmall.swiftUI())
                             .padding(0)
                     }
                     .accessibilityIdentifier("unlock_text")
                 }
                 ZStack {
-                    ProgressBar(size: 45, lineWidth: 8)
+                    ProgressBar(size: 45, lineWidth: 8, accentColor: style.mainColors.accentColor)
                         .padding(20)
                         .accessibilityIdentifier("progressbar")
                 }

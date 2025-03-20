@@ -6,41 +6,41 @@
 //
 
 import SwiftUI
-import Theme
 
 struct UpgradeInfoCellView: View {
     var title: String
+    let style: EDXIAPStyle
     
     var body: some View {
         HStack(spacing: 10) {
             UpgradeInfoPointView()
             Text(title)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .font(Theme.Fonts.bodyLarge)
+                .font(Fonts.bodyLarge.swiftUI())
         }
     }
 }
 
 struct UpgradeInfoPointView: View {
     var body: some View {
-        CoreAssets.upgradeCheckmarkImage.swiftUIImage
+        Assets.Images.upgradeCheckmarkImage.swiftUI()
             .resizable()
         .frame(width: 30, height: 30)
     }
 }
 
 public struct UpgradeOptionsView: View {
+    private let style: EDXIAPStyle
+    
+    init(style: EDXIAPStyle) {
+        self.style = style
+    }
+    
     public var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            UpgradeInfoCellView(title: CoreLocalization.CourseUpgrade.View.Option.first)
-            UpgradeInfoCellView(title: CoreLocalization.CourseUpgrade.View.Option.second)
-            UpgradeInfoCellView(title: CoreLocalization.CourseUpgrade.View.Option.third)
+            UpgradeInfoCellView(title: Texts.UpgradeInfo.optionFirst, style: style)
+            UpgradeInfoCellView(title: Texts.UpgradeInfo.optionSecond, style: style)
+            UpgradeInfoCellView(title: Texts.UpgradeInfo.optionThird, style: style)
         }
     }
 }
-
-#if DEBUG
-#Preview {
-    UpgradeOptionsView()
-}
-#endif
