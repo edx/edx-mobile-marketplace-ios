@@ -42,6 +42,7 @@ class UpgradeInfoViewModel: ObservableObject, @unchecked Sendable {
     
     @MainActor
     public func fetchProduct() async {
+        isLoading = true
         do {
             let info = try await helper.info(for: edxProduct)
             self.info = info
@@ -49,7 +50,6 @@ class UpgradeInfoViewModel: ObservableObject, @unchecked Sendable {
                 isLoading = false
                 return
             }
-            isLoading = true
             // NEEDS WORK product = try await handler.fetchProduct(sku: info.sku)
             isLoading = false
         } catch let error {
