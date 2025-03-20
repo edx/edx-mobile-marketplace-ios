@@ -25,30 +25,28 @@ struct UpgradeInfoSheetView: View {
     
     var body: some View {
         NavigationView {
-            // NEEDS WORK
-//            UpgradeInfoView(
-//                isFindCourseButtonVisible: false,
-//                viewModel: viewModel
-//            )
-            // NEEDS WORK
-//            .background {
-//                 Theme.Colors.background
-//                    .ignoresSafeArea()
-//            }
-//            .navigationBarTitleDisplayMode(.inline)
-//            .toolbar {
-//                ToolbarItem(placement: .navigationBarTrailing) {
-//                    Button {
-//                        if !viewModel.interactiveDismissDisabled {
-//                            dismiss()
-//                        }
-//                    } label: {
-//                        Image(systemName: "xmark")
-//                            // NEEDS WORK .foregroundColor(Theme.Colors.accentColor)
-//                    }
-//                    .accessibilityIdentifier("close_button")
-//                }
-//            }
+            UpgradeInfoView(
+                isFindCourseButtonVisible: false,
+                viewModel: viewModel
+            )
+            .background {
+                style.backgroundColor
+                    .ignoresSafeArea()
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        if !viewModel.interactiveDismissDisabled {
+                            dismiss()
+                        }
+                    } label: {
+                        Image(systemName: "xmark")
+                            // NEEDS WORK .foregroundColor(Theme.Colors.accentColor)
+                    }
+                    .accessibilityIdentifier("close_button")
+                }
+            }
         }
         .navigationViewStyle(.stack)
         .interactiveDismissDisabled(viewModel.interactiveDismissDisabled)
