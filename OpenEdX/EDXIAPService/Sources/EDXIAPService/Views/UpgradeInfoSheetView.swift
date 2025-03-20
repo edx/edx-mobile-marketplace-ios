@@ -11,12 +11,12 @@ struct UpgradeInfoSheetView: View {
     @Environment(\.dismiss) private var dismiss
 //    @ObservedObject var viewModel: UpgradeInfoViewModel
     let style: EDXUpgradeInfoViewStyle
-    let configuration: IAPConfiguration
+    let product: EDXProduct
     
-    init(style: EDXUpgradeInfoViewStyle, configuration: IAPConfiguration/*, viewModel: UpgradeInfoViewModel*/) {
+    init(style: EDXUpgradeInfoViewStyle, product: EDXProduct/*, viewModel: UpgradeInfoViewModel*/) {
 //        self.viewModel = viewModel
         self.style = style
-        self.configuration = configuration
+        self.product = product
     }
     
     var body: some View {

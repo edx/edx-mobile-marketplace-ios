@@ -21,6 +21,7 @@ import Theme
 import BackgroundTasks
 import EDXMobileAnalytics
 import EDXIAPService
+import Course
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -192,7 +193,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             )
         }
         // - IAP
-        pluginManager.setIAPService(EDXIAPService())
+        let iapService = EDXIAPService(
+            provider: .init(
+                request: { product in
+                    let interactor = Container.shared.resolve(CourseInteractorProtocol.self)
+                    do {
+                        if let courseStructure = try await interactor?.getCourseBlocks(courseID: product.id) {
+                            return EDXProductInfo(
+                                productName: courseStructure.displayName,
+                                sku: courseStructure.sku ?? "",
+                                courseID: courseStructure.id,
+                                isSelfPaced: courseStructure.isSelfPaced,
+                                lmsPrice: courseStructure.lmsPrice ?? .zero
+                            )
+                        }
+                    } catch {
+                        print("received error = \(error)")
+                    }
+                    return nil
+                },
+                product: { object in
+                    if let primaryCourse = object as? PrimaryCourse {
+                        return EDXProduct(id: primaryCourse.courseID, name: primaryCourse.name, screen: .dashboard)
+                    }
+                    return nil
+                })
+        )
+        pluginManager.setIAPService(iapService)
         // - FullStory
         /**
          This check is `edX/2U` specific.

@@ -8,12 +8,12 @@ import OEXFoundation
 import SwiftUI
 
 class Router: RouterProtocol {
-    func navigateToUpgrade(style: EDXUpgradeInfoViewStyle, configuration: IAPConfiguration) {
+    func navigateToUpgrade(style: EDXUpgradeInfoViewStyle, product: EDXProduct) {
         let topController = UIApplication.topViewController()
         let controller = UIHostingController(
             rootView: UpgradeInfoSheetView(
                 style: style,
-                configuration: configuration
+                product: product
             )
         )
         if let sheet = controller.sheetPresentationController {
@@ -24,6 +24,7 @@ class Router: RouterProtocol {
         }
 
         topController?.present(controller, animated: true)
+
         /*
         let view = UpgradeInfoSheetView(
             viewModel: Container.shared.resolve(

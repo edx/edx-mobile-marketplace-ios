@@ -42,7 +42,7 @@ public class PrimaryCourseDashboardViewModel: ObservableObject {
     
     private let ipadPageSize = 7
     private let iphonePageSize = 5
-    let iapManager: (IAPManagerProtocol)?
+    let iapService: (any IAPServiceProtocol)?
     
     public init(
         interactor: DashboardInteractorProtocol,
@@ -52,7 +52,7 @@ public class PrimaryCourseDashboardViewModel: ObservableObject {
         serverConfig: ServerConfigProtocol,
         notificationsInteractor: NotificationsInteractorProtocol,
         storage: CoreStorage,
-        iapManager: IAPManagerProtocol?
+        iapService: (any IAPServiceProtocol)?
     ) {
         self.interactor = interactor
         self.connectivity = connectivity
@@ -61,7 +61,7 @@ public class PrimaryCourseDashboardViewModel: ObservableObject {
         self.serverConfig = serverConfig
         self.notificationsInteractor = notificationsInteractor
         self.storage = storage
-        self.iapManager = iapManager
+        self.iapService = iapService
         let enrollmentPublisher = NotificationCenter.default.publisher(for: .onCourseEnrolled)
         let completionPublisher = NotificationCenter.default.publisher(for: .onblockCompletionRequested)
         let refreshEnrollmentsPublisher = NotificationCenter.default.publisher(for: .refreshEnrollments)

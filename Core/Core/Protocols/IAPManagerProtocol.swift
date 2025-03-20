@@ -5,6 +5,7 @@
 //  Created by Vadim Kuznetsov on 11.03.25.
 //
 
+/*
 import OEXFoundation
 import SwiftUI
 
@@ -14,3 +15,5 @@ public protocol IAPManagerProtocol {
     func configuration(for primaryCourse: PrimaryCourse) -> IAPConfiguration
     func dashboardPrimaryCardButton(configuration: IAPConfiguration) -> AnyView?
 }
+
+*/

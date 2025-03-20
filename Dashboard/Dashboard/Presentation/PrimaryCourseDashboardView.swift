@@ -129,23 +129,9 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
                                                     },
                                                     isUpgradeable: primary.isUpgradeable &&
                                                     viewModel.serverConfig.iapConfig.enabled,
-                                                    upgradeAction: {
-                                                        Task {@MainActor in
-                                                            await self.router.showUpgradeInfo(
-                                                                productName: primary.name,
-                                                                message: "",
-                                                                sku: primary.sku ?? "",
-                                                                courseID: primary.courseID,
-                                                                screen: .dashboard,
-                                                                pacing: primary.isSelfPaced ?
-                                                                    Pacing.selfPace.rawValue :
-                                                                    Pacing.instructor.rawValue,
-                                                                lmsPrice: primary.lmsPrice ?? .zero
-                                                            )
-                                                        }
-                                                    },
-                                                    iapManager: viewModel.iapManager,
-                                                    configuration: viewModel.iapManager?.configuration(for: primary)
+                                                    iapContent: {
+                                                        viewModel.iapService?.view(for: primary)
+                                                    }
                                                 )
                                             }
                                             if !enrollments.courses.isEmpty {
@@ -404,7 +390,7 @@ struct PrimaryCourseDashboardView_Previews: PreviewProvider {
             serverConfig: ServerConfigProtocolMock(),
             notificationsInteractor: NotificationsInteractor.mock,
             storage: CoreStorageMock(),
-            iapManager: nil
+            iapService: nil
         )
         
         PrimaryCourseDashboardView(

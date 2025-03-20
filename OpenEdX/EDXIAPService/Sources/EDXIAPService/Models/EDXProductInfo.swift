@@ -1,12 +1,12 @@
 //
-//  EDXIAPConfiguration.swift
+//  EDXProductInfo.swift
 //  EDXIAPService
 //
 //  Created by Vadim Kuznetsov on 4.03.25.
 //
 import OEXFoundation
 
-public struct EDXIAPConfiguration: IAPConfiguration {
+public struct EDXProductInfo: IAPProductInfo {
     public var productName: String
     public var sku: String
     public var courseID: String

@@ -10,9 +10,8 @@ import Kingfisher
 import Theme
 import Core
 import OEXFoundation
-import EDXIAPService
 
-public struct PrimaryCardView: View {
+public struct PrimaryCardView<IAPContent>: View where IAPContent: View {
     
     private let courseName: String
     private let org: String
@@ -31,15 +30,13 @@ public struct PrimaryCardView: View {
     private var assignmentAction: (String?) -> Void
     private var openCourseAction: () -> Void
     private var resumeAction: () -> Void
-    private var upgradeAction: () -> Void
     private var isUpgradeable: Bool
-    private let iapManager: IAPManagerProtocol?
+    private let iapContent: () -> IAPContent
     @Environment(\.isHorizontal) var isHorizontal
     private var canShowFutureAssignments: Bool {
         return !isUpgradeable || pastAssignments.count <= 0
     }
     private let useRelativeDates: Bool
-    private let configuration: IAPConfiguration?
     
     public init(
         courseName: String,
@@ -61,9 +58,7 @@ public struct PrimaryCardView: View {
         openCourseAction: @escaping () -> Void,
         resumeAction: @escaping () -> Void,
         isUpgradeable: Bool,
-        upgradeAction: @escaping () -> Void,
-        iapManager: IAPManagerProtocol?,
-        configuration: IAPConfiguration?
+        @ViewBuilder iapContent: @escaping () -> IAPContent
     ) {
         self.courseName = courseName
         self.org = org
@@ -84,9 +79,7 @@ public struct PrimaryCardView: View {
         self.startDisplay = startDisplay
         self.startType = startType
         self.isUpgradeable = isUpgradeable
-        self.upgradeAction = upgradeAction
-        self.iapManager = iapManager
-        self.configuration = configuration
+        self.iapContent = iapContent
     }
     
     public var body: some View {
@@ -208,8 +201,8 @@ public struct PrimaryCardView: View {
             }
             
             // Upgrade button
-            if isUpgradeable, let configuration {
-                iapManager?.dashboardPrimaryCardButton(configuration: configuration)
+            if isUpgradeable {
+                iapContent()
             }
             
             // ResumeButton
@@ -371,9 +364,7 @@ struct PrimaryCardView_Previews: PreviewProvider {
                 openCourseAction: {},
                 resumeAction: {},
                 isUpgradeable: false,
-                upgradeAction: {},
-                iapManager: nil,
-                configuration: nil
+                iapContent: {}
             )
             .loadFonts()
         }
