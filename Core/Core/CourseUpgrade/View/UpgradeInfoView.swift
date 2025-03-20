@@ -58,9 +58,9 @@ public struct UpgradeInfoView<Content>: View where Content: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .font(Theme.Fonts.bodyLarge)
                     }
-                    
-                    UpgradeOptionsView()
-                        .foregroundColor(Theme.Colors.textPrimary)
+                    // NEEDS WORK
+//                    UpgradeOptionsView()
+//                        .foregroundColor(Theme.Colors.textPrimary)
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 30)

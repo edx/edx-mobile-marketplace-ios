@@ -12,4 +12,5 @@ enum Fonts {
     static let headlineSmall: UIFont = .custom(.regular, size: 24)
     static let titleMedium: UIFont = .custom(.semiBold, size: 18)
     static let labelLarge: UIFont = .custom(.medium, size: 14)
+    static let titleLarge: UIFont = .custom(.bold, size: 22)
 }

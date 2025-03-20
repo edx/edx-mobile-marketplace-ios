@@ -197,20 +197,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             provider: .init(
                 request: { product in
                     let interactor = Container.shared.resolve(CourseInteractorProtocol.self)
-                    do {
-                        if let courseStructure = try await interactor?.getCourseBlocks(courseID: product.id) {
-                            return EDXProductInfo(
-                                productName: courseStructure.displayName,
-                                sku: courseStructure.sku ?? "",
-                                courseID: courseStructure.id,
-                                isSelfPaced: courseStructure.isSelfPaced,
-                                lmsPrice: courseStructure.lmsPrice ?? .zero
-                            )
-                        }
-                    } catch {
-                        print("received error = \(error)")
+                    if let courseStructure = try await interactor?.getCourseBlocks(courseID: product.id) {
+                        return EDXProductInfo(
+                            productName: courseStructure.displayName,
+                            sku: courseStructure.sku ?? "",
+                            courseID: courseStructure.id,
+                            isSelfPaced: courseStructure.isSelfPaced,
+                            lmsPrice: courseStructure.lmsPrice ?? .zero
+                        )
                     }
-                    return nil
+                    throw EDXProviderError.cantObtainInfo
                 },
                 product: { object in
                     if let primaryCourse = object as? PrimaryCourse {

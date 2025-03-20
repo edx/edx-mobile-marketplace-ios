@@ -20,9 +20,14 @@ enum Texts {
         static let optionFirst = "Earn a certificate of completion to showcase on your resume"
         static let optionSecond = "Unlock access to all course activities, including graded assignments"
         static let optionThird = "Full access to course content and course material even after the course ends"
-        static let unlockingText = "Unlocking ";
-        static let unlockingFullAccess = "full access ";
-        static let unlockingToCourse = "to your course";
-
+        static let unlockingText = "Unlocking "
+        static let unlockingFullAccess = "full access "
+        static let unlockingToCourse = "to your course"
+        static let title = "Upgrade"
+        
+        enum Button {
+            static let upgradeNow = "Upgrade now for"
+            static let findCourse = "Find a new course"
+        }
     }
 }

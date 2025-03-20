@@ -1018,45 +1018,48 @@ extension Router {
     
     @MainActor
     public func showUpgradeLoaderView(animated: Bool) async {
-        await withCheckedContinuation { continuation in
-            let unlockView = CourseUpgradeUnlockView()
-            let controller = UIHostingController(rootView: unlockView)
-            controller.modalTransitionStyle = .crossDissolve
-            controller.modalPresentationStyle = .overFullScreen
-            navigationController.present(controller, animated: animated) {
-                continuation.resume()
-            }
-        }
+        // NEEDS WORK
+//        await withCheckedContinuation { continuation in
+//            let unlockView = CourseUpgradeUnlockView()
+//            let controller = UIHostingController(rootView: unlockView)
+//            controller.modalTransitionStyle = .crossDissolve
+//            controller.modalPresentationStyle = .overFullScreen
+//            navigationController.present(controller, animated: animated) {
+//                continuation.resume()
+//            }
+//        }
     }
     
     @MainActor
     public func hideUpgradeLoaderView(animated: Bool) async {
-        await withCheckedContinuation { continuation in
-            let presentedController = navigationController.presentedViewController
-            if let controller = presentedController as? UIHostingController<CourseUpgradeUnlockView> {
-                controller.dismiss(animated: animated) {
-                    continuation.resume()
-                }
-            } else {
-                continuation.resume()
-            }
-        }
+        // NEEDS WORK
+//        await withCheckedContinuation { continuation in
+//            let presentedController = navigationController.presentedViewController
+//            if let controller = presentedController as? UIHostingController<CourseUpgradeUnlockView> {
+//                controller.dismiss(animated: animated) {
+//                    continuation.resume()
+//                }
+//            } else {
+//                continuation.resume()
+//            }
+//        }
     }
     
     @MainActor
     public func showRestoreProgressView() {
-        let unlockView = RestoreInProgressView()
-        let controller = UIHostingController(rootView: unlockView)
-        
-        controller.view.frame = CGRect(
-            x: 0,
-            y: 0,
-            width: UIScreen.main.bounds.width,
-            height: UIScreen.main.bounds.height
-        )
-        controller.view.backgroundColor = .black.withAlphaComponent(0.6)
-        controller.view.tag = 10010
-        UIApplication.shared.oexKeyWindow?.addSubview(controller.view)
+        // NEEDS WORK
+//        let unlockView = RestoreInProgressView()
+//        let controller = UIHostingController(rootView: unlockView)
+//        
+//        controller.view.frame = CGRect(
+//            x: 0,
+//            y: 0,
+//            width: UIScreen.main.bounds.width,
+//            height: UIScreen.main.bounds.height
+//        )
+//        controller.view.backgroundColor = .black.withAlphaComponent(0.6)
+//        controller.view.tag = 10010
+//        UIApplication.shared.oexKeyWindow?.addSubview(controller.view)
     }
     
     @MainActor

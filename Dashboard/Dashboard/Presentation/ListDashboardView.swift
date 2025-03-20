@@ -161,7 +161,8 @@ public struct ListDashboardView: View {
                     .ignoresSafeArea()
             )
         }
-        .paymentSnackbar()
+        // NEEDS WORK
+//        .paymentSnackbar()
     }
 }
 

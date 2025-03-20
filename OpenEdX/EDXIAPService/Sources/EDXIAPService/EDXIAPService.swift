@@ -3,9 +3,92 @@
 import OEXFoundation
 import SwiftUI
 
-public enum EDXScreen: Sendable {
+public enum EDXScreen: String, Sendable {
     case dashboard
-    case course
+    case courseDashboard = "course_dashboard"
+    case courseComponent = "course_component"
+    case unknown
+}
+
+enum UpgradeState: Sendable {
+    case initial
+    case basket
+    case checkout
+    case payment
+    case verify
+    case complete
+    case error(UpgradeError)
+}
+
+enum UpgradeMode: String, Sendable {
+    case silent
+    case userInitiated = "user_initiated"
+    case restore
+}
+
+enum UpgradeAlertType: String {
+    case priceFetch = "price_fetch"
+    case basket
+    case checkout
+    case payment
+    case execute
+    case restore
+    case unfulfilled
+    case unknown
+}
+
+public enum Pacing: String {
+    case selfPace = "self"
+    case instructor
+}
+
+protocol Analytics {
+    func trackCourseUpgradeLoadError(
+        courseID: String,
+        blockID: String?,
+        pacing: String,
+        screen: EDXScreen
+    )
+    
+    // swiftlint:disable:next function_parameter_count
+    func trackCourseUpgradeErrorAction(
+        courseID: String,
+        blockID: String?,
+        pacing: String,
+        localizedPrice: NSDecimalNumber?,
+        localizedCurrencyCode: String?,
+        lmsPrice: Double?,
+        screen: EDXScreen,
+        alertType: UpgradeAlertType,
+        errorAction: String,
+        error: String,
+        flowType: UpgradeMode
+    )
+    
+    func trackValuePropViewed(
+        courseID: String,
+        pacing: String,
+        lmsPrice: Double,
+        screen: EDXScreen
+    )
+    
+    func trackUpgradeNow(
+        courseID: String,
+        blockID: String?,
+        pacing: String,
+        screen: EDXScreen,
+        localizedPrice: NSDecimalNumber?,
+        localizedCurrencyCode: String?,
+        lmsPrice: Double?
+    )
+}
+
+// These error actions are used to send in analytics
+public enum UpgradeErrorAction: String {
+    case refreshToRetry = "refresh"
+    case reloadPrice = "reload_price"
+    case emailSupport = "get_help"
+    case close
 }
 
 public struct EDXProduct: IAPProduct {
@@ -17,6 +100,10 @@ public struct EDXProduct: IAPProduct {
         self.name = name
         self.screen = screen
     }
+}
+
+public enum EDXProviderError: Error {
+    case cantObtainInfo
 }
 
 public class EDXIAPService: IAPServiceProtocol, EDXIAPHelperProtocol {
@@ -37,8 +124,8 @@ public class EDXIAPService: IAPServiceProtocol, EDXIAPHelperProtocol {
         provider.product(for: object)
     }
     
-    public func info(for product: EDXProduct) async -> ProductInfo? {
-        await provider.requestInfo(for: product)
+    public func info(for product: EDXProduct) async throws -> ProductInfo {
+        try await provider.requestInfo(for: product)
     }
     
     public func buy(product: Product) {}
@@ -51,12 +138,11 @@ public class EDXIAPService: IAPServiceProtocol, EDXIAPHelperProtocol {
                 self.router.navigateToUpgrade(style: self.style.upgradeInfoView, product: product, helper: self)
             })
         )
-        
     }
 }
 
 @MainActor
 protocol EDXIAPHelperProtocol {
     func product(for object: Any) -> EDXProduct?
-    func info(for product: EDXProduct) async -> EDXProductInfo?
+    func info(for product: EDXProduct) async throws -> EDXProductInfo
 }

@@ -205,7 +205,8 @@ public struct CourseOutlineView: View {
                             maxHeight: .infinity)
                 }
             }
-            .paymentSnackbar()
+            // NEEDS WORK
+//            .paymentSnackbar()
         }
         .onAppear {
             Task {

@@ -13,7 +13,14 @@ class Router: RouterProtocol {
         let controller = UIHostingController(
             rootView: UpgradeInfoSheetView(
                 style: style,
-                product: product
+                product: product,
+                viewModel: UpgradeInfoViewModel(
+                    edxProduct: product,
+                    helper: helper,
+                    // NEEDS WORK handler: <#T##any CourseUpgradeHandlerProtocol#>,
+                    // NEEDS WORK analytics: <#T##any Analytics#>,
+                    router: self
+                )
             )
         )
         if let sheet = controller.sheetPresentationController {
@@ -24,24 +31,9 @@ class Router: RouterProtocol {
         }
 
         topController?.present(controller, animated: true)
-
-        /*
-        let view = UpgradeInfoSheetView(
-            viewModel: Container.shared.resolve(
-                UpgradeInfoViewModel.self,
-                arguments: productName, message, sku, courseID, screen, pacing, lmsPrice
-            )!
-        )
-        let controller = UIHostingController(rootView: view)
-        if let sheet = controller.sheetPresentationController {
-            sheet.detents = [.large()]
-            sheet.prefersEdgeAttachedInCompactHeight = true
-            sheet.widthFollowsPreferredContentSizeWhenEdgeAttached = true
-            sheet.prefersGrabberVisible = true
-        }
-        navigationController.present(controller, animated: true) {
-            continuation.resume()
-        }
-         */
+    }
+    
+    func presentNativeAlert(title: String?, message: String?, actions: [UIAlertAction]) {
+        // NEEDS WORK
     }
 }

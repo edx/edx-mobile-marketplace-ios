@@ -9,27 +9,30 @@ import SwiftUI
 
 struct UpgradeInfoSheetView: View {
     @Environment(\.dismiss) private var dismiss
-//    @ObservedObject var viewModel: UpgradeInfoViewModel
+    @ObservedObject var viewModel: UpgradeInfoViewModel
     let style: EDXUpgradeInfoViewStyle
     let product: EDXProduct
-    let helper: EDXIAPHelperProtocol
     
-    init(style: EDXUpgradeInfoViewStyle, product: EDXProduct, helper: EDXIAPHelperProtocol/*, viewModel: UpgradeInfoViewModel*/) {
-//        self.viewModel = viewModel
+    init(
+        style: EDXUpgradeInfoViewStyle,
+        product: EDXProduct,
+        viewModel: UpgradeInfoViewModel
+    ) {
+        self.viewModel = viewModel
         self.style = style
         self.product = product
-        self.helper = helper
     }
     
     var body: some View {
-        Text("Hello")
-//        NavigationView {
+        NavigationView {
+            // NEEDS WORK
 //            UpgradeInfoView(
 //                isFindCourseButtonVisible: false,
 //                viewModel: viewModel
 //            )
+            // NEEDS WORK
 //            .background {
-//                Theme.Colors.background
+//                 Theme.Colors.background
 //                    .ignoresSafeArea()
 //            }
 //            .navigationBarTitleDisplayMode(.inline)
@@ -41,14 +44,14 @@ struct UpgradeInfoSheetView: View {
 //                        }
 //                    } label: {
 //                        Image(systemName: "xmark")
-//                            .foregroundColor(Theme.Colors.accentColor)
+//                            // NEEDS WORK .foregroundColor(Theme.Colors.accentColor)
 //                    }
 //                    .accessibilityIdentifier("close_button")
 //                }
 //            }
-//        }
-//        .navigationViewStyle(.stack)
-//        .interactiveDismissDisabled(viewModel.interactiveDismissDisabled)
+        }
+        .navigationViewStyle(.stack)
+        .interactiveDismissDisabled(viewModel.interactiveDismissDisabled)
     }
 }
 //
