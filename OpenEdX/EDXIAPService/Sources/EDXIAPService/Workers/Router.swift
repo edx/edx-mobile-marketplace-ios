@@ -8,7 +8,13 @@ import OEXFoundation
 import SwiftUI
 
 class Router: RouterProtocol {
-    func navigateToUpgrade(style: EDXIAPStyle, product: EDXProduct, helper: EDXIAPHelperProtocol) {
+    func navigateToUpgrade(
+        style: EDXIAPStyle,
+        product: EDXProduct,
+        helper: EDXIAPHelperProtocol,
+        handler: CourseUpgradeHandlerProtocol,
+        analyticsFacade: EDXAnalyticsProtocol
+    ) {
         let topController = UIApplication.topViewController()
         let controller = UIHostingController(
             rootView: UpgradeInfoSheetView(
@@ -17,8 +23,8 @@ class Router: RouterProtocol {
                 viewModel: UpgradeInfoViewModel(
                     edxProduct: product,
                     helper: helper,
-                    // NEEDS WORK handler: <#T##any CourseUpgradeHandlerProtocol#>,
-                    // NEEDS WORK analytics: <#T##any Analytics#>,
+                    handler: handler,
+                    analytics: analyticsFacade,
                     router: self
                 )
             )
@@ -34,6 +40,14 @@ class Router: RouterProtocol {
     }
     
     func presentNativeAlert(title: String?, message: String?, actions: [UIAlertAction]) {
-        // NEEDS WORK
+        guard let topController = UIApplication.topViewController() else { return }
+        
+        let alertController = UIAlertController().showAlert(
+            withTitle: title,
+            message: message,
+            onViewController: topController) { _, _, _ in }
+        for action in actions {
+            alertController.addAction(action)
+        }
     }
 }

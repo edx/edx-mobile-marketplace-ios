@@ -29,6 +29,7 @@ class AnalyticsManager: AuthorizationAnalytics,
                         CoreAnalytics,
                         WhatsNewAnalytics,
                         NotificationsAnalytics,
+                        AnalyticsService,
                         @unchecked Sendable {
     
     private var services: [AnalyticsService]
@@ -37,24 +38,32 @@ class AnalyticsManager: AuthorizationAnalytics,
         self.services = services
     }
     
-    public func identify(id: String, username: String, email: String) {
+    public func identify(id: String, username: String?, email: String?) {
         for service in services {
             service.identify(id: id, username: username, email: email)
         }
     }
     
+    public func logEvent(_ event: String, parameters: [String: Any]?) {
+        for service in services {
+            service.logEvent(event, parameters: parameters)
+        }
+    }
+    
     private func logEvent(_ event: AnalyticsEvent, parameters: [String: Any]? = nil) {
         debugLog("Event: \(event.rawValue) & parameters: \(parameters ?? [:])")
+        logEvent(event.rawValue, parameters: parameters)
+    }
+    
+    public func logScreenEvent(_ event: String, parameters: [String: Any]?) {
         for service in services {
-            service.logEvent(event.rawValue, parameters: parameters)
+            service.logScreenEvent(event, parameters: parameters)
         }
     }
     
     private func logScreenEvent(_ event: AnalyticsEvent, parameters: [String: Any]? = nil) {
         debugLog("Screen Event: \(event.rawValue) & parameters: \(parameters ?? [:])")
-        for service in services {
-            service.logScreenEvent(event.rawValue, parameters: parameters)
-        }
+        logScreenEvent(event.rawValue, parameters: parameters)
     }
     
     // MARK: Generic event tracker functions

@@ -7,8 +7,8 @@
 import UIKit
 
 class UpgradeInfoViewModel: ObservableObject, @unchecked Sendable {
-    // NEEDS WORK let handler: CourseUpgradeHandlerProtocol
-    // NEEDS WORK let analytics: Analytics
+    let handler: CourseUpgradeHandlerProtocol
+    let analytics: EDXAnalyticsProtocol
     let router: RouterProtocol
     let edxProduct: EDXProduct
     let helper: EDXIAPHelperProtocol
@@ -22,26 +22,31 @@ class UpgradeInfoViewModel: ObservableObject, @unchecked Sendable {
         return price
     }
     
+    var canShowUpgradeButton: Bool {
+        product != nil && error == nil
+    }
+    
     var info: EDXProductInfo?
 
     public init(
         edxProduct: EDXProduct,
         helper: EDXIAPHelperProtocol,
         message: String = "",
-        // NEEDS WORK handler: CourseUpgradeHandlerProtocol,
-        // NEEDS WORK analytics: Analytics,
+        handler: CourseUpgradeHandlerProtocol,
+        analytics: EDXAnalyticsProtocol,
         router: RouterProtocol
     ) {
         self.edxProduct = edxProduct
         self.message = message
-        // NEEDS WORK self.handler = handler
-        // NEEDS WORK self.analytics = analytics
+        self.handler = handler
+        self.analytics = analytics
         self.router = router
         self.helper = helper
     }
     
     @MainActor
     public func fetchProduct() async {
+        guard product == nil else { return }
         isLoading = true
         do {
             let info = try await helper.info(for: edxProduct)
@@ -50,7 +55,13 @@ class UpgradeInfoViewModel: ObservableObject, @unchecked Sendable {
                 isLoading = false
                 return
             }
-            // NEEDS WORK product = try await handler.fetchProduct(sku: info.sku)
+            analytics.trackValuePropViewed(
+                courseID: info.courseID,
+                pacing: info.isSelfPaced ? Pacing.selfPace.rawValue : Pacing.instructor.rawValue,
+                lmsPrice: info.lmsPrice,
+                screen: edxProduct.screen
+            )
+            product = try await handler.fetchProduct(sku: info.sku)
             isLoading = false
         } catch let error {
             showPriceLoadError(error: error)
@@ -59,15 +70,14 @@ class UpgradeInfoViewModel: ObservableObject, @unchecked Sendable {
     
     @MainActor
     private func showPriceLoadError(error: Error) {
-        // NEEDS WORK
-        /*
-        guard let error = error as? UpgradeError else { return }
+        guard let error = error as? UpgradeError, let info else { return }
 
+        let pacing = info.isSelfPaced ? Pacing.selfPace.rawValue : Pacing.instructor.rawValue
         analytics.trackCourseUpgradeLoadError(
-            courseID: courseID,
+            courseID: info.courseID,
             blockID: "",
             pacing: pacing,
-            screen: screen
+            screen: edxProduct.screen
         )
         
         var actions: [UIAlertAction] = []
@@ -75,7 +85,7 @@ class UpgradeInfoViewModel: ObservableObject, @unchecked Sendable {
         if error != .productNotExist {
             actions.append(
                 UIAlertAction(
-                    title: CoreLocalization.CourseUpgrade.FailureAlert.priceFetchError,
+                    title: Texts.CourseUpgrade.FailureAlert.priceFetchError,
                     style: .default
                 ) {[weak self] _ in
                     guard let self else { return }
@@ -84,13 +94,13 @@ class UpgradeInfoViewModel: ObservableObject, @unchecked Sendable {
                     }
                     
                     self.analytics.trackCourseUpgradeErrorAction(
-                        courseID: self.courseID,
+                        courseID: info.courseID,
                         blockID: "",
                         pacing: pacing,
                         localizedPrice: nil,
                         localizedCurrencyCode: nil,
-                        lmsPrice: lmsPrice,
-                        screen: self.screen,
+                        lmsPrice: info.lmsPrice,
+                        screen: edxProduct.screen,
                         alertType: .priceFetch,
                         errorAction: UpgradeErrorAction.reloadPrice.rawValue,
                         error: "price",
@@ -99,8 +109,8 @@ class UpgradeInfoViewModel: ObservableObject, @unchecked Sendable {
                 }
             )
         }
-
-        let cancelButtonTitle = error == .productNotExist ? CoreLocalization.ok : CoreLocalization.Alert.cancel
+        
+        let cancelButtonTitle = error == .productNotExist ? Texts.ok : Texts.cancel
         actions.append(
             UIAlertAction(
                 title: cancelButtonTitle,
@@ -110,13 +120,13 @@ class UpgradeInfoViewModel: ObservableObject, @unchecked Sendable {
                 self.error = error
                 self.isLoading = false
                 self.analytics.trackCourseUpgradeErrorAction(
-                    courseID: self.courseID,
+                    courseID: info.courseID,
                     blockID: "",
                     pacing: pacing,
                     localizedPrice: nil,
                     localizedCurrencyCode: product?.currencySymbol,
-                    lmsPrice: lmsPrice,
-                    screen: self.screen,
+                    lmsPrice: info.lmsPrice,
+                    screen: edxProduct.screen,
                     alertType: .priceFetch,
                     errorAction: UpgradeErrorAction.close.rawValue,
                     error: "price",
@@ -125,11 +135,10 @@ class UpgradeInfoViewModel: ObservableObject, @unchecked Sendable {
             }
         )
         router.presentNativeAlert(
-            title: CoreLocalization.CourseUpgrade.FailureAlert.alertTitle,
-            message: CoreLocalization.CourseUpgrade.FailureAlert.priceFetchErrorMessage,
+            title: Texts.CourseUpgrade.FailureAlert.alertTitle,
+            message: Texts.CourseUpgrade.FailureAlert.priceFetchErrorMessage,
             actions: actions
         )
-         */
     }
 
     @MainActor
@@ -141,8 +150,6 @@ class UpgradeInfoViewModel: ObservableObject, @unchecked Sendable {
         }
         let pacing = info.isSelfPaced ? Pacing.selfPace.rawValue : Pacing.instructor.rawValue
         interactiveDismissDisabled = true
-        // NEEDS WORK
-        /*
         analytics.trackUpgradeNow(
             courseID: info.courseID,
             blockID: "",
@@ -182,16 +189,5 @@ class UpgradeInfoViewModel: ObservableObject, @unchecked Sendable {
                 }
             }
         )
-         */
-    }
-    
-    func trackValuePropViewed() {
-        // NEEDS WORK
-//        analytics.trackValuePropViewed(
-//            courseID: courseID,
-//            pacing: pacing,
-//            lmsPrice: lmsPrice,
-//            screen: screen
-//        )
     }
 }

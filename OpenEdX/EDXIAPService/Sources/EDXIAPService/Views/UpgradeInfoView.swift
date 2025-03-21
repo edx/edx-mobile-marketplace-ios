@@ -82,7 +82,7 @@ struct UpgradeInfoView<Content>: View where Content: View {
                 .padding(.bottom, 20)
             }
             ZStack {
-                if viewModel.error == nil && viewModel.info?.sku.isEmpty == false {
+                if viewModel.canShowUpgradeButton {
                     StyledButton(
                         buttonText,
                         action: {
@@ -99,19 +99,15 @@ struct UpgradeInfoView<Content>: View where Content: View {
                     )
                     .opacity(shouldHideButton ? 0 : 1)
                     .disabled(viewModel.isLoading)
-                    
-                    ProgressBar(size: 30, lineWidth: 8, accentColor: style.colors.accentColor)
-                        .opacity(viewModel.isLoading ? 1 : 0)
                 }
+                ProgressBar(size: 30, lineWidth: 8, accentColor: style.colors.accentColor)
+                    .opacity(viewModel.isLoading ? 1 : 0)
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 20)
         }
         .task {
             await viewModel.fetchProduct()
-        }
-        .onFirstAppear {
-            viewModel.trackValuePropViewed()
         }
     }
 }

@@ -193,6 +193,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             )
         }
         // - IAP
+        let analyticsService = Container.shared.resolve(AnalyticsManager.self) ?? AnalyticsManager(services: [])
+        let analytics = EDXAnalytics(service: analyticsService)
         let iapService = EDXIAPService(
             provider: .init(
                 request: { product in
@@ -213,7 +215,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         return EDXProduct(id: primaryCourse.courseID, name: primaryCourse.name, screen: .dashboard)
                     }
                     return nil
-                })
+                }
+            ),
+            analyticsFacade: analytics
         )
         pluginManager.setIAPService(iapService)
         // - FullStory

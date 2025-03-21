@@ -35,7 +35,7 @@ public enum SocialAuthMethod: String, Sendable {
 
 //sourcery: AutoMockable
 public protocol AuthorizationAnalytics {
-    func identify(id: String, username: String, email: String)
+    func identify(id: String, username: String?, email: String?)
     func userLogin(method: AuthMethod)
     func registerClicked()
     func signInClicked()
@@ -56,7 +56,7 @@ public protocol AuthorizationAnalytics {
 
 #if DEBUG
 class AuthorizationAnalyticsMock: AuthorizationAnalytics {
-    func identify(id: String, username: String, email: String) {}
+    func identify(id: String, username: String?, email: String?) {}
     public func userLogin(method: AuthMethod) {}
     public func registerClicked() {}
     public func signInClicked() {}

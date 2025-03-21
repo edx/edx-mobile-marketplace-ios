@@ -6,6 +6,8 @@
 //
 
 enum Texts {
+    static let ok = "Ok"
+    static let cancel = "Cancel"
     enum Button {
         static let upgrade = "Upgrade to access more features"
     }
@@ -52,6 +54,11 @@ enum Texts {
                 Something happened when we tried to update your course experience. If this error continues, \
                 reach out to Support for help.
                 """
+            static let priceFetchError = "Try again"
+            static let priceFetchErrorMessage = """
+                Your request could not be completed at this time. If this error continues, please reach out to Support.
+                """
+            static let alertTitle = "An error occurred"
         }
     }
 }

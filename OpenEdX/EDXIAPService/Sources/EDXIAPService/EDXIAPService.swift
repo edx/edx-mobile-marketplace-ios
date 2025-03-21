@@ -20,13 +20,13 @@ enum UpgradeState: Sendable {
     case error(UpgradeError)
 }
 
-enum UpgradeMode: String, Sendable {
+public enum EDXUpgradeMode: String, Sendable {
     case silent
     case userInitiated = "user_initiated"
     case restore
 }
 
-enum UpgradeAlertType: String {
+public enum EDXUpgradeAlertType: String {
     case priceFetch = "price_fetch"
     case basket
     case checkout
@@ -59,10 +59,10 @@ protocol Analytics {
         localizedCurrencyCode: String?,
         lmsPrice: Double?,
         screen: EDXScreen,
-        alertType: UpgradeAlertType,
+        alertType: EDXUpgradeAlertType,
         errorAction: String,
         error: String,
-        flowType: UpgradeMode
+        flowType: EDXUpgradeMode
     )
     
     func trackValuePropViewed(
@@ -112,12 +112,18 @@ public class EDXIAPService: IAPServiceProtocol, EDXIAPHelperProtocol {
     
     public let provider: OEXFoundation.IAPProductProvider<Product, ProductInfo>
     public let style: EDXIAPStyle
+    public let analyticsFacade: EDXAnalyticsProtocol
 
     let router: RouterProtocol = Router()
 
-    public init(provider: OEXFoundation.IAPProductProvider<Product, ProductInfo>, style: EDXIAPStyle = EDXIAPStyle()) {
+    public init(
+        provider: OEXFoundation.IAPProductProvider<Product, ProductInfo>,
+        style: EDXIAPStyle = EDXIAPStyle(),
+        analyticsFacade: EDXAnalyticsProtocol
+    ) {
         self.provider = provider
         self.style = style
+        self.analyticsFacade = analyticsFacade
     }
     
     public func product(for object: Any) -> Product? {
@@ -133,9 +139,17 @@ public class EDXIAPService: IAPServiceProtocol, EDXIAPHelperProtocol {
     public func view(for object: Any) -> AnyView? {
         guard let product = product(for: object) else { return nil }
         return AnyView(
-            PrimaryCardButton(style: style, action: { [weak self] in
-                guard let self else { return }
-                self.router.navigateToUpgrade(style: self.style, product: product, helper: self)
+            PrimaryCardButton(
+                style: style,
+                action: { [weak self] in
+                    guard let self else { return }
+                    self.router.navigateToUpgrade(
+                        style: self.style,
+                        product: product,
+                        helper: self,
+                        handler: CourseUpgradeHandlerProtocolMock(), // NEEDS WORK
+                        analyticsFacade: self.analyticsFacade
+                    )
             })
         )
     }
@@ -145,4 +159,102 @@ public class EDXIAPService: IAPServiceProtocol, EDXIAPHelperProtocol {
 protocol EDXIAPHelperProtocol {
     func product(for object: Any) -> EDXProduct?
     func info(for product: EDXProduct) async throws -> EDXProductInfo
+}
+
+public protocol EDXAnalyticsProtocol {
+    var service: AnalyticsService { get }
+    
+    func trackValuePropViewed(
+        courseID: String,
+        pacing: String,
+        lmsPrice: Double,
+        screen: EDXScreen
+    )
+    
+    func trackUpgradeNow(
+        courseID: String,
+        blockID: String?,
+        pacing: String,
+        screen: EDXScreen,
+        localizedPrice: NSDecimalNumber?,
+        localizedCurrencyCode: String?,
+        lmsPrice: Double?
+    )
+    
+    func trackCourseUpgradeLoadError(
+        courseID: String,
+        blockID: String?,
+        pacing: String,
+        screen: EDXScreen
+    )
+
+    //swiftlint:disable:next function_parameter_count
+    func trackCourseUpgradeErrorAction(
+        courseID: String,
+        blockID: String?,
+        pacing: String,
+        localizedPrice: NSDecimalNumber?,
+        localizedCurrencyCode: String?,
+        lmsPrice: Double?,
+        screen: EDXScreen,
+        alertType: EDXUpgradeAlertType,
+        errorAction: String,
+        error: String,
+        flowType: EDXUpgradeMode
+    )
+}
+
+public struct EDXAnalytics: EDXAnalyticsProtocol {
+    public let service: any AnalyticsService
+
+    public init(service: AnalyticsService) {
+        self.service = service
+    }
+    
+    public func trackValuePropViewed(
+        courseID: String,
+        pacing: String,
+        lmsPrice: Double,
+        screen: EDXScreen
+    ) {
+        // NEEDS WORK
+    }
+    
+    public func trackUpgradeNow(
+        courseID: String,
+        blockID: String?,
+        pacing: String,
+        screen: EDXScreen,
+        localizedPrice: NSDecimalNumber?,
+        localizedCurrencyCode: String?,
+        lmsPrice: Double?
+    ) {
+        // NEEDS WORK
+    }
+    
+    public func trackCourseUpgradeLoadError(
+        courseID: String,
+        blockID: String? = nil,
+        pacing: String,
+        screen: EDXScreen
+    ) {
+        // NEEDS WORK
+    }
+    
+    //swiftlint:disable:next function_parameter_count
+    public func trackCourseUpgradeErrorAction(
+        courseID: String,
+        blockID: String?,
+        pacing: String,
+        localizedPrice: NSDecimalNumber?,
+        localizedCurrencyCode: String?,
+        lmsPrice: Double?,
+        screen: EDXScreen,
+        alertType: EDXUpgradeAlertType,
+        errorAction: String,
+        error: String,
+        flowType: EDXUpgradeMode
+    ) {
+        // NEEDS WORK
+    }
 }

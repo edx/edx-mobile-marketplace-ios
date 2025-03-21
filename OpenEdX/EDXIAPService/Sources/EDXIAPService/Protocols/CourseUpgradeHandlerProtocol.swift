@@ -9,11 +9,11 @@ import Foundation
 
 //sourcery: AutoMockable
 protocol CourseUpgradeHandlerProtocol: Sendable {
-    typealias UpgradeCompletionHandler = (UpgradeState) -> Void
+    typealias UpgradeCompletionHandler = @Sendable (UpgradeState) -> Void
     
     func upgradeCourse(
         sku: String?,
-        mode: UpgradeMode,
+        mode: EDXUpgradeMode,
         productInfo: StoreProductInfo?,
         pacing: String,
         courseID: String,
@@ -30,7 +30,7 @@ protocol CourseUpgradeHandlerProtocol: Sendable {
 final class CourseUpgradeHandlerProtocolMock: CourseUpgradeHandlerProtocol {
     func upgradeCourse(
         sku: String?,
-        mode: UpgradeMode,
+        mode: EDXUpgradeMode,
         productInfo: StoreProductInfo?,
         pacing: String,
         courseID: String,

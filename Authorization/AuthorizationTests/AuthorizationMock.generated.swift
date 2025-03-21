@@ -551,9 +551,9 @@ open class AuthorizationAnalyticsMock: AuthorizationAnalytics, Mock {
 
 
 
-    open func identify(id: String, username: String, email: String) {
-        addInvocation(.m_identify__id_idusername_usernameemail_email(Parameter<String>.value(`id`), Parameter<String>.value(`username`), Parameter<String>.value(`email`)))
-		let perform = methodPerformValue(.m_identify__id_idusername_usernameemail_email(Parameter<String>.value(`id`), Parameter<String>.value(`username`), Parameter<String>.value(`email`))) as? (String, String, String) -> Void
+    open func identify(id: String, username: String?, email: String?) {
+        addInvocation(.m_identify__id_idusername_usernameemail_email(Parameter<String>.value(`id`), Parameter<String?>.value(`username`), Parameter<String?>.value(`email`)))
+		let perform = methodPerformValue(.m_identify__id_idusername_usernameemail_email(Parameter<String>.value(`id`), Parameter<String?>.value(`username`), Parameter<String?>.value(`email`))) as? (String, String?, String?) -> Void
 		perform?(`id`, `username`, `email`)
     }
 
@@ -655,7 +655,7 @@ open class AuthorizationAnalyticsMock: AuthorizationAnalytics, Mock {
 
 
     fileprivate enum MethodType {
-        case m_identify__id_idusername_usernameemail_email(Parameter<String>, Parameter<String>, Parameter<String>)
+        case m_identify__id_idusername_usernameemail_email(Parameter<String>, Parameter<String?>, Parameter<String?>)
         case m_userLogin__method_method(Parameter<AuthMethod>)
         case m_registerClicked
         case m_signInClicked
@@ -820,7 +820,7 @@ open class AuthorizationAnalyticsMock: AuthorizationAnalytics, Mock {
     public struct Verify {
         fileprivate var method: MethodType
 
-        public static func identify(id: Parameter<String>, username: Parameter<String>, email: Parameter<String>) -> Verify { return Verify(method: .m_identify__id_idusername_usernameemail_email(`id`, `username`, `email`))}
+        public static func identify(id: Parameter<String>, username: Parameter<String?>, email: Parameter<String?>) -> Verify { return Verify(method: .m_identify__id_idusername_usernameemail_email(`id`, `username`, `email`))}
         public static func userLogin(method: Parameter<AuthMethod>) -> Verify { return Verify(method: .m_userLogin__method_method(`method`))}
         public static func registerClicked() -> Verify { return Verify(method: .m_registerClicked)}
         public static func signInClicked() -> Verify { return Verify(method: .m_signInClicked)}
@@ -843,7 +843,7 @@ open class AuthorizationAnalyticsMock: AuthorizationAnalytics, Mock {
         fileprivate var method: MethodType
         var performs: Any
 
-        public static func identify(id: Parameter<String>, username: Parameter<String>, email: Parameter<String>, perform: @escaping (String, String, String) -> Void) -> Perform {
+        public static func identify(id: Parameter<String>, username: Parameter<String?>, email: Parameter<String?>, perform: @escaping (String, String?, String?) -> Void) -> Perform {
             return Perform(method: .m_identify__id_idusername_usernameemail_email(`id`, `username`, `email`), performs: perform)
         }
         public static func userLogin(method: Parameter<AuthMethod>, perform: @escaping (AuthMethod) -> Void) -> Perform {
