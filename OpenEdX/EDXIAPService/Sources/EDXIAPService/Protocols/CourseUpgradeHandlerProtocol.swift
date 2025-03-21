@@ -41,7 +41,7 @@ final class CourseUpgradeHandlerProtocolMock: CourseUpgradeHandlerProtocol {
     ) async {}
     
     func fetchProduct(sku: String) async throws -> StoreProductInfo {
-        StoreProductInfo(price: .zero)
+        StoreProductInfo(price: 999, localizedPrice: "999 $", currencySymbol: "$")
     }
 }
 #endif
