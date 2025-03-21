@@ -14,6 +14,7 @@ class PaymentSnackbarModifierViewModel: ObservableObject {
     var isOnScreen: Bool = false
     private var cancellations: [AnyCancellable] = []
     init() {
+        // NEEDS WORK
 //        NotificationCenter.default
 //            .publisher(for: .courseUpgradeCompletionNotification)
 //            .sink { [weak self] _ in

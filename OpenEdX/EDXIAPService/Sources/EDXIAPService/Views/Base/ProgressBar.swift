@@ -63,8 +63,8 @@ public struct ProgressBar: View {
     }
 }
 
-struct ProgressBar_Previews: PreviewProvider {
-    static var previews: some View {
-        ProgressBar(size: 50, accentColor: .blue)
-    }
+#if DEBUG
+#Preview {
+    ProgressBar(size: 50, accentColor: .blue)
 }
+#endif

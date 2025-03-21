@@ -30,3 +30,9 @@ public struct RestoreInProgressView: View {
         .ignoresSafeArea()
     }
 }
+
+#if DEBUG
+#Preview {
+    RestoreInProgressView(style: EDXIAPStyle.init())
+}
+#endif

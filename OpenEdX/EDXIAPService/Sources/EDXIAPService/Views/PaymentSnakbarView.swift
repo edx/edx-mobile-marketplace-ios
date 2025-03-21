@@ -37,3 +37,9 @@ public struct PaymentSnakbarView: View {
         .padding(16)
     }
 }
+
+#if DEBUG
+#Preview {
+    PaymentSnakbarView(style: EDXIAPStyle.init())
+}
+#endif

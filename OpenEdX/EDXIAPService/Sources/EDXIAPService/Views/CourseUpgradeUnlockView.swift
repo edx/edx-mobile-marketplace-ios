@@ -103,3 +103,9 @@ public struct CourseUpgradeUnlockView: View {
         .ignoresSafeArea()
     }
 }
+
+#if DEBUG
+#Preview {
+    CourseUpgradeUnlockView(style: EDXIAPStyle.init())
+}
+#endif

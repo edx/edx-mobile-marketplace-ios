@@ -52,3 +52,9 @@ public struct PrimaryCardButton: View {
         })
     }
 }
+
+#if DEBUG
+#Preview {
+    PrimaryCardButton(style: EDXIAPStyle.init(), action: nil)
+}
+#endif

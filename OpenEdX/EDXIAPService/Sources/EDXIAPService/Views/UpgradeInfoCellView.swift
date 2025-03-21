@@ -44,3 +44,9 @@ public struct UpgradeOptionsView: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    UpgradeOptionsView(style: EDXIAPStyle.init())
+}
+#endif

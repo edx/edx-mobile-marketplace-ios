@@ -115,18 +115,18 @@ public struct StyledButton: View {
     }
 }
 
-struct StyledButton_Previews: PreviewProvider {
-    static var previews: some View {
-        VStack {
-            StyledButton("Active Button", action: {}, isActive: true)
-            StyledButton("Disabled button", action: {}, isActive: false)
-            StyledButton(
-                "Back Button",
-                action: {},
-                leftImage: Assets.Images.chevronRight.swiftUI(),
-                isActive: true
-            )
-        }
-        .padding(20)
+#if DEBUG
+#Preview {
+    VStack {
+        StyledButton("Active Button", action: {}, isActive: true)
+        StyledButton("Disabled button", action: {}, isActive: false)
+        StyledButton(
+            "Back Button",
+            action: {},
+            leftImage: Assets.Images.chevronRight.swiftUI(),
+            isActive: true
+        )
     }
+    .padding(20)
 }
+#endif
