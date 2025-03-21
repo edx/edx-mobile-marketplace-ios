@@ -6,21 +6,23 @@
 //
 
 import SwiftUI
-// NEEDS WORK import Theme
 
 struct UpgradeInfoView<Content>: View where Content: View {
     let isFindCourseButtonVisible: Bool
     private let headerView: () -> Content
     private let findAction: (() -> Void)?
     @StateObject var viewModel: UpgradeInfoViewModel
+    let style: EDXIAPStyle
     
     init(
+        style: EDXIAPStyle,
         isFindCourseButtonVisible: Bool,
         image: Image? = nil,
         viewModel: UpgradeInfoViewModel,
         findAction: (() -> Void)? = nil,
         @ViewBuilder headerView: @escaping () -> Content = {EmptyView()}
     ) {
+        self.style = style
         self.isFindCourseButtonVisible = isFindCourseButtonVisible
         self._viewModel = .init(wrappedValue: viewModel)
         self.headerView = headerView
@@ -36,14 +38,12 @@ struct UpgradeInfoView<Content>: View where Content: View {
     }
     
     private var buttonText: String {
-        // NEEDS WORK
-        shouldHideText ? "" : ""// "\(CoreLocalization.CourseUpgrade.View.Button.upgradeNow) \(viewModel.price)"
+        shouldHideText ? "" : "\(Texts.UpgradeInfo.Button.upgradeNow) \(viewModel.price)"
     }
     
     private var buttonImage: Image? {
         shouldHideText ? nil : Image(systemName: "lock.fill")
     }
-    // NEEDS WORK : Replace Assets to EDXStyle
     public var body: some View {
         VStack(spacing: 0) {
             ScrollView {
@@ -60,52 +60,48 @@ struct UpgradeInfoView<Content>: View where Content: View {
                             .font(Fonts.bodyLarge.swiftUI())
                     }
                     
-                    // NEEDS WORK : add style
-//                    UpgradeOptionsView()
-//                        .foregroundColor(Assets.Colors.textPrimary.swiftUI())
+                    UpgradeOptionsView(style: style)
+                        .foregroundColor(style.colors.textPrimary)
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 30)
             }
             Spacer(minLength: 20)
             if isFindCourseButtonVisible {
-                // NEEDS WORK : Move StyledButton
-//                StyledButton(
-//                    Texts.UpgradeInfo.Button.findCourse,
-//                    action: {
-//                        findAction?()
-//                    },
-//                    color: Assets.Colors.background,
-//                    textColor: Theme.Colors.accentButtonColor,
-//                    borderColor: Theme.Colors.accentButtonColor
-//                )
-//                .frame(height: 42)
-//                .padding(.horizontal, 20)
-//                .padding(.bottom, 20)
+                StyledButton(
+                    Texts.UpgradeInfo.Button.findCourse,
+                    action: {
+                        findAction?()
+                    },
+                    color: style.colors.background,
+                    textColor: style.colors.accentButtonColor,
+                    borderColor: style.colors.accentButtonColor
+                )
+                .frame(height: 42)
+                .padding(.horizontal, 20)
+                .padding(.bottom, 20)
             }
             ZStack {
                 if viewModel.error == nil && viewModel.info?.sku.isEmpty == false {
-                    // NEEDS WORK : Move StyledButton
-//                    StyledButton(
-//                        buttonText,
-//                        action: {
-//                            Task {
-//                                await viewModel.purchase()
-//                            }
-//                        },
-//                        color: Theme.Colors.accentButtonColor,
-//                        textColor: Theme.Colors.styledButtonText,
-//                        leftImage: buttonImage,
-//                        imagesStyle: .attachedToText,
-//                        isTitleTracking: false,
-//                        isLimitedOnPad: false
-//                    )
-//                    .opacity(shouldHideButton ? 0 : 1)
-//                    .disabled(viewModel.isLoading)
+                    StyledButton(
+                        buttonText,
+                        action: {
+                            Task {
+                                await viewModel.purchase()
+                            }
+                        },
+                        color: style.colors.accentButtonColor,
+                        textColor: style.colors.styledButtonText,
+                        leftImage: buttonImage,
+                        imagesStyle: .attachedToText,
+                        isTitleTracking: false,
+                        isLimitedOnPad: false
+                    )
+                    .opacity(shouldHideButton ? 0 : 1)
+                    .disabled(viewModel.isLoading)
                     
-                    // NEEDS WORK
-//                    ProgressBar(size: 30, lineWidth: 8, accentColor: <#Color#>)
-//                        .opacity(viewModel.isLoading ? 1 : 0)
+                    ProgressBar(size: 30, lineWidth: 8, accentColor: style.colors.accentColor)
+                        .opacity(viewModel.isLoading ? 1 : 0)
                 }
             }
             .padding(.horizontal, 20)
@@ -124,6 +120,7 @@ struct UpgradeInfoView<Content>: View where Content: View {
 #Preview {
     // NEEDS WORK
 //    UpgradeInfoView(
+//        style: EDXIAPStyle.init(),
 //        isFindCourseButtonVisible: true,
 //        viewModel: UpgradeInfoViewModel(
 //            productName: "Preview",

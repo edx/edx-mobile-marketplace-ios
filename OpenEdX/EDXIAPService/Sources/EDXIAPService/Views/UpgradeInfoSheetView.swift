@@ -26,6 +26,7 @@ struct UpgradeInfoSheetView: View {
     var body: some View {
         NavigationView {
             UpgradeInfoView(
+                style: style,
                 isFindCourseButtonVisible: false,
                 viewModel: viewModel
             )
@@ -42,7 +43,7 @@ struct UpgradeInfoSheetView: View {
                         }
                     } label: {
                         Image(systemName: "xmark")
-                            // NEEDS WORK .foregroundColor(Theme.Colors.accentColor)
+                            .foregroundColor(style.colors.accentColor)
                     }
                     .accessibilityIdentifier("close_button")
                 }
