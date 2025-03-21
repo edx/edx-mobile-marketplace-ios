@@ -169,8 +169,6 @@ extension PushNotificationsManager: UNUserNotificationCenterDelegate {
             let userInfo = notification.request.content.userInfo
             let payload = Payload(dictionary: userInfo)
             trackPushReceived(payload: payload) // For foreground state.
-            didReceiveRemoteNotification(userInfo: userInfo)
-            return []
         }
         
         return [[.list, .banner, .sound]]

@@ -29,6 +29,6 @@ struct Payload {
     }
 
     subscript(key: PayloadKey) -> String? {
-        return dictionary[key] as? String
+        return dictionary[key.rawValue] as? String
     }
 }
