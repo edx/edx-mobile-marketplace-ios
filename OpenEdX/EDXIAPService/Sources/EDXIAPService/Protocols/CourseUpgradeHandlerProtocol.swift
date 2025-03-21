@@ -38,7 +38,9 @@ final class CourseUpgradeHandlerProtocolMock: CourseUpgradeHandlerProtocol {
         componentID: String?,
         screen: EDXScreen,
         completion: UpgradeCompletionHandler?
-    ) async {}
+    ) async {
+        completion?(.complete)
+    }
     
     func fetchProduct(sku: String) async throws -> StoreProductInfo {
         StoreProductInfo(price: 999, localizedPrice: "999 $", currencySymbol: "$")
