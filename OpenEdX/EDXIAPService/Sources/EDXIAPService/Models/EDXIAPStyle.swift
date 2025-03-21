@@ -7,20 +7,11 @@
 import OEXFoundation
 
 public struct EDXIAPStyle {
-    public let dashboardButton: EDXDashboardButtonStyle
-    public let upgradeInfoView: EDXUpgradeInfoViewStyle
-    public let paymentSnackBarView: EDXPaymentSnackbarViewStyle
-    public let mainColors: MainColors
+    public let colors: Colors
     
     public init(
-        mainColors: MainColors = MainColors(),
-        dashboardButton: EDXDashboardButtonStyle = EDXDashboardButtonStyle(),
-        upgradeInfoView: EDXUpgradeInfoViewStyle = EDXUpgradeInfoViewStyle(),
-        paymentSnackBarView: EDXPaymentSnackbarViewStyle = EDXPaymentSnackbarViewStyle()
+        сolors: Colors = Colors()
     ) {
-        self.mainColors = mainColors
-        self.dashboardButton = dashboardButton
-        self.upgradeInfoView = upgradeInfoView
-        self.paymentSnackBarView = paymentSnackBarView
+        self.colors = сolors
     }
 }

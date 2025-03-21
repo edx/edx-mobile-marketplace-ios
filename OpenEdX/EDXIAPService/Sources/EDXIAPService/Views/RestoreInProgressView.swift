@@ -18,11 +18,11 @@ public struct RestoreInProgressView: View {
         ZStack(alignment: .center) {
             VStack(spacing: 20) {
                 Text(Texts.Restore.inprogressText)
-                    .foregroundColor(style.mainColors.whiteColor)
+                    .foregroundColor(style.colors.whiteColor)
                     .font(Fonts.bodyLarge.swiftUI())
                     .accessibilityIdentifier("restore_inprogress_text")
                 
-                ProgressBar(size: 40, lineWidth: 8, accentColor: style.mainColors.accentColor)
+                ProgressBar(size: 40, lineWidth: 8, accentColor: style.colors.accentColor)
                     .padding(20)
                     .accessibilityIdentifier("progressbar")
             }
@@ -30,3 +30,9 @@ public struct RestoreInProgressView: View {
         .ignoresSafeArea()
     }
 }
+
+#if DEBUG
+#Preview {
+    RestoreInProgressView(style: EDXIAPStyle.init())
+}
+#endif

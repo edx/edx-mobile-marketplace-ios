@@ -8,7 +8,7 @@ import OEXFoundation
 import SwiftUI
 
 class Router: RouterProtocol {
-    func navigateToUpgrade(style: EDXUpgradeInfoViewStyle, product: EDXProduct, helper: EDXIAPHelperProtocol) {
+    func navigateToUpgrade(style: EDXIAPStyle, product: EDXProduct, helper: EDXIAPHelperProtocol) {
         let topController = UIApplication.topViewController()
         let controller = UIHostingController(
             rootView: UpgradeInfoSheetView(

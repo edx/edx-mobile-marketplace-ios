@@ -16,6 +16,8 @@ enum Assets: Sendable {
         static let accentColor: UIColor = .color(named: "accentColor")
         static let datesSectionStroke: UIColor = .color(named: "DatesSectionStroke")
         static let datesSectionBackground: UIColor = .color(named: "DatesSectionBackground")
+        static let accentButtonColor: UIColor = .color(named: "AccentButtonColor")
+        static let styledButtonText: UIColor = .color(named: "StyledButtonText")
     }
     
     enum Images {

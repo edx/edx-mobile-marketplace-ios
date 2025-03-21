@@ -32,7 +32,7 @@ public enum UpgradeError: Error, LocalizedError, Equatable, Sendable {
         case .verifyReceiptError:
             return "execute"
         default:
-            return "" // NEEDS WORK CoreLocalization.CourseUpgrade.FailureAlert.paymentNotProcessed
+            return Texts.CourseUpgrade.FailureAlert.paymentNotProcessed
         }
     }
     
@@ -43,7 +43,7 @@ public enum UpgradeError: Error, LocalizedError, Equatable, Sendable {
         case .checkoutError(let error):
             return checkoutErrorMessage(for: error)
         case .paymentError:
-            return "" // NEEDS WORK CoreLocalization.CourseUpgrade.FailureAlert.paymentNotProcessed
+            return Texts.CourseUpgrade.FailureAlert.paymentNotProcessed
         case .verifyReceiptError(let error):
             return executeErrorMessage(for: error)
         default:
@@ -55,31 +55,31 @@ public enum UpgradeError: Error, LocalizedError, Equatable, Sendable {
     private func basketErrorMessage(for error: Error) -> String {
         switch error.errorCode {
         case 400:
-            return "" // NEEDS WORK CoreLocalization.CourseUpgrade.FailureAlert.courseNotFount
+            return Texts.CourseUpgrade.FailureAlert.courseNotFound
         case 403:
-            return "" // NEEDS WORK CoreLocalization.CourseUpgrade.FailureAlert.authenticationErrorMessage
+            return Texts.CourseUpgrade.FailureAlert.authenticationErrorMessage
         case 406:
-            return "" // NEEDS WORK CoreLocalization.CourseUpgrade.FailureAlert.courseAlreadyPaid
+            return Texts.CourseUpgrade.FailureAlert.courseAlreadyPaid
         default:
-            return "" // NEEDS WORK CoreLocalization.CourseUpgrade.FailureAlert.paymentNotProcessed
+            return Texts.CourseUpgrade.FailureAlert.paymentNotProcessed
         }
     }
 
     private func checkoutErrorMessage(for error: Error) -> String {
         switch error.errorCode {
         case 403:
-            return "" // NEEDS WORK CoreLocalization.CourseUpgrade.FailureAlert.authenticationErrorMessage
+            return Texts.CourseUpgrade.FailureAlert.authenticationErrorMessage
         default:
-            return "" // NEEDS WORK CoreLocalization.CourseUpgrade.FailureAlert.paymentNotProcessed
+            return Texts.CourseUpgrade.FailureAlert.paymentNotProcessed
         }
     }
 
     private func executeErrorMessage(for error: Error) -> String {
         switch error.errorCode {
         case 409:
-            return "" // NEEDS WORK CoreLocalization.CourseUpgrade.FailureAlert.courseAlreadyPaid
+            return Texts.CourseUpgrade.FailureAlert.courseAlreadyPaid
         default:
-            return "" // NEEDS WORK CoreLocalization.CourseUpgrade.FailureAlert.courseNotFullfilled
+            return Texts.CourseUpgrade.FailureAlert.courseNotFullfilled
         }
     }
     

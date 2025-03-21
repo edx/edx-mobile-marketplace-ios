@@ -133,9 +133,9 @@ public class EDXIAPService: IAPServiceProtocol, EDXIAPHelperProtocol {
     public func view(for object: Any) -> AnyView? {
         guard let product = product(for: object) else { return nil }
         return AnyView(
-            PrimaryCardButton(style: style.dashboardButton, action: { [weak self] in
+            PrimaryCardButton(style: style, action: { [weak self] in
                 guard let self else { return }
-                self.router.navigateToUpgrade(style: self.style.upgradeInfoView, product: product, helper: self)
+                self.router.navigateToUpgrade(style: self.style, product: product, helper: self)
             })
         )
     }

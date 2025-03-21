@@ -10,11 +10,11 @@ import SwiftUI
 struct UpgradeInfoSheetView: View {
     @Environment(\.dismiss) private var dismiss
     @ObservedObject var viewModel: UpgradeInfoViewModel
-    let style: EDXUpgradeInfoViewStyle
+    let style: EDXIAPStyle
     let product: EDXProduct
     
     init(
-        style: EDXUpgradeInfoViewStyle,
+        style: EDXIAPStyle,
         product: EDXProduct,
         viewModel: UpgradeInfoViewModel
     ) {
@@ -26,11 +26,12 @@ struct UpgradeInfoSheetView: View {
     var body: some View {
         NavigationView {
             UpgradeInfoView(
+                style: style,
                 isFindCourseButtonVisible: false,
                 viewModel: viewModel
             )
             .background {
-                style.backgroundColor
+                style.colors.background
                     .ignoresSafeArea()
             }
             .navigationBarTitleDisplayMode(.inline)
@@ -42,7 +43,7 @@ struct UpgradeInfoSheetView: View {
                         }
                     } label: {
                         Image(systemName: "xmark")
-                            // NEEDS WORK .foregroundColor(Theme.Colors.accentColor)
+                            .foregroundColor(style.colors.accentColor)
                     }
                     .accessibilityIdentifier("close_button")
                 }
@@ -52,7 +53,7 @@ struct UpgradeInfoSheetView: View {
         .interactiveDismissDisabled(viewModel.interactiveDismissDisabled)
     }
 }
-//
+// NEEDS WORK
 //#if DEBUG
 //#Preview {
 //    UpgradeInfoSheetView(
