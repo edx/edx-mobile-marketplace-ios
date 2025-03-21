@@ -661,6 +661,13 @@ open class BaseRouterMock: BaseRouter, Mock {
     }
 
     @MainActor
+	open func showNotificationsScreen() {
+        addInvocation(.m_showNotificationsScreen)
+		let perform = methodPerformValue(.m_showNotificationsScreen) as? () -> Void
+		perform?()
+    }
+
+    @MainActor
 	open func showNotificationsPrimerIfNeeded() {
         addInvocation(.m_showNotificationsPrimerIfNeeded)
 		let perform = methodPerformValue(.m_showNotificationsPrimerIfNeeded) as? () -> Void
@@ -699,6 +706,7 @@ open class BaseRouterMock: BaseRouter, Mock {
         case m_showRestoreProgressView
         case m_hideRestoreProgressView
         case m_performNotificationRegistration
+        case m_showNotificationsScreen
         case m_showNotificationsPrimerIfNeeded
         case m_dismiss__animated_animated(Parameter<Bool>)
 
@@ -834,6 +842,8 @@ open class BaseRouterMock: BaseRouter, Mock {
 
             case (.m_performNotificationRegistration, .m_performNotificationRegistration): return .match
 
+            case (.m_showNotificationsScreen, .m_showNotificationsScreen): return .match
+
             case (.m_showNotificationsPrimerIfNeeded, .m_showNotificationsPrimerIfNeeded): return .match
 
             case (.m_dismiss__animated_animated(let lhsAnimated), .m_dismiss__animated_animated(let rhsAnimated)):
@@ -870,6 +880,7 @@ open class BaseRouterMock: BaseRouter, Mock {
             case .m_showRestoreProgressView: return 0
             case .m_hideRestoreProgressView: return 0
             case .m_performNotificationRegistration: return 0
+            case .m_showNotificationsScreen: return 0
             case .m_showNotificationsPrimerIfNeeded: return 0
             case let .m_dismiss__animated_animated(p0): return p0.intValue
             }
@@ -900,6 +911,7 @@ open class BaseRouterMock: BaseRouter, Mock {
             case .m_showRestoreProgressView: return ".showRestoreProgressView()"
             case .m_hideRestoreProgressView: return ".hideRestoreProgressView()"
             case .m_performNotificationRegistration: return ".performNotificationRegistration()"
+            case .m_showNotificationsScreen: return ".showNotificationsScreen()"
             case .m_showNotificationsPrimerIfNeeded: return ".showNotificationsPrimerIfNeeded()"
             case .m_dismiss__animated_animated: return ".dismiss(animated:)"
             }
@@ -951,6 +963,8 @@ open class BaseRouterMock: BaseRouter, Mock {
 		public static func hideRestoreProgressView() -> Verify { return Verify(method: .m_hideRestoreProgressView)}
         @MainActor
 		public static func performNotificationRegistration() -> Verify { return Verify(method: .m_performNotificationRegistration)}
+        @MainActor
+		public static func showNotificationsScreen() -> Verify { return Verify(method: .m_showNotificationsScreen)}
         @MainActor
 		public static func showNotificationsPrimerIfNeeded() -> Verify { return Verify(method: .m_showNotificationsPrimerIfNeeded)}
         public static func dismiss(animated: Parameter<Bool>) -> Verify { return Verify(method: .m_dismiss__animated_animated(`animated`))}
@@ -1038,6 +1052,10 @@ open class BaseRouterMock: BaseRouter, Mock {
         @MainActor
 		public static func performNotificationRegistration(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_performNotificationRegistration, performs: perform)
+        }
+        @MainActor
+		public static func showNotificationsScreen(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_showNotificationsScreen, performs: perform)
         }
         @MainActor
 		public static func showNotificationsPrimerIfNeeded(perform: @escaping () -> Void) -> Perform {
@@ -4501,6 +4519,13 @@ open class ProfileRouterMock: ProfileRouter, Mock {
     }
 
     @MainActor
+	open func showNotificationsScreen() {
+        addInvocation(.m_showNotificationsScreen)
+		let perform = methodPerformValue(.m_showNotificationsScreen) as? () -> Void
+		perform?()
+    }
+
+    @MainActor
 	open func showNotificationsPrimerIfNeeded() {
         addInvocation(.m_showNotificationsPrimerIfNeeded)
 		let perform = methodPerformValue(.m_showNotificationsPrimerIfNeeded) as? () -> Void
@@ -4550,6 +4575,7 @@ open class ProfileRouterMock: ProfileRouter, Mock {
         case m_showRestoreProgressView
         case m_hideRestoreProgressView
         case m_performNotificationRegistration
+        case m_showNotificationsScreen
         case m_showNotificationsPrimerIfNeeded
         case m_dismiss__animated_animated(Parameter<Bool>)
 
@@ -4720,6 +4746,8 @@ open class ProfileRouterMock: ProfileRouter, Mock {
 
             case (.m_performNotificationRegistration, .m_performNotificationRegistration): return .match
 
+            case (.m_showNotificationsScreen, .m_showNotificationsScreen): return .match
+
             case (.m_showNotificationsPrimerIfNeeded, .m_showNotificationsPrimerIfNeeded): return .match
 
             case (.m_dismiss__animated_animated(let lhsAnimated), .m_dismiss__animated_animated(let rhsAnimated)):
@@ -4767,6 +4795,7 @@ open class ProfileRouterMock: ProfileRouter, Mock {
             case .m_showRestoreProgressView: return 0
             case .m_hideRestoreProgressView: return 0
             case .m_performNotificationRegistration: return 0
+            case .m_showNotificationsScreen: return 0
             case .m_showNotificationsPrimerIfNeeded: return 0
             case let .m_dismiss__animated_animated(p0): return p0.intValue
             }
@@ -4808,6 +4837,7 @@ open class ProfileRouterMock: ProfileRouter, Mock {
             case .m_showRestoreProgressView: return ".showRestoreProgressView()"
             case .m_hideRestoreProgressView: return ".hideRestoreProgressView()"
             case .m_performNotificationRegistration: return ".performNotificationRegistration()"
+            case .m_showNotificationsScreen: return ".showNotificationsScreen()"
             case .m_showNotificationsPrimerIfNeeded: return ".showNotificationsPrimerIfNeeded()"
             case .m_dismiss__animated_animated: return ".dismiss(animated:)"
             }
@@ -4870,6 +4900,8 @@ open class ProfileRouterMock: ProfileRouter, Mock {
 		public static func hideRestoreProgressView() -> Verify { return Verify(method: .m_hideRestoreProgressView)}
         @MainActor
 		public static func performNotificationRegistration() -> Verify { return Verify(method: .m_performNotificationRegistration)}
+        @MainActor
+		public static func showNotificationsScreen() -> Verify { return Verify(method: .m_showNotificationsScreen)}
         @MainActor
 		public static func showNotificationsPrimerIfNeeded() -> Verify { return Verify(method: .m_showNotificationsPrimerIfNeeded)}
         public static func dismiss(animated: Parameter<Bool>) -> Verify { return Verify(method: .m_dismiss__animated_animated(`animated`))}
@@ -4990,6 +5022,10 @@ open class ProfileRouterMock: ProfileRouter, Mock {
         @MainActor
 		public static func performNotificationRegistration(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_performNotificationRegistration, performs: perform)
+        }
+        @MainActor
+		public static func showNotificationsScreen(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_showNotificationsScreen, performs: perform)
         }
         @MainActor
 		public static func showNotificationsPrimerIfNeeded(perform: @escaping () -> Void) -> Perform {

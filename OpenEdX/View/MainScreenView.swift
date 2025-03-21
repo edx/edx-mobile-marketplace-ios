@@ -247,6 +247,7 @@ struct MainScreenView: View {
             NotificationBellButton(
                 indicator: $viewModel.notificationBellIndicator,
                 action: {
+                    viewModel.trackNotificationBellClicked()
                     viewModel.hideNotificationBellIndicator()
 
                     let router = Container.shared.resolve(Router.self)!

@@ -19,6 +19,7 @@ public protocol NotificationsInteractorProtocol {
     func markNotificationAsRead(notificationId: String) async throws -> NotificationsSeenRead
     func markAllNotificationsAsRead() async throws -> NotificationsSeenRead
     func shouldShowPrimer() async -> Bool
+    func primerFrequency() -> Int
     func markPrimerAsShown()
 }
 
@@ -106,6 +107,10 @@ public class NotificationsInteractor: NotificationsInteractorProtocol {
         }
     }
     
+    public func primerFrequency() -> Int {
+        return storage.notificationsPrimerDismissalCount + 1
+    }
+
     public func markPrimerAsShown() {
         storage.notificationsPrimerDismissalCount += 1
         storage.notificationsPrimerLastShownDate = Date()

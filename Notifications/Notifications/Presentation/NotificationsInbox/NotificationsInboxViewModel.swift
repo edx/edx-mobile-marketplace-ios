@@ -102,10 +102,12 @@ public class NotificationsInboxViewModel: ObservableObject {
     func menuSelected(_ menu: NotificationMenu) {
         switch menu {
         case .markAllAsRead:
+            trackMarkAllReadClicked()
             Task {
                 await markAllNotificationsAsRead()
             }
         case .settings:
+            trackPushNotificationsSettingClicked()
             router.showPushSettings()
         }
     }
@@ -192,13 +194,34 @@ public class NotificationsInboxViewModel: ObservableObject {
         await deepLinkManager.showDiscussions(notification)
     }
     
-    func trackNotificationInbox() {
-        analytics.notificationInbox()
+    func trackScreenEvent() {
+        analytics.notificationScreenEvent(.notificationInbox, biValue: .notificationInbox)
     }
-    
-    func trackNotificationTapped(notificationType: String) {
-        analytics.notificationTapped(
-            notificationType: notificationType
+
+    func trackInboxMenuClicked() {
+        analytics.notificationInboxMenuClicked()
+    }
+
+    func trackMarkAllReadClicked() {
+        analytics.notificationMarkAllReadClicked()
+    }
+
+    func trackPushNotificationsSettingClicked() {
+        analytics.notificationPushNotificationsSettingClicked()
+    }
+
+    func trackInboxItemClicked(notification: SingleNotification) {
+        analytics.notificationInboxItemClicked(
+            NotificationInfo(
+                notificationDomain: notification.appName ?? "",
+                notificationType: notification.notificationType ?? "",
+                notificationID: String(notification.id),
+                courseID: notification.courseId,
+                topicID: notification.contentContext?.topicId,
+                threadID: notification.contentContext?.threadId,
+                responseID: notification.contentContext?.responseId,
+                commentID: notification.contentContext?.commentId
+            )
         )
     }
     

@@ -110,4 +110,8 @@ final class MainScreenViewModel: ObservableObject {
         let appNotificationCount = try? await notificationsInteractor.getNotificationsCount()
         notificationBellIndicator = (appNotificationCount?.discussion ?? 0 > 0) ? .dot : .none
     }
+
+    func trackNotificationBellClicked() {
+        analytics.notificationBellClicked(unreadNotifications: notificationBellIndicator == .dot)
+    }
 }

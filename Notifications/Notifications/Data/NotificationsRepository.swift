@@ -121,7 +121,7 @@ class NotificationsRepositoryMock: NotificationsRepositoryProtocol {
                     notificationType: "comment_on_followed_post",
                     contentContext: ContentContext(
                         topicId: "i4x-edX-demoX1-course-2T2017",
-                        parentId: "6777c03a7febe504707971ab",
+                        responseId: "6777c03a7febe504707971ab",
                         threadId: "5d49c25584452a0795000386",
                         commentId: "677b2ffa7febe50470799585",
                         postTitle: "How to learn it online?"

@@ -77,20 +77,20 @@ public struct SingleNotification: Hashable {
 
 public struct ContentContext: Hashable {
     public let topicId: String?
-    public let parentId: String?
+    public let responseId: String?
     public let threadId: String?
     public let commentId: String?
     public let postTitle: String?
     
     public init(
         topicId: String?,
-        parentId: String?,
+        responseId: String?,
         threadId: String?,
         commentId: String?,
         postTitle: String?
     ) {
         self.topicId = topicId
-        self.parentId = parentId
+        self.responseId = responseId
         self.threadId = threadId
         self.commentId = commentId
         self.postTitle = postTitle

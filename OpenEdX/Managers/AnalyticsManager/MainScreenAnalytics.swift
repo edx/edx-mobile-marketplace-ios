@@ -16,6 +16,7 @@ public protocol MainScreenAnalytics {
     func mainCoursesClicked()
     func mainProgramsClicked()
     func notificationPermissionStatus(status: String)
+    func notificationBellClicked(unreadNotifications: Bool)
 }
 
 #if DEBUG
@@ -27,5 +28,6 @@ public class MainScreenAnalyticsMock: MainScreenAnalytics {
     public func mainProgramsClicked() {}
     public func mainCoursesClicked() {}
     public func notificationPermissionStatus(status: String) {}
+    public func notificationBellClicked(unreadNotifications: Bool) {}
 }
 #endif

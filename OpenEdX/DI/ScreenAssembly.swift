@@ -269,7 +269,8 @@ class ScreenAssembly: Assembly {
         container.register(NotificationsPrimerViewModel.self) { r in
             NotificationsPrimerViewModel(
                 interactor: r.resolve(NotificationsInteractorProtocol.self)!,
-                router: r.resolve(NotificationsRouter.self)!
+                router: r.resolve(NotificationsRouter.self)!,
+                analytics: r.resolve(NotificationsAnalytics.self)!
             )
         }
         

@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Core
 
 enum DeepLinkType: String {
     case courseDashboard = "course_dashboard"
@@ -35,19 +34,6 @@ enum DeepLinkType: String {
     case none
 }
 
-private enum DeepLinkKeys: String, RawStringExtractable {
-    case courseID = "course_id"
-    case pathID = "path_id"
-    case screenName = "screen_name"
-    case notificationType = "notification_type"
-    case notificationID = "notification_id"
-    case topicID = "topic_id"
-    case threadID = "thread_id"
-    case commentID = "comment_id"
-    case parentID = "parent_id"
-    case componentID = "component_id"
-}
-
 public class DeepLink {
     let courseID: String?
     let screenName: String?
@@ -57,23 +43,24 @@ public class DeepLink {
     let topicID: String?
     let threadID: String?
     let commentID: String?
-    let parentID: String?
+    let responseID: String?
     let componentID: String?
     var type: DeepLinkType
     
     init(dictionary: [AnyHashable: Any]) {
-        courseID = dictionary[DeepLinkKeys.courseID.rawValue] as? String
-        screenName = dictionary[DeepLinkKeys.screenName.rawValue] as? String
-        notificationID = dictionary[DeepLinkKeys.notificationID.rawValue] as? String
-        notificationType = dictionary[DeepLinkKeys.notificationType.rawValue] as? String
-        pathID = dictionary[DeepLinkKeys.pathID.rawValue] as? String
-        topicID = dictionary[DeepLinkKeys.topicID.rawValue] as? String
-        threadID = dictionary[DeepLinkKeys.threadID.rawValue] as? String
-        commentID = dictionary[DeepLinkKeys.commentID.rawValue] as? String
-        componentID = dictionary[DeepLinkKeys.componentID.rawValue] as? String
-        parentID = dictionary[DeepLinkKeys.parentID.rawValue] as? String
+        let payload = Payload(dictionary: dictionary)
+        courseID = payload[.courseID]
+        screenName = payload[.screenName]
+        notificationID = payload[.notificationID]
+        notificationType = payload[.notificationType]
+        pathID = payload[.pathID]
+        topicID = payload[.topicID]
+        threadID = payload[.threadID]
+        commentID = payload[.commentID]
+        componentID = payload[.componentID]
+        responseID = payload[.responseID]
         type = DeepLinkType(
-            rawValue: screenName ?? notificationType ?? DeepLinkType.none.rawValue
+            rawValue: screenName ?? DeepLinkType.none.rawValue
         ) ?? .none
     }
 }

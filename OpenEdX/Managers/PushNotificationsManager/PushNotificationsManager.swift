@@ -11,6 +11,7 @@ import UIKit
 import UserNotifications
 import FirebaseCore
 import FirebaseMessaging
+import Notifications
 
 public protocol PushNotificationsProvider {
     func didRegisterWithDeviceToken(deviceToken: Data)
@@ -29,7 +30,8 @@ class PushNotificationsManager: NSObject {
     private let deepLinkManager: DeepLinkManager
     private let storage: CoreStorage
     private let api: API
-    
+    private let analytics: NotificationsAnalytics
+
     private var providers: [PushNotificationsProvider] = []
     private var listeners: [PushNotificationsListener] = []
     
@@ -42,10 +44,12 @@ class PushNotificationsManager: NSObject {
         deepLinkManager: DeepLinkManager,
         storage: CoreStorage,
         api: API,
+        analytics: NotificationsAnalytics,
         config: ConfigProtocol
     ) {
         self.deepLinkManager = deepLinkManager
         self.storage = storage
+        self.analytics = analytics
         self.api = api
         
         super.init()
@@ -121,6 +125,28 @@ class PushNotificationsManager: NSObject {
             provider.refreshToken()
         }
     }
+
+    // MARK: - Analytics
+
+    private func trackPushReceived(payload: Payload) {
+        switch payload[.notificationDomain] {
+        case EventCategory.discussion:
+            analytics.notificationDiscussionPushReceived(
+                NotificationInfo(payload: payload)
+            )
+        default: break
+        }
+    }
+
+    private func trackPushTapped(payload: Payload) {
+        switch payload[.notificationDomain] {
+        case EventCategory.discussion:
+            analytics.notificationDiscussionPushTapped(
+                NotificationInfo(payload: payload)
+            )
+        default: break
+        }
+    }
 }
 
 // MARK: - MessagingDelegate
@@ -140,7 +166,10 @@ extension PushNotificationsManager: UNUserNotificationCenterDelegate {
         willPresent notification: UNNotification
     ) async -> UNNotificationPresentationOptions {
         if UIApplication.shared.applicationState == .active {
-            didReceiveRemoteNotification(userInfo: notification.request.content.userInfo)
+            let userInfo = notification.request.content.userInfo
+            let payload = Payload(dictionary: userInfo)
+            trackPushReceived(payload: payload) // For foreground state.
+            didReceiveRemoteNotification(userInfo: userInfo)
             return []
         }
         
@@ -153,6 +182,25 @@ extension PushNotificationsManager: UNUserNotificationCenterDelegate {
         didReceive response: UNNotificationResponse
     ) async {
         let userInfo = response.notification.request.content.userInfo
+        let payload = Payload(dictionary: userInfo)
+        trackPushTapped(payload: payload) // For terminated and background state.
         didReceiveRemoteNotification(userInfo: userInfo)
+    }
+}
+
+// MARK: - NotificationInfo
+
+private extension NotificationInfo {
+    init(payload: Payload) {
+        self.init(
+            notificationDomain: payload[.notificationDomain] ?? "",
+            notificationType: payload[.notificationType] ?? "",
+            notificationID: payload[.notificationID] ?? "",
+            courseID: payload[.courseID],
+            topicID: payload[.topicID],
+            threadID: payload[.threadID],
+            responseID: payload[.responseID],
+            commentID: payload[.commentID]
+        )
     }
 }

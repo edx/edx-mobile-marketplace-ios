@@ -180,6 +180,7 @@
 		14DE13DA2BDF7E5E0059168F /* IAPConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DE13D92BDF7E5E0059168F /* IAPConfig.swift */; };
 		14DE13DC2BDF83350059168F /* ServerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DE13DB2BDF83350059168F /* ServerConfig.swift */; };
 		14F8E66B2C0F4D1200E4EF69 /* RestoreInProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F8E66A2C0F4D1200E4EF69 /* RestoreInProgressView.swift */; };
+		941613E22D8D4ACE00178F62 /* OnPressButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941613E12D8D4ACE00178F62 /* OnPressButtonStyle.swift */; };
 		942A984E2D4B598C00DD8BBC /* PaginationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942A984D2D4B598C00DD8BBC /* PaginationManager.swift */; };
 		942A98552D4BD91700DD8BBC /* PaginationTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942A98542D4BD91700DD8BBC /* PaginationTask.swift */; };
 		942A98572D4BD92B00DD8BBC /* PaginationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942A98562D4BD92B00DD8BBC /* PaginationResult.swift */; };
@@ -420,6 +421,7 @@
 		349B90CD6579F7B8D257E515 /* Pods_App_Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_App_Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B74C6685E416657F3C5F5A8 /* Pods-App-Core.releaseprod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Core.releaseprod.xcconfig"; path = "Target Support Files/Pods-App-Core/Pods-App-Core.releaseprod.xcconfig"; sourceTree = "<group>"; };
 		60153262DBC2F9E660D7E11B /* Pods-App-Core.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Core.release.xcconfig"; path = "Target Support Files/Pods-App-Core/Pods-App-Core.release.xcconfig"; sourceTree = "<group>"; };
+		941613E12D8D4ACE00178F62 /* OnPressButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnPressButtonStyle.swift; sourceTree = "<group>"; };
 		942A984D2D4B598C00DD8BBC /* PaginationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationManager.swift; sourceTree = "<group>"; };
 		942A98542D4BD91700DD8BBC /* PaginationTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationTask.swift; sourceTree = "<group>"; };
 		942A98562D4BD92B00DD8BBC /* PaginationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationResult.swift; sourceTree = "<group>"; };
@@ -908,6 +910,7 @@
 				06DEA4A42BBD66D700110D20 /* BackNavigationButtonViewModel.swift */,
 				942A98582D4CAF5200DD8BBC /* ScreenStateView.swift */,
 				94AE32352D8B329D00FA048D /* NotificationBellButton.swift */,
+				941613E12D8D4ACE00178F62 /* OnPressButtonStyle.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -1421,6 +1424,7 @@
 				07460FE3294B72D700F70538 /* Notification.swift in Sources */,
 				0727877F28D25B24002E9142 /* Alamofire+Error.swift in Sources */,
 				02A4833829B8A8F900D33F33 /* CoreDataModel.xcdatamodeld in Sources */,
+				941613E22D8D4ACE00178F62 /* OnPressButtonStyle.swift in Sources */,
 				062C69AC2C198323002BD311 /* UpgradeInfoView.swift in Sources */,
 				064987952B4D69FF0071642A /* SurveyCssInjection.swift in Sources */,
 				02E224DB2BB76B3E00EF1ADB /* DynamicOffsetView.swift in Sources */,

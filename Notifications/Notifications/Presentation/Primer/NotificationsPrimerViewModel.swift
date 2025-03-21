@@ -17,13 +17,26 @@ public final class NotificationsPrimerViewModel: ObservableObject {
 
     private let interactor: NotificationsInteractorProtocol
     private let router: NotificationsRouter
+    private let analytics: NotificationsAnalytics
+
+    private enum Constants {
+        static let allow = "allow"
+        static let discussionPrimer = "discussion_primer"
+        static let dontAllow = "dont_allow"
+        static let cancel = "cancel"
+        static let `continue` = "continue"
+        static let notifyMe = "notify_me"
+        static let noThanks = "no_thanks"
+    }
 
     public init(
         interactor: NotificationsInteractorProtocol,
-        router: NotificationsRouter
+        router: NotificationsRouter,
+        analytics: NotificationsAnalytics
     ) {
         self.interactor = interactor
         self.router = router
+        self.analytics = analytics
 
         addObservers()
     }
@@ -33,16 +46,24 @@ public final class NotificationsPrimerViewModel: ObservableObject {
     }
 
     func markAsShown() {
+        trackScreenEvent()
         interactor.markPrimerAsShown()
     }
 
-    func notify() {
+    func notifyMe() {
+        trackDiscussionPrimerAction(action: Constants.notifyMe)
+
         Task {
             await requestNotificationPermissions()
         }
     }
 
-    func dismiss() {
+    func noThanks() {
+        trackDiscussionPrimerAction(action: Constants.noThanks)
+        dismiss()
+    }
+
+    private func dismiss() {
         router.dismiss()
     }
 
@@ -64,13 +85,15 @@ public final class NotificationsPrimerViewModel: ObservableObject {
     
     @objc private func didBecomeActive() {
         if openedSettings {
-            refreshSettings()
+            Task {
+                await enableNotificationsIfAuthorized()
+            }
         }
     }
 
     @objc private func refreshSettings() {
         Task {
-            await enableNotificationsIfAuthorized()
+            await enableNotificationsIfAuthorized(track: true)
         }
     }
 
@@ -81,6 +104,7 @@ public final class NotificationsPrimerViewModel: ObservableObject {
         let settings = await UNUserNotificationCenter.current().notificationSettings()
         if settings.authorizationStatus == .notDetermined {
             router.performNotificationRegistration()
+            trackSystemPermissionDialogViewed()
         } else {
             showPermissionNeededAlert()
         }
@@ -92,6 +116,7 @@ public final class NotificationsPrimerViewModel: ObservableObject {
                 title: NotificationsLocalization.Alert.continue,
                 style: .default,
                 handler: { [weak self] _ in
+                    self?.trackAppPermissionRationaleDialogAction(action: Constants.continue)
                     self?.openSettingsOrDismiss()
                 }
             ),
@@ -99,6 +124,7 @@ public final class NotificationsPrimerViewModel: ObservableObject {
                 title: NotificationsLocalization.Alert.cancel,
                 style: .default,
                 handler: { [weak self] _ in
+                    self?.trackAppPermissionRationaleDialogAction(action: Constants.cancel)
                     self?.dismiss()
                 }
             )
@@ -109,6 +135,7 @@ public final class NotificationsPrimerViewModel: ObservableObject {
             message: NotificationsLocalization.Alert.permissionMessage,
             actions: actions
         )
+        trackAppPermissionRationaleDialogViewed()
     }
 
     private func openSettingsOrDismiss() {
@@ -123,12 +150,53 @@ public final class NotificationsPrimerViewModel: ObservableObject {
     }
 
     @MainActor
-    private func enableNotificationsIfAuthorized() async {
+    private func enableNotificationsIfAuthorized(track: Bool = false) async {
         let settings = await UNUserNotificationCenter.current().notificationSettings()
         if settings.authorizationStatus == .authorized {
+            if track {
+                trackSystemPermissionDialogAction(action: Constants.allow)
+            }
             _ = try? await interactor.updateNotificationsPreferences(value: true)
+        } else if settings.authorizationStatus == .denied {
+            if track {
+                trackSystemPermissionDialogAction(action: Constants.dontAllow)
+            }
         }
 
         dismiss()
+    }
+
+    // MARK: - Analytics
+    
+    private func trackScreenEvent() {
+        analytics.notificationDiscussionPrimerViewed(
+            dialogFrequency: interactor.primerFrequency()
+        )
+    }
+
+    private func trackDiscussionPrimerAction(action: String) {
+        analytics.notificationDiscussionPrimerAction(action: action)
+    }
+
+    private func trackSystemPermissionDialogViewed() {
+        analytics.notificationSystemPermissionDialogViewed(source: Constants.discussionPrimer)
+    }
+
+    private func trackSystemPermissionDialogAction(action: String) {
+        analytics.notificationSystemPermissionDialogAction(
+            source: Constants.discussionPrimer,
+            action: action
+        )
+    }
+
+    private func trackAppPermissionRationaleDialogViewed() {
+        analytics.notificationAppPermissionRationaleDialogViewed(source: Constants.discussionPrimer)
+    }
+
+    private func trackAppPermissionRationaleDialogAction(action: String) {
+        analytics.notificationAppPermissionRationaleDialogAction(
+            source: Constants.discussionPrimer,
+            action: action
+        )
     }
 }

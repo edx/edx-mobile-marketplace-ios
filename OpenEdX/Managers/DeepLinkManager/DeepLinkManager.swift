@@ -13,7 +13,6 @@ import Discussion
 import Course
 import Profile
 import Notifications
-import Swinject
 
 // swiftlint:disable function_body_length type_body_length
 //sourcery: AutoMockable
@@ -344,10 +343,6 @@ public class DeepLinkManager: NotificationsDeepLinkManager {
         courseDetails: CourseDetails,
         isBlackedOut: Bool
     ) async {
-        let responseId = link.parentID?.isEmpty == false &&
-        link.commentID?.isEmpty == false
-        ? link.parentID
-        : link.commentID
 
         switch link.type {
         case .discussionTopic:
@@ -390,10 +385,10 @@ public class DeepLinkManager: NotificationsDeepLinkManager {
                 router.showThread(
                     userThread: userThread,
                     isBlackedOut: isBlackedOut,
-                    responseID: responseId
+                    responseID: link.responseID
                 )
             }
-        case .discussionComment, .forumResponse:
+        case .forumResponse:
             if let topicID = link.topicID,
                !topicID.isEmpty,
                 let topics = try? await discussionInteractor.getTopic(
@@ -414,7 +409,7 @@ public class DeepLinkManager: NotificationsDeepLinkManager {
                 router.showThread(
                     userThread: userThread,
                     isBlackedOut: isBlackedOut,
-                    responseID: responseId
+                    responseID: link.responseID
                 )
             }
 
@@ -431,7 +426,7 @@ public class DeepLinkManager: NotificationsDeepLinkManager {
                     isBlackedOut: isBlackedOut
                 )
             }
-        case .forumComment:
+        case .discussionComment, .forumComment:
             if let topicID = link.topicID,
                !topicID.isEmpty,
                 let topics = try? await discussionInteractor.getTopic(
@@ -452,20 +447,17 @@ public class DeepLinkManager: NotificationsDeepLinkManager {
                 router.showThread(
                     userThread: userThread,
                     isBlackedOut: isBlackedOut,
-                    responseID: responseId
+                    responseID: link.responseID
                 )
             }
             
-            if let parentID = link.parentID,
-               !parentID.isEmpty,
-               let comment = try? await self.discussionInteractor.getResponse(responseID: parentID),
-               let commentParentID = comment.parentID,
-               !commentParentID.isEmpty,
-               let parentComment = try? await self.discussionInteractor.getResponse(responseID: commentParentID) {
+            if let commentId = link.commentID, !commentId.isEmpty,
+               let responseId = link.responseID, !responseId.isEmpty,
+               let comment = try? await self.discussionInteractor.getResponse(responseID: responseId) {
                 router.showComment(
                     courseID: courseDetails.courseID,
                     comment: comment,
-                    parentComment: parentComment.toPost(username: storage.user?.username),
+                    parentComment: comment.toPost(username: storage.user?.username),
                     isBlackedOut: isBlackedOut
                 )
             }
@@ -528,22 +520,18 @@ public class DeepLinkManager: NotificationsDeepLinkManager {
                 isBlackedOut: discussionInfo.isBlackedOut()
             )
 
-            let responseId = notification.contentContext?.parentId?.isEmpty == false &&
-                             notification.contentContext?.commentId?.isEmpty == false
-                             ? notification.contentContext?.parentId
-                             : notification.contentContext?.commentId
-
             if let threadId = notification.contentContext?.threadId, !threadId.isEmpty {
                 let userThread = try await discussionInteractor.getThread(threadID: threadId)
                 router.showThread(
                     userThread: userThread,
                     isBlackedOut: discussionInfo.isBlackedOut(),
-                    responseID: responseId
+                    responseID: notification.contentContext?.responseId
                 )
             }
 
-            if let parentId = notification.contentContext?.parentId, !parentId.isEmpty {
-                let comment = try await discussionInteractor.getResponse(responseID: parentId)
+            if let commentId = notification.contentContext?.commentId, !commentId.isEmpty,
+               let responseId = notification.contentContext?.responseId, !responseId.isEmpty,
+               let comment = try? await discussionInteractor.getResponse(responseID: responseId) {
                 router.showComment(
                     courseID: courseDetails.courseID,
                     comment: comment,
