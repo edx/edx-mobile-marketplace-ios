@@ -91,14 +91,28 @@ struct MainScreenView: View {
                 }
             case .gallery:
                 ZStack {
-                    PrimaryCourseDashboardView(
-                        viewModel: Container.shared.resolve(PrimaryCourseDashboardViewModel.self)!,
-                        router: Container.shared.resolve(DashboardRouter.self)!,
-                        programView: ProgramWebviewView(
-                            viewModel: Container.shared.resolve(ProgramWebviewViewModel.self)!,
-                            router: Container.shared.resolve(DiscoveryRouter.self)!
-                        ),
-                        openDiscoveryPage: { viewModel.selection = .discovery }
+                    mainTab(
+                        PrimaryCourseDashboardView(
+                            viewModel: Container.shared.resolve(PrimaryCourseDashboardViewModel.self)!,
+                            router: Container.shared.resolve(DashboardRouter.self)!,
+                            supportsElevatedTabBar: supportsElevatedTabBar,
+                            topBarButtons: { notificationBell },
+                            programView: ProgramWebviewView(
+                                viewModel: Container.shared.resolve(ProgramWebviewViewModel.self)!,
+                                router: Container.shared.resolve(DiscoveryRouter.self)!
+                            ),
+                            onRefresh: {
+                                Task {
+                                    await viewModel.refreshNotificaitonBellIndicator()
+                                }
+                            },
+                            openDiscoveryPage: { viewModel.selection = .discovery }
+                        )
+                        .onAppear {
+                            Task {
+                                await viewModel.refreshNotificaitonBellIndicator()
+                            }
+                        }
                     )
                     if updateAvailable {
                         UpdateNotificationView(config: viewModel.config)
@@ -226,11 +240,29 @@ struct MainScreenView: View {
             content
         }
     }
-    
+
+    @ViewBuilder
+    private var notificationBell: some View {
+        if viewModel.config.pushNotificationsEnabled {
+            NotificationBellButton(
+                indicator: $viewModel.notificationBellIndicator,
+                action: {
+                    viewModel.hideNotificationBellIndicator()
+
+                    let router = Container.shared.resolve(Router.self)!
+                    router.showNotificationsScreen()
+                }
+            )
+        }
+    }
+
     @ToolbarContentBuilder
     private var toolbarContent: some ToolbarContent {
         ToolbarItem(placement: .navigationBarTrailing, content: {
-            if viewModel.selection == .profile {
+            switch viewModel.selection {
+            case .dashboard:
+                notificationBell
+            case .profile:
                 Button(action: {
                     let router = Container.shared.resolve(ProfileRouter.self)!
                     router.showSettings()
@@ -239,6 +271,8 @@ struct MainScreenView: View {
                         .foregroundColor(Theme.Colors.accentColor)
                 })
                 .accessibilityIdentifier("edit_profile_button")
+            default:
+                EmptyView()
             }
         })
     }

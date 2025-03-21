@@ -9,7 +9,6 @@ import Foundation
 import Core
 import SwiftUI
 import Combine
-import Notifications
 
 public class PrimaryCourseDashboardViewModel: ObservableObject {
     
@@ -19,8 +18,7 @@ public class PrimaryCourseDashboardViewModel: ObservableObject {
     @Published var enrollments: PrimaryEnrollment?
     @Published var showError: Bool = false
     @Published var updateNeeded: Bool = false
-    @Published var hasUnreadNotifications: Bool = false
-    
+
     var errorMessage: String? {
         didSet {
             withAnimation {
@@ -35,7 +33,6 @@ public class PrimaryCourseDashboardViewModel: ObservableObject {
     let config: ConfigProtocol
     let serverConfig: ServerConfigProtocol
     private var cancellables = Set<AnyCancellable>()
-    private let notificationsInteractor: NotificationsInteractorProtocol
     
     private let ipadPageSize = 7
     private let iphonePageSize = 5
@@ -45,15 +42,13 @@ public class PrimaryCourseDashboardViewModel: ObservableObject {
         connectivity: ConnectivityProtocol,
         analytics: DashboardAnalytics,
         config: ConfigProtocol,
-        serverConfig: ServerConfigProtocol,
-        notificationsInteractor: NotificationsInteractorProtocol
+        serverConfig: ServerConfigProtocol
     ) {
         self.interactor = interactor
         self.connectivity = connectivity
         self.analytics = analytics
         self.config = config
         self.serverConfig = serverConfig
-        self.notificationsInteractor = notificationsInteractor
         
         let enrollmentPublisher = NotificationCenter.default.publisher(for: .onCourseEnrolled)
         let completionPublisher = NotificationCenter.default.publisher(for: .onblockCompletionRequested)
@@ -122,15 +117,5 @@ public class PrimaryCourseDashboardViewModel: ObservableObject {
     
     func trackDashboardCourseClicked(courseID: String, courseName: String) {
         analytics.dashboardCourseClicked(courseID: courseID, courseName: courseName)
-    }
-    
-    func setNotificationMarkAsRead() {
-        hasUnreadNotifications = false
-    }
-    
-    @MainActor
-    func getNotificaitonsCount() async {
-        let appNotificationCount = try? await notificationsInteractor.getNotificationsCount()
-        hasUnreadNotifications = appNotificationCount?.discussion ?? 0 > 0
     }
 }

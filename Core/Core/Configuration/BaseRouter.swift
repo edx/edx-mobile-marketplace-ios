@@ -89,7 +89,10 @@ public protocol BaseRouter {
     
     @MainActor
     func performNotificationRegistration()
-    
+
+    @MainActor
+    func showNotificationsScreen()
+
     @MainActor
     func showNotificationsPrimerIfNeeded()
 }
@@ -192,7 +195,10 @@ open class BaseRouterMock: BaseRouter {
     
     @MainActor
     public func performNotificationRegistration() {}
-    
+
+    @MainActor
+    public func showNotificationsScreen() {}
+
     @MainActor
     public func showNotificationsPrimerIfNeeded() {}
 }

@@ -40,6 +40,7 @@ class ScreenAssembly: Assembly {
             MainScreenViewModel(
                 analytics: r.resolve(MainScreenAnalytics.self)!,
                 config: r.resolve(ConfigProtocol.self)!,
+                notificationsInteractor: r.resolve(NotificationsInteractorProtocol.self)!,
                 profileInteractor: r.resolve(ProfileInteractorProtocol.self)!,
                 sourceScreen: sourceScreen,
                 postLoginData: postLoginData
@@ -184,8 +185,7 @@ class ScreenAssembly: Assembly {
                 connectivity: r.resolve(ConnectivityProtocol.self)!,
                 analytics: r.resolve(DashboardAnalytics.self)!,
                 config: r.resolve(ConfigProtocol.self)!,
-                serverConfig: r.resolve(ServerConfigProtocol.self)!,
-                notificationsInteractor: r.resolve(NotificationsInteractorProtocol.self)!
+                serverConfig: r.resolve(ServerConfigProtocol.self)!
             )
         }
         
