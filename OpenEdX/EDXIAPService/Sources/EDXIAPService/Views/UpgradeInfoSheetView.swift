@@ -10,11 +10,11 @@ import SwiftUI
 struct UpgradeInfoSheetView: View {
     @Environment(\.dismiss) private var dismiss
     @ObservedObject var viewModel: UpgradeInfoViewModel
-    let style: EDXUpgradeInfoViewStyle
+    let style: EDXIAPStyle
     let product: EDXProduct
     
     init(
-        style: EDXUpgradeInfoViewStyle,
+        style: EDXIAPStyle,
         product: EDXProduct,
         viewModel: UpgradeInfoViewModel
     ) {
@@ -30,7 +30,7 @@ struct UpgradeInfoSheetView: View {
                 viewModel: viewModel
             )
             .background {
-                style.backgroundColor
+                style.colors.background
                     .ignoresSafeArea()
             }
             .navigationBarTitleDisplayMode(.inline)

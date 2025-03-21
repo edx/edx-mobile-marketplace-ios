@@ -27,7 +27,7 @@ public struct CourseUpgradeUnlockView: View {
     @ViewBuilder
     var verticalLayout: some View {
         ZStack(alignment: .center) {
-            style.mainColors.background
+            style.colors.background
             VStack(spacing: 0) {
                 VStack(spacing: 25) {
                     Spacer()
@@ -37,16 +37,16 @@ public struct CourseUpgradeUnlockView: View {
                     
                     VStack(spacing: 0) {
                         Text(Texts.UpgradeInfo.unlockingText)
-                            .foregroundColor(style.mainColors.textPrimary)
+                            .foregroundColor(style.colors.textPrimary)
                             .font(Fonts.headlineSmall.swiftUI())
                             .padding(0)
                         Text(Texts.UpgradeInfo.unlockingFullAccess)
-                            .foregroundColor(style.mainColors.accentColor)
+                            .foregroundColor(style.colors.accentColor)
                             .font(Fonts.headlineSmall.swiftUI())
                             .fontWeight(.heavy)
                             .padding(0)
                         Text(Texts.UpgradeInfo.unlockingToCourse)
-                            .foregroundColor(style.mainColors.textPrimary)
+                            .foregroundColor(style.colors.textPrimary)
                             .font(Fonts.headlineSmall.swiftUI())
                             .padding(0)
                     }
@@ -54,7 +54,7 @@ public struct CourseUpgradeUnlockView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 ZStack {
-                    ProgressBar(size: 45, lineWidth: 8, accentColor: style.mainColors.accentColor)
+                    ProgressBar(size: 45, lineWidth: 8, accentColor: style.colors.accentColor)
                         .padding(20)
                         .accessibilityIdentifier("progressbar")
                 }
@@ -68,7 +68,7 @@ public struct CourseUpgradeUnlockView: View {
     @ViewBuilder
     var horizontalLayout: some View {
         ZStack(alignment: .center) {
-            style.mainColors.background
+            style.colors.background
             VStack(spacing: 0) {
                 VStack(spacing: 25) {
                     
@@ -78,23 +78,23 @@ public struct CourseUpgradeUnlockView: View {
                     
                     VStack(spacing: 0) {
                         Text(Texts.UpgradeInfo.unlockingText)
-                            .foregroundColor(style.mainColors.textPrimary)
+                            .foregroundColor(style.colors.textPrimary)
                             .font(Fonts.headlineSmall.swiftUI())
                             .padding(0)
                         Text(Texts.UpgradeInfo.unlockingFullAccess)
-                            .foregroundColor(style.mainColors.accentColor)
+                            .foregroundColor(style.colors.accentColor)
                             .font(Fonts.headlineSmall.swiftUI())
                             .fontWeight(.heavy)
                             .padding(0)
                         Text(Texts.UpgradeInfo.unlockingToCourse)
-                            .foregroundColor(style.mainColors.textPrimary)
+                            .foregroundColor(style.colors.textPrimary)
                             .font(Fonts.headlineSmall.swiftUI())
                             .padding(0)
                     }
                     .accessibilityIdentifier("unlock_text")
                 }
                 ZStack {
-                    ProgressBar(size: 45, lineWidth: 8, accentColor: style.mainColors.accentColor)
+                    ProgressBar(size: 45, lineWidth: 8, accentColor: style.colors.accentColor)
                         .padding(20)
                         .accessibilityIdentifier("progressbar")
                 }

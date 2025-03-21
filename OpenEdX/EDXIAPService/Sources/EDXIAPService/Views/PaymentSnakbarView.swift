@@ -18,19 +18,19 @@ public struct PaymentSnakbarView: View {
         VStack(alignment: .leading, spacing: 8) {
             Text(Texts.SnackBar.title)
                 .font(Fonts.titleMedium.swiftUI())
-                .foregroundColor(style.mainColors.textPrimary)
+                .foregroundColor(style.colors.textPrimary)
             
             Text(Texts.SnackBar.successMessage)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .font(Fonts.labelLarge.swiftUI())
-                .foregroundColor(style.mainColors.textPrimary)
+                .foregroundColor(style.colors.textPrimary)
         }
         .padding(20)
         .overlay(
             RoundedRectangle(cornerRadius: 8)
-                .stroke(style.paymentSnackBarView.stroke, lineWidth: 2)
+                .stroke(style.colors.datesSectionStroke, lineWidth: 2)
         )
-        .background(style.paymentSnackBarView.background)
+        .background(style.colors.datesSectionBackground)
         .clipShape(
             RoundedRectangle(cornerRadius: 8)
         )

@@ -9,6 +9,6 @@ import UIKit
 
 @MainActor
 protocol RouterProtocol {
-    func navigateToUpgrade(style: EDXUpgradeInfoViewStyle, product: EDXProduct, helper: EDXIAPHelperProtocol)
+    func navigateToUpgrade(style: EDXIAPStyle, product: EDXProduct, helper: EDXIAPHelperProtocol)
     func presentNativeAlert(title: String?, message: String?, actions: [UIAlertAction])
 }
