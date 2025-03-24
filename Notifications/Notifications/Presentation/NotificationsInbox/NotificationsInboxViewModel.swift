@@ -242,9 +242,11 @@ public class NotificationsInboxViewModel: ObservableObject {
     }
     
     // Update a specific item in the array
+    @MainActor
     func updateNotification(groupKey: NotificationGroup, item: SingleNotification) {
         updateGroupedNotification(groupKey: groupKey, item: item)
         updateFlatNotification(item: item)
+        paginationManager.updateItem(item) { $0.id }
     }
 
     private func updateGroupedNotification(groupKey: NotificationGroup, item: SingleNotification) {

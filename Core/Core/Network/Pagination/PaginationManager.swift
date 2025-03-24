@@ -170,6 +170,39 @@ public final class PaginationManager<Item, PaginationKey> {
         }
     }
     
+    /// Updates an existing item in the list if it matches the given identifier.
+    ///
+    /// - Parameters:
+    ///   - updatedItem: The updated item that should replace the existing one.
+    ///   - id: A closure that extracts a unique identifier from an `Item`. This is used to find the matching item in the list.
+    ///
+    /// - Note: If the item with the same identifier exists in the current list, it will be replaced with `updatedItem`,
+    ///         and the updated list will be published to `itemsPublisher`.
+    ///
+    /// - Example:
+    ///   ```swift
+    ///   paginationManager.updateItem(updatedPost) { $0.id }
+    ///   ```
+    ///   In this example, `{ $0.id }` extracts the `id` of each item (assuming `Item` is a struct with an `id` property),
+    ///   allowing the function to locate and update the correct item.
+    ///
+    /// - Important: This method must be called on the main thread since it updates UI-related state.
+    ///
+    /// - SeeAlso: `itemsPublisher`
+    @MainActor
+    public func updateItem(_ updatedItem: Item, id: (Item) -> AnyHashable) {
+        // Get the current list of items; if no items exist, exit the function.
+        guard var currentItems = itemsSubject.value else { return }
+        
+        // Find the index of the item that matches the updatedItem based on the identifier.
+        if let index = currentItems.firstIndex(where: { id($0) == id(updatedItem) }) {
+            // Replace the old item with the updated item.
+            currentItems[index] = updatedItem
+            // Publish the updated list.
+            itemsSubject.send(currentItems)
+        }
+    }
+
     @MainActor
     private func clearTask(_ paginationTask: PaginationTask<Item>) {
         if paginationTask == refreshTask {
