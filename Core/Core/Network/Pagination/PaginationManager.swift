@@ -174,7 +174,8 @@ public final class PaginationManager<Item, PaginationKey> {
     ///
     /// - Parameters:
     ///   - updatedItem: The updated item that should replace the existing one.
-    ///   - id: A closure that extracts a unique identifier from an `Item`. This is used to find the matching item in the list.
+    ///   - id: A closure that extracts a unique identifier from an `Item`.
+    ///         This is used to find the matching item in the list.
     ///
     /// - Note: If the item with the same identifier exists in the current list, it will be replaced with `updatedItem`,
     ///         and the updated list will be published to `itemsPublisher`.
@@ -183,7 +184,8 @@ public final class PaginationManager<Item, PaginationKey> {
     ///   ```swift
     ///   paginationManager.updateItem(updatedPost) { $0.id }
     ///   ```
-    ///   In this example, `{ $0.id }` extracts the `id` of each item (assuming `Item` is a struct with an `id` property),
+    ///   In this example, `{ $0.id }` extracts the `id`
+    ///   of each item (assuming `Item` is a struct with an `id` property),
     ///   allowing the function to locate and update the correct item.
     ///
     /// - Important: This method must be called on the main thread since it updates UI-related state.
