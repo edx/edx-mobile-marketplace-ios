@@ -4,30 +4,41 @@
 //
 //  Created by Vadim Kuznetsov on 21.03.25.
 //
+import Foundation
+
+enum UpgradeCompletionState {
+    case initial
+    case payment
+    case fulfillment(showLoader: Bool)
+    case success(_ courseID: String, _ componentID: String?)
+    case error(UpgradeError)
+}
 
 @MainActor
-public class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
+class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
     nonisolated(unsafe) static var ecommerceURL: String = ""
     
     private var completion: UpgradeCompletionHandler?
     private var basketID: Int = 0
     private(set) var courseSku: String?
-    private(set) var upgradeMode: UpgradeMode = .userInitiated
+    private(set) var upgradeMode: EDXUpgradeMode = .userInitiated
     private(set) var productInfo: StoreProductInfo?
-    private var interactor: CourseUpgradeInteractorProtocol
-    private var storeKitHandler: StoreKitHandlerProtocol
-    private let helper: CourseUpgradeHelperProtocol
+    private var validator: EDXReceiptValidator
+//    private var storeKitHandler: StoreKitHandlerProtocol // NEEDS WORK
+//    private let helper: CourseUpgradeHelperProtocol // NEEDS WORK
     private var courseID: String = ""
     private var lmsPrice: Double?
     private var componentID: String?
 
     private(set) var state: UpgradeState = .initial {
         didSet {
+            /* NEEDS WORK
             helper.handleCourseUpgrade(
                 upgradeHadler: self,
                 state: upgradeState,
                 delegate: nil
             )
+             */
             completion?(state)
         }
     }
@@ -48,26 +59,26 @@ public class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
     }
 
     public init(
-        config: ConfigProtocol,
-        interactor: CourseUpgradeInteractorProtocol,
-        storeKitHandler: StoreKitHandlerProtocol,
-        helper: CourseUpgradeHelperProtocol
+//        config: ConfigProtocol, // NEEDS WORK
+        validator: EDXReceiptValidator
+//        storeKitHandler: StoreKitHandlerProtocol, // NEEDS WORK
+//        helper: CourseUpgradeHelperProtocol // NEEDS WORK
     ) {
-        self.interactor = interactor
-        self.storeKitHandler = storeKitHandler
-        self.helper = helper
-        CourseUpgradeHandler.ecommerceURL = config.ecommerceURL ?? ""
+        self.validator = validator
+//        self.storeKitHandler = storeKitHandler // NEEDS WORK
+//        self.helper = helper // NEEDS WORK
+//        CourseUpgradeHandler.ecommerceURL = config.ecommerceURL ?? "" // NEEDS WORK
     }
     
     public func upgradeCourse(
         sku: String?,
-        mode: UpgradeMode = .userInitiated,
+        mode: EDXUpgradeMode = .userInitiated,
         productInfo: StoreProductInfo?,
         pacing: String,
         courseID: String,
         lmsPrice: Double,
         componentID: String?,
-        screen: CourseUpgradeScreen,
+        screen: EDXScreen,
         completion: UpgradeCompletionHandler?
     ) async {
         self.completion = completion
@@ -86,7 +97,7 @@ public class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
             state = .error(.generalError(error(message: "product info is missing")))
             return
         }
-        
+        /* NEEDS WORK
         helper.setData(
             courseID: courseID,
             pacing: pacing,
@@ -96,6 +107,7 @@ public class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
             lmsPrice: lmsPrice,
             screen: screen
         )
+         */
         state = .initial
         await proceedWithUpgrade(sku: sku)
     }
@@ -104,7 +116,7 @@ public class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
         state = .basket
         
         do {
-            let basket = try await interactor.addBasket(sku: sku)
+            let basket = try await validator.addBasket(sku: sku)
             basketID = basket.basketID
             await checkout(basketID: basketID, sku: sku)
             
@@ -122,19 +134,21 @@ public class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
         
         state = .checkout
         do {
-            _ = try await interactor.checkoutBasket(basketID: basketID)
+            try await validator.checkoutBasket(basketID: basketID)
             if upgradeMode != .userInitiated {
                 await reverifyPayment()
             } else {
+                /* NEEDS WORK
                 let response = await makePayment(sku: sku)
                 await verifyResponse(response)
+                 */
             }
             
         } catch let error {
             state = .error(.checkoutError(error))
         }
     }
-    
+    /* NEEDS WORK
     private func makePayment(sku: String) async -> StoreKitUpgradeResponse {
         state = .payment
         return await storeKitHandler.purchaseProduct(sku)
@@ -149,17 +163,19 @@ public class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
             }
         }
     }
+    */
     
     private func verifyPayment(_ receipt: String) async {
         state = .verify
         
         do {
-            try await interactor.fulfillCheckout(
-                basketID: basketID,
+            let parameters = EDXFullfillParameters(
+                backedID: basketID,
                 price: productInfo?.price ?? 0.0,
                 currencyCode: productInfo?.currencySymbol ?? "",
                 receipt: receipt
             )
+            try await validator.fullfillCheckout(parameters: parameters)
             state = .complete
             
         } catch let error {
@@ -169,12 +185,15 @@ public class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
     
     // Give an option of retry to learner
     func reverifyPayment() async {
+        /* NEEDS WORK
         let response = await storeKitHandler.purchaseReceipt()
         await verifyResponse(response)
+         */
     }
     
     public func fetchProduct(sku: String) async throws -> StoreProductInfo {
-        try await storeKitHandler.fetchProduct(sku: sku)
+//        try await storeKitHandler.fetchProduct(sku: sku) // NEEDS WORK
+        StoreProductInfo(price: .zero)// NEEDS WORK. Remove it.
     }
 }
 

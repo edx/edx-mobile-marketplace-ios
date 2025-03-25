@@ -113,17 +113,20 @@ public class EDXIAPService: IAPServiceProtocol, EDXIAPHelperProtocol {
     public let provider: OEXFoundation.IAPProductProvider<Product, ProductInfo>
     public let style: EDXIAPStyle
     public let analyticsFacade: EDXAnalyticsProtocol
+    public let validator: EDXReceiptValidator
 
     let router: RouterProtocol = Router()
 
     public init(
         provider: OEXFoundation.IAPProductProvider<Product, ProductInfo>,
         style: EDXIAPStyle = EDXIAPStyle(),
-        analyticsFacade: EDXAnalyticsProtocol
+        analyticsFacade: EDXAnalyticsProtocol,
+        validator: EDXReceiptValidator
     ) {
         self.provider = provider
         self.style = style
         self.analyticsFacade = analyticsFacade
+        self.validator = validator
     }
     
     public func product(for object: Any) -> Product? {
@@ -256,5 +259,65 @@ public struct EDXAnalytics: EDXAnalyticsProtocol {
         flowType: EDXUpgradeMode
     ) {
         // NEEDS WORK
+    }
+}
+
+public struct EDXBasket: Sendable {
+    let success: String
+    let basketID: Int
+    
+    public init(success: String, basketID: Int) {
+        self.success = success
+        self.basketID = basketID
+    }
+}
+
+public struct EDXReceiptStatus: Sendable {
+    let status: String
+    
+    public init(status: String) {
+        self.status = status
+    }
+}
+
+public struct EDXFullfillParameters {
+    let backedID: Int
+    let price: NSDecimalNumber
+    let currencyCode: String
+    let receipt: String
+    
+    public init(backedID: Int, price: NSDecimalNumber, currencyCode: String, receipt: String) {
+        self.backedID = backedID
+        self.price = price
+        self.currencyCode = currencyCode
+        self.receipt = receipt
+    }
+}
+
+public struct EDXReceiptValidator: Sendable {
+    private var addBasketBlock: @Sendable (String) async throws -> EDXBasket
+    private var checkoutBlock: @Sendable (Int) async throws -> Void
+    private var fullfillCheckoutBlock: @Sendable (EDXFullfillParameters) async throws -> EDXReceiptStatus
+
+    public init(
+        addBasketBlock: @Sendable @escaping (String) -> EDXBasket,
+        checkoutBlock: @Sendable @escaping (Int) -> Void,
+        fullfillCheckoutBlock: @Sendable @escaping (EDXFullfillParameters) -> EDXReceiptStatus
+    ) {
+        self.addBasketBlock = addBasketBlock
+        self.checkoutBlock = checkoutBlock
+        self.fullfillCheckoutBlock = fullfillCheckoutBlock
+    }
+    
+    public func addBasket(sku: String) async throws -> EDXBasket {
+        try await addBasketBlock(sku)
+    }
+    
+    public func checkoutBasket(basketID: Int) async throws {
+        try await checkoutBlock(basketID)
+    }
+    
+    public func fullfillCheckout(parameters: EDXFullfillParameters) async throws -> EDXReceiptStatus {
+        try await fullfillCheckoutBlock(parameters)
     }
 }
