@@ -57,6 +57,7 @@ public enum CoreAssets {
   public static let finished = ImageAsset(name: "finished")
   public static let followed = ImageAsset(name: "followed")
   public static let pen = ImageAsset(name: "pen")
+  public static let pin = ImageAsset(name: "pin")
   public static let question = ImageAsset(name: "question")
   public static let report = ImageAsset(name: "report")
   public static let reported = ImageAsset(name: "reported")

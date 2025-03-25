@@ -42,6 +42,7 @@ public struct DiscussionPost: Equatable {
     public let replies: Int
     public let lastPostDate: Date
     public let lastPostDateFormatted: String
+    public var isPinned: Bool
     public var isFavorite: Bool
     public let type: PostType
     public let unreadCommentCount: Int
@@ -51,13 +52,14 @@ public struct DiscussionPost: Equatable {
     public let numPages: Int
     
     public init(id: String, title: String, replies: Int, lastPostDate: Date, lastPostDateFormatted: String,
-                isFavorite: Bool, type: PostType, unreadCommentCount: Int, action: @escaping () -> Void,
-                hasEndorsed: Bool, voteCount: Int, numPages: Int) {
+                isPinned: Bool, isFavorite: Bool, type: PostType, unreadCommentCount: Int,
+                action: @escaping () -> Void, hasEndorsed: Bool, voteCount: Int, numPages: Int) {
         self.id = id
         self.title = title
         self.replies = replies
         self.lastPostDate = lastPostDate
         self.lastPostDateFormatted = lastPostDateFormatted
+        self.isPinned = isPinned
         self.isFavorite = isFavorite
         self.type = type
         self.unreadCommentCount = unreadCommentCount
