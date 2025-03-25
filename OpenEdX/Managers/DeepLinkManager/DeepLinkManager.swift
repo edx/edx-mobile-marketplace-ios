@@ -107,14 +107,8 @@ public class DeepLinkManager: NotificationsDeepLinkManager {
             return
         }
         
-        let isAppActive = UIApplication.shared.applicationState == .active
-        
         Task {
-            if isAppActive {
-                await showNotificationAlert(link)
-            } else {
-                await navigateToScreen(with: link.type, link: link)
-            }
+            await navigateToScreen(with: link.type, link: link)
         }
     }
     
@@ -181,6 +175,8 @@ public class DeepLinkManager: NotificationsDeepLinkManager {
         with type: DeepLinkType,
         link: DeepLink
     ) async {
+        router.dismissPresentedViewController()
+        
         if isDiscovery(type: type) {
             showDiscoveryScreen(with: type, link: link)
             return
