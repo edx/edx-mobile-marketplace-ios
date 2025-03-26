@@ -106,7 +106,7 @@ final class MainScreenViewModel: ObservableObject {
     }
 
     @MainActor
-    func refreshNotificaitonBellIndicator() async {
+    func refreshNotificationBellIndicator() async {
         let appNotificationCount = try? await notificationsInteractor.getNotificationsCount()
         notificationBellIndicator = (appNotificationCount?.discussion ?? 0 > 0) ? .dot : .none
     }

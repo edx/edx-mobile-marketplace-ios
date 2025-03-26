@@ -103,14 +103,14 @@ struct MainScreenView: View {
                             ),
                             onRefresh: {
                                 Task {
-                                    await viewModel.refreshNotificaitonBellIndicator()
+                                    await viewModel.refreshNotificationBellIndicator()
                                 }
                             },
                             openDiscoveryPage: { viewModel.selection = .discovery }
                         )
                         .onAppear {
                             Task {
-                                await viewModel.refreshNotificaitonBellIndicator()
+                                await viewModel.refreshNotificationBellIndicator()
                             }
                         }
                     )
