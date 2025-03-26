@@ -7,6 +7,7 @@
 
 import Foundation
 import Core
+import Notifications
 import Profile
 import Combine
 import Authorization
@@ -16,21 +17,25 @@ final class MainScreenViewModel: ObservableObject {
 
     private let analytics: MainScreenAnalytics
     let config: ConfigProtocol
+    let notificationsInteractor: NotificationsInteractorProtocol
     let profileInteractor: ProfileInteractorProtocol
     var sourceScreen: LogistrationSourceScreen
     private var postLoginData: PostLoginData?
     
     @Published var selection: MainTab = .dashboard
     @Published var showRegisterBanner: Bool = false
+    @Published var notificationBellIndicator: NotificationBellButton.Indicator = .none
 
     init(analytics: MainScreenAnalytics,
          config: ConfigProtocol,
+         notificationsInteractor: NotificationsInteractorProtocol,
          profileInteractor: ProfileInteractorProtocol,
          sourceScreen: LogistrationSourceScreen = .default,
          postLoginData: PostLoginData? = nil
     ) {
         self.analytics = analytics
         self.config = config
+        self.notificationsInteractor = notificationsInteractor
         self.profileInteractor = profileInteractor
         self.sourceScreen = sourceScreen
         self.postLoginData = postLoginData
@@ -95,5 +100,18 @@ final class MainScreenViewModel: ObservableObject {
             _ = try? await profileInteractor.getMyProfile()
         }
     }
-    
+
+    func hideNotificationBellIndicator() {
+        notificationBellIndicator = .none
+    }
+
+    @MainActor
+    func refreshNotificationBellIndicator() async {
+        let appNotificationCount = try? await notificationsInteractor.getNotificationsCount()
+        notificationBellIndicator = (appNotificationCount?.discussion ?? 0 > 0) ? .dot : .none
+    }
+
+    func trackNotificationBellClicked() {
+        analytics.notificationBellClicked(unreadNotifications: notificationBellIndicator == .dot)
+    }
 }

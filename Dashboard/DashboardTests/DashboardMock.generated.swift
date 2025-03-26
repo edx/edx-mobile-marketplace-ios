@@ -661,6 +661,13 @@ open class BaseRouterMock: BaseRouter, Mock {
     }
 
     @MainActor
+	open func showNotificationsScreen() {
+        addInvocation(.m_showNotificationsScreen)
+		let perform = methodPerformValue(.m_showNotificationsScreen) as? () -> Void
+		perform?()
+    }
+
+    @MainActor
 	open func showNotificationsPrimerIfNeeded() {
         addInvocation(.m_showNotificationsPrimerIfNeeded)
 		let perform = methodPerformValue(.m_showNotificationsPrimerIfNeeded) as? () -> Void
@@ -699,6 +706,7 @@ open class BaseRouterMock: BaseRouter, Mock {
         case m_showRestoreProgressView
         case m_hideRestoreProgressView
         case m_performNotificationRegistration
+        case m_showNotificationsScreen
         case m_showNotificationsPrimerIfNeeded
         case m_dismiss__animated_animated(Parameter<Bool>)
 
@@ -834,6 +842,8 @@ open class BaseRouterMock: BaseRouter, Mock {
 
             case (.m_performNotificationRegistration, .m_performNotificationRegistration): return .match
 
+            case (.m_showNotificationsScreen, .m_showNotificationsScreen): return .match
+
             case (.m_showNotificationsPrimerIfNeeded, .m_showNotificationsPrimerIfNeeded): return .match
 
             case (.m_dismiss__animated_animated(let lhsAnimated), .m_dismiss__animated_animated(let rhsAnimated)):
@@ -870,6 +880,7 @@ open class BaseRouterMock: BaseRouter, Mock {
             case .m_showRestoreProgressView: return 0
             case .m_hideRestoreProgressView: return 0
             case .m_performNotificationRegistration: return 0
+            case .m_showNotificationsScreen: return 0
             case .m_showNotificationsPrimerIfNeeded: return 0
             case let .m_dismiss__animated_animated(p0): return p0.intValue
             }
@@ -900,6 +911,7 @@ open class BaseRouterMock: BaseRouter, Mock {
             case .m_showRestoreProgressView: return ".showRestoreProgressView()"
             case .m_hideRestoreProgressView: return ".hideRestoreProgressView()"
             case .m_performNotificationRegistration: return ".performNotificationRegistration()"
+            case .m_showNotificationsScreen: return ".showNotificationsScreen()"
             case .m_showNotificationsPrimerIfNeeded: return ".showNotificationsPrimerIfNeeded()"
             case .m_dismiss__animated_animated: return ".dismiss(animated:)"
             }
@@ -951,6 +963,8 @@ open class BaseRouterMock: BaseRouter, Mock {
 		public static func hideRestoreProgressView() -> Verify { return Verify(method: .m_hideRestoreProgressView)}
         @MainActor
 		public static func performNotificationRegistration() -> Verify { return Verify(method: .m_performNotificationRegistration)}
+        @MainActor
+		public static func showNotificationsScreen() -> Verify { return Verify(method: .m_showNotificationsScreen)}
         @MainActor
 		public static func showNotificationsPrimerIfNeeded() -> Verify { return Verify(method: .m_showNotificationsPrimerIfNeeded)}
         public static func dismiss(animated: Parameter<Bool>) -> Verify { return Verify(method: .m_dismiss__animated_animated(`animated`))}
@@ -1038,6 +1052,10 @@ open class BaseRouterMock: BaseRouter, Mock {
         @MainActor
 		public static func performNotificationRegistration(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_performNotificationRegistration, performs: perform)
+        }
+        @MainActor
+		public static func showNotificationsScreen(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_showNotificationsScreen, performs: perform)
         }
         @MainActor
 		public static func showNotificationsPrimerIfNeeded(perform: @escaping () -> Void) -> Perform {
@@ -2667,18 +2685,11 @@ open class DashboardAnalyticsMock: DashboardAnalytics, Mock {
 		perform?()
     }
 
-    open func notificationBellClicked(unreadNotifications: Bool) {
-        addInvocation(.m_notificationBellClicked__unreadNotifications_unreadNotifications(Parameter<Bool>.value(`unreadNotifications`)))
-		let perform = methodPerformValue(.m_notificationBellClicked__unreadNotifications_unreadNotifications(Parameter<Bool>.value(`unreadNotifications`))) as? (Bool) -> Void
-		perform?(`unreadNotifications`)
-    }
-
 
     fileprivate enum MethodType {
         case m_dashboardCourseClicked__courseID_courseIDcourseName_courseName(Parameter<String>, Parameter<String>)
         case m_mainProgramsClicked
         case m_mainCoursesClicked
-        case m_notificationBellClicked__unreadNotifications_unreadNotifications(Parameter<Bool>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
@@ -2691,11 +2702,6 @@ open class DashboardAnalyticsMock: DashboardAnalytics, Mock {
             case (.m_mainProgramsClicked, .m_mainProgramsClicked): return .match
 
             case (.m_mainCoursesClicked, .m_mainCoursesClicked): return .match
-
-            case (.m_notificationBellClicked__unreadNotifications_unreadNotifications(let lhsUnreadnotifications), .m_notificationBellClicked__unreadNotifications_unreadNotifications(let rhsUnreadnotifications)):
-				var results: [Matcher.ParameterComparisonResult] = []
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsUnreadnotifications, rhs: rhsUnreadnotifications, with: matcher), lhsUnreadnotifications, rhsUnreadnotifications, "unreadNotifications"))
-				return Matcher.ComparisonResult(results)
             default: return .none
             }
         }
@@ -2705,7 +2711,6 @@ open class DashboardAnalyticsMock: DashboardAnalytics, Mock {
             case let .m_dashboardCourseClicked__courseID_courseIDcourseName_courseName(p0, p1): return p0.intValue + p1.intValue
             case .m_mainProgramsClicked: return 0
             case .m_mainCoursesClicked: return 0
-            case let .m_notificationBellClicked__unreadNotifications_unreadNotifications(p0): return p0.intValue
             }
         }
         func assertionName() -> String {
@@ -2713,7 +2718,6 @@ open class DashboardAnalyticsMock: DashboardAnalytics, Mock {
             case .m_dashboardCourseClicked__courseID_courseIDcourseName_courseName: return ".dashboardCourseClicked(courseID:courseName:)"
             case .m_mainProgramsClicked: return ".mainProgramsClicked()"
             case .m_mainCoursesClicked: return ".mainCoursesClicked()"
-            case .m_notificationBellClicked__unreadNotifications_unreadNotifications: return ".notificationBellClicked(unreadNotifications:)"
             }
         }
     }
@@ -2735,7 +2739,6 @@ open class DashboardAnalyticsMock: DashboardAnalytics, Mock {
         public static func dashboardCourseClicked(courseID: Parameter<String>, courseName: Parameter<String>) -> Verify { return Verify(method: .m_dashboardCourseClicked__courseID_courseIDcourseName_courseName(`courseID`, `courseName`))}
         public static func mainProgramsClicked() -> Verify { return Verify(method: .m_mainProgramsClicked)}
         public static func mainCoursesClicked() -> Verify { return Verify(method: .m_mainCoursesClicked)}
-        public static func notificationBellClicked(unreadNotifications: Parameter<Bool>) -> Verify { return Verify(method: .m_notificationBellClicked__unreadNotifications_unreadNotifications(`unreadNotifications`))}
     }
 
     public struct Perform {
@@ -2750,9 +2753,6 @@ open class DashboardAnalyticsMock: DashboardAnalytics, Mock {
         }
         public static func mainCoursesClicked(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_mainCoursesClicked, performs: perform)
-        }
-        public static func notificationBellClicked(unreadNotifications: Parameter<Bool>, perform: @escaping (Bool) -> Void) -> Perform {
-            return Perform(method: .m_notificationBellClicked__unreadNotifications_unreadNotifications(`unreadNotifications`), performs: perform)
         }
     }
 

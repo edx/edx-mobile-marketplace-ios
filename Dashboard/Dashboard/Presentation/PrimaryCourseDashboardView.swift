@@ -9,13 +9,14 @@ import SwiftUI
 import Core
 import Theme
 import Swinject
-import Notifications
 
-public struct PrimaryCourseDashboardView<ProgramView: View>: View {
-    
+public struct PrimaryCourseDashboardView<ProgramView: View, TopBarButtons: View>: View {
     @StateObject private var viewModel: PrimaryCourseDashboardViewModel
     private let router: DashboardRouter
+    private let supportsElevatedTabBar: Bool
+    @ViewBuilder private let topBarButtons: () -> TopBarButtons
     @ViewBuilder let programView: ProgramView
+    private let onRefresh: (() -> Void)?
     private var openDiscoveryPage: () -> Void
     private var idiom: UIUserInterfaceIdiom { UIDevice.current.userInterfaceIdiom }
     
@@ -24,12 +25,18 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
     public init(
         viewModel: PrimaryCourseDashboardViewModel,
         router: DashboardRouter,
+        supportsElevatedTabBar: Bool,
+        @ViewBuilder topBarButtons: @escaping () -> TopBarButtons,
         programView: ProgramView,
+        onRefresh: (() -> Void)? = nil,
         openDiscoveryPage: @escaping () -> Void
     ) {
         self._viewModel = StateObject(wrappedValue: { viewModel }())
         self.router = router
+        self.supportsElevatedTabBar = supportsElevatedTabBar
+        self.topBarButtons = topBarButtons
         self.programView = programView
+        self.onRefresh = onRefresh
         self.openDiscoveryPage = openDiscoveryPage
     }
     
@@ -52,7 +59,7 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
                     case .courses:
                     RefreshableScrollViewCompat(action: {
                         await viewModel.getEnrollments(showProgress: false)
-                        await viewModel.getNotificaitonsCount()
+                        onRefresh?()
                     }) {
                         ZStack(alignment: .topLeading) {
                             if viewModel.fetchInProgress {
@@ -219,17 +226,14 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
             }
             .onAppear {
                 viewModel.updateNeeded = true
-                Task {
-                    await viewModel.getNotificaitonsCount()
-                }
             }
             .background(
                 Theme.Colors.background
                     .ignoresSafeArea()
             )
             .navigationBarBackButtonHidden(true)
-            .hideNavigationBar(true)
-            .navigationTitle(DashboardLocalization.title)
+            .hideNavigationBar(supportsElevatedTabBar ? false : true)
+            .navigationTitle(supportsElevatedTabBar ? "" : DashboardLocalization.title)
         }
     }
     
@@ -333,37 +337,9 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
                             .foregroundColor(Theme.Colors.textPrimary)
                             .accessibilityIdentifier("courses_header_text")
                         Spacer()
-                        if viewModel.config.pushNotificationsEnabled {
-                            Button(action: {
-                                viewModel.trackNotificationBellClicked()
-                                viewModel.setNotificationMarkAsRead()
-                                router.showNotificationsScreen()
-                            }, label: {
-                                CoreAssets.notificationsIcon.swiftUIImage
-                                    .renderingMode(.template)
-                                    .foregroundColor(Theme.Colors.accentColor)
-                            })
-                            .frame(width: 24, height: 24)
-                            .overlay {
-                                if viewModel.hasUnreadNotifications {
-                                    if #available(iOS 17.0, *) {
-                                        Circle()
-                                            .stroke(Theme.Colors.background, lineWidth: 5)
-                                            .fill(Theme.Colors.accentButtonColor)
-                                            .frame(width: 8, height: 8)
-                                            .offset(x: 7, y: -6)
-                                    } else {
-                                        Circle()
-                                            .strokeBorder(Theme.Colors.background, lineWidth: 2)
-                                            .frame(width: 10, height: 10)
-                                            .background(
-                                                Circle()
-                                                    .foregroundColor(Theme.Colors.accentButtonColor)
-                                            )
-                                            .offset(x: 5, y: -6)
-                                    }
-                                }
-                            }
+
+                        if !supportsElevatedTabBar {
+                            topBarButtons()
                         }
                     }
                     if showDropdown {
@@ -392,13 +368,14 @@ struct PrimaryCourseDashboardView_Previews: PreviewProvider {
             connectivity: Connectivity(),
             analytics: DashboardAnalyticsMock(),
             config: ConfigMock(),
-            serverConfig: ServerConfigProtocolMock(),
-            notificationsInteractor: NotificationsInteractor.mock
+            serverConfig: ServerConfigProtocolMock()
         )
         
         PrimaryCourseDashboardView(
             viewModel: vm,
             router: DashboardRouterMock(),
+            supportsElevatedTabBar: false,
+            topBarButtons: {},
             programView: EmptyView(),
             openDiscoveryPage: {
             }
@@ -409,6 +386,8 @@ struct PrimaryCourseDashboardView_Previews: PreviewProvider {
         PrimaryCourseDashboardView(
             viewModel: vm,
             router: DashboardRouterMock(),
+            supportsElevatedTabBar: false,
+            topBarButtons: {},
             programView: EmptyView(),
             openDiscoveryPage: {
             }

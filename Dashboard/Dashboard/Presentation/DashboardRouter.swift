@@ -29,8 +29,6 @@ public protocol DashboardRouter: BaseRouter {
     func showDiscoverySearch(searchQuery: String?)
     
     func showSettings()
-    
-    func showNotificationsScreen()
 }
 
 // Mark - For testing and SwiftUI preview
@@ -56,7 +54,5 @@ public class DashboardRouterMock: BaseRouterMock, DashboardRouter {
     public func showDiscoverySearch(searchQuery: String?) {}
     
     public func showSettings() {}
-    
-    public func showNotificationsScreen() {}
 }
 #endif
