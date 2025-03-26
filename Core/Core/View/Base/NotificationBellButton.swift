@@ -100,3 +100,19 @@ public struct NotificationBellButton: View {
         }
     }
 }
+
+#if DEBUG
+#Preview("No Indicator") {
+    NotificationBellButton(
+        indicator: .constant(.none),
+        action: {}
+    )
+}
+
+#Preview("Dot Indicator") {
+    NotificationBellButton(
+        indicator: .constant(.dot),
+        action: {}
+    )
+}
+#endif
