@@ -96,6 +96,7 @@ public extension UserThread {
                               replies: commentCount,
                               lastPostDate: updatedAt,
                               lastPostDateFormatted: updatedAt.dateToString(style: .lastPost),
+                              isPinned: pinned,
                               isFavorite: following,
                               type: type,
                               unreadCommentCount: unreadCommentCount,

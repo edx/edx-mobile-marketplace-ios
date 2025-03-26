@@ -388,6 +388,11 @@ public struct PostCell: View {
                         Text("\(post.unreadCommentCount - 1)")
                         Text(DiscussionLocalization.missedPostsCount(post.unreadCommentCount - 1))
                     }
+                    if post.isPinned {
+                        CoreAssets.pin.swiftUIImage
+                            .offset(x: 5, y: 0)
+                            .padding(.leading, 10)
+                    }
                 }.font(Theme.Fonts.labelSmall)
                     .foregroundColor(Theme.Colors.textSecondary)
                 Text(post.title)
