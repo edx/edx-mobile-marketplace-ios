@@ -29,12 +29,11 @@ struct SingleNotificationView: View {
                 Task {
                     await viewModel.showDiscussions(notification)
                     await viewModel.markNotificationAsRead(notificationId: String(notification.id))
+
                     var updatedNotification = notification
                     updatedNotification.lastRead = Date()
-                    viewModel.updateNotification(
-                        groupKey: groupKey,
-                        item: updatedNotification
-                    )
+                    
+                    viewModel.updateNotification(updatedNotification)
                 }
             }
         ) {
