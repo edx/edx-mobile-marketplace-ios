@@ -244,7 +244,7 @@ public class NotificationsInboxViewModel: ObservableObject {
     // Update a specific item in the array
     @MainActor
     func updateNotification(_ updatedNotification: SingleNotification) {
-        paginationManager.updateItem(updatedNotification)
+        paginationManager.replaceFirstItemWithMatchingID(updatedNotification)
     }
 }
 
