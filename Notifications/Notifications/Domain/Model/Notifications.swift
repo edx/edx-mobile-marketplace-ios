@@ -32,7 +32,7 @@ public struct Notifications: Hashable {
     }
 }
 
-public struct SingleNotification: Hashable {
+public struct SingleNotification: Identifiable, Hashable {
     public let id: Int
     public let appName: String?
     public let notificationType: String?

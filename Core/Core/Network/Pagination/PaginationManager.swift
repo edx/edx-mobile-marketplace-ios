@@ -127,7 +127,29 @@ public final class PaginationManager<Item, PaginationKey> {
         
         return loadMoreTask
     }
-    
+
+    /// Provides thread-safe access to the current items.
+    ///
+    /// - Parameter body: A closure that receives an inout array of items. If `body` has a return
+    ///                   value, that value is also used as the return value for the
+    ///                   `withItems(_:)` method. The array is valid only for the duration of the
+    ///                   method’s execution.
+    /// - Returns: The value returned from `body`, or `nil` if items are not available.
+    /// - Note: Always notifies subscribers after modification.
+    /// - Important: The closure executes synchronously on the main actor.
+    @MainActor
+    public func withItems<Result>(
+        _ body: (inout [Item]) throws -> Result
+    ) rethrows -> Result? {
+        guard var currentItems = itemsSubject.value else {
+            return nil
+        }
+
+        let result = try body(&currentItems)
+        itemsSubject.send(currentItems)
+        return result
+    }
+
     // MARK: - Private Methods
     
     @MainActor
@@ -169,7 +191,7 @@ public final class PaginationManager<Item, PaginationKey> {
             }
         }
     }
-    
+
     @MainActor
     private func clearTask(_ paginationTask: PaginationTask<Item>) {
         if paginationTask == refreshTask {
@@ -178,5 +200,56 @@ public final class PaginationManager<Item, PaginationKey> {
         if paginationTask == loadMoreTask {
             loadMoreTask = nil
         }
+    }
+}
+
+extension PaginationManager {
+    /// Updates the first item matching the predicate using the provided transform.
+    ///
+    /// **Example:**
+    /// ```swift
+    /// // Update first active item's status.
+    /// paginationManager.updateFirstItem(
+    ///     matching: { $0.isActive },
+    ///     transform: { item in
+    ///         item.isActive = false
+    ///         item.lastUpdated = Date()
+    ///     }
+    /// )
+    /// ```
+    ///
+    /// - Parameters:
+    ///   - predicate: A closure that determines whether an item should be updated.
+    ///   - transform: A closure that modifies the matching item.
+    @MainActor
+    public func updateFirstItem(
+        matching predicate: (Item) -> Bool,
+        transform: (inout Item) -> Void
+    ) {
+        withItems { items in
+            if let index = items.firstIndex(where: predicate) {
+                transform(&items[index])
+            }
+        }
+    }
+}
+
+/// Conditional extension for `Identifiable` items.
+extension PaginationManager where Item: Identifiable {
+    /// Replaces the first item whose ID matches the provided item's ID.
+    ///
+    /// - Parameter item: The new version of the item with matching identifier..
+    /// - Returns: `true` if replacement occurred, `false` otherwise.
+    @MainActor
+    @discardableResult
+    public func replaceFirstItemWithMatchingID(_ item: Item) -> Bool {
+        return withItems { items in
+            guard let index = items.firstIndex(where: { $0.id == item.id }) else {
+                return false
+            }
+
+            items[index] = item
+            return true
+        } ?? false
     }
 }

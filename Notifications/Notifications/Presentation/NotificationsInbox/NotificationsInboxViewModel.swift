@@ -242,21 +242,9 @@ public class NotificationsInboxViewModel: ObservableObject {
     }
     
     // Update a specific item in the array
-    func updateNotification(groupKey: NotificationGroup, item: SingleNotification) {
-        updateGroupedNotification(groupKey: groupKey, item: item)
-        updateFlatNotification(item: item)
-    }
-
-    private func updateGroupedNotification(groupKey: NotificationGroup, item: SingleNotification) {
-        if let index = groupedNotifications[groupKey]?.firstIndex(where: { $0.id == item.id }) {
-            groupedNotifications[groupKey]?[index] = item
-        }
-    }
-
-    private func updateFlatNotification(item: SingleNotification) {
-        if let index = flatNotifications.firstIndex(where: { $0.id == item.id }) {
-            flatNotifications[index] = item
-        }
+    @MainActor
+    func updateNotification(_ updatedNotification: SingleNotification) {
+        paginationManager.replaceFirstItemWithMatchingID(updatedNotification)
     }
 }
 
