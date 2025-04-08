@@ -262,7 +262,7 @@ public struct EDXAnalytics: EDXAnalyticsProtocol {
     }
 }
 
-public struct EDXBasket: Sendable {
+public struct EDXBasket: Sendable, Decodable {
     let success: String
     let basketID: Int
     
@@ -272,7 +272,7 @@ public struct EDXBasket: Sendable {
     }
 }
 
-public struct EDXReceiptStatus: Sendable {
+public struct EDXReceiptStatus: Sendable, Decodable {
     let status: String
     
     public init(status: String) {
@@ -299,6 +299,8 @@ public struct EDXReceiptValidator: Sendable {
     private var checkoutBlock: @Sendable (Int) async throws -> Void
     private var fullfillCheckoutBlock: @Sendable (EDXFullfillParameters) async throws -> EDXReceiptStatus
 
+    private let networkService: EDXNetworkService = DefaultNetworkService()
+    
     public init(
         addBasketBlock: @Sendable @escaping (String) -> EDXBasket,
         checkoutBlock: @Sendable @escaping (Int) -> Void,
@@ -310,14 +312,17 @@ public struct EDXReceiptValidator: Sendable {
     }
     
     public func addBasket(sku: String) async throws -> EDXBasket {
-        try await addBasketBlock(sku)
+//        try await addBasketBlock(sku)
+        try await networkService.request(AddBasketRequest(sku: sku))
     }
     
     public func checkoutBasket(basketID: Int) async throws {
-        try await checkoutBlock(basketID)
+//        try await checkoutBlock(basketID)
+        _ = try await networkService.request(CheckoutRequest(basketID: basketID))
     }
     
     public func fullfillCheckout(parameters: EDXFullfillParameters) async throws -> EDXReceiptStatus {
-        try await fullfillCheckoutBlock(parameters)
+//        try await fullfillCheckoutBlock(parameters)
+        try await networkService.request(FullfillCheckoutRequest(parameters: parameters))
     }
 }
