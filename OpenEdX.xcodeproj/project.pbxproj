@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -55,6 +55,7 @@
 		14D912D32C25483F0077CCCE /* FullStory in Frameworks */ = {isa = PBXBuildFile; productRef = 14D912D22C25483F0077CCCE /* FullStory */; };
 		14D912D72C2551F60077CCCE /* FullStoryAnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D912D62C2551F60077CCCE /* FullStoryAnalyticsService.swift */; };
 		1924EDE8164C7AB17AD4946B /* Pods_App_OpenEdX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC49621A0942E5EE74BDC895 /* Pods_App_OpenEdX.framework */; };
+		9426DE892DB28B3A00230582 /* EDXFeatureManagement in Frameworks */ = {isa = PBXBuildFile; productRef = 9426DE882DB28B3A00230582 /* EDXFeatureManagement */; };
 		94AE32322D8838E400FA048D /* Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AE32312D8838DE00FA048D /* Payload.swift */; };
 		94F4AC6C2DAD398200D50B61 /* FirebasePerformance in Frameworks */ = {isa = PBXBuildFile; productRef = 94F4AC6B2DAD398200D50B61 /* FirebasePerformance */; };
 		A500668B2B613ED10024680B /* PushNotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A500668A2B613ED10024680B /* PushNotificationsManager.swift */; };
@@ -213,6 +214,7 @@
 				0218196428F734FA00202564 /* Discussion.framework in Frameworks */,
 				0780ABE52BFBA2E40093A4A6 /* FirebaseMessaging in Frameworks */,
 				0219C67728F4347600D64452 /* Course.framework in Frameworks */,
+				9426DE892DB28B3A00230582 /* EDXFeatureManagement in Frameworks */,
 				0780ABE32BFBA2E40093A4A6 /* FirebaseAnalytics in Frameworks */,
 				027DB33028D8A063002B6862 /* Dashboard.framework in Frameworks */,
 				94F4AC6C2DAD398200D50B61 /* FirebasePerformance in Frameworks */,
@@ -490,6 +492,7 @@
 				14D912D22C25483F0077CCCE /* FullStory */,
 				149B52D82C5FE5AB00C7BF5D /* FirebaseCrashlytics */,
 				94F4AC6B2DAD398200D50B61 /* FirebasePerformance */,
+				9426DE882DB28B3A00230582 /* EDXFeatureManagement */,
 			);
 			productName = OpenEdX;
 			productReference = 07D5DA3128D075AA00752FD9 /* OpenEdX.app */;
@@ -527,6 +530,7 @@
 				A5462D9D2B865713003B96A5 /* XCRemoteSwiftPackageReference "analytics-swift" */,
 				0780ABE12BFBA2E40093A4A6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				14D912D12C25483F0077CCCE /* XCRemoteSwiftPackageReference "fullstory-swift-package-ios" */,
+				9426DE872DB28B3900230582 /* XCLocalSwiftPackageReference "EDXFeatureManagement" */,
 			);
 			productRefGroup = 07D5DA3228D075AA00752FD9 /* Products */;
 			projectDirPath = "";
@@ -1323,6 +1327,13 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		9426DE872DB28B3900230582 /* XCLocalSwiftPackageReference "EDXFeatureManagement" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = EDXFeatureManagement;
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCRemoteSwiftPackageReference section */
 		0780ABE12BFBA2E40093A4A6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -1393,6 +1404,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 14D912D12C25483F0077CCCE /* XCRemoteSwiftPackageReference "fullstory-swift-package-ios" */;
 			productName = FullStory;
+		};
+		9426DE882DB28B3A00230582 /* EDXFeatureManagement */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = EDXFeatureManagement;
 		};
 		94F4AC6B2DAD398200D50B61 /* FirebasePerformance */ = {
 			isa = XCSwiftPackageProductDependency;
