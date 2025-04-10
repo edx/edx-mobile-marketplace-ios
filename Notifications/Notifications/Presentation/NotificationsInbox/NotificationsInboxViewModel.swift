@@ -30,7 +30,7 @@ public class NotificationsInboxViewModel: ObservableObject {
     private let calendar = Calendar.current
     private var interactor: NotificationsInteractorProtocol
     private var cancellables = Set<AnyCancellable>()
-    private(set) var uniqueID: String = UUID().uuidString
+    private(set) var lazyVStackUniqueID: String = UUID().uuidString
     private var flatNotifications: [SingleNotification] = [] {
         didSet { groupItems() }
     }
@@ -113,8 +113,8 @@ public class NotificationsInboxViewModel: ObservableObject {
         }
     }
     
-    func regenerateUniqueID() {
-        uniqueID = UUID().uuidString
+    func regenerateLazyVStackUniqueID() {
+        lazyVStackUniqueID = UUID().uuidString
     }
     
     @MainActor
