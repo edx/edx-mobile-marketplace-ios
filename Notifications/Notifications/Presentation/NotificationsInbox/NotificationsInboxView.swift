@@ -183,6 +183,7 @@ public struct NotificationsInboxView: View {
                             .onAppear {
                                 viewModel.fetchMoreNotificationsIfNeeded(for: item)
                             }
+                            .id(item.id)
                         }
                     }
                 }
