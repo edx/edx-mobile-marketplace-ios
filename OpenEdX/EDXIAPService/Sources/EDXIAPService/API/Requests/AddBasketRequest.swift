@@ -16,7 +16,7 @@ struct AddBasketRequest: EDXDataRequest {
     
     var sku: String
     
-    public init(sku: String) {
+    init(sku: String) {
         self.sku = sku
         self.url = "\(BaseConfig.prodURL.rawValue)/api/iap/v1/basket/add/?sku=\(sku)"
     }

@@ -16,7 +16,7 @@ struct FullfillCheckoutRequest: EDXDataRequest {
     
     var queryItems: [String: String]
     
-    public init(parameters: EDXFullfillParameters) {
+    init(parameters: EDXFullfillParameters) {
         self.queryItems = [
             "basket_id": "\(parameters.backedID)",
             "price": "\(parameters.price)",

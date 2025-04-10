@@ -18,7 +18,7 @@ struct CheckoutRequest: EDXDataRequest {
     
     var queryItems: [String: String]
     
-    public init(basketID: Int) {
+    init(basketID: Int) {
         self.basketID = basketID
         self.url = "\(BaseConfig.prodURL.rawValue)/api/iap/v1/checkout/"
         self.queryItems = [
