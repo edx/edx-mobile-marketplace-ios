@@ -219,15 +219,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             ),
             analyticsFacade: analytics,
             validator: EDXReceiptValidator(
-                addBasketBlock: { _ in
-                    EDXBasket(success: "false", basketID: 0)
-                },
-                checkoutBlock: { _ in
-                    
-                },
-                fullfillCheckoutBlock: { _ in
-                    EDXReceiptStatus(status: "success")
-                }
+//                addBasketBlock: { _ in
+//                    EDXBasket(success: "false", basketID: 0)
+//                },
+//                checkoutBlock: { _ in
+//                    
+//                },
+//                fullfillCheckoutBlock: { _ in
+//                    EDXReceiptStatus(status: "success")
+//                }
             )
         )
         pluginManager.setIAPService(iapService)
