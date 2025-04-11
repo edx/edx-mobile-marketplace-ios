@@ -12,8 +12,20 @@ public final class OptimizelyFeatureManagementService: FeatureManagementService 
     private let client: OptimizelyClient
     private var userContext: OptimizelyUserContext?
 
+    private static var logLevel: OptimizelyLogLevel {
+        #if DEBUG
+        return .debug
+        #else
+        return .off
+        #endif
+    }
+
     public init(sdkKey: String) {
-        self.client = OptimizelyClient(sdkKey: sdkKey)
+        self.client = OptimizelyClient(
+            sdkKey: sdkKey,
+            defaultLogLevel: Self.logLevel
+        )
+        self.client.start()
     }
 
     public func identifyUser(id: String, attributes: [String: Any]?) {

@@ -53,3 +53,65 @@ public protocol FeatureManagementService {
     /// - Note: Platforms that don't support metadata or value will gracefully ignore unsupported fields.
     func trackEvent(_ name: String, properties: [String: Any]?)
 }
+
+public extension FeatureManagementService {
+    /// Identifies the active user for feature evaluation and tracking.
+    ///
+    /// - Parameters:
+    ///   - id: The unique user identifier.
+    func identifyUser(id: String) {
+        identifyUser(id: id, attributes: nil)
+    }
+
+    /// Tracks a user-generated event.
+    ///
+    /// - Parameters:
+    ///   - name: The unique name of the event to be tracked.
+    func trackEvent(_ name: String) {
+        trackEvent(name, properties: nil)
+    }
+
+    /// Tracks a user-generated event with a numeric value.
+    ///
+    /// - Parameters:
+    ///   - name: The unique name of the event to be tracked.
+    ///   - value: A `Double` that represents the numeric value of the event.
+    ///
+    /// - Note: Platforms that don't support value will gracefully ignore it.
+    func trackEvent(_ name: String, value: Double) {
+        trackEvent(name, properties: [
+            "value": value
+        ])
+    }
+}
+
+#if DEBUG
+public final class FeatureManagementServiceMock: FeatureManagementService {
+    public var userID: String?
+    public var userAttributes: [String: Any]?
+    public var featureDecisions: [String: FeatureDecisionMock] = [:]
+
+    public var trackedEvents: [(name: String, properties: [String: Any]?)] = []
+
+    public init() { }
+
+    public func identifyUser(id: String, attributes: [String: Any]?) {
+        self.userID = id
+        self.userAttributes = attributes
+    }
+
+    public func resetUser() {
+        userID = nil
+        userAttributes = nil
+    }
+
+    public func decision(forKey key: String) -> FeatureDecision? {
+        guard let userID else { return nil }
+        return featureDecisions[key]
+    }
+
+    public func trackEvent(_ name: String, properties: [String: Any]?) {
+        trackedEvents.append((name: name, properties: properties))
+    }
+}
+#endif

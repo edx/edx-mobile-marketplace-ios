@@ -23,3 +23,11 @@ public protocol FeatureDecision {
     /// Any vendor-specific metadata, such as variables or explanation for the decision.
     var metadata: [String: Any] { get }
 }
+
+#if DEBUG
+public struct FeatureDecisionMock: FeatureDecision {
+    public var key: String
+    public var value: Any?
+    public var metadata: [String: Any]
+}
+#endif

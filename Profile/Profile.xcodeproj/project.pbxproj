@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -50,6 +50,7 @@
 		02FE9A802BC707D500B3C206 /* SettingsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FE9A7F2BC707D400B3C206 /* SettingsViewModelTests.swift */; };
 		0796C8C929B7905300444B05 /* ProfileBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0796C8C829B7905300444B05 /* ProfileBottomSheet.swift */; };
 		25B36FF48C1307888A3890DA /* Pods_App_Profile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEA369C38362C1A91A012F70 /* Pods_App_Profile.framework */; };
+		94D1FC4B2DA6BAA0000A904F /* EDXFeatureManagement in Frameworks */ = {isa = PBXBuildFile; productRef = 94D1FC4A2DA6BAA0000A904F /* EDXFeatureManagement */; };
 		BAD9CA3F2B29BF5C00DE790A /* ProfileSupportInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD9CA3E2B29BF5C00DE790A /* ProfileSupportInfoView.swift */; };
 		E8264C634DD8AD314ECE8905 /* Pods_App_Profile_ProfileTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C85ADF87135E03275A980E07 /* Pods_App_Profile_ProfileTests.framework */; };
 /* End PBXBuildFile section */
@@ -136,6 +137,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				025DE1A028DB4D9D0053E0F4 /* Core.framework in Frameworks */,
+				94D1FC4B2DA6BAA0000A904F /* EDXFeatureManagement in Frameworks */,
 				25B36FF48C1307888A3890DA /* Pods_App_Profile.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -513,6 +515,9 @@
 				uk,
 			);
 			mainGroup = 020F834028DB4CCD0062FA70;
+			packageReferences = (
+				94D1FC492DA6BAA0000A904F /* XCLocalSwiftPackageReference "../EDXFeatureManagement" */,
+			);
 			productRefGroup = 020F834B28DB4CCD0062FA70 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1675,6 +1680,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		94D1FC492DA6BAA0000A904F /* XCLocalSwiftPackageReference "../EDXFeatureManagement" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../EDXFeatureManagement;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		94D1FC4A2DA6BAA0000A904F /* EDXFeatureManagement */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = EDXFeatureManagement;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 020F834128DB4CCD0062FA70 /* Project object */;
 }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import EDXFeatureManagement
 
 //sourcery: AutoMockable
 public protocol AuthInteractorProtocol {
@@ -22,19 +23,28 @@ public protocol AuthInteractorProtocol {
 
 public class AuthInteractor: AuthInteractorProtocol {
     private let repository: AuthRepositoryProtocol
-    
-    public init(repository: AuthRepositoryProtocol) {
+    private let featureService: FeatureManagementService
+
+    public init(
+        repository: AuthRepositoryProtocol,
+        featureService: FeatureManagementService
+    ) {
         self.repository = repository
+        self.featureService = featureService
     }
     
     @discardableResult
     public func login(username: String, password: String) async throws -> User {
-        return try await repository.login(username: username, password: password)
+        let user = try await repository.login(username: username, password: password)
+        featureService.identifyUser(id: "\(user.id)")
+        return user
     }
 
     @discardableResult
     public func login(externalToken: String, backend: String) async throws -> User {
-        return try await repository.login(externalToken: externalToken, backend: backend)
+        let user = try await repository.login(externalToken: externalToken, backend: backend)
+        featureService.identifyUser(id: "\(user.id)")
+        return user
     }
 
     public func resetPassword(email: String) async throws -> ResetPassword {
@@ -50,7 +60,9 @@ public class AuthInteractor: AuthInteractorProtocol {
     }
 
     public func registerUser(fields: [String: String], isSocial: Bool) async throws -> User {
-        return try await repository.registerUser(fields: fields, isSocial: isSocial)
+        let user = try await repository.registerUser(fields: fields, isSocial: isSocial)
+        featureService.identifyUser(id: "\(user.id)")
+        return user
     }
 
     public func validateRegistrationFields(fields: [String: String]) async throws -> [String: String] {
@@ -61,6 +73,9 @@ public class AuthInteractor: AuthInteractorProtocol {
 // Mark - For testing and SwiftUI preview
 #if DEBUG
 public extension AuthInteractor {
-    static let mock: AuthInteractor = .init(repository: AuthRepositoryMock())
+    static let mock = AuthInteractor(
+        repository: AuthRepositoryMock(),
+        featureService: FeatureManagementServiceMock()
+    )
 }
 #endif

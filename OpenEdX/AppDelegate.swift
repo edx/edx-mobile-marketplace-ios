@@ -16,6 +16,7 @@ import UserNotifications
 import FirebaseCore
 import FirebaseMessaging
 import Theme
+import EDXFeatureManagement
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -160,6 +161,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         if let userInfo = notification.userInfo,
            userInfo[Notification.UserInfoKey.isForced] as? Bool == true {
+            let featureService = Container.shared.resolve(FeatureManagementService.self)
+            featureService?.resetUser()
+
             let analyticsManager = Container.shared.resolve(AnalyticsManager.self)
             analyticsManager?.userLogout(force: true)
             

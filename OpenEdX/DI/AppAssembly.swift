@@ -17,6 +17,7 @@ import Authorization
 import Profile
 import WhatsNew
 import Notifications
+import EDXFeatureManagement
 
 // swiftlint:disable function_body_length
 class AppAssembly: Assembly {
@@ -35,7 +36,7 @@ class AppAssembly: Assembly {
         container.register(Router.self) { r in
             Router(navigationController: r.resolve(UINavigationController.self)!, container: container)
         }
-        
+
         container.register(AnalyticsManager.self) { r in
             AnalyticsManager(
                 config: r.resolve(ConfigProtocol.self)!
@@ -231,6 +232,19 @@ class AppAssembly: Assembly {
                 courseDropDownNavigationEnabled: config.uiComponents.courseDropDownNavigationEnabled
             )
         }.inObjectScope(.container)
+
+        container.register(FeatureManager.self) { r in
+            FeatureManager(
+                config: r.resolve(ConfigProtocol.self)!
+            )
+        }.inObjectScope(.container)
+
+        container.register(FeatureManagementService.self) { r in
+            r.resolve(FeatureManager.self)!
+        }.inObjectScope(.container)
+
+        // Initialize Feature Manager...
+        container.resolve(FeatureManagementService.self)
     }
 }
 // swiftlint:enable function_body_length

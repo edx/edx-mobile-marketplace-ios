@@ -34,6 +34,7 @@ public protocol ConfigProtocol {
     var ecommerceURL: String? { get }
     var fullStory: FullStoryConfig { get }
     var pushNotificationsEnabled: Bool { get }
+    var optimizely: OptimizelyConfig { get }
 }
 
 public enum TokenType: String {
