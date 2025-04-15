@@ -148,6 +148,7 @@ public struct NotificationsInboxView: View {
     @ViewBuilder
     private func list(geometry: GeometryProxy) -> some View {
         RefreshableScrollViewCompat(action: {
+            viewModel.regenerateLazyVStackUniqueID()
             await viewModel.refreshNotifications()
         }) {
             LazyVStack(spacing: 16) {
@@ -182,6 +183,7 @@ public struct NotificationsInboxView: View {
                             .onAppear {
                                 viewModel.fetchMoreNotificationsIfNeeded(for: item)
                             }
+                            .id(item.id)
                         }
                     }
                 }
@@ -195,6 +197,7 @@ public struct NotificationsInboxView: View {
                 }
             }
             .frameLimit(width: geometry.size.width)
+            .id(viewModel.lazyVStackUniqueID)
         }
     }
 }
