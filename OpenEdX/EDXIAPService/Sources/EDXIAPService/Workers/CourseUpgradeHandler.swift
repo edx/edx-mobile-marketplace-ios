@@ -25,20 +25,18 @@ class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
     private(set) var productInfo: StoreProductInfo?
     private var validator: EDXReceiptValidator
     private var storeKitHandler: StoreKitHandlerProtocol
-//    private let helper: CourseUpgradeHelperProtocol // NEEDS WORK
+    private let helper: CourseUpgradeHelperProtocol
     private var courseID: String = ""
     private var lmsPrice: Double?
     private var componentID: String?
 
     private(set) var state: UpgradeState = .initial {
         didSet {
-            /* NEEDS WORK
             helper.handleCourseUpgrade(
                 upgradeHadler: self,
                 state: upgradeState,
                 delegate: nil
             )
-             */
             completion?(state)
         }
     }
@@ -61,12 +59,12 @@ class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
     public init(
 //        config: ConfigProtocol, // NEEDS WORK
         validator: EDXReceiptValidator,
-        storeKitHandler: StoreKitHandlerProtocol
-//        helper: CourseUpgradeHelperProtocol // NEEDS WORK
+        storeKitHandler: StoreKitHandlerProtocol,
+        helper: CourseUpgradeHelperProtocol
     ) {
         self.validator = validator
         self.storeKitHandler = storeKitHandler
-//        self.helper = helper // NEEDS WORK
+        self.helper = helper
 //        CourseUpgradeHandler.ecommerceURL = config.ecommerceURL ?? "" // NEEDS WORK
     }
     
@@ -97,7 +95,6 @@ class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
             state = .error(.generalError(error(message: "product info is missing")))
             return
         }
-        /* NEEDS WORK
         helper.setData(
             courseID: courseID,
             pacing: pacing,
@@ -107,7 +104,6 @@ class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
             lmsPrice: lmsPrice,
             screen: screen
         )
-         */
         state = .initial
         await proceedWithUpgrade(sku: sku)
     }
