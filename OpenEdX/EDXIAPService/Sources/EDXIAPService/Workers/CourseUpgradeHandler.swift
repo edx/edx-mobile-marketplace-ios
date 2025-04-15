@@ -24,7 +24,7 @@ class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
     private(set) var upgradeMode: EDXUpgradeMode = .userInitiated
     private(set) var productInfo: StoreProductInfo?
     private var validator: EDXReceiptValidator
-//    private var storeKitHandler: StoreKitHandlerProtocol // NEEDS WORK
+    private var storeKitHandler: StoreKitHandlerProtocol
 //    private let helper: CourseUpgradeHelperProtocol // NEEDS WORK
     private var courseID: String = ""
     private var lmsPrice: Double?
@@ -60,12 +60,12 @@ class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
 
     public init(
 //        config: ConfigProtocol, // NEEDS WORK
-        validator: EDXReceiptValidator
-//        storeKitHandler: StoreKitHandlerProtocol, // NEEDS WORK
+        validator: EDXReceiptValidator,
+        storeKitHandler: StoreKitHandlerProtocol
 //        helper: CourseUpgradeHelperProtocol // NEEDS WORK
     ) {
         self.validator = validator
-//        self.storeKitHandler = storeKitHandler // NEEDS WORK
+        self.storeKitHandler = storeKitHandler
 //        self.helper = helper // NEEDS WORK
 //        CourseUpgradeHandler.ecommerceURL = config.ecommerceURL ?? "" // NEEDS WORK
     }
@@ -138,17 +138,14 @@ class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
             if upgradeMode != .userInitiated {
                 await reverifyPayment()
             } else {
-                /* NEEDS WORK
                 let response = await makePayment(sku: sku)
                 await verifyResponse(response)
-                 */
             }
             
         } catch let error {
             state = .error(.checkoutError(error))
         }
     }
-    /* NEEDS WORK
     private func makePayment(sku: String) async -> StoreKitUpgradeResponse {
         state = .payment
         return await storeKitHandler.purchaseProduct(sku)
@@ -163,7 +160,6 @@ class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
             }
         }
     }
-    */
     
     private func verifyPayment(_ receipt: String) async {
         state = .verify
@@ -175,7 +171,7 @@ class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
                 currencyCode: productInfo?.currencySymbol ?? "",
                 receipt: receipt
             )
-            try await validator.fullfillCheckout(parameters: parameters)
+            _ = try await validator.fullfillCheckout(parameters: parameters)
             state = .complete
             
         } catch let error {
@@ -185,15 +181,12 @@ class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
     
     // Give an option of retry to learner
     func reverifyPayment() async {
-        /* NEEDS WORK
         let response = await storeKitHandler.purchaseReceipt()
         await verifyResponse(response)
-         */
     }
     
     public func fetchProduct(sku: String) async throws -> StoreProductInfo {
-//        try await storeKitHandler.fetchProduct(sku: sku) // NEEDS WORK
-        StoreProductInfo(price: .zero)// NEEDS WORK. Remove it.
+        try await storeKitHandler.fetchProduct(sku: sku)
     }
 }
 

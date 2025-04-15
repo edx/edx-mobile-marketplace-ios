@@ -217,18 +217,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     return nil
                 }
             ),
-            analyticsFacade: analytics,
-            validator: EDXReceiptValidator(
-//                addBasketBlock: { _ in
-//                    EDXBasket(success: "false", basketID: 0)
-//                },
-//                checkoutBlock: { _ in
-//                    
-//                },
-//                fullfillCheckoutBlock: { _ in
-//                    EDXReceiptStatus(status: "success")
-//                }
-            )
+            analyticsFacade: analytics
         )
         pluginManager.setIAPService(iapService)
         // - FullStory

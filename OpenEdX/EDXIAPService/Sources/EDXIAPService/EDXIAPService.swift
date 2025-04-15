@@ -113,20 +113,18 @@ public class EDXIAPService: IAPServiceProtocol, EDXIAPHelperProtocol {
     public let provider: OEXFoundation.IAPProductProvider<Product, ProductInfo>
     public let style: EDXIAPStyle
     public let analyticsFacade: EDXAnalyticsProtocol
-    public let validator: EDXReceiptValidator
+    let validator: EDXReceiptValidator = .init()
 
     let router: RouterProtocol = Router()
 
     public init(
         provider: OEXFoundation.IAPProductProvider<Product, ProductInfo>,
         style: EDXIAPStyle = EDXIAPStyle(),
-        analyticsFacade: EDXAnalyticsProtocol,
-        validator: EDXReceiptValidator
+        analyticsFacade: EDXAnalyticsProtocol
     ) {
         self.provider = provider
         self.style = style
         self.analyticsFacade = analyticsFacade
-        self.validator = validator
     }
     
     public func product(for object: Any) -> Product? {
@@ -294,36 +292,18 @@ public struct EDXFullfillParameters {
     }
 }
 
-public struct EDXReceiptValidator: Sendable {
-//    private var addBasketBlock: @Sendable (String) async throws -> EDXBasket
-//    private var checkoutBlock: @Sendable (Int) async throws -> Void
-//    private var fullfillCheckoutBlock: @Sendable (EDXFullfillParameters) async throws -> EDXReceiptStatus
-
+struct EDXReceiptValidator: Sendable {
     private let networkService: EDXNetworkService = DefaultNetworkService()
-    
-//    public init(
-//        addBasketBlock: @Sendable @escaping (String) -> EDXBasket,
-//        checkoutBlock: @Sendable @escaping (Int) -> Void,
-//        fullfillCheckoutBlock: @Sendable @escaping (EDXFullfillParameters) -> EDXReceiptStatus
-//    ) {
-//        self.addBasketBlock = addBasketBlock
-//        self.checkoutBlock = checkoutBlock
-//        self.fullfillCheckoutBlock = fullfillCheckoutBlock
-//    }
-    public init() {}
-    
+
     func addBasket(sku: String) async throws -> EDXBasket {
-//        try await addBasketBlock(sku)
         try await networkService.request(AddBasketRequest(sku: sku))
     }
     
     func checkoutBasket(basketID: Int) async throws {
-//        try await checkoutBlock(basketID)
         _ = try await networkService.request(CheckoutRequest(basketID: basketID))
     }
     
     func fullfillCheckout(parameters: EDXFullfillParameters) async throws -> EDXReceiptStatus {
-//        try await fullfillCheckoutBlock(parameters)
         try await networkService.request(FullfillCheckoutRequest(parameters: parameters))
     }
 }
