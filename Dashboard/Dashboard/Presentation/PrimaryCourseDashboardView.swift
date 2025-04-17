@@ -87,7 +87,21 @@ public struct PrimaryCourseDashboardView<ProgramView: View, TopBarButtons: View>
                                                     auditAccessExpires: primary.auditAccessExpires,
                                                     startDisplay: primary.startDisplay,
                                                     startType: primary.startType,
-                                                    assignmentAction: { lastVisitedBlockID in
+                                                    assignmentAction: { assignmentData in
+                                                        if assignmentData.isPastAssignments {
+                                                            viewModel.trackLearnPrimaryCourseCardClicked(
+                                                                courseID: primary.courseID,
+                                                                action: .pastAssignment,
+                                                                blockId: primary.lastVisitedBlockID
+                                                            )
+                                                        }
+                                                        if assignmentData.isFutureAssignments {
+                                                            viewModel.trackLearnPrimaryCourseCardClicked(
+                                                                courseID: primary.courseID,
+                                                                action: .upcomingAssignment,
+                                                                blockId: primary.lastVisitedBlockID
+                                                            )
+                                                        }
                                                         router.showCourseScreens(
                                                             courseID: primary.courseID,
                                                             hasAccess: primary.hasAccess,
@@ -99,11 +113,16 @@ public struct PrimaryCourseDashboardView<ProgramView: View, TopBarButtons: View>
                                                             org: primary.org,
                                                             courseRawImage: primary.courseBanner,
                                                             coursewareAccess: nil,
-                                                            showDates: lastVisitedBlockID == nil,
-                                                            lastVisitedBlockID: lastVisitedBlockID
+                                                            showDates: assignmentData.lastVisitedBlockID == nil,
+                                                            lastVisitedBlockID: assignmentData.lastVisitedBlockID
                                                         )
                                                     },
                                                     openCourseAction: {
+                                                        viewModel.trackLearnPrimaryCourseCardClicked(
+                                                            courseID: primary.courseID,
+                                                            action: .card,
+                                                            blockId: primary.lastVisitedBlockID
+                                                        )
                                                         router.showCourseScreens(
                                                             courseID: primary.courseID,
                                                             hasAccess: primary.hasAccess,
@@ -120,6 +139,11 @@ public struct PrimaryCourseDashboardView<ProgramView: View, TopBarButtons: View>
                                                         )
                                                     },
                                                     resumeAction: {
+                                                        viewModel.trackLearnPrimaryCourseCardClicked(
+                                                            courseID: primary.courseID,
+                                                            action: viewModel.startOrResumeAction,
+                                                            blockId: primary.lastVisitedBlockID
+                                                        )
                                                         router.showCourseScreens(
                                                             courseID: primary.courseID,
                                                             hasAccess: primary.hasAccess,
@@ -138,6 +162,11 @@ public struct PrimaryCourseDashboardView<ProgramView: View, TopBarButtons: View>
                                                     isUpgradeable: primary.isUpgradeable &&
                                                     viewModel.serverConfig.iapConfig.enabled,
                                                     upgradeAction: {
+                                                        viewModel.trackLearnPrimaryCourseCardClicked(
+                                                            courseID: primary.courseID,
+                                                            action: .upgradeValueProp,
+                                                            blockId: primary.lastVisitedBlockID
+                                                        )
                                                         Task {@MainActor in
                                                             await self.router.showUpgradeInfo(
                                                                 productName: primary.name,
@@ -244,6 +273,7 @@ public struct PrimaryCourseDashboardView<ProgramView: View, TopBarButtons: View>
             id: \.offset
         ) { _, course in
             Button(action: {
+                viewModel.trackLearnSecondaryCourseCardClicked(courseID: course.courseID)
                 router.showCourseScreens(
                     courseID: course.courseID,
                     hasAccess: course.hasAccess,
@@ -283,6 +313,7 @@ public struct PrimaryCourseDashboardView<ProgramView: View, TopBarButtons: View>
     
     private func viewAllButton(_ enrollments: PrimaryEnrollment) -> some View {
         Button(action: {
+            viewModel.trackLearnViewAllCardClicked()
             router.showAllCourses(courses: enrollments.courses)
         }, label: {
             ZStack(alignment: .topTrailing) {
@@ -310,6 +341,7 @@ public struct PrimaryCourseDashboardView<ProgramView: View, TopBarButtons: View>
     
     private func viewAll(_ enrollments: PrimaryEnrollment) -> some View {
         Button(action: {
+            viewModel.trackLearnViewAllCoursesClicked()
             router.showAllCourses(courses: enrollments.courses)
         }, label: {
             HStack {

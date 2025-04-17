@@ -101,5 +101,18 @@ public class AllCoursesViewModel: ObservableObject {
     
     func trackDashboardCourseClicked(courseID: String, courseName: String) {
         analytics.dashboardCourseClicked(courseID: courseID, courseName: courseName)
+        trackMyCoursesCourseCardClicked(courseID: courseID)
+    }
+    
+    func trackMyCoursesAllCoursesViewed() {
+        analytics.myCoursesAllCoursesViewed()
+    }
+    
+    func trackMyCoursesFilterClicked() {
+        analytics.myCoursesFilterClicked(filter: selectedMenu.status)
+    }
+    
+    func trackMyCoursesCourseCardClicked(courseID: String) {
+        analytics.myCoursesCourseCardClicked(courseID: courseID, filter: selectedMenu.status)
     }
 }

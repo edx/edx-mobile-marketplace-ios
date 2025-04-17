@@ -10,6 +10,12 @@ import Kingfisher
 import Theme
 import Core
 
+public struct AssignmentData {
+    let lastVisitedBlockID: String?
+    let isPastAssignments: Bool
+    let isFutureAssignments: Bool
+}
+
 public struct PrimaryCardView: View {
     
     private let courseName: String
@@ -26,7 +32,7 @@ public struct PrimaryCardView: View {
     public let auditAccessExpires: Date?
     public let startDisplay: Date?
     public let startType: DisplayStartType?
-    private var assignmentAction: (String?) -> Void
+    private var assignmentAction: (AssignmentData) -> Void
     private var openCourseAction: () -> Void
     private var resumeAction: () -> Void
     private var upgradeAction: () -> Void
@@ -51,7 +57,7 @@ public struct PrimaryCardView: View {
         auditAccessExpires: Date?,
         startDisplay: Date?,
         startType: DisplayStartType?,
-        assignmentAction: @escaping (String?) -> Void,
+        assignmentAction: @escaping (AssignmentData) -> Void,
         openCourseAction: @escaping () -> Void,
         resumeAction: @escaping () -> Void,
         isUpgradeable: Bool,
@@ -150,7 +156,15 @@ public struct PrimaryCardView: View {
                     description: DashboardLocalization.Learn.PrimaryCard.onePastAssignment,
                     icon: CoreAssets.warning.swiftUIImage,
                     selected: false,
-                    action: { assignmentAction(pastAssignments.first?.firstComponentBlockId) }
+                    action: {
+                        assignmentAction(
+                            AssignmentData(
+                                lastVisitedBlockID: pastAssignments.first?.firstComponentBlockId,
+                                isPastAssignments: true,
+                                isFutureAssignments: false
+                            )
+                        )
+                    }
                 )
             } else if pastAssignments.count > 1 {
                 courseButton(
@@ -158,7 +172,15 @@ public struct PrimaryCardView: View {
                     description: DashboardLocalization.Learn.PrimaryCard.pastAssignments(pastAssignments.count),
                     icon: CoreAssets.warning.swiftUIImage,
                     selected: false,
-                    action: { assignmentAction(nil) }
+                    action: {
+                        assignmentAction(
+                            AssignmentData(
+                                lastVisitedBlockID: nil,
+                                isPastAssignments: true,
+                                isFutureAssignments: false
+                            )
+                        )
+                    }
                 )
             }
             
@@ -179,7 +201,13 @@ public struct PrimaryCardView: View {
                         icon: CoreAssets.chapter.swiftUIImage,
                         selected: false,
                         action: {
-                            assignmentAction(futureAssignments.first?.firstComponentBlockId)
+                            assignmentAction(
+                                AssignmentData(
+                                    lastVisitedBlockID: futureAssignments.first?.firstComponentBlockId,
+                                    isPastAssignments: false,
+                                    isFutureAssignments: true
+                                )
+                            )
                         }
                     )
                 } else if futureAssignments.count > 1 && canShowFutureAssignments {
@@ -193,7 +221,13 @@ public struct PrimaryCardView: View {
                             icon: CoreAssets.chapter.swiftUIImage,
                             selected: false,
                             action: {
-                                assignmentAction(nil)
+                                assignmentAction(
+                                    AssignmentData(
+                                        lastVisitedBlockID: nil,
+                                        isPastAssignments: false,
+                                        isFutureAssignments: true
+                                    )
+                                )
                             }
                         )
                     }
