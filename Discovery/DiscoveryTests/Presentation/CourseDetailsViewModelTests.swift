@@ -188,7 +188,7 @@ final class CourseDetailsViewModelTests: XCTestCase {
                                                storage: CoreStorageMock())
         
         Given(interactor, .getCourseDetails(courseID: "123",
-                                            willThrow: NSError()))
+                                            willThrow: NSError(domain: "error", code: -1, userInfo: nil)))
         
         await viewModel.getCourseDetail(courseID: "123")
         
