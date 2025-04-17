@@ -190,7 +190,7 @@ final class CourseUnitViewModelTests: XCTestCase {
         
         Given(interactor, .blockCompletionRequest(courseID: .any,
                                                   blockID: .any,
-                                                  willThrow: NSError()))
+                                                  willThrow: NSError(domain: "error", code: -1, userInfo: nil)))
         
         await viewModel.blockCompletionRequest(blockID: "1")
         

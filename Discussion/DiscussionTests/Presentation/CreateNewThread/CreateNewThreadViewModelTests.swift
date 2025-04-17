@@ -93,7 +93,7 @@ final class CreateNewThreadViewModelTests: XCTestCase {
             storage: CoreStorageMock()
         )
         
-        Given(interactor, .createNewThread(newThread: .any, willThrow: NSError()))
+        Given(interactor, .createNewThread(newThread: .any, willThrow: NSError(domain: "error", code: -1, userInfo: nil)))
         
         result = await viewModel.createNewThread(newThread: newThread)
         
