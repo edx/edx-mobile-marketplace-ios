@@ -46,6 +46,7 @@ public struct ReadabilityInjection: WebViewScriptInjectionProtocol, CSSInjection
             body {
                 padding-left: \(padding)px !important;
                 padding-right: \(padding)px !important;
+                padding-bottom: 200px !important;
             }
         """
     }
