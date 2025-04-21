@@ -355,8 +355,7 @@ class AnalyticsManager: AuthorizationAnalytics,
             .myCoursesAllCoursesViewed,
             biValue: .myCoursesAllCoursesViewed,
             parameters: [
-                EventParamKey.category: EventCategory.myCourses,
-                EventParamKey.name: EventBIValue.myCoursesAllCoursesViewed.rawValue
+                EventParamKey.category: EventCategory.myCourses
             ]
         )
     }
