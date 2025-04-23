@@ -31,8 +31,8 @@ class RouteController: UIViewController {
         diContainer.resolve(CoreAnalytics.self)!
     }()
 
-    private var featureService: FeatureManagementService {
-        diContainer.resolve(FeatureManagementService.self)!
+    private var featureManager: FeatureManagerProtocol {
+        diContainer.resolve(FeatureManagerProtocol.self)!
     }
 
     override func viewDidLoad() {
@@ -40,7 +40,7 @@ class RouteController: UIViewController {
         
         if let user = appStorage.user, appStorage.accessToken != nil {
             analytics.identify(id: "\(user.id)", username: user.username ?? "", email: user.email ?? "")
-            featureService.identifyUser(id: "\(user.id)")
+            featureManager.identifyUser(id: "\(user.id)")
 
             DispatchQueue.main.async {
                 self.showMainOrWhatsNewScreen()

@@ -23,27 +23,27 @@ public protocol AuthInteractorProtocol {
 
 public class AuthInteractor: AuthInteractorProtocol {
     private let repository: AuthRepositoryProtocol
-    private let featureService: FeatureManagementService
+    private let featureManager: FeatureManagerProtocol
 
     public init(
         repository: AuthRepositoryProtocol,
-        featureService: FeatureManagementService
+        featureManager: FeatureManagerProtocol
     ) {
         self.repository = repository
-        self.featureService = featureService
+        self.featureManager = featureManager
     }
     
     @discardableResult
     public func login(username: String, password: String) async throws -> User {
         let user = try await repository.login(username: username, password: password)
-        featureService.identifyUser(id: "\(user.id)")
+        featureManager.identifyUser(id: "\(user.id)")
         return user
     }
 
     @discardableResult
     public func login(externalToken: String, backend: String) async throws -> User {
         let user = try await repository.login(externalToken: externalToken, backend: backend)
-        featureService.identifyUser(id: "\(user.id)")
+        featureManager.identifyUser(id: "\(user.id)")
         return user
     }
 
@@ -61,7 +61,7 @@ public class AuthInteractor: AuthInteractorProtocol {
 
     public func registerUser(fields: [String: String], isSocial: Bool) async throws -> User {
         let user = try await repository.registerUser(fields: fields, isSocial: isSocial)
-        featureService.identifyUser(id: "\(user.id)")
+        featureManager.identifyUser(id: "\(user.id)")
         return user
     }
 
@@ -75,7 +75,7 @@ public class AuthInteractor: AuthInteractorProtocol {
 public extension AuthInteractor {
     static let mock = AuthInteractor(
         repository: AuthRepositoryMock(),
-        featureService: FeatureManagementServiceMock()
+        featureManager: FeatureManagerMock()
     )
 }
 #endif

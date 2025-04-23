@@ -1,5 +1,5 @@
 //
-//  OptimizelyFeatureManagementService.swift
+//  OptimizelyFeatureManager.swift
 //  EDXFeatureManagement
 //
 //  Created by Muhammad Tayyab Akram on 4/7/25.
@@ -8,7 +8,7 @@
 import Foundation
 import Optimizely
 
-public final class OptimizelyFeatureManagementService: FeatureManagementService {
+public final class OptimizelyFeatureManager: FeatureManagerProtocol {
     private let client: OptimizelyClient
     private var userContext: OptimizelyUserContext?
 

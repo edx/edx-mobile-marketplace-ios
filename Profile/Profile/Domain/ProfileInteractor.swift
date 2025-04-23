@@ -29,14 +29,14 @@ public protocol ProfileInteractorProtocol {
 public class ProfileInteractor: ProfileInteractorProtocol {
     
     private let repository: ProfileRepositoryProtocol
-    private let featureService: FeatureManagementService
+    private let featureManager: FeatureManagerProtocol
 
     public init(
         repository: ProfileRepositoryProtocol,
-        featureService: FeatureManagementService
+        featureManager: FeatureManagerProtocol
     ) {
         self.repository = repository
-        self.featureService = featureService
+        self.featureManager = featureManager
     }
     
     public func getUserProfile(username: String) async throws -> UserProfile {
@@ -53,7 +53,7 @@ public class ProfileInteractor: ProfileInteractorProtocol {
     
     public func logOut() async throws {
         try await repository.logOut()
-        featureService.resetUser()
+        featureManager.resetUser()
     }
     
     public func getSpokenLanguages() -> [PickerFields.Option] {
@@ -94,7 +94,7 @@ public class ProfileInteractor: ProfileInteractorProtocol {
 public extension ProfileInteractor {
     static let mock = ProfileInteractor(
         repository: ProfileRepositoryMock(),
-        featureService: FeatureManagementServiceMock()
+        featureManager: FeatureManagerMock()
     )
 }
 #endif

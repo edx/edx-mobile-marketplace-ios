@@ -233,18 +233,14 @@ class AppAssembly: Assembly {
             )
         }.inObjectScope(.container)
 
-        container.register(FeatureManager.self) { r in
+        container.register(FeatureManagerProtocol.self) { r in
             FeatureManager(
                 config: r.resolve(ConfigProtocol.self)!
             )
         }.inObjectScope(.container)
 
-        container.register(FeatureManagementService.self) { r in
-            r.resolve(FeatureManager.self)!
-        }.inObjectScope(.container)
-
         // Initialize Feature Manager...
-        container.resolve(FeatureManagementService.self)
+        container.resolve(FeatureManagerProtocol.self)
     }
 }
 // swiftlint:enable function_body_length

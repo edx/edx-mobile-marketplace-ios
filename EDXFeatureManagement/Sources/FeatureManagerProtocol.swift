@@ -1,5 +1,5 @@
 //
-//  FeatureManagementService.swift
+//  FeatureManagerProtocol.swift
 //  EDXFeatureManagement
 //
 //  Created by Muhammad Tayyab Akram on 4/7/25.
@@ -8,7 +8,7 @@
 import Foundation
 
 /// A service that manages feature flagging, A/B testing, and user identification across different vendors.
-public protocol FeatureManagementService {
+public protocol FeatureManagerProtocol {
     /// Identifies the active user for feature evaluation and tracking.
     ///
     /// - Parameters:
@@ -43,7 +43,7 @@ public protocol FeatureManagementService {
     ///
     /// ## Example:
     /// ```swift
-    /// featureService.trackEvent("purchase", properties: [
+    /// featureManager.trackEvent("purchase", properties: [
     ///     "value": 29.99,
     ///     "currency": "USD",
     ///     "productId": "abc123"
@@ -54,7 +54,7 @@ public protocol FeatureManagementService {
     func trackEvent(_ name: String, properties: [String: Any]?)
 }
 
-public extension FeatureManagementService {
+public extension FeatureManagerProtocol {
     /// Identifies the active user for feature evaluation and tracking.
     ///
     /// - Parameters:
@@ -86,7 +86,7 @@ public extension FeatureManagementService {
 }
 
 #if DEBUG
-public final class FeatureManagementServiceMock: FeatureManagementService {
+public final class FeatureManagerMock: FeatureManagerProtocol {
     public var userID: String?
     public var userAttributes: [String: Any]?
     public var featureDecisions: [String: FeatureDecisionMock] = [:]

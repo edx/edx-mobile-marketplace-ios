@@ -33,7 +33,7 @@ class ScreenAssembly: Assembly {
         container.register(AuthInteractorProtocol.self) { r in
             AuthInteractor(
                 repository: r.resolve(AuthRepositoryProtocol.self)!,
-                featureService: r.resolve(FeatureManagementService.self)!
+                featureManager: r.resolve(FeatureManagerProtocol.self)!
             )
         }
         
@@ -213,7 +213,7 @@ class ScreenAssembly: Assembly {
         container.register(ProfileInteractorProtocol.self) { r in
             ProfileInteractor(
                 repository: r.resolve(ProfileRepositoryProtocol.self)!,
-                featureService: r.resolve(FeatureManagementService.self)!
+                featureManager: r.resolve(FeatureManagerProtocol.self)!
             )
         }
         container.register(ProfileViewModel.self) { r in

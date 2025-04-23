@@ -161,8 +161,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         if let userInfo = notification.userInfo,
            userInfo[Notification.UserInfoKey.isForced] as? Bool == true {
-            let featureService = Container.shared.resolve(FeatureManagementService.self)
-            featureService?.resetUser()
+            let featureManager = Container.shared.resolve(FeatureManagerProtocol.self)
+            featureManager?.resetUser()
 
             let analyticsManager = Container.shared.resolve(AnalyticsManager.self)
             analyticsManager?.userLogout(force: true)

@@ -9,30 +9,30 @@ import Foundation
 import EDXFeatureManagement
 import Core
 
-final class FeatureManager: FeatureManagementService {
-    private var optimizelyService: FeatureManagementService?
+final class FeatureManager: FeatureManagerProtocol {
+    private var optimizelyManager: FeatureManagerProtocol?
 
     init(config: ConfigProtocol) {
         if config.optimizely.enabled {
-            optimizelyService = OptimizelyFeatureManagementService(
+            optimizelyManager = OptimizelyFeatureManager(
                 sdkKey: config.optimizely.sdkKey
             )
         }
     }
 
     func identifyUser(id: String, attributes: [String: Any]?) {
-        optimizelyService?.identifyUser(id: id, attributes: attributes)
+        optimizelyManager?.identifyUser(id: id, attributes: attributes)
     }
 
     func resetUser() {
-        optimizelyService?.resetUser()
+        optimizelyManager?.resetUser()
     }
 
     func decision(forKey key: String) -> FeatureDecision? {
-        return optimizelyService?.decision(forKey: key)
+        return optimizelyManager?.decision(forKey: key)
     }
 
     func trackEvent(_ name: String, properties: [String: Any]?) {
-        optimizelyService?.trackEvent(name, properties: properties)
+        optimizelyManager?.trackEvent(name, properties: properties)
     }
 }
