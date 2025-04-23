@@ -273,7 +273,7 @@ public struct WebView: UIViewRepresentable {
         webView.backgroundColor = .clear
         webView.scrollView.backgroundColor = Theme.Colors.background.uiColor()
         webView.scrollView.alwaysBounceVertical = false
-        webView.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 200, right: 0)
+        webView.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         // To add ability to change font size with webkitTextSizeAdjust need to set mode to mobile
         webView.configuration.defaultWebpagePreferences.preferredContentMode = .mobile
         webView.applyInjections(viewModel.injections, toHandler: context.coordinator)
