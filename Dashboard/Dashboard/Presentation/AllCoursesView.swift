@@ -149,11 +149,13 @@ public struct AllCoursesView: View {
                 }
             }
             .onFirstAppear {
+                viewModel.trackMyCoursesAllCoursesViewed()
                 Task {
                     await viewModel.getCourses(page: 1)
                 }
             }
             .onChange(of: viewModel.selectedMenu) { _ in
+                viewModel.trackMyCoursesFilterClicked()
                 Task {
                     viewModel.myEnrollments?.courses = []
                     await viewModel.getCourses(page: 1, refresh: false)

@@ -2685,11 +2685,60 @@ open class DashboardAnalyticsMock: DashboardAnalytics, Mock {
 		perform?()
     }
 
+    open func learnViewAllCoursesClicked() {
+        addInvocation(.m_learnViewAllCoursesClicked)
+		let perform = methodPerformValue(.m_learnViewAllCoursesClicked) as? () -> Void
+		perform?()
+    }
+
+    open func learnViewAllCardClicked() {
+        addInvocation(.m_learnViewAllCardClicked)
+		let perform = methodPerformValue(.m_learnViewAllCardClicked) as? () -> Void
+		perform?()
+    }
+
+    open func learnSecondaryCourseCardClicked(courseID: String) {
+        addInvocation(.m_learnSecondaryCourseCardClicked__courseID_courseID(Parameter<String>.value(`courseID`)))
+		let perform = methodPerformValue(.m_learnSecondaryCourseCardClicked__courseID_courseID(Parameter<String>.value(`courseID`))) as? (String) -> Void
+		perform?(`courseID`)
+    }
+
+    open func learnPrimaryCourseCardClicked(courseID: String, action: PrimaryCourseCardAction, blockId: String) {
+        addInvocation(.m_learnPrimaryCourseCardClicked__courseID_courseIDaction_actionblockId_blockId(Parameter<String>.value(`courseID`), Parameter<PrimaryCourseCardAction>.value(`action`), Parameter<String>.value(`blockId`)))
+		let perform = methodPerformValue(.m_learnPrimaryCourseCardClicked__courseID_courseIDaction_actionblockId_blockId(Parameter<String>.value(`courseID`), Parameter<PrimaryCourseCardAction>.value(`action`), Parameter<String>.value(`blockId`))) as? (String, PrimaryCourseCardAction, String) -> Void
+		perform?(`courseID`, `action`, `blockId`)
+    }
+
+    open func myCoursesAllCoursesViewed() {
+        addInvocation(.m_myCoursesAllCoursesViewed)
+		let perform = methodPerformValue(.m_myCoursesAllCoursesViewed) as? () -> Void
+		perform?()
+    }
+
+    open func myCoursesFilterClicked(filter: String) {
+        addInvocation(.m_myCoursesFilterClicked__filter_filter(Parameter<String>.value(`filter`)))
+		let perform = methodPerformValue(.m_myCoursesFilterClicked__filter_filter(Parameter<String>.value(`filter`))) as? (String) -> Void
+		perform?(`filter`)
+    }
+
+    open func myCoursesCourseCardClicked(courseID: String, filter: String) {
+        addInvocation(.m_myCoursesCourseCardClicked__courseID_courseIDfilter_filter(Parameter<String>.value(`courseID`), Parameter<String>.value(`filter`)))
+		let perform = methodPerformValue(.m_myCoursesCourseCardClicked__courseID_courseIDfilter_filter(Parameter<String>.value(`courseID`), Parameter<String>.value(`filter`))) as? (String, String) -> Void
+		perform?(`courseID`, `filter`)
+    }
+
 
     fileprivate enum MethodType {
         case m_dashboardCourseClicked__courseID_courseIDcourseName_courseName(Parameter<String>, Parameter<String>)
         case m_mainProgramsClicked
         case m_mainCoursesClicked
+        case m_learnViewAllCoursesClicked
+        case m_learnViewAllCardClicked
+        case m_learnSecondaryCourseCardClicked__courseID_courseID(Parameter<String>)
+        case m_learnPrimaryCourseCardClicked__courseID_courseIDaction_actionblockId_blockId(Parameter<String>, Parameter<PrimaryCourseCardAction>, Parameter<String>)
+        case m_myCoursesAllCoursesViewed
+        case m_myCoursesFilterClicked__filter_filter(Parameter<String>)
+        case m_myCoursesCourseCardClicked__courseID_courseIDfilter_filter(Parameter<String>, Parameter<String>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
@@ -2702,6 +2751,35 @@ open class DashboardAnalyticsMock: DashboardAnalytics, Mock {
             case (.m_mainProgramsClicked, .m_mainProgramsClicked): return .match
 
             case (.m_mainCoursesClicked, .m_mainCoursesClicked): return .match
+
+            case (.m_learnViewAllCoursesClicked, .m_learnViewAllCoursesClicked): return .match
+
+            case (.m_learnViewAllCardClicked, .m_learnViewAllCardClicked): return .match
+
+            case (.m_learnSecondaryCourseCardClicked__courseID_courseID(let lhsCourseid), .m_learnSecondaryCourseCardClicked__courseID_courseID(let rhsCourseid)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseID"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_learnPrimaryCourseCardClicked__courseID_courseIDaction_actionblockId_blockId(let lhsCourseid, let lhsAction, let lhsBlockid), .m_learnPrimaryCourseCardClicked__courseID_courseIDaction_actionblockId_blockId(let rhsCourseid, let rhsAction, let rhsBlockid)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseID"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsAction, rhs: rhsAction, with: matcher), lhsAction, rhsAction, "action"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsBlockid, rhs: rhsBlockid, with: matcher), lhsBlockid, rhsBlockid, "blockId"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_myCoursesAllCoursesViewed, .m_myCoursesAllCoursesViewed): return .match
+
+            case (.m_myCoursesFilterClicked__filter_filter(let lhsFilter), .m_myCoursesFilterClicked__filter_filter(let rhsFilter)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsFilter, rhs: rhsFilter, with: matcher), lhsFilter, rhsFilter, "filter"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_myCoursesCourseCardClicked__courseID_courseIDfilter_filter(let lhsCourseid, let lhsFilter), .m_myCoursesCourseCardClicked__courseID_courseIDfilter_filter(let rhsCourseid, let rhsFilter)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseID"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsFilter, rhs: rhsFilter, with: matcher), lhsFilter, rhsFilter, "filter"))
+				return Matcher.ComparisonResult(results)
             default: return .none
             }
         }
@@ -2711,6 +2789,13 @@ open class DashboardAnalyticsMock: DashboardAnalytics, Mock {
             case let .m_dashboardCourseClicked__courseID_courseIDcourseName_courseName(p0, p1): return p0.intValue + p1.intValue
             case .m_mainProgramsClicked: return 0
             case .m_mainCoursesClicked: return 0
+            case .m_learnViewAllCoursesClicked: return 0
+            case .m_learnViewAllCardClicked: return 0
+            case let .m_learnSecondaryCourseCardClicked__courseID_courseID(p0): return p0.intValue
+            case let .m_learnPrimaryCourseCardClicked__courseID_courseIDaction_actionblockId_blockId(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
+            case .m_myCoursesAllCoursesViewed: return 0
+            case let .m_myCoursesFilterClicked__filter_filter(p0): return p0.intValue
+            case let .m_myCoursesCourseCardClicked__courseID_courseIDfilter_filter(p0, p1): return p0.intValue + p1.intValue
             }
         }
         func assertionName() -> String {
@@ -2718,6 +2803,13 @@ open class DashboardAnalyticsMock: DashboardAnalytics, Mock {
             case .m_dashboardCourseClicked__courseID_courseIDcourseName_courseName: return ".dashboardCourseClicked(courseID:courseName:)"
             case .m_mainProgramsClicked: return ".mainProgramsClicked()"
             case .m_mainCoursesClicked: return ".mainCoursesClicked()"
+            case .m_learnViewAllCoursesClicked: return ".learnViewAllCoursesClicked()"
+            case .m_learnViewAllCardClicked: return ".learnViewAllCardClicked()"
+            case .m_learnSecondaryCourseCardClicked__courseID_courseID: return ".learnSecondaryCourseCardClicked(courseID:)"
+            case .m_learnPrimaryCourseCardClicked__courseID_courseIDaction_actionblockId_blockId: return ".learnPrimaryCourseCardClicked(courseID:action:blockId:)"
+            case .m_myCoursesAllCoursesViewed: return ".myCoursesAllCoursesViewed()"
+            case .m_myCoursesFilterClicked__filter_filter: return ".myCoursesFilterClicked(filter:)"
+            case .m_myCoursesCourseCardClicked__courseID_courseIDfilter_filter: return ".myCoursesCourseCardClicked(courseID:filter:)"
             }
         }
     }
@@ -2739,6 +2831,13 @@ open class DashboardAnalyticsMock: DashboardAnalytics, Mock {
         public static func dashboardCourseClicked(courseID: Parameter<String>, courseName: Parameter<String>) -> Verify { return Verify(method: .m_dashboardCourseClicked__courseID_courseIDcourseName_courseName(`courseID`, `courseName`))}
         public static func mainProgramsClicked() -> Verify { return Verify(method: .m_mainProgramsClicked)}
         public static func mainCoursesClicked() -> Verify { return Verify(method: .m_mainCoursesClicked)}
+        public static func learnViewAllCoursesClicked() -> Verify { return Verify(method: .m_learnViewAllCoursesClicked)}
+        public static func learnViewAllCardClicked() -> Verify { return Verify(method: .m_learnViewAllCardClicked)}
+        public static func learnSecondaryCourseCardClicked(courseID: Parameter<String>) -> Verify { return Verify(method: .m_learnSecondaryCourseCardClicked__courseID_courseID(`courseID`))}
+        public static func learnPrimaryCourseCardClicked(courseID: Parameter<String>, action: Parameter<PrimaryCourseCardAction>, blockId: Parameter<String>) -> Verify { return Verify(method: .m_learnPrimaryCourseCardClicked__courseID_courseIDaction_actionblockId_blockId(`courseID`, `action`, `blockId`))}
+        public static func myCoursesAllCoursesViewed() -> Verify { return Verify(method: .m_myCoursesAllCoursesViewed)}
+        public static func myCoursesFilterClicked(filter: Parameter<String>) -> Verify { return Verify(method: .m_myCoursesFilterClicked__filter_filter(`filter`))}
+        public static func myCoursesCourseCardClicked(courseID: Parameter<String>, filter: Parameter<String>) -> Verify { return Verify(method: .m_myCoursesCourseCardClicked__courseID_courseIDfilter_filter(`courseID`, `filter`))}
     }
 
     public struct Perform {
@@ -2753,6 +2852,27 @@ open class DashboardAnalyticsMock: DashboardAnalytics, Mock {
         }
         public static func mainCoursesClicked(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_mainCoursesClicked, performs: perform)
+        }
+        public static func learnViewAllCoursesClicked(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_learnViewAllCoursesClicked, performs: perform)
+        }
+        public static func learnViewAllCardClicked(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_learnViewAllCardClicked, performs: perform)
+        }
+        public static func learnSecondaryCourseCardClicked(courseID: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
+            return Perform(method: .m_learnSecondaryCourseCardClicked__courseID_courseID(`courseID`), performs: perform)
+        }
+        public static func learnPrimaryCourseCardClicked(courseID: Parameter<String>, action: Parameter<PrimaryCourseCardAction>, blockId: Parameter<String>, perform: @escaping (String, PrimaryCourseCardAction, String) -> Void) -> Perform {
+            return Perform(method: .m_learnPrimaryCourseCardClicked__courseID_courseIDaction_actionblockId_blockId(`courseID`, `action`, `blockId`), performs: perform)
+        }
+        public static func myCoursesAllCoursesViewed(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_myCoursesAllCoursesViewed, performs: perform)
+        }
+        public static func myCoursesFilterClicked(filter: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
+            return Perform(method: .m_myCoursesFilterClicked__filter_filter(`filter`), performs: perform)
+        }
+        public static func myCoursesCourseCardClicked(courseID: Parameter<String>, filter: Parameter<String>, perform: @escaping (String, String) -> Void) -> Perform {
+            return Perform(method: .m_myCoursesCourseCardClicked__courseID_courseIDfilter_filter(`courseID`, `filter`), performs: perform)
         }
     }
 

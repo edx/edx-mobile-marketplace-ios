@@ -27,6 +27,10 @@ public class PrimaryCourseDashboardViewModel: ObservableObject {
         }
     }
     
+    var startOrResumeAction: PrimaryCourseCardAction {
+        enrollments?.primaryCourse?.lastVisitedBlockID == nil ? .startCourse : .resumeCourse
+    }
+    
     let connectivity: ConnectivityProtocol
     private let interactor: DashboardInteractorProtocol
     let analytics: DashboardAnalytics
@@ -117,5 +121,21 @@ public class PrimaryCourseDashboardViewModel: ObservableObject {
     
     func trackDashboardCourseClicked(courseID: String, courseName: String) {
         analytics.dashboardCourseClicked(courseID: courseID, courseName: courseName)
+    }
+    
+    func trackLearnViewAllCoursesClicked() {
+        analytics.learnViewAllCoursesClicked()
+    }
+    
+    func trackLearnViewAllCardClicked() {
+        analytics.learnViewAllCardClicked()
+    }
+    
+    func trackLearnSecondaryCourseCardClicked(courseID: String) {
+        analytics.learnSecondaryCourseCardClicked(courseID: courseID)
+    }
+    
+    func trackLearnPrimaryCourseCardClicked(courseID: String, action: PrimaryCourseCardAction, blockId: String?) {
+        analytics.learnPrimaryCourseCardClicked(courseID: courseID, action: action, blockId: blockId ?? "")
     }
 }
