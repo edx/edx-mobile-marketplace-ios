@@ -21,6 +21,7 @@ public class CourseDatesViewModel: ObservableObject {
     
     @Published var isShowProgress = true
     @Published var showError: Bool = false
+    @Published var canShowBanner: Bool = false
     @Published var courseDates: CourseDates?
     @Published var isOn: Bool = false
     @Published var eventState: EventState?
@@ -107,6 +108,14 @@ public class CourseDatesViewModel: ObservableObject {
     @MainActor
     func getCourseDates(courseID: String) async {
         isShowProgress = true
+
+        defer {
+            canShowBanner = interactor.canShowBanner(
+                courseDates?.datesBannerInfo.status?.storageBannerType,
+                forCourse: courseID
+            )
+        }
+
         do {
             courseDates = try await interactor.getCourseDates(courseID: courseID)
             await getCourseStructure(courseID: courseID)
@@ -428,7 +437,24 @@ extension CourseDatesViewModel {
             )
         )
     }
-    
+
+    func dismissBanner(forCourse courseID: String) {
+        guard let banner = courseDates?.datesBannerInfo.status else {
+            return
+        }
+
+        interactor.markBannerDismissed(banner.storageBannerType, forCourse: courseID)
+        canShowBanner = false
+
+        trackPLSEvent(
+            .plsBannerDismissed,
+            bivalue: .plsBannerDismissed,
+            courseID: courseID,
+            screenName: DatesStatusInfoScreen.courseDates.rawValue,
+            type: banner.analyticsBannerType
+        )
+    }
+
     func logdateComponentTapped(block: CourseDateBlock, supported: Bool) {
         analytics.datesComponentTapped(
             courseId: courseID,

@@ -21,14 +21,25 @@ public protocol CourseInteractorProtocol {
     func getCourseDates(courseID: String) async throws -> CourseDates
     func getCourseDeadlineInfo(courseID: String) async throws -> CourseDateBanner
     func shiftDueDates(courseID: String) async throws
+    func canShowBanner(_ bannerType: CourseBannerType?, forCourse courseID: String) -> Bool
+    func markBannerDismissed(_ bannerType: CourseBannerType, forCourse courseID: String)
 }
 
 public class CourseInteractor: CourseInteractorProtocol {
     
     private let repository: CourseRepositoryProtocol
-    
-    public init(repository: CourseRepositoryProtocol) {
+    private let storage: CourseStorage
+
+    private enum Constants {
+        static let bannerPresentationWaitingHours: Int = 24
+    }
+
+    public init(
+        repository: CourseRepositoryProtocol,
+        storage: CourseStorage
+    ) {
         self.repository = repository
+        self.storage = storage
     }
     
     public func getCourseBlocks(courseID: String) async throws -> CourseStructure {
@@ -213,11 +224,36 @@ public class CourseInteractor: CourseInteractorProtocol {
         }
         return subtitles
     }
+
+    public func canShowBanner(_ bannerType: CourseBannerType?, forCourse courseID: String) -> Bool {
+        guard let bannerType else {
+            return false
+        }
+        guard let dismissalDate = storage.dismissalDate(for: bannerType, courseID: courseID) else {
+            return true
+        }
+
+        let now = Date()
+        let limit = Calendar.current.date(
+            byAdding: .hour,
+            value: Constants.bannerPresentationWaitingHours,
+            to: dismissalDate
+        ) ?? now
+
+        return now > limit
+    }
+
+    public func markBannerDismissed(_ bannerType: CourseBannerType, forCourse courseID: String) {
+        storage.setDismissalDate(for: bannerType, courseID: courseID, to: Date())
+    }
 }
 
 // Mark - For testing and SwiftUI preview
 #if DEBUG
 public extension CourseInteractor {
-    static let mock = CourseInteractor(repository: CourseRepositoryMock())
+    static let mock = CourseInteractor(
+        repository: CourseRepositoryMock(),
+        storage: CourseStorageMock()
+    )
 }
 #endif
