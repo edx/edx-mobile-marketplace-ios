@@ -11,6 +11,7 @@ import Core
 import Authorization
 import WhatsNew
 import Swinject
+import EDXFeatureManagement
 
 class RouteController: UIViewController {
     
@@ -29,12 +30,18 @@ class RouteController: UIViewController {
     private lazy var coreAnalytics: CoreAnalytics = {
         diContainer.resolve(CoreAnalytics.self)!
     }()
-    
+
+    private var featureManager: FeatureManagerProtocol {
+        diContainer.resolve(FeatureManagerProtocol.self)!
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if let user = appStorage.user, appStorage.accessToken != nil {
             analytics.identify(id: "\(user.id)", username: user.username ?? "", email: user.email ?? "")
+            featureManager.identifyUser(id: "\(user.id)")
+
             DispatchQueue.main.async {
                 self.showMainOrWhatsNewScreen()
             }

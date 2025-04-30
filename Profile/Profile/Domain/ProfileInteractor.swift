@@ -8,6 +8,7 @@
 import Foundation
 import Core
 import UIKit
+import EDXFeatureManagement
 
 //sourcery: AutoMockable
 public protocol ProfileInteractorProtocol {
@@ -28,9 +29,14 @@ public protocol ProfileInteractorProtocol {
 public class ProfileInteractor: ProfileInteractorProtocol {
     
     private let repository: ProfileRepositoryProtocol
-    
-    public init(repository: ProfileRepositoryProtocol) {
+    private let featureManager: FeatureManagerProtocol
+
+    public init(
+        repository: ProfileRepositoryProtocol,
+        featureManager: FeatureManagerProtocol
+    ) {
         self.repository = repository
+        self.featureManager = featureManager
     }
     
     public func getUserProfile(username: String) async throws -> UserProfile {
@@ -47,6 +53,7 @@ public class ProfileInteractor: ProfileInteractorProtocol {
     
     public func logOut() async throws {
         try await repository.logOut()
+        featureManager.resetUser()
     }
     
     public func getSpokenLanguages() -> [PickerFields.Option] {
@@ -85,6 +92,9 @@ public class ProfileInteractor: ProfileInteractorProtocol {
 // Mark - For testing and SwiftUI preview
 #if DEBUG
 public extension ProfileInteractor {
-    static let mock = ProfileInteractor(repository: ProfileRepositoryMock())
+    static let mock = ProfileInteractor(
+        repository: ProfileRepositoryMock(),
+        featureManager: FeatureManagerMock()
+    )
 }
 #endif

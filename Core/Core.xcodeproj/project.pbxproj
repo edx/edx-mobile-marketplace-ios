@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -187,6 +187,8 @@
 		942A98592D4CAF5200DD8BBC /* ScreenStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942A98582D4CAF5200DD8BBC /* ScreenStateView.swift */; };
 		9499F1262D41375B00558D59 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9499F1252D41375B00558D59 /* AppEnvironment.swift */; };
 		94AE32362D8B329D00FA048D /* NotificationBellButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AE32352D8B329D00FA048D /* NotificationBellButton.swift */; };
+		94D1FC482DA6AF44000A904F /* EDXFeatureManagement in Frameworks */ = {isa = PBXBuildFile; productRef = 94D1FC472DA6AF44000A904F /* EDXFeatureManagement */; };
+		94D1FC4D2DA7F3A6000A904F /* OptimizelyConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D1FC4C2DA7F39F000A904F /* OptimizelyConfig.swift */; };
 		973CCD7B2D3660D100949756 /* HTML2TextParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CCD792D3660D100949756 /* HTML2TextParser.swift */; };
 		973CCD7C2D3660D100949756 /* AttributedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CCD782D3660D100949756 /* AttributedText.swift */; };
 		9784D47E2BF7762800AFEFFF /* FullScreenErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9784D47D2BF7762800AFEFFF /* FullScreenErrorView.swift */; };
@@ -428,6 +430,7 @@
 		942A98582D4CAF5200DD8BBC /* ScreenStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenStateView.swift; sourceTree = "<group>"; };
 		9499F1252D41375B00558D59 /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
 		94AE32352D8B329D00FA048D /* NotificationBellButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationBellButton.swift; sourceTree = "<group>"; };
+		94D1FC4C2DA7F39F000A904F /* OptimizelyConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptimizelyConfig.swift; sourceTree = "<group>"; };
 		973CCD782D3660D100949756 /* AttributedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedText.swift; sourceTree = "<group>"; };
 		973CCD792D3660D100949756 /* HTML2TextParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTML2TextParser.swift; sourceTree = "<group>"; };
 		9784D47D2BF7762800AFEFFF /* FullScreenErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullScreenErrorView.swift; sourceTree = "<group>"; };
@@ -490,6 +493,7 @@
 				C8C446EF233F81B9FABB77D2 /* Pods_App_Core.framework in Frameworks */,
 				142EDD6C2B831D1400F9F320 /* BranchSDK in Frameworks */,
 				BA8FA66C2AD59BBC00EA029A /* GoogleSignIn in Frameworks */,
+				94D1FC482DA6AF44000A904F /* EDXFeatureManagement in Frameworks */,
 				E055A5392B18DC95008D9E5E /* Theme.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1090,6 +1094,7 @@
 				A53A32342B233DEC005FE38A /* ThemeConfig.swift */,
 				E0D586192B2FF74C009B4BA7 /* DiscoveryConfig.swift */,
 				14D912D82C2553C70077CCCE /* FullStoryConfig.swift */,
+				94D1FC4C2DA7F39F000A904F /* OptimizelyConfig.swift */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -1175,6 +1180,7 @@
 				BAF0D4CA2AD6AE14007AC334 /* FacebookLogin */,
 				142EDD6B2B831D1400F9F320 /* BranchSDK */,
 				14A832542BD753F800E5654D /* SwiftyStoreKit */,
+				94D1FC472DA6AF44000A904F /* EDXFeatureManagement */,
 			);
 			productName = Core;
 			productReference = 0770DE0828D07831006D8A5D /* Core.framework */;
@@ -1216,6 +1222,7 @@
 				BA8FA6712AD6ABA300EA029A /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
 				142EDD6A2B831D1400F9F320 /* XCRemoteSwiftPackageReference "ios-branch-sdk-spm" */,
 				14A832532BD753F800E5654D /* XCRemoteSwiftPackageReference "SwiftyStoreKit" */,
+				94D1FC462DA6AF44000A904F /* XCLocalSwiftPackageReference "../EDXFeatureManagement" */,
 			);
 			productRefGroup = 0770DE0928D07831006D8A5D /* Products */;
 			projectDirPath = "";
@@ -1380,6 +1387,7 @@
 				BAFB99922B14E23D007D09F9 /* AppleSignInConfig.swift in Sources */,
 				141F1D302B7328D4009E81EB /* WebviewCookiesUpdateProtocol.swift in Sources */,
 				062C69B32C198337002BD311 /* PaymentSnackbarModifierViewModel.swift in Sources */,
+				94D1FC4D2DA7F3A6000A904F /* OptimizelyConfig.swift in Sources */,
 				064987992B4D69FF0071642A /* WebViewScriptInjectionProtocol.swift in Sources */,
 				14F8E66B2C0F4D1200E4EF69 /* RestoreInProgressView.swift in Sources */,
 				027BD3BE2909478B00392132 /* UIResponder+CurrentResponder.swift in Sources */,
@@ -2527,6 +2535,13 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		94D1FC462DA6AF44000A904F /* XCLocalSwiftPackageReference "../EDXFeatureManagement" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../EDXFeatureManagement;
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCRemoteSwiftPackageReference section */
 		025EF2F42971740000B838AB /* XCRemoteSwiftPackageReference "YouTubePlayerKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -2585,6 +2600,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 14A832532BD753F800E5654D /* XCRemoteSwiftPackageReference "SwiftyStoreKit" */;
 			productName = SwiftyStoreKit;
+		};
+		94D1FC472DA6AF44000A904F /* EDXFeatureManagement */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = EDXFeatureManagement;
 		};
 		BA8FA66B2AD59BBC00EA029A /* GoogleSignIn */ = {
 			isa = XCSwiftPackageProductDependency;
