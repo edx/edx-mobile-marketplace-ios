@@ -278,11 +278,13 @@ public class CourseContainerViewModel: BaseCourseViewModel {
         guard let courseStart, courseStart < Date() else { return }
         do {
             let courseDeadlineInfo = try await interactor.getCourseDeadlineInfo(courseID: courseID)
+
+            canShowBanner = interactor.canShowBanner(
+                courseDeadlineInfo.datesBannerInfo.status?.storageBannerType,
+                forCourse: courseID
+            )
+
             withAnimation {
-                self.canShowBanner = interactor.canShowBanner(
-                    courseDeadlineInfo.datesBannerInfo.status?.storageBannerType,
-                    forCourse: courseID
-                )
                 self.courseDeadlineInfo = courseDeadlineInfo
             }
         } catch let error {
