@@ -17,7 +17,17 @@ public enum CourseUpgradeScreen: String {
 public enum UpgradeMode: String {
     case silent
     case userInitiated = "user_initiated"
+    case trackSelection = "track_selection"
     case restore
+
+    var isUserInitiated: Bool {
+        switch self {
+        case .userInitiated, .trackSelection:
+            return true
+        case .silent, .restore:
+            return false
+        }
+    }
 }
 
 public enum UpgradeState {
@@ -63,7 +73,7 @@ public class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
         case .basket, .checkout, .payment:
             return .payment
         case .verify:
-            return .fulfillment(showLoader: upgradeMode == .userInitiated)
+            return .fulfillment(showLoader: upgradeMode.isUserInitiated)
         case .complete:
             return .success(courseID, componentID)
         case .error(let error):
@@ -149,7 +159,7 @@ public class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
         state = .checkout
         do {
             _ = try await interactor.checkoutBasket(basketID: basketID)
-            if upgradeMode != .userInitiated {
+            if !upgradeMode.isUserInitiated {
                 await reverifyPayment()
             } else {
                 let response = await makePayment(sku: sku)

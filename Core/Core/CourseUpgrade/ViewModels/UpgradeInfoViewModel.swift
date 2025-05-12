@@ -18,7 +18,9 @@ public class UpgradeInfoViewModel: ObservableObject {
     let analytics: CoreAnalytics
     let router: BaseRouter
     let lmsPrice: Double
-    
+
+    private var mode: UpgradeMode = .userInitiated
+
     @Published var isLoading: Bool = false
     @Published var product: StoreProductInfo?
     @Published var error: Error?
@@ -102,7 +104,7 @@ public class UpgradeInfoViewModel: ObservableObject {
                         alertType: .priceFetch,
                         errorAction: UpgradeErrorAction.reloadPrice.rawValue,
                         error: "price",
-                        flowType: .userInitiated
+                        flowType: mode
                     )
                 }
             )
@@ -128,7 +130,7 @@ public class UpgradeInfoViewModel: ObservableObject {
                     alertType: .priceFetch,
                     errorAction: UpgradeErrorAction.close.rawValue,
                     error: "price",
-                    flowType: .userInitiated
+                    flowType: mode
                 )
             }
         )
@@ -139,7 +141,9 @@ public class UpgradeInfoViewModel: ObservableObject {
         )
     }
 
-    public func purchase() async {
+    @MainActor
+    public func purchase(mode: UpgradeMode = .userInitiated) async {
+        self.mode = mode
         isLoading = true
         interactiveDismissDisabled = true
         analytics.trackUpgradeNow(
@@ -153,7 +157,7 @@ public class UpgradeInfoViewModel: ObservableObject {
         )
         await handler.upgradeCourse(
             sku: sku,
-            mode: .userInitiated,
+            mode: mode,
             productInfo: product,
             pacing: pacing,
             courseID: courseID,

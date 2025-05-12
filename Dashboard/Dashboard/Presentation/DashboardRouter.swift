@@ -21,7 +21,8 @@ public protocol DashboardRouter: BaseRouter {
                            courseRawImage: String?,
                            coursewareAccess: CoursewareAccess?,
                            showDates: Bool,
-                           lastVisitedBlockID: String?
+                           lastVisitedBlockID: String?,
+                           showTrackSelection: Bool
     )
     
     func showAllCourses(courses: [CourseItem])
@@ -47,8 +48,9 @@ public class DashboardRouterMock: BaseRouterMock, DashboardRouter {
                                   courseRawImage: String?,
                                   coursewareAccess: CoursewareAccess?,
                                   showDates: Bool,
-                                  lastVisitedBlockID: String?) {}
-    
+                                  lastVisitedBlockID: String?,
+                                  showTrackSelection: Bool) {}
+
     public func showAllCourses(courses: [CourseItem]) {}
     
     public func showDiscoverySearch(searchQuery: String?) {}

@@ -192,7 +192,8 @@ public class PipManager: PipManagerProtocol {
             courseRawImage: courseDetails.courseRawImage,
             coursewareAccess: nil,
             showDates: false,
-            lastVisitedBlockID: nil
+            lastVisitedBlockID: nil,
+            showTrackSelection: false
         )
         controller.rootView.viewModel.selection = holder.selectedCourseTab
         return controller

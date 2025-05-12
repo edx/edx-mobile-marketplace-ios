@@ -125,7 +125,8 @@ extension Router: DeepLinkRouter {
                     courseRawImage: courseDetails.courseRawImage,
                     coursewareAccess: nil,
                     showDates: false,
-                    lastVisitedBlockID: nil
+                    lastVisitedBlockID: nil,
+                    showTrackSelection: false
                 )
             } else {
                 showCourseDetais(

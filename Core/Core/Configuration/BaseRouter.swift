@@ -60,7 +60,18 @@ public protocol BaseRouter {
     func presentView(transitionStyle: UIModalTransitionStyle, animated: Bool, content: () -> any View)
     
     func presentNativeAlert(title: String?, message: String?, actions: [UIAlertAction])
-    
+
+    @MainActor
+    func showTrackSelection(
+        courseID: String,
+        productName: String,
+        screen: CourseUpgradeScreen,
+        sku: String,
+        pacing: String,
+        lmsPrice: Double,
+        accessExpires: Date
+    )
+
     @MainActor
     func showUpgradeInfo(
         productName: String,
@@ -166,7 +177,18 @@ open class BaseRouterMock: BaseRouter {
     public func presentView(transitionStyle: UIModalTransitionStyle, animated: Bool, content: () -> any View) {}
     
     public func presentNativeAlert(title: String?, message: String?, actions: [UIAlertAction]) {}
-    
+
+    @MainActor
+    public func showTrackSelection(
+        courseID: String,
+        productName: String,
+        screen: CourseUpgradeScreen,
+        sku: String,
+        pacing: String,
+        lmsPrice: Double,
+        accessExpires: Date
+    ) {}
+
     @MainActor
     public func showUpgradeInfo(
         productName: String,

@@ -73,7 +73,7 @@ public class ProgramWebviewViewModel: ObservableObject, WebviewCookiesUpdateProt
             courseDetails?.isEnrolled = true
             showProgress = false
             NotificationCenter.default.post(name: .onCourseEnrolled, object: courseID)
-            showCourseDetails()
+            showCourseDetails(showTrackSelection: true)
             courseDetails = nil
         } catch let error {
             showProgress = false
@@ -215,7 +215,7 @@ extension ProgramWebviewViewModel: WebViewNavigationDelegate {
         return (courseId, emailOptIn ?? false)
     }
     
-    @discardableResult private func showCourseDetails() -> Bool {
+    @discardableResult private func showCourseDetails(showTrackSelection: Bool = false) -> Bool {
         guard let courseDetails = courseDetails else { return false }
         
         router.showCourseScreens(
@@ -230,7 +230,8 @@ extension ProgramWebviewViewModel: WebViewNavigationDelegate {
             courseRawImage: courseDetails.courseRawImage,
             coursewareAccess: nil,
             showDates: false,
-            lastVisitedBlockID: nil
+            lastVisitedBlockID: nil,
+            showTrackSelection: showTrackSelection
         )
         
         return true

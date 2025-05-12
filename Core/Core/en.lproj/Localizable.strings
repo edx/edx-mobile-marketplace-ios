@@ -182,3 +182,13 @@
 "COURSE.AUDIT.EXPIRED_AGO" = "Access expired %@";
 "COURSE.AUDIT.EXPIRED_ON" = "Expired on %@";
 "COURSE.SOON" = "Soon";
+
+"TRACK_SELECTION.VIEW.TITLE" = "Choose a path.";
+"TRACK_SELECTION.CARD.EARN_CERTIFICATE_HEADING" = "Earn a certificate";
+"TRACK_SELECTION.CARD.EARN_CERTIFICATE_WITH_PRICE_HEADING" = "Earn a certificate for %@";
+"TRACK_SELECTION.CARD.EARN_CERTIFICATE_DESCRIPTION" = "Get access to all graded course activities and course materials, even after the course ends.\nEarn a verified certificate of completion.";
+"TRACK_SELECTION.CARD.ACCESS_COURSE_HEADING" = "Access this course";
+"TRACK_SELECTION.CARD.ACCESS_COURSE_SUBHEADING" = "Access expires %@";
+"TRACK_SELECTION.CARD.ACCESS_COURSE_DESCRIPTION" = "Limited access to non-graded activities and course material. Your progress and all access will be lost after %@";
+"TRACK_SELECTION.BUTTON.CONTINUE_WITH_FREE_TRACK" = "Continue with free track";
+"TRACK_SELECTION.BUTTON.CONTINUE_TO_PAYMENT" = "Continue to payment (%@)";

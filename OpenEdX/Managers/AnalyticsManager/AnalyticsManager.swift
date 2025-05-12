@@ -1524,7 +1524,45 @@ class AnalyticsManager: AuthorizationAnalytics,
         parameters.setObjectOrNil(lmsPrice, forKey: EventParamKey.lmsPrice)
         logScreenEvent(.courseUpgradeValuePropViewed, parameters: parameters)
     }
-    
+
+    public func trackSelectionViewed(
+        courseID: String,
+        pacing: String,
+        lmsPrice: Double,
+        screen: CourseUpgradeScreen
+    ) {
+        var parameters: [String: Any] = [
+            EventParamKey.category: EventCategory.inAppPurchases,
+            EventParamKey.name: EventBIValue.trackSelectionViewed.rawValue,
+            EventParamKey.screenName: screen.rawValue,
+            EventParamKey.flowType: UpgradeMode.trackSelection.rawValue,
+            EventParamKey.courseID: courseID,
+            EventParamKey.pacing: pacing
+        ]
+        parameters.setObjectOrNil(lmsPrice, forKey: EventParamKey.lmsPrice)
+
+        logScreenEvent(.trackSelectionViewed, parameters: parameters)
+    }
+
+    public func trackContinueWithFreeTrackClicked(
+        courseID: String,
+        pacing: String,
+        lmsPrice: Double,
+        screen: CourseUpgradeScreen
+    ) {
+        var parameters: [String: Any] = [
+            EventParamKey.category: EventCategory.inAppPurchases,
+            EventParamKey.name: EventBIValue.continueWithFreeTrackClicked.rawValue,
+            EventParamKey.screenName: screen.rawValue,
+            EventParamKey.flowType: UpgradeMode.trackSelection.rawValue,
+            EventParamKey.courseID: courseID,
+            EventParamKey.pacing: pacing
+        ]
+        parameters.setObjectOrNil(lmsPrice, forKey: EventParamKey.lmsPrice)
+
+        logEvent(.continueWithFreeTrackClicked, parameters: parameters)
+    }
+
     // MARK: - Notifications
 
     public func notificationScreenEvent(_ event: AnalyticsEvent, biValue: EventBIValue) {

@@ -30,7 +30,8 @@ public protocol DiscoveryRouter: BaseRouter {
         courseRawImage: String?,
         coursewareAccess: CoursewareAccess?,
         showDates: Bool,
-        lastVisitedBlockID: String?
+        lastVisitedBlockID: String?,
+        showTrackSelection: Bool
     )
     
     func showWebProgramDetails(
@@ -66,7 +67,8 @@ public class DiscoveryRouterMock: BaseRouterMock, DiscoveryRouter {
         courseRawImage: String?,
         coursewareAccess: CoursewareAccess?,
         showDates: Bool,
-        lastVisitedBlockID: String?
+        lastVisitedBlockID: String?,
+        showTrackSelection: Bool
     ) {}
     
     public func showWebProgramDetails(

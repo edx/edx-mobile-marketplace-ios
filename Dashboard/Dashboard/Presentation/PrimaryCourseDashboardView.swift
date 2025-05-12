@@ -114,7 +114,8 @@ public struct PrimaryCourseDashboardView<ProgramView: View, TopBarButtons: View>
                                                             courseRawImage: primary.courseBanner,
                                                             coursewareAccess: nil,
                                                             showDates: assignmentData.lastVisitedBlockID == nil,
-                                                            lastVisitedBlockID: assignmentData.lastVisitedBlockID
+                                                            lastVisitedBlockID: assignmentData.lastVisitedBlockID,
+                                                            showTrackSelection: false
                                                         )
                                                     },
                                                     openCourseAction: {
@@ -135,7 +136,8 @@ public struct PrimaryCourseDashboardView<ProgramView: View, TopBarButtons: View>
                                                             courseRawImage: primary.courseBanner,
                                                             coursewareAccess: nil,
                                                             showDates: false,
-                                                            lastVisitedBlockID: nil
+                                                            lastVisitedBlockID: nil,
+                                                            showTrackSelection: false
                                                         )
                                                     },
                                                     resumeAction: {
@@ -156,7 +158,8 @@ public struct PrimaryCourseDashboardView<ProgramView: View, TopBarButtons: View>
                                                             courseRawImage: primary.courseBanner,
                                                             coursewareAccess: nil,
                                                             showDates: false,
-                                                            lastVisitedBlockID: primary.lastVisitedBlockID
+                                                            lastVisitedBlockID: primary.lastVisitedBlockID,
+                                                            showTrackSelection: false
                                                         )
                                                     },
                                                     isUpgradeable: primary.isUpgradeable &&
@@ -286,7 +289,8 @@ public struct PrimaryCourseDashboardView<ProgramView: View, TopBarButtons: View>
                     courseRawImage: course.imageURL,
                     coursewareAccess: course.coursewareAccess,
                     showDates: false,
-                    lastVisitedBlockID: nil
+                    lastVisitedBlockID: nil,
+                    showTrackSelection: false
                 )
             }, label: {
                 CourseCardView(

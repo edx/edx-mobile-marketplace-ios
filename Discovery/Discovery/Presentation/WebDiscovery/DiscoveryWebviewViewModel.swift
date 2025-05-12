@@ -85,7 +85,7 @@ public class DiscoveryWebviewViewModel: ObservableObject {
             courseDetails?.isEnrolled = true
             showProgress = false
             NotificationCenter.default.post(name: .onCourseEnrolled, object: courseID)
-            showCourseDetails()
+            showCourseDetails(showTrackSelection: true)
         } catch let error {
             showProgress = false
             if error.isInternetError || error is NoCachedDataError {
@@ -241,7 +241,7 @@ extension DiscoveryWebviewViewModel: WebViewNavigationDelegate {
         return path
     }
     
-    @discardableResult private func showCourseDetails() -> Bool {
+    @discardableResult private func showCourseDetails(showTrackSelection: Bool = false) -> Bool {
         guard let courseDetails = courseDetails else { return false }
         
         router.showCourseScreens(
@@ -256,7 +256,8 @@ extension DiscoveryWebviewViewModel: WebViewNavigationDelegate {
             courseRawImage: courseDetails.courseRawImage,
             coursewareAccess: nil,
             showDates: false,
-            lastVisitedBlockID: nil
+            lastVisitedBlockID: nil,
+            showTrackSelection: showTrackSelection
         )
         
         return true

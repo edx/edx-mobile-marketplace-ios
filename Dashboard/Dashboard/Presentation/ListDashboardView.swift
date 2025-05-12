@@ -101,7 +101,8 @@ public struct ListDashboardView: View {
                                                 courseRawImage: course.courseRawImage,
                                                 coursewareAccess: course.coursewareAccess,
                                                 showDates: false,
-                                                lastVisitedBlockID: nil
+                                                lastVisitedBlockID: nil,
+                                                showTrackSelection: false
                                             )
                                         }
                                         .accessibilityIdentifier("course_item")
