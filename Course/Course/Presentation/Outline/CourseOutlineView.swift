@@ -146,13 +146,6 @@ public struct CourseOutlineView: View {
                                             proxy: proxy,
                                             viewModel: viewModel
                                         )
-                                    } else {
-                                        if let courseStart = viewModel.courseStart {
-                                            Text(courseStart > Date() ? CourseLocalization.Outline.courseHasntStarted : "")
-                                                .frame(maxWidth: .infinity)
-                                                .frame(maxHeight: .infinity)
-                                                .padding(.top, 100)
-                                        }
                                     }
                                     Spacer(minLength: viewHeight < 200 ? 200 : viewHeight)
                                 }

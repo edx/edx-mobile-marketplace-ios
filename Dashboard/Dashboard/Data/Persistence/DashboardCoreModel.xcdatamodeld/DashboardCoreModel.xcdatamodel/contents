@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22758" systemVersion="23G93" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23788" systemVersion="24E263" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="CDAssignment" representedClassName=".CDAssignment" syncable="YES" codeGenerationType="class">
         <attribute name="complete" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -81,11 +81,13 @@
         <attribute name="sku" optional="YES" attributeType="String"/>
         <attribute name="startDisplay" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="startType" optional="YES" attributeType="String"/>
+        <relationship name="coursewareAccess" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDDashboardCoursewareAccess"/>
         <relationship name="futureAssignments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDAssignment" inverseName="futureAssignment" inverseEntity="CDAssignment"/>
         <relationship name="pastAssignments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDAssignment" inverseName="pastAssignments" inverseEntity="CDAssignment"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="courseID"/>
+                <constraint value="name"/>
             </uniquenessConstraint>
         </uniquenessConstraints>
     </entity>

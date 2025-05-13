@@ -121,6 +121,23 @@ public class DashboardPersistence: DashboardPersistenceProtocol {
         if let result = try context.fetch(request).first {
             let primaryCourse = result.primaryCourse.flatMap { cdPrimaryCourse -> PrimaryCourse? in
                 
+                var coursewareAccess: CoursewareAccess?
+                if let access = cdPrimaryCourse.coursewareAccess {
+                    var coursewareError: CourseAccessError?
+                    if let error = access.errorCode {
+                        coursewareError = CourseAccessError(rawValue: error) ?? .unknown
+                    }
+                    
+                    coursewareAccess = CoursewareAccess(
+                        hasAccess: access.hasAccess,
+                        errorCode: coursewareError,
+                        developerMessage: access.developerMessage,
+                        userMessage: access.userMessage,
+                        additionalContextUserMessage: access.additionalContextUserMessage,
+                        userFragment: access.userFragment
+                    )
+                }
+
                 let futureAssignments = (cdPrimaryCourse.futureAssignments as? Set<CDAssignment> ?? [])
                     .map { future in
                         return Assignment(
@@ -165,7 +182,8 @@ public class DashboardPersistence: DashboardPersistenceProtocol {
                     isUpgradeable: cdPrimaryCourse.isUpgradeable,
                     sku: cdPrimaryCourse.sku,
                     lmsPrice: cdPrimaryCourse.lmsPrice?.doubleValue,
-                    isSelfPaced: cdPrimaryCourse.isSelfPaced
+                    isSelfPaced: cdPrimaryCourse.isSelfPaced,
+                    coursewareAccess: coursewareAccess
                 )
             }
             
@@ -233,6 +251,23 @@ public class DashboardPersistence: DashboardPersistenceProtocol {
             if let result = try context.fetch(request).first {
                 let primaryCourse = result.primaryCourse.flatMap { cdPrimaryCourse -> PrimaryCourse? in
                     
+                    var coursewareAccess: CoursewareAccess?
+                    if let access = cdPrimaryCourse.coursewareAccess {
+                        var coursewareError: CourseAccessError?
+                        if let error = access.errorCode {
+                            coursewareError = CourseAccessError(rawValue: error) ?? .unknown
+                        }
+                        
+                        coursewareAccess = CoursewareAccess(
+                            hasAccess: access.hasAccess,
+                            errorCode: coursewareError,
+                            developerMessage: access.developerMessage,
+                            userMessage: access.userMessage,
+                            additionalContextUserMessage: access.additionalContextUserMessage,
+                            userFragment: access.userFragment
+                        )
+                    }
+
                     let futureAssignments = (cdPrimaryCourse.futureAssignments as? Set<CDAssignment> ?? [])
                         .map { future in
                             return Assignment(
@@ -277,7 +312,8 @@ public class DashboardPersistence: DashboardPersistenceProtocol {
                         isUpgradeable: cdPrimaryCourse.isUpgradeable,
                         sku: cdPrimaryCourse.sku,
                         lmsPrice: cdPrimaryCourse.lmsPrice?.doubleValue,
-                        isSelfPaced: cdPrimaryCourse.isSelfPaced
+                        isSelfPaced: cdPrimaryCourse.isSelfPaced,
+                        coursewareAccess: coursewareAccess
                     )
                 }
                 

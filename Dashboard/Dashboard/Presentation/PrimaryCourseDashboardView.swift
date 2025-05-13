@@ -112,7 +112,7 @@ public struct PrimaryCourseDashboardView<ProgramView: View, TopBarButtons: View>
                                                             title: primary.name,
                                                             org: primary.org,
                                                             courseRawImage: primary.courseBanner,
-                                                            coursewareAccess: nil,
+                                                            coursewareAccess: primary.coursewareAccess,
                                                             showDates: assignmentData.lastVisitedBlockID == nil,
                                                             lastVisitedBlockID: assignmentData.lastVisitedBlockID
                                                         )
@@ -133,7 +133,7 @@ public struct PrimaryCourseDashboardView<ProgramView: View, TopBarButtons: View>
                                                             title: primary.name,
                                                             org: primary.org,
                                                             courseRawImage: primary.courseBanner,
-                                                            coursewareAccess: nil,
+                                                            coursewareAccess: primary.coursewareAccess,
                                                             showDates: false,
                                                             lastVisitedBlockID: nil
                                                         )
@@ -154,7 +154,7 @@ public struct PrimaryCourseDashboardView<ProgramView: View, TopBarButtons: View>
                                                             title: primary.name,
                                                             org: primary.org,
                                                             courseRawImage: primary.courseBanner,
-                                                            coursewareAccess: nil,
+                                                            coursewareAccess: primary.coursewareAccess,
                                                             showDates: false,
                                                             lastVisitedBlockID: primary.lastVisitedBlockID
                                                         )

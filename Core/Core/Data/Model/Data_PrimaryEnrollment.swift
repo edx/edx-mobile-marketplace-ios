@@ -231,6 +231,21 @@ public extension DataLayer.PrimaryEnrollment {
         let futureAssignments = primary.courseAssignments?.futureAssignments ?? []
         let pastAssignments = primary.courseAssignments?.pastAssignments ?? []
         
+        let access = primary.course?.coursewareAccess
+        var coursewareError: CourseAccessError?
+        if let error = access?.errorCode {
+            coursewareError = CourseAccessError(rawValue: error.rawValue) ?? .unknown
+        }
+        
+        let coursewareAccess = CoursewareAccess(
+            hasAccess: access?.hasAccess ?? false,
+            errorCode: coursewareError,
+            developerMessage: access?.developerMessage,
+            userMessage: access?.userMessage,
+            additionalContextUserMessage: access?.additionalContextUserMessage,
+            userFragment: access?.userFragment
+        )
+        
         return PrimaryCourse(
             name: primary.course?.name ?? "",
             org: primary.course?.org ?? "",
@@ -251,7 +266,8 @@ public extension DataLayer.PrimaryEnrollment {
             isUpgradeable: primary.isUpgradeable,
             sku: primary.sku,
             lmsPrice: primary.lmsPrice,
-            isSelfPaced: primary.course?.isSelfPaced ?? false
+            isSelfPaced: primary.course?.isSelfPaced ?? false,
+            coursewareAccess: coursewareAccess
         )
     }
     

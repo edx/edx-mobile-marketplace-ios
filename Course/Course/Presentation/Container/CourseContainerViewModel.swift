@@ -229,12 +229,6 @@ public class CourseContainerViewModel: BaseCourseViewModel {
     
     @MainActor
     func getCourseBlocks(courseID: String, withProgress: Bool = true) async {
-        guard let courseStart, courseStart < Date() else {
-            isShowProgress = false
-            isShowRefresh = false
-            return
-        }
-        
         isShowProgress = withProgress
         isShowRefresh = !withProgress
         do {
