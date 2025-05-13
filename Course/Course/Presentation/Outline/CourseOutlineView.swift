@@ -222,6 +222,8 @@ public struct CourseOutlineView: View {
             .paymentSnackbar()
         }
         .onAppear {
+            viewModel.updateBannerVisibilityStatus(forCourse: courseID)
+
             Task {
                await viewModel.updateCourseIfNeeded(courseID: courseID)
             }

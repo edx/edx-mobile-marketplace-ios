@@ -269,6 +269,9 @@ struct CourseDateListView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }
+        .onAppear {
+            viewModel.updateBannerVisibilityStatus()
+        }
     }
 }
 

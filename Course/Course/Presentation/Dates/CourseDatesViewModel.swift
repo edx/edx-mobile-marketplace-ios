@@ -104,30 +104,33 @@ public class CourseDatesViewModel: ObservableObject {
             courseDates?.statusDatesBlocks.keys.contains($0) ?? false }
         return filteredKeys
     }
-    
+
+    @MainActor
+    func updateBannerVisibilityStatus() {
+        canShowBanner = interactor.canShowBanner(
+            courseDates?.datesBannerInfo.status?.storageBannerType,
+            forCourse: courseID
+        )
+    }
+
     @MainActor
     func getCourseDates(courseID: String) async {
         isShowProgress = true
 
         defer {
-            canShowBanner = interactor.canShowBanner(
-                courseDates?.datesBannerInfo.status?.storageBannerType,
-                forCourse: courseID
-            )
+            isShowProgress = false
+            updateBannerVisibilityStatus()
         }
 
         do {
             courseDates = try await interactor.getCourseDates(courseID: courseID)
             await getCourseStructure(courseID: courseID)
             if courseDates?.courseDateBlocks == nil {
-                isShowProgress = false
                 courseDates = nil
                 return
             }
-            isShowProgress = false
             addCourseEventsIfNecessary()
         } catch {
-            isShowProgress = false
             courseDates = nil
         }
     }
