@@ -220,13 +220,6 @@ struct CourseDateListView: View {
                                     screen: .courseDates,
                                     onDismiss: {
                                         viewModel.dismissBanner(forCourse: courseID)
-                                        viewModel.trackPLSEvent(
-                                            .plsBannerDismissed,
-                                            bivalue: .plsBannerDismissed,
-                                            courseID: courseID,
-                                            screenName: DatesStatusInfoScreen.courseDates.rawValue,
-                                            type: courseDates.datesBannerInfo.status?.analyticsBannerType ?? ""
-                                        )
                                     }
                                 )
                                 .padding(.bottom, 16)
