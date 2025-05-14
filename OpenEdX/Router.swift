@@ -20,8 +20,7 @@ import WhatsNew
 import Combine
 import Notifications
 
-// swiftlint:disable file_length type_body_length
-// swiftlint:disable function_parameter_count
+// swiftlint:disable file_length type_body_length function_parameter_count
 public class Router: AuthorizationRouter,
                      WhatsNewRouter,
                      DiscoveryRouter,
@@ -1095,5 +1094,4 @@ extension Router {
     }
     
 }
-// swiftlint:enable function_parameter_count
-// swiftlint:enable file_length type_body_length
+// swiftlint:enable file_length type_body_length function_parameter_count
