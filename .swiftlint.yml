@@ -60,7 +60,7 @@ file_length:
   
 function_parameter_count:
   warning: 10
-  error: 13
+  error: 12
 
 type_name:
   min_length: 3 # only warning

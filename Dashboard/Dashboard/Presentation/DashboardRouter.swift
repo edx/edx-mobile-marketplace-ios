@@ -8,6 +8,7 @@
 import Foundation
 import Core
 
+// swiftlint:disable function_parameter_count
 public protocol DashboardRouter: BaseRouter {
     
     func showCourseScreens(courseID: String,
@@ -58,3 +59,4 @@ public class DashboardRouterMock: BaseRouterMock, DashboardRouter {
     public func showSettings() {}
 }
 #endif
+// swiftlint:enable function_parameter_count
