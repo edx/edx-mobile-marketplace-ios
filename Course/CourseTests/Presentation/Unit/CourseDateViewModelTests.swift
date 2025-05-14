@@ -53,7 +53,8 @@ final class CourseDateViewModelTests: XCTestCase {
             courseProgress: nil,
             lmsPrice: .zero
         )
-        
+
+        Given(interactor, .canShowBanner(.any, forCourse: .any, willReturn: true))
         Given(interactor, .getCourseDates(courseID: .any, willReturn: courseDates))
         Given(interactor, .getLoadedCourseBlocks(courseID: .any, willReturn: courseStructure))
         
@@ -84,7 +85,8 @@ final class CourseDateViewModelTests: XCTestCase {
         let cssInjector = CSSInjectorMock()
         let connectivity = ConnectivityProtocolMock()
         let config = ConfigMock()
-        
+
+        Given(interactor, .canShowBanner(.any, forCourse: .any, willReturn: true))
         Given(interactor, .getCourseDates(courseID: .any, willThrow: NSError(domain: "error", code: -1, userInfo: nil)))
         
         let viewModel = CourseDatesViewModel(
@@ -114,7 +116,8 @@ final class CourseDateViewModelTests: XCTestCase {
         let config = ConfigMock()
         
         let noInternetError = AFError.sessionInvalidated(error: URLError(.notConnectedToInternet))
-        
+
+        Given(interactor, .canShowBanner(.any, forCourse: .any, willReturn: true))
         Given(interactor, .getCourseDates(courseID: .any, willThrow: noInternetError))
         
         let viewModel = CourseDatesViewModel(

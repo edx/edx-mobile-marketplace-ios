@@ -58,6 +58,7 @@ public class CourseContainerViewModel: BaseCourseViewModel {
     @Published public var selection: Int
     @Published var isShowProgress = true
     @Published var isShowRefresh = false
+    @Published var canShowBanner = false
     @Published var courseStructure: CourseStructure?
     @Published var courseDeadlineInfo: CourseDateBanner?
     @Published var courseVideosStructure: CourseStructure?
@@ -226,7 +227,17 @@ public class CourseContainerViewModel: BaseCourseViewModel {
             shouldHideMenuBar = true
         }
     }
-    
+
+    @MainActor
+    func updateBannerVisibilityStatus(forCourse courseID: String, dateBanner: CourseDateBanner? = nil) {
+        let data = dateBanner ?? courseDeadlineInfo
+
+        canShowBanner = interactor.canShowBanner(
+            data?.datesBannerInfo.status?.storageBannerType,
+            forCourse: courseID
+        )
+    }
+
     @MainActor
     func getCourseBlocks(courseID: String, withProgress: Bool = true) async {
         guard let courseStart, courseStart < Date() else {
@@ -277,6 +288,8 @@ public class CourseContainerViewModel: BaseCourseViewModel {
         guard let courseStart, courseStart < Date() else { return }
         do {
             let courseDeadlineInfo = try await interactor.getCourseDeadlineInfo(courseID: courseID)
+            updateBannerVisibilityStatus(forCourse: courseID, dateBanner: courseDeadlineInfo)
+
             withAnimation {
                 self.courseDeadlineInfo = courseDeadlineInfo
             }
@@ -453,7 +466,24 @@ public class CourseContainerViewModel: BaseCourseViewModel {
             )
         }
     }
-    
+
+    func dismissBanner(forCourse courseID: String) {
+        guard let banner = courseDeadlineInfo?.datesBannerInfo.status else {
+            return
+        }
+
+        interactor.markBannerDismissed(banner.storageBannerType, forCourse: courseID)
+        canShowBanner = false
+
+        analytics.plsEvent(
+            .plsBannerDismissed,
+            bivalue: .plsBannerDismissed,
+            courseID: courseID,
+            screenName: DatesStatusInfoScreen.courseDashbaord.rawValue,
+            type: banner.analyticsBannerType
+        )
+    }
+
     func verticalsBlocksDownloadable(by courseSequential: CourseSequential) -> [CourseBlock] {
         let verticals = downloadableVerticals.filter { verticalState in
             courseSequential.childs.contains(where: { item in

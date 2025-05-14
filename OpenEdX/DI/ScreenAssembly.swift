@@ -326,7 +326,8 @@ class ScreenAssembly: Assembly {
         }
         container.register(CourseInteractorProtocol.self) { r in
             CourseInteractor(
-                repository: r.resolve(CourseRepositoryProtocol.self)!
+                repository: r.resolve(CourseRepositoryProtocol.self)!,
+                storage: r.resolve(CourseStorage.self)!
             )
         }
         container.register(CourseDetailsViewModel.self) { r in

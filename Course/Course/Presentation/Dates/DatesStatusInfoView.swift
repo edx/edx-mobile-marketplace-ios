@@ -21,7 +21,8 @@ struct DatesStatusInfoView: View {
     var courseDatesViewModel: CourseDatesViewModel?
     var courseContainerViewModel: CourseContainerViewModel?
     var screen: DatesStatusInfoScreen
-    
+    var onDismiss: (() -> Void)
+
     @State private var isLoading = false
 
     var body: some View {
@@ -30,11 +31,23 @@ struct DatesStatusInfoView: View {
             let buttonTitle = datesBannerInfo.status?.buttonTitle ?? ""
             Spacer()
             if !header.isEmpty {
-                Text(header)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .font(Theme.Fonts.titleMedium)
-                    .foregroundColor(Theme.Colors.textPrimary)
-                    .padding(.horizontal, 16)
+                HStack {
+                    Text(header)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+
+                    Button(
+                        action: {
+                            onDismiss()
+                        },
+                        label: {
+                            Image(systemName: "xmark")
+                        }
+                    )
+                }
+                .frame(maxWidth: .infinity)
+                .font(Theme.Fonts.titleMedium)
+                .foregroundColor(Theme.Colors.textPrimary)
+                .padding(.horizontal, 16)
             }
             
             Text(datesBannerInfo.status?.body ?? "")
@@ -113,7 +126,8 @@ struct DatesStatusInfoView_Previews: PreviewProvider {
         DatesStatusInfoView(
             datesBannerInfo: datesBannerInfo,
             courseID: "courseID",
-            screen: .courseDashbaord
+            screen: .courseDashbaord,
+            onDismiss: {}
         )
     }
 }

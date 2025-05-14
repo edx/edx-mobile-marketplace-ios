@@ -224,7 +224,29 @@ public class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, CourseSto
             }
         }
     }
-    
+
+    public func dismissalDate(for bannerType: CourseBannerType, courseID: String) -> Date? {
+        let key = makeKey(bannerType: bannerType, courseID: courseID)
+        guard let dateString = userDefaults.string(forKey: key) else {
+            return nil
+        }
+
+        return Date(iso8601: dateString)
+    }
+
+    public func setDismissalDate(for bannerType: CourseBannerType, courseID: String, to date: Date?) {
+        let key = makeKey(bannerType: bannerType, courseID: courseID)
+
+        if let date {
+            userDefaults.set(
+                date.dateToString(style: .iso8601),
+                forKey: key
+            )
+        } else {
+            userDefaults.removeObject(forKey: key)
+        }
+    }
+
     public var resetAppSupportDirectoryUserData: Bool? {
         get {
             return userDefaults.bool(forKey: KEY_RESET_APP_SUPPORT_DIRECTORY_USER_DATA)
@@ -323,9 +345,14 @@ public class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, CourseSto
     private let KEY_APPLE_SIGN_FULLNAME = "appleSignFullName"
     private let KEY_APPLE_SIGN_EMAIL = "appleSignEmail"
     private let KEY_ALLOWED_DOWNLOAD_LARGE_FILE = "allowedDownloadLargeFile"
+    private let KEY_PREFIX_COURSE_BANNER_DISMISSAL_DATE = "courseBannerDismissalDate"
     private let KEY_RESET_APP_SUPPORT_DIRECTORY_USER_DATA = "resetAppSupportDirectoryUserData"
     private let KEY_LAST_USED_SOCIAL_AUTH = "lastUsedSocialAuth"
     private let KEY_DISCUSSION_NOTIFICATIONS_SETTING_STATUS = "discussionNotificationsSettingStatus"
     private let KEY_NOTIFICATIONS_PRIMER_DISMISSAL_COUNT = "notificationsPrimerDismissalCount"
     private let KEY_NOTIFICATIONS_PRIMER_LAST_SHOWN_DATE = "notificationsPrimerLastShownDate"
+
+    private func makeKey(bannerType: CourseBannerType, courseID: String) -> String {
+        return "\(KEY_PREFIX_COURSE_BANNER_DISMISSAL_DATE).\(bannerType.rawValue).\(courseID)"
+    }
 }

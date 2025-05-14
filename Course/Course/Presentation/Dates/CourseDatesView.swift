@@ -211,14 +211,19 @@ struct CourseDateListView: View {
                         if !courseDates.hasEnded {
                             CalendarSyncView(courseID: courseID, viewModel: viewModel)
                                 .padding(.bottom, 16)
-                            
-                            DatesStatusInfoView(
-                                datesBannerInfo: courseDates.datesBannerInfo,
-                                courseID: courseID,
-                                courseDatesViewModel: viewModel,
-                                screen: .courseDates
-                            )
-                            .padding(.bottom, 16)
+
+                            if viewModel.canShowBanner {
+                                DatesStatusInfoView(
+                                    datesBannerInfo: courseDates.datesBannerInfo,
+                                    courseID: courseID,
+                                    courseDatesViewModel: viewModel,
+                                    screen: .courseDates,
+                                    onDismiss: {
+                                        viewModel.dismissBanner(forCourse: courseID)
+                                    }
+                                )
+                                .padding(.bottom, 16)
+                            }
                         }
                         
                         ForEach(Array(viewModel.sortedStatuses), id: \.self) { status in
@@ -263,6 +268,9 @@ struct CourseDateListView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
+        }
+        .onAppear {
+            viewModel.updateBannerVisibilityStatus()
         }
     }
 }
@@ -546,7 +554,10 @@ fileprivate extension AttributedString {
 struct CourseDatesView_Previews: PreviewProvider {
     static var previews: some View {
         let viewModel = CourseDatesViewModel(
-            interactor: CourseInteractor(repository: CourseRepositoryMock()),
+            interactor: CourseInteractor(
+                repository: CourseRepositoryMock(),
+                storage: CourseStorageMock()
+            ),
             router: CourseRouterMock(),
             cssInjector: CSSInjectorMock(),
             connectivity: Connectivity(),
