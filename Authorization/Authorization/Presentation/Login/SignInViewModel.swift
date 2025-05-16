@@ -89,7 +89,7 @@ public class SignInViewModel: ObservableObject {
             return
         }
         guard !password.isEmpty else {
-            errorMessage = AuthLocalization.Error.invalidPasswordLenght
+            errorMessage = AuthLocalization.Error.invalidPasswordLength
             return
         }
         analytics.userSignInClicked(method: AuthMethod.password.analyticsValue)
