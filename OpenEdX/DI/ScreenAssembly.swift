@@ -16,6 +16,7 @@ import Course
 import Discussion
 import Combine
 import Notifications
+import EDXFeatureManagement
 
 // swiftlint:disable function_body_length type_body_length
 class ScreenAssembly: Assembly {
@@ -31,7 +32,8 @@ class ScreenAssembly: Assembly {
         }
         container.register(AuthInteractorProtocol.self) { r in
             AuthInteractor(
-                repository: r.resolve(AuthRepositoryProtocol.self)!
+                repository: r.resolve(AuthRepositoryProtocol.self)!,
+                featureManager: r.resolve(FeatureManagerProtocol.self)!
             )
         }
         
@@ -210,7 +212,8 @@ class ScreenAssembly: Assembly {
         }
         container.register(ProfileInteractorProtocol.self) { r in
             ProfileInteractor(
-                repository: r.resolve(ProfileRepositoryProtocol.self)!
+                repository: r.resolve(ProfileRepositoryProtocol.self)!,
+                featureManager: r.resolve(FeatureManagerProtocol.self)!
             )
         }
         container.register(ProfileViewModel.self) { r in
@@ -323,7 +326,8 @@ class ScreenAssembly: Assembly {
         }
         container.register(CourseInteractorProtocol.self) { r in
             CourseInteractor(
-                repository: r.resolve(CourseRepositoryProtocol.self)!
+                repository: r.resolve(CourseRepositoryProtocol.self)!,
+                storage: r.resolve(CourseStorage.self)!
             )
         }
         container.register(CourseDetailsViewModel.self) { r in

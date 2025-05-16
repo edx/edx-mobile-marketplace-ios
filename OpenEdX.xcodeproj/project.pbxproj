@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -55,6 +55,8 @@
 		14D912D32C25483F0077CCCE /* FullStory in Frameworks */ = {isa = PBXBuildFile; productRef = 14D912D22C25483F0077CCCE /* FullStory */; };
 		14D912D72C2551F60077CCCE /* FullStoryAnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D912D62C2551F60077CCCE /* FullStoryAnalyticsService.swift */; };
 		1924EDE8164C7AB17AD4946B /* Pods_App_OpenEdX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC49621A0942E5EE74BDC895 /* Pods_App_OpenEdX.framework */; };
+		9426DE892DB28B3A00230582 /* EDXFeatureManagement in Frameworks */ = {isa = PBXBuildFile; productRef = 9426DE882DB28B3A00230582 /* EDXFeatureManagement */; };
+		9426DE8D2DB28BD000230582 /* FeatureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9426DE8B2DB28BD000230582 /* FeatureManager.swift */; };
 		94AE32322D8838E400FA048D /* Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AE32312D8838DE00FA048D /* Payload.swift */; };
 		94F4AC6C2DAD398200D50B61 /* FirebasePerformance in Frameworks */ = {isa = PBXBuildFile; productRef = 94F4AC6B2DAD398200D50B61 /* FirebasePerformance */; };
 		A500668B2B613ED10024680B /* PushNotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A500668A2B613ED10024680B /* PushNotificationsManager.swift */; };
@@ -175,6 +177,7 @@
 		14D912D62C2551F60077CCCE /* FullStoryAnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullStoryAnalyticsService.swift; sourceTree = "<group>"; };
 		1BB1F1D0FABF8788646FBAF2 /* Pods-App-OpenEdX.debugstage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-OpenEdX.debugstage.xcconfig"; path = "Target Support Files/Pods-App-OpenEdX/Pods-App-OpenEdX.debugstage.xcconfig"; sourceTree = "<group>"; };
 		37C50995093E34142FDE0ED9 /* Pods-App-OpenEdX.releasedev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-OpenEdX.releasedev.xcconfig"; path = "Target Support Files/Pods-App-OpenEdX/Pods-App-OpenEdX.releasedev.xcconfig"; sourceTree = "<group>"; };
+		9426DE8B2DB28BD000230582 /* FeatureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureManager.swift; sourceTree = "<group>"; };
 		94AE32312D8838DE00FA048D /* Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payload.swift; sourceTree = "<group>"; };
 		A500668A2B613ED10024680B /* PushNotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationsManager.swift; sourceTree = "<group>"; };
 		A500668C2B6143000024680B /* FCMProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMProvider.swift; sourceTree = "<group>"; };
@@ -213,6 +216,7 @@
 				0218196428F734FA00202564 /* Discussion.framework in Frameworks */,
 				0780ABE52BFBA2E40093A4A6 /* FirebaseMessaging in Frameworks */,
 				0219C67728F4347600D64452 /* Course.framework in Frameworks */,
+				9426DE892DB28B3A00230582 /* EDXFeatureManagement in Frameworks */,
 				0780ABE32BFBA2E40093A4A6 /* FirebaseAnalytics in Frameworks */,
 				027DB33028D8A063002B6862 /* Dashboard.framework in Frameworks */,
 				94F4AC6C2DAD398200D50B61 /* FirebasePerformance in Frameworks */,
@@ -351,6 +355,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		9426DE8C2DB28BD000230582 /* FeatureManager */ = {
+			isa = PBXGroup;
+			children = (
+				9426DE8B2DB28BD000230582 /* FeatureManager.swift */,
+			);
+			path = FeatureManager;
+			sourceTree = "<group>";
+		};
 		A50066872B613E4B0024680B /* PushNotificationsManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -372,6 +384,7 @@
 				A59702272B83C84800CA064C /* FirebaseAnalyticsService */,
 				A5C10D8D2B861A56008E864D /* SegmentAnalyticsService */,
 				14D912D52C2551CE0077CCCE /* FullStoryAnalyticsService */,
+				9426DE8C2DB28BD000230582 /* FeatureManager */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -490,6 +503,7 @@
 				14D912D22C25483F0077CCCE /* FullStory */,
 				149B52D82C5FE5AB00C7BF5D /* FirebaseCrashlytics */,
 				94F4AC6B2DAD398200D50B61 /* FirebasePerformance */,
+				9426DE882DB28B3A00230582 /* EDXFeatureManagement */,
 			);
 			productName = OpenEdX;
 			productReference = 07D5DA3128D075AA00752FD9 /* OpenEdX.app */;
@@ -527,6 +541,7 @@
 				A5462D9D2B865713003B96A5 /* XCRemoteSwiftPackageReference "analytics-swift" */,
 				0780ABE12BFBA2E40093A4A6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				14D912D12C25483F0077CCCE /* XCRemoteSwiftPackageReference "fullstory-swift-package-ios" */,
+				9426DE872DB28B3900230582 /* XCLocalSwiftPackageReference "EDXFeatureManagement" */,
 			);
 			productRefGroup = 07D5DA3228D075AA00752FD9 /* Products */;
 			projectDirPath = "";
@@ -660,6 +675,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9426DE8D2DB28BD000230582 /* FeatureManager.swift in Sources */,
 				0780ABE82BFCA1530093A4A6 /* NotificationsEndpoints.swift in Sources */,
 				A500668B2B613ED10024680B /* PushNotificationsManager.swift in Sources */,
 				0293A2052A6FCD430090A336 /* CoursePersistence.swift in Sources */,
@@ -1323,6 +1339,13 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		9426DE872DB28B3900230582 /* XCLocalSwiftPackageReference "EDXFeatureManagement" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = EDXFeatureManagement;
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCRemoteSwiftPackageReference section */
 		0780ABE12BFBA2E40093A4A6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -1393,6 +1416,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 14D912D12C25483F0077CCCE /* XCRemoteSwiftPackageReference "fullstory-swift-package-ios" */;
 			productName = FullStory;
+		};
+		9426DE882DB28B3A00230582 /* EDXFeatureManagement */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = EDXFeatureManagement;
 		};
 		94F4AC6B2DAD398200D50B61 /* FirebasePerformance */ = {
 			isa = XCSwiftPackageProductDependency;

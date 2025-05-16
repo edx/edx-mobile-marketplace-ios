@@ -138,7 +138,20 @@ public extension DataLayer {
                 ""
             }
         }
-        
+
+        var storageBannerType: CourseBannerType {
+            switch self {
+            case .datesTabInfoBanner:
+                return .infoBanner
+            case .upgradeToCompleteGradedBanner:
+                return .upgradeToGraded
+            case .upgradeToResetBanner:
+                return .upgradeToReset
+            case .resetDatesBanner:
+                return .resetDates
+            }
+        }
+
         var analyticsBannerType: String {
             switch self {
             case .datesTabInfoBanner:

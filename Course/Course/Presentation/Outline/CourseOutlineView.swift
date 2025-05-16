@@ -83,12 +83,16 @@ public struct CourseOutlineView: View {
                                    courseDeadlineInfo.datesBannerInfo.status == .resetDatesBanner,
                                    !courseDeadlineInfo.hasEnded,
                                    !isVideo,
-                                   !viewModel.isShowProgress {
+                                   !viewModel.isShowProgress,
+                                   viewModel.canShowBanner {
                                     DatesStatusInfoView(
                                         datesBannerInfo: courseDeadlineInfo.datesBannerInfo,
                                         courseID: courseID,
                                         courseContainerViewModel: viewModel,
-                                        screen: .courseDashbaord
+                                        screen: .courseDashbaord,
+                                        onDismiss: {
+                                            viewModel.dismissBanner(forCourse: courseID)
+                                        }
                                     )
                                     .padding(.horizontal, 16)
                                     .padding(.top, 16)
@@ -211,6 +215,8 @@ public struct CourseOutlineView: View {
             .paymentSnackbar()
         }
         .onAppear {
+            viewModel.updateBannerVisibilityStatus(forCourse: courseID)
+
             Task {
                await viewModel.updateCourseIfNeeded(courseID: courseID)
             }

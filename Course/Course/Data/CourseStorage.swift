@@ -8,9 +8,19 @@
 import Foundation
 import Core
 
+public enum CourseBannerType: String {
+    case resetDates = "ResetDates"
+    case upgradeToGraded = "UpgradeToGraded"
+    case infoBanner = "InfoBanner"
+    case upgradeToReset = "UpgradeToReset"
+}
+
 public protocol CourseStorage {
     var allowedDownloadLargeFile: Bool? { get set }
     var userSettings: UserSettings? { get set }
+
+    func dismissalDate(for bannerType: CourseBannerType, courseID: String) -> Date?
+    func setDismissalDate(for bannerType: CourseBannerType, courseID: String, to date: Date?)
 }
 
 #if DEBUG
@@ -21,5 +31,9 @@ public class CourseStorageMock: CourseStorage {
     public var allowedDownloadLargeFile: Bool?
 
     public init() {}
+
+    public func dismissalDate(for bannerType: CourseBannerType, courseID: String) -> Date? { nil }
+
+    public func setDismissalDate(for bannerType: CourseBannerType, courseID: String, to date: Date?) {}
 }
 #endif
