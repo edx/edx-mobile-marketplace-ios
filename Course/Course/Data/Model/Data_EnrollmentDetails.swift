@@ -20,7 +20,7 @@ public extension DataLayer {
         
         public init(
             id: String,
-            coursewareAccessDetails: CoursewareAccessDetails? = nil,
+            coursewareAccessDetails: CoursewareAccessDetails? = nil
         ) {
             self.id = id
             self.coursewareAccessDetails = coursewareAccessDetails
