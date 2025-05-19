@@ -121,14 +121,13 @@ public class DashboardPersistence: DashboardPersistenceProtocol {
         if let result = try context.fetch(request).first {
             let primaryCourse = result.primaryCourse.flatMap { cdPrimaryCourse -> PrimaryCourse? in
                 
-                var coursewareAccess: CoursewareAccess?
-                if let access = cdPrimaryCourse.coursewareAccess {
+                let coursewareAccess = cdPrimaryCourse.coursewareAccess.map { access in
                     var coursewareError: CourseAccessError?
                     if let error = access.errorCode {
                         coursewareError = CourseAccessError(rawValue: error) ?? .unknown
                     }
                     
-                    coursewareAccess = CoursewareAccess(
+                    return CoursewareAccess(
                         hasAccess: access.hasAccess,
                         errorCode: coursewareError,
                         developerMessage: access.developerMessage,
@@ -251,14 +250,13 @@ public class DashboardPersistence: DashboardPersistenceProtocol {
             if let result = try context.fetch(request).first {
                 let primaryCourse = result.primaryCourse.flatMap { cdPrimaryCourse -> PrimaryCourse? in
                     
-                    var coursewareAccess: CoursewareAccess?
-                    if let access = cdPrimaryCourse.coursewareAccess {
+                    let coursewareAccess = cdPrimaryCourse.coursewareAccess.map { access in
                         var coursewareError: CourseAccessError?
                         if let error = access.errorCode {
                             coursewareError = CourseAccessError(rawValue: error) ?? .unknown
                         }
                         
-                        coursewareAccess = CoursewareAccess(
+                        return CoursewareAccess(
                             hasAccess: access.hasAccess,
                             errorCode: coursewareError,
                             developerMessage: access.developerMessage,
@@ -452,6 +450,17 @@ public class DashboardPersistence: DashboardPersistenceProtocol {
                 cdPrimaryCourse.lmsPrice = lmsPrice
                 cdPrimaryCourse.isUpgradeable = primaryCourse.isUpgradeable
                 cdPrimaryCourse.isSelfPaced = primaryCourse.isSelfPaced
+                
+                if let access = primaryCourse.coursewareAccess {
+                    let newAccess = CDDashboardCoursewareAccess(context: self.context)
+                    newAccess.hasAccess = access.hasAccess
+                    newAccess.errorCode = access.errorCode?.rawValue
+                    newAccess.developerMessage = access.developerMessage
+                    newAccess.userMessage = access.userMessage
+                    newAccess.additionalContextUserMessage = access.additionalContextUserMessage
+                    newAccess.userFragment = access.userFragment
+                    cdPrimaryCourse.coursewareAccess = newAccess
+                }
                 
                 newEnrollment.primaryCourse = cdPrimaryCourse
             }

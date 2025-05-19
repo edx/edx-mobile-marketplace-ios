@@ -192,6 +192,7 @@
 		973CCD7B2D3660D100949756 /* HTML2TextParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CCD792D3660D100949756 /* HTML2TextParser.swift */; };
 		973CCD7C2D3660D100949756 /* AttributedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CCD782D3660D100949756 /* AttributedText.swift */; };
 		9784D47E2BF7762800AFEFFF /* FullScreenErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9784D47D2BF7762800AFEFFF /* FullScreenErrorView.swift */; };
+		97904D982DDA0545003F2BE2 /* EnrollmentDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97904D972DDA053C003F2BE2 /* EnrollmentDetails.swift */; };
 		A51CDBE72B6D21F2009B6D4E /* SegmentConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51CDBE62B6D21F2009B6D4E /* SegmentConfig.swift */; };
 		A53A32352B233DEC005FE38A /* ThemeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53A32342B233DEC005FE38A /* ThemeConfig.swift */; };
 		A595689B2B6173DF00ED4F90 /* BranchConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A595689A2B6173DF00ED4F90 /* BranchConfig.swift */; };
@@ -434,6 +435,7 @@
 		973CCD782D3660D100949756 /* AttributedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedText.swift; sourceTree = "<group>"; };
 		973CCD792D3660D100949756 /* HTML2TextParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTML2TextParser.swift; sourceTree = "<group>"; };
 		9784D47D2BF7762800AFEFFF /* FullScreenErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullScreenErrorView.swift; sourceTree = "<group>"; };
+		97904D972DDA053C003F2BE2 /* EnrollmentDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrollmentDetails.swift; sourceTree = "<group>"; };
 		9D5B06CAA99EA5CD49CBE2BB /* Pods-App-Core.debugdev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Core.debugdev.xcconfig"; path = "Target Support Files/Pods-App-Core/Pods-App-Core.debugdev.xcconfig"; sourceTree = "<group>"; };
 		A51CDBE62B6D21F2009B6D4E /* SegmentConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentConfig.swift; sourceTree = "<group>"; };
 		A53A32342B233DEC005FE38A /* ThemeConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeConfig.swift; sourceTree = "<group>"; };
@@ -771,6 +773,7 @@
 		0727878728D3172D002E9142 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				97904D972DDA053C003F2BE2 /* EnrollmentDetails.swift */,
 				0727878828D31734002E9142 /* User.swift */,
 				0284DBFD28D48C5300830893 /* CourseItem.swift */,
 				02935B742BCEE6D600B22F66 /* PrimaryEnrollment.swift */,
@@ -1355,6 +1358,7 @@
 				A51CDBE72B6D21F2009B6D4E /* SegmentConfig.swift in Sources */,
 				06EA8A4F2BFDFF8F005DFB90 /* StoreProductInfo.swift in Sources */,
 				0282DA7328F98CC9003C3F07 /* WebUnitView.swift in Sources */,
+				97904D982DDA0545003F2BE2 /* EnrollmentDetails.swift in Sources */,
 				E0D586362B314CD3009B4BA7 /* LogistrationBottomView.swift in Sources */,
 				942A98572D4BD92B00DD8BBC /* PaginationResult.swift in Sources */,
 				0727878128D25EFD002E9142 /* SnackBarView.swift in Sources */,

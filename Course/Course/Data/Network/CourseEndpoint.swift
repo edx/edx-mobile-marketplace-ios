@@ -19,6 +19,7 @@ enum CourseEndpoint: EndPointType {
     case getSubtitles(url: String, selectedLanguage: String)
     case getCourseDates(courseID: String)
     case getCourseDeadlineInfo(courseID: String)
+    case getEnrollmentDetails(courseID: String)
     case courseDatesReset(courseID: String)
 
     var path: String {
@@ -41,6 +42,8 @@ enum CourseEndpoint: EndPointType {
             return "/api/course_home/v1/dates/\(courseID)"
         case .getCourseDeadlineInfo(let courseID):
             return "/api/course_experience/v1/course_deadlines_info/\(courseID)"
+        case .getEnrollmentDetails(let courseID):
+            return "/api/mobile/v1/course_info/\(courseID)/enrollment_details"
         case .courseDatesReset:
             return "/api/course_experience/v1/reset_course_deadlines"
         }
@@ -48,25 +51,18 @@ enum CourseEndpoint: EndPointType {
 
     var httpMethod: HTTPMethod {
         switch self {
-        case .getCourseBlocks:
+        case .getCourseBlocks,
+                .pageHTML,
+                .getHandouts,
+                .getUpdates,
+                .resumeBlock,
+                .getSubtitles,
+                .getCourseDates,
+                .getCourseDeadlineInfo,
+                .getEnrollmentDetails:
             return .get
-        case .pageHTML:
-            return .get
-        case .blockCompletionRequest:
-            return .post
-        case .getHandouts:
-            return .get
-        case .getUpdates:
-            return .get
-        case .resumeBlock:
-            return .get
-        case .getSubtitles:
-            return .get
-        case .getCourseDates:
-            return .get
-        case .getCourseDeadlineInfo:
-            return .get
-        case .courseDatesReset:
+        case .blockCompletionRequest,
+                .courseDatesReset:
             return .post
         }
     }
@@ -115,6 +111,8 @@ enum CourseEndpoint: EndPointType {
         case .getCourseDates:
             return .requestParameters(encoding: JSONEncoding.default)
         case .getCourseDeadlineInfo:
+            return .requestParameters(encoding: JSONEncoding.default)
+        case .getEnrollmentDetails:
             return .requestParameters(encoding: JSONEncoding.default)
         case let .courseDatesReset(courseID):
             return .requestParameters(parameters: ["course_key": courseID], encoding: JSONEncoding.default)

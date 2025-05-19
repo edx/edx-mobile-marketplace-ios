@@ -2887,6 +2887,22 @@ open class CourseInteractorProtocolMock: CourseInteractorProtocol, Mock {
 		return __value
     }
 
+    open func getEnrollmentDetails(courseID: String) throws -> EnrollmentDetails {
+        addInvocation(.m_getEnrollmentDetails__courseID_courseID(Parameter<String>.value(`courseID`)))
+		let perform = methodPerformValue(.m_getEnrollmentDetails__courseID_courseID(Parameter<String>.value(`courseID`))) as? (String) -> Void
+		perform?(`courseID`)
+		var __value: EnrollmentDetails
+		do {
+		    __value = try methodReturnValue(.m_getEnrollmentDetails__courseID_courseID(Parameter<String>.value(`courseID`))).casted()
+		} catch MockError.notStubed {
+			onFatalFailure("Stub return value not specified for getEnrollmentDetails(courseID: String). Use given")
+			Failure("Stub return value not specified for getEnrollmentDetails(courseID: String). Use given")
+		} catch {
+		    throw error
+		}
+		return __value
+    }
+
     open func shiftDueDates(courseID: String) throws {
         addInvocation(.m_shiftDueDates__courseID_courseID(Parameter<String>.value(`courseID`)))
 		let perform = methodPerformValue(.m_shiftDueDates__courseID_courseID(Parameter<String>.value(`courseID`))) as? (String) -> Void
@@ -2932,6 +2948,7 @@ open class CourseInteractorProtocolMock: CourseInteractorProtocol, Mock {
         case m_getSubtitles__url_urlselectedLanguage_selectedLanguage(Parameter<String>, Parameter<String>)
         case m_getCourseDates__courseID_courseID(Parameter<String>)
         case m_getCourseDeadlineInfo__courseID_courseID(Parameter<String>)
+        case m_getEnrollmentDetails__courseID_courseID(Parameter<String>)
         case m_shiftDueDates__courseID_courseID(Parameter<String>)
         case m_canShowBanner__bannerTypeforCourse_courseID(Parameter<CourseBannerType?>, Parameter<String>)
         case m_markBannerDismissed__bannerTypeforCourse_courseID(Parameter<CourseBannerType>, Parameter<String>)
@@ -2990,6 +3007,11 @@ open class CourseInteractorProtocolMock: CourseInteractorProtocol, Mock {
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseID"))
 				return Matcher.ComparisonResult(results)
 
+            case (.m_getEnrollmentDetails__courseID_courseID(let lhsCourseid), .m_getEnrollmentDetails__courseID_courseID(let rhsCourseid)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseID"))
+				return Matcher.ComparisonResult(results)
+
             case (.m_shiftDueDates__courseID_courseID(let lhsCourseid), .m_shiftDueDates__courseID_courseID(let rhsCourseid)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseID"))
@@ -3022,6 +3044,7 @@ open class CourseInteractorProtocolMock: CourseInteractorProtocol, Mock {
             case let .m_getSubtitles__url_urlselectedLanguage_selectedLanguage(p0, p1): return p0.intValue + p1.intValue
             case let .m_getCourseDates__courseID_courseID(p0): return p0.intValue
             case let .m_getCourseDeadlineInfo__courseID_courseID(p0): return p0.intValue
+            case let .m_getEnrollmentDetails__courseID_courseID(p0): return p0.intValue
             case let .m_shiftDueDates__courseID_courseID(p0): return p0.intValue
             case let .m_canShowBanner__bannerTypeforCourse_courseID(p0, p1): return p0.intValue + p1.intValue
             case let .m_markBannerDismissed__bannerTypeforCourse_courseID(p0, p1): return p0.intValue + p1.intValue
@@ -3039,6 +3062,7 @@ open class CourseInteractorProtocolMock: CourseInteractorProtocol, Mock {
             case .m_getSubtitles__url_urlselectedLanguage_selectedLanguage: return ".getSubtitles(url:selectedLanguage:)"
             case .m_getCourseDates__courseID_courseID: return ".getCourseDates(courseID:)"
             case .m_getCourseDeadlineInfo__courseID_courseID: return ".getCourseDeadlineInfo(courseID:)"
+            case .m_getEnrollmentDetails__courseID_courseID: return ".getEnrollmentDetails(courseID:)"
             case .m_shiftDueDates__courseID_courseID: return ".shiftDueDates(courseID:)"
             case .m_canShowBanner__bannerTypeforCourse_courseID: return ".canShowBanner(_:forCourse:)"
             case .m_markBannerDismissed__bannerTypeforCourse_courseID: return ".markBannerDismissed(_:forCourse:)"
@@ -3081,6 +3105,9 @@ open class CourseInteractorProtocolMock: CourseInteractorProtocol, Mock {
         }
         public static func getCourseDeadlineInfo(courseID: Parameter<String>, willReturn: CourseDateBanner...) -> MethodStub {
             return Given(method: .m_getCourseDeadlineInfo__courseID_courseID(`courseID`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func getEnrollmentDetails(courseID: Parameter<String>, willReturn: EnrollmentDetails...) -> MethodStub {
+            return Given(method: .m_getEnrollmentDetails__courseID_courseID(`courseID`), products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
         public static func canShowBanner(_ bannerType: Parameter<CourseBannerType?>, forCourse courseID: Parameter<String>, willReturn: Bool...) -> MethodStub {
             return Given(method: .m_canShowBanner__bannerTypeforCourse_courseID(`bannerType`, `courseID`), products: willReturn.map({ StubProduct.return($0 as Any) }))
@@ -3189,6 +3216,16 @@ open class CourseInteractorProtocolMock: CourseInteractorProtocol, Mock {
 			willProduce(stubber)
 			return given
         }
+        public static func getEnrollmentDetails(courseID: Parameter<String>, willThrow: Error...) -> MethodStub {
+            return Given(method: .m_getEnrollmentDetails__courseID_courseID(`courseID`), products: willThrow.map({ StubProduct.throw($0) }))
+        }
+        public static func getEnrollmentDetails(courseID: Parameter<String>, willProduce: (StubberThrows<EnrollmentDetails>) -> Void) -> MethodStub {
+            let willThrow: [Error] = []
+			let given: Given = { return Given(method: .m_getEnrollmentDetails__courseID_courseID(`courseID`), products: willThrow.map({ StubProduct.throw($0) })) }()
+			let stubber = given.stubThrows(for: (EnrollmentDetails).self)
+			willProduce(stubber)
+			return given
+        }
         public static func shiftDueDates(courseID: Parameter<String>, willThrow: Error...) -> MethodStub {
             return Given(method: .m_shiftDueDates__courseID_courseID(`courseID`), products: willThrow.map({ StubProduct.throw($0) }))
         }
@@ -3214,6 +3251,7 @@ open class CourseInteractorProtocolMock: CourseInteractorProtocol, Mock {
         public static func getSubtitles(url: Parameter<String>, selectedLanguage: Parameter<String>) -> Verify { return Verify(method: .m_getSubtitles__url_urlselectedLanguage_selectedLanguage(`url`, `selectedLanguage`))}
         public static func getCourseDates(courseID: Parameter<String>) -> Verify { return Verify(method: .m_getCourseDates__courseID_courseID(`courseID`))}
         public static func getCourseDeadlineInfo(courseID: Parameter<String>) -> Verify { return Verify(method: .m_getCourseDeadlineInfo__courseID_courseID(`courseID`))}
+        public static func getEnrollmentDetails(courseID: Parameter<String>) -> Verify { return Verify(method: .m_getEnrollmentDetails__courseID_courseID(`courseID`))}
         public static func shiftDueDates(courseID: Parameter<String>) -> Verify { return Verify(method: .m_shiftDueDates__courseID_courseID(`courseID`))}
         public static func canShowBanner(_ bannerType: Parameter<CourseBannerType?>, forCourse courseID: Parameter<String>) -> Verify { return Verify(method: .m_canShowBanner__bannerTypeforCourse_courseID(`bannerType`, `courseID`))}
         public static func markBannerDismissed(_ bannerType: Parameter<CourseBannerType>, forCourse courseID: Parameter<String>) -> Verify { return Verify(method: .m_markBannerDismissed__bannerTypeforCourse_courseID(`bannerType`, `courseID`))}
@@ -3252,6 +3290,9 @@ open class CourseInteractorProtocolMock: CourseInteractorProtocol, Mock {
         }
         public static func getCourseDeadlineInfo(courseID: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
             return Perform(method: .m_getCourseDeadlineInfo__courseID_courseID(`courseID`), performs: perform)
+        }
+        public static func getEnrollmentDetails(courseID: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
+            return Perform(method: .m_getEnrollmentDetails__courseID_courseID(`courseID`), performs: perform)
         }
         public static func shiftDueDates(courseID: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
             return Perform(method: .m_shiftDueDates__courseID_courseID(`courseID`), performs: perform)

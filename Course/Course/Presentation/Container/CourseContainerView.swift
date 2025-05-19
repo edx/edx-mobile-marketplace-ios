@@ -176,7 +176,9 @@ public struct CourseContainerView: View {
     }
     
     private var actualAccess: CoursewareAccess? {
-        viewModel.courseStructure?.coursewareAccessDetails?.coursewareAccess ?? coursewareAccess
+        viewModel.courseStructure?.coursewareAccessDetails?.coursewareAccess
+        ?? coursewareAccess
+        ?? viewModel.enrollmentDetails?.coursewareAccess
     }
     
     private var tabs: some View {

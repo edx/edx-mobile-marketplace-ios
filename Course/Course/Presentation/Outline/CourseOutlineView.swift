@@ -105,6 +105,7 @@ public struct CourseOutlineView: View {
                                 certificateView
                                 
                                 if viewModel.courseStructure == nil,
+                                   viewModel.enrollmentDetails?.coursewareAccess == nil,
                                    viewModel.isShowProgress == false,
                                    !isVideo {
                                     FullScreenErrorView(
