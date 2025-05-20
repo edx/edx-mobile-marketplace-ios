@@ -108,6 +108,7 @@ public class CourseContainerViewModel: BaseCourseViewModel {
     let coreAnalytics: CoreAnalytics
     private(set) var storage: CourseStorage
     private var courseID: String?
+    private var canShowTrackSelection: Bool
     let serverConfig: ServerConfigProtocol
     var enrollmentDetails: EnrollmentDetails?
     
@@ -128,6 +129,7 @@ public class CourseContainerViewModel: BaseCourseViewModel {
         lastVisitedBlockID: String?,
         coreAnalytics: CoreAnalytics,
         selection: CourseTab = CourseTab.course,
+        showTrackSelection: Bool = false,
         serverConfig: ServerConfigProtocol
     ) {
         self.interactor = interactor
@@ -147,6 +149,7 @@ public class CourseContainerViewModel: BaseCourseViewModel {
         self.lastVisitedBlockID = lastVisitedBlockID
         self.coreAnalytics = coreAnalytics
         self.selection = selection.rawValue
+        self.canShowTrackSelection = showTrackSelection
         self.serverConfig = serverConfig
         
         super.init(manager: manager)
@@ -254,7 +257,12 @@ public class CourseContainerViewModel: BaseCourseViewModel {
             shouldShowUpgradeButton = type == nil
             && courseStructure?.isUpgradeable ?? false
             && serverConfig.iapConfig.enabled
-            
+
+            if shouldShowUpgradeButton && canShowTrackSelection {
+                showTrackSelection()
+            }
+            canShowTrackSelection = false
+
             updateMenuBarVisibility()
 
             if isInternetAvaliable {
@@ -454,6 +462,25 @@ public class CourseContainerViewModel: BaseCourseViewModel {
         }
 
         await download(state: state, blocks: blocks)
+    }
+
+    @MainActor
+    func showTrackSelection() {
+        guard let structure = courseStructure,
+              let sku = courseStructure?.sku,
+              let lmsPrice = courseStructure?.lmsPrice,
+              let accessExpires = date(from: structure.coursewareAccessDetails?.auditAccessExpires)
+        else { return }
+
+        router.showTrackSelection(
+            courseID: structure.id,
+            productName: structure.displayName,
+            screen: .courseDashboard,
+            sku: sku,
+            pacing: structure.isSelfPaced ? Pacing.selfPace.rawValue : Pacing.instructor.rawValue,
+            lmsPrice: lmsPrice,
+            accessExpires: accessExpires
+        )
     }
 
     func showPaymentsInfo() {

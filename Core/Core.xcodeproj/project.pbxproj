@@ -185,6 +185,10 @@
 		942A98552D4BD91700DD8BBC /* PaginationTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942A98542D4BD91700DD8BBC /* PaginationTask.swift */; };
 		942A98572D4BD92B00DD8BBC /* PaginationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942A98562D4BD92B00DD8BBC /* PaginationResult.swift */; };
 		942A98592D4CAF5200DD8BBC /* ScreenStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942A98582D4CAF5200DD8BBC /* ScreenStateView.swift */; };
+		942C4D522DC505F1002BA81C /* TrackSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942C4D512DC505F1002BA81C /* TrackSelectionView.swift */; };
+		942C4D542DC508B7002BA81C /* TrackCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942C4D532DC508B7002BA81C /* TrackCardView.swift */; };
+		949094972DC8E2D800A341D4 /* TrackSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949094962DC8E2D100A341D4 /* TrackSelectionViewModel.swift */; };
+		949094992DC8E44C00A341D4 /* TrackCardInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949094982DC8E44700A341D4 /* TrackCardInfo.swift */; };
 		9499F1262D41375B00558D59 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9499F1252D41375B00558D59 /* AppEnvironment.swift */; };
 		94AE32362D8B329D00FA048D /* NotificationBellButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AE32352D8B329D00FA048D /* NotificationBellButton.swift */; };
 		94D1FC482DA6AF44000A904F /* EDXFeatureManagement in Frameworks */ = {isa = PBXBuildFile; productRef = 94D1FC472DA6AF44000A904F /* EDXFeatureManagement */; };
@@ -429,6 +433,10 @@
 		942A98542D4BD91700DD8BBC /* PaginationTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationTask.swift; sourceTree = "<group>"; };
 		942A98562D4BD92B00DD8BBC /* PaginationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationResult.swift; sourceTree = "<group>"; };
 		942A98582D4CAF5200DD8BBC /* ScreenStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenStateView.swift; sourceTree = "<group>"; };
+		942C4D512DC505F1002BA81C /* TrackSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSelectionView.swift; sourceTree = "<group>"; };
+		942C4D532DC508B7002BA81C /* TrackCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackCardView.swift; sourceTree = "<group>"; };
+		949094962DC8E2D100A341D4 /* TrackSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSelectionViewModel.swift; sourceTree = "<group>"; };
+		949094982DC8E44700A341D4 /* TrackCardInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackCardInfo.swift; sourceTree = "<group>"; };
 		9499F1252D41375B00558D59 /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
 		94AE32352D8B329D00FA048D /* NotificationBellButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationBellButton.swift; sourceTree = "<group>"; };
 		94D1FC4C2DA7F39F000A904F /* OptimizelyConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptimizelyConfig.swift; sourceTree = "<group>"; };
@@ -639,6 +647,7 @@
 			children = (
 				062C69AE2C198337002BD311 /* PaymentSnackbarModifierViewModel.swift */,
 				062C69AF2C198337002BD311 /* UpgradeInfoViewModel.swift */,
+				949094962DC8E2D100A341D4 /* TrackSelectionViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -711,6 +720,7 @@
 				06EA8A4C2BFDFF70005DFB90 /* StoreKitUpgradeResponse.swift */,
 				06EA8A4E2BFDFF8F005DFB90 /* StoreProductInfo.swift */,
 				06EA8A502BFDFFB0005DFB90 /* UpgradeError.swift */,
+				949094982DC8E44700A341D4 /* TrackCardInfo.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -941,6 +951,8 @@
 				062C69A62C198323002BD311 /* UpgradeInfoView.swift */,
 				149936CD2BEB4F8900B4C89F /* CourseUpgradeUnlockView.swift */,
 				14F8E66A2C0F4D1200E4EF69 /* RestoreInProgressView.swift */,
+				942C4D512DC505F1002BA81C /* TrackSelectionView.swift */,
+				942C4D532DC508B7002BA81C /* TrackCardView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1398,6 +1410,7 @@
 				070019AE28F701B200D5FC78 /* Certificate.swift in Sources */,
 				BA4AFB442B6A5AF100A21367 /* CheckBoxView.swift in Sources */,
 				076F297F2A1F80C800967E7D /* Pagination.swift in Sources */,
+				942C4D542DC508B7002BA81C /* TrackCardView.swift in Sources */,
 				14769D3C2B9822EE00AB36D4 /* CoreAnalytics.swift in Sources */,
 				02AFCC1A2AEFDC18000360F0 /* ThirdPartyMailer.swift in Sources */,
 				0770DE5F28D0B22C006D8A5D /* Strings.swift in Sources */,
@@ -1439,6 +1452,7 @@
 				941613E22D8D4ACE00178F62 /* OnPressButtonStyle.swift in Sources */,
 				062C69AC2C198323002BD311 /* UpgradeInfoView.swift in Sources */,
 				064987952B4D69FF0071642A /* SurveyCssInjection.swift in Sources */,
+				949094992DC8E44C00A341D4 /* TrackCardInfo.swift in Sources */,
 				02E224DB2BB76B3E00EF1ADB /* DynamicOffsetView.swift in Sources */,
 				0259104A29C4A5B6004B5A55 /* UserSettings.swift in Sources */,
 				021D925028DC89D100ACC565 /* UserProfile.swift in Sources */,
@@ -1448,6 +1462,7 @@
 				06EA8A532BFE006F005DFB90 /* StoreKitHandlerProtocol.swift in Sources */,
 				0284DBFE28D48C5300830893 /* CourseItem.swift in Sources */,
 				0248C92329C075EF00DC8402 /* CourseBlockModel.swift in Sources */,
+				949094972DC8E2D800A341D4 /* TrackSelectionViewModel.swift in Sources */,
 				E0D5861A2B2FF74C009B4BA7 /* DiscoveryConfig.swift in Sources */,
 				94AE32362D8B329D00FA048D /* NotificationBellButton.swift in Sources */,
 				14A8325D2BD7629B00E5654D /* CourseUpgradeEndpoint.swift in Sources */,
@@ -1520,6 +1535,7 @@
 				020D72F42BB76DFE00773319 /* VisualEffectView.swift in Sources */,
 				0727878928D31734002E9142 /* User.swift in Sources */,
 				A53A32352B233DEC005FE38A /* ThemeConfig.swift in Sources */,
+				942C4D522DC505F1002BA81C /* TrackSelectionView.swift in Sources */,
 				02280F5B294B4E6F0032823A /* Connectivity.swift in Sources */,
 				149936CE2BEB4F8900B4C89F /* CourseUpgradeUnlockView.swift in Sources */,
 				06EA8A4A2BFDFF25005DFB90 /* CourseUpgradeInteractorProtocol.swift in Sources */,

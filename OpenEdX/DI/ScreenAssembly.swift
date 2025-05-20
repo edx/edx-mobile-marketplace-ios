@@ -345,7 +345,7 @@ class ScreenAssembly: Assembly {
         // MARK: CourseScreensView
         container.register(
             CourseContainerViewModel.self
-        ) { r, isActive, courseStart, courseEnd, enrollmentStart, enrollmentEnd, selection, lastVisitedBlockID in
+        ) { r, isActive, courseStart, courseEnd, enrollmentStart, enrollmentEnd, selection, lastVisitedBlockID, showTrackSelection in
             CourseContainerViewModel(
                 interactor: r.resolve(CourseInteractorProtocol.self)!,
                 authInteractor: r.resolve(AuthInteractorProtocol.self)!,
@@ -363,6 +363,7 @@ class ScreenAssembly: Assembly {
                 lastVisitedBlockID: lastVisitedBlockID,
                 coreAnalytics: r.resolve(CoreAnalytics.self)!,
                 selection: selection,
+                showTrackSelection: showTrackSelection,
                 serverConfig: r.resolve(ServerConfigProtocol.self)!
             )
         }
@@ -648,7 +649,24 @@ class ScreenAssembly: Assembly {
                 router: r.resolve(CourseRouter.self)!
             )
         }.inObjectScope(.container)
-        
+
+        container.register(
+            TrackSelectionViewModel.self
+        ) { r, courseID, productName, screen, sku, pacing, lmsPrice, accessExpires in
+            TrackSelectionViewModel(
+                courseID: courseID,
+                productName: productName,
+                screen: screen,
+                sku: sku,
+                pacing: pacing,
+                lmsPrice: lmsPrice,
+                accessExpires: accessExpires,
+                handler: r.resolve(CourseUpgradeHandlerProtocol.self)!,
+                analytics: r.resolve(CoreAnalytics.self)!,
+                router: r.resolve(CourseRouter.self)!
+            )
+        }
+
         // MARK: Upgrade info
         container.register(
             UpgradeInfoViewModel.self

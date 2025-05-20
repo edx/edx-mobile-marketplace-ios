@@ -285,7 +285,8 @@ private struct CourseStateView: View {
                         courseRawImage: courseDetails.courseRawImage,
                         coursewareAccess: nil,
                         showDates: false,
-                        lastVisitedBlockID: nil
+                        lastVisitedBlockID: nil,
+                        showTrackSelection: false
                     )
                 }
             })

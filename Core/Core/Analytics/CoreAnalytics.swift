@@ -103,6 +103,20 @@ public protocol CoreAnalytics {
         lmsPrice: Double,
         screen: CourseUpgradeScreen
     )
+
+    func trackSelectionViewed(
+        courseID: String,
+        pacing: String,
+        lmsPrice: Double,
+        screen: CourseUpgradeScreen
+    )
+
+    func trackContinueWithFreeTrackClicked(
+        courseID: String,
+        pacing: String,
+        lmsPrice: Double,
+        screen: CourseUpgradeScreen
+    )
 }
 
 public extension CoreAnalytics {
@@ -214,6 +228,20 @@ public class CoreAnalyticsMock: CoreAnalytics {
     public func trackRestorePurchaseClicked() {}
     
     public func trackValuePropViewed(
+        courseID: String,
+        pacing: String,
+        lmsPrice: Double,
+        screen: CourseUpgradeScreen
+    ) {}
+
+    public func trackSelectionViewed(
+        courseID: String,
+        pacing: String,
+        lmsPrice: Double,
+        screen: CourseUpgradeScreen
+    ) {}
+
+    public func trackContinueWithFreeTrackClicked(
         courseID: String,
         pacing: String,
         lmsPrice: Double,
@@ -332,6 +360,8 @@ public enum AnalyticsEvent: String {
     case courseUpgradeUnfulfilledPurchaseInitiated = "Payments:Unfulfilled Purchase Initiated"
     case courseUpgradeRestorePurchaseClicked = "Payments:Restore Purchases Clicked"
     case courseUpgradeValuePropViewed = "Payments:Value Prop Viewed"
+    case trackSelectionViewed = "Payments:Track Selection Viewed"
+    case continueWithFreeTrackClicked = "Payments:Continue With Free Track Clicked"
     case logistration = "Logistration"
     case logistrationSignIn = "Logistration:Sign In"
     case logistrationRegister = "Logistration:Register"
@@ -479,6 +509,8 @@ public enum EventBIValue: String {
     case courseUpgradeUnfulfilledPurchaseInitiated = "edx.bi.app.payments.unfulfilled_purchase.initiated"
     case courseUpgradeRestorePurchaseClicked = "edx.bi.app.payments.restore_purchases.clicked"
     case courseUpgradeValuePropViewed = "edx.bi.app.payments.value_prop.viewed"
+    case trackSelectionViewed = "edx.bi.app.payments.track_selection.viewed"
+    case continueWithFreeTrackClicked = "edx.bi.app.payments.continue_with_free_track.clicked"
     case logistration = "edx.bi.app.logistration"
     case logistrationSignIn = "edx.bi.app.logistration.signin"
     case logistrationRegister = "edx.bi.app.logistration.register"

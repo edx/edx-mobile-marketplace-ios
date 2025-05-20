@@ -126,7 +126,7 @@ public class CourseUpgradeHelper: CourseUpgradeHelperProtocol {
             }
         case .success(let courseID, let blockID):
             helperModel = CourseUpgradeHelperModel(courseID: courseID, blockID: blockID, screen: screen)
-            if upgradeHadler.upgradeMode == .userInitiated {
+            if upgradeHadler.upgradeMode.isUserInitiated {
                 removeLoader(success: true, shouldRemoveView: true)
                 postSuccessNotification()
             } else {
@@ -207,7 +207,7 @@ public class CourseUpgradeHelper: CourseUpgradeHelperProtocol {
                 removeInProgressIAP()
             }
             
-            if upgradeError != .verifyReceiptError(upgradeError), upgradeMode == .userInitiated {
+            if upgradeError != .verifyReceiptError(upgradeError), upgradeMode.isUserInitiated {
                 removeInProgressIAP()
             }
         default:

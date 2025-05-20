@@ -20,7 +20,7 @@ import WhatsNew
 import Combine
 import Notifications
 
-// swiftlint:disable file_length type_body_length
+// swiftlint:disable file_length type_body_length function_parameter_count
 public class Router: AuthorizationRouter,
                      WhatsNewRouter,
                      DiscoveryRouter,
@@ -390,7 +390,8 @@ public class Router: AuthorizationRouter,
         courseRawImage: String?,
         coursewareAccess: CoursewareAccess?,
         showDates: Bool,
-        lastVisitedBlockID: String?
+        lastVisitedBlockID: String?,
+        showTrackSelection: Bool
     ) {
         let controller = getCourseScreensController(
             courseID: courseID,
@@ -404,7 +405,8 @@ public class Router: AuthorizationRouter,
             courseRawImage: courseRawImage,
             coursewareAccess: coursewareAccess,
             showDates: showDates,
-            lastVisitedBlockID: lastVisitedBlockID
+            lastVisitedBlockID: lastVisitedBlockID,
+            showTrackSelection: showTrackSelection
         )
         navigationController.pushViewController(controller, animated: true)
         
@@ -429,7 +431,8 @@ public class Router: AuthorizationRouter,
         courseRawImage: String?,
         coursewareAccess: CoursewareAccess?,
         showDates: Bool,
-        lastVisitedBlockID: String?
+        lastVisitedBlockID: String?,
+        showTrackSelection: Bool
     ) -> UIHostingController<CourseContainerView> {
         let vm = Container.shared.resolve(
             CourseContainerViewModel.self,
@@ -439,7 +442,8 @@ public class Router: AuthorizationRouter,
             enrollmentStart,
             enrollmentEnd,
             showDates ? CourseTab.dates : CourseTab.course,
-            lastVisitedBlockID
+            lastVisitedBlockID,
+            showTrackSelection
         )!
         
         let datesVm = Container.shared.resolve(
@@ -955,6 +959,35 @@ extension Router {
 // MARK: Payments
 extension Router {
     @MainActor
+    public func showTrackSelection(
+        courseID: String,
+        productName: String,
+        screen: CourseUpgradeScreen,
+        sku: String,
+        pacing: String,
+        lmsPrice: Double,
+        accessExpires: Date
+    ) {
+        let view = TrackSelectionView(
+            viewModel: Container.shared.resolve(
+                TrackSelectionViewModel.self,
+                arguments: courseID, productName, screen, sku, pacing, lmsPrice, accessExpires
+            )!
+        )
+        let controller = UIHostingController(rootView: view)
+        if let sheet = controller.sheetPresentationController,
+           UIDevice.current.userInterfaceIdiom == .pad {
+            sheet.detents = [.large()]
+            sheet.prefersEdgeAttachedInCompactHeight = true
+            sheet.widthFollowsPreferredContentSizeWhenEdgeAttached = true
+            sheet.prefersGrabberVisible = true
+        } else {
+            controller.modalPresentationStyle = .overFullScreen
+        }
+        navigationController.present(controller, animated: true)
+    }
+
+    @MainActor
     public func showUpgradeInfo(
         productName: String,
         message: String,
@@ -1061,4 +1094,4 @@ extension Router {
     }
     
 }
-// swiftlint:enable file_length type_body_length
+// swiftlint:enable file_length type_body_length function_parameter_count

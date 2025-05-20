@@ -81,7 +81,8 @@ public struct AllCoursesView: View {
                                                 courseRawImage: course.imageURL,
                                                 coursewareAccess: course.coursewareAccess,
                                                 showDates: false,
-                                                lastVisitedBlockID: nil
+                                                lastVisitedBlockID: nil,
+                                                showTrackSelection: false
                                             )
                                         }, label: {
                                             CourseCardView(

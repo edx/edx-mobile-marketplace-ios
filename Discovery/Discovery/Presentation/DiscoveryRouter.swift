@@ -8,6 +8,7 @@
 import Foundation
 import Core
 
+// swiftlint:disable function_parameter_count
 public protocol DiscoveryRouter: BaseRouter {
     func showCourseDetais(courseID: String, title: String)
     func showWebDiscoveryDetails(
@@ -30,7 +31,8 @@ public protocol DiscoveryRouter: BaseRouter {
         courseRawImage: String?,
         coursewareAccess: CoursewareAccess?,
         showDates: Bool,
-        lastVisitedBlockID: String?
+        lastVisitedBlockID: String?,
+        showTrackSelection: Bool
     )
     
     func showWebProgramDetails(
@@ -66,7 +68,8 @@ public class DiscoveryRouterMock: BaseRouterMock, DiscoveryRouter {
         courseRawImage: String?,
         coursewareAccess: CoursewareAccess?,
         showDates: Bool,
-        lastVisitedBlockID: String?
+        lastVisitedBlockID: String?,
+        showTrackSelection: Bool
     ) {}
     
     public func showWebProgramDetails(
@@ -75,3 +78,4 @@ public class DiscoveryRouterMock: BaseRouterMock, DiscoveryRouter {
     ) {}
 }
 #endif
+// swiftlint:enable function_parameter_count

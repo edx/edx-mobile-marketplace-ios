@@ -8,6 +8,7 @@
 import Foundation
 import Core
 
+// swiftlint:disable function_parameter_count
 public protocol DashboardRouter: BaseRouter {
     
     func showCourseScreens(courseID: String,
@@ -21,7 +22,8 @@ public protocol DashboardRouter: BaseRouter {
                            courseRawImage: String?,
                            coursewareAccess: CoursewareAccess?,
                            showDates: Bool,
-                           lastVisitedBlockID: String?
+                           lastVisitedBlockID: String?,
+                           showTrackSelection: Bool
     )
     
     func showAllCourses(courses: [CourseItem])
@@ -47,8 +49,9 @@ public class DashboardRouterMock: BaseRouterMock, DashboardRouter {
                                   courseRawImage: String?,
                                   coursewareAccess: CoursewareAccess?,
                                   showDates: Bool,
-                                  lastVisitedBlockID: String?) {}
-    
+                                  lastVisitedBlockID: String?,
+                                  showTrackSelection: Bool) {}
+
     public func showAllCourses(courses: [CourseItem]) {}
     
     public func showDiscoverySearch(searchQuery: String?) {}
@@ -56,3 +59,4 @@ public class DashboardRouterMock: BaseRouterMock, DashboardRouter {
     public func showSettings() {}
 }
 #endif
+// swiftlint:enable function_parameter_count

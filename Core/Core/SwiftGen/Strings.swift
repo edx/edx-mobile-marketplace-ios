@@ -381,6 +381,41 @@ public enum CoreLocalization {
     /// Sign in
     public static let logInBtn = CoreLocalization.tr("Localizable", "SIGN_IN.LOG_IN_BTN", fallback: "Sign in")
   }
+  public enum TrackSelection {
+    public enum Button {
+      /// Continue to payment (%@)
+      public static func continueToPayment(_ p1: Any) -> String {
+        return CoreLocalization.tr("Localizable", "TRACK_SELECTION.BUTTON.CONTINUE_TO_PAYMENT", String(describing: p1), fallback: "Continue to payment (%@)")
+      }
+      /// Continue with free track
+      public static let continueWithFreeTrack = CoreLocalization.tr("Localizable", "TRACK_SELECTION.BUTTON.CONTINUE_WITH_FREE_TRACK", fallback: "Continue with free track")
+    }
+    public enum Card {
+      /// Limited access to non-graded activities and course material. Your progress and all access will be lost after %@
+      public static func accessCourseDescription(_ p1: Any) -> String {
+        return CoreLocalization.tr("Localizable", "TRACK_SELECTION.CARD.ACCESS_COURSE_DESCRIPTION", String(describing: p1), fallback: "Limited access to non-graded activities and course material. Your progress and all access will be lost after %@")
+      }
+      /// Access this course
+      public static let accessCourseHeading = CoreLocalization.tr("Localizable", "TRACK_SELECTION.CARD.ACCESS_COURSE_HEADING", fallback: "Access this course")
+      /// Access expires %@
+      public static func accessCourseSubheading(_ p1: Any) -> String {
+        return CoreLocalization.tr("Localizable", "TRACK_SELECTION.CARD.ACCESS_COURSE_SUBHEADING", String(describing: p1), fallback: "Access expires %@")
+      }
+      /// Get access to all graded course activities and course materials, even after the course ends.
+      /// Earn a verified certificate of completion.
+      public static let earnCertificateDescription = CoreLocalization.tr("Localizable", "TRACK_SELECTION.CARD.EARN_CERTIFICATE_DESCRIPTION", fallback: "Get access to all graded course activities and course materials, even after the course ends.\nEarn a verified certificate of completion.")
+      /// Earn a certificate
+      public static let earnCertificateHeading = CoreLocalization.tr("Localizable", "TRACK_SELECTION.CARD.EARN_CERTIFICATE_HEADING", fallback: "Earn a certificate")
+      /// Earn a certificate for %@
+      public static func earnCertificateWithPriceHeading(_ p1: Any) -> String {
+        return CoreLocalization.tr("Localizable", "TRACK_SELECTION.CARD.EARN_CERTIFICATE_WITH_PRICE_HEADING", String(describing: p1), fallback: "Earn a certificate for %@")
+      }
+    }
+    public enum View {
+      /// Choose a path.
+      public static let title = CoreLocalization.tr("Localizable", "TRACK_SELECTION.VIEW.TITLE", fallback: "Choose a path.")
+    }
+  }
   public enum View {
     public enum Snackbar {
       /// Try Again
