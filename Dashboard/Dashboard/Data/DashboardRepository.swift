@@ -200,7 +200,8 @@ class DashboardRepositoryMock: DashboardRepositoryProtocol {
             isUpgradeable: false,
             sku: nil,
             lmsPrice: nil,
-            isSelfPaced: false
+            isSelfPaced: false,
+            coursewareAccess: nil
         )
         return PrimaryEnrollment(primaryCourse: primaryCourse, courses: courses, totalPages: 1, count: 1)
     }

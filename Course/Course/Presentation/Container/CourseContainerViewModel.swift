@@ -109,6 +109,7 @@ public class CourseContainerViewModel: BaseCourseViewModel {
     private(set) var storage: CourseStorage
     private var courseID: String?
     let serverConfig: ServerConfigProtocol
+    var enrollmentDetails: EnrollmentDetails?
     
     public init(
         interactor: CourseInteractorProtocol,
@@ -200,6 +201,9 @@ public class CourseContainerViewModel: BaseCourseViewModel {
         await withTaskGroup(of: Void.self) {[weak self] group in
             guard let self = self else { return }
             group.addTask {
+                await self.getEnrollmentDetails(courseID: courseID)
+            }
+            group.addTask {
                 await self.getCourseBlocks(courseID: courseID)
             }
             group.addTask {
@@ -240,12 +244,6 @@ public class CourseContainerViewModel: BaseCourseViewModel {
 
     @MainActor
     func getCourseBlocks(courseID: String, withProgress: Bool = true) async {
-        guard let courseStart, courseStart < Date() else {
-            isShowProgress = false
-            isShowRefresh = false
-            return
-        }
-        
         isShowProgress = withProgress
         isShowRefresh = !withProgress
         do {
@@ -253,7 +251,7 @@ public class CourseContainerViewModel: BaseCourseViewModel {
             await setDownloadsStates(courseStructure: courseStructure)
             self.courseStructure = courseStructure
             let type = type(for: courseStructure?.coursewareAccessDetails?.coursewareAccess)
-            shouldShowUpgradeButton = type == nil 
+            shouldShowUpgradeButton = type == nil
             && courseStructure?.isUpgradeable ?? false
             && serverConfig.iapConfig.enabled
             
@@ -293,6 +291,16 @@ public class CourseContainerViewModel: BaseCourseViewModel {
             withAnimation {
                 self.courseDeadlineInfo = courseDeadlineInfo
             }
+        } catch let error {
+            debugLog(error.localizedDescription)
+        }
+    }
+    
+    @MainActor
+    func getEnrollmentDetails(courseID: String) async {
+        do {
+            let enrollmentDetails = try await interactor.getEnrollmentDetails(courseID: courseID)
+            self.enrollmentDetails = enrollmentDetails
         } catch let error {
             debugLog(error.localizedDescription)
         }

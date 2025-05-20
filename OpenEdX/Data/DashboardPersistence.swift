@@ -121,6 +121,22 @@ public class DashboardPersistence: DashboardPersistenceProtocol {
         if let result = try context.fetch(request).first {
             let primaryCourse = result.primaryCourse.flatMap { cdPrimaryCourse -> PrimaryCourse? in
                 
+                let coursewareAccess = cdPrimaryCourse.coursewareAccess.map { access in
+                    var coursewareError: CourseAccessError?
+                    if let error = access.errorCode {
+                        coursewareError = CourseAccessError(rawValue: error) ?? .unknown
+                    }
+                    
+                    return CoursewareAccess(
+                        hasAccess: access.hasAccess,
+                        errorCode: coursewareError,
+                        developerMessage: access.developerMessage,
+                        userMessage: access.userMessage,
+                        additionalContextUserMessage: access.additionalContextUserMessage,
+                        userFragment: access.userFragment
+                    )
+                }
+
                 let futureAssignments = (cdPrimaryCourse.futureAssignments as? Set<CDAssignment> ?? [])
                     .map { future in
                         return Assignment(
@@ -165,7 +181,8 @@ public class DashboardPersistence: DashboardPersistenceProtocol {
                     isUpgradeable: cdPrimaryCourse.isUpgradeable,
                     sku: cdPrimaryCourse.sku,
                     lmsPrice: cdPrimaryCourse.lmsPrice?.doubleValue,
-                    isSelfPaced: cdPrimaryCourse.isSelfPaced
+                    isSelfPaced: cdPrimaryCourse.isSelfPaced,
+                    coursewareAccess: coursewareAccess
                 )
             }
             
@@ -233,6 +250,22 @@ public class DashboardPersistence: DashboardPersistenceProtocol {
             if let result = try context.fetch(request).first {
                 let primaryCourse = result.primaryCourse.flatMap { cdPrimaryCourse -> PrimaryCourse? in
                     
+                    let coursewareAccess = cdPrimaryCourse.coursewareAccess.map { access in
+                        var coursewareError: CourseAccessError?
+                        if let error = access.errorCode {
+                            coursewareError = CourseAccessError(rawValue: error) ?? .unknown
+                        }
+                        
+                        return CoursewareAccess(
+                            hasAccess: access.hasAccess,
+                            errorCode: coursewareError,
+                            developerMessage: access.developerMessage,
+                            userMessage: access.userMessage,
+                            additionalContextUserMessage: access.additionalContextUserMessage,
+                            userFragment: access.userFragment
+                        )
+                    }
+
                     let futureAssignments = (cdPrimaryCourse.futureAssignments as? Set<CDAssignment> ?? [])
                         .map { future in
                             return Assignment(
@@ -277,7 +310,8 @@ public class DashboardPersistence: DashboardPersistenceProtocol {
                         isUpgradeable: cdPrimaryCourse.isUpgradeable,
                         sku: cdPrimaryCourse.sku,
                         lmsPrice: cdPrimaryCourse.lmsPrice?.doubleValue,
-                        isSelfPaced: cdPrimaryCourse.isSelfPaced
+                        isSelfPaced: cdPrimaryCourse.isSelfPaced,
+                        coursewareAccess: coursewareAccess
                     )
                 }
                 
@@ -416,6 +450,17 @@ public class DashboardPersistence: DashboardPersistenceProtocol {
                 cdPrimaryCourse.lmsPrice = lmsPrice
                 cdPrimaryCourse.isUpgradeable = primaryCourse.isUpgradeable
                 cdPrimaryCourse.isSelfPaced = primaryCourse.isSelfPaced
+                
+                if let access = primaryCourse.coursewareAccess {
+                    let newAccess = CDDashboardCoursewareAccess(context: self.context)
+                    newAccess.hasAccess = access.hasAccess
+                    newAccess.errorCode = access.errorCode?.rawValue
+                    newAccess.developerMessage = access.developerMessage
+                    newAccess.userMessage = access.userMessage
+                    newAccess.additionalContextUserMessage = access.additionalContextUserMessage
+                    newAccess.userFragment = access.userFragment
+                    cdPrimaryCourse.coursewareAccess = newAccess
+                }
                 
                 newEnrollment.primaryCourse = cdPrimaryCourse
             }
