@@ -29,6 +29,8 @@ class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
     private var courseID: String = ""
     private var lmsPrice: Double?
     private var componentID: String?
+    
+    private let config: EDXServiceConfigProtocol
 
     private(set) var state: UpgradeState = .initial {
         didSet {
@@ -57,7 +59,7 @@ class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
     }
 
     public init(
-//        config: ConfigProtocol, // NEEDS WORK
+        config: EDXServiceConfigProtocol,
         validator: EDXReceiptValidator,
         storeKitHandler: StoreKitHandlerProtocol,
         helper: CourseUpgradeHelperProtocol
@@ -65,7 +67,8 @@ class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
         self.validator = validator
         self.storeKitHandler = storeKitHandler
         self.helper = helper
-//        CourseUpgradeHandler.ecommerceURL = config.ecommerceURL ?? "" // NEEDS WORK
+        self.config = config
+        CourseUpgradeHandler.ecommerceURL = config.ecommerceURL
     }
     
     public func upgradeCourse(

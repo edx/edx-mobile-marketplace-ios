@@ -217,7 +217,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     return nil
                 }
             ),
-            analyticsFacade: analytics
+            analyticsFacade: analytics,
+            config: EDXServiceConfigProtocol(ecommerceURL: config.ecommerceURL ?? "", paymentProcessor: "ios-iap")
         )
         pluginManager.setIAPService(iapService)
         // - FullStory

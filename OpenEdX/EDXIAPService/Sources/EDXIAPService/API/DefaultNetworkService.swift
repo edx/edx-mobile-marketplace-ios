@@ -7,11 +7,6 @@
 
 import Foundation
 
-public enum BaseConfig: String {
-    case prodURL = "https://ecommerce.edx.org"
-    case paymentProcessor = "ios-iap"
-}
-
 final class DefaultNetworkService: EDXNetworkService {
     func request<Request: EDXDataRequest & Sendable>(_ request: Request) async throws -> Request.Response {
         guard var urlComponent = URLComponents(string: request.url) else {
