@@ -65,7 +65,7 @@ public enum EDXProviderError: Error {
     case cantObtainInfo
 }
 
-public struct EDXServiceConfigProtocol: Sendable {
+public struct EDXServiceConfig: Sendable {
     public var ecommerceURL: String
     public var paymentProcessor: String
     
@@ -82,9 +82,8 @@ public class EDXIAPService: IAPServiceProtocol, EDXIAPHelperProtocol {
     public let provider: OEXFoundation.IAPProductProvider<Product, ProductInfo>
     public let style: EDXIAPStyle
     public let analyticsFacade: EDXAnalyticsProtocol
-    private let config: EDXServiceConfigProtocol
     
-    let validator: EDXReceiptValidator
+    public let validator: EDXReceiptValidator
 
     let router: RouterProtocol = Router()
 
@@ -92,13 +91,12 @@ public class EDXIAPService: IAPServiceProtocol, EDXIAPHelperProtocol {
         provider: OEXFoundation.IAPProductProvider<Product, ProductInfo>,
         style: EDXIAPStyle = EDXIAPStyle(),
         analyticsFacade: EDXAnalyticsProtocol,
-        config: EDXServiceConfigProtocol
+        validator: EDXReceiptValidator
     ) {
         self.provider = provider
         self.style = style
         self.analyticsFacade = analyticsFacade
-        self.config = config
-        self.validator = EDXReceiptValidator(config: config)
+        self.validator = validator
     }
     
     public func product(for object: Any) -> Product? {
@@ -168,11 +166,11 @@ public struct EDXFullfillParameters {
     }
 }
 
-struct EDXReceiptValidator: Sendable {
+public struct EDXReceiptValidator: Sendable {
     private let networkService: EDXNetworkService = DefaultNetworkService()
-    private let config: EDXServiceConfigProtocol
+    private let config: EDXServiceConfig
     
-    public init(config: EDXServiceConfigProtocol) {
+    public init(config: EDXServiceConfig) {
         self.config = config
     }
 
