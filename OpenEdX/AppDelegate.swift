@@ -195,31 +195,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // - IAP
         let analyticsService = Container.shared.resolve(AnalyticsManager.self) ?? AnalyticsManager(services: [])
         let analytics = EDXAnalytics(service: analyticsService)
-        let iapService = EDXIAPService(
-            provider: .init(
-                request: { product in
-                    let interactor = Container.shared.resolve(CourseInteractorProtocol.self)
-                    if let courseStructure = try await interactor?.getCourseBlocks(courseID: product.id) {
-                        return EDXProductInfo(
-                            productName: courseStructure.displayName,
-                            sku: courseStructure.sku ?? "",
-                            courseID: courseStructure.id,
-                            isSelfPaced: courseStructure.isSelfPaced,
-                            lmsPrice: courseStructure.lmsPrice ?? .zero
-                        )
+        if let ecommerceURL = config.ecommerceURL, !ecommerceURL.isEmpty {
+            let validator = EDXReceiptValidator(
+                config: EDXServiceConfig(ecommerceURL: ecommerceURL, paymentProcessor: "ios-iap")
+            )
+            let iapService = EDXIAPService(
+                provider: .init(
+                    request: { product in
+                        let interactor = Container.shared.resolve(CourseInteractorProtocol.self)
+                        if let courseStructure = try await interactor?.getCourseBlocks(courseID: product.id) {
+                            return EDXProductInfo(
+                                productName: courseStructure.displayName,
+                                sku: courseStructure.sku ?? "",
+                                courseID: courseStructure.id,
+                                isSelfPaced: courseStructure.isSelfPaced,
+                                lmsPrice: courseStructure.lmsPrice ?? .zero
+                            )
+                        }
+                        throw EDXProviderError.cantObtainInfo
+                    },
+                    product: { object in
+                        if let primaryCourse = object as? PrimaryCourse {
+                            return EDXProduct(id: primaryCourse.courseID, name: primaryCourse.name, screen: .dashboard)
+                        }
+                        return nil
                     }
-                    throw EDXProviderError.cantObtainInfo
-                },
-                product: { object in
-                    if let primaryCourse = object as? PrimaryCourse {
-                        return EDXProduct(id: primaryCourse.courseID, name: primaryCourse.name, screen: .dashboard)
-                    }
-                    return nil
-                }
-            ),
-            analyticsFacade: analytics
-        )
-        pluginManager.setIAPService(iapService)
+                ),
+                analyticsFacade: analytics,
+                validator: validator
+            )
+            pluginManager.setIAPService(iapService)
+        }
         // - FullStory
         /**
          This check is `edX/2U` specific.

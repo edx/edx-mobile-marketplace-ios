@@ -16,8 +16,6 @@ enum UpgradeCompletionState {
 
 @MainActor
 class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
-    nonisolated(unsafe) static var ecommerceURL: String = ""
-    
     private var completion: UpgradeCompletionHandler?
     private var basketID: Int = 0
     private(set) var courseSku: String?
@@ -29,7 +27,7 @@ class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
     private var courseID: String = ""
     private var lmsPrice: Double?
     private var componentID: String?
-
+    
     private(set) var state: UpgradeState = .initial {
         didSet {
             helper.handleCourseUpgrade(
@@ -57,7 +55,6 @@ class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
     }
 
     public init(
-//        config: ConfigProtocol, // NEEDS WORK
         validator: EDXReceiptValidator,
         storeKitHandler: StoreKitHandlerProtocol,
         helper: CourseUpgradeHelperProtocol
@@ -65,7 +62,6 @@ class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
         self.validator = validator
         self.storeKitHandler = storeKitHandler
         self.helper = helper
-//        CourseUpgradeHandler.ecommerceURL = config.ecommerceURL ?? "" // NEEDS WORK
     }
     
     public func upgradeCourse(

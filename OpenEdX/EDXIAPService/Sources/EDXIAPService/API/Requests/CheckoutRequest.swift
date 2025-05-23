@@ -18,12 +18,12 @@ struct CheckoutRequest: EDXDataRequest {
     
     var queryItems: [String: String]
     
-    init(basketID: Int) {
+    init(basketID: Int, ecommerceURL: String, paymentProcessor: String) {
         self.basketID = basketID
-        self.url = "\(BaseConfig.prodURL.rawValue)/api/iap/v1/checkout/"
+        self.url = "\(ecommerceURL)/api/iap/v1/checkout/"
         self.queryItems = [
             "basket_id": "\(basketID)",
-            "payment_processor": BaseConfig.paymentProcessor.rawValue
+            "payment_processor": paymentProcessor
         ]
     }
 }
