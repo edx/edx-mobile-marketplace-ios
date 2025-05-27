@@ -1,16 +1,16 @@
 //
 //  EmailTemplates.swift
-//  Core
+//  EDXIAPService
 //
-//  Created by Saeed Bashir on 5/15/24.
+//  Created by Anton Yarmolenka on 27/05/2025.
 //
 
 import Foundation
 import UIKit
 
-public class EmailTemplates {
+public struct EmailTemplates {
     @MainActor
-    public class func contactSupport(email: String, emailSubject: String, errorMessage: String? = nil) -> URL? {
+    public static func contactSupport(email: String, emailSubject: String, errorMessage: String? = nil) -> URL? {
         let osVersion = UIDevice.current.systemVersion
         let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
         let deviceModel = UIDevice.current.model

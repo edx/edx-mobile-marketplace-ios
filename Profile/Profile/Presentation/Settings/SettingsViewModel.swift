@@ -10,6 +10,7 @@ import Core
 import SwiftUI
 import Combine
 import OEXFoundation
+import EDXIAPService
 
 @MainActor
 public final class SettingsViewModel: ObservableObject {
@@ -133,10 +134,16 @@ public final class SettingsViewModel: ObservableObject {
     }
     
     func contactSupport() -> URL? {
-        return EmailTemplates.contactSupport(
-            email: config.feedbackEmail,
-            emailSubject: CoreLocalization.feedbackEmailSubject
-        )
+        let osVersion = UIDevice.current.systemVersion
+        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+        let deviceModel = UIDevice.current.model
+        let feedbackDetails = "OS version: \(osVersion)\nApp version: \(appVersion)\nDevice model: \(deviceModel)"
+        
+        let recipientAddress = config.feedbackEmail
+        let emailSubject = "Feedback"
+        let emailBody = "\n\n\(feedbackDetails)\n".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let emailURL = URL(string: "mailto:\(recipientAddress)?subject=\(emailSubject)&body=\(emailBody)")
+        return emailURL
     }
 
     func update(downloadQuality: DownloadQuality) async {
@@ -209,6 +216,7 @@ public final class SettingsViewModel: ObservableObject {
         analytics.profileTrackEvent(.profilehelpUsImprove, biValue: .profilehelpUsImprove)
     }
     
+    // NEEDS WORK
     @MainActor
     func restorePurchases() async {
         coreAnalytics.trackRestorePurchaseClicked()
@@ -227,8 +235,9 @@ public final class SettingsViewModel: ObservableObject {
         }
     }
     
+    // NEEDS WORK
     @MainActor
-    private func fulfillPurchase(inprogressIAP: InProgressIAP, product: StoreProductInfo) async {
+    private func fulfillPurchase(inprogressIAP: EDXInProgressIAP, product: StoreProductInfo) async {
         coreAnalytics.trackCourseUnfulfilledPurchaseInitiated(
             courseID: inprogressIAP.courseID,
             pacing: inprogressIAP.pacing,

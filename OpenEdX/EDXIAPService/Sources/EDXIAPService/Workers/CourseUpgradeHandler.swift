@@ -6,7 +6,7 @@
 //
 import Foundation
 
-enum UpgradeCompletionState {
+public enum UpgradeCompletionState {
     case initial
     case payment
     case fulfillment(showLoader: Bool)
@@ -15,7 +15,7 @@ enum UpgradeCompletionState {
 }
 
 @MainActor
-class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
+public class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
     private var completion: UpgradeCompletionHandler?
     private var basketID: Int = 0
     private(set) var courseSku: String?
@@ -54,7 +54,7 @@ class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
         }
     }
 
-    public init(
+    init(
         validator: EDXReceiptValidator,
         storeKitHandler: StoreKitHandlerProtocol,
         helper: CourseUpgradeHelperProtocol
@@ -64,7 +64,7 @@ class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
         self.helper = helper
     }
     
-    public func upgradeCourse(
+    func upgradeCourse(
         sku: String?,
         mode: EDXUpgradeMode = .userInitiated,
         productInfo: StoreProductInfo?,
@@ -177,7 +177,7 @@ class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
         await verifyResponse(response)
     }
     
-    public func fetchProduct(sku: String) async throws -> StoreProductInfo {
+    func fetchProduct(sku: String) async throws -> StoreProductInfo {
         try await storeKitHandler.fetchProduct(sku: sku)
     }
 }

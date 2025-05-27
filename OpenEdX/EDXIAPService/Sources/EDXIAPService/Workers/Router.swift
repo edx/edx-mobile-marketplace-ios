@@ -50,4 +50,52 @@ class Router: RouterProtocol {
             alertController.addAction(action)
         }
     }
+    
+    func backToRoot(animated: Bool) {
+//        navigationController.popToRootViewController(animated: animated) //NEEDS WORK
+    }
+    
+    @MainActor
+    public func hideUpgradeLoaderView(animated: Bool) async {
+        // NEEDS WORK
+//        await withCheckedContinuation { continuation in
+//            let presentedController = navigationController.presentedViewController
+//            if let controller = presentedController as? UIHostingController<CourseUpgradeUnlockView> {
+//                controller.dismiss(animated: animated) {
+//                    continuation.resume()
+//                }
+//            } else {
+//                continuation.resume()
+//            }
+//        }
+    }
+    
+    @MainActor
+    public func hideUpgradeInfo(animated: Bool) async {
+        // NEEDS WORK
+//        await withCheckedContinuation { continuation in
+//            if let controller = navigationController.presentedViewController as?
+//                UIHostingController<UpgradeInfoSheetView> {
+//                controller.dismiss(animated: animated) {
+//                    continuation.resume()
+//                }
+//            } else {
+//                continuation.resume()
+//            }
+//        }
+    }
+    
+    @MainActor
+    public func showUpgradeLoaderView(animated: Bool) async {
+        // NEEDS WORK
+//        await withCheckedContinuation { continuation in
+//            let unlockView = CourseUpgradeUnlockView()
+//            let controller = UIHostingController(rootView: unlockView)
+//            controller.modalTransitionStyle = .crossDissolve
+//            controller.modalPresentationStyle = .overFullScreen
+//            navigationController.present(controller, animated: animated) {
+//                continuation.resume()
+//            }
+//        }
+    }
 }

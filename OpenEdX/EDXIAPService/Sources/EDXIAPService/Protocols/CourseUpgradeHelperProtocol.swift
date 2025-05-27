@@ -6,7 +6,7 @@
 //
 
 import Foundation
-protocol CourseUpgradeHelperDelegate: AnyObject {
+public protocol CourseUpgradeHelperDelegate: AnyObject {
     func hideAlertAction()
 }
 

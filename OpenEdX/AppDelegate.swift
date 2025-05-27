@@ -196,8 +196,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let analyticsService = Container.shared.resolve(AnalyticsManager.self) ?? AnalyticsManager(services: [])
         let analytics = EDXAnalytics(service: analyticsService)
         if let ecommerceURL = config.ecommerceURL, !ecommerceURL.isEmpty {
+            let edxIAPConfig = EDXServiceConfig(
+                ecommerceURL: ecommerceURL,
+                paymentProcessor: "ios-iap",
+                feedbackEmail: config.feedbackEmail
+            )
             let validator = EDXReceiptValidator(
-                config: EDXServiceConfig(ecommerceURL: ecommerceURL, paymentProcessor: "ios-iap")
+                config: edxIAPConfig
             )
             let iapService = EDXIAPService(
                 provider: .init(
@@ -222,7 +227,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     }
                 ),
                 analyticsFacade: analytics,
-                validator: validator
+                validator: validator,
+                config: edxIAPConfig
             )
             pluginManager.setIAPService(iapService)
         }

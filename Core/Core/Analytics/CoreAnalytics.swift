@@ -21,74 +21,7 @@ public protocol CoreAnalytics {
         oldValue: String
     )
     
-    func trackCourseUpgradePaymentError(
-        _ event: AnalyticsEvent,
-        biValue: EventBIValue,
-        courseID: String,
-        blockID: String?,
-        pacing: String,
-        localizedPrice: NSDecimalNumber?,
-        localizedCurrencyCode: String?,
-        lmsPrice: Double?,
-        screen: CourseUpgradeScreen,
-        error: String
-    )
-    
-    func trackCourseUpgradeError(
-        courseID: String,
-        blockID: String?,
-        pacing: String,
-        localizedPrice: NSDecimalNumber?,
-        localizedCurrencyCode: String?,
-        lmsPrice: Double?,
-        screen: CourseUpgradeScreen,
-        error: String,
-        flowType: UpgradeMode
-    )
-    
-    // swiftlint:disable:next function_parameter_count
-    func trackCourseUpgradeErrorAction(
-        courseID: String,
-        blockID: String?,
-        pacing: String,
-        localizedPrice: NSDecimalNumber?,
-        localizedCurrencyCode: String?,
-        lmsPrice: Double?,
-        screen: CourseUpgradeScreen,
-        alertType: UpgradeAlertType,
-        errorAction: String,
-        error: String,
-        flowType: UpgradeMode
-    )
-    
-    func trackCourseUpgradeSuccess(
-        courseID: String,
-        blockID: String?,
-        pacing: String,
-        localizedPrice: NSDecimalNumber?,
-        localizedCurrencyCode: String?,
-        lmsPrice: Double?,
-        screen: CourseUpgradeScreen,
-        flowType: UpgradeMode
-    )
-    
-    func trackUpgradeNow(
-        courseID: String,
-        blockID: String?,
-        pacing: String,
-        screen: CourseUpgradeScreen,
-        localizedPrice: NSDecimalNumber?,
-        localizedCurrencyCode: String?,
-        lmsPrice: Double?
-    )
-    
-    func trackCourseUpgradeLoadError(
-        courseID: String,
-        blockID: String?,
-        pacing: String,
-        screen: CourseUpgradeScreen
-    )
-    
+    // NEEDS WORK - move to plugin when restore/fullfilment is moved to plugin from Settings and ListDashboard
     func trackCourseUnfulfilledPurchaseInitiated(
         courseID: String,
         pacing: String,
@@ -97,13 +30,6 @@ public protocol CoreAnalytics {
     )
     
     func trackRestorePurchaseClicked()
-    
-    func trackValuePropViewed(
-        courseID: String,
-        pacing: String,
-        lmsPrice: Double,
-        screen: CourseUpgradeScreen
-    )
 }
 
 public extension CoreAnalytics {
@@ -139,72 +65,6 @@ public class CoreAnalyticsMock: CoreAnalytics {
         oldValue: String
     ) {}
     
-    public func trackCourseUpgradePaymentError(
-        _ event: AnalyticsEvent,
-        biValue: EventBIValue,
-        courseID: String,
-        blockID: String? = nil,
-        pacing: String,
-        localizedPrice: NSDecimalNumber? = nil,
-        localizedCurrencyCode: String? = nil,
-        lmsPrice: Double? = 0.0,
-        screen: CourseUpgradeScreen,
-        error: String
-    ) {}
-    
-    public func trackCourseUpgradeError(
-        courseID: String,
-        blockID: String? = nil,
-        pacing: String,
-        localizedPrice: NSDecimalNumber? = nil,
-        localizedCurrencyCode: String? = nil,
-        lmsPrice: Double? = 0.0,
-        screen: CourseUpgradeScreen,
-        error: String,
-        flowType: UpgradeMode
-    ) {}
-    
-    public func trackCourseUpgradeErrorAction(
-        courseID: String,
-        blockID: String? = nil,
-        pacing: String,
-        localizedPrice: NSDecimalNumber? = nil,
-        localizedCurrencyCode: String? = nil,
-        lmsPrice: Double? = 0.0,
-        screen: CourseUpgradeScreen,
-        alertType: UpgradeAlertType,
-        errorAction: String,
-        error: String,
-        flowType: UpgradeMode
-    ) {}
-    
-    public func trackCourseUpgradeSuccess(
-        courseID: String,
-        blockID: String? = nil,
-        pacing: String,
-        localizedPrice: NSDecimalNumber? = nil,
-        localizedCurrencyCode: String? = nil,
-        lmsPrice: Double? = 0.0,
-        screen: CourseUpgradeScreen,
-        flowType: UpgradeMode) {}
-    
-    public func trackUpgradeNow(
-        courseID: String,
-        blockID: String? = nil,
-        pacing: String,
-        screen: CourseUpgradeScreen,
-        localizedPrice: NSDecimalNumber? = nil,
-        localizedCurrencyCode: String? = nil,
-        lmsPrice: Double? = 0.0
-    ) {}
-    
-    public func trackCourseUpgradeLoadError(
-        courseID: String,
-        blockID: String? = nil,
-        pacing: String,
-        screen: CourseUpgradeScreen
-    ) {}
-    
     public func trackCourseUnfulfilledPurchaseInitiated(
         courseID: String,
         pacing: String,
@@ -213,13 +73,6 @@ public class CoreAnalyticsMock: CoreAnalytics {
     ) {}
     
     public func trackRestorePurchaseClicked() {}
-    
-    public func trackValuePropViewed(
-        courseID: String,
-        pacing: String,
-        lmsPrice: Double,
-        screen: CourseUpgradeScreen
-    ) {}
 }
 #endif
 

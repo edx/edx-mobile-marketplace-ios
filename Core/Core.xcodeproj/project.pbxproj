@@ -141,7 +141,6 @@
 		0770DE5F28D0B22C006D8A5D /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0770DE5E28D0B22C006D8A5D /* Strings.swift */; };
 		0770DE6128D0B2CB006D8A5D /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0770DE6028D0B2CB006D8A5D /* Assets.swift */; };
 		07E0939F2B308D2800F1E4B2 /* Data_Certificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E0939E2B308D2800F1E4B2 /* Data_Certificate.swift */; };
-		141DB4662BF4A1F900BDA069 /* EmailTemplates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141DB4652BF4A1F900BDA069 /* EmailTemplates.swift */; };
 		141F1D302B7328D4009E81EB /* WebviewCookiesUpdateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141F1D2F2B7328D4009E81EB /* WebviewCookiesUpdateProtocol.swift */; };
 		142BBEB32C2EE49C00D57CEC /* CourseAccessMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142BBEB22C2EE49C00D57CEC /* CourseAccessMessageView.swift */; };
 		14769D3C2B9822EE00AB36D4 /* CoreAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14769D3B2B9822EE00AB36D4 /* CoreAnalytics.swift */; };
@@ -151,7 +150,6 @@
 		14A8325B2BD7615C00E5654D /* CourseUpgradeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A8325A2BD7615C00E5654D /* CourseUpgradeRepository.swift */; };
 		14A8325D2BD7629B00E5654D /* CourseUpgradeEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A8325C2BD7629B00E5654D /* CourseUpgradeEndpoint.swift */; };
 		14A8325F2BD766E900E5654D /* Data_Upgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A8325E2BD766E900E5654D /* Data_Upgrade.swift */; };
-		14A832612BD8B5F100E5654D /* CourseUpgradeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A832602BD8B5F100E5654D /* CourseUpgradeHelper.swift */; };
 		14A832682BDA8B6000E5654D /* UIAlertController+BlockActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A832672BDA8B6000E5654D /* UIAlertController+BlockActions.swift */; };
 		14DE13DA2BDF7E5E0059168F /* IAPConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DE13D92BDF7E5E0059168F /* IAPConfig.swift */; };
 		14DE13DC2BDF83350059168F /* ServerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DE13DB2BDF83350059168F /* ServerConfig.swift */; };
@@ -166,6 +164,7 @@
 		9784D47E2BF7762800AFEFFF /* FullScreenErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9784D47D2BF7762800AFEFFF /* FullScreenErrorView.swift */; };
 		A5265D4B2D7741A900D91735 /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5265D4A2D7741A900D91735 /* UINavigationController.swift */; };
 		A53A32352B233DEC005FE38A /* ThemeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53A32342B233DEC005FE38A /* ThemeConfig.swift */; };
+		A54B7B752DE6110300A8AF5A /* EDXIAPService in Frameworks */ = {isa = PBXBuildFile; productRef = A54B7B742DE6110300A8AF5A /* EDXIAPService */; };
 		A55DC36F2D774D30001E272B /* FullStoryConfigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55DC36E2D774D2F001E272B /* FullStoryConfigTests.swift */; };
 		A58363902D807EC2008935FF /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = A583638F2D807EC2008935FF /* OEXFoundation */; };
 		A5935EA52CEF832500B4BB48 /* SegmentConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5935EA42CEF832500B4BB48 /* SegmentConfig.swift */; };
@@ -378,7 +377,6 @@
 		07E0939E2B308D2800F1E4B2 /* Data_Certificate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data_Certificate.swift; sourceTree = "<group>"; };
 		0CA4A65A3AECED83CC425A00 /* Pods-CoreTests.debugstage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoreTests.debugstage.xcconfig"; path = "Target Support Files/Pods-CoreTests/Pods-CoreTests.debugstage.xcconfig"; sourceTree = "<group>"; };
 		0E13E9173C9C4CFC19F8B6F2 /* Pods-App-Core.debugstage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Core.debugstage.xcconfig"; path = "Target Support Files/Pods-App-Core/Pods-App-Core.debugstage.xcconfig"; sourceTree = "<group>"; };
-		141DB4652BF4A1F900BDA069 /* EmailTemplates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailTemplates.swift; sourceTree = "<group>"; };
 		141F1D2F2B7328D4009E81EB /* WebviewCookiesUpdateProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebviewCookiesUpdateProtocol.swift; sourceTree = "<group>"; };
 		142BBEB22C2EE49C00D57CEC /* CourseAccessMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseAccessMessageView.swift; sourceTree = "<group>"; };
 		14769D3B2B9822EE00AB36D4 /* CoreAnalytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreAnalytics.swift; sourceTree = "<group>"; };
@@ -388,7 +386,6 @@
 		14A8325A2BD7615C00E5654D /* CourseUpgradeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseUpgradeRepository.swift; sourceTree = "<group>"; };
 		14A8325C2BD7629B00E5654D /* CourseUpgradeEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseUpgradeEndpoint.swift; sourceTree = "<group>"; };
 		14A8325E2BD766E900E5654D /* Data_Upgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data_Upgrade.swift; sourceTree = "<group>"; };
-		14A832602BD8B5F100E5654D /* CourseUpgradeHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseUpgradeHelper.swift; sourceTree = "<group>"; };
 		14A832672BDA8B6000E5654D /* UIAlertController+BlockActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+BlockActions.swift"; sourceTree = "<group>"; };
 		14D912DA2C257E9E0077CCCE /* FullStoryConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullStoryConfigTests.swift; sourceTree = "<group>"; };
 		14DE13D92BDF7E5E0059168F /* IAPConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPConfig.swift; sourceTree = "<group>"; };
@@ -475,6 +472,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C8C446EF233F81B9FABB77D2 /* Pods_App_Core.framework in Frameworks */,
+				A54B7B752DE6110300A8AF5A /* EDXIAPService in Frameworks */,
 				02AA27942C2C1B88006F5B6A /* ZipArchive in Frameworks */,
 				A5CBE6582D5B820E00FF455A /* SwiftyStoreKit in Frameworks */,
 				E055A5392B18DC95008D9E5E /* Theme.framework in Frameworks */,
@@ -832,7 +830,6 @@
 			children = (
 				0770DE7728D0C49E006D8A5D /* Base */,
 				072787B528D37A0E002E9142 /* Validator.swift */,
-				141DB4652BF4A1F900BDA069 /* EmailTemplates.swift */,
 				142BBEB22C2EE49C00D57CEC /* CourseAccessMessageView.swift */,
 			);
 			path = View;
@@ -918,7 +915,6 @@
 				14A832562BD75D6100E5654D /* CourseUpgradeHandler.swift */,
 				14A832582BD75EC400E5654D /* CourseUpgradeInteractor.swift */,
 				14A8325C2BD7629B00E5654D /* CourseUpgradeEndpoint.swift */,
-				14A832602BD8B5F100E5654D /* CourseUpgradeHelper.swift */,
 			);
 			path = CourseUpgrade;
 			sourceTree = "<group>";
@@ -1159,6 +1155,7 @@
 				02AA27932C2C1B88006F5B6A /* ZipArchive */,
 				A5CBE6572D5B820E00FF455A /* SwiftyStoreKit */,
 				A583638F2D807EC2008935FF /* OEXFoundation */,
+				A54B7B742DE6110300A8AF5A /* EDXIAPService */,
 			);
 			productName = Core;
 			productReference = 0770DE0828D07831006D8A5D /* Core.framework */;
@@ -1258,9 +1255,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-App-Core-CoreTests/Pods-App-Core-CoreTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-App-Core-CoreTests/Pods-App-Core-CoreTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1421,7 +1422,6 @@
 				A595689B2B6173DF00ED4F90 /* BranchConfig.swift in Sources */,
 				0770DE2528D08FBA006D8A5D /* CoreStorage.swift in Sources */,
 				942A98592D4CAF5200DD8BBC /* ScreenStateView.swift in Sources */,
-				141DB4662BF4A1F900BDA069 /* EmailTemplates.swift in Sources */,
 				020306CC2932C0C4000949EA /* PickerView.swift in Sources */,
 				027BD3C52909707700392132 /* Shake.swift in Sources */,
 				027BD39C2908810C00392132 /* RegisterUser.swift in Sources */,
@@ -1465,7 +1465,6 @@
 				027BD3AD2909475000392132 /* KeyboardScroller.swift in Sources */,
 				070019A528F6F17900D5FC78 /* Data_Media.swift in Sources */,
 				024D723529C8BB1A006D36ED /* NavigationBar.swift in Sources */,
-				14A832612BD8B5F100E5654D /* CourseUpgradeHelper.swift in Sources */,
 				142BBEB32C2EE49C00D57CEC /* CourseAccessMessageView.swift in Sources */,
 				028CE96929858ECC00B6B1C3 /* FlexibleKeyboardInputView.swift in Sources */,
 				062C69B42C198337002BD311 /* UpgradeInfoViewModel.swift in Sources */,
@@ -2593,6 +2592,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 02AA27922C2C1B61006F5B6A /* XCRemoteSwiftPackageReference "ZipArchive" */;
 			productName = ZipArchive;
+		};
+		A54B7B742DE6110300A8AF5A /* EDXIAPService */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = EDXIAPService;
 		};
 		A583638F2D807EC2008935FF /* OEXFoundation */ = {
 			isa = XCSwiftPackageProductDependency;

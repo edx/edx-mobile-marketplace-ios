@@ -9,6 +9,7 @@ import Foundation
 import Core
 import SwiftUI
 import Combine
+import EDXIAPService
 
 @MainActor
 public class ListDashboardViewModel: ObservableObject {
@@ -153,6 +154,7 @@ public class ListDashboardViewModel: ObservableObject {
 }
 
 // Course upgrade
+// NEEDS WORK
 extension ListDashboardViewModel {
     
     @MainActor
@@ -167,7 +169,7 @@ extension ListDashboardViewModel {
         }
     }
     
-    private func fulfillPurchase(inprogressIAP: InProgressIAP, product: StoreProductInfo) async {
+    private func fulfillPurchase(inprogressIAP: EDXInProgressIAP, product: StoreProductInfo) async {
         
         coreAnalytics.trackCourseUnfulfilledPurchaseInitiated(
             courseID: inprogressIAP.courseID,
