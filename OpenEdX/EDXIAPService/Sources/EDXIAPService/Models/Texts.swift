@@ -8,6 +8,7 @@
 enum Texts {
     static let ok = "Ok"
     static let cancel = "Cancel"
+    static let close = "Close"
     enum Button {
         static let upgrade = "Upgrade to access more features"
     }
@@ -33,6 +34,11 @@ enum Texts {
         }
     }
     enum CourseUpgrade {
+        enum SendEmail {
+            static let supportEmailSubject = "Error upgrading course in app"
+            static let emailNotSetupTitle = "Email not set up"
+            static let cannotSendEmail = "Cannot send email. It seems your email client is not set up."
+        }
         enum FailureAlert {
             static let paymentNotProcessed = """
                 Your payment could not be processed at this time. Please try again. For additional help, \
@@ -59,6 +65,24 @@ enum Texts {
                 Your request could not be completed at this time. If this error continues, please reach out to Support.
                 """
             static let alertTitle = "An error occurred"
+            static let refreshToRetry = "Refresh to retry"
+            static let getHelp = "Get help"
+        }
+        enum SuccessAlert {
+            static let silentAlertRefresh = "Refresh now"
+            static let silentAlertContinue = "Continue without update"
+            static let silentAlertTitle = "New experience available"
+            static let silentAlertMessage = """
+                An update is available to unlock a purchased course. To update, we need to quickly refresh your app. \
+                If you choose not to update now, we’ll try again later.
+                """
+        }
+        enum Restore {
+            static let alertTitle = "Purchases have been successfully restored"
+            static let alertMessage = """
+                All purchases are up to date. If you’re not seeing your purchases restored, please try restarting \
+                your app to refresh the experience.
+                """
         }
     }
 }

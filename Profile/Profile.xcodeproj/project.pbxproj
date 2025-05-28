@@ -58,6 +58,7 @@
 		0796C8C929B7905300444B05 /* ProfileBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0796C8C829B7905300444B05 /* ProfileBottomSheet.swift */; };
 		25B36FF48C1307888A3890DA /* Pods_App_Profile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEA369C38362C1A91A012F70 /* Pods_App_Profile.framework */; };
 		A5310EAD2D7F64FB00020305 /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = A5310EAC2D7F64FB00020305 /* OEXFoundation */; };
+		A54B7B732DE610DA00A8AF5A /* EDXIAPService in Frameworks */ = {isa = PBXBuildFile; productRef = A54B7B722DE610DA00A8AF5A /* EDXIAPService */; };
 		A58363762D807DAD008935FF /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = A58363752D807DAD008935FF /* OEXFoundation */; };
 		BAD9CA3F2B29BF5C00DE790A /* ProfileSupportInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD9CA3E2B29BF5C00DE790A /* ProfileSupportInfoView.swift */; };
 		CE1735042CD23D7A00F9606A /* DatesAndCalendarViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1735032CD23D7A00F9606A /* DatesAndCalendarViewModelTests.swift */; };
@@ -172,6 +173,7 @@
 				CEBCA4312CC13CB900076589 /* BranchSDK in Frameworks */,
 				025DE1A028DB4D9D0053E0F4 /* Core.framework in Frameworks */,
 				25B36FF48C1307888A3890DA /* Pods_App_Profile.framework in Frameworks */,
+				A54B7B732DE610DA00A8AF5A /* EDXIAPService in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -497,7 +499,6 @@
 				020F834628DB4CCD0062FA70 /* Sources */,
 				020F834728DB4CCD0062FA70 /* Frameworks */,
 				020F834828DB4CCD0062FA70 /* Resources */,
-				A58363782D807DAD008935FF /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -672,9 +673,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-App-Profile-ProfileTests/Pods-App-Profile-ProfileTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-App-Profile-ProfileTests/Pods-App-Profile-ProfileTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1775,6 +1780,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A5FB2CC52D75D93200ECA001 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */;
 			productName = OEXFoundation;
+		};
+		A54B7B722DE610DA00A8AF5A /* EDXIAPService */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = EDXIAPService;
 		};
 		A58363752D807DAD008935FF /* OEXFoundation */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -37,6 +37,7 @@
 		97D2CBB92D354DCA006AC2C2 /* Notifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97D2CBB82D354DCA006AC2C2 /* Notifications.framework */; };
 		97E7DF0B2B7A3EAF00A2A09B /* CourseEnrollmentsMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E7DF0A2B7A3EAF00A2A09B /* CourseEnrollmentsMock.swift */; };
 		9AD4A6A1AAF97092CF457FE2 /* Pods_App_Dashboard_DashboardTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22905947A936093AD23D4CF8 /* Pods_App_Dashboard_DashboardTests.framework */; };
+		A54B7B792DE6159F00A8AF5A /* EDXIAPService in Frameworks */ = {isa = PBXBuildFile; productRef = A54B7B782DE6159F00A8AF5A /* EDXIAPService */; };
 		A58363892D807E8E008935FF /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = A58363882D807E8E008935FF /* OEXFoundation */; };
 		CE1735062CD2552A00F9606A /* PrimaryCourseDashboardViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1735052CD2552A00F9606A /* PrimaryCourseDashboardViewModelTests.swift */; };
 		CE17350A2CD26CB500F9606A /* AllCoursesViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1735092CD26CB500F9606A /* AllCoursesViewModelTests.swift */; };
@@ -135,6 +136,7 @@
 				97D2CBB92D354DCA006AC2C2 /* Notifications.framework in Frameworks */,
 				027DB33F28D8E605002B6862 /* Core.framework in Frameworks */,
 				214DA1AADABC7BF4FB8EA1D7 /* Pods_App_Dashboard.framework in Frameworks */,
+				A54B7B792DE6159F00A8AF5A /* EDXIAPService in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -495,9 +497,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-App-Dashboard-DashboardTests/Pods-App-Dashboard-DashboardTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-App-Dashboard-DashboardTests/Pods-App-Dashboard-DashboardTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1563,6 +1569,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		A54B7B782DE6159F00A8AF5A /* EDXIAPService */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = EDXIAPService;
+		};
 		A58363882D807E8E008935FF /* OEXFoundation */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A51F8CCF2D80707700F3B60C /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */;

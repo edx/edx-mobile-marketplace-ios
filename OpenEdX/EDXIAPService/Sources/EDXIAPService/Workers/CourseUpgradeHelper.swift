@@ -1,30 +1,19 @@
 //
 //  CourseUpgradeHelper.swift
-//  Core
+//  EDXIAPService
 //
-//  Created by Saeed Bashir on 4/24/24.
+//  Created by Anton Yarmolenka on 27/05/2025.
 //
 
 import Foundation
-import StoreKit
-import SwiftUI
 import MessageUI
-import Alamofire
 
 private let InProgressIAPKey = "InProgressIAPKey"
 
 public struct CourseUpgradeHelperModel {
     let courseID: String
     let blockID: String?
-    let screen: CourseUpgradeScreen
-}
-
-public enum UpgradeCompletionState {
-    case initial
-    case payment
-    case fulfillment(showLoader: Bool)
-    case success(_ courseID: String, _ componentID: String?)
-    case error(UpgradeError)
+    let screen: EDXScreen
 }
 
 public enum UpgradeAlertType: String {
@@ -38,58 +27,33 @@ public enum UpgradeAlertType: String {
     case unknown
 }
 
-// These error actions are used to send in analytics
-public enum UpgradeErrorAction: String {
-    case refreshToRetry = "refresh"
-    case reloadPrice = "reload_price"
-    case emailSupport = "get_help"
-    case close
-}
-
-// These alert actions are used to send in analytics
-public enum UpgradeAlertAction: String {
-    case close
-    case continueWithoutUpdate = "continue_without_update"
-    case getHelp = "get_help"
-    case refresh
-}
-
-public enum Pacing: String {
-    case selfPace = "self"
-    case instructor
-}
-
-public protocol CourseUpgradeHelperDelegate: AnyObject {
-    func hideAlertAction()
-}
-
 @MainActor
 public class CourseUpgradeHelper: @preconcurrency CourseUpgradeHelperProtocol {
     
     weak private(set) var delegate: CourseUpgradeHelperDelegate?
     private(set) var completion: (() -> Void)?
     private(set) var helperModel: CourseUpgradeHelperModel?
-    private(set) var config: ConfigProtocol
-    private(set) var analytics: CoreAnalytics
+    private(set) var analytics: EDXAnalyticsProtocol
     
     private var pacing: String?
     private var courseID: String?
     private var blockID: String?
-    private var screen: CourseUpgradeScreen = .unknown
+    private var screen: EDXScreen = .unknown
     private var localizedPrice: NSDecimalNumber?
     private var localizedCurrencyCode: String?
     private var lmsPrice: Double?
     weak private(set) var upgradeHadler: CourseUpgradeHandler?
-    private let router: BaseRouter
+    private let router: RouterProtocol
+    private let config: EDXServiceConfig
     
-    public init(
-        config: ConfigProtocol,
-        analytics: CoreAnalytics,
-        router: BaseRouter
+    init(
+        analytics: EDXAnalyticsProtocol,
+        router: RouterProtocol,
+        config: EDXServiceConfig
     ) {
-        self.config = config
         self.analytics = analytics
         self.router = router
+        self.config = config
     }
     
     public func setData(
@@ -99,7 +63,7 @@ public class CourseUpgradeHelper: @preconcurrency CourseUpgradeHelperProtocol {
         localizedPrice: NSDecimalNumber?,
         localizedCurrencyCode: String?,
         lmsPrice: Double?,
-        screen: CourseUpgradeScreen
+        screen: EDXScreen
     ) {
         self.courseID = courseID
         self.pacing = pacing
@@ -110,7 +74,7 @@ public class CourseUpgradeHelper: @preconcurrency CourseUpgradeHelperProtocol {
         self.lmsPrice = lmsPrice
     }
     
-    public func handleCourseUpgrade(
+    func handleCourseUpgrade(
         upgradeHadler: CourseUpgradeHandler,
         state: UpgradeCompletionState,
         delegate: CourseUpgradeHelperDelegate? = nil
@@ -137,8 +101,8 @@ public class CourseUpgradeHelper: @preconcurrency CourseUpgradeHelperProtocol {
             if case .paymentError = error {
                 if error.isCancelled {
                     analytics.trackCourseUpgradePaymentError(
-                        .courseUpgradePaymentCancelError,
-                        biValue: .courseUpgradePaymentCancelError,
+                        AnalyticsEvent.courseUpgradePaymentCancelError,
+                        biValue: EventBIValue.courseUpgradePaymentCancelError,
                         courseID: courseID ?? "",
                         blockID: blockID,
                         pacing: pacing ?? "",
@@ -150,8 +114,8 @@ public class CourseUpgradeHelper: @preconcurrency CourseUpgradeHelperProtocol {
                     )
                 } else {
                     analytics.trackCourseUpgradePaymentError(
-                        .courseUpgradePaymentError,
-                        biValue: .courseUpgradePaymentError,
+                        AnalyticsEvent.courseUpgradePaymentError,
+                        biValue: EventBIValue.courseUpgradePaymentError,
                         courseID: courseID ?? "",
                         blockID: blockID,
                         pacing: pacing ?? "",
@@ -217,14 +181,14 @@ public class CourseUpgradeHelper: @preconcurrency CourseUpgradeHelperProtocol {
     }
     
     private func postSuccessNotification(showLoader: Bool = false) {
-        NotificationCenter.default.post(name: .courseUpgradeCompletionNotification, object: showLoader)
+//        NotificationCenter.default.post(name: .courseUpgradeCompletionNotification, object: showLoader) // NEEDS WORK
     }
     
     private func showDashboardScreen() {
         router.backToRoot(animated: true)
     }
     
-    public func resetUpgradeModel() {
+    private func resetUpgradeModel() {
         helperModel = nil
         delegate = nil
     }
@@ -264,7 +228,7 @@ extension CourseUpgradeHelper {
             if case .verifyReceiptError(let nestedError) = error, nestedError.errorCode != 409 {
                 actions.append(
                     UIAlertAction(
-                        title: CoreLocalization.CourseUpgrade.FailureAlert.refreshToRetry,
+                        title: Texts.CourseUpgrade.FailureAlert.refreshToRetry,
                         style: .default,
                         handler: { [weak self] _ in
                             guard let self = self else { return }
@@ -284,7 +248,7 @@ extension CourseUpgradeHelper {
             if case .complete = upgradeHadler?.state, completion != nil {
                 actions.append(
                     UIAlertAction(
-                        title: CoreLocalization.CourseUpgrade.FailureAlert.refreshToRetry,
+                        title: Texts.CourseUpgrade.FailureAlert.refreshToRetry,
                         style: .default,
                         handler: { [weak self] _ in
                             self?.trackUpgradeErrorAction(
@@ -302,7 +266,7 @@ extension CourseUpgradeHelper {
             
             actions.append(
                 UIAlertAction(
-                    title: CoreLocalization.CourseUpgrade.FailureAlert.getHelp,
+                    title: Texts.CourseUpgrade.FailureAlert.getHelp,
                     style: .default,
                     handler: { [weak self] _ in
                         guard let self = self else { return }
@@ -322,7 +286,7 @@ extension CourseUpgradeHelper {
 
             actions.append(
                 UIAlertAction(
-                    title: CoreLocalization.close,
+                    title: Texts.close,
                     style: .default,
                     handler: { [weak self] _ in
                         guard let self = self else { return }
@@ -336,14 +300,14 @@ extension CourseUpgradeHelper {
             )
 
             router.presentNativeAlert(
-                title: CoreLocalization.CourseUpgrade.FailureAlert.alertTitle,
+                title: Texts.CourseUpgrade.FailureAlert.alertTitle,
                 message: error.localizedDescription,
                 actions: actions
             )
         }
     }
     
-    private var alertType: UpgradeAlertType {
+    private var alertType: EDXUpgradeAlertType {
         switch upgradeHadler?.state {
         case .basket:
             return .basket
@@ -365,7 +329,7 @@ extension CourseUpgradeHelper {
 }
 
 extension CourseUpgradeHelper {
-    public func showLoader(animated: Bool = false, completion: (() -> Void)? = nil) {
+    func showLoader(animated: Bool = false, completion: (() -> Void)? = nil) {
         Task {@MainActor [weak self] in
             guard let self = self else { return }
             await self.router.hideUpgradeInfo(animated: false)
@@ -374,7 +338,7 @@ extension CourseUpgradeHelper {
         }
     }
     
-    public func removeLoader(
+    func removeLoader(
         success: Bool? = false,
         shouldRemoveView: Bool? = false,
         completion: (() -> Void)? = nil
@@ -407,7 +371,7 @@ extension CourseUpgradeHelper {
 
         actions.append(
             UIAlertAction(
-                title: CoreLocalization.CourseUpgrade.SuccessAlert.silentAlertRefresh,
+                title: Texts.CourseUpgrade.SuccessAlert.silentAlertRefresh,
                 style: .default
             ) { [weak self] _ in
                 self?.showDashboardScreen()
@@ -417,7 +381,7 @@ extension CourseUpgradeHelper {
         
         actions.append(
             UIAlertAction(
-                title: CoreLocalization.CourseUpgrade.SuccessAlert.silentAlertContinue,
+                title: Texts.CourseUpgrade.SuccessAlert.silentAlertContinue,
                 style: .default
             ) { [weak self] _ in
                 self?.reset()
@@ -425,8 +389,8 @@ extension CourseUpgradeHelper {
         )
 
         router.presentNativeAlert(
-            title: CoreLocalization.CourseUpgrade.SuccessAlert.silentAlertTitle,
-            message: CoreLocalization.CourseUpgrade.SuccessAlert.silentAlertMessage,
+            title: Texts.CourseUpgrade.SuccessAlert.silentAlertTitle,
+            message: Texts.CourseUpgrade.SuccessAlert.silentAlertMessage,
             actions: actions
         )
     }
@@ -436,7 +400,7 @@ extension CourseUpgradeHelper {
         
         actions.append(
             UIAlertAction(
-                title: CoreLocalization.CourseUpgrade.FailureAlert.getHelp,
+                title: Texts.CourseUpgrade.FailureAlert.getHelp,
                 style: .default
             ) { [weak self] _ in
                 self?.launchEmailComposer(errorMessage: "Error: restore_purchases")
@@ -446,7 +410,7 @@ extension CourseUpgradeHelper {
         
         actions.append(
             UIAlertAction(
-                title: CoreLocalization.close,
+                title: Texts.close,
                 style: .default
             ) { [weak self] _ in
                 self?.trackUpgradeErrorAction(errorAction: .close, alertType: .restore)
@@ -454,8 +418,8 @@ extension CourseUpgradeHelper {
         )
         
         router.presentNativeAlert(
-            title: CoreLocalization.CourseUpgrade.Restore.alertTitle,
-            message: CoreLocalization.CourseUpgrade.Restore.alertMessage,
+            title: Texts.CourseUpgrade.Restore.alertTitle,
+            message: Texts.CourseUpgrade.Restore.alertMessage,
             actions: actions
         )
     }
@@ -465,7 +429,7 @@ extension CourseUpgradeHelper {
     private func trackUpgradeErrorAction(
         errorAction: UpgradeErrorAction,
         error: UpgradeError? = nil,
-        alertType: UpgradeAlertType
+        alertType: EDXUpgradeAlertType
     ) {
         analytics.trackCourseUpgradeErrorAction(
             courseID: courseID ?? "",
@@ -487,15 +451,15 @@ extension CourseUpgradeHelper {
     func launchEmailComposer(errorMessage: String) {
         guard let emailURL = EmailTemplates.contactSupport(
             email: config.feedbackEmail,
-            emailSubject: CoreLocalization.CourseUpgrade.supportEmailSubject,
+            emailSubject: Texts.CourseUpgrade.SendEmail.supportEmailSubject,
             errorMessage: errorMessage
         ), UIApplication.shared.canOpenURL(emailURL) else {
             
             if let topController = UIApplication.topViewController() {
                 UIAlertController().showAlert(
-                    withTitle: CoreLocalization.CourseUpgrade.emailNotSetupTitle,
-                    message: CoreLocalization.Error.cannotSendEmail,
-                    cancelButtonTitle: CoreLocalization.ok,
+                    withTitle: Texts.CourseUpgrade.SendEmail.emailNotSetupTitle,
+                    message: Texts.CourseUpgrade.SendEmail.cannotSendEmail,
+                    cancelButtonTitle: Texts.ok,
                     onViewController: topController) { _, _, _ in }
             }
             
@@ -511,7 +475,7 @@ extension CourseUpgradeHelper {
 
 extension CourseUpgradeHelper {
     private func saveInProgressIAP(courseID: String, sku: String, lmsPrice: Double) {
-        let IAP = InProgressIAP(courseID: courseID, sku: sku, pacing: pacing ?? "", lmsPrice: lmsPrice)
+        let IAP = EDXInProgressIAP(courseID: courseID, sku: sku, pacing: pacing ?? "", lmsPrice: lmsPrice)
         
         if let data = try? NSKeyedArchiver.archivedData(withRootObject: IAP, requiringSecureCoding: true) {
             UserDefaults.standard.set(data, forKey: InProgressIAPKey)
@@ -519,12 +483,12 @@ extension CourseUpgradeHelper {
         }
     }
     
-    public class func getInProgressIAP() -> InProgressIAP? {
+    public class func getInProgressIAP() -> EDXInProgressIAP? {
         guard let data = UserDefaults.standard.object(forKey: InProgressIAPKey) as? Data else {
             return nil
         }
         
-        let IAP = try? NSKeyedUnarchiver.unarchivedObject(ofClass: InProgressIAP.self, from: data)
+        let IAP = try? NSKeyedUnarchiver.unarchivedObject(ofClass: EDXInProgressIAP.self, from: data)
         
         return IAP
     }
@@ -535,7 +499,7 @@ extension CourseUpgradeHelper {
     }
 }
 
-public class InProgressIAP: NSObject, NSCoding, NSSecureCoding {
+public class EDXInProgressIAP: NSObject, NSCoding, NSSecureCoding {
     
     public var courseID: String = ""
     public var sku: String = ""

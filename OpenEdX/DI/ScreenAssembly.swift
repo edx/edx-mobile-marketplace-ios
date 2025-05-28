@@ -715,12 +715,8 @@ class ScreenAssembly: Assembly {
             )
         }.inObjectScope(.container)
         
-        container.register(CourseUpgradeHelperProtocol.self) { @MainActor r in
-            CourseUpgradeHelper(
-                config: r.resolve(ConfigProtocol.self)!,
-                analytics: r.resolve(CoreAnalytics.self)!,
-                router: r.resolve(CourseRouter.self)!
-            )
+        container.register(CourseUpgradeHelperProtocol.self) { @MainActor _ in // NEEDS WORK - delete
+            CourseUpgradeHelperProtocolEmptyMock()
         }.inObjectScope(.container)
         
         // MARK: Upgrade info

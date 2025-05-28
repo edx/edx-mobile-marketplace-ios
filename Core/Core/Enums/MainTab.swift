@@ -11,3 +11,8 @@ public enum MainTab {
     case programs
     case profile
 }
+
+public enum Pacing: String { // NEEDS WORK - delete when moved to IAP Plugin
+    case selfPace = "self"
+    case instructor
+}

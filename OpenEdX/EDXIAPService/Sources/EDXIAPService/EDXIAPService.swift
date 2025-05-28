@@ -68,10 +68,12 @@ public enum EDXProviderError: Error {
 public struct EDXServiceConfig: Sendable {
     public var ecommerceURL: String
     public var paymentProcessor: String
+    public var feedbackEmail: String
     
-    public init(ecommerceURL: String, paymentProcessor: String) {
+    public init(ecommerceURL: String, paymentProcessor: String, feedbackEmail: String) {
         self.ecommerceURL = ecommerceURL
         self.paymentProcessor = paymentProcessor
+        self.feedbackEmail = feedbackEmail
     }
 }
 
@@ -79,11 +81,15 @@ public class EDXIAPService: IAPServiceProtocol, EDXIAPHelperProtocol {
     public typealias Product = EDXProduct
     public typealias ProductInfo = EDXProductInfo
     
+    let config: EDXServiceConfig
+
     public let provider: OEXFoundation.IAPProductProvider<Product, ProductInfo>
     public let style: EDXIAPStyle
     public let analyticsFacade: EDXAnalyticsProtocol
     
     public let validator: EDXReceiptValidator
+    let storeKitHandler: StoreKitHandlerProtocol = StorekitHandler()
+    let courseUpgradeHelper: CourseUpgradeHelperProtocol
 
     let router: RouterProtocol = Router()
 
@@ -91,12 +97,19 @@ public class EDXIAPService: IAPServiceProtocol, EDXIAPHelperProtocol {
         provider: OEXFoundation.IAPProductProvider<Product, ProductInfo>,
         style: EDXIAPStyle = EDXIAPStyle(),
         analyticsFacade: EDXAnalyticsProtocol,
-        validator: EDXReceiptValidator
+        validator: EDXReceiptValidator,
+        config: EDXServiceConfig
     ) {
         self.provider = provider
         self.style = style
         self.analyticsFacade = analyticsFacade
         self.validator = validator
+        self.config = config
+        self.courseUpgradeHelper = CourseUpgradeHelper(
+            analytics: self.analyticsFacade,
+            router: self.router,
+            config: self.config
+        )
     }
     
     public func product(for object: Any) -> Product? {
@@ -111,6 +124,11 @@ public class EDXIAPService: IAPServiceProtocol, EDXIAPHelperProtocol {
     
     public func view(for object: Any) -> AnyView? {
         guard let product = product(for: object) else { return nil }
+        let upgradeHandler = CourseUpgradeHandler(
+            validator: validator,
+            storeKitHandler: storeKitHandler,
+            helper: courseUpgradeHelper
+        )
         return AnyView(
             PrimaryCardButton(
                 style: style,
@@ -120,7 +138,7 @@ public class EDXIAPService: IAPServiceProtocol, EDXIAPHelperProtocol {
                         style: self.style,
                         product: product,
                         helper: self,
-                        handler: CourseUpgradeHandlerProtocolMock(), // NEEDS WORK
+                        handler: upgradeHandler,
                         analyticsFacade: self.analyticsFacade
                     )
             })

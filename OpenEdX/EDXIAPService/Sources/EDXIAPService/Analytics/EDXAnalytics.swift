@@ -33,6 +33,10 @@ public enum EventBIValue: String {
     case upgradeNowClicked = "edx.bi.app.payments.upgrade_now.clicked"
     case courseUpgradePriceLoadError = "edx.bi.app.payments.price_load_error"
     case courseUpgradeErrorAction = "edx.bi.app.payments.error_alert_action"
+    case courseUpgradePaymentCancelError = "edx.bi.app.payments.canceled_by_user"
+    case courseUpgradePaymentError = "edx.bi.app.payments.payment_error"
+    case courseUpgradeError = "edx.bi.app.payments.course_upgrade_error"
+    case courseUpgradeSuccess = "edx.bi.app.payments.course_upgrade_success"
 }
 
 public enum AnalyticsEvent: String {
@@ -40,6 +44,10 @@ public enum AnalyticsEvent: String {
     case upgradeNowClicked = "Payments:Upgrade Now Clicked"
     case courseUpgradePriceLoadError = "Payments:Price Load Error"
     case courseUpgradeErrorAction = "Payments:Error Alert Action"
+    case courseUpgradePaymentCancelError = "Payments:Canceled by User"
+    case courseUpgradePaymentError = "Payments:Payment Error"
+    case courseUpgradeError = "Payments:Course Upgrade Error"
+    case courseUpgradeSuccess = "Payments:Course Upgrade Success"
 }
 
 public struct EDXAnalytics: EDXAnalyticsProtocol {
@@ -143,5 +151,90 @@ public struct EDXAnalytics: EDXAnalyticsProtocol {
         parameters.setObjectOrNil(lmsPrice, forKey: EventParamKey.lmsPrice)
         
         service.logEvent(AnalyticsEvent.courseUpgradeErrorAction.rawValue, parameters: parameters)
+    }
+    
+    public func trackCourseUpgradePaymentError(
+        _ event: AnalyticsEvent,
+        biValue: EventBIValue,
+        courseID: String,
+        blockID: String?,
+        pacing: String,
+        localizedPrice: NSDecimalNumber?,
+        localizedCurrencyCode: String?,
+        lmsPrice: Double?,
+        screen: EDXScreen,
+        error: String
+    ) {
+        var parameters: [String: Any] = [
+            EventParamKey.pacing: pacing,
+            EventParamKey.courseID: courseID,
+            EventParamKey.screenName: screen.rawValue,
+            EventParamKey.error: error,
+            EventParamKey.category: EventCategory.inAppPurchases,
+            EventParamKey.name: biValue.rawValue
+        ]
+        
+        parameters.setObjectOrNil(localizedPrice, forKey: EventParamKey.localizedPrice)
+        parameters.setObjectOrNil(localizedCurrencyCode, forKey: EventParamKey.localizedCurrencyCode)
+        parameters.setObjectOrNil(lmsPrice, forKey: EventParamKey.lmsPrice)
+        parameters.setObjectOrNil(blockID, forKey: EventParamKey.blockID)
+        
+        service.logEvent(event.rawValue, parameters: parameters)
+    }
+    
+    public func trackCourseUpgradeError(
+        courseID: String,
+        blockID: String?,
+        pacing: String,
+        localizedPrice: NSDecimalNumber?,
+        localizedCurrencyCode: String?,
+        lmsPrice: Double?,
+        screen: EDXScreen,
+        error: String,
+        flowType: EDXUpgradeMode
+    ) {
+        var parameters: [String: Any] = [
+            EventParamKey.pacing: pacing,
+            EventParamKey.name: EventBIValue.courseUpgradeError.rawValue,
+            EventParamKey.courseID: courseID,
+            EventParamKey.screenName: screen.rawValue,
+            EventParamKey.error: error,
+            EventParamKey.flowType: flowType.rawValue,
+            EventParamKey.category: EventCategory.inAppPurchases
+        ]
+        
+        parameters.setObjectOrNil(blockID, forKey: EventParamKey.blockID)
+        parameters.setObjectOrNil(localizedPrice, forKey: EventParamKey.localizedPrice)
+        parameters.setObjectOrNil(localizedCurrencyCode, forKey: EventParamKey.localizedCurrencyCode)
+        parameters.setObjectOrNil(lmsPrice, forKey: EventParamKey.lmsPrice)
+        
+        service.logEvent(AnalyticsEvent.courseUpgradeError.rawValue, parameters: parameters)
+    }
+    
+    public func trackCourseUpgradeSuccess(
+        courseID: String,
+        blockID: String?,
+        pacing: String,
+        localizedPrice: NSDecimalNumber?,
+        localizedCurrencyCode: String?,
+        lmsPrice: Double?,
+        screen: EDXScreen,
+        flowType: EDXUpgradeMode
+    ) {
+        var parameters: [String: Any] = [
+            EventParamKey.pacing: pacing,
+            EventParamKey.name: EventBIValue.courseUpgradeSuccess.rawValue,
+            EventParamKey.courseID: courseID,
+            EventParamKey.screenName: screen.rawValue,
+            EventParamKey.flowType: flowType.rawValue,
+            EventParamKey.category: EventCategory.inAppPurchases
+        ]
+        
+        parameters.setObjectOrNil(localizedPrice, forKey: EventParamKey.localizedPrice)
+        parameters.setObjectOrNil(localizedCurrencyCode, forKey: EventParamKey.localizedCurrencyCode)
+        parameters.setObjectOrNil(lmsPrice, forKey: EventParamKey.lmsPrice)
+        parameters.setObjectOrNil(blockID, forKey: EventParamKey.blockID)
+        
+        service.logEvent(AnalyticsEvent.courseUpgradeSuccess.rawValue, parameters: parameters)
     }
 }

@@ -17,4 +17,15 @@ protocol RouterProtocol {
         analyticsFacade: EDXAnalyticsProtocol
     )
     func presentNativeAlert(title: String?, message: String?, actions: [UIAlertAction])
+
+    func backToRoot(animated: Bool)
+    
+    @MainActor
+    func hideUpgradeLoaderView(animated: Bool) async
+    
+    @MainActor
+    func hideUpgradeInfo(animated: Bool) async
+    
+    @MainActor
+    func showUpgradeLoaderView(animated: Bool) async
 }

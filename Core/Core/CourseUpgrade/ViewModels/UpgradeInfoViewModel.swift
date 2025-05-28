@@ -8,7 +8,7 @@
 import UIKit
 import OEXFoundation
 
-@MainActor
+@MainActor // NEEDS WORK - delete, moved to plugin
 public class UpgradeInfoViewModel: ObservableObject, Sendable {
     let productName: String
     let message: String
@@ -73,12 +73,12 @@ public class UpgradeInfoViewModel: ObservableObject, Sendable {
     private func showPriceLoadError(error: Error) {
         guard let error = error as? UpgradeError else { return }
 
-        analytics.trackCourseUpgradeLoadError(
-            courseID: courseID,
-            blockID: "",
-            pacing: pacing,
-            screen: screen
-        )
+//        analytics.trackCourseUpgradeLoadError(
+//            courseID: courseID,
+//            blockID: "",
+//            pacing: pacing,
+//            screen: screen
+//        )
         
         var actions: [UIAlertAction] = []
         
@@ -93,19 +93,19 @@ public class UpgradeInfoViewModel: ObservableObject, Sendable {
                         await self.fetchProduct()
                     }
                     
-                    self.analytics.trackCourseUpgradeErrorAction(
-                        courseID: self.courseID,
-                        blockID: "",
-                        pacing: pacing,
-                        localizedPrice: nil,
-                        localizedCurrencyCode: nil,
-                        lmsPrice: lmsPrice,
-                        screen: self.screen,
-                        alertType: .priceFetch,
-                        errorAction: UpgradeErrorAction.reloadPrice.rawValue,
-                        error: "price",
-                        flowType: .userInitiated
-                    )
+//                    self.analytics.trackCourseUpgradeErrorAction(
+//                        courseID: self.courseID,
+//                        blockID: "",
+//                        pacing: pacing,
+//                        localizedPrice: nil,
+//                        localizedCurrencyCode: nil,
+//                        lmsPrice: lmsPrice,
+//                        screen: self.screen,
+//                        alertType: .priceFetch,
+//                        errorAction: UpgradeErrorAction.reloadPrice.rawValue,
+//                        error: "price",
+//                        flowType: .userInitiated
+//                    )
                 }
             )
         }
@@ -119,19 +119,19 @@ public class UpgradeInfoViewModel: ObservableObject, Sendable {
                 guard let self else { return }
                 self.error = error
                 self.isLoading = false
-                self.analytics.trackCourseUpgradeErrorAction(
-                    courseID: self.courseID,
-                    blockID: "",
-                    pacing: pacing,
-                    localizedPrice: nil,
-                    localizedCurrencyCode: product?.currencySymbol,
-                    lmsPrice: lmsPrice,
-                    screen: self.screen,
-                    alertType: .priceFetch,
-                    errorAction: UpgradeErrorAction.close.rawValue,
-                    error: "price",
-                    flowType: .userInitiated
-                )
+//                self.analytics.trackCourseUpgradeErrorAction(
+//                    courseID: self.courseID,
+//                    blockID: "",
+//                    pacing: pacing,
+//                    localizedPrice: nil,
+//                    localizedCurrencyCode: product?.currencySymbol,
+//                    lmsPrice: lmsPrice,
+//                    screen: self.screen,
+//                    alertType: .priceFetch,
+//                    errorAction: UpgradeErrorAction.close.rawValue,
+//                    error: "price",
+//                    flowType: .userInitiated
+//                )
             }
         )
         router.presentNativeAlert(
@@ -145,15 +145,15 @@ public class UpgradeInfoViewModel: ObservableObject, Sendable {
     public func purchase() async {
         isLoading = true
         interactiveDismissDisabled = true
-        analytics.trackUpgradeNow(
-            courseID: courseID,
-            blockID: "",
-            pacing: pacing,
-            screen: screen,
-            localizedPrice: product?.price,
-            localizedCurrencyCode: product?.currencySymbol,
-            lmsPrice: lmsPrice
-        )
+//        analytics.trackUpgradeNow(
+//            courseID: courseID,
+//            blockID: "",
+//            pacing: pacing,
+//            screen: screen,
+//            localizedPrice: product?.price,
+//            localizedCurrencyCode: product?.currencySymbol,
+//            lmsPrice: lmsPrice
+//        )
         await handler.upgradeCourse(
             sku: sku,
             mode: .userInitiated,
@@ -184,11 +184,11 @@ public class UpgradeInfoViewModel: ObservableObject, Sendable {
     }
     
     func trackValuePropViewed() {
-        analytics.trackValuePropViewed(
-            courseID: courseID,
-            pacing: pacing,
-            lmsPrice: lmsPrice,
-            screen: screen
-        )
+//        analytics.trackValuePropViewed(
+//            courseID: courseID,
+//            pacing: pacing,
+//            lmsPrice: lmsPrice,
+//            screen: screen
+//        )
     }
 }

@@ -30,7 +30,7 @@ public enum UpgradeState: Sendable {
     case error(UpgradeError)
 }
 
-@MainActor
+@MainActor // NEEDS WORK - delete, moved to plugin
 public class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
     nonisolated(unsafe) static var ecommerceURL: String = ""
     
@@ -48,29 +48,29 @@ public class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
 
     private(set) var state: UpgradeState = .initial {
         didSet {
-            helper.handleCourseUpgrade(
-                upgradeHadler: self,
-                state: upgradeState,
-                delegate: nil
-            )
+//            helper.handleCourseUpgrade(
+//                upgradeHadler: self,
+//                state: upgradeState,
+//                delegate: nil
+//            )
             completion?(state)
         }
     }
     
-    private var upgradeState: UpgradeCompletionState {
-        switch state {
-        case .initial:
-            return .initial
-        case .basket, .checkout, .payment:
-            return .payment
-        case .verify:
-            return .fulfillment(showLoader: upgradeMode == .userInitiated)
-        case .complete:
-            return .success(courseID, componentID)
-        case .error(let error):
-            return .error(error)
-        }
-    }
+//    private var upgradeState: UpgradeCompletionState {
+//        switch state {
+//        case .initial:
+//            return .initial
+//        case .basket, .checkout, .payment:
+//            return .payment
+//        case .verify:
+//            return .fulfillment(showLoader: upgradeMode == .userInitiated)
+//        case .complete:
+//            return .success(courseID, componentID)
+//        case .error(let error):
+//            return .error(error)
+//        }
+//    }
 
     public init(
         config: ConfigProtocol,

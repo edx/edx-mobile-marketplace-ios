@@ -49,4 +49,40 @@ public protocol EDXAnalyticsProtocol {
         error: String,
         flowType: EDXUpgradeMode
     )
+    
+    func trackCourseUpgradePaymentError(
+        _ event: AnalyticsEvent,
+        biValue: EventBIValue,
+        courseID: String,
+        blockID: String?,
+        pacing: String,
+        localizedPrice: NSDecimalNumber?,
+        localizedCurrencyCode: String?,
+        lmsPrice: Double?,
+        screen: EDXScreen,
+        error: String
+    )
+    
+    func trackCourseUpgradeError(
+        courseID: String,
+        blockID: String?,
+        pacing: String,
+        localizedPrice: NSDecimalNumber?,
+        localizedCurrencyCode: String?,
+        lmsPrice: Double?,
+        screen: EDXScreen,
+        error: String,
+        flowType: EDXUpgradeMode
+    )
+    
+    func trackCourseUpgradeSuccess(
+        courseID: String,
+        blockID: String?,
+        pacing: String,
+        localizedPrice: NSDecimalNumber?,
+        localizedCurrencyCode: String?,
+        lmsPrice: Double?,
+        screen: EDXScreen,
+        flowType: EDXUpgradeMode
+    )
 }
