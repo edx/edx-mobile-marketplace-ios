@@ -74,7 +74,7 @@ public class CourseUpgradeHelper: @preconcurrency CourseUpgradeHelperProtocol {
         self.lmsPrice = lmsPrice
     }
     
-    public func handleCourseUpgrade(
+    func handleCourseUpgrade(
         upgradeHadler: CourseUpgradeHandler,
         state: UpgradeCompletionState,
         delegate: CourseUpgradeHelperDelegate? = nil
@@ -188,7 +188,7 @@ public class CourseUpgradeHelper: @preconcurrency CourseUpgradeHelperProtocol {
         router.backToRoot(animated: true)
     }
     
-    public func resetUpgradeModel() {
+    private func resetUpgradeModel() {
         helperModel = nil
         delegate = nil
     }
@@ -329,7 +329,7 @@ extension CourseUpgradeHelper {
 }
 
 extension CourseUpgradeHelper {
-    public func showLoader(animated: Bool = false, completion: (() -> Void)? = nil) {
+    func showLoader(animated: Bool = false, completion: (() -> Void)? = nil) {
         Task {@MainActor [weak self] in
             guard let self = self else { return }
             await self.router.hideUpgradeInfo(animated: false)
@@ -338,7 +338,7 @@ extension CourseUpgradeHelper {
         }
     }
     
-    public func removeLoader(
+    func removeLoader(
         success: Bool? = false,
         shouldRemoveView: Bool? = false,
         completion: (() -> Void)? = nil

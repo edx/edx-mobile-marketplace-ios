@@ -6,7 +6,7 @@
 //
 import Foundation
 
-public enum UpgradeCompletionState {
+enum UpgradeCompletionState {
     case initial
     case payment
     case fulfillment(showLoader: Bool)
@@ -15,7 +15,7 @@ public enum UpgradeCompletionState {
 }
 
 @MainActor
-public class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
+class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
     private var completion: UpgradeCompletionHandler?
     private var basketID: Int = 0
     private(set) var courseSku: String?

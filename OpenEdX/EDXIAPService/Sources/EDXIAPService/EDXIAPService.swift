@@ -147,7 +147,7 @@ public class EDXIAPService: IAPServiceProtocol, EDXIAPHelperProtocol {
 }
 
 @MainActor
-public protocol EDXIAPHelperProtocol {
+protocol EDXIAPHelperProtocol {
     func product(for object: Any) -> EDXProduct?
     func info(for product: EDXProduct) async throws -> EDXProductInfo
 }

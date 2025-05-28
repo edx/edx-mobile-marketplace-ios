@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-public struct EmailTemplates {
+struct EmailTemplates {
     @MainActor
     public static func contactSupport(email: String, emailSubject: String, errorMessage: String? = nil) -> URL? {
         let osVersion = UIDevice.current.systemVersion
