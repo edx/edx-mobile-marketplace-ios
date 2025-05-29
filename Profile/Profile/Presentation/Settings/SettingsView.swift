@@ -208,6 +208,21 @@ public struct SettingsView: View {
                 })
                 .accessibilityIdentifier("push_notifications_settings_button")
             }
+
+            Divider()
+
+            Button(action: {
+                viewModel.trackAppearanceSettingsClicked()
+                viewModel.router.showAppearanceSettings()
+            }, label: {
+                HStack {
+                    Text(ProfileLocalization.Settings.appearanceSettingsTitle)
+                        .font(Theme.Fonts.titleMedium)
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                }
+            })
+            .accessibilityIdentifier("appearance_settings_button")
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(ProfileLocalization.settingsVideo)

@@ -285,7 +285,23 @@ public class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, CourseSto
             }
         }
     }
-    
+
+    public var selectedTheme: AppTheme? {
+        get {
+            guard let rawValue = userDefaults.string(forKey: KEY_SELECTED_THEME) else {
+                return nil
+            }
+            return AppTheme(rawValue: rawValue)
+        }
+        set(newValue) {
+            if let newValue {
+                userDefaults.set(newValue.rawValue, forKey: KEY_SELECTED_THEME)
+            } else {
+                userDefaults.removeObject(forKey: KEY_SELECTED_THEME)
+            }
+        }
+    }
+
     public var notificationsPrimerDismissalCount: Int {
         get {
             return userDefaults.integer(forKey: KEY_NOTIFICATIONS_PRIMER_DISMISSAL_COUNT)
@@ -349,6 +365,7 @@ public class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, CourseSto
     private let KEY_RESET_APP_SUPPORT_DIRECTORY_USER_DATA = "resetAppSupportDirectoryUserData"
     private let KEY_LAST_USED_SOCIAL_AUTH = "lastUsedSocialAuth"
     private let KEY_DISCUSSION_NOTIFICATIONS_SETTING_STATUS = "discussionNotificationsSettingStatus"
+    private let KEY_SELECTED_THEME = "selectedTheme"
     private let KEY_NOTIFICATIONS_PRIMER_DISMISSAL_COUNT = "notificationsPrimerDismissalCount"
     private let KEY_NOTIFICATIONS_PRIMER_LAST_SHOWN_DATE = "notificationsPrimerLastShownDate"
 

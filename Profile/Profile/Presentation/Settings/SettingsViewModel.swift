@@ -160,7 +160,14 @@ public class SettingsViewModel: ObservableObject {
             biValue: .profilePushSettingsClicked
         )
     }
-    
+
+    func trackAppearanceSettingsClicked() {
+        analytics.profileTrackEvent(
+            .profileAppearanceSettingClicked,
+            biValue: .profileAppearanceSettingClicked
+        )
+    }
+
     func trackEmailSupportClicked() {
         analytics.emailSupportClicked()
     }

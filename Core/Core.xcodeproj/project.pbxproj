@@ -193,6 +193,9 @@
 		94AE32362D8B329D00FA048D /* NotificationBellButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AE32352D8B329D00FA048D /* NotificationBellButton.swift */; };
 		94D1FC482DA6AF44000A904F /* EDXFeatureManagement in Frameworks */ = {isa = PBXBuildFile; productRef = 94D1FC472DA6AF44000A904F /* EDXFeatureManagement */; };
 		94D1FC4D2DA7F3A6000A904F /* OptimizelyConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D1FC4C2DA7F39F000A904F /* OptimizelyConfig.swift */; };
+		94E5D5962DE4959900DE43ED /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E5D5952DE4959600DE43ED /* AppTheme.swift */; };
+		94E5D5982DE495BD00DE43ED /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E5D5972DE495BA00DE43ED /* ThemeManager.swift */; };
+		94E5D59A2DE4990700DE43ED /* ThemeManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E5D5992DE4990100DE43ED /* ThemeManagerProtocol.swift */; };
 		973CCD7B2D3660D100949756 /* HTML2TextParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CCD792D3660D100949756 /* HTML2TextParser.swift */; };
 		973CCD7C2D3660D100949756 /* AttributedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CCD782D3660D100949756 /* AttributedText.swift */; };
 		9784D47E2BF7762800AFEFFF /* FullScreenErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9784D47D2BF7762800AFEFFF /* FullScreenErrorView.swift */; };
@@ -440,6 +443,9 @@
 		9499F1252D41375B00558D59 /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
 		94AE32352D8B329D00FA048D /* NotificationBellButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationBellButton.swift; sourceTree = "<group>"; };
 		94D1FC4C2DA7F39F000A904F /* OptimizelyConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptimizelyConfig.swift; sourceTree = "<group>"; };
+		94E5D5952DE4959600DE43ED /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
+		94E5D5972DE495BA00DE43ED /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
+		94E5D5992DE4990100DE43ED /* ThemeManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManagerProtocol.swift; sourceTree = "<group>"; };
 		973CCD782D3660D100949756 /* AttributedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedText.swift; sourceTree = "<group>"; };
 		973CCD792D3660D100949756 /* HTML2TextParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTML2TextParser.swift; sourceTree = "<group>"; };
 		9784D47D2BF7762800AFEFFF /* FullScreenErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullScreenErrorView.swift; sourceTree = "<group>"; };
@@ -731,6 +737,7 @@
 				14DE13D82BDF7E4E0059168F /* ServerConfig */,
 				DBF6F2422B014AF30098414B /* Config */,
 				CFC84955299FAC4D0055E497 /* Combine */,
+				94E5D5942DE4958E00DE43ED /* Theme */,
 				9499F1252D41375B00558D59 /* AppEnvironment.swift */,
 				0770DE1828D0847D006D8A5D /* BaseRouter.swift */,
 				0231CDBD2922422D00032416 /* CSSInjector.swift */,
@@ -999,6 +1006,16 @@
 				942A98542D4BD91700DD8BBC /* PaginationTask.swift */,
 			);
 			path = Pagination;
+			sourceTree = "<group>";
+		};
+		94E5D5942DE4958E00DE43ED /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				94E5D5952DE4959600DE43ED /* AppTheme.swift */,
+				94E5D5972DE495BA00DE43ED /* ThemeManager.swift */,
+				94E5D5992DE4990100DE43ED /* ThemeManagerProtocol.swift */,
+			);
+			path = Theme;
 			sourceTree = "<group>";
 		};
 		973CCD7A2D3660D100949756 /* AttributedText */ = {
@@ -1387,6 +1404,7 @@
 				028F9F37293A44C700DE65D0 /* Data_ResetPassword.swift in Sources */,
 				022C64E429AE0191000F532B /* TextWithUrls.swift in Sources */,
 				0283348028D4DCD200C828FC /* ViewExtension.swift in Sources */,
+				94E5D5962DE4959900DE43ED /* AppTheme.swift in Sources */,
 				BA8FA66A2AD59B5500EA029A /* GoogleAuthProvider.swift in Sources */,
 				02A4833529B8A73400D33F33 /* CorePersistenceProtocol.swift in Sources */,
 				06EA8A482BFDFEFD005DFB90 /* CourseUpgradeHandlerProtocol.swift in Sources */,
@@ -1453,6 +1471,7 @@
 				062C69AC2C198323002BD311 /* UpgradeInfoView.swift in Sources */,
 				064987952B4D69FF0071642A /* SurveyCssInjection.swift in Sources */,
 				949094992DC8E44C00A341D4 /* TrackCardInfo.swift in Sources */,
+				94E5D59A2DE4990700DE43ED /* ThemeManagerProtocol.swift in Sources */,
 				02E224DB2BB76B3E00EF1ADB /* DynamicOffsetView.swift in Sources */,
 				0259104A29C4A5B6004B5A55 /* UserSettings.swift in Sources */,
 				021D925028DC89D100ACC565 /* UserProfile.swift in Sources */,
@@ -1476,6 +1495,7 @@
 				02AFCC182AEFDB24000360F0 /* ThirdPartyMailClient.swift in Sources */,
 				0233D5712AF13EC800BAC8BD /* SelectMailClientView.swift in Sources */,
 				14A8325B2BD7615C00E5654D /* CourseUpgradeRepository.swift in Sources */,
+				94E5D5982DE495BD00DE43ED /* ThemeManager.swift in Sources */,
 				BAFB99842B0E282E007D09F9 /* MicrosoftConfig.swift in Sources */,
 				02B2B594295C5C7A00914876 /* Thread.swift in Sources */,
 				E0D5861C2B2FF85B009B4BA7 /* RawStringExtactable.swift in Sources */,

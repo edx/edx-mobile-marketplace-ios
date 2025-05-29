@@ -51,6 +51,8 @@
 		0796C8C929B7905300444B05 /* ProfileBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0796C8C829B7905300444B05 /* ProfileBottomSheet.swift */; };
 		25B36FF48C1307888A3890DA /* Pods_App_Profile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEA369C38362C1A91A012F70 /* Pods_App_Profile.framework */; };
 		94D1FC4B2DA6BAA0000A904F /* EDXFeatureManagement in Frameworks */ = {isa = PBXBuildFile; productRef = 94D1FC4A2DA6BAA0000A904F /* EDXFeatureManagement */; };
+		94E5D58D2DE08B4C00DE43ED /* AppearanceSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E5D58C2DE08B4C00DE43ED /* AppearanceSettingsView.swift */; };
+		94E5D58F2DE0A12700DE43ED /* AppearanceSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E5D58E2DE0A11F00DE43ED /* AppearanceSettingsViewModel.swift */; };
 		BAD9CA3F2B29BF5C00DE790A /* ProfileSupportInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD9CA3E2B29BF5C00DE790A /* ProfileSupportInfoView.swift */; };
 		E8264C634DD8AD314ECE8905 /* Pods_App_Profile_ProfileTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C85ADF87135E03275A980E07 /* Pods_App_Profile_ProfileTests.framework */; };
 /* End PBXBuildFile section */
@@ -119,6 +121,8 @@
 		7B80961BB9886B28B90B9ECB /* Pods-App-Profile.releasestage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Profile.releasestage.xcconfig"; path = "Target Support Files/Pods-App-Profile/Pods-App-Profile.releasestage.xcconfig"; sourceTree = "<group>"; };
 		7F6936DF5D5491AE5B6403BC /* Pods-App-Profile-ProfileTests.debugdev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Profile-ProfileTests.debugdev.xcconfig"; path = "Target Support Files/Pods-App-Profile-ProfileTests/Pods-App-Profile-ProfileTests.debugdev.xcconfig"; sourceTree = "<group>"; };
 		8C5B79329D30C10E32838360 /* Pods-App-Profile-ProfileTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Profile-ProfileTests.release.xcconfig"; path = "Target Support Files/Pods-App-Profile-ProfileTests/Pods-App-Profile-ProfileTests.release.xcconfig"; sourceTree = "<group>"; };
+		94E5D58C2DE08B4C00DE43ED /* AppearanceSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSettingsView.swift; sourceTree = "<group>"; };
+		94E5D58E2DE0A11F00DE43ED /* AppearanceSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSettingsViewModel.swift; sourceTree = "<group>"; };
 		99E3D23305C745FE0FF57A62 /* Pods-App-Profile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Profile.release.xcconfig"; path = "Target Support Files/Pods-App-Profile/Pods-App-Profile.release.xcconfig"; sourceTree = "<group>"; };
 		9AC2F1A5AE5AC7F0CFCB9FE3 /* Pods-App-Profile-ProfileTests.releasedev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Profile-ProfileTests.releasedev.xcconfig"; path = "Target Support Files/Pods-App-Profile-ProfileTests/Pods-App-Profile-ProfileTests.releasedev.xcconfig"; sourceTree = "<group>"; };
 		9D125F82E0EAC4B6C0CE280F /* Pods-App-Profile-ProfileTests.releaseprod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Profile-ProfileTests.releaseprod.xcconfig"; path = "Target Support Files/Pods-App-Profile-ProfileTests/Pods-App-Profile-ProfileTests.releaseprod.xcconfig"; sourceTree = "<group>"; };
@@ -287,6 +291,8 @@
 				020CBD8C2BC53E1B003D6B4E /* VideoSettingsView.swift */,
 				0259104729C3A5F0004B5A55 /* VideoQualityView.swift */,
 				0259104529C39CCF004B5A55 /* SettingsViewModel.swift */,
+				94E5D58C2DE08B4C00DE43ED /* AppearanceSettingsView.swift */,
+				94E5D58E2DE0A11F00DE43ED /* AppearanceSettingsViewModel.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -658,12 +664,14 @@
 				021D925228DC918D00ACC565 /* ProfileViewModel.swift in Sources */,
 				0248F9B128DDB09D0041327E /* Strings.swift in Sources */,
 				020306CA2932B14D000949EA /* EditProfileViewModel.swift in Sources */,
+				94E5D58D2DE08B4C00DE43ED /* AppearanceSettingsView.swift in Sources */,
 				0259104829C3A5F0004B5A55 /* VideoQualityView.swift in Sources */,
 				0288C4EA2BC6AE2D009158B9 /* ManageAccountView.swift in Sources */,
 				022301E62BF4B7A20028A287 /* AssignmentStatusView.swift in Sources */,
 				021D924628DC634300ACC565 /* ProfileView.swift in Sources */,
 				02F3BFE7292539850051930C /* ProfileRouter.swift in Sources */,
 				02D0FD0B2AD6984D0020D752 /* UserProfileViewModel.swift in Sources */,
+				94E5D58F2DE0A12700DE43ED /* AppearanceSettingsViewModel.swift in Sources */,
 				020CBD8D2BC53E1B003D6B4E /* VideoSettingsView.swift in Sources */,
 				02F175352A4DAD030019CD70 /* ProfileAnalytics.swift in Sources */,
 				02F81DDF2BF4D83E002D3604 /* CalendarDialogView.swift in Sources */,

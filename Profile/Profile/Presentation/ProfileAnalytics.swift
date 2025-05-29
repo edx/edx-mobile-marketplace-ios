@@ -25,6 +25,7 @@ public protocol ProfileAnalytics {
     func profileWifiToggle(action: String)
     func profileUserDeleteAccountClicked()
     func profileDeleteAccountSuccess(success: Bool)
+    func profileAppThemeChanged(newMode: String, previousMode: String)
     func profileTrackEvent(_ event: AnalyticsEvent, biValue: EventBIValue)
     func profileScreenEvent(_ event: AnalyticsEvent, biValue: EventBIValue)
 }
@@ -46,6 +47,7 @@ class ProfileAnalyticsMock: ProfileAnalytics {
     public func profileWifiToggle(action: String) {}
     public func profileUserDeleteAccountClicked() {}
     public func profileDeleteAccountSuccess(success: Bool) {}
+    public func profileAppThemeChanged(newMode: String, previousMode: String) {}
     public func profileTrackEvent(_ event: AnalyticsEvent, biValue: EventBIValue) {}
     public func profileScreenEvent(_ event: AnalyticsEvent, biValue: EventBIValue) {}
 }

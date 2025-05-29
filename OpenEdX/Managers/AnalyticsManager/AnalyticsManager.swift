@@ -493,7 +493,19 @@ class AnalyticsManager: AuthorizationAnalytics,
             ]
         )
     }
-    
+
+    public func profileAppThemeChanged(newMode: String, previousMode: String) {
+        trackEvent(
+            .profileAppThemeChanged,
+            biValue: .profileAppThemeChanged,
+            parameters: [
+                EventParamKey.category: EventCategory.profile,
+                EventParamKey.newMode: newMode,
+                EventParamKey.previousMode: previousMode
+            ]
+        )
+    }
+
     public func videoQualityChanged(
         _ event: AnalyticsEvent,
         bivalue: EventBIValue,

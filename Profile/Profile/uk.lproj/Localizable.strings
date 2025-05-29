@@ -65,10 +65,16 @@
 "DELETE_ACCOUNT.INCORRECT_PASSWORD" = "Пароль неправильний. Будь ласка спробуйте ще раз.";
 
 "SETTINGS.VIDEO_SETTINGS_TITLE" = "Налаштування відео";
+"SETTINGS.APPEARANCE_SETTINGS_TITLE" = "Appearance";
 "SETTINGS.WIFI_TITLE" = "Тільки Wi-fi";
 "SETTINGS.WIFI_DESCRIPTION" = "Завантажувати відео, лише коли Wi-Fi увімкнено";
 "SETTINGS.VIDEO_QUALITY_TITLE" = "Якість потокового відео";
 "SETTINGS.VIDEO_QUALITY_DESCRIPTION" = "Авто (Рекомендовано)";
+
+"SETTINGS.APPEARANCE_LIGHT_MODE" = "Light Mode";
+"SETTINGS.APPEARANCE_DARK_MODE" = "Dark Mode";
+"SETTINGS.APPEARANCE_MATCH_DEVICE" = "Match Device";
+"SETTINGS.APPEARANCE_MATCHES_DEVICE_SETTINGS" = "Matches your device settings automatically.";
 
 "SETTINGS.QUALITY_AUTO_TITLE" = "Авто";
 "SETTINGS.QUALITY_AUTO_DESCRIPTION" = "Рекомендовано";
