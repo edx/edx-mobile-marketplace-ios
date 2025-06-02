@@ -12,6 +12,7 @@ import Theme
 public struct AppearanceSettingsView: View {
     @ObservedObject
     private var viewModel: AppearanceSettingsViewModel
+    @Environment(\.isHorizontal) private var isHorizontal
 
     public init(viewModel: AppearanceSettingsViewModel) {
         self.viewModel = viewModel
@@ -21,50 +22,47 @@ public struct AppearanceSettingsView: View {
         GeometryReader { proxy in
             ZStack(alignment: .top) {
                 VStack {
-                    topBar
+                    ThemeAssets.headerBackground.swiftUIImage
+                        .resizable()
+                        .edgesIgnoringSafeArea(.top)
+                }
+                .frame(maxWidth: .infinity, maxHeight: 200)
+
+                VStack(alignment: .center) {
+                    ZStack {
+                        HStack {
+                            Text(ProfileLocalization.Settings.appearanceSettingsTitle)
+                                .titleSettings(color: Theme.Colors.loginNavigationText)
+                                .accessibilityIdentifier("appearance_text")
+                        }
+                        VStack {
+                            BackNavigationButton(
+                                color: Theme.Colors.loginNavigationText,
+                                action: {
+                                    viewModel.backButtonPressed()
+                                }
+                            )
+                            .backViewStyle()
+                            .padding(.leading, isHorizontal ? 48 : 0)
+                            .accessibilityIdentifier("back_button")
+
+                        }
+                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .topLeading)
+                    }
+
                     content(geometry: proxy)
+                        .roundedBackground(Theme.Colors.background)
                 }
             }
-            .hideNavigationBar(true)
-            .navigationBarBackButtonHidden(true)
-            .navigationTitle(ProfileLocalization.Settings.appearanceSettingsTitle)
         }
+        .hideNavigationBar(true)
+        .navigationBarBackButtonHidden(true)
+        .navigationTitle(ProfileLocalization.Settings.appearanceSettingsTitle)
+        .ignoresSafeArea(.all, edges: .horizontal)
         .background(
             Theme.Colors.background
                 .ignoresSafeArea()
         )
-    }
-
-    @ViewBuilder
-    private var topBar: some View {
-        HStack {
-            let sideInset: CGFloat = 24
-
-            BackNavigationButton(
-                color: Theme.Colors.textPrimary,
-                insets: EdgeInsets(
-                    top: 0,
-                    leading: sideInset,
-                    bottom: 0,
-                    trailing: 8
-                ),
-                action: {
-                    viewModel.backButtonPressed()
-                }
-            )
-            .frame(width: 32 + sideInset, height: 40)
-
-            Text(ProfileLocalization.Settings.appearanceSettingsTitle)
-                .titleSettings(
-                    top: 0,
-                    bottom: 0,
-                    color: Theme.Colors.textPrimary
-                )
-                .frame(maxWidth: .infinity, alignment: .center)
-                .accessibilityIdentifier("appearance_text")
-                .padding(.trailing, 32 + sideInset)
-        }
-        .padding(.bottom, 4)
     }
 
     @ViewBuilder
