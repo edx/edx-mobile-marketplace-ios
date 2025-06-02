@@ -229,7 +229,7 @@ public class DiscussionRepository: DiscussionRepositoryProtocol {
 public class DiscussionRepositoryMock: DiscussionRepositoryProtocol {
 
     public func getCourseDiscussionInfo(courseID: String) async throws -> DiscussionInfo {
-        DiscussionInfo(discussionID: nil, blackouts: [])
+        DiscussionInfo(id: nil, blackouts: [])
     }
 
     public func getThread(threadID: String) async throws -> UserThread {
