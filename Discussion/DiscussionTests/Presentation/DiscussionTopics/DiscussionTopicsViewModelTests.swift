@@ -36,7 +36,7 @@ final class DiscussionTopicsViewModelTests: XCTestCase {
         ])
     ])
 
-    let discussionInfo = DiscussionInfo(discussionID: "1", blackouts: [])
+    let discussionInfo = DiscussionInfo(id: "1", isPostingEnabled: true)
 
     func testGetTopicsSuccess() async throws {
         let interactor = DiscussionInteractorProtocolMock()
