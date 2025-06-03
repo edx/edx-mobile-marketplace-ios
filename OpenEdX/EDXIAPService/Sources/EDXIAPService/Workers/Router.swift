@@ -52,50 +52,47 @@ class Router: RouterProtocol {
     }
     
     func backToRoot(animated: Bool) {
-//        navigationController.popToRootViewController(animated: animated) //NEEDS WORK
+        UIApplication.topViewController()?.rootNavigationController()?.popToRootViewController(animated: animated)
     }
     
     @MainActor
     public func hideUpgradeLoaderView(animated: Bool) async {
-        // NEEDS WORK
-//        await withCheckedContinuation { continuation in
-//            let presentedController = navigationController.presentedViewController
-//            if let controller = presentedController as? UIHostingController<CourseUpgradeUnlockView> {
-//                controller.dismiss(animated: animated) {
-//                    continuation.resume()
-//                }
-//            } else {
-//                continuation.resume()
-//            }
-//        }
+        await withCheckedContinuation { continuation in
+            if let controller = UIApplication.topViewController() as? UIHostingController<CourseUpgradeUnlockView> {
+                controller.dismiss(animated: animated) {
+                    continuation.resume()
+                }
+            } else {
+                continuation.resume()
+            }
+        }
     }
     
     @MainActor
     public func hideUpgradeInfo(animated: Bool) async {
-        // NEEDS WORK
-//        await withCheckedContinuation { continuation in
-//            if let controller = navigationController.presentedViewController as?
-//                UIHostingController<UpgradeInfoSheetView> {
-//                controller.dismiss(animated: animated) {
-//                    continuation.resume()
-//                }
-//            } else {
-//                continuation.resume()
-//            }
-//        }
+        await withCheckedContinuation { continuation in
+            if let controller = UIApplication.topViewController() as?
+                UIHostingController<UpgradeInfoSheetView> {
+                controller.dismiss(animated: animated) {
+                    continuation.resume()
+                }
+            } else {
+                continuation.resume()
+            }
+        }
     }
     
     @MainActor
-    public func showUpgradeLoaderView(animated: Bool) async {
-        // NEEDS WORK
-//        await withCheckedContinuation { continuation in
-//            let unlockView = CourseUpgradeUnlockView()
-//            let controller = UIHostingController(rootView: unlockView)
-//            controller.modalTransitionStyle = .crossDissolve
-//            controller.modalPresentationStyle = .overFullScreen
-//            navigationController.present(controller, animated: animated) {
-//                continuation.resume()
-//            }
-//        }
+    public func showUpgradeLoaderView(animated: Bool, style: EDXIAPStyle) async {
+        await withCheckedContinuation { continuation in
+            let topController = UIApplication.topViewController()
+            let unlockView = CourseUpgradeUnlockView(style: style)
+            let controller = UIHostingController(rootView: unlockView)
+            controller.modalTransitionStyle = .crossDissolve
+            controller.modalPresentationStyle = .overFullScreen
+            topController?.present(controller, animated: animated) {
+                continuation.resume()
+            }
+        }
     }
 }

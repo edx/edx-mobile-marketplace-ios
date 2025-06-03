@@ -32,7 +32,8 @@ public class EDXIAPService: IAPServiceProtocol, EDXIAPHelperProtocol {
         self.courseUpgradeHelper = CourseUpgradeHelper(
             analytics: self.analyticsFacade,
             router: self.router,
-            config: self.config
+            config: self.config,
+            style: style
         )
     }
     

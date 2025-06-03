@@ -45,15 +45,18 @@ public class CourseUpgradeHelper: @preconcurrency CourseUpgradeHelperProtocol {
     weak private(set) var upgradeHadler: CourseUpgradeHandler?
     private let router: RouterProtocol
     private let config: EDXServiceConfig
+    private let style: EDXIAPStyle
     
     init(
         analytics: EDXAnalyticsProtocol,
         router: RouterProtocol,
-        config: EDXServiceConfig
+        config: EDXServiceConfig,
+        style: EDXIAPStyle
     ) {
         self.analytics = analytics
         self.router = router
         self.config = config
+        self.style = style
     }
     
     public func setData(
@@ -333,7 +336,7 @@ extension CourseUpgradeHelper {
         Task {@MainActor [weak self] in
             guard let self = self else { return }
             await self.router.hideUpgradeInfo(animated: false)
-            await self.router.showUpgradeLoaderView(animated: animated)
+            await self.router.showUpgradeLoaderView(animated: animated, style: style)
             completion?()
         }
     }

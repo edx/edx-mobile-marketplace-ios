@@ -27,5 +27,5 @@ protocol RouterProtocol {
     func hideUpgradeInfo(animated: Bool) async
     
     @MainActor
-    func showUpgradeLoaderView(animated: Bool) async
+    func showUpgradeLoaderView(animated: Bool, style: EDXIAPStyle) async
 }
