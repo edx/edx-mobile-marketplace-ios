@@ -28,4 +28,10 @@ protocol RouterProtocol {
     
     @MainActor
     func showUpgradeLoaderView(animated: Bool, style: EDXIAPStyle) async
+    
+    @MainActor
+    func showSnackbar(animated: Bool, style: EDXIAPStyle) async
+    
+    @MainActor
+    func hideSnackbar(animated: Bool) async
 }
