@@ -292,7 +292,7 @@ public class DeepLinkManager: NotificationsDeepLinkManager {
                         await self.showCourseDiscussion(
                             link: link,
                             courseDetails: courseDetails,
-                            isBlackedOut: discussionInfo.isBlackedOut()
+                            isBlackedOut: discussionInfo.isBlackedOut
                         )
                         self.router.dismissProgress()
                     }
@@ -513,14 +513,14 @@ public class DeepLinkManager: NotificationsDeepLinkManager {
                 topicID: topicId,
                 courseDetails: courseDetails,
                 topics: topics,
-                isBlackedOut: discussionInfo.isBlackedOut()
+                isBlackedOut: discussionInfo.isBlackedOut
             )
 
             if let threadId = notification.contentContext?.threadId, !threadId.isEmpty {
                 let userThread = try await discussionInteractor.getThread(threadID: threadId)
                 router.showThread(
                     userThread: userThread,
-                    isBlackedOut: discussionInfo.isBlackedOut(),
+                    isBlackedOut: discussionInfo.isBlackedOut,
                     responseID: notification.contentContext?.responseId
                 )
             }
@@ -532,7 +532,7 @@ public class DeepLinkManager: NotificationsDeepLinkManager {
                     courseID: courseDetails.courseID,
                     comment: comment,
                     parentComment: comment.toPost(username: storage.user?.username),
-                    isBlackedOut: discussionInfo.isBlackedOut()
+                    isBlackedOut: discussionInfo.isBlackedOut
                 )
             }
         } catch {

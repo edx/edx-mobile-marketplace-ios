@@ -172,7 +172,7 @@ public class PostsViewModel: ObservableObject {
         do {
             if let courseID, isBlackedOut == nil {
                 let discussionInfo = try await interactor.getCourseDiscussionInfo(courseID: courseID)
-                isBlackedOut = discussionInfo.isBlackedOut()
+                isBlackedOut = discussionInfo.isBlackedOut
             }
 
             if pageNumber == 1 {

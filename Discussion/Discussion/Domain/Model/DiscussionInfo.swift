@@ -8,15 +8,9 @@
 import Foundation
 
 public struct DiscussionInfo {
-    public var id: String?
     public var isPostingEnabled: Bool?
-    public var blackouts: [DiscussionBlackout]?
 
-    public func isBlackedOut() -> Bool {
-        guard let isPostingEnabled else {
-            return false
-        }
-
-        return !isPostingEnabled
+    public var isBlackedOut: Bool {
+        isPostingEnabled == false
     }
 }

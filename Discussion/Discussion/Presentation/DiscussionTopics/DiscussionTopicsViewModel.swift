@@ -168,7 +168,7 @@ public class DiscussionTopicsViewModel: ObservableObject {
         isShowRefresh = !withProgress
         do {
             let discussionInfo = try await interactor.getCourseDiscussionInfo(courseID: courseID)
-            isBlackedOut = discussionInfo.isBlackedOut()
+            isBlackedOut = discussionInfo.isBlackedOut
              
             topics = try await interactor.getTopics(courseID: courseID)
             discussionTopics = generateTopics(topics: topics)
