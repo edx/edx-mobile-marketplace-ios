@@ -37,6 +37,8 @@ public enum EventBIValue: String {
     case courseUpgradePaymentError = "edx.bi.app.payments.payment_error"
     case courseUpgradeError = "edx.bi.app.payments.course_upgrade_error"
     case courseUpgradeSuccess = "edx.bi.app.payments.course_upgrade_success"
+    case courseUpgradeUnfulfilledPurchaseInitiated = "edx.bi.app.payments.unfulfilled_purchase.initiated"
+    case courseUpgradeRestorePurchaseClicked = "edx.bi.app.payments.restore_purchases.clicked"
 }
 
 public enum AnalyticsEvent: String {
@@ -48,6 +50,8 @@ public enum AnalyticsEvent: String {
     case courseUpgradePaymentError = "Payments:Payment Error"
     case courseUpgradeError = "Payments:Course Upgrade Error"
     case courseUpgradeSuccess = "Payments:Course Upgrade Success"
+    case courseUpgradeUnfulfilledPurchaseInitiated = "Payments:Unfulfilled Purchase Initiated"
+    case courseUpgradeRestorePurchaseClicked = "Payments:Restore Purchases Clicked"
 }
 
 public struct EDXAnalytics: EDXAnalyticsProtocol {
@@ -237,4 +241,32 @@ public struct EDXAnalytics: EDXAnalyticsProtocol {
         
         service.logEvent(AnalyticsEvent.courseUpgradeSuccess.rawValue, parameters: parameters)
     }
+    
+    public func trackCourseUnfulfilledPurchaseInitiated(
+        courseID: String,
+        pacing: String,
+        screen: EDXScreen,
+        flowType: EDXUpgradeMode
+    ) {
+        let parameters = [
+            EventParamKey.pacing: pacing,
+            EventParamKey.name: EventBIValue.courseUpgradeUnfulfilledPurchaseInitiated.rawValue,
+            EventParamKey.courseID: courseID,
+            EventParamKey.screenName: screen.rawValue,
+            EventParamKey.flowType: flowType.rawValue,
+            EventParamKey.category: EventCategory.inAppPurchases
+        ]
+        
+        service.logEvent(AnalyticsEvent.courseUpgradeUnfulfilledPurchaseInitiated.rawValue, parameters: parameters)
+    }
+    
+    public func trackRestorePurchaseClicked() {
+        let parameters = [
+            EventParamKey.name: EventBIValue.courseUpgradeRestorePurchaseClicked.rawValue,
+            EventParamKey.category: EventCategory.inAppPurchases
+        ]
+        
+        service.logEvent(AnalyticsEvent.courseUpgradeRestorePurchaseClicked.rawValue, parameters: parameters)
+    }
+
 }

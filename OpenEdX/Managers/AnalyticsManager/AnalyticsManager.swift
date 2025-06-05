@@ -1203,34 +1203,6 @@ class AnalyticsManager: AuthorizationAnalytics,
         logEvent(.whatnewClose, parameters: parameters)
     }
     
-    // MARK: Course Upgrade        
-    public func trackCourseUnfulfilledPurchaseInitiated(
-        courseID: String,
-        pacing: String,
-        screen: CourseUpgradeScreen,
-        flowType: UpgradeMode
-    ) {
-        let parameters = [
-            EventParamKey.pacing: pacing,
-            EventParamKey.name: EventBIValue.courseUpgradeUnfulfilledPurchaseInitiated.rawValue,
-            EventParamKey.courseID: courseID,
-            EventParamKey.screenName: screen.rawValue,
-            EventParamKey.flowType: flowType.rawValue,
-            EventParamKey.category: EventCategory.inAppPurchases
-        ]
-        
-        logEvent(.courseUpgradeUnfulfilledPurchaseInitiated, parameters: parameters)
-    }
-    
-    public func trackRestorePurchaseClicked() {
-        let parameters = [
-            EventParamKey.name: EventBIValue.courseUpgradeRestorePurchaseClicked.rawValue,
-            EventParamKey.category: EventCategory.inAppPurchases
-        ]
-        
-        logEvent(.courseUpgradeRestorePurchaseClicked, parameters: parameters)
-    }
-    
     public func notificationsScreenEvent(event: AnalyticsEvent, biValue: EventBIValue) {
         
     }

@@ -170,13 +170,13 @@ extension ListDashboardViewModel {
     }
     
     private func fulfillPurchase(inprogressIAP: EDXInProgressIAP, product: StoreProductInfo) async {
-        
-        coreAnalytics.trackCourseUnfulfilledPurchaseInitiated(
-            courseID: inprogressIAP.courseID,
-            pacing: inprogressIAP.pacing,
-            screen: .dashboard,
-            flowType: .silent
-        )
+//        NEEDS WORK: after moving to plugin use analytics there
+//        coreAnalytics.trackCourseUnfulfilledPurchaseInitiated(
+//            courseID: inprogressIAP.courseID,
+//            pacing: inprogressIAP.pacing,
+//            screen: .dashboard,
+//            flowType: .silent
+//        )
         
         await upgradehandler.upgradeCourse(
             sku: inprogressIAP.sku,
