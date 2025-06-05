@@ -7,6 +7,7 @@
 
 import Foundation
 
+// NEEDS WORK: move Data Layer to plugin
 public extension DataLayer {
     struct UpgradeBasket: Codable {
         public let success: String
@@ -51,20 +52,21 @@ public extension DataLayer {
     }
 }
 
-public extension DataLayer.UpgradeBasket {
-    var domain: UpgradeBasket {
-        UpgradeBasket(success: success, basketID: basketID)
-    }
-}
-
-public extension DataLayer.CheckoutBasket {
-    var domain: CheckoutBasket {
-        CheckoutBasket(paymentPageURL: paymentPageURL)
-    }
-}
-
-public extension DataLayer.FulfillCheckout {
-    var domain: FulfillCheckout {
-        FulfillCheckout(orderData: orderData)
-    }
-}
+// NEEDS WORK: uncomment and decide if needed after moved to plugin
+//public extension DataLayer.UpgradeBasket {
+//    var domain: UpgradeBasket {
+//        UpgradeBasket(success: success, basketID: basketID)
+//    }
+//}
+//
+//public extension DataLayer.CheckoutBasket {
+//    var domain: CheckoutBasket {
+//        CheckoutBasket(paymentPageURL: paymentPageURL)
+//    }
+//}
+//
+//public extension DataLayer.FulfillCheckout {
+//    var domain: FulfillCheckout {
+//        FulfillCheckout(orderData: orderData)
+//    }
+//}

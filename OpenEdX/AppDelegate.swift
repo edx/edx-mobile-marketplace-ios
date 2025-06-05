@@ -61,10 +61,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // IAP enabled is server configureable and fetched in enrollments API
             // IAP config isn't available on app launch so that's why checking for
             // e-commerce URL, e-commerce URL is being used for IAP
-            if let storekitHandler = Container.shared.resolve(StoreKitHandlerProtocol.self),
-               config.ecommerceURL?.isEmpty == false {
-                storekitHandler.completeTransactions()
-            }
+            
+            // NEEDS WORK: check if we need to complete unfinished transactions via plugin
+//            if let storekitHandler = Container.shared.resolve(StoreKitHandlerProtocol.self),
+//               config.ecommerceURL?.isEmpty == false {
+//                storekitHandler.completeTransactions()
+//            }
             
             let pushManager = Container.shared.resolve(PushNotificationsManager.self)
             

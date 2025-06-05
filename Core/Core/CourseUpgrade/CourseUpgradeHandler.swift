@@ -39,8 +39,8 @@ public class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
     private(set) var courseSku: String?
     private(set) var upgradeMode: UpgradeMode = .userInitiated
     private(set) var productInfo: StoreProductInfo?
-    private var interactor: CourseUpgradeInteractorProtocol
-    private var storeKitHandler: StoreKitHandlerProtocol
+//    private var interactor: CourseUpgradeInteractorProtocol
+//    private var storeKitHandler: StoreKitHandlerProtocol
     private let helper: CourseUpgradeHelperProtocol
     private var courseID: String = ""
     private var lmsPrice: Double?
@@ -74,12 +74,12 @@ public class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
 
     public init(
         config: ConfigProtocol,
-        interactor: CourseUpgradeInteractorProtocol,
-        storeKitHandler: StoreKitHandlerProtocol,
+//        interactor: CourseUpgradeInteractorProtocol,
+//        storeKitHandler: StoreKitHandlerProtocol,
         helper: CourseUpgradeHelperProtocol
     ) {
-        self.interactor = interactor
-        self.storeKitHandler = storeKitHandler
+//        self.interactor = interactor
+//        self.storeKitHandler = storeKitHandler
         self.helper = helper
         CourseUpgradeHandler.ecommerceURL = config.ecommerceURL ?? ""
     }
@@ -128,14 +128,14 @@ public class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
     private func proceedWithUpgrade(sku: String) async {
         state = .basket
         
-        do {
-            let basket = try await interactor.addBasket(sku: sku)
-            basketID = basket.basketID
-            await checkout(basketID: basketID, sku: sku)
-            
-        } catch let error {
-            state = .error(.basketError(error))
-        }
+//        do {
+//            let basket = try await interactor.addBasket(sku: sku)
+//            basketID = basket.basketID
+//            await checkout(basketID: basketID, sku: sku)
+//            
+//        } catch let error {
+//            state = .error(.basketError(error))
+//        }
     }
     
     private func checkout(basketID: Int, sku: String) async {
@@ -146,23 +146,25 @@ public class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
         }
         
         state = .checkout
-        do {
-            _ = try await interactor.checkoutBasket(basketID: basketID)
-            if upgradeMode != .userInitiated {
-                await reverifyPayment()
-            } else {
-                let response = await makePayment(sku: sku)
-                await verifyResponse(response)
-            }
-            
-        } catch let error {
-            state = .error(.checkoutError(error))
-        }
+//        do {
+//            _ = try await interactor.checkoutBasket(basketID: basketID)
+//            if upgradeMode != .userInitiated {
+//                await reverifyPayment()
+//            } else {
+//                let response = await makePayment(sku: sku)
+//                await verifyResponse(response)
+//            }
+//            
+//        } catch let error {
+//            state = .error(.checkoutError(error))
+//        }
     }
     
     private func makePayment(sku: String) async -> StoreKitUpgradeResponse {
         state = .payment
-        return await storeKitHandler.purchaseProduct(sku)
+//        return await storeKitHandler.purchaseProduct(sku)
+        // just to compile purposes
+        return StoreKitUpgradeResponse(success: false, receipt: nil, error: .paymentError(nil))
     }
     
     private func verifyResponse(_ response: StoreKitUpgradeResponse) async {
@@ -178,28 +180,29 @@ public class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
     private func verifyPayment(_ receipt: String) async {
         state = .verify
         
-        do {
-            try await interactor.fulfillCheckout(
-                basketID: basketID,
-                price: productInfo?.price ?? 0.0,
-                currencyCode: productInfo?.currencySymbol ?? "",
-                receipt: receipt
-            )
-            state = .complete
-            
-        } catch let error {
-            state = .error(.verifyReceiptError(error))
-        }
+//        do {
+//            try await interactor.fulfillCheckout(
+//                basketID: basketID,
+//                price: productInfo?.price ?? 0.0,
+//                currencyCode: productInfo?.currencySymbol ?? "",
+//                receipt: receipt
+//            )
+//            state = .complete
+//            
+//        } catch let error {
+//            state = .error(.verifyReceiptError(error))
+//        }
     }
     
     // Give an option of retry to learner
     func reverifyPayment() async {
-        let response = await storeKitHandler.purchaseReceipt()
-        await verifyResponse(response)
+//        let response = await storeKitHandler.purchaseReceipt()
+//        await verifyResponse(response)
     }
     
     public func fetchProduct(sku: String) async throws -> StoreProductInfo {
-        try await storeKitHandler.fetchProduct(sku: sku)
+//        try await storeKitHandler.fetchProduct(sku: sku)
+        return StoreProductInfo(price: 0.0, localizedPrice: "", currencySymbol: "") // just to compile purposes
     }
 }
 

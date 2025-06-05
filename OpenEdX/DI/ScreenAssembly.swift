@@ -688,29 +688,10 @@ class ScreenAssembly: Assembly {
         container.register(BackNavigationProtocol.self) { r in
             r.resolve(Router.self)!
         }
-        
-        container.register(StoreKitHandlerProtocol.self) { @MainActor _ in
-            StorekitHandler()
-        }.inObjectScope(.container)
-        
-        container.register(CourseUpgradeRepositoryProtocol.self) { @MainActor r in
-            CourseUpgradeRepository(
-                api: r.resolve(API.self)!,
-                config: r.resolve(ConfigProtocol.self)!
-            )
-        }
-        
-        container.register(CourseUpgradeInteractorProtocol.self) { @MainActor r in
-            CourseUpgradeInteractor(
-                repository: r.resolve(CourseUpgradeRepositoryProtocol.self)!
-            )
-        }
-        
+                
         container.register(CourseUpgradeHandlerProtocol.self) { @MainActor r in
             CourseUpgradeHandler(
                 config: r.resolve(ConfigProtocol.self)!,
-                interactor: r.resolve(CourseUpgradeInteractorProtocol.self)!,
-                storeKitHandler: r.resolve(StoreKitHandlerProtocol.self)!,
                 helper: r.resolve(CourseUpgradeHelperProtocol.self)!
             )
         }.inObjectScope(.container)

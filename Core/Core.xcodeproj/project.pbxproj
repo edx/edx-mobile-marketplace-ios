@@ -113,11 +113,9 @@
 		06DEA4A32BBD66A700110D20 /* BackNavigationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DEA4A22BBD66A700110D20 /* BackNavigationButton.swift */; };
 		06DEA4A52BBD66D700110D20 /* BackNavigationButtonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DEA4A42BBD66D700110D20 /* BackNavigationButtonViewModel.swift */; };
 		06EA8A482BFDFEFD005DFB90 /* CourseUpgradeHandlerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EA8A472BFDFEFD005DFB90 /* CourseUpgradeHandlerProtocol.swift */; };
-		06EA8A4A2BFDFF25005DFB90 /* CourseUpgradeInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EA8A492BFDFF25005DFB90 /* CourseUpgradeInteractorProtocol.swift */; };
 		06EA8A4D2BFDFF70005DFB90 /* StoreKitUpgradeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EA8A4C2BFDFF70005DFB90 /* StoreKitUpgradeResponse.swift */; };
 		06EA8A4F2BFDFF8F005DFB90 /* StoreProductInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EA8A4E2BFDFF8F005DFB90 /* StoreProductInfo.swift */; };
 		06EA8A512BFDFFB0005DFB90 /* UpgradeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EA8A502BFDFFB0005DFB90 /* UpgradeError.swift */; };
-		06EA8A532BFE006F005DFB90 /* StoreKitHandlerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EA8A522BFE006F005DFB90 /* StoreKitHandlerProtocol.swift */; };
 		070019A528F6F17900D5FC78 /* Data_Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070019A428F6F17900D5FC78 /* Data_Media.swift */; };
 		070019AC28F6FD0100D5FC78 /* CourseDetailBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070019AB28F6FD0100D5FC78 /* CourseDetailBlock.swift */; };
 		070019AE28F701B200D5FC78 /* Certificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070019AD28F701B200D5FC78 /* Certificate.swift */; };
@@ -144,11 +142,7 @@
 		141F1D302B7328D4009E81EB /* WebviewCookiesUpdateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141F1D2F2B7328D4009E81EB /* WebviewCookiesUpdateProtocol.swift */; };
 		142BBEB32C2EE49C00D57CEC /* CourseAccessMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142BBEB22C2EE49C00D57CEC /* CourseAccessMessageView.swift */; };
 		14769D3C2B9822EE00AB36D4 /* CoreAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14769D3B2B9822EE00AB36D4 /* CoreAnalytics.swift */; };
-		14A832522BD7537A00E5654D /* StorekitHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A832512BD7537A00E5654D /* StorekitHandler.swift */; };
 		14A832572BD75D6100E5654D /* CourseUpgradeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A832562BD75D6100E5654D /* CourseUpgradeHandler.swift */; };
-		14A832592BD75EC400E5654D /* CourseUpgradeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A832582BD75EC400E5654D /* CourseUpgradeInteractor.swift */; };
-		14A8325B2BD7615C00E5654D /* CourseUpgradeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A8325A2BD7615C00E5654D /* CourseUpgradeRepository.swift */; };
-		14A8325D2BD7629B00E5654D /* CourseUpgradeEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A8325C2BD7629B00E5654D /* CourseUpgradeEndpoint.swift */; };
 		14A8325F2BD766E900E5654D /* Data_Upgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A8325E2BD766E900E5654D /* Data_Upgrade.swift */; };
 		14A832682BDA8B6000E5654D /* UIAlertController+BlockActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A832672BDA8B6000E5654D /* UIAlertController+BlockActions.swift */; };
 		14DE13DA2BDF7E5E0059168F /* IAPConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DE13D92BDF7E5E0059168F /* IAPConfig.swift */; };
@@ -345,11 +339,9 @@
 		06DEA4A22BBD66A700110D20 /* BackNavigationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackNavigationButton.swift; sourceTree = "<group>"; };
 		06DEA4A42BBD66D700110D20 /* BackNavigationButtonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackNavigationButtonViewModel.swift; sourceTree = "<group>"; };
 		06EA8A472BFDFEFD005DFB90 /* CourseUpgradeHandlerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseUpgradeHandlerProtocol.swift; sourceTree = "<group>"; };
-		06EA8A492BFDFF25005DFB90 /* CourseUpgradeInteractorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseUpgradeInteractorProtocol.swift; sourceTree = "<group>"; };
 		06EA8A4C2BFDFF70005DFB90 /* StoreKitUpgradeResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreKitUpgradeResponse.swift; sourceTree = "<group>"; };
 		06EA8A4E2BFDFF8F005DFB90 /* StoreProductInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreProductInfo.swift; sourceTree = "<group>"; };
 		06EA8A502BFDFFB0005DFB90 /* UpgradeError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeError.swift; sourceTree = "<group>"; };
-		06EA8A522BFE006F005DFB90 /* StoreKitHandlerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreKitHandlerProtocol.swift; sourceTree = "<group>"; };
 		070019A428F6F17900D5FC78 /* Data_Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data_Media.swift; sourceTree = "<group>"; };
 		070019AB28F6FD0100D5FC78 /* CourseDetailBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailBlock.swift; sourceTree = "<group>"; };
 		070019AD28F701B200D5FC78 /* Certificate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Certificate.swift; sourceTree = "<group>"; };
@@ -380,11 +372,7 @@
 		141F1D2F2B7328D4009E81EB /* WebviewCookiesUpdateProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebviewCookiesUpdateProtocol.swift; sourceTree = "<group>"; };
 		142BBEB22C2EE49C00D57CEC /* CourseAccessMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseAccessMessageView.swift; sourceTree = "<group>"; };
 		14769D3B2B9822EE00AB36D4 /* CoreAnalytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreAnalytics.swift; sourceTree = "<group>"; };
-		14A832512BD7537A00E5654D /* StorekitHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorekitHandler.swift; sourceTree = "<group>"; };
 		14A832562BD75D6100E5654D /* CourseUpgradeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseUpgradeHandler.swift; sourceTree = "<group>"; };
-		14A832582BD75EC400E5654D /* CourseUpgradeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseUpgradeInteractor.swift; sourceTree = "<group>"; };
-		14A8325A2BD7615C00E5654D /* CourseUpgradeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseUpgradeRepository.swift; sourceTree = "<group>"; };
-		14A8325C2BD7629B00E5654D /* CourseUpgradeEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseUpgradeEndpoint.swift; sourceTree = "<group>"; };
 		14A8325E2BD766E900E5654D /* Data_Upgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data_Upgrade.swift; sourceTree = "<group>"; };
 		14A832672BDA8B6000E5654D /* UIAlertController+BlockActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+BlockActions.swift"; sourceTree = "<group>"; };
 		14D912DA2C257E9E0077CCCE /* FullStoryConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullStoryConfigTests.swift; sourceTree = "<group>"; };
@@ -496,7 +484,6 @@
 		0236961728F9A21600EEF206 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				14A8325A2BD7615C00E5654D /* CourseUpgradeRepository.swift */,
 				0236961828F9A26900EEF206 /* AuthRepository.swift */,
 				029A13292C2471DF005FB830 /* OfflineSyncRepository.swift */,
 			);
@@ -659,8 +646,6 @@
 			isa = PBXGroup;
 			children = (
 				06EA8A472BFDFEFD005DFB90 /* CourseUpgradeHandlerProtocol.swift */,
-				06EA8A492BFDFF25005DFB90 /* CourseUpgradeInteractorProtocol.swift */,
-				06EA8A522BFE006F005DFB90 /* StoreKitHandlerProtocol.swift */,
 				06C022C12C05F2E40046ABD3 /* CourseUpgradeHelperProtocol.swift */,
 			);
 			path = Protocols;
@@ -911,10 +896,7 @@
 				06EA8A4B2BFDFF5F005DFB90 /* Models */,
 				06EA8A462BFDFEE7005DFB90 /* Protocols */,
 				149936CF2BEB9C4900B4C89F /* View */,
-				14A832512BD7537A00E5654D /* StorekitHandler.swift */,
 				14A832562BD75D6100E5654D /* CourseUpgradeHandler.swift */,
-				14A832582BD75EC400E5654D /* CourseUpgradeInteractor.swift */,
-				14A8325C2BD7629B00E5654D /* CourseUpgradeEndpoint.swift */,
 			);
 			path = CourseUpgrade;
 			sourceTree = "<group>";
@@ -1336,7 +1318,6 @@
 				02F6EF4A28D9F0A700835477 /* DateExtension.swift in Sources */,
 				02EBC7572C19DCDB00BE182C /* SyncStatus.swift in Sources */,
 				DBF6F2462B01DAFE0098414B /* AgreementConfig.swift in Sources */,
-				14A832522BD7537A00E5654D /* StorekitHandler.swift in Sources */,
 				027BD3AF2909475000392132 /* DismissKeyboardTapHandler.swift in Sources */,
 				027F1BF72C071C820001A24C /* NavigationTitle.swift in Sources */,
 				CE1D5B7D2CE65D360019CA34 /* Protected.swift in Sources */,
@@ -1439,12 +1420,10 @@
 				021D925028DC89D100ACC565 /* UserProfile.swift in Sources */,
 				071009D028D1E3A600344290 /* AuthConstants.swift in Sources */,
 				0770DE1928D0847D006D8A5D /* BaseRouter.swift in Sources */,
-				06EA8A532BFE006F005DFB90 /* StoreKitHandlerProtocol.swift in Sources */,
 				02286D162C106393005EEC8D /* CourseDates.swift in Sources */,
 				0284DBFE28D48C5300830893 /* CourseItem.swift in Sources */,
 				0248C92329C075EF00DC8402 /* CourseBlockModel.swift in Sources */,
 				E0D5861A2B2FF74C009B4BA7 /* DiscoveryConfig.swift in Sources */,
-				14A8325D2BD7629B00E5654D /* CourseUpgradeEndpoint.swift in Sources */,
 				DBF6F2412B014ADA0098414B /* FirebaseConfig.swift in Sources */,
 				072787B628D37A0E002E9142 /* Validator.swift in Sources */,
 				0236961D28F9A2D200EEF206 /* Data_AuthResponse.swift in Sources */,
@@ -1455,7 +1434,6 @@
 				973CCD7C2D3660D100949756 /* AttributedText.swift in Sources */,
 				02AFCC182AEFDB24000360F0 /* ThirdPartyMailClient.swift in Sources */,
 				0233D5712AF13EC800BAC8BD /* SelectMailClientView.swift in Sources */,
-				14A8325B2BD7615C00E5654D /* CourseUpgradeRepository.swift in Sources */,
 				BAFB99842B0E282E007D09F9 /* MicrosoftConfig.swift in Sources */,
 				06EA8A4D2BFDFF70005DFB90 /* StoreKitUpgradeResponse.swift in Sources */,
 				02EBC7592C19DE1100BE182C /* CalendarManagerProtocol.swift in Sources */,
@@ -1496,14 +1474,12 @@
 				029A13302C2479E7005FB830 /* OfflineSyncInteractor.swift in Sources */,
 				0604C9AA2B22FACF00AD5DBF /* UIComponentsConfig.swift in Sources */,
 				027BD3B82909476200392132 /* DismissKeyboardTapViewModifier.swift in Sources */,
-				14A832592BD75EC400E5654D /* CourseUpgradeInteractor.swift in Sources */,
 				0770DE6128D0B2CB006D8A5D /* Assets.swift in Sources */,
 				07E0939F2B308D2800F1E4B2 /* Data_Certificate.swift in Sources */,
 				020D72F42BB76DFE00773319 /* VisualEffectView.swift in Sources */,
 				0727878928D31734002E9142 /* User.swift in Sources */,
 				A53A32352B233DEC005FE38A /* ThemeConfig.swift in Sources */,
 				02280F5B294B4E6F0032823A /* Connectivity.swift in Sources */,
-				06EA8A4A2BFDFF25005DFB90 /* CourseUpgradeInteractorProtocol.swift in Sources */,
 				0254D1912BCD699F000CDE89 /* RefreshProgressView.swift in Sources */,
 				062C69AB2C198323002BD311 /* UpgradeCourseViewMessage.swift in Sources */,
 				CED42FFC2D099F0400C7AD89 /* DownloadManagerMock.swift in Sources */,
