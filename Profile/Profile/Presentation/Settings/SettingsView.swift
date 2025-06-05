@@ -320,7 +320,7 @@ public struct SettingsView: View {
         coreAnalytics: CoreAnalyticsMock(),
         config: ConfigMock(),
         serverConfig: ServerConfigProtocolMock(),
-        upgradeHandler: CourseUpgradeHandlerProtocolMock(),
+//        upgradeHandler: CourseUpgradeHandlerProtocolMock(),
         corePersistence: CorePersistenceMock(),
         connectivity: Connectivity()
     )

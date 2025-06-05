@@ -365,7 +365,7 @@ public final class CourseContainerViewModel: BaseCourseViewModel {
                     sku: courseStructure.sku ?? "",
                     courseID: courseID,
                     pacing: courseStructure.isSelfPaced ? Pacing.selfPace.rawValue : Pacing.instructor.rawValue,
-                    screen: .courseDashboard,
+//                    screen: .courseDashboard,
                     lmsPrice: courseStructure.lmsPrice ?? .zero
                 )
             } else {
@@ -389,7 +389,7 @@ public final class CourseContainerViewModel: BaseCourseViewModel {
                     sku: courseStructure.sku ?? "",
                     courseID: courseID,
                     pacing: courseStructure.isSelfPaced ? Pacing.selfPace.rawValue : Pacing.instructor.rawValue,
-                    screen: .courseDashboard,
+//                    screen: .courseDashboard,
                     lmsPrice: courseStructure.lmsPrice ?? .zero
                 )
             
@@ -470,7 +470,7 @@ public final class CourseContainerViewModel: BaseCourseViewModel {
                 message: "",
                 sku: sku,
                 courseID: structure.id,
-                screen: .courseDashboard,
+//                screen: .courseDashboard,
                 pacing: structure.isSelfPaced ? Pacing.selfPace.rawValue : Pacing.instructor.rawValue,
                 lmsPrice: lmsPrice
             )

@@ -67,7 +67,7 @@ public struct ListDashboardView: View {
                                                         message: "",
                                                         sku: course.sku,
                                                         courseID: course.courseID,
-                                                        screen: .dashboard,
+//                                                        screen: .dashboard,
                                                         pacing: course.isSelfPaced != false ? Pacing.selfPace.rawValue
                                                         : Pacing.instructor.rawValue,
                                                         lmsPrice: course.lmsPrice ?? .zero
@@ -174,7 +174,7 @@ struct ListDashboardView_Previews: PreviewProvider {
             connectivity: Connectivity(),
             analytics: DashboardAnalyticsMock(),
             storage: CoreStorageMock(),
-            upgradehandler: CourseUpgradeHandlerProtocolMock(),
+//            upgradehandler: CourseUpgradeHandlerProtocolMock(),
             coreAnalytics: CoreAnalyticsMock(),
             serverConfig: ServerConfigProtocolMock()
         )

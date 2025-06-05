@@ -17,7 +17,7 @@ public enum CourseAccessErrorHelperType {
         sku: String,
         courseID: String,
         pacing: String,
-        screen: CourseUpgradeScreen,
+//        screen: CourseUpgradeScreen,
         lmsPrice: Double
     )
     case upgradeable(
@@ -25,7 +25,7 @@ public enum CourseAccessErrorHelperType {
         sku: String,
         courseID: String,
         pacing: String,
-        screen: CourseUpgradeScreen,
+//        screen: CourseUpgradeScreen,
         lmsPrice: Double
     )
 }
@@ -63,8 +63,8 @@ public struct UpgradeCourseView: View {
 
     public var body: some View {
         switch type {
-        case let .upgradeable(date, sku, courseID, pacing, screen, lmsPrice),
-            let .auditExpired(date, sku, courseID, pacing, screen, lmsPrice):
+        case let .upgradeable(date, sku, courseID, pacing /*, screen*/, lmsPrice),
+            let .auditExpired(date, sku, courseID, pacing /*, screen*/, lmsPrice):
             VStack {
                 let message = CoreLocalization.CourseUpgrade.View.auditMessage
                     .replacingOccurrences(
@@ -75,7 +75,7 @@ public struct UpgradeCourseView: View {
                     isFindCourseButtonVisible: true,
                     viewModel: Container.shared.resolve(
                         UpgradeInfoViewModel.self,
-                        arguments: "", message, sku, courseID, screen, pacing, lmsPrice
+                        arguments: "", message, sku, courseID, /*screen,*/ pacing, lmsPrice
                     )!,
                     findAction: {
                         findAction?()
@@ -147,7 +147,7 @@ public struct UpgradeCourseView: View {
                 sku: "some sku",
                 courseID: "courseID",
                 pacing: "pacing",
-                screen: .unknown,
+//                screen: .unknown,
                 lmsPrice: .zero
             ),
             coordinate: .constant(0),
@@ -164,7 +164,7 @@ public struct UpgradeCourseView: View {
                 sku: "some sku",
                 courseID: "courseID",
                 pacing: "pacing",
-                screen: .unknown,
+//                screen: .unknown,
                 lmsPrice: .zero
             ),
             coordinate: .constant(0),

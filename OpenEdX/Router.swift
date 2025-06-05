@@ -978,7 +978,7 @@ extension Router {
         message: String,
         sku: String,
         courseID: String,
-        screen: CourseUpgradeScreen,
+//        screen: CourseUpgradeScreen,
         pacing: String,
         lmsPrice: Double
     ) async {
@@ -986,7 +986,7 @@ extension Router {
             let view = UpgradeInfoSheetView(
                 viewModel: Container.shared.resolve(
                     UpgradeInfoViewModel.self,
-                    arguments: productName, message, sku, courseID, screen, pacing, lmsPrice
+                    arguments: productName, message, sku, courseID, /*screen,*/ pacing, lmsPrice
                 )!
             )
             let controller = UIHostingController(rootView: view)

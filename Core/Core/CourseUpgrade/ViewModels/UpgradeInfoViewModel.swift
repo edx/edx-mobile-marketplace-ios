@@ -14,8 +14,8 @@ public class UpgradeInfoViewModel: ObservableObject, Sendable {
     let message: String
     let sku: String
     let courseID: String
-    let screen: CourseUpgradeScreen
-    let handler: CourseUpgradeHandlerProtocol
+//    let screen: CourseUpgradeScreen
+//    let handler: CourseUpgradeHandlerProtocol
     let pacing: String
     let analytics: CoreAnalytics
     let router: BaseRouter
@@ -35,8 +35,8 @@ public class UpgradeInfoViewModel: ObservableObject, Sendable {
         message: String,
         sku: String,
         courseID: String,
-        screen: CourseUpgradeScreen,
-        handler: CourseUpgradeHandlerProtocol,
+//        screen: CourseUpgradeScreen,
+//        handler: CourseUpgradeHandlerProtocol,
         pacing: String,
         analytics: CoreAnalytics,
         router: BaseRouter,
@@ -45,8 +45,8 @@ public class UpgradeInfoViewModel: ObservableObject, Sendable {
         self.productName = productName
         self.sku = sku
         self.courseID = courseID
-        self.screen = screen
-        self.handler = handler
+//        self.screen = screen
+//        self.handler = handler
         self.pacing = pacing
         self.analytics = analytics
         self.router = router
@@ -60,13 +60,13 @@ public class UpgradeInfoViewModel: ObservableObject, Sendable {
             isLoading = false
             return
         }
-        do {
-            isLoading = true
-            product = try await handler.fetchProduct(sku: sku)
-            isLoading = false
-        } catch let error {
-            showPriceLoadError(error: error)
-        }
+//        do {
+//            isLoading = true
+//            product = try await handler.fetchProduct(sku: sku)
+//            isLoading = false
+//        } catch let error {
+//            showPriceLoadError(error: error)
+//        }
     }
     
     @MainActor
@@ -154,33 +154,33 @@ public class UpgradeInfoViewModel: ObservableObject, Sendable {
 //            localizedCurrencyCode: product?.currencySymbol,
 //            lmsPrice: lmsPrice
 //        )
-        await handler.upgradeCourse(
-            sku: sku,
-            mode: .userInitiated,
-            productInfo: product,
-            pacing: pacing,
-            courseID: courseID,
-            lmsPrice: lmsPrice,
-            componentID: nil,
-            screen: screen,
-            completion: {[weak self] state in
-                guard let self = self else { return }
-                switch state {
-                case .error:
-                    DispatchQueue.main.async {
-                        self.isLoading = false
-                        self.interactiveDismissDisabled = false
-                    }
-                case .complete:
-                    DispatchQueue.main.async {
-                        self.isLoading = false
-                        self.interactiveDismissDisabled = false
-                    }
-                default:
-                    debugLog("Upgrade state changed: \(state)")
-                }
-            }
-        )
+//        await handler.upgradeCourse(
+//            sku: sku,
+//            mode: .userInitiated,
+//            productInfo: product,
+//            pacing: pacing,
+//            courseID: courseID,
+//            lmsPrice: lmsPrice,
+//            componentID: nil,
+//            screen: screen,
+//            completion: {[weak self] state in
+//                guard let self = self else { return }
+//                switch state {
+//                case .error:
+//                    DispatchQueue.main.async {
+//                        self.isLoading = false
+//                        self.interactiveDismissDisabled = false
+//                    }
+//                case .complete:
+//                    DispatchQueue.main.async {
+//                        self.isLoading = false
+//                        self.interactiveDismissDisabled = false
+//                    }
+//                default:
+//                    debugLog("Upgrade state changed: \(state)")
+//                }
+//            }
+//        )
     }
     
     func trackValuePropViewed() {
