@@ -2374,60 +2374,6 @@ open class CoreAnalyticsMock: CoreAnalytics, Mock {
 		perform?(`event`, `bivalue`, `value`, `oldValue`)
     }
 
-    open func trackCourseUpgradePaymentError(_ event: AnalyticsEvent, biValue: EventBIValue, courseID: String, blockID: String?, pacing: String, localizedPrice: NSDecimalNumber?, localizedCurrencyCode: String?, lmsPrice: Double?, screen: CourseUpgradeScreen, error: String) {
-        addInvocation(.m_trackCourseUpgradePaymentError__eventbiValue_biValuecourseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenerror_error(Parameter<AnalyticsEvent>.value(`event`), Parameter<EventBIValue>.value(`biValue`), Parameter<String>.value(`courseID`), Parameter<String?>.value(`blockID`), Parameter<String>.value(`pacing`), Parameter<NSDecimalNumber?>.value(`localizedPrice`), Parameter<String?>.value(`localizedCurrencyCode`), Parameter<Double?>.value(`lmsPrice`), Parameter<CourseUpgradeScreen>.value(`screen`), Parameter<String>.value(`error`)))
-		let perform = methodPerformValue(.m_trackCourseUpgradePaymentError__eventbiValue_biValuecourseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenerror_error(Parameter<AnalyticsEvent>.value(`event`), Parameter<EventBIValue>.value(`biValue`), Parameter<String>.value(`courseID`), Parameter<String?>.value(`blockID`), Parameter<String>.value(`pacing`), Parameter<NSDecimalNumber?>.value(`localizedPrice`), Parameter<String?>.value(`localizedCurrencyCode`), Parameter<Double?>.value(`lmsPrice`), Parameter<CourseUpgradeScreen>.value(`screen`), Parameter<String>.value(`error`))) as? (AnalyticsEvent, EventBIValue, String, String?, String, NSDecimalNumber?, String?, Double?, CourseUpgradeScreen, String) -> Void
-		perform?(`event`, `biValue`, `courseID`, `blockID`, `pacing`, `localizedPrice`, `localizedCurrencyCode`, `lmsPrice`, `screen`, `error`)
-    }
-
-    open func trackCourseUpgradeError(courseID: String, blockID: String?, pacing: String, localizedPrice: NSDecimalNumber?, localizedCurrencyCode: String?, lmsPrice: Double?, screen: CourseUpgradeScreen, error: String, flowType: UpgradeMode) {
-        addInvocation(.m_trackCourseUpgradeError__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenerror_errorflowType_flowType(Parameter<String>.value(`courseID`), Parameter<String?>.value(`blockID`), Parameter<String>.value(`pacing`), Parameter<NSDecimalNumber?>.value(`localizedPrice`), Parameter<String?>.value(`localizedCurrencyCode`), Parameter<Double?>.value(`lmsPrice`), Parameter<CourseUpgradeScreen>.value(`screen`), Parameter<String>.value(`error`), Parameter<UpgradeMode>.value(`flowType`)))
-		let perform = methodPerformValue(.m_trackCourseUpgradeError__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenerror_errorflowType_flowType(Parameter<String>.value(`courseID`), Parameter<String?>.value(`blockID`), Parameter<String>.value(`pacing`), Parameter<NSDecimalNumber?>.value(`localizedPrice`), Parameter<String?>.value(`localizedCurrencyCode`), Parameter<Double?>.value(`lmsPrice`), Parameter<CourseUpgradeScreen>.value(`screen`), Parameter<String>.value(`error`), Parameter<UpgradeMode>.value(`flowType`))) as? (String, String?, String, NSDecimalNumber?, String?, Double?, CourseUpgradeScreen, String, UpgradeMode) -> Void
-		perform?(`courseID`, `blockID`, `pacing`, `localizedPrice`, `localizedCurrencyCode`, `lmsPrice`, `screen`, `error`, `flowType`)
-    }
-
-    open func trackCourseUpgradeErrorAction(courseID: String, blockID: String?, pacing: String, localizedPrice: NSDecimalNumber?, localizedCurrencyCode: String?, lmsPrice: Double?, screen: CourseUpgradeScreen, alertType: UpgradeAlertType, errorAction: String, error: String, flowType: UpgradeMode) {
-        addInvocation(.m_trackCourseUpgradeErrorAction__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenalertType_alertTypeerrorAction_errorActionerror_errorflowType_flowType(Parameter<String>.value(`courseID`), Parameter<String?>.value(`blockID`), Parameter<String>.value(`pacing`), Parameter<NSDecimalNumber?>.value(`localizedPrice`), Parameter<String?>.value(`localizedCurrencyCode`), Parameter<Double?>.value(`lmsPrice`), Parameter<CourseUpgradeScreen>.value(`screen`), Parameter<UpgradeAlertType>.value(`alertType`), Parameter<String>.value(`errorAction`), Parameter<String>.value(`error`), Parameter<UpgradeMode>.value(`flowType`)))
-		let perform = methodPerformValue(.m_trackCourseUpgradeErrorAction__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenalertType_alertTypeerrorAction_errorActionerror_errorflowType_flowType(Parameter<String>.value(`courseID`), Parameter<String?>.value(`blockID`), Parameter<String>.value(`pacing`), Parameter<NSDecimalNumber?>.value(`localizedPrice`), Parameter<String?>.value(`localizedCurrencyCode`), Parameter<Double?>.value(`lmsPrice`), Parameter<CourseUpgradeScreen>.value(`screen`), Parameter<UpgradeAlertType>.value(`alertType`), Parameter<String>.value(`errorAction`), Parameter<String>.value(`error`), Parameter<UpgradeMode>.value(`flowType`))) as? (String, String?, String, NSDecimalNumber?, String?, Double?, CourseUpgradeScreen, UpgradeAlertType, String, String, UpgradeMode) -> Void
-		perform?(`courseID`, `blockID`, `pacing`, `localizedPrice`, `localizedCurrencyCode`, `lmsPrice`, `screen`, `alertType`, `errorAction`, `error`, `flowType`)
-    }
-
-    open func trackCourseUpgradeSuccess(courseID: String, blockID: String?, pacing: String, localizedPrice: NSDecimalNumber?, localizedCurrencyCode: String?, lmsPrice: Double?, screen: CourseUpgradeScreen, flowType: UpgradeMode) {
-        addInvocation(.m_trackCourseUpgradeSuccess__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenflowType_flowType(Parameter<String>.value(`courseID`), Parameter<String?>.value(`blockID`), Parameter<String>.value(`pacing`), Parameter<NSDecimalNumber?>.value(`localizedPrice`), Parameter<String?>.value(`localizedCurrencyCode`), Parameter<Double?>.value(`lmsPrice`), Parameter<CourseUpgradeScreen>.value(`screen`), Parameter<UpgradeMode>.value(`flowType`)))
-		let perform = methodPerformValue(.m_trackCourseUpgradeSuccess__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenflowType_flowType(Parameter<String>.value(`courseID`), Parameter<String?>.value(`blockID`), Parameter<String>.value(`pacing`), Parameter<NSDecimalNumber?>.value(`localizedPrice`), Parameter<String?>.value(`localizedCurrencyCode`), Parameter<Double?>.value(`lmsPrice`), Parameter<CourseUpgradeScreen>.value(`screen`), Parameter<UpgradeMode>.value(`flowType`))) as? (String, String?, String, NSDecimalNumber?, String?, Double?, CourseUpgradeScreen, UpgradeMode) -> Void
-		perform?(`courseID`, `blockID`, `pacing`, `localizedPrice`, `localizedCurrencyCode`, `lmsPrice`, `screen`, `flowType`)
-    }
-
-    open func trackUpgradeNow(courseID: String, blockID: String?, pacing: String, screen: CourseUpgradeScreen, localizedPrice: NSDecimalNumber?, localizedCurrencyCode: String?, lmsPrice: Double?) {
-        addInvocation(.m_trackUpgradeNow__courseID_courseIDblockID_blockIDpacing_pacingscreen_screenlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPrice(Parameter<String>.value(`courseID`), Parameter<String?>.value(`blockID`), Parameter<String>.value(`pacing`), Parameter<CourseUpgradeScreen>.value(`screen`), Parameter<NSDecimalNumber?>.value(`localizedPrice`), Parameter<String?>.value(`localizedCurrencyCode`), Parameter<Double?>.value(`lmsPrice`)))
-		let perform = methodPerformValue(.m_trackUpgradeNow__courseID_courseIDblockID_blockIDpacing_pacingscreen_screenlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPrice(Parameter<String>.value(`courseID`), Parameter<String?>.value(`blockID`), Parameter<String>.value(`pacing`), Parameter<CourseUpgradeScreen>.value(`screen`), Parameter<NSDecimalNumber?>.value(`localizedPrice`), Parameter<String?>.value(`localizedCurrencyCode`), Parameter<Double?>.value(`lmsPrice`))) as? (String, String?, String, CourseUpgradeScreen, NSDecimalNumber?, String?, Double?) -> Void
-		perform?(`courseID`, `blockID`, `pacing`, `screen`, `localizedPrice`, `localizedCurrencyCode`, `lmsPrice`)
-    }
-
-    open func trackCourseUpgradeLoadError(courseID: String, blockID: String?, pacing: String, screen: CourseUpgradeScreen) {
-        addInvocation(.m_trackCourseUpgradeLoadError__courseID_courseIDblockID_blockIDpacing_pacingscreen_screen(Parameter<String>.value(`courseID`), Parameter<String?>.value(`blockID`), Parameter<String>.value(`pacing`), Parameter<CourseUpgradeScreen>.value(`screen`)))
-		let perform = methodPerformValue(.m_trackCourseUpgradeLoadError__courseID_courseIDblockID_blockIDpacing_pacingscreen_screen(Parameter<String>.value(`courseID`), Parameter<String?>.value(`blockID`), Parameter<String>.value(`pacing`), Parameter<CourseUpgradeScreen>.value(`screen`))) as? (String, String?, String, CourseUpgradeScreen) -> Void
-		perform?(`courseID`, `blockID`, `pacing`, `screen`)
-    }
-
-    open func trackCourseUnfulfilledPurchaseInitiated(courseID: String, pacing: String, screen: CourseUpgradeScreen, flowType: UpgradeMode) {
-        addInvocation(.m_trackCourseUnfulfilledPurchaseInitiated__courseID_courseIDpacing_pacingscreen_screenflowType_flowType(Parameter<String>.value(`courseID`), Parameter<String>.value(`pacing`), Parameter<CourseUpgradeScreen>.value(`screen`), Parameter<UpgradeMode>.value(`flowType`)))
-		let perform = methodPerformValue(.m_trackCourseUnfulfilledPurchaseInitiated__courseID_courseIDpacing_pacingscreen_screenflowType_flowType(Parameter<String>.value(`courseID`), Parameter<String>.value(`pacing`), Parameter<CourseUpgradeScreen>.value(`screen`), Parameter<UpgradeMode>.value(`flowType`))) as? (String, String, CourseUpgradeScreen, UpgradeMode) -> Void
-		perform?(`courseID`, `pacing`, `screen`, `flowType`)
-    }
-
-    open func trackRestorePurchaseClicked() {
-        addInvocation(.m_trackRestorePurchaseClicked)
-		let perform = methodPerformValue(.m_trackRestorePurchaseClicked) as? () -> Void
-		perform?()
-    }
-
-    open func trackValuePropViewed(courseID: String, pacing: String, lmsPrice: Double, screen: CourseUpgradeScreen) {
-        addInvocation(.m_trackValuePropViewed__courseID_courseIDpacing_pacinglmsPrice_lmsPricescreen_screen(Parameter<String>.value(`courseID`), Parameter<String>.value(`pacing`), Parameter<Double>.value(`lmsPrice`), Parameter<CourseUpgradeScreen>.value(`screen`)))
-		let perform = methodPerformValue(.m_trackValuePropViewed__courseID_courseIDpacing_pacinglmsPrice_lmsPricescreen_screen(Parameter<String>.value(`courseID`), Parameter<String>.value(`pacing`), Parameter<Double>.value(`lmsPrice`), Parameter<CourseUpgradeScreen>.value(`screen`))) as? (String, String, Double, CourseUpgradeScreen) -> Void
-		perform?(`courseID`, `pacing`, `lmsPrice`, `screen`)
-    }
-
     open func trackEvent(_ event: AnalyticsEvent) {
         addInvocation(.m_trackEvent__event(Parameter<AnalyticsEvent>.value(`event`)))
 		let perform = methodPerformValue(.m_trackEvent__event(Parameter<AnalyticsEvent>.value(`event`))) as? (AnalyticsEvent) -> Void
@@ -2460,15 +2406,6 @@ open class CoreAnalyticsMock: CoreAnalytics, Mock {
         case m_trackScreenEvent__eventbiValue_biValueparameters_parameters(Parameter<AnalyticsEvent>, Parameter<EventBIValue>, Parameter<[String: Any]?>)
         case m_appreview__eventbiValue_biValueaction_actionrating_rating(Parameter<AnalyticsEvent>, Parameter<EventBIValue>, Parameter<String?>, Parameter<Int?>)
         case m_videoQualityChanged__eventbivalue_bivaluevalue_valueoldValue_oldValue(Parameter<AnalyticsEvent>, Parameter<EventBIValue>, Parameter<String>, Parameter<String>)
-        case m_trackCourseUpgradePaymentError__eventbiValue_biValuecourseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenerror_error(Parameter<AnalyticsEvent>, Parameter<EventBIValue>, Parameter<String>, Parameter<String?>, Parameter<String>, Parameter<NSDecimalNumber?>, Parameter<String?>, Parameter<Double?>, Parameter<CourseUpgradeScreen>, Parameter<String>)
-        case m_trackCourseUpgradeError__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenerror_errorflowType_flowType(Parameter<String>, Parameter<String?>, Parameter<String>, Parameter<NSDecimalNumber?>, Parameter<String?>, Parameter<Double?>, Parameter<CourseUpgradeScreen>, Parameter<String>, Parameter<UpgradeMode>)
-        case m_trackCourseUpgradeErrorAction__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenalertType_alertTypeerrorAction_errorActionerror_errorflowType_flowType(Parameter<String>, Parameter<String?>, Parameter<String>, Parameter<NSDecimalNumber?>, Parameter<String?>, Parameter<Double?>, Parameter<CourseUpgradeScreen>, Parameter<UpgradeAlertType>, Parameter<String>, Parameter<String>, Parameter<UpgradeMode>)
-        case m_trackCourseUpgradeSuccess__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenflowType_flowType(Parameter<String>, Parameter<String?>, Parameter<String>, Parameter<NSDecimalNumber?>, Parameter<String?>, Parameter<Double?>, Parameter<CourseUpgradeScreen>, Parameter<UpgradeMode>)
-        case m_trackUpgradeNow__courseID_courseIDblockID_blockIDpacing_pacingscreen_screenlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPrice(Parameter<String>, Parameter<String?>, Parameter<String>, Parameter<CourseUpgradeScreen>, Parameter<NSDecimalNumber?>, Parameter<String?>, Parameter<Double?>)
-        case m_trackCourseUpgradeLoadError__courseID_courseIDblockID_blockIDpacing_pacingscreen_screen(Parameter<String>, Parameter<String?>, Parameter<String>, Parameter<CourseUpgradeScreen>)
-        case m_trackCourseUnfulfilledPurchaseInitiated__courseID_courseIDpacing_pacingscreen_screenflowType_flowType(Parameter<String>, Parameter<String>, Parameter<CourseUpgradeScreen>, Parameter<UpgradeMode>)
-        case m_trackRestorePurchaseClicked
-        case m_trackValuePropViewed__courseID_courseIDpacing_pacinglmsPrice_lmsPricescreen_screen(Parameter<String>, Parameter<String>, Parameter<Double>, Parameter<CourseUpgradeScreen>)
         case m_trackEvent__event(Parameter<AnalyticsEvent>)
         case m_trackEvent__eventbiValue_biValue(Parameter<AnalyticsEvent>, Parameter<EventBIValue>)
         case m_trackScreenEvent__event(Parameter<AnalyticsEvent>)
@@ -2518,97 +2455,6 @@ open class CoreAnalyticsMock: CoreAnalytics, Mock {
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsOldvalue, rhs: rhsOldvalue, with: matcher), lhsOldvalue, rhsOldvalue, "oldValue"))
 				return Matcher.ComparisonResult(results)
 
-            case (.m_trackCourseUpgradePaymentError__eventbiValue_biValuecourseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenerror_error(let lhsEvent, let lhsBivalue, let lhsCourseid, let lhsBlockid, let lhsPacing, let lhsLocalizedprice, let lhsLocalizedcurrencycode, let lhsLmsprice, let lhsScreen, let lhsError), .m_trackCourseUpgradePaymentError__eventbiValue_biValuecourseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenerror_error(let rhsEvent, let rhsBivalue, let rhsCourseid, let rhsBlockid, let rhsPacing, let rhsLocalizedprice, let rhsLocalizedcurrencycode, let rhsLmsprice, let rhsScreen, let rhsError)):
-				var results: [Matcher.ParameterComparisonResult] = []
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsEvent, rhs: rhsEvent, with: matcher), lhsEvent, rhsEvent, "_ event"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsBivalue, rhs: rhsBivalue, with: matcher), lhsBivalue, rhsBivalue, "biValue"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseID"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsBlockid, rhs: rhsBlockid, with: matcher), lhsBlockid, rhsBlockid, "blockID"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPacing, rhs: rhsPacing, with: matcher), lhsPacing, rhsPacing, "pacing"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLocalizedprice, rhs: rhsLocalizedprice, with: matcher), lhsLocalizedprice, rhsLocalizedprice, "localizedPrice"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLocalizedcurrencycode, rhs: rhsLocalizedcurrencycode, with: matcher), lhsLocalizedcurrencycode, rhsLocalizedcurrencycode, "localizedCurrencyCode"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLmsprice, rhs: rhsLmsprice, with: matcher), lhsLmsprice, rhsLmsprice, "lmsPrice"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsScreen, rhs: rhsScreen, with: matcher), lhsScreen, rhsScreen, "screen"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsError, rhs: rhsError, with: matcher), lhsError, rhsError, "error"))
-				return Matcher.ComparisonResult(results)
-
-            case (.m_trackCourseUpgradeError__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenerror_errorflowType_flowType(let lhsCourseid, let lhsBlockid, let lhsPacing, let lhsLocalizedprice, let lhsLocalizedcurrencycode, let lhsLmsprice, let lhsScreen, let lhsError, let lhsFlowtype), .m_trackCourseUpgradeError__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenerror_errorflowType_flowType(let rhsCourseid, let rhsBlockid, let rhsPacing, let rhsLocalizedprice, let rhsLocalizedcurrencycode, let rhsLmsprice, let rhsScreen, let rhsError, let rhsFlowtype)):
-				var results: [Matcher.ParameterComparisonResult] = []
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseID"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsBlockid, rhs: rhsBlockid, with: matcher), lhsBlockid, rhsBlockid, "blockID"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPacing, rhs: rhsPacing, with: matcher), lhsPacing, rhsPacing, "pacing"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLocalizedprice, rhs: rhsLocalizedprice, with: matcher), lhsLocalizedprice, rhsLocalizedprice, "localizedPrice"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLocalizedcurrencycode, rhs: rhsLocalizedcurrencycode, with: matcher), lhsLocalizedcurrencycode, rhsLocalizedcurrencycode, "localizedCurrencyCode"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLmsprice, rhs: rhsLmsprice, with: matcher), lhsLmsprice, rhsLmsprice, "lmsPrice"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsScreen, rhs: rhsScreen, with: matcher), lhsScreen, rhsScreen, "screen"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsError, rhs: rhsError, with: matcher), lhsError, rhsError, "error"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsFlowtype, rhs: rhsFlowtype, with: matcher), lhsFlowtype, rhsFlowtype, "flowType"))
-				return Matcher.ComparisonResult(results)
-
-            case (.m_trackCourseUpgradeErrorAction__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenalertType_alertTypeerrorAction_errorActionerror_errorflowType_flowType(let lhsCourseid, let lhsBlockid, let lhsPacing, let lhsLocalizedprice, let lhsLocalizedcurrencycode, let lhsLmsprice, let lhsScreen, let lhsAlerttype, let lhsErroraction, let lhsError, let lhsFlowtype), .m_trackCourseUpgradeErrorAction__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenalertType_alertTypeerrorAction_errorActionerror_errorflowType_flowType(let rhsCourseid, let rhsBlockid, let rhsPacing, let rhsLocalizedprice, let rhsLocalizedcurrencycode, let rhsLmsprice, let rhsScreen, let rhsAlerttype, let rhsErroraction, let rhsError, let rhsFlowtype)):
-				var results: [Matcher.ParameterComparisonResult] = []
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseID"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsBlockid, rhs: rhsBlockid, with: matcher), lhsBlockid, rhsBlockid, "blockID"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPacing, rhs: rhsPacing, with: matcher), lhsPacing, rhsPacing, "pacing"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLocalizedprice, rhs: rhsLocalizedprice, with: matcher), lhsLocalizedprice, rhsLocalizedprice, "localizedPrice"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLocalizedcurrencycode, rhs: rhsLocalizedcurrencycode, with: matcher), lhsLocalizedcurrencycode, rhsLocalizedcurrencycode, "localizedCurrencyCode"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLmsprice, rhs: rhsLmsprice, with: matcher), lhsLmsprice, rhsLmsprice, "lmsPrice"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsScreen, rhs: rhsScreen, with: matcher), lhsScreen, rhsScreen, "screen"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsAlerttype, rhs: rhsAlerttype, with: matcher), lhsAlerttype, rhsAlerttype, "alertType"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsErroraction, rhs: rhsErroraction, with: matcher), lhsErroraction, rhsErroraction, "errorAction"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsError, rhs: rhsError, with: matcher), lhsError, rhsError, "error"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsFlowtype, rhs: rhsFlowtype, with: matcher), lhsFlowtype, rhsFlowtype, "flowType"))
-				return Matcher.ComparisonResult(results)
-
-            case (.m_trackCourseUpgradeSuccess__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenflowType_flowType(let lhsCourseid, let lhsBlockid, let lhsPacing, let lhsLocalizedprice, let lhsLocalizedcurrencycode, let lhsLmsprice, let lhsScreen, let lhsFlowtype), .m_trackCourseUpgradeSuccess__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenflowType_flowType(let rhsCourseid, let rhsBlockid, let rhsPacing, let rhsLocalizedprice, let rhsLocalizedcurrencycode, let rhsLmsprice, let rhsScreen, let rhsFlowtype)):
-				var results: [Matcher.ParameterComparisonResult] = []
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseID"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsBlockid, rhs: rhsBlockid, with: matcher), lhsBlockid, rhsBlockid, "blockID"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPacing, rhs: rhsPacing, with: matcher), lhsPacing, rhsPacing, "pacing"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLocalizedprice, rhs: rhsLocalizedprice, with: matcher), lhsLocalizedprice, rhsLocalizedprice, "localizedPrice"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLocalizedcurrencycode, rhs: rhsLocalizedcurrencycode, with: matcher), lhsLocalizedcurrencycode, rhsLocalizedcurrencycode, "localizedCurrencyCode"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLmsprice, rhs: rhsLmsprice, with: matcher), lhsLmsprice, rhsLmsprice, "lmsPrice"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsScreen, rhs: rhsScreen, with: matcher), lhsScreen, rhsScreen, "screen"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsFlowtype, rhs: rhsFlowtype, with: matcher), lhsFlowtype, rhsFlowtype, "flowType"))
-				return Matcher.ComparisonResult(results)
-
-            case (.m_trackUpgradeNow__courseID_courseIDblockID_blockIDpacing_pacingscreen_screenlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPrice(let lhsCourseid, let lhsBlockid, let lhsPacing, let lhsScreen, let lhsLocalizedprice, let lhsLocalizedcurrencycode, let lhsLmsprice), .m_trackUpgradeNow__courseID_courseIDblockID_blockIDpacing_pacingscreen_screenlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPrice(let rhsCourseid, let rhsBlockid, let rhsPacing, let rhsScreen, let rhsLocalizedprice, let rhsLocalizedcurrencycode, let rhsLmsprice)):
-				var results: [Matcher.ParameterComparisonResult] = []
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseID"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsBlockid, rhs: rhsBlockid, with: matcher), lhsBlockid, rhsBlockid, "blockID"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPacing, rhs: rhsPacing, with: matcher), lhsPacing, rhsPacing, "pacing"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsScreen, rhs: rhsScreen, with: matcher), lhsScreen, rhsScreen, "screen"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLocalizedprice, rhs: rhsLocalizedprice, with: matcher), lhsLocalizedprice, rhsLocalizedprice, "localizedPrice"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLocalizedcurrencycode, rhs: rhsLocalizedcurrencycode, with: matcher), lhsLocalizedcurrencycode, rhsLocalizedcurrencycode, "localizedCurrencyCode"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLmsprice, rhs: rhsLmsprice, with: matcher), lhsLmsprice, rhsLmsprice, "lmsPrice"))
-				return Matcher.ComparisonResult(results)
-
-            case (.m_trackCourseUpgradeLoadError__courseID_courseIDblockID_blockIDpacing_pacingscreen_screen(let lhsCourseid, let lhsBlockid, let lhsPacing, let lhsScreen), .m_trackCourseUpgradeLoadError__courseID_courseIDblockID_blockIDpacing_pacingscreen_screen(let rhsCourseid, let rhsBlockid, let rhsPacing, let rhsScreen)):
-				var results: [Matcher.ParameterComparisonResult] = []
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseID"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsBlockid, rhs: rhsBlockid, with: matcher), lhsBlockid, rhsBlockid, "blockID"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPacing, rhs: rhsPacing, with: matcher), lhsPacing, rhsPacing, "pacing"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsScreen, rhs: rhsScreen, with: matcher), lhsScreen, rhsScreen, "screen"))
-				return Matcher.ComparisonResult(results)
-
-            case (.m_trackCourseUnfulfilledPurchaseInitiated__courseID_courseIDpacing_pacingscreen_screenflowType_flowType(let lhsCourseid, let lhsPacing, let lhsScreen, let lhsFlowtype), .m_trackCourseUnfulfilledPurchaseInitiated__courseID_courseIDpacing_pacingscreen_screenflowType_flowType(let rhsCourseid, let rhsPacing, let rhsScreen, let rhsFlowtype)):
-				var results: [Matcher.ParameterComparisonResult] = []
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseID"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPacing, rhs: rhsPacing, with: matcher), lhsPacing, rhsPacing, "pacing"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsScreen, rhs: rhsScreen, with: matcher), lhsScreen, rhsScreen, "screen"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsFlowtype, rhs: rhsFlowtype, with: matcher), lhsFlowtype, rhsFlowtype, "flowType"))
-				return Matcher.ComparisonResult(results)
-
-            case (.m_trackRestorePurchaseClicked, .m_trackRestorePurchaseClicked): return .match
-
-            case (.m_trackValuePropViewed__courseID_courseIDpacing_pacinglmsPrice_lmsPricescreen_screen(let lhsCourseid, let lhsPacing, let lhsLmsprice, let lhsScreen), .m_trackValuePropViewed__courseID_courseIDpacing_pacinglmsPrice_lmsPricescreen_screen(let rhsCourseid, let rhsPacing, let rhsLmsprice, let rhsScreen)):
-				var results: [Matcher.ParameterComparisonResult] = []
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseID"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPacing, rhs: rhsPacing, with: matcher), lhsPacing, rhsPacing, "pacing"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLmsprice, rhs: rhsLmsprice, with: matcher), lhsLmsprice, rhsLmsprice, "lmsPrice"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsScreen, rhs: rhsScreen, with: matcher), lhsScreen, rhsScreen, "screen"))
-				return Matcher.ComparisonResult(results)
-
             case (.m_trackEvent__event(let lhsEvent), .m_trackEvent__event(let rhsEvent)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsEvent, rhs: rhsEvent, with: matcher), lhsEvent, rhsEvent, "_ event"))
@@ -2642,15 +2488,6 @@ open class CoreAnalyticsMock: CoreAnalytics, Mock {
             case let .m_trackScreenEvent__eventbiValue_biValueparameters_parameters(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
             case let .m_appreview__eventbiValue_biValueaction_actionrating_rating(p0, p1, p2, p3): return p0.intValue + p1.intValue + p2.intValue + p3.intValue
             case let .m_videoQualityChanged__eventbivalue_bivaluevalue_valueoldValue_oldValue(p0, p1, p2, p3): return p0.intValue + p1.intValue + p2.intValue + p3.intValue
-            case let .m_trackCourseUpgradePaymentError__eventbiValue_biValuecourseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenerror_error(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9): return p0.intValue + p1.intValue + p2.intValue + p3.intValue + p4.intValue + p5.intValue + p6.intValue + p7.intValue + p8.intValue + p9.intValue
-            case let .m_trackCourseUpgradeError__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenerror_errorflowType_flowType(p0, p1, p2, p3, p4, p5, p6, p7, p8): return p0.intValue + p1.intValue + p2.intValue + p3.intValue + p4.intValue + p5.intValue + p6.intValue + p7.intValue + p8.intValue
-            case let .m_trackCourseUpgradeErrorAction__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenalertType_alertTypeerrorAction_errorActionerror_errorflowType_flowType(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10): return p0.intValue + p1.intValue + p2.intValue + p3.intValue + p4.intValue + p5.intValue + p6.intValue + p7.intValue + p8.intValue + p9.intValue + p10.intValue
-            case let .m_trackCourseUpgradeSuccess__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenflowType_flowType(p0, p1, p2, p3, p4, p5, p6, p7): return p0.intValue + p1.intValue + p2.intValue + p3.intValue + p4.intValue + p5.intValue + p6.intValue + p7.intValue
-            case let .m_trackUpgradeNow__courseID_courseIDblockID_blockIDpacing_pacingscreen_screenlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPrice(p0, p1, p2, p3, p4, p5, p6): return p0.intValue + p1.intValue + p2.intValue + p3.intValue + p4.intValue + p5.intValue + p6.intValue
-            case let .m_trackCourseUpgradeLoadError__courseID_courseIDblockID_blockIDpacing_pacingscreen_screen(p0, p1, p2, p3): return p0.intValue + p1.intValue + p2.intValue + p3.intValue
-            case let .m_trackCourseUnfulfilledPurchaseInitiated__courseID_courseIDpacing_pacingscreen_screenflowType_flowType(p0, p1, p2, p3): return p0.intValue + p1.intValue + p2.intValue + p3.intValue
-            case .m_trackRestorePurchaseClicked: return 0
-            case let .m_trackValuePropViewed__courseID_courseIDpacing_pacinglmsPrice_lmsPricescreen_screen(p0, p1, p2, p3): return p0.intValue + p1.intValue + p2.intValue + p3.intValue
             case let .m_trackEvent__event(p0): return p0.intValue
             case let .m_trackEvent__eventbiValue_biValue(p0, p1): return p0.intValue + p1.intValue
             case let .m_trackScreenEvent__event(p0): return p0.intValue
@@ -2665,15 +2502,6 @@ open class CoreAnalyticsMock: CoreAnalytics, Mock {
             case .m_trackScreenEvent__eventbiValue_biValueparameters_parameters: return ".trackScreenEvent(_:biValue:parameters:)"
             case .m_appreview__eventbiValue_biValueaction_actionrating_rating: return ".appreview(_:biValue:action:rating:)"
             case .m_videoQualityChanged__eventbivalue_bivaluevalue_valueoldValue_oldValue: return ".videoQualityChanged(_:bivalue:value:oldValue:)"
-            case .m_trackCourseUpgradePaymentError__eventbiValue_biValuecourseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenerror_error: return ".trackCourseUpgradePaymentError(_:biValue:courseID:blockID:pacing:localizedPrice:localizedCurrencyCode:lmsPrice:screen:error:)"
-            case .m_trackCourseUpgradeError__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenerror_errorflowType_flowType: return ".trackCourseUpgradeError(courseID:blockID:pacing:localizedPrice:localizedCurrencyCode:lmsPrice:screen:error:flowType:)"
-            case .m_trackCourseUpgradeErrorAction__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenalertType_alertTypeerrorAction_errorActionerror_errorflowType_flowType: return ".trackCourseUpgradeErrorAction(courseID:blockID:pacing:localizedPrice:localizedCurrencyCode:lmsPrice:screen:alertType:errorAction:error:flowType:)"
-            case .m_trackCourseUpgradeSuccess__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenflowType_flowType: return ".trackCourseUpgradeSuccess(courseID:blockID:pacing:localizedPrice:localizedCurrencyCode:lmsPrice:screen:flowType:)"
-            case .m_trackUpgradeNow__courseID_courseIDblockID_blockIDpacing_pacingscreen_screenlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPrice: return ".trackUpgradeNow(courseID:blockID:pacing:screen:localizedPrice:localizedCurrencyCode:lmsPrice:)"
-            case .m_trackCourseUpgradeLoadError__courseID_courseIDblockID_blockIDpacing_pacingscreen_screen: return ".trackCourseUpgradeLoadError(courseID:blockID:pacing:screen:)"
-            case .m_trackCourseUnfulfilledPurchaseInitiated__courseID_courseIDpacing_pacingscreen_screenflowType_flowType: return ".trackCourseUnfulfilledPurchaseInitiated(courseID:pacing:screen:flowType:)"
-            case .m_trackRestorePurchaseClicked: return ".trackRestorePurchaseClicked()"
-            case .m_trackValuePropViewed__courseID_courseIDpacing_pacinglmsPrice_lmsPricescreen_screen: return ".trackValuePropViewed(courseID:pacing:lmsPrice:screen:)"
             case .m_trackEvent__event: return ".trackEvent(_:)"
             case .m_trackEvent__eventbiValue_biValue: return ".trackEvent(_:biValue:)"
             case .m_trackScreenEvent__event: return ".trackScreenEvent(_:)"
@@ -2702,15 +2530,6 @@ open class CoreAnalyticsMock: CoreAnalytics, Mock {
         public static func trackScreenEvent(_ event: Parameter<AnalyticsEvent>, biValue: Parameter<EventBIValue>, parameters: Parameter<[String: Any]?>) -> Verify { return Verify(method: .m_trackScreenEvent__eventbiValue_biValueparameters_parameters(`event`, `biValue`, `parameters`))}
         public static func appreview(_ event: Parameter<AnalyticsEvent>, biValue: Parameter<EventBIValue>, action: Parameter<String?>, rating: Parameter<Int?>) -> Verify { return Verify(method: .m_appreview__eventbiValue_biValueaction_actionrating_rating(`event`, `biValue`, `action`, `rating`))}
         public static func videoQualityChanged(_ event: Parameter<AnalyticsEvent>, bivalue: Parameter<EventBIValue>, value: Parameter<String>, oldValue: Parameter<String>) -> Verify { return Verify(method: .m_videoQualityChanged__eventbivalue_bivaluevalue_valueoldValue_oldValue(`event`, `bivalue`, `value`, `oldValue`))}
-        public static func trackCourseUpgradePaymentError(_ event: Parameter<AnalyticsEvent>, biValue: Parameter<EventBIValue>, courseID: Parameter<String>, blockID: Parameter<String?>, pacing: Parameter<String>, localizedPrice: Parameter<NSDecimalNumber?>, localizedCurrencyCode: Parameter<String?>, lmsPrice: Parameter<Double?>, screen: Parameter<CourseUpgradeScreen>, error: Parameter<String>) -> Verify { return Verify(method: .m_trackCourseUpgradePaymentError__eventbiValue_biValuecourseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenerror_error(`event`, `biValue`, `courseID`, `blockID`, `pacing`, `localizedPrice`, `localizedCurrencyCode`, `lmsPrice`, `screen`, `error`))}
-        public static func trackCourseUpgradeError(courseID: Parameter<String>, blockID: Parameter<String?>, pacing: Parameter<String>, localizedPrice: Parameter<NSDecimalNumber?>, localizedCurrencyCode: Parameter<String?>, lmsPrice: Parameter<Double?>, screen: Parameter<CourseUpgradeScreen>, error: Parameter<String>, flowType: Parameter<UpgradeMode>) -> Verify { return Verify(method: .m_trackCourseUpgradeError__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenerror_errorflowType_flowType(`courseID`, `blockID`, `pacing`, `localizedPrice`, `localizedCurrencyCode`, `lmsPrice`, `screen`, `error`, `flowType`))}
-        public static func trackCourseUpgradeErrorAction(courseID: Parameter<String>, blockID: Parameter<String?>, pacing: Parameter<String>, localizedPrice: Parameter<NSDecimalNumber?>, localizedCurrencyCode: Parameter<String?>, lmsPrice: Parameter<Double?>, screen: Parameter<CourseUpgradeScreen>, alertType: Parameter<UpgradeAlertType>, errorAction: Parameter<String>, error: Parameter<String>, flowType: Parameter<UpgradeMode>) -> Verify { return Verify(method: .m_trackCourseUpgradeErrorAction__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenalertType_alertTypeerrorAction_errorActionerror_errorflowType_flowType(`courseID`, `blockID`, `pacing`, `localizedPrice`, `localizedCurrencyCode`, `lmsPrice`, `screen`, `alertType`, `errorAction`, `error`, `flowType`))}
-        public static func trackCourseUpgradeSuccess(courseID: Parameter<String>, blockID: Parameter<String?>, pacing: Parameter<String>, localizedPrice: Parameter<NSDecimalNumber?>, localizedCurrencyCode: Parameter<String?>, lmsPrice: Parameter<Double?>, screen: Parameter<CourseUpgradeScreen>, flowType: Parameter<UpgradeMode>) -> Verify { return Verify(method: .m_trackCourseUpgradeSuccess__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenflowType_flowType(`courseID`, `blockID`, `pacing`, `localizedPrice`, `localizedCurrencyCode`, `lmsPrice`, `screen`, `flowType`))}
-        public static func trackUpgradeNow(courseID: Parameter<String>, blockID: Parameter<String?>, pacing: Parameter<String>, screen: Parameter<CourseUpgradeScreen>, localizedPrice: Parameter<NSDecimalNumber?>, localizedCurrencyCode: Parameter<String?>, lmsPrice: Parameter<Double?>) -> Verify { return Verify(method: .m_trackUpgradeNow__courseID_courseIDblockID_blockIDpacing_pacingscreen_screenlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPrice(`courseID`, `blockID`, `pacing`, `screen`, `localizedPrice`, `localizedCurrencyCode`, `lmsPrice`))}
-        public static func trackCourseUpgradeLoadError(courseID: Parameter<String>, blockID: Parameter<String?>, pacing: Parameter<String>, screen: Parameter<CourseUpgradeScreen>) -> Verify { return Verify(method: .m_trackCourseUpgradeLoadError__courseID_courseIDblockID_blockIDpacing_pacingscreen_screen(`courseID`, `blockID`, `pacing`, `screen`))}
-        public static func trackCourseUnfulfilledPurchaseInitiated(courseID: Parameter<String>, pacing: Parameter<String>, screen: Parameter<CourseUpgradeScreen>, flowType: Parameter<UpgradeMode>) -> Verify { return Verify(method: .m_trackCourseUnfulfilledPurchaseInitiated__courseID_courseIDpacing_pacingscreen_screenflowType_flowType(`courseID`, `pacing`, `screen`, `flowType`))}
-        public static func trackRestorePurchaseClicked() -> Verify { return Verify(method: .m_trackRestorePurchaseClicked)}
-        public static func trackValuePropViewed(courseID: Parameter<String>, pacing: Parameter<String>, lmsPrice: Parameter<Double>, screen: Parameter<CourseUpgradeScreen>) -> Verify { return Verify(method: .m_trackValuePropViewed__courseID_courseIDpacing_pacinglmsPrice_lmsPricescreen_screen(`courseID`, `pacing`, `lmsPrice`, `screen`))}
         public static func trackEvent(_ event: Parameter<AnalyticsEvent>) -> Verify { return Verify(method: .m_trackEvent__event(`event`))}
         public static func trackEvent(_ event: Parameter<AnalyticsEvent>, biValue: Parameter<EventBIValue>) -> Verify { return Verify(method: .m_trackEvent__eventbiValue_biValue(`event`, `biValue`))}
         public static func trackScreenEvent(_ event: Parameter<AnalyticsEvent>) -> Verify { return Verify(method: .m_trackScreenEvent__event(`event`))}
@@ -2738,33 +2557,6 @@ open class CoreAnalyticsMock: CoreAnalytics, Mock {
         }
         public static func videoQualityChanged(_ event: Parameter<AnalyticsEvent>, bivalue: Parameter<EventBIValue>, value: Parameter<String>, oldValue: Parameter<String>, perform: @escaping (AnalyticsEvent, EventBIValue, String, String) -> Void) -> Perform {
             return Perform(method: .m_videoQualityChanged__eventbivalue_bivaluevalue_valueoldValue_oldValue(`event`, `bivalue`, `value`, `oldValue`), performs: perform)
-        }
-        public static func trackCourseUpgradePaymentError(_ event: Parameter<AnalyticsEvent>, biValue: Parameter<EventBIValue>, courseID: Parameter<String>, blockID: Parameter<String?>, pacing: Parameter<String>, localizedPrice: Parameter<NSDecimalNumber?>, localizedCurrencyCode: Parameter<String?>, lmsPrice: Parameter<Double?>, screen: Parameter<CourseUpgradeScreen>, error: Parameter<String>, perform: @escaping (AnalyticsEvent, EventBIValue, String, String?, String, NSDecimalNumber?, String?, Double?, CourseUpgradeScreen, String) -> Void) -> Perform {
-            return Perform(method: .m_trackCourseUpgradePaymentError__eventbiValue_biValuecourseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenerror_error(`event`, `biValue`, `courseID`, `blockID`, `pacing`, `localizedPrice`, `localizedCurrencyCode`, `lmsPrice`, `screen`, `error`), performs: perform)
-        }
-        public static func trackCourseUpgradeError(courseID: Parameter<String>, blockID: Parameter<String?>, pacing: Parameter<String>, localizedPrice: Parameter<NSDecimalNumber?>, localizedCurrencyCode: Parameter<String?>, lmsPrice: Parameter<Double?>, screen: Parameter<CourseUpgradeScreen>, error: Parameter<String>, flowType: Parameter<UpgradeMode>, perform: @escaping (String, String?, String, NSDecimalNumber?, String?, Double?, CourseUpgradeScreen, String, UpgradeMode) -> Void) -> Perform {
-            return Perform(method: .m_trackCourseUpgradeError__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenerror_errorflowType_flowType(`courseID`, `blockID`, `pacing`, `localizedPrice`, `localizedCurrencyCode`, `lmsPrice`, `screen`, `error`, `flowType`), performs: perform)
-        }
-        public static func trackCourseUpgradeErrorAction(courseID: Parameter<String>, blockID: Parameter<String?>, pacing: Parameter<String>, localizedPrice: Parameter<NSDecimalNumber?>, localizedCurrencyCode: Parameter<String?>, lmsPrice: Parameter<Double?>, screen: Parameter<CourseUpgradeScreen>, alertType: Parameter<UpgradeAlertType>, errorAction: Parameter<String>, error: Parameter<String>, flowType: Parameter<UpgradeMode>, perform: @escaping (String, String?, String, NSDecimalNumber?, String?, Double?, CourseUpgradeScreen, UpgradeAlertType, String, String, UpgradeMode) -> Void) -> Perform {
-            return Perform(method: .m_trackCourseUpgradeErrorAction__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenalertType_alertTypeerrorAction_errorActionerror_errorflowType_flowType(`courseID`, `blockID`, `pacing`, `localizedPrice`, `localizedCurrencyCode`, `lmsPrice`, `screen`, `alertType`, `errorAction`, `error`, `flowType`), performs: perform)
-        }
-        public static func trackCourseUpgradeSuccess(courseID: Parameter<String>, blockID: Parameter<String?>, pacing: Parameter<String>, localizedPrice: Parameter<NSDecimalNumber?>, localizedCurrencyCode: Parameter<String?>, lmsPrice: Parameter<Double?>, screen: Parameter<CourseUpgradeScreen>, flowType: Parameter<UpgradeMode>, perform: @escaping (String, String?, String, NSDecimalNumber?, String?, Double?, CourseUpgradeScreen, UpgradeMode) -> Void) -> Perform {
-            return Perform(method: .m_trackCourseUpgradeSuccess__courseID_courseIDblockID_blockIDpacing_pacinglocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screenflowType_flowType(`courseID`, `blockID`, `pacing`, `localizedPrice`, `localizedCurrencyCode`, `lmsPrice`, `screen`, `flowType`), performs: perform)
-        }
-        public static func trackUpgradeNow(courseID: Parameter<String>, blockID: Parameter<String?>, pacing: Parameter<String>, screen: Parameter<CourseUpgradeScreen>, localizedPrice: Parameter<NSDecimalNumber?>, localizedCurrencyCode: Parameter<String?>, lmsPrice: Parameter<Double?>, perform: @escaping (String, String?, String, CourseUpgradeScreen, NSDecimalNumber?, String?, Double?) -> Void) -> Perform {
-            return Perform(method: .m_trackUpgradeNow__courseID_courseIDblockID_blockIDpacing_pacingscreen_screenlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPrice(`courseID`, `blockID`, `pacing`, `screen`, `localizedPrice`, `localizedCurrencyCode`, `lmsPrice`), performs: perform)
-        }
-        public static func trackCourseUpgradeLoadError(courseID: Parameter<String>, blockID: Parameter<String?>, pacing: Parameter<String>, screen: Parameter<CourseUpgradeScreen>, perform: @escaping (String, String?, String, CourseUpgradeScreen) -> Void) -> Perform {
-            return Perform(method: .m_trackCourseUpgradeLoadError__courseID_courseIDblockID_blockIDpacing_pacingscreen_screen(`courseID`, `blockID`, `pacing`, `screen`), performs: perform)
-        }
-        public static func trackCourseUnfulfilledPurchaseInitiated(courseID: Parameter<String>, pacing: Parameter<String>, screen: Parameter<CourseUpgradeScreen>, flowType: Parameter<UpgradeMode>, perform: @escaping (String, String, CourseUpgradeScreen, UpgradeMode) -> Void) -> Perform {
-            return Perform(method: .m_trackCourseUnfulfilledPurchaseInitiated__courseID_courseIDpacing_pacingscreen_screenflowType_flowType(`courseID`, `pacing`, `screen`, `flowType`), performs: perform)
-        }
-        public static func trackRestorePurchaseClicked(perform: @escaping () -> Void) -> Perform {
-            return Perform(method: .m_trackRestorePurchaseClicked, performs: perform)
-        }
-        public static func trackValuePropViewed(courseID: Parameter<String>, pacing: Parameter<String>, lmsPrice: Parameter<Double>, screen: Parameter<CourseUpgradeScreen>, perform: @escaping (String, String, Double, CourseUpgradeScreen) -> Void) -> Perform {
-            return Perform(method: .m_trackValuePropViewed__courseID_courseIDpacing_pacinglmsPrice_lmsPricescreen_screen(`courseID`, `pacing`, `lmsPrice`, `screen`), performs: perform)
         }
         public static func trackEvent(_ event: Parameter<AnalyticsEvent>, perform: @escaping (AnalyticsEvent) -> Void) -> Perform {
             return Perform(method: .m_trackEvent__event(`event`), performs: perform)
@@ -4112,12 +3904,6 @@ open class CourseUpgradeHelperProtocolMock: CourseUpgradeHelperProtocol, Mock {
 		perform?(`courseID`, `pacing`, `blockID`, `localizedPrice`, `localizedCurrencyCode`, `lmsPrice`, `screen`)
     }
 
-    open func handleCourseUpgrade(upgradeHadler: CourseUpgradeHandler, state: UpgradeCompletionState, delegate: CourseUpgradeHelperDelegate?) {
-        addInvocation(.m_handleCourseUpgrade__upgradeHadler_upgradeHadlerstate_statedelegate_delegate(Parameter<CourseUpgradeHandler>.value(`upgradeHadler`), Parameter<UpgradeCompletionState>.value(`state`), Parameter<CourseUpgradeHelperDelegate?>.value(`delegate`)))
-		let perform = methodPerformValue(.m_handleCourseUpgrade__upgradeHadler_upgradeHadlerstate_statedelegate_delegate(Parameter<CourseUpgradeHandler>.value(`upgradeHadler`), Parameter<UpgradeCompletionState>.value(`state`), Parameter<CourseUpgradeHelperDelegate?>.value(`delegate`))) as? (CourseUpgradeHandler, UpgradeCompletionState, CourseUpgradeHelperDelegate?) -> Void
-		perform?(`upgradeHadler`, `state`, `delegate`)
-    }
-
     open func showRestorePurchasesAlert() {
         addInvocation(.m_showRestorePurchasesAlert)
 		let perform = methodPerformValue(.m_showRestorePurchasesAlert) as? () -> Void
@@ -4127,7 +3913,6 @@ open class CourseUpgradeHelperProtocolMock: CourseUpgradeHelperProtocol, Mock {
 
     fileprivate enum MethodType {
         case m_setData__courseID_courseIDpacing_pacingblockID_blockIDlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screen(Parameter<String>, Parameter<String>, Parameter<String?>, Parameter<NSDecimalNumber?>, Parameter<String?>, Parameter<Double?>, Parameter<CourseUpgradeScreen>)
-        case m_handleCourseUpgrade__upgradeHadler_upgradeHadlerstate_statedelegate_delegate(Parameter<CourseUpgradeHandler>, Parameter<UpgradeCompletionState>, Parameter<CourseUpgradeHelperDelegate?>)
         case m_showRestorePurchasesAlert
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
@@ -4143,13 +3928,6 @@ open class CourseUpgradeHelperProtocolMock: CourseUpgradeHelperProtocol, Mock {
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsScreen, rhs: rhsScreen, with: matcher), lhsScreen, rhsScreen, "screen"))
 				return Matcher.ComparisonResult(results)
 
-            case (.m_handleCourseUpgrade__upgradeHadler_upgradeHadlerstate_statedelegate_delegate(let lhsUpgradehadler, let lhsState, let lhsDelegate), .m_handleCourseUpgrade__upgradeHadler_upgradeHadlerstate_statedelegate_delegate(let rhsUpgradehadler, let rhsState, let rhsDelegate)):
-				var results: [Matcher.ParameterComparisonResult] = []
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsUpgradehadler, rhs: rhsUpgradehadler, with: matcher), lhsUpgradehadler, rhsUpgradehadler, "upgradeHadler"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsState, rhs: rhsState, with: matcher), lhsState, rhsState, "state"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsDelegate, rhs: rhsDelegate, with: matcher), lhsDelegate, rhsDelegate, "delegate"))
-				return Matcher.ComparisonResult(results)
-
             case (.m_showRestorePurchasesAlert, .m_showRestorePurchasesAlert): return .match
             default: return .none
             }
@@ -4158,14 +3936,12 @@ open class CourseUpgradeHelperProtocolMock: CourseUpgradeHelperProtocol, Mock {
         func intValue() -> Int {
             switch self {
             case let .m_setData__courseID_courseIDpacing_pacingblockID_blockIDlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screen(p0, p1, p2, p3, p4, p5, p6): return p0.intValue + p1.intValue + p2.intValue + p3.intValue + p4.intValue + p5.intValue + p6.intValue
-            case let .m_handleCourseUpgrade__upgradeHadler_upgradeHadlerstate_statedelegate_delegate(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
             case .m_showRestorePurchasesAlert: return 0
             }
         }
         func assertionName() -> String {
             switch self {
             case .m_setData__courseID_courseIDpacing_pacingblockID_blockIDlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screen: return ".setData(courseID:pacing:blockID:localizedPrice:localizedCurrencyCode:lmsPrice:screen:)"
-            case .m_handleCourseUpgrade__upgradeHadler_upgradeHadlerstate_statedelegate_delegate: return ".handleCourseUpgrade(upgradeHadler:state:delegate:)"
             case .m_showRestorePurchasesAlert: return ".showRestorePurchasesAlert()"
             }
         }
@@ -4186,7 +3962,6 @@ open class CourseUpgradeHelperProtocolMock: CourseUpgradeHelperProtocol, Mock {
         fileprivate var method: MethodType
 
         public static func setData(courseID: Parameter<String>, pacing: Parameter<String>, blockID: Parameter<String?>, localizedPrice: Parameter<NSDecimalNumber?>, localizedCurrencyCode: Parameter<String?>, lmsPrice: Parameter<Double?>, screen: Parameter<CourseUpgradeScreen>) -> Verify { return Verify(method: .m_setData__courseID_courseIDpacing_pacingblockID_blockIDlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screen(`courseID`, `pacing`, `blockID`, `localizedPrice`, `localizedCurrencyCode`, `lmsPrice`, `screen`))}
-        public static func handleCourseUpgrade(upgradeHadler: Parameter<CourseUpgradeHandler>, state: Parameter<UpgradeCompletionState>, delegate: Parameter<CourseUpgradeHelperDelegate?>) -> Verify { return Verify(method: .m_handleCourseUpgrade__upgradeHadler_upgradeHadlerstate_statedelegate_delegate(`upgradeHadler`, `state`, `delegate`))}
         public static func showRestorePurchasesAlert() -> Verify { return Verify(method: .m_showRestorePurchasesAlert)}
     }
 
@@ -4196,9 +3971,6 @@ open class CourseUpgradeHelperProtocolMock: CourseUpgradeHelperProtocol, Mock {
 
         public static func setData(courseID: Parameter<String>, pacing: Parameter<String>, blockID: Parameter<String?>, localizedPrice: Parameter<NSDecimalNumber?>, localizedCurrencyCode: Parameter<String?>, lmsPrice: Parameter<Double?>, screen: Parameter<CourseUpgradeScreen>, perform: @escaping (String, String, String?, NSDecimalNumber?, String?, Double?, CourseUpgradeScreen) -> Void) -> Perform {
             return Perform(method: .m_setData__courseID_courseIDpacing_pacingblockID_blockIDlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screen(`courseID`, `pacing`, `blockID`, `localizedPrice`, `localizedCurrencyCode`, `lmsPrice`, `screen`), performs: perform)
-        }
-        public static func handleCourseUpgrade(upgradeHadler: Parameter<CourseUpgradeHandler>, state: Parameter<UpgradeCompletionState>, delegate: Parameter<CourseUpgradeHelperDelegate?>, perform: @escaping (CourseUpgradeHandler, UpgradeCompletionState, CourseUpgradeHelperDelegate?) -> Void) -> Perform {
-            return Perform(method: .m_handleCourseUpgrade__upgradeHadler_upgradeHadlerstate_statedelegate_delegate(`upgradeHadler`, `state`, `delegate`), performs: perform)
         }
         public static func showRestorePurchasesAlert(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_showRestorePurchasesAlert, performs: perform)

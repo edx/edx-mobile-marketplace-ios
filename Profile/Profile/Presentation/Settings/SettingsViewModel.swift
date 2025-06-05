@@ -219,7 +219,8 @@ public final class SettingsViewModel: ObservableObject {
     // NEEDS WORK
     @MainActor
     func restorePurchases() async {
-        coreAnalytics.trackRestorePurchaseClicked()
+//        NEEDS WORK: after moving to plugin use analytics there
+//        coreAnalytics.trackRestorePurchaseClicked()
         router.showRestoreProgressView()
         
         guard let inprogressIAP = CourseUpgradeHelper.getInProgressIAP() else {
@@ -238,12 +239,13 @@ public final class SettingsViewModel: ObservableObject {
     // NEEDS WORK
     @MainActor
     private func fulfillPurchase(inprogressIAP: EDXInProgressIAP, product: StoreProductInfo) async {
-        coreAnalytics.trackCourseUnfulfilledPurchaseInitiated(
-            courseID: inprogressIAP.courseID,
-            pacing: inprogressIAP.pacing,
-            screen: .dashboard,
-            flowType: .restore
-        )
+//        NEEDS WORK: after moving to plugin use analytics there
+//        coreAnalytics.trackCourseUnfulfilledPurchaseInitiated(
+//            courseID: inprogressIAP.courseID,
+//            pacing: inprogressIAP.pacing,
+//            screen: .dashboard,
+//            flowType: .restore
+//        )
 
         await upgradeHandler.upgradeCourse(
             sku: inprogressIAP.sku,

@@ -20,16 +20,6 @@ public protocol CoreAnalytics {
         value: String,
         oldValue: String
     )
-    
-    // NEEDS WORK - move to plugin when restore/fullfilment is moved to plugin from Settings and ListDashboard
-    func trackCourseUnfulfilledPurchaseInitiated(
-        courseID: String,
-        pacing: String,
-        screen: CourseUpgradeScreen,
-        flowType: UpgradeMode
-    )
-    
-    func trackRestorePurchaseClicked()
 }
 
 public extension CoreAnalytics {
@@ -64,15 +54,6 @@ public class CoreAnalyticsMock: CoreAnalytics {
         value: String,
         oldValue: String
     ) {}
-    
-    public func trackCourseUnfulfilledPurchaseInitiated(
-        courseID: String,
-        pacing: String,
-        screen: CourseUpgradeScreen,
-        flowType: UpgradeMode
-    ) {}
-    
-    public func trackRestorePurchaseClicked() {}
 }
 #endif
 
@@ -169,16 +150,6 @@ public enum AnalyticsEvent: String {
     case whatnewPopup = "WhatsNew:Pop up Viewed"
     case whatnewDone = "WhatsNew:Done"
     case whatnewClose = "WhatsNew:Close"
-    case upgradeNowClicked = "Payments:Upgrade Now Clicked"
-    case courseUpgradePriceLoadError = "Payments:Price Load Error"
-    case courseUpgradePaymentError = "Payments:Payment Error"
-    case courseUpgradePaymentCancelError = "Payments:Canceled by User"
-    case courseUpgradeError = "Payments:Course Upgrade Error"
-    case courseUpgradeErrorAction = "Payments:Error Alert Action"
-    case courseUpgradeSuccess = "Payments:Course Upgrade Success"
-    case courseUpgradeUnfulfilledPurchaseInitiated = "Payments:Unfulfilled Purchase Initiated"
-    case courseUpgradeRestorePurchaseClicked = "Payments:Restore Purchases Clicked"
-    case courseUpgradeValuePropViewed = "Payments:Value Prop Viewed"
     case logistration = "Logistration"
     case logistrationSignIn = "Logistration:Sign In"
     case logistrationRegister = "Logistration:Register"
@@ -295,16 +266,6 @@ public enum EventBIValue: String {
     case whatnewPopup = "edx.bi.app.whats_new.popup.viewed"
     case whatnewDone = "edx.bi.app.whats_new.done"
     case whatnewClose = "edx.bi.app.whats_new.close"
-    case upgradeNowClicked = "edx.bi.app.payments.upgrade_now.clicked"
-    case courseUpgradePriceLoadError = "edx.bi.app.payments.price_load_error"
-    case courseUpgradePaymentError = "edx.bi.app.payments.payment_error"
-    case courseUpgradePaymentCancelError = "edx.bi.app.payments.canceled_by_user"
-    case courseUpgradeError = "edx.bi.app.payments.course_upgrade_error"
-    case courseUpgradeErrorAction = "edx.bi.app.payments.error_alert_action"
-    case courseUpgradeSuccess = "edx.bi.app.payments.course_upgrade_success"
-    case courseUpgradeUnfulfilledPurchaseInitiated = "edx.bi.app.payments.unfulfilled_purchase.initiated"
-    case courseUpgradeRestorePurchaseClicked = "edx.bi.app.payments.restore_purchases.clicked"
-    case courseUpgradeValuePropViewed = "edx.bi.app.payments.value_prop.viewed"
     case logistration = "edx.bi.app.logistration"
     case logistrationSignIn = "edx.bi.app.logistration.signin"
     case logistrationRegister = "edx.bi.app.logistration.register"

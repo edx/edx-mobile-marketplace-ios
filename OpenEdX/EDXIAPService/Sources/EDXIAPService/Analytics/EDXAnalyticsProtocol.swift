@@ -85,4 +85,13 @@ public protocol EDXAnalyticsProtocol {
         screen: EDXScreen,
         flowType: EDXUpgradeMode
     )
+    
+    func trackCourseUnfulfilledPurchaseInitiated(
+        courseID: String,
+        pacing: String,
+        screen: EDXScreen,
+        flowType: EDXUpgradeMode
+    )
+    
+    func trackRestorePurchaseClicked()
 }
