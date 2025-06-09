@@ -111,9 +111,6 @@
 		06BEEA0E2B6A55C500D25A97 /* ColorInversionInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06BEEA0D2B6A55C500D25A97 /* ColorInversionInjection.swift */; };
 		06DEA4A32BBD66A700110D20 /* BackNavigationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DEA4A22BBD66A700110D20 /* BackNavigationButton.swift */; };
 		06DEA4A52BBD66D700110D20 /* BackNavigationButtonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DEA4A42BBD66D700110D20 /* BackNavigationButtonViewModel.swift */; };
-		06EA8A4D2BFDFF70005DFB90 /* StoreKitUpgradeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EA8A4C2BFDFF70005DFB90 /* StoreKitUpgradeResponse.swift */; };
-		06EA8A4F2BFDFF8F005DFB90 /* StoreProductInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EA8A4E2BFDFF8F005DFB90 /* StoreProductInfo.swift */; };
-		06EA8A512BFDFFB0005DFB90 /* UpgradeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EA8A502BFDFFB0005DFB90 /* UpgradeError.swift */; };
 		070019A528F6F17900D5FC78 /* Data_Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070019A428F6F17900D5FC78 /* Data_Media.swift */; };
 		070019AC28F6FD0100D5FC78 /* CourseDetailBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070019AB28F6FD0100D5FC78 /* CourseDetailBlock.swift */; };
 		070019AE28F701B200D5FC78 /* Certificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070019AD28F701B200D5FC78 /* Certificate.swift */; };
@@ -334,9 +331,6 @@
 		06BEEA0D2B6A55C500D25A97 /* ColorInversionInjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorInversionInjection.swift; sourceTree = "<group>"; };
 		06DEA4A22BBD66A700110D20 /* BackNavigationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackNavigationButton.swift; sourceTree = "<group>"; };
 		06DEA4A42BBD66D700110D20 /* BackNavigationButtonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackNavigationButtonViewModel.swift; sourceTree = "<group>"; };
-		06EA8A4C2BFDFF70005DFB90 /* StoreKitUpgradeResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreKitUpgradeResponse.swift; sourceTree = "<group>"; };
-		06EA8A4E2BFDFF8F005DFB90 /* StoreProductInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreProductInfo.swift; sourceTree = "<group>"; };
-		06EA8A502BFDFFB0005DFB90 /* UpgradeError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeError.swift; sourceTree = "<group>"; };
 		070019A428F6F17900D5FC78 /* Data_Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data_Media.swift; sourceTree = "<group>"; };
 		070019AB28F6FD0100D5FC78 /* CourseDetailBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailBlock.swift; sourceTree = "<group>"; };
 		070019AD28F701B200D5FC78 /* Certificate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Certificate.swift; sourceTree = "<group>"; };
@@ -636,16 +630,6 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
-		06EA8A4B2BFDFF5F005DFB90 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				06EA8A4C2BFDFF70005DFB90 /* StoreKitUpgradeResponse.swift */,
-				06EA8A4E2BFDFF8F005DFB90 /* StoreProductInfo.swift */,
-				06EA8A502BFDFFB0005DFB90 /* UpgradeError.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		0727876E28D233EC002E9142 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
@@ -878,7 +862,6 @@
 			isa = PBXGroup;
 			children = (
 				062C69B02C198337002BD311 /* ViewModels */,
-				06EA8A4B2BFDFF5F005DFB90 /* Models */,
 				149936CF2BEB9C4900B4C89F /* View */,
 			);
 			path = CourseUpgrade;
@@ -1331,7 +1314,6 @@
 				BA981BD02B91ED50005707C2 /* FullScreenProgressView.swift in Sources */,
 				0236961F28F9A2F600EEF206 /* AuthEndpoint.swift in Sources */,
 				BAD9CA332B28A8F300DE790A /* AjaxProvider.swift in Sources */,
-				06EA8A4F2BFDFF8F005DFB90 /* StoreProductInfo.swift in Sources */,
 				0282DA7328F98CC9003C3F07 /* WebUnitView.swift in Sources */,
 				E0D586362B314CD3009B4BA7 /* LogistrationBottomView.swift in Sources */,
 				942A98572D4BD92B00DD8BBC /* PaginationResult.swift in Sources */,
@@ -1373,7 +1355,6 @@
 				064987962B4D69FF0071642A /* WebviewMessage.swift in Sources */,
 				02EBC75B2C19DE3D00BE182C /* CourseForSync.swift in Sources */,
 				023A4DD4299E66BD006C0E48 /* OfflineSnackBarView.swift in Sources */,
-				06EA8A512BFDFFB0005DFB90 /* UpgradeError.swift in Sources */,
 				021D925728DCF12900ACC565 /* AlertView.swift in Sources */,
 				027BD3A82909474200392132 /* KeyboardAvoidingViewController.swift in Sources */,
 				025A20502C071EB0003EA08D /* ErrorAlertView.swift in Sources */,
@@ -1416,7 +1397,6 @@
 				02AFCC182AEFDB24000360F0 /* ThirdPartyMailClient.swift in Sources */,
 				0233D5712AF13EC800BAC8BD /* SelectMailClientView.swift in Sources */,
 				BAFB99842B0E282E007D09F9 /* MicrosoftConfig.swift in Sources */,
-				06EA8A4D2BFDFF70005DFB90 /* StoreKitUpgradeResponse.swift in Sources */,
 				02EBC7592C19DE1100BE182C /* CalendarManagerProtocol.swift in Sources */,
 				BA8FA6682AD59A5700EA029A /* SocialAuthButton.swift in Sources */,
 				02A4833C29B8C57800D33F33 /* DownloadView.swift in Sources */,

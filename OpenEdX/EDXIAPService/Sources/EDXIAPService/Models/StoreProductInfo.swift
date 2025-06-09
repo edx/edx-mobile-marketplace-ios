@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct StoreProductInfo: Sendable {
+// NEEDS WORK: delete 'public' when moved all files to plugin
+public struct StoreProductInfo: Sendable {
     var price: NSDecimalNumber
     var localizedPrice: String?
     var currencySymbol: String?

@@ -7,6 +7,7 @@
 
 import UIKit
 import OEXFoundation
+import EDXIAPService
 
 @MainActor // NEEDS WORK - delete, moved to plugin
 public class UpgradeInfoViewModel: ObservableObject, Sendable {
@@ -22,13 +23,13 @@ public class UpgradeInfoViewModel: ObservableObject, Sendable {
     let lmsPrice: Double
     
     @Published var isLoading: Bool = false
-    @Published var product: StoreProductInfo?
+//    @Published var product: StoreProductInfo?
     @Published var error: Error?
     @Published var interactiveDismissDisabled: Bool = false
-    var price: String {
+    var price: String = "" /*{
         guard let product = product, let price = product.localizedPrice else { return "" }
         return price
-    }
+    }*/
 
     public init(
         productName: String,
