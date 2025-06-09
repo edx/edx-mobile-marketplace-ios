@@ -211,7 +211,7 @@ class ScreenAssembly: Assembly {
                 connectivity: r.resolve(ConnectivityProtocol.self)!,
                 analytics: r.resolve(DashboardAnalytics.self)!,
                 storage: r.resolve(CoreStorage.self)!,
-                upgradehandler: r.resolve(CourseUpgradeHandlerProtocol.self)!,
+//                upgradehandler: r.resolve(CourseUpgradeHandlerProtocol.self)!,
                 coreAnalytics: r.resolve(CoreAnalytics.self)!,
                 serverConfig: r.resolve(ServerConfigProtocol.self)!
             )
@@ -287,8 +287,8 @@ class ScreenAssembly: Assembly {
                 coreAnalytics: r.resolve(CoreAnalytics.self)!,
                 config: r.resolve(ConfigProtocol.self)!,
                 serverConfig: r.resolve(ServerConfigProtocol.self)!,
-                upgradeHandler: r.resolve(CourseUpgradeHandlerProtocol.self)!,
-                upgradeHelper: r.resolve(CourseUpgradeHelperProtocol.self)!,
+//                upgradeHandler: r.resolve(CourseUpgradeHandlerProtocol.self)!,
+//                upgradeHelper: r.resolve(CourseUpgradeHelperProtocol.self)!,
                 corePersistence: r.resolve(CorePersistenceProtocol.self)!,
                 connectivity: r.resolve(ConnectivityProtocol.self)!            )
         }
@@ -689,47 +689,17 @@ class ScreenAssembly: Assembly {
             r.resolve(Router.self)!
         }
         
-        container.register(StoreKitHandlerProtocol.self) { @MainActor _ in
-            StorekitHandler()
-        }.inObjectScope(.container)
-        
-        container.register(CourseUpgradeRepositoryProtocol.self) { @MainActor r in
-            CourseUpgradeRepository(
-                api: r.resolve(API.self)!,
-                config: r.resolve(ConfigProtocol.self)!
-            )
-        }
-        
-        container.register(CourseUpgradeInteractorProtocol.self) { @MainActor r in
-            CourseUpgradeInteractor(
-                repository: r.resolve(CourseUpgradeRepositoryProtocol.self)!
-            )
-        }
-        
-        container.register(CourseUpgradeHandlerProtocol.self) { @MainActor r in
-            CourseUpgradeHandler(
-                config: r.resolve(ConfigProtocol.self)!,
-                interactor: r.resolve(CourseUpgradeInteractorProtocol.self)!,
-                storeKitHandler: r.resolve(StoreKitHandlerProtocol.self)!,
-                helper: r.resolve(CourseUpgradeHelperProtocol.self)!
-            )
-        }.inObjectScope(.container)
-        
-        container.register(CourseUpgradeHelperProtocol.self) { @MainActor _ in // NEEDS WORK - delete
-            CourseUpgradeHelperProtocolEmptyMock()
-        }.inObjectScope(.container)
-        
         // MARK: Upgrade info
         container.register(
             UpgradeInfoViewModel.self
-        ) { @MainActor r, productName, message, sku, courseID, screen, pacing, lmsPrice in
+        ) { @MainActor r, productName, message, sku, courseID, /*screen,*/ pacing, lmsPrice in
             UpgradeInfoViewModel(
                 productName: productName,
                 message: message,
                 sku: sku,
                 courseID: courseID,
-                screen: screen,
-                handler: r.resolve(CourseUpgradeHandlerProtocol.self)!,
+//                screen: screen,
+//                handler: r.resolve(CourseUpgradeHandlerProtocol.self)!,
                 pacing: pacing,
                 analytics: r.resolve(CoreAnalytics.self)!,
                 router: r.resolve(CourseRouter.self)!,

@@ -33,7 +33,7 @@ public class ListDashboardViewModel: ObservableObject {
     private let interactor: DashboardInteractorProtocol
     private let analytics: DashboardAnalytics
     private var cancellations: [AnyCancellable] = []
-    private let upgradehandler: CourseUpgradeHandlerProtocol
+//    private let upgradehandler: CourseUpgradeHandlerProtocol
     private let coreAnalytics: CoreAnalytics
     let storage: CoreStorage
     private var onCourseEnrolledCancellable: AnyCancellable?
@@ -44,14 +44,14 @@ public class ListDashboardViewModel: ObservableObject {
                 connectivity: ConnectivityProtocol,
                 analytics: DashboardAnalytics,
                 storage: CoreStorage,
-                upgradehandler: CourseUpgradeHandlerProtocol,
+//                upgradehandler: CourseUpgradeHandlerProtocol,
                 coreAnalytics: CoreAnalytics,
                 serverConfig: ServerConfigProtocol
     ) {
         self.interactor = interactor
         self.connectivity = connectivity
         self.analytics = analytics
-        self.upgradehandler = upgradehandler
+//        self.upgradehandler = upgradehandler
         self.coreAnalytics = coreAnalytics
         self.serverConfig = serverConfig
         self.storage = storage
@@ -161,12 +161,12 @@ extension ListDashboardViewModel {
     func resolveUnfinishedPayment() async {
         guard let inprogressIAP = CourseUpgradeHelper.getInProgressIAP() else { return }
         
-        do {
-            let product = try await upgradehandler.fetchProduct(sku: inprogressIAP.sku)
-            await fulfillPurchase(inprogressIAP: inprogressIAP, product: product)
-        } catch _ {
-            
-        }
+//        do {
+//            let product = try await upgradehandler.fetchProduct(sku: inprogressIAP.sku)
+//            await fulfillPurchase(inprogressIAP: inprogressIAP, product: product)
+//        } catch _ {
+//            
+//        }
     }
     
     private func fulfillPurchase(inprogressIAP: EDXInProgressIAP, product: StoreProductInfo) async {
@@ -178,16 +178,16 @@ extension ListDashboardViewModel {
 //            flowType: .silent
 //        )
         
-        await upgradehandler.upgradeCourse(
-            sku: inprogressIAP.sku,
-            mode: .silent,
-            productInfo: product,
-            pacing: inprogressIAP.pacing,
-            courseID: inprogressIAP.courseID,
-            lmsPrice: inprogressIAP.lmsPrice,
-            componentID: nil,
-            screen: .dashboard,
-            completion: nil
-        )
+//        await upgradehandler.upgradeCourse(
+//            sku: inprogressIAP.sku,
+//            mode: .silent,
+//            productInfo: product,
+//            pacing: inprogressIAP.pacing,
+//            courseID: inprogressIAP.courseID,
+//            lmsPrice: inprogressIAP.lmsPrice,
+//            componentID: nil,
+//            screen: .dashboard,
+//            completion: nil
+//        )
     }
 }

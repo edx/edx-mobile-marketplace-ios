@@ -78,8 +78,8 @@ public final class SettingsViewModel: ObservableObject {
     let coreAnalytics: CoreAnalytics
     let config: ConfigProtocol
     let serverConfig: ServerConfigProtocol
-    let upgradeHandler: CourseUpgradeHandlerProtocol
-    let upgradeHelper: CourseUpgradeHelperProtocol?
+//    let upgradeHandler: CourseUpgradeHandlerProtocol
+//    let upgradeHelper: CourseUpgradeHelperProtocol?
     let corePersistence: CorePersistenceProtocol
     let connectivity: ConnectivityProtocol
     
@@ -91,8 +91,8 @@ public final class SettingsViewModel: ObservableObject {
         coreAnalytics: CoreAnalytics,
         config: ConfigProtocol,
         serverConfig: ServerConfigProtocol,
-        upgradeHandler: CourseUpgradeHandlerProtocol,
-        upgradeHelper: CourseUpgradeHelperProtocol? = nil,
+//        upgradeHandler: CourseUpgradeHandlerProtocol,
+//        upgradeHelper: CourseUpgradeHelperProtocol? = nil,
         corePersistence: CorePersistenceProtocol,
         connectivity: ConnectivityProtocol
     ) {
@@ -103,8 +103,8 @@ public final class SettingsViewModel: ObservableObject {
         self.coreAnalytics = coreAnalytics
         self.config = config
         self.serverConfig = serverConfig
-        self.upgradeHandler = upgradeHandler
-        self.upgradeHelper = upgradeHelper
+//        self.upgradeHandler = upgradeHandler
+//        self.upgradeHelper = upgradeHelper
         self.corePersistence = corePersistence
         self.connectivity = connectivity
         
@@ -219,7 +219,7 @@ public final class SettingsViewModel: ObservableObject {
     // NEEDS WORK
     @MainActor
     func restorePurchases() async {
-//        NEEDS WORK: after moving to plugin use analytics there
+//        NEEDS WORK: after moving to plugin 
 //        coreAnalytics.trackRestorePurchaseClicked()
         router.showRestoreProgressView()
         
@@ -228,18 +228,18 @@ public final class SettingsViewModel: ObservableObject {
             return
         }
         
-        do {
-            let product = try await upgradeHandler.fetchProduct(sku: inprogressIAP.sku)
-            await fulfillPurchase(inprogressIAP: inprogressIAP, product: product)
-        } catch _ {
-            hideRestoreProgressView(showAlert: true)
-        }
+//        do {
+//            let product = try await upgradeHandler.fetchProduct(sku: inprogressIAP.sku)
+//            await fulfillPurchase(inprogressIAP: inprogressIAP, product: product)
+//        } catch _ {
+//            hideRestoreProgressView(showAlert: true)
+//        }
     }
     
     // NEEDS WORK
     @MainActor
     private func fulfillPurchase(inprogressIAP: EDXInProgressIAP, product: StoreProductInfo) async {
-//        NEEDS WORK: after moving to plugin use analytics there
+//        NEEDS WORK: after moving to plugin
 //        coreAnalytics.trackCourseUnfulfilledPurchaseInitiated(
 //            courseID: inprogressIAP.courseID,
 //            pacing: inprogressIAP.pacing,
@@ -247,36 +247,37 @@ public final class SettingsViewModel: ObservableObject {
 //            flowType: .restore
 //        )
 
-        await upgradeHandler.upgradeCourse(
-            sku: inprogressIAP.sku,
-            mode: .silent,
-            productInfo: product,
-            pacing: inprogressIAP.pacing,
-            courseID: inprogressIAP.courseID,
-            lmsPrice: inprogressIAP.lmsPrice,
-            componentID: nil,
-            screen: .dashboard,
-            completion: {[weak self] state in
-                guard let self else { return }
-                switch state {
-                case .error:
-                    self.hideRestoreProgressView()
-                case .complete:
-                    self.hideRestoreProgressView()
-                default:
-                   debugLog("Upgrade state changed: \(state)")
-                }
-            }
-        )
+//        await upgradeHandler.upgradeCourse(
+//            sku: inprogressIAP.sku,
+//            mode: .silent,
+//            productInfo: product,
+//            pacing: inprogressIAP.pacing,
+//            courseID: inprogressIAP.courseID,
+//            lmsPrice: inprogressIAP.lmsPrice,
+//            componentID: nil,
+//            screen: .dashboard,
+//            completion: {[weak self] state in
+//                guard let self else { return }
+//                switch state {
+//                case .error:
+//                    self.hideRestoreProgressView()
+//                case .complete:
+//                    self.hideRestoreProgressView()
+//                default:
+//                   debugLog("Upgrade state changed: \(state)")
+//                }
+//            }
+//        )
     }
     
     private func hideRestoreProgressView(showAlert: Bool = false, delay: TimeInterval = 0) {
         DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
             Task {
                 self?.router.hideRestoreProgressView()
-                if showAlert {
-                    self?.upgradeHelper?.showRestorePurchasesAlert()
-                }
+                // NEEDS WORK
+//                if showAlert {
+//                    self?.upgradeHelper?.showRestorePurchasesAlert()
+//                }
             }
         }
     }

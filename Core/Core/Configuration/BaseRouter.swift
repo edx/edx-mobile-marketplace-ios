@@ -70,7 +70,7 @@ public protocol BaseRouter: Sendable {
         message: String,
         sku: String,
         courseID: String,
-        screen: CourseUpgradeScreen,
+//        screen: CourseUpgradeScreen,
         pacing: String,
         lmsPrice: Double
     ) async
@@ -175,7 +175,7 @@ open class BaseRouterMock: BaseRouter {
         message: String,
         sku: String,
         courseID: String,
-        screen: CourseUpgradeScreen,
+//        screen: CourseUpgradeScreen,
         pacing: String,
         lmsPrice: Double
     ) async {}
