@@ -12,7 +12,8 @@ import Core
 public class ThreadViewModel: BaseResponsesViewModel, ObservableObject {
     
     @Published var scrollTrigger: Bool = false
-    
+    @Published var shouldScroll = false
+
     internal let threadStateSubject = CurrentValueSubject<ThreadPostState?, Never>(nil)
     private var cancellable: AnyCancellable?
     private let coreStorage: CoreStorage
@@ -262,6 +263,7 @@ public class ThreadViewModel: BaseResponsesViewModel, ObservableObject {
         
         shouldHighlightResponse = true
         postComments?.comments = comments
+        shouldScroll = true
     }
     
     public func shouldHighlightResponse(_ index: Int) -> Bool {

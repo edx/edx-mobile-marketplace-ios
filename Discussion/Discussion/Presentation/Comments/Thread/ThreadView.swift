@@ -17,10 +17,15 @@ public struct ThreadView: View {
     
     @ObservedObject private var viewModel: ThreadViewModel
     @Environment(\.colorScheme) var colorScheme
+    @State private var headingID = UUID()
     @State private var isShowProgress: Bool = true
     @State private var commentText: String = ""
     @State private var commentSize: CGFloat = .init(64)
-    
+
+    private enum Constants {
+        static let scrollingDelay: TimeInterval = 0.5
+    }
+
     public init(thread: UserThread,
                 viewModel: ThreadViewModel) {
         self.thread = thread
@@ -100,7 +105,8 @@ public struct ThreadView: View {
                                         .padding(.leading, 24)
                                         .font(Theme.Fonts.titleMedium)
                                         .foregroundColor(Theme.Colors.textPrimary)
-                                        
+                                        .id(headingID)
+
                                         ForEach(Array(comments.comments.enumerated()), id: \.offset) { index, comment in
                                             CommentCell(
                                                 comment: comment,
@@ -192,6 +198,15 @@ public struct ThreadView: View {
                             withAnimation {
                                 if viewModel.postComments?.comments.isEmpty == false {
                                     scroll.scrollTo(0, anchor: .bottom)
+                                }
+                            }
+                        })
+                        .onChange(of: viewModel.shouldScroll, perform: { shouldScroll in
+                            guard shouldScroll else { return }
+
+                            doAfter(Constants.scrollingDelay) {
+                                withAnimation {
+                                    scroll.scrollTo(headingID, anchor: .top)
                                 }
                             }
                         })
