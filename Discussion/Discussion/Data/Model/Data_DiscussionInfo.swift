@@ -8,28 +8,18 @@
 import Foundation
 import Core
 
-public struct DiscussionBlackout {
-    var start: String
-    var end: String
-}
-
 public extension DataLayer {
     struct DiscussionInfo: Codable {
-        var discussionID: String?
-        var blackouts: [DiscussionBlackout]?
-    }
+        var isPostingEnabled: Bool?
 
-    struct DiscussionBlackout: Codable {
-        var start: String
-        var end: String
+        enum CodingKeys: String, CodingKey {
+            case isPostingEnabled = "is_posting_enabled"
+        }
     }
 }
 
 public extension DataLayer.DiscussionInfo {
     var domain: DiscussionInfo {
-        .init(
-            discussionID: discussionID,
-            blackouts: blackouts?.compactMap { .init(start: $0.start, end: $0.end)  }
-        )
+        .init(isPostingEnabled: isPostingEnabled)
     }
 }

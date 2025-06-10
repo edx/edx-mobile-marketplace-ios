@@ -105,7 +105,7 @@ final class PostViewModelTests: XCTestCase {
                    numPages: 4),
     ])
 
-    let discussionInfo = DiscussionInfo(discussionID: "1", blackouts: [])
+    let discussionInfo = DiscussionInfo(isPostingEnabled: true)
 
 
     func testGetThreadListSuccess() async throws {

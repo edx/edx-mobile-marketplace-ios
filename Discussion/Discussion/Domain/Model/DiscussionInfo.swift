@@ -8,24 +8,9 @@
 import Foundation
 
 public struct DiscussionInfo {
-    public var discussionID: String?
-    public var blackouts: [DiscussionBlackout]?
+    public var isPostingEnabled: Bool?
 
-    public func isBlackedOut() -> Bool {
-        guard let blackouts = blackouts else {
-            return false
-        }
-        var isBlackedOut = false
-        for blackout in blackouts {
-            let start = Date(iso8601: blackout.start)
-            let end = Date(iso8601: blackout.end)
-
-            if Date().isEarlierThanOrEqualTo(date: end) &&
-                Date().isLaterThanOrEqualTo(date: start) {
-                isBlackedOut = true
-            }
-        }
-
-        return isBlackedOut
+    public var isBlackedOut: Bool {
+        isPostingEnabled == false
     }
 }
