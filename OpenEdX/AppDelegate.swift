@@ -77,7 +77,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = RouteController()
         window?.makeKeyAndVisible()
         window?.tintColor = Theme.UIColors.accentColor
-        
+
+        applyTheme()
+
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(didUserAuthorize),
@@ -150,7 +152,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             container: Container.shared
         )
     }
-    
+
+    private func applyTheme() {
+        guard let themeManager = Container.shared.resolve(ThemeManagerProtocol.self) else {
+            return
+        }
+
+        themeManager.applySavedTheme()
+    }
+
     @objc private func didUserAuthorize() {
         Container.shared.resolve(PushNotificationsManager.self)?.synchronizeToken()
     }

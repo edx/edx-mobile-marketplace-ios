@@ -300,6 +300,8 @@ public enum AnalyticsEvent: String {
     case videoDownloadQualityChanged = "Video:Download Quality Changed"
     case profileVideoSettingsClicked = "Profile:Video Setting Clicked"
     case profilePushSettingsClicked = "Profile:Push Notifications Setting Clicked"
+    case profileAppearanceSettingClicked = "Profile:Appearance Setting Clicked"
+    case profileAppThemeChanged = "Profile:App Theme Changed"
     case privacyPolicyClicked = "Profile:Privacy Policy Clicked"
     case cookiePolicyClicked = "Profile:Cookie Policy Clicked"
     case emailSupportClicked = "Profile:Contact Support Clicked"
@@ -441,6 +443,8 @@ public enum EventBIValue: String {
     case profileEditDoneClicked = "edx.bi.app.profile.edit_done.clicked"
     case profileVideoSettingsClicked = "edx.bi.app.profile.video_setting.clicked"
     case profilePushSettingsClicked = "edx.bi.app.profile.push_notifications_setting.clicked"
+    case profileAppearanceSettingClicked = "edx.bi.app.profile.appearance_setting.clicked"
+    case profileAppThemeChanged = "edx.bi.app.profile.app_theme.changed"
     case emailSupportClicked = "edx.bi.app.profile.email_support.clicked"
     case faqClicked = "edx.bi.app.profile.faq.clicked"
     case tosClicked = "edx.bi.app.profile.terms_of_use.clicked"
@@ -618,6 +622,8 @@ public struct EventParamKey {
     public static let unreadNotifications = "unread_notifications"
     public static let dialogFrequency = "dialog_frequency"
     public static let source = "source"
+    public static let newMode = "new_mode"
+    public static let previousMode = "previous_mode"
 }
 
 public struct EventCategory {

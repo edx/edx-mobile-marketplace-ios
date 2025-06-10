@@ -3456,6 +3456,12 @@ open class ProfileAnalyticsMock: ProfileAnalytics, Mock {
 		perform?(`success`)
     }
 
+    open func profileAppThemeChanged(newMode: String, previousMode: String) {
+        addInvocation(.m_profileAppThemeChanged__newMode_newModepreviousMode_previousMode(Parameter<String>.value(`newMode`), Parameter<String>.value(`previousMode`)))
+		let perform = methodPerformValue(.m_profileAppThemeChanged__newMode_newModepreviousMode_previousMode(Parameter<String>.value(`newMode`), Parameter<String>.value(`previousMode`))) as? (String, String) -> Void
+		perform?(`newMode`, `previousMode`)
+    }
+
     open func profileTrackEvent(_ event: AnalyticsEvent, biValue: EventBIValue) {
         addInvocation(.m_profileTrackEvent__eventbiValue_biValue(Parameter<AnalyticsEvent>.value(`event`), Parameter<EventBIValue>.value(`biValue`)))
 		let perform = methodPerformValue(.m_profileTrackEvent__eventbiValue_biValue(Parameter<AnalyticsEvent>.value(`event`), Parameter<EventBIValue>.value(`biValue`))) as? (AnalyticsEvent, EventBIValue) -> Void
@@ -3485,6 +3491,7 @@ open class ProfileAnalyticsMock: ProfileAnalytics, Mock {
         case m_profileWifiToggle__action_action(Parameter<String>)
         case m_profileUserDeleteAccountClicked
         case m_profileDeleteAccountSuccess__success_success(Parameter<Bool>)
+        case m_profileAppThemeChanged__newMode_newModepreviousMode_previousMode(Parameter<String>, Parameter<String>)
         case m_profileTrackEvent__eventbiValue_biValue(Parameter<AnalyticsEvent>, Parameter<EventBIValue>)
         case m_profileScreenEvent__eventbiValue_biValue(Parameter<AnalyticsEvent>, Parameter<EventBIValue>)
 
@@ -3532,6 +3539,12 @@ open class ProfileAnalyticsMock: ProfileAnalytics, Mock {
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsSuccess, rhs: rhsSuccess, with: matcher), lhsSuccess, rhsSuccess, "success"))
 				return Matcher.ComparisonResult(results)
 
+            case (.m_profileAppThemeChanged__newMode_newModepreviousMode_previousMode(let lhsNewmode, let lhsPreviousmode), .m_profileAppThemeChanged__newMode_newModepreviousMode_previousMode(let rhsNewmode, let rhsPreviousmode)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsNewmode, rhs: rhsNewmode, with: matcher), lhsNewmode, rhsNewmode, "newMode"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPreviousmode, rhs: rhsPreviousmode, with: matcher), lhsPreviousmode, rhsPreviousmode, "previousMode"))
+				return Matcher.ComparisonResult(results)
+
             case (.m_profileTrackEvent__eventbiValue_biValue(let lhsEvent, let lhsBivalue), .m_profileTrackEvent__eventbiValue_biValue(let rhsEvent, let rhsBivalue)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsEvent, rhs: rhsEvent, with: matcher), lhsEvent, rhsEvent, "_ event"))
@@ -3564,6 +3577,7 @@ open class ProfileAnalyticsMock: ProfileAnalytics, Mock {
             case let .m_profileWifiToggle__action_action(p0): return p0.intValue
             case .m_profileUserDeleteAccountClicked: return 0
             case let .m_profileDeleteAccountSuccess__success_success(p0): return p0.intValue
+            case let .m_profileAppThemeChanged__newMode_newModepreviousMode_previousMode(p0, p1): return p0.intValue + p1.intValue
             case let .m_profileTrackEvent__eventbiValue_biValue(p0, p1): return p0.intValue + p1.intValue
             case let .m_profileScreenEvent__eventbiValue_biValue(p0, p1): return p0.intValue + p1.intValue
             }
@@ -3585,6 +3599,7 @@ open class ProfileAnalyticsMock: ProfileAnalytics, Mock {
             case .m_profileWifiToggle__action_action: return ".profileWifiToggle(action:)"
             case .m_profileUserDeleteAccountClicked: return ".profileUserDeleteAccountClicked()"
             case .m_profileDeleteAccountSuccess__success_success: return ".profileDeleteAccountSuccess(success:)"
+            case .m_profileAppThemeChanged__newMode_newModepreviousMode_previousMode: return ".profileAppThemeChanged(newMode:previousMode:)"
             case .m_profileTrackEvent__eventbiValue_biValue: return ".profileTrackEvent(_:biValue:)"
             case .m_profileScreenEvent__eventbiValue_biValue: return ".profileScreenEvent(_:biValue:)"
             }
@@ -3620,6 +3635,7 @@ open class ProfileAnalyticsMock: ProfileAnalytics, Mock {
         public static func profileWifiToggle(action: Parameter<String>) -> Verify { return Verify(method: .m_profileWifiToggle__action_action(`action`))}
         public static func profileUserDeleteAccountClicked() -> Verify { return Verify(method: .m_profileUserDeleteAccountClicked)}
         public static func profileDeleteAccountSuccess(success: Parameter<Bool>) -> Verify { return Verify(method: .m_profileDeleteAccountSuccess__success_success(`success`))}
+        public static func profileAppThemeChanged(newMode: Parameter<String>, previousMode: Parameter<String>) -> Verify { return Verify(method: .m_profileAppThemeChanged__newMode_newModepreviousMode_previousMode(`newMode`, `previousMode`))}
         public static func profileTrackEvent(_ event: Parameter<AnalyticsEvent>, biValue: Parameter<EventBIValue>) -> Verify { return Verify(method: .m_profileTrackEvent__eventbiValue_biValue(`event`, `biValue`))}
         public static func profileScreenEvent(_ event: Parameter<AnalyticsEvent>, biValue: Parameter<EventBIValue>) -> Verify { return Verify(method: .m_profileScreenEvent__eventbiValue_biValue(`event`, `biValue`))}
     }
@@ -3672,6 +3688,9 @@ open class ProfileAnalyticsMock: ProfileAnalytics, Mock {
         }
         public static func profileDeleteAccountSuccess(success: Parameter<Bool>, perform: @escaping (Bool) -> Void) -> Perform {
             return Perform(method: .m_profileDeleteAccountSuccess__success_success(`success`), performs: perform)
+        }
+        public static func profileAppThemeChanged(newMode: Parameter<String>, previousMode: Parameter<String>, perform: @escaping (String, String) -> Void) -> Perform {
+            return Perform(method: .m_profileAppThemeChanged__newMode_newModepreviousMode_previousMode(`newMode`, `previousMode`), performs: perform)
         }
         public static func profileTrackEvent(_ event: Parameter<AnalyticsEvent>, biValue: Parameter<EventBIValue>, perform: @escaping (AnalyticsEvent, EventBIValue) -> Void) -> Perform {
             return Perform(method: .m_profileTrackEvent__eventbiValue_biValue(`event`, `biValue`), performs: perform)
@@ -4394,6 +4413,12 @@ open class ProfileRouterMock: ProfileRouter, Mock {
 		perform?()
     }
 
+    open func showAppearanceSettings() {
+        addInvocation(.m_showAppearanceSettings)
+		let perform = methodPerformValue(.m_showAppearanceSettings) as? () -> Void
+		perform?()
+    }
+
     open func showManageAccount() {
         addInvocation(.m_showManageAccount)
 		let perform = methodPerformValue(.m_showManageAccount) as? () -> Void
@@ -4620,6 +4645,7 @@ open class ProfileRouterMock: ProfileRouter, Mock {
         case m_showSettings
         case m_showVideoSettings
         case m_showPushSettings
+        case m_showAppearanceSettings
         case m_showManageAccount
         case m_showDatesAndCalendar
         case m_showSyncCalendarOptions
@@ -4670,6 +4696,8 @@ open class ProfileRouterMock: ProfileRouter, Mock {
             case (.m_showVideoSettings, .m_showVideoSettings): return .match
 
             case (.m_showPushSettings, .m_showPushSettings): return .match
+
+            case (.m_showAppearanceSettings, .m_showAppearanceSettings): return .match
 
             case (.m_showManageAccount, .m_showManageAccount): return .match
 
@@ -4852,6 +4880,7 @@ open class ProfileRouterMock: ProfileRouter, Mock {
             case .m_showSettings: return 0
             case .m_showVideoSettings: return 0
             case .m_showPushSettings: return 0
+            case .m_showAppearanceSettings: return 0
             case .m_showManageAccount: return 0
             case .m_showDatesAndCalendar: return 0
             case .m_showSyncCalendarOptions: return 0
@@ -4895,6 +4924,7 @@ open class ProfileRouterMock: ProfileRouter, Mock {
             case .m_showSettings: return ".showSettings()"
             case .m_showVideoSettings: return ".showVideoSettings()"
             case .m_showPushSettings: return ".showPushSettings()"
+            case .m_showAppearanceSettings: return ".showAppearanceSettings()"
             case .m_showManageAccount: return ".showManageAccount()"
             case .m_showDatesAndCalendar: return ".showDatesAndCalendar()"
             case .m_showSyncCalendarOptions: return ".showSyncCalendarOptions()"
@@ -4952,6 +4982,7 @@ open class ProfileRouterMock: ProfileRouter, Mock {
         public static func showSettings() -> Verify { return Verify(method: .m_showSettings)}
         public static func showVideoSettings() -> Verify { return Verify(method: .m_showVideoSettings)}
         public static func showPushSettings() -> Verify { return Verify(method: .m_showPushSettings)}
+        public static func showAppearanceSettings() -> Verify { return Verify(method: .m_showAppearanceSettings)}
         public static func showManageAccount() -> Verify { return Verify(method: .m_showManageAccount)}
         public static func showDatesAndCalendar() -> Verify { return Verify(method: .m_showDatesAndCalendar)}
         public static func showSyncCalendarOptions() -> Verify { return Verify(method: .m_showSyncCalendarOptions)}
@@ -5014,6 +5045,9 @@ open class ProfileRouterMock: ProfileRouter, Mock {
         }
         public static func showPushSettings(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_showPushSettings, performs: perform)
+        }
+        public static func showAppearanceSettings(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_showAppearanceSettings, performs: perform)
         }
         public static func showManageAccount(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_showManageAccount, performs: perform)

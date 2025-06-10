@@ -813,7 +813,14 @@ public class Router: AuthorizationRouter,
         let controller = UIHostingController(rootView: view)
         navigationController.pushViewController(controller, animated: true)
     }
-    
+
+    public func showAppearanceSettings() {
+        let viewModel = Container.shared.resolve(AppearanceSettingsViewModel.self)!
+        let view = AppearanceSettingsView(viewModel: viewModel)
+        let controller = UIHostingController(rootView: view)
+        navigationController.pushViewController(controller, animated: true)
+    }
+
     public func showDatesAndCalendar() {
         let viewModel = Container.shared.resolve(DatesAndCalendarViewModel.self)!
         let view = DatesAndCalendarView(viewModel: viewModel)
