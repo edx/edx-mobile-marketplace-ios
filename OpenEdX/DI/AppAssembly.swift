@@ -239,6 +239,12 @@ class AppAssembly: Assembly {
             )
         }.inObjectScope(.container)
 
+        container.register(ThemeManagerProtocol.self) { r in
+            ThemeManager(
+                storage: r.resolve(CoreStorage.self)!
+            )
+        }.inObjectScope(.container)
+
         // Initialize Feature Manager...
         container.resolve(FeatureManagerProtocol.self)
     }

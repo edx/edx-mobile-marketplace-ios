@@ -285,7 +285,15 @@ class ScreenAssembly: Assembly {
                 storage: r.resolve(CoreStorage.self)!
             )
         }
-        
+
+        container.register(AppearanceSettingsViewModel.self) { r in
+            AppearanceSettingsViewModel(
+                themeManager: r.resolve(ThemeManagerProtocol.self)!,
+                router: r.resolve(ProfileRouter.self)!,
+                analytics: r.resolve(ProfileAnalytics.self)!
+            )
+        }
+
         container.register(DatesAndCalendarViewModel.self) { r in
             DatesAndCalendarViewModel(
                 router: r.resolve(ProfileRouter.self)!

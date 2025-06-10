@@ -23,7 +23,9 @@ public protocol ProfileRouter: BaseRouter {
     func showVideoSettings()
     
     func showPushSettings()
-    
+
+    func showAppearanceSettings()
+
     func showManageAccount()
     
     func showDatesAndCalendar()
@@ -61,7 +63,9 @@ public class ProfileRouterMock: BaseRouterMock, ProfileRouter {
     public func showVideoSettings() {}
     
     public func showPushSettings() {}
-    
+
+    public func showAppearanceSettings() {}
+
     public func showDatesAndCalendar() {}
     
     public func showSyncCalendarOptions() {}

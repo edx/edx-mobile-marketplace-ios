@@ -256,6 +256,16 @@ public enum ProfileLocalization {
     public static let useRelativeDates = ProfileLocalization.tr("Localizable", "OPTIONS.USE_RELATIVE_DATES", fallback: "Use relative dates")
   }
   public enum Settings {
+    /// Dark Mode
+    public static let appearanceDarkMode = ProfileLocalization.tr("Localizable", "SETTINGS.APPEARANCE_DARK_MODE", fallback: "Dark Mode")
+    /// Light Mode
+    public static let appearanceLightMode = ProfileLocalization.tr("Localizable", "SETTINGS.APPEARANCE_LIGHT_MODE", fallback: "Light Mode")
+    /// Match Device
+    public static let appearanceMatchDevice = ProfileLocalization.tr("Localizable", "SETTINGS.APPEARANCE_MATCH_DEVICE", fallback: "Match Device")
+    /// Matches your device settings automatically.
+    public static let appearanceMatchesDeviceSettings = ProfileLocalization.tr("Localizable", "SETTINGS.APPEARANCE_MATCHES_DEVICE_SETTINGS", fallback: "Matches your device settings automatically.")
+    /// Appearance
+    public static let appearanceSettingsTitle = ProfileLocalization.tr("Localizable", "SETTINGS.APPEARANCE_SETTINGS_TITLE", fallback: "Appearance")
     /// Push Notifications
     public static let pushSettingsTitle = ProfileLocalization.tr("Localizable", "SETTINGS.PUSH_SETTINGS_TITLE", fallback: "Push Notifications")
     /// Lower data usage
