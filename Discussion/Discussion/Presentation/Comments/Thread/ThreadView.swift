@@ -21,7 +21,11 @@ public struct ThreadView: View {
     @State private var isShowProgress: Bool = true
     @State private var commentText: String = ""
     @State private var commentSize: CGFloat = .init(64)
-    
+
+    private enum Constants {
+        static let scrollingDelay: TimeInterval = 0.5
+    }
+
     public init(thread: UserThread,
                 viewModel: ThreadViewModel) {
         self.thread = thread
@@ -200,7 +204,7 @@ public struct ThreadView: View {
                         .onChange(of: viewModel.shouldScroll, perform: { shouldScroll in
                             guard shouldScroll else { return }
 
-                            doAfter {
+                            doAfter(Constants.scrollingDelay) {
                                 withAnimation {
                                     scroll.scrollTo(headingID, anchor: .top)
                                 }
