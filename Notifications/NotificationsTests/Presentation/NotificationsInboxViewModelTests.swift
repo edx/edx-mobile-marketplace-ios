@@ -13,7 +13,7 @@ import Alamofire
 
 final class NotificationsInboxViewModelTests: XCTestCase {
     private var mockInteractor: NotificationsInteractorProtocolMock!
-    private var viewModel: NotificationsInboxViewModel!
+    private var sut: NotificationsInboxViewModel!
     private var mockConnectivity: ConnectivityProtocolMock!
     
     private let notifications = Notifications(
@@ -39,7 +39,8 @@ final class NotificationsInboxViewModelTests: XCTestCase {
                 lastRead: nil,
                 lastSeen: Date(iso8601: "2025-01-06T01:20:58.919612Z"),
                 created: Date(iso8601: "2025-01-06T01:20:58.919612Z")
-            ), SingleNotification(
+            ),
+            SingleNotification(
                 id: 2,
                 appName: "discussion",
                 notificationType: "response_on_followed_post",
@@ -55,7 +56,8 @@ final class NotificationsInboxViewModelTests: XCTestCase {
                 lastRead: nil,
                 lastSeen: Date(iso8601: "2025-01-06T01:20:58.919612Z"),
                 created: Date(iso8601: "2025-01-06T01:20:58.919612Z")
-            ), SingleNotification(
+            ),
+            SingleNotification(
                 id: 3,
                 appName: "discussion",
                 notificationType: "new_response",
@@ -71,7 +73,8 @@ final class NotificationsInboxViewModelTests: XCTestCase {
                 lastRead: nil,
                 lastSeen: Date(iso8601: "2025-01-06T01:20:58.919612Z"),
                 created: Date(iso8601: "2025-01-06T01:20:58.919612Z")
-            ), SingleNotification(
+            ),
+            SingleNotification(
                 id: 4,
                 appName: "discussion",
                 notificationType: "new_comment",
@@ -98,71 +101,56 @@ final class NotificationsInboxViewModelTests: XCTestCase {
         
         Given(mockInteractor, .getAllNotifications(page: 1, willReturn: notifications))
         
-        viewModel = NotificationsInboxViewModel(
+        sut = NotificationsInboxViewModel(
             notificationsInteractor: mockInteractor,
             analytics: NotificationsAnalyticsMock(),
             router: NotificationsRouterMock(),
-            connectivity: Connectivity(),
+            connectivity: mockConnectivity,
             deepLinkManager: NotificationsDeepLinkManagerMock()
         )
     }
     
     override func tearDown() {
         mockInteractor = nil
-        viewModel = nil
+        sut = nil
         super.tearDown()
-    }
-    
-    private func makeSUT(
-        interactor: NotificationsInteractorProtocol = NotificationsInteractorProtocolMock(),
-        analytics: NotificationsAnalytics = NotificationsAnalyticsMock(),
-        router: NotificationsRouter = NotificationsRouterMock(),
-        connectivity: ConnectivityProtocol = ConnectivityProtocolMock(),
-        deepLinkManager: NotificationsDeepLinkManager = NotificationsDeepLinkManagerMock(),
-        paginationManager: PaginationManager<SingleNotification, Int>? = nil
-    ) -> NotificationsInboxViewModel {
-        let sut = NotificationsInboxViewModel(
-            notificationsInteractor: interactor,
-            analytics: analytics,
-            router: router,
-            connectivity: connectivity,
-            deepLinkManager: deepLinkManager
-        )        
-        return sut
     }
     
     func testMarkNotificationAsReadSuccess() async throws {
         let expectedResponse = NotificationsSeenRead(message: "Notification marked read.")
         
-        Given(mockInteractor, .markNotificationAsRead(notificationId: .any, willReturn: expectedResponse))
+        Given(mockInteractor, .markNotificationAsRead(notificationId: .value("1"), willReturn: expectedResponse))
         
-        await viewModel.markNotificationAsRead(notificationId: "1")
+        await sut.markNotificationAsRead(notificationId: "1")
         
-        Verify(mockInteractor, .markNotificationAsRead(notificationId: .any))
+        Verify(mockInteractor, 1, .markNotificationAsRead(notificationId: .value("1")))
+        
+        XCTAssertNil(sut.errorMessage)
     }
     
     func testMarkNotificationAsReadNoInternetError() async throws {
         let noInternetError = AFError.sessionInvalidated(error: URLError(.notConnectedToInternet))
         
-        Given(mockInteractor, .markNotificationAsRead(notificationId: .any, willThrow: noInternetError))
+        Given(mockInteractor, .markNotificationAsRead(notificationId: .value("1"), willThrow: noInternetError))
         
-        await viewModel.markNotificationAsRead(notificationId: "1")
+        await sut.markNotificationAsRead(notificationId: "1")
         
-        Verify(mockInteractor, .markNotificationAsRead(notificationId: .any))
+        Verify(mockInteractor, 1, .markNotificationAsRead(notificationId: .value("1")))
         
-        XCTAssertNotNil(viewModel.errorMessage)
+        XCTAssertNotNil(sut.errorMessage)
+        XCTAssertEqual(sut.errorMessage, CoreLocalization.Error.slowOrNoInternetConnection)
     }
     
     func testMarkNotificationAsReadUnknownError() async throws {
-        let noInternetError = AFError.sessionInvalidated(error: NSError(domain: "error", code: -1, userInfo: nil))
+        let unknown = AFError.sessionInvalidated(error: NSError(domain: "error", code: -1, userInfo: nil))
         
-        Given(mockInteractor, .markNotificationAsRead(notificationId: .any, willThrow: noInternetError))
+        Given(mockInteractor, .markNotificationAsRead(notificationId: .value("1"), willThrow: unknown))
         
-        await viewModel.markNotificationAsRead(notificationId: "1")
+        await sut.markNotificationAsRead(notificationId: "1")
         
-        Verify(mockInteractor, .markNotificationAsRead(notificationId: .any))
+        Verify(mockInteractor, 1, .markNotificationAsRead(notificationId: .value("1")))
         
-        XCTAssertNotNil(viewModel.errorMessage)
+        XCTAssertNotNil(sut.errorMessage)
     }
     
     func testMarkAllNotificationsAsReadSuccess() async throws {
@@ -170,35 +158,44 @@ final class NotificationsInboxViewModelTests: XCTestCase {
         
         Given(mockInteractor, .markAllNotificationsAsRead(willReturn: expectedResponse))
         
-        await viewModel.loadNotifications()
-        await viewModel.markAllNotificationsAsRead()
+        await sut.loadNotifications()
+        await sut.markAllNotificationsAsRead()
         
-        Verify(mockInteractor, .markAllNotificationsAsRead())
+        Verify(mockInteractor, 1, .markAllNotificationsAsRead())
         
-        XCTAssertNotNil(viewModel.flatNotifications[0].lastRead)
-        XCTAssertEqual(notifications.results?.count, viewModel.flatNotifications.count)
+        XCTAssertNotNil(sut.flatNotifications[0].lastRead)
+        XCTAssertNotNil(sut.flatNotifications[1].lastRead)
+        XCTAssertNotNil(sut.flatNotifications[2].lastRead)
+        XCTAssertNotNil(sut.flatNotifications[3].lastRead)
+        XCTAssertEqual(notifications.results?.count, sut.flatNotifications.count)
+        XCTAssertNil(sut.errorMessage)
     }
     
     func testMarkAllNotificationsAsReadNoInternetError() async throws {
-        Given(mockInteractor, .markAllNotificationsAsRead(willThrow: URLError(.notConnectedToInternet)))
+        let noInternetError = AFError.sessionInvalidated(error: URLError(.notConnectedToInternet))
         
-        await viewModel.loadNotifications()
-        await viewModel.markAllNotificationsAsRead()
+        Given(mockInteractor, .markAllNotificationsAsRead(willThrow: noInternetError))
         
-        Verify(mockInteractor, .markAllNotificationsAsRead())
+        await sut.loadNotifications()
+        await sut.markAllNotificationsAsRead()
         
-        XCTAssertNotNil(viewModel.errorMessage)
+        Verify(mockInteractor, 1, .markAllNotificationsAsRead())
+        
+        XCTAssertNotNil(sut.errorMessage)
+        XCTAssertEqual(sut.errorMessage, CoreLocalization.Error.slowOrNoInternetConnection)
     }
     
     func testMarkAllNotificationsAsReadUnknownError() async throws {
-        Given(mockInteractor, .markAllNotificationsAsRead(willThrow: NSError(domain: "error", code: -1, userInfo: nil)))
+        let unknown = AFError.sessionInvalidated(error: NSError(domain: "error", code: -1, userInfo: nil))
         
-        await viewModel.loadNotifications()
-        await viewModel.markAllNotificationsAsRead()
+        Given(mockInteractor, .markAllNotificationsAsRead(willThrow: unknown))
         
-        Verify(mockInteractor, .markAllNotificationsAsRead())
+        await sut.loadNotifications()
+        await sut.markAllNotificationsAsRead()
         
-        XCTAssertNotNil(viewModel.errorMessage)
+        Verify(mockInteractor, 1, .markAllNotificationsAsRead())
+        
+        XCTAssertNotNil(sut.errorMessage)
     }
     
     func testMarkNotificationsAsSeenSuccess() async throws {
@@ -206,104 +203,57 @@ final class NotificationsInboxViewModelTests: XCTestCase {
         
         Given(mockInteractor, .markNotificationsAsSeen(willReturn: expectedResponse))
         
-        await viewModel.markNotificationsAsSeen()
+        await sut.markNotificationsAsSeen()
         
-        Verify(mockInteractor, .markNotificationsAsSeen())
+        Verify(mockInteractor, 1, .markNotificationsAsSeen())
     }
     
     func testMarkNotificationsAsSeenNoInternetError() async throws {
-        Given(mockInteractor, .markNotificationsAsSeen(willThrow: URLError(.notConnectedToInternet)))
+        let noInternetError = AFError.sessionInvalidated(error: URLError(.notConnectedToInternet))
         
-        await viewModel.markNotificationsAsSeen()
+        Given(mockInteractor, .markNotificationsAsSeen(willThrow: noInternetError))
         
-        Verify(mockInteractor, .markNotificationsAsSeen())
+        await sut.markNotificationsAsSeen()
+        
+        Verify(mockInteractor, 1, .markNotificationsAsSeen())
     }
     
     func testMarkNotificationsAsSeenUnknownError() async throws {
-        Given(mockInteractor, .markNotificationsAsSeen(willThrow: NSError(domain: "error", code: -1, userInfo: nil)))
+        let unknown = AFError.sessionInvalidated(error: NSError(domain: "error", code: -1, userInfo: nil))
         
-        await viewModel.markNotificationsAsSeen()
+        Given(mockInteractor, .markNotificationsAsSeen(willThrow: unknown))
         
-        Verify(mockInteractor, .markNotificationsAsSeen())
+        await sut.markNotificationsAsSeen()
+        
+        Verify(mockInteractor, 1, .markNotificationsAsSeen())
     }
     
     func testGetAllNotificationsSuccess() async throws {
-        Given(mockInteractor, .getAllNotifications(page: 1, willReturn: notifications))
+        await sut.loadNotifications()
         
-        viewModel = NotificationsInboxViewModel(
-            notificationsInteractor: mockInteractor,
-            analytics: NotificationsAnalyticsMock(),
-            router: NotificationsRouterMock(),
-            connectivity: Connectivity(),
-            deepLinkManager: NotificationsDeepLinkManagerMock()
-        )
-
-        await viewModel.loadNotifications()
-        
-        XCTAssertEqual(notifications.results?.count, viewModel.flatNotifications.count)
+        XCTAssertEqual(notifications.results?.count, sut.flatNotifications.count)
+        XCTAssertNil(sut.errorMessage)
     }
     
     func testGetAllNotificationsNoInternetError() async throws {
-        Given(mockInteractor, .getAllNotifications(page: 1, willThrow: URLError(.notConnectedToInternet)))
+        let noInternetError = AFError.sessionInvalidated(error: URLError(.notConnectedToInternet))
+        
+        Given(mockInteractor, .getAllNotifications(page: 1, willThrow: noInternetError))
         Given(mockConnectivity, .isInternetAvaliable(getter: false))
         
-        viewModel = NotificationsInboxViewModel(
-            notificationsInteractor: mockInteractor,
-            analytics: NotificationsAnalyticsMock(),
-            router: NotificationsRouterMock(),
-            connectivity: mockConnectivity,
-            deepLinkManager: NotificationsDeepLinkManagerMock()
-        )
-
-        await viewModel.loadNotifications()
+        await sut.loadNotifications()
         
-        XCTAssertEqual(viewModel.screenState, .noInternet)
+        XCTAssertEqual(sut.screenState, .noInternet)
     }
     
     func testGetAllNotificationsUnknownError() async throws {
-        Given(mockInteractor, .getAllNotifications(page: 1, willThrow: NSError(domain: "error", code: -1, userInfo: nil)))
+        let unknown = AFError.sessionInvalidated(error: NSError(domain: "error", code: -1, userInfo: nil))
+        
+        Given(mockInteractor, .getAllNotifications(page: 1, willThrow: unknown))
         Given(mockConnectivity, .isInternetAvaliable(getter: true))
         
-        viewModel = NotificationsInboxViewModel(
-            notificationsInteractor: mockInteractor,
-            analytics: NotificationsAnalyticsMock(),
-            router: NotificationsRouterMock(),
-            connectivity: mockConnectivity,
-            deepLinkManager: NotificationsDeepLinkManagerMock()
-        )
-
-        await viewModel.loadNotifications()
+        await sut.loadNotifications()
         
-        XCTAssertEqual(viewModel.screenState, .serverError)
-    }
-    
-    func testIsDiscussionNotification() async throws {
-        await viewModel.loadNotifications()
-        
-        XCTAssertEqual(viewModel.flatNotifications[0].appName, "discussion")
-    }
-    
-    func testNotificationTypeAsCommentOnFollowedPost() async throws {
-        await viewModel.loadNotifications()
-        
-        XCTAssertEqual(viewModel.flatNotifications[0].notificationType, "comment_on_followed_post")
-    }
-    
-    func testNotificationTypeAsResponseOnFollowedPost() async throws {
-        await viewModel.loadNotifications()
-        
-        XCTAssertEqual(viewModel.flatNotifications[1].notificationType, "response_on_followed_post")
-    }
-    
-    func testNotificationTypeAsNewResponse() async throws {
-        await viewModel.loadNotifications()
-        
-        XCTAssertEqual(viewModel.flatNotifications[2].notificationType, "new_response")
-    }
-    
-    func testNotificationTypeAsNewComment() async throws {
-        await viewModel.loadNotifications()
-        
-        XCTAssertEqual(viewModel.flatNotifications[3].notificationType, "new_comment")
+        XCTAssertEqual(sut.screenState, .serverError)
     }
 }
