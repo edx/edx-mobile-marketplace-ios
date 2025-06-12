@@ -65,7 +65,6 @@ public protocol BaseRouter {
     func showTrackSelection(
         courseID: String,
         productName: String,
-        screen: CourseUpgradeScreen,
         sku: String,
         pacing: String,
         lmsPrice: Double,
@@ -182,7 +181,6 @@ open class BaseRouterMock: BaseRouter {
     public func showTrackSelection(
         courseID: String,
         productName: String,
-        screen: CourseUpgradeScreen,
         sku: String,
         pacing: String,
         lmsPrice: Double,

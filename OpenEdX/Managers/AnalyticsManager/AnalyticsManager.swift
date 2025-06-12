@@ -1540,14 +1540,13 @@ class AnalyticsManager: AuthorizationAnalytics,
     public func trackSelectionViewed(
         courseID: String,
         pacing: String,
-        lmsPrice: Double,
-        screen: CourseUpgradeScreen
+        lmsPrice: Double
     ) {
         var parameters: [String: Any] = [
             EventParamKey.category: EventCategory.inAppPurchases,
             EventParamKey.name: EventBIValue.trackSelectionViewed.rawValue,
-            EventParamKey.screenName: screen.rawValue,
-            EventParamKey.flowType: UpgradeMode.trackSelection.rawValue,
+            EventParamKey.screenName: CourseUpgradeScreen.trackSelection.rawValue,
+            EventParamKey.flowType: UpgradeMode.userInitiated.rawValue,
             EventParamKey.courseID: courseID,
             EventParamKey.pacing: pacing
         ]
@@ -1559,14 +1558,13 @@ class AnalyticsManager: AuthorizationAnalytics,
     public func trackContinueWithFreeTrackClicked(
         courseID: String,
         pacing: String,
-        lmsPrice: Double,
-        screen: CourseUpgradeScreen
+        lmsPrice: Double
     ) {
         var parameters: [String: Any] = [
             EventParamKey.category: EventCategory.inAppPurchases,
             EventParamKey.name: EventBIValue.continueWithFreeTrackClicked.rawValue,
-            EventParamKey.screenName: screen.rawValue,
-            EventParamKey.flowType: UpgradeMode.trackSelection.rawValue,
+            EventParamKey.screenName: CourseUpgradeScreen.trackSelection.rawValue,
+            EventParamKey.flowType: UpgradeMode.userInitiated.rawValue,
             EventParamKey.courseID: courseID,
             EventParamKey.pacing: pacing
         ]

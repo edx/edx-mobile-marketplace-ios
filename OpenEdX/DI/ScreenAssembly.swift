@@ -660,11 +660,10 @@ class ScreenAssembly: Assembly {
 
         container.register(
             TrackSelectionViewModel.self
-        ) { r, courseID, productName, screen, sku, pacing, lmsPrice, accessExpires in
+        ) { r, courseID, productName, sku, pacing, lmsPrice, accessExpires in
             TrackSelectionViewModel(
                 courseID: courseID,
                 productName: productName,
-                screen: screen,
                 sku: sku,
                 pacing: pacing,
                 lmsPrice: lmsPrice,

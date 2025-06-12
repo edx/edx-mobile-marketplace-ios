@@ -969,7 +969,6 @@ extension Router {
     public func showTrackSelection(
         courseID: String,
         productName: String,
-        screen: CourseUpgradeScreen,
         sku: String,
         pacing: String,
         lmsPrice: Double,
@@ -978,7 +977,7 @@ extension Router {
         let view = TrackSelectionView(
             viewModel: Container.shared.resolve(
                 TrackSelectionViewModel.self,
-                arguments: courseID, productName, screen, sku, pacing, lmsPrice, accessExpires
+                arguments: courseID, productName, sku, pacing, lmsPrice, accessExpires
             )!
         )
         let controller = UIHostingController(rootView: view)
