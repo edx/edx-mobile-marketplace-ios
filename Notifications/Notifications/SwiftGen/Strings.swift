@@ -63,13 +63,13 @@ public enum NotificationsLocalization {
     public static let preferenceDescription = NotificationsLocalization.tr("Localizable", "SETTINGS.PREFERENCE_DESCRIPTION", fallback: "Notifications for course discussions you post, comment, or follow.")
     /// It looks like something went wrong while getting preferences. Please try again.
     public static let preferenceFetchError = NotificationsLocalization.tr("Localizable", "SETTINGS.PREFERENCE_FETCH_ERROR", fallback: "It looks like something went wrong while getting preferences. Please try again.")
-    /// Discussions Activity
-    public static let preferenceTitle = NotificationsLocalization.tr("Localizable", "SETTINGS.PREFERENCE_TITLE", fallback: "Discussions Activity")
+    /// Discussions activity
+    public static let preferenceTitle = NotificationsLocalization.tr("Localizable", "SETTINGS.PREFERENCE_TITLE", fallback: "Discussions activity")
     /// Localizable.strings
     ///   Notifications
     /// 
     ///   Created by Saeed Bashir on 11.12.2024.
-    public static let title = NotificationsLocalization.tr("Localizable", "SETTINGS.TITLE", fallback: "Push Notifications")
+    public static let title = NotificationsLocalization.tr("Localizable", "SETTINGS.TITLE", fallback: "Push notifications")
   }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
