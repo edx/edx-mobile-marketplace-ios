@@ -181,6 +181,10 @@ final class NotificationsInboxViewModelTests: XCTestCase {
         
         Verify(mockInteractor, 1, .markAllNotificationsAsRead())
         
+        XCTAssertNil(sut.flatNotifications[0].lastRead)
+        XCTAssertNil(sut.flatNotifications[1].lastRead)
+        XCTAssertNil(sut.flatNotifications[2].lastRead)
+        XCTAssertNil(sut.flatNotifications[3].lastRead)
         XCTAssertNotNil(sut.errorMessage)
         XCTAssertEqual(sut.errorMessage, CoreLocalization.Error.slowOrNoInternetConnection)
     }
@@ -195,6 +199,10 @@ final class NotificationsInboxViewModelTests: XCTestCase {
         
         Verify(mockInteractor, 1, .markAllNotificationsAsRead())
         
+        XCTAssertNil(sut.flatNotifications[0].lastRead)
+        XCTAssertNil(sut.flatNotifications[1].lastRead)
+        XCTAssertNil(sut.flatNotifications[2].lastRead)
+        XCTAssertNil(sut.flatNotifications[3].lastRead)
         XCTAssertNotNil(sut.errorMessage)
     }
     
@@ -208,17 +216,7 @@ final class NotificationsInboxViewModelTests: XCTestCase {
         Verify(mockInteractor, 1, .markNotificationsAsSeen())
     }
     
-    func testMarkNotificationsAsSeenNoInternetError() async throws {
-        let noInternetError = AFError.sessionInvalidated(error: URLError(.notConnectedToInternet))
-        
-        Given(mockInteractor, .markNotificationsAsSeen(willThrow: noInternetError))
-        
-        await sut.markNotificationsAsSeen()
-        
-        Verify(mockInteractor, 1, .markNotificationsAsSeen())
-    }
-    
-    func testMarkNotificationsAsSeenUnknownError() async throws {
+    func testMarkNotificationsAsSeenError() async throws {
         let unknown = AFError.sessionInvalidated(error: NSError(domain: "error", code: -1, userInfo: nil))
         
         Given(mockInteractor, .markNotificationsAsSeen(willThrow: unknown))
@@ -230,6 +228,8 @@ final class NotificationsInboxViewModelTests: XCTestCase {
     
     func testGetAllNotificationsSuccess() async throws {
         await sut.loadNotifications()
+        
+        Verify(mockInteractor, 1, .getAllNotifications(page: 1))
         
         XCTAssertEqual(notifications.results?.count, sut.flatNotifications.count)
         XCTAssertNil(sut.errorMessage)
@@ -243,6 +243,9 @@ final class NotificationsInboxViewModelTests: XCTestCase {
         
         await sut.loadNotifications()
         
+        Verify(mockInteractor, 1, .getAllNotifications(page: 1))
+        
+        XCTAssertEqual(sut.flatNotifications.count, .zero)
         XCTAssertEqual(sut.screenState, .noInternet)
     }
     
@@ -254,6 +257,9 @@ final class NotificationsInboxViewModelTests: XCTestCase {
         
         await sut.loadNotifications()
         
+        Verify(mockInteractor, 1, .getAllNotifications(page: 1))
+        
+        XCTAssertEqual(sut.flatNotifications.count, .zero)
         XCTAssertEqual(sut.screenState, .serverError)
     }
 }
