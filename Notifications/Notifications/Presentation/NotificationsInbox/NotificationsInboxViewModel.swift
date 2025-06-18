@@ -31,7 +31,7 @@ public class NotificationsInboxViewModel: ObservableObject {
     private var interactor: NotificationsInteractorProtocol
     private var cancellables = Set<AnyCancellable>()
     private(set) var lazyVStackUniqueID: String = UUID().uuidString
-    private var flatNotifications: [SingleNotification] = [] {
+    private(set) var flatNotifications: [SingleNotification] = [] {
         didSet { groupItems() }
     }
     
