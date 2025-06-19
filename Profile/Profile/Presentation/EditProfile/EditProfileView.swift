@@ -33,7 +33,7 @@ public struct EditProfileView: View {
                 // MARK: - Page Body
                 ScrollView {
                     VStack {
-                        Text(viewModel.profileChanges.profileType.localizedValue.capitalized)
+                        Text(viewModel.profileChanges.profileType.localizedValue)
                             .font(Theme.Fonts.titleSmall)
                             .foregroundColor(Theme.Colors.textSecondary)
                             .accessibilityIdentifier("profile_type_text")

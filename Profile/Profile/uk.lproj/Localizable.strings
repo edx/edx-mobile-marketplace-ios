@@ -27,7 +27,7 @@
 "FULL_PROFILE" = "повний профіль";
 "LIMITED_PROFILE" = "обмежений профіль";
 "MANAGE_ACCOUNT" = "Налаштування Профілю";
-"HELP_US_IMPROVE" = "Help us Improve";
+"HELP_US_IMPROVE" = "Help us improve";
 
 "LOGOUT_ALERT.TITLE" = "Підтвердження виходу";
 "LOGOUT_ALERT.TEXT" = "Ви впевнені, що бажаєте вийти?";
@@ -71,9 +71,9 @@
 "SETTINGS.VIDEO_QUALITY_TITLE" = "Якість потокового відео";
 "SETTINGS.VIDEO_QUALITY_DESCRIPTION" = "Авто (Рекомендовано)";
 
-"SETTINGS.APPEARANCE_LIGHT_MODE" = "Light Mode";
-"SETTINGS.APPEARANCE_DARK_MODE" = "Dark Mode";
-"SETTINGS.APPEARANCE_MATCH_DEVICE" = "Match Device";
+"SETTINGS.APPEARANCE_LIGHT_MODE" = "Light mode";
+"SETTINGS.APPEARANCE_DARK_MODE" = "Dark mode";
+"SETTINGS.APPEARANCE_MATCH_DEVICE" = "Match device";
 "SETTINGS.APPEARANCE_MATCHES_DEVICE_SETTINGS" = "Matches your device settings automatically.";
 
 "SETTINGS.QUALITY_AUTO_TITLE" = "Авто";

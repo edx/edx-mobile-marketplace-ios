@@ -6,8 +6,8 @@
   
 */
 
-"SETTINGS.TITLE"="Push Notifications";
-"SETTINGS.PREFERENCE_TITLE"="Discussions Activity";
+"SETTINGS.TITLE"="Push notifications";
+"SETTINGS.PREFERENCE_TITLE"="Discussions activity";
 "SETTINGS.PREFERENCE_DESCRIPTION"="Notifications for course discussions you post, comment, or follow.";
 "SETTINGS.PREFERENCE_FETCH_ERROR"="It looks like something went wrong while getting preferences. Please try again.";
 "ALERT.PERMISSION_TITLE"="Permission is needed";
