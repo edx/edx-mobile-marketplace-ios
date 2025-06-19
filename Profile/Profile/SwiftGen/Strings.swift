@@ -10,8 +10,8 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 public enum ProfileLocalization {
-  /// About Me
-  public static let about = ProfileLocalization.tr("Localizable", "ABOUT", fallback: "About Me")
+  /// About me
+  public static let about = ProfileLocalization.tr("Localizable", "ABOUT", fallback: "About me")
   /// Bio:
   public static let bio = ProfileLocalization.tr("Localizable", "BIO", fallback: "Bio:")
   /// Contact support
@@ -22,22 +22,22 @@ public enum ProfileLocalization {
   public static let datesAndCalendar = ProfileLocalization.tr("Localizable", "DATES_AND_CALENDAR", fallback: "Dates & Calendar")
   /// Do not sell my personal information
   public static let doNotSellInformation = ProfileLocalization.tr("Localizable", "DO_NOT_SELL_INFORMATION", fallback: "Do not sell my personal information")
-  /// Edit Profile
-  public static let editProfile = ProfileLocalization.tr("Localizable", "EDIT_PROFILE", fallback: "Edit Profile")
+  /// Edit profile
+  public static let editProfile = ProfileLocalization.tr("Localizable", "EDIT_PROFILE", fallback: "Edit profile")
   /// View FAQ
   public static let faqTitle = ProfileLocalization.tr("Localizable", "FAQ_TITLE", fallback: "View FAQ")
-  /// full profile
-  public static let fullProfile = ProfileLocalization.tr("Localizable", "FULL_PROFILE", fallback: "full profile")
-  /// Help us Improve
-  public static let helpUsImprove = ProfileLocalization.tr("Localizable", "HELP_US_IMPROVE", fallback: "Help us Improve")
+  /// Full profile
+  public static let fullProfile = ProfileLocalization.tr("Localizable", "FULL_PROFILE", fallback: "Full profile")
+  /// Help us improve
+  public static let helpUsImprove = ProfileLocalization.tr("Localizable", "HELP_US_IMPROVE", fallback: "Help us improve")
   /// Profile info
   public static let info = ProfileLocalization.tr("Localizable", "INFO", fallback: "Profile info")
-  /// limited profile
-  public static let limitedProfile = ProfileLocalization.tr("Localizable", "LIMITED_PROFILE", fallback: "limited profile")
+  /// Limited profile
+  public static let limitedProfile = ProfileLocalization.tr("Localizable", "LIMITED_PROFILE", fallback: "Limited profile")
   /// Log out
   public static let logout = ProfileLocalization.tr("Localizable", "LOGOUT", fallback: "Log out")
-  /// Manage Account
-  public static let manageAccount = ProfileLocalization.tr("Localizable", "MANAGE_ACCOUNT", fallback: "Manage Account")
+  /// Manage account
+  public static let manageAccount = ProfileLocalization.tr("Localizable", "MANAGE_ACCOUNT", fallback: "Manage account")
   /// Privacy policy
   public static let privacy = ProfileLocalization.tr("Localizable", "PRIVACY", fallback: "Privacy policy")
   /// Settings
@@ -194,8 +194,8 @@ public enum ProfileLocalization {
     public static let password = ProfileLocalization.tr("Localizable", "DELETE_ACCOUNT.PASSWORD", fallback: "Password")
     /// Enter password
     public static let passwordDescription = ProfileLocalization.tr("Localizable", "DELETE_ACCOUNT.PASSWORD_DESCRIPTION", fallback: "Enter password")
-    /// Delete Account
-    public static let title = ProfileLocalization.tr("Localizable", "DELETE_ACCOUNT.TITLE", fallback: "Delete Account")
+    /// Delete account
+    public static let title = ProfileLocalization.tr("Localizable", "DELETE_ACCOUNT.TITLE", fallback: "Delete account")
     /// delete your account?
     public static let wantToDelete = ProfileLocalization.tr("Localizable", "DELETE_ACCOUNT.WANT_TO_DELETE", fallback: "delete your account?")
   }
@@ -210,8 +210,8 @@ public enum ProfileLocalization {
     public static let select = ProfileLocalization.tr("Localizable", "DROP_DOWN_PICKER.SELECT", fallback: "Select")
   }
   public enum Edit {
-    /// Delete Account
-    public static let deleteAccount = ProfileLocalization.tr("Localizable", "EDIT.DELETE_ACCOUNT", fallback: "Delete Account")
+    /// Delete account
+    public static let deleteAccount = ProfileLocalization.tr("Localizable", "EDIT.DELETE_ACCOUNT", fallback: "Delete account")
     /// A limited profile only shares your username and profile photo.
     public static let limitedProfileDescription = ProfileLocalization.tr("Localizable", "EDIT.LIMITED_PROFILE_DESCRIPTION", fallback: "A limited profile only shares your username and profile photo.")
     /// A limited profile only shares your username and photo
@@ -256,18 +256,18 @@ public enum ProfileLocalization {
     public static let useRelativeDates = ProfileLocalization.tr("Localizable", "OPTIONS.USE_RELATIVE_DATES", fallback: "Use relative dates")
   }
   public enum Settings {
-    /// Dark Mode
-    public static let appearanceDarkMode = ProfileLocalization.tr("Localizable", "SETTINGS.APPEARANCE_DARK_MODE", fallback: "Dark Mode")
-    /// Light Mode
-    public static let appearanceLightMode = ProfileLocalization.tr("Localizable", "SETTINGS.APPEARANCE_LIGHT_MODE", fallback: "Light Mode")
-    /// Match Device
-    public static let appearanceMatchDevice = ProfileLocalization.tr("Localizable", "SETTINGS.APPEARANCE_MATCH_DEVICE", fallback: "Match Device")
+    /// Dark mode
+    public static let appearanceDarkMode = ProfileLocalization.tr("Localizable", "SETTINGS.APPEARANCE_DARK_MODE", fallback: "Dark mode")
+    /// Light mode
+    public static let appearanceLightMode = ProfileLocalization.tr("Localizable", "SETTINGS.APPEARANCE_LIGHT_MODE", fallback: "Light mode")
+    /// Match device
+    public static let appearanceMatchDevice = ProfileLocalization.tr("Localizable", "SETTINGS.APPEARANCE_MATCH_DEVICE", fallback: "Match device")
     /// Matches your device settings automatically.
     public static let appearanceMatchesDeviceSettings = ProfileLocalization.tr("Localizable", "SETTINGS.APPEARANCE_MATCHES_DEVICE_SETTINGS", fallback: "Matches your device settings automatically.")
     /// Appearance
     public static let appearanceSettingsTitle = ProfileLocalization.tr("Localizable", "SETTINGS.APPEARANCE_SETTINGS_TITLE", fallback: "Appearance")
-    /// Push Notifications
-    public static let pushSettingsTitle = ProfileLocalization.tr("Localizable", "SETTINGS.PUSH_SETTINGS_TITLE", fallback: "Push Notifications")
+    /// Push notifications
+    public static let pushSettingsTitle = ProfileLocalization.tr("Localizable", "SETTINGS.PUSH_SETTINGS_TITLE", fallback: "Push notifications")
     /// Lower data usage
     public static let quality360Description = ProfileLocalization.tr("Localizable", "SETTINGS.QUALITY_360_DESCRIPTION", fallback: "Lower data usage")
     /// 360p

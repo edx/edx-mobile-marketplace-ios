@@ -49,9 +49,9 @@ public enum ProfileType {
     public var switchToButtonTitle: String {
         switch self {
         case .full:
-            return ProfileLocalization.limitedProfile
+            return ProfileLocalization.limitedProfile.lowercased()
         case .limited:
-            return ProfileLocalization.fullProfile
+            return ProfileLocalization.fullProfile.lowercased()
         }
     }
     

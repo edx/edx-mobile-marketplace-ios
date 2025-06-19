@@ -8,8 +8,8 @@
 
 "TITLE" = "Profile";
 "INFO" = "Profile info";
-"ABOUT" = "About Me";
-"EDIT_PROFILE" = "Edit Profile";
+"ABOUT" = "About me";
+"EDIT_PROFILE" = "Edit profile";
 "YEAR_OF_BIRTH" = "Year of birth:";
 "BIO" = "Bio:";
 "SETTINGS" = "Settings";
@@ -22,13 +22,13 @@
 "COOKIE_POLICY" = "Cookie policy";
 "DO_NOT_SELL_INFORMATION" = "Do not sell my personal information";
 "FAQ_TITLE" = "View FAQ";
-"MANAGE_ACCOUNT" = "Manage Account";
-"HELP_US_IMPROVE" = "Help us Improve";
+"MANAGE_ACCOUNT" = "Manage account";
+"HELP_US_IMPROVE" = "Help us improve";
 
 "LOGOUT" = "Log out";
 "SWITCH_TO" = "Switch to";
-"FULL_PROFILE" = "full profile";
-"LIMITED_PROFILE" = "limited profile";
+"FULL_PROFILE" = "Full profile";
+"LIMITED_PROFILE" = "Limited profile";
 
 "LOGOUT_ALERT.TITLE" = "Comfirm log out";
 "LOGOUT_ALERT.TEXT" = "Are you sure you want to log out?";
@@ -41,7 +41,7 @@
 
 "EDIT.TOO_YONG_USER" = "You must be over 13 years old to have a profile with full access to information.";
 "EDIT.LIMITED_PROFILE_DESCRIPTION" = "A limited profile only shares your username and profile photo.";
-"EDIT.DELETE_ACCOUNT" = "Delete Account";
+"EDIT.DELETE_ACCOUNT" = "Delete account";
 "EDIT.LIMITED_PROFILE_INFO" = "A limited profile only shares your username and photo";
 "EDIT.LIMITED_PROFILE_REQUIRE_CONSENT_INFO" = "Your profile information is only visible to you. Only your username is visible to others.";
 
@@ -55,7 +55,7 @@
 "EDIT.BOTTOM_SHEET.REMOVE" = "Remove photo";
 "EDIT.BOTTOM_SHEET.CANCEL" = "Cancel";
 
-"DELETE_ACCOUNT.TITLE" = "Delete Account";
+"DELETE_ACCOUNT.TITLE" = "Delete account";
 "DELETE_ACCOUNT.ARE_YOU_SURE" = "Are you sure you want to ";
 "DELETE_ACCOUNT.WANT_TO_DELETE" = "delete your account?";
 "DELETE_ACCOUNT.DESCRIPTION" = "To confirm this action, please enter your account password.";
@@ -67,15 +67,15 @@
 
 "SETTINGS.VIDEO_SETTINGS_TITLE" = "Video settings";
 "SETTINGS.APPEARANCE_SETTINGS_TITLE" = "Appearance";
-"SETTINGS.PUSH_SETTINGS_TITLE" = "Push Notifications";
+"SETTINGS.PUSH_SETTINGS_TITLE" = "Push notifications";
 "SETTINGS.WIFI_TITLE" = "Wi-fi only download";
 "SETTINGS.WIFI_DESCRIPTION" = "Only download content when wi-fi is turned on";
 "SETTINGS.VIDEO_QUALITY_TITLE" = "Video streaming quality";
 "SETTINGS.VIDEO_QUALITY_DESCRIPTION" = "Auto (Recommended)";
 
-"SETTINGS.APPEARANCE_LIGHT_MODE" = "Light Mode";
-"SETTINGS.APPEARANCE_DARK_MODE" = "Dark Mode";
-"SETTINGS.APPEARANCE_MATCH_DEVICE" = "Match Device";
+"SETTINGS.APPEARANCE_LIGHT_MODE" = "Light mode";
+"SETTINGS.APPEARANCE_DARK_MODE" = "Dark mode";
+"SETTINGS.APPEARANCE_MATCH_DEVICE" = "Match device";
 "SETTINGS.APPEARANCE_MATCHES_DEVICE_SETTINGS" = "Matches your device settings automatically.";
 
 "SETTINGS.QUALITY_AUTO_TITLE" = "Auto";
