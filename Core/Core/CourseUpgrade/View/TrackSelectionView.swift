@@ -135,7 +135,6 @@ public struct TrackSelectionView: View {
         viewModel: TrackSelectionViewModel(
             courseID: "",
             productName: "Preview",
-            screen: .dashboard,
             sku: "SKU",
             pacing: "self",
             lmsPrice: .zero,

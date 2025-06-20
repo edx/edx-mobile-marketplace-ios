@@ -612,10 +612,10 @@ open class BaseRouterMock: BaseRouter, Mock {
     }
 
     @MainActor
-	open func showTrackSelection(courseID: String, productName: String, screen: CourseUpgradeScreen, sku: String, pacing: String, lmsPrice: Double, accessExpires: Date) {
-        addInvocation(.m_showTrackSelection__courseID_courseIDproductName_productNamescreen_screensku_skupacing_pacinglmsPrice_lmsPriceaccessExpires_accessExpires(Parameter<String>.value(`courseID`), Parameter<String>.value(`productName`), Parameter<CourseUpgradeScreen>.value(`screen`), Parameter<String>.value(`sku`), Parameter<String>.value(`pacing`), Parameter<Double>.value(`lmsPrice`), Parameter<Date>.value(`accessExpires`)))
-		let perform = methodPerformValue(.m_showTrackSelection__courseID_courseIDproductName_productNamescreen_screensku_skupacing_pacinglmsPrice_lmsPriceaccessExpires_accessExpires(Parameter<String>.value(`courseID`), Parameter<String>.value(`productName`), Parameter<CourseUpgradeScreen>.value(`screen`), Parameter<String>.value(`sku`), Parameter<String>.value(`pacing`), Parameter<Double>.value(`lmsPrice`), Parameter<Date>.value(`accessExpires`))) as? (String, String, CourseUpgradeScreen, String, String, Double, Date) -> Void
-		perform?(`courseID`, `productName`, `screen`, `sku`, `pacing`, `lmsPrice`, `accessExpires`)
+	open func showTrackSelection(courseID: String, productName: String, sku: String, pacing: String, lmsPrice: Double, accessExpires: Date) {
+        addInvocation(.m_showTrackSelection__courseID_courseIDproductName_productNamesku_skupacing_pacinglmsPrice_lmsPriceaccessExpires_accessExpires(Parameter<String>.value(`courseID`), Parameter<String>.value(`productName`), Parameter<String>.value(`sku`), Parameter<String>.value(`pacing`), Parameter<Double>.value(`lmsPrice`), Parameter<Date>.value(`accessExpires`)))
+		let perform = methodPerformValue(.m_showTrackSelection__courseID_courseIDproductName_productNamesku_skupacing_pacinglmsPrice_lmsPriceaccessExpires_accessExpires(Parameter<String>.value(`courseID`), Parameter<String>.value(`productName`), Parameter<String>.value(`sku`), Parameter<String>.value(`pacing`), Parameter<Double>.value(`lmsPrice`), Parameter<Date>.value(`accessExpires`))) as? (String, String, String, String, Double, Date) -> Void
+		perform?(`courseID`, `productName`, `sku`, `pacing`, `lmsPrice`, `accessExpires`)
     }
 
     @MainActor
@@ -706,7 +706,7 @@ open class BaseRouterMock: BaseRouter, Mock {
         case m_presentView__transitionStyle_transitionStyleview_viewcompletion_completion(Parameter<UIModalTransitionStyle>, Parameter<any View>, Parameter<(() -> Void)?>)
         case m_presentView__transitionStyle_transitionStyleanimated_animatedcontent_content(Parameter<UIModalTransitionStyle>, Parameter<Bool>, Parameter<() -> any View>)
         case m_presentNativeAlert__title_titlemessage_messageactions_actions(Parameter<String?>, Parameter<String?>, Parameter<[UIAlertAction]>)
-        case m_showTrackSelection__courseID_courseIDproductName_productNamescreen_screensku_skupacing_pacinglmsPrice_lmsPriceaccessExpires_accessExpires(Parameter<String>, Parameter<String>, Parameter<CourseUpgradeScreen>, Parameter<String>, Parameter<String>, Parameter<Double>, Parameter<Date>)
+        case m_showTrackSelection__courseID_courseIDproductName_productNamesku_skupacing_pacinglmsPrice_lmsPriceaccessExpires_accessExpires(Parameter<String>, Parameter<String>, Parameter<String>, Parameter<String>, Parameter<Double>, Parameter<Date>)
         case m_showUpgradeInfo__productName_productNamemessage_messagesku_skucourseID_courseIDscreen_screenpacing_pacinglmsPrice_lmsPrice(Parameter<String>, Parameter<String>, Parameter<String>, Parameter<String>, Parameter<CourseUpgradeScreen>, Parameter<String>, Parameter<Double>)
         case m_hideUpgradeInfo__animated_animated(Parameter<Bool>)
         case m_showUpgradeLoaderView__animated_animated(Parameter<Bool>)
@@ -818,11 +818,10 @@ open class BaseRouterMock: BaseRouter, Mock {
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsActions, rhs: rhsActions, with: matcher), lhsActions, rhsActions, "actions"))
 				return Matcher.ComparisonResult(results)
 
-            case (.m_showTrackSelection__courseID_courseIDproductName_productNamescreen_screensku_skupacing_pacinglmsPrice_lmsPriceaccessExpires_accessExpires(let lhsCourseid, let lhsProductname, let lhsScreen, let lhsSku, let lhsPacing, let lhsLmsprice, let lhsAccessexpires), .m_showTrackSelection__courseID_courseIDproductName_productNamescreen_screensku_skupacing_pacinglmsPrice_lmsPriceaccessExpires_accessExpires(let rhsCourseid, let rhsProductname, let rhsScreen, let rhsSku, let rhsPacing, let rhsLmsprice, let rhsAccessexpires)):
+            case (.m_showTrackSelection__courseID_courseIDproductName_productNamesku_skupacing_pacinglmsPrice_lmsPriceaccessExpires_accessExpires(let lhsCourseid, let lhsProductname, let lhsSku, let lhsPacing, let lhsLmsprice, let lhsAccessexpires), .m_showTrackSelection__courseID_courseIDproductName_productNamesku_skupacing_pacinglmsPrice_lmsPriceaccessExpires_accessExpires(let rhsCourseid, let rhsProductname, let rhsSku, let rhsPacing, let rhsLmsprice, let rhsAccessexpires)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseID"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsProductname, rhs: rhsProductname, with: matcher), lhsProductname, rhsProductname, "productName"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsScreen, rhs: rhsScreen, with: matcher), lhsScreen, rhsScreen, "screen"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsSku, rhs: rhsSku, with: matcher), lhsSku, rhsSku, "sku"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPacing, rhs: rhsPacing, with: matcher), lhsPacing, rhsPacing, "pacing"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLmsprice, rhs: rhsLmsprice, with: matcher), lhsLmsprice, rhsLmsprice, "lmsPrice"))
@@ -892,7 +891,7 @@ open class BaseRouterMock: BaseRouter, Mock {
             case let .m_presentView__transitionStyle_transitionStyleview_viewcompletion_completion(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
             case let .m_presentView__transitionStyle_transitionStyleanimated_animatedcontent_content(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
             case let .m_presentNativeAlert__title_titlemessage_messageactions_actions(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
-            case let .m_showTrackSelection__courseID_courseIDproductName_productNamescreen_screensku_skupacing_pacinglmsPrice_lmsPriceaccessExpires_accessExpires(p0, p1, p2, p3, p4, p5, p6): return p0.intValue + p1.intValue + p2.intValue + p3.intValue + p4.intValue + p5.intValue + p6.intValue
+            case let .m_showTrackSelection__courseID_courseIDproductName_productNamesku_skupacing_pacinglmsPrice_lmsPriceaccessExpires_accessExpires(p0, p1, p2, p3, p4, p5): return p0.intValue + p1.intValue + p2.intValue + p3.intValue + p4.intValue + p5.intValue
             case let .m_showUpgradeInfo__productName_productNamemessage_messagesku_skucourseID_courseIDscreen_screenpacing_pacinglmsPrice_lmsPrice(p0, p1, p2, p3, p4, p5, p6): return p0.intValue + p1.intValue + p2.intValue + p3.intValue + p4.intValue + p5.intValue + p6.intValue
             case let .m_hideUpgradeInfo__animated_animated(p0): return p0.intValue
             case let .m_showUpgradeLoaderView__animated_animated(p0): return p0.intValue
@@ -924,7 +923,7 @@ open class BaseRouterMock: BaseRouter, Mock {
             case .m_presentView__transitionStyle_transitionStyleview_viewcompletion_completion: return ".presentView(transitionStyle:view:completion:)"
             case .m_presentView__transitionStyle_transitionStyleanimated_animatedcontent_content: return ".presentView(transitionStyle:animated:content:)"
             case .m_presentNativeAlert__title_titlemessage_messageactions_actions: return ".presentNativeAlert(title:message:actions:)"
-            case .m_showTrackSelection__courseID_courseIDproductName_productNamescreen_screensku_skupacing_pacinglmsPrice_lmsPriceaccessExpires_accessExpires: return ".showTrackSelection(courseID:productName:screen:sku:pacing:lmsPrice:accessExpires:)"
+            case .m_showTrackSelection__courseID_courseIDproductName_productNamesku_skupacing_pacinglmsPrice_lmsPriceaccessExpires_accessExpires: return ".showTrackSelection(courseID:productName:sku:pacing:lmsPrice:accessExpires:)"
             case .m_showUpgradeInfo__productName_productNamemessage_messagesku_skucourseID_courseIDscreen_screenpacing_pacinglmsPrice_lmsPrice: return ".showUpgradeInfo(productName:message:sku:courseID:screen:pacing:lmsPrice:)"
             case .m_hideUpgradeInfo__animated_animated: return ".hideUpgradeInfo(animated:)"
             case .m_showUpgradeLoaderView__animated_animated: return ".showUpgradeLoaderView(animated:)"
@@ -971,7 +970,7 @@ open class BaseRouterMock: BaseRouter, Mock {
         public static func presentView(transitionStyle: Parameter<UIModalTransitionStyle>, animated: Parameter<Bool>, content: Parameter<() -> any View>) -> Verify { return Verify(method: .m_presentView__transitionStyle_transitionStyleanimated_animatedcontent_content(`transitionStyle`, `animated`, `content`))}
         public static func presentNativeAlert(title: Parameter<String?>, message: Parameter<String?>, actions: Parameter<[UIAlertAction]>) -> Verify { return Verify(method: .m_presentNativeAlert__title_titlemessage_messageactions_actions(`title`, `message`, `actions`))}
         @MainActor
-		public static func showTrackSelection(courseID: Parameter<String>, productName: Parameter<String>, screen: Parameter<CourseUpgradeScreen>, sku: Parameter<String>, pacing: Parameter<String>, lmsPrice: Parameter<Double>, accessExpires: Parameter<Date>) -> Verify { return Verify(method: .m_showTrackSelection__courseID_courseIDproductName_productNamescreen_screensku_skupacing_pacinglmsPrice_lmsPriceaccessExpires_accessExpires(`courseID`, `productName`, `screen`, `sku`, `pacing`, `lmsPrice`, `accessExpires`))}
+		public static func showTrackSelection(courseID: Parameter<String>, productName: Parameter<String>, sku: Parameter<String>, pacing: Parameter<String>, lmsPrice: Parameter<Double>, accessExpires: Parameter<Date>) -> Verify { return Verify(method: .m_showTrackSelection__courseID_courseIDproductName_productNamesku_skupacing_pacinglmsPrice_lmsPriceaccessExpires_accessExpires(`courseID`, `productName`, `sku`, `pacing`, `lmsPrice`, `accessExpires`))}
         @MainActor
 		public static func showUpgradeInfo(productName: Parameter<String>, message: Parameter<String>, sku: Parameter<String>, courseID: Parameter<String>, screen: Parameter<CourseUpgradeScreen>, pacing: Parameter<String>, lmsPrice: Parameter<Double>) -> Verify { return Verify(method: .m_showUpgradeInfo__productName_productNamemessage_messagesku_skucourseID_courseIDscreen_screenpacing_pacinglmsPrice_lmsPrice(`productName`, `message`, `sku`, `courseID`, `screen`, `pacing`, `lmsPrice`))}
         @MainActor
@@ -1049,8 +1048,8 @@ open class BaseRouterMock: BaseRouter, Mock {
             return Perform(method: .m_presentNativeAlert__title_titlemessage_messageactions_actions(`title`, `message`, `actions`), performs: perform)
         }
         @MainActor
-		public static func showTrackSelection(courseID: Parameter<String>, productName: Parameter<String>, screen: Parameter<CourseUpgradeScreen>, sku: Parameter<String>, pacing: Parameter<String>, lmsPrice: Parameter<Double>, accessExpires: Parameter<Date>, perform: @escaping (String, String, CourseUpgradeScreen, String, String, Double, Date) -> Void) -> Perform {
-            return Perform(method: .m_showTrackSelection__courseID_courseIDproductName_productNamescreen_screensku_skupacing_pacinglmsPrice_lmsPriceaccessExpires_accessExpires(`courseID`, `productName`, `screen`, `sku`, `pacing`, `lmsPrice`, `accessExpires`), performs: perform)
+		public static func showTrackSelection(courseID: Parameter<String>, productName: Parameter<String>, sku: Parameter<String>, pacing: Parameter<String>, lmsPrice: Parameter<Double>, accessExpires: Parameter<Date>, perform: @escaping (String, String, String, String, Double, Date) -> Void) -> Perform {
+            return Perform(method: .m_showTrackSelection__courseID_courseIDproductName_productNamesku_skupacing_pacinglmsPrice_lmsPriceaccessExpires_accessExpires(`courseID`, `productName`, `sku`, `pacing`, `lmsPrice`, `accessExpires`), performs: perform)
         }
         @MainActor
 		public static func showUpgradeInfo(productName: Parameter<String>, message: Parameter<String>, sku: Parameter<String>, courseID: Parameter<String>, screen: Parameter<CourseUpgradeScreen>, pacing: Parameter<String>, lmsPrice: Parameter<Double>, perform: @escaping (String, String, String, String, CourseUpgradeScreen, String, Double) -> Void) -> Perform {
@@ -1496,16 +1495,16 @@ open class CoreAnalyticsMock: CoreAnalytics, Mock {
 		perform?(`courseID`, `pacing`, `lmsPrice`, `screen`)
     }
 
-    open func trackSelectionViewed(courseID: String, pacing: String, lmsPrice: Double, screen: CourseUpgradeScreen) {
-        addInvocation(.m_trackSelectionViewed__courseID_courseIDpacing_pacinglmsPrice_lmsPricescreen_screen(Parameter<String>.value(`courseID`), Parameter<String>.value(`pacing`), Parameter<Double>.value(`lmsPrice`), Parameter<CourseUpgradeScreen>.value(`screen`)))
-		let perform = methodPerformValue(.m_trackSelectionViewed__courseID_courseIDpacing_pacinglmsPrice_lmsPricescreen_screen(Parameter<String>.value(`courseID`), Parameter<String>.value(`pacing`), Parameter<Double>.value(`lmsPrice`), Parameter<CourseUpgradeScreen>.value(`screen`))) as? (String, String, Double, CourseUpgradeScreen) -> Void
-		perform?(`courseID`, `pacing`, `lmsPrice`, `screen`)
+    open func trackSelectionViewed(courseID: String, pacing: String, lmsPrice: Double) {
+        addInvocation(.m_trackSelectionViewed__courseID_courseIDpacing_pacinglmsPrice_lmsPrice(Parameter<String>.value(`courseID`), Parameter<String>.value(`pacing`), Parameter<Double>.value(`lmsPrice`)))
+		let perform = methodPerformValue(.m_trackSelectionViewed__courseID_courseIDpacing_pacinglmsPrice_lmsPrice(Parameter<String>.value(`courseID`), Parameter<String>.value(`pacing`), Parameter<Double>.value(`lmsPrice`))) as? (String, String, Double) -> Void
+		perform?(`courseID`, `pacing`, `lmsPrice`)
     }
 
-    open func trackContinueWithFreeTrackClicked(courseID: String, pacing: String, lmsPrice: Double, screen: CourseUpgradeScreen) {
-        addInvocation(.m_trackContinueWithFreeTrackClicked__courseID_courseIDpacing_pacinglmsPrice_lmsPricescreen_screen(Parameter<String>.value(`courseID`), Parameter<String>.value(`pacing`), Parameter<Double>.value(`lmsPrice`), Parameter<CourseUpgradeScreen>.value(`screen`)))
-		let perform = methodPerformValue(.m_trackContinueWithFreeTrackClicked__courseID_courseIDpacing_pacinglmsPrice_lmsPricescreen_screen(Parameter<String>.value(`courseID`), Parameter<String>.value(`pacing`), Parameter<Double>.value(`lmsPrice`), Parameter<CourseUpgradeScreen>.value(`screen`))) as? (String, String, Double, CourseUpgradeScreen) -> Void
-		perform?(`courseID`, `pacing`, `lmsPrice`, `screen`)
+    open func trackContinueWithFreeTrackClicked(courseID: String, pacing: String, lmsPrice: Double) {
+        addInvocation(.m_trackContinueWithFreeTrackClicked__courseID_courseIDpacing_pacinglmsPrice_lmsPrice(Parameter<String>.value(`courseID`), Parameter<String>.value(`pacing`), Parameter<Double>.value(`lmsPrice`)))
+		let perform = methodPerformValue(.m_trackContinueWithFreeTrackClicked__courseID_courseIDpacing_pacinglmsPrice_lmsPrice(Parameter<String>.value(`courseID`), Parameter<String>.value(`pacing`), Parameter<Double>.value(`lmsPrice`))) as? (String, String, Double) -> Void
+		perform?(`courseID`, `pacing`, `lmsPrice`)
     }
 
     open func trackEvent(_ event: AnalyticsEvent) {
@@ -1549,8 +1548,8 @@ open class CoreAnalyticsMock: CoreAnalytics, Mock {
         case m_trackCourseUnfulfilledPurchaseInitiated__courseID_courseIDpacing_pacingscreen_screenflowType_flowType(Parameter<String>, Parameter<String>, Parameter<CourseUpgradeScreen>, Parameter<UpgradeMode>)
         case m_trackRestorePurchaseClicked
         case m_trackValuePropViewed__courseID_courseIDpacing_pacinglmsPrice_lmsPricescreen_screen(Parameter<String>, Parameter<String>, Parameter<Double>, Parameter<CourseUpgradeScreen>)
-        case m_trackSelectionViewed__courseID_courseIDpacing_pacinglmsPrice_lmsPricescreen_screen(Parameter<String>, Parameter<String>, Parameter<Double>, Parameter<CourseUpgradeScreen>)
-        case m_trackContinueWithFreeTrackClicked__courseID_courseIDpacing_pacinglmsPrice_lmsPricescreen_screen(Parameter<String>, Parameter<String>, Parameter<Double>, Parameter<CourseUpgradeScreen>)
+        case m_trackSelectionViewed__courseID_courseIDpacing_pacinglmsPrice_lmsPrice(Parameter<String>, Parameter<String>, Parameter<Double>)
+        case m_trackContinueWithFreeTrackClicked__courseID_courseIDpacing_pacinglmsPrice_lmsPrice(Parameter<String>, Parameter<String>, Parameter<Double>)
         case m_trackEvent__event(Parameter<AnalyticsEvent>)
         case m_trackEvent__eventbiValue_biValue(Parameter<AnalyticsEvent>, Parameter<EventBIValue>)
         case m_trackScreenEvent__event(Parameter<AnalyticsEvent>)
@@ -1691,20 +1690,18 @@ open class CoreAnalyticsMock: CoreAnalytics, Mock {
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsScreen, rhs: rhsScreen, with: matcher), lhsScreen, rhsScreen, "screen"))
 				return Matcher.ComparisonResult(results)
 
-            case (.m_trackSelectionViewed__courseID_courseIDpacing_pacinglmsPrice_lmsPricescreen_screen(let lhsCourseid, let lhsPacing, let lhsLmsprice, let lhsScreen), .m_trackSelectionViewed__courseID_courseIDpacing_pacinglmsPrice_lmsPricescreen_screen(let rhsCourseid, let rhsPacing, let rhsLmsprice, let rhsScreen)):
+            case (.m_trackSelectionViewed__courseID_courseIDpacing_pacinglmsPrice_lmsPrice(let lhsCourseid, let lhsPacing, let lhsLmsprice), .m_trackSelectionViewed__courseID_courseIDpacing_pacinglmsPrice_lmsPrice(let rhsCourseid, let rhsPacing, let rhsLmsprice)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseID"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPacing, rhs: rhsPacing, with: matcher), lhsPacing, rhsPacing, "pacing"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLmsprice, rhs: rhsLmsprice, with: matcher), lhsLmsprice, rhsLmsprice, "lmsPrice"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsScreen, rhs: rhsScreen, with: matcher), lhsScreen, rhsScreen, "screen"))
 				return Matcher.ComparisonResult(results)
 
-            case (.m_trackContinueWithFreeTrackClicked__courseID_courseIDpacing_pacinglmsPrice_lmsPricescreen_screen(let lhsCourseid, let lhsPacing, let lhsLmsprice, let lhsScreen), .m_trackContinueWithFreeTrackClicked__courseID_courseIDpacing_pacinglmsPrice_lmsPricescreen_screen(let rhsCourseid, let rhsPacing, let rhsLmsprice, let rhsScreen)):
+            case (.m_trackContinueWithFreeTrackClicked__courseID_courseIDpacing_pacinglmsPrice_lmsPrice(let lhsCourseid, let lhsPacing, let lhsLmsprice), .m_trackContinueWithFreeTrackClicked__courseID_courseIDpacing_pacinglmsPrice_lmsPrice(let rhsCourseid, let rhsPacing, let rhsLmsprice)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseID"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPacing, rhs: rhsPacing, with: matcher), lhsPacing, rhsPacing, "pacing"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLmsprice, rhs: rhsLmsprice, with: matcher), lhsLmsprice, rhsLmsprice, "lmsPrice"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsScreen, rhs: rhsScreen, with: matcher), lhsScreen, rhsScreen, "screen"))
 				return Matcher.ComparisonResult(results)
 
             case (.m_trackEvent__event(let lhsEvent), .m_trackEvent__event(let rhsEvent)):
@@ -1749,8 +1746,8 @@ open class CoreAnalyticsMock: CoreAnalytics, Mock {
             case let .m_trackCourseUnfulfilledPurchaseInitiated__courseID_courseIDpacing_pacingscreen_screenflowType_flowType(p0, p1, p2, p3): return p0.intValue + p1.intValue + p2.intValue + p3.intValue
             case .m_trackRestorePurchaseClicked: return 0
             case let .m_trackValuePropViewed__courseID_courseIDpacing_pacinglmsPrice_lmsPricescreen_screen(p0, p1, p2, p3): return p0.intValue + p1.intValue + p2.intValue + p3.intValue
-            case let .m_trackSelectionViewed__courseID_courseIDpacing_pacinglmsPrice_lmsPricescreen_screen(p0, p1, p2, p3): return p0.intValue + p1.intValue + p2.intValue + p3.intValue
-            case let .m_trackContinueWithFreeTrackClicked__courseID_courseIDpacing_pacinglmsPrice_lmsPricescreen_screen(p0, p1, p2, p3): return p0.intValue + p1.intValue + p2.intValue + p3.intValue
+            case let .m_trackSelectionViewed__courseID_courseIDpacing_pacinglmsPrice_lmsPrice(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
+            case let .m_trackContinueWithFreeTrackClicked__courseID_courseIDpacing_pacinglmsPrice_lmsPrice(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
             case let .m_trackEvent__event(p0): return p0.intValue
             case let .m_trackEvent__eventbiValue_biValue(p0, p1): return p0.intValue + p1.intValue
             case let .m_trackScreenEvent__event(p0): return p0.intValue
@@ -1774,8 +1771,8 @@ open class CoreAnalyticsMock: CoreAnalytics, Mock {
             case .m_trackCourseUnfulfilledPurchaseInitiated__courseID_courseIDpacing_pacingscreen_screenflowType_flowType: return ".trackCourseUnfulfilledPurchaseInitiated(courseID:pacing:screen:flowType:)"
             case .m_trackRestorePurchaseClicked: return ".trackRestorePurchaseClicked()"
             case .m_trackValuePropViewed__courseID_courseIDpacing_pacinglmsPrice_lmsPricescreen_screen: return ".trackValuePropViewed(courseID:pacing:lmsPrice:screen:)"
-            case .m_trackSelectionViewed__courseID_courseIDpacing_pacinglmsPrice_lmsPricescreen_screen: return ".trackSelectionViewed(courseID:pacing:lmsPrice:screen:)"
-            case .m_trackContinueWithFreeTrackClicked__courseID_courseIDpacing_pacinglmsPrice_lmsPricescreen_screen: return ".trackContinueWithFreeTrackClicked(courseID:pacing:lmsPrice:screen:)"
+            case .m_trackSelectionViewed__courseID_courseIDpacing_pacinglmsPrice_lmsPrice: return ".trackSelectionViewed(courseID:pacing:lmsPrice:)"
+            case .m_trackContinueWithFreeTrackClicked__courseID_courseIDpacing_pacinglmsPrice_lmsPrice: return ".trackContinueWithFreeTrackClicked(courseID:pacing:lmsPrice:)"
             case .m_trackEvent__event: return ".trackEvent(_:)"
             case .m_trackEvent__eventbiValue_biValue: return ".trackEvent(_:biValue:)"
             case .m_trackScreenEvent__event: return ".trackScreenEvent(_:)"
@@ -1813,8 +1810,8 @@ open class CoreAnalyticsMock: CoreAnalytics, Mock {
         public static func trackCourseUnfulfilledPurchaseInitiated(courseID: Parameter<String>, pacing: Parameter<String>, screen: Parameter<CourseUpgradeScreen>, flowType: Parameter<UpgradeMode>) -> Verify { return Verify(method: .m_trackCourseUnfulfilledPurchaseInitiated__courseID_courseIDpacing_pacingscreen_screenflowType_flowType(`courseID`, `pacing`, `screen`, `flowType`))}
         public static func trackRestorePurchaseClicked() -> Verify { return Verify(method: .m_trackRestorePurchaseClicked)}
         public static func trackValuePropViewed(courseID: Parameter<String>, pacing: Parameter<String>, lmsPrice: Parameter<Double>, screen: Parameter<CourseUpgradeScreen>) -> Verify { return Verify(method: .m_trackValuePropViewed__courseID_courseIDpacing_pacinglmsPrice_lmsPricescreen_screen(`courseID`, `pacing`, `lmsPrice`, `screen`))}
-        public static func trackSelectionViewed(courseID: Parameter<String>, pacing: Parameter<String>, lmsPrice: Parameter<Double>, screen: Parameter<CourseUpgradeScreen>) -> Verify { return Verify(method: .m_trackSelectionViewed__courseID_courseIDpacing_pacinglmsPrice_lmsPricescreen_screen(`courseID`, `pacing`, `lmsPrice`, `screen`))}
-        public static func trackContinueWithFreeTrackClicked(courseID: Parameter<String>, pacing: Parameter<String>, lmsPrice: Parameter<Double>, screen: Parameter<CourseUpgradeScreen>) -> Verify { return Verify(method: .m_trackContinueWithFreeTrackClicked__courseID_courseIDpacing_pacinglmsPrice_lmsPricescreen_screen(`courseID`, `pacing`, `lmsPrice`, `screen`))}
+        public static func trackSelectionViewed(courseID: Parameter<String>, pacing: Parameter<String>, lmsPrice: Parameter<Double>) -> Verify { return Verify(method: .m_trackSelectionViewed__courseID_courseIDpacing_pacinglmsPrice_lmsPrice(`courseID`, `pacing`, `lmsPrice`))}
+        public static func trackContinueWithFreeTrackClicked(courseID: Parameter<String>, pacing: Parameter<String>, lmsPrice: Parameter<Double>) -> Verify { return Verify(method: .m_trackContinueWithFreeTrackClicked__courseID_courseIDpacing_pacinglmsPrice_lmsPrice(`courseID`, `pacing`, `lmsPrice`))}
         public static func trackEvent(_ event: Parameter<AnalyticsEvent>) -> Verify { return Verify(method: .m_trackEvent__event(`event`))}
         public static func trackEvent(_ event: Parameter<AnalyticsEvent>, biValue: Parameter<EventBIValue>) -> Verify { return Verify(method: .m_trackEvent__eventbiValue_biValue(`event`, `biValue`))}
         public static func trackScreenEvent(_ event: Parameter<AnalyticsEvent>) -> Verify { return Verify(method: .m_trackScreenEvent__event(`event`))}
@@ -1870,11 +1867,11 @@ open class CoreAnalyticsMock: CoreAnalytics, Mock {
         public static func trackValuePropViewed(courseID: Parameter<String>, pacing: Parameter<String>, lmsPrice: Parameter<Double>, screen: Parameter<CourseUpgradeScreen>, perform: @escaping (String, String, Double, CourseUpgradeScreen) -> Void) -> Perform {
             return Perform(method: .m_trackValuePropViewed__courseID_courseIDpacing_pacinglmsPrice_lmsPricescreen_screen(`courseID`, `pacing`, `lmsPrice`, `screen`), performs: perform)
         }
-        public static func trackSelectionViewed(courseID: Parameter<String>, pacing: Parameter<String>, lmsPrice: Parameter<Double>, screen: Parameter<CourseUpgradeScreen>, perform: @escaping (String, String, Double, CourseUpgradeScreen) -> Void) -> Perform {
-            return Perform(method: .m_trackSelectionViewed__courseID_courseIDpacing_pacinglmsPrice_lmsPricescreen_screen(`courseID`, `pacing`, `lmsPrice`, `screen`), performs: perform)
+        public static func trackSelectionViewed(courseID: Parameter<String>, pacing: Parameter<String>, lmsPrice: Parameter<Double>, perform: @escaping (String, String, Double) -> Void) -> Perform {
+            return Perform(method: .m_trackSelectionViewed__courseID_courseIDpacing_pacinglmsPrice_lmsPrice(`courseID`, `pacing`, `lmsPrice`), performs: perform)
         }
-        public static func trackContinueWithFreeTrackClicked(courseID: Parameter<String>, pacing: Parameter<String>, lmsPrice: Parameter<Double>, screen: Parameter<CourseUpgradeScreen>, perform: @escaping (String, String, Double, CourseUpgradeScreen) -> Void) -> Perform {
-            return Perform(method: .m_trackContinueWithFreeTrackClicked__courseID_courseIDpacing_pacinglmsPrice_lmsPricescreen_screen(`courseID`, `pacing`, `lmsPrice`, `screen`), performs: perform)
+        public static func trackContinueWithFreeTrackClicked(courseID: Parameter<String>, pacing: Parameter<String>, lmsPrice: Parameter<Double>, perform: @escaping (String, String, Double) -> Void) -> Perform {
+            return Perform(method: .m_trackContinueWithFreeTrackClicked__courseID_courseIDpacing_pacinglmsPrice_lmsPrice(`courseID`, `pacing`, `lmsPrice`), performs: perform)
         }
         public static func trackEvent(_ event: Parameter<AnalyticsEvent>, perform: @escaping (AnalyticsEvent) -> Void) -> Perform {
             return Perform(method: .m_trackEvent__event(`event`), performs: perform)

@@ -29,7 +29,6 @@ public final class TrackSelectionViewModel: ObservableObject {
     public init(
         courseID: String,
         productName: String,
-        screen: CourseUpgradeScreen,
         sku: String,
         pacing: String,
         lmsPrice: Double,
@@ -46,7 +45,7 @@ public final class TrackSelectionViewModel: ObservableObject {
             message: "",
             sku: sku,
             courseID: courseID,
-            screen: screen,
+            screen: .trackSelection,
             handler: handler,
             pacing: pacing,
             analytics: analytics,
@@ -107,7 +106,7 @@ public final class TrackSelectionViewModel: ObservableObject {
     func proceed() async {
         switch selectedCard {
         case .certificate:
-            await upgradeViewModel.purchase(mode: .trackSelection)
+            await upgradeViewModel.purchase()
         case .free:
             trackContinueWithFreeTrackClicked()
             dismiss()
@@ -169,8 +168,7 @@ public final class TrackSelectionViewModel: ObservableObject {
         analytics.trackSelectionViewed(
             courseID: upgradeViewModel.courseID,
             pacing: upgradeViewModel.pacing,
-            lmsPrice: upgradeViewModel.lmsPrice,
-            screen: upgradeViewModel.screen
+            lmsPrice: upgradeViewModel.lmsPrice
         )
     }
 
@@ -178,8 +176,7 @@ public final class TrackSelectionViewModel: ObservableObject {
         analytics.trackContinueWithFreeTrackClicked(
             courseID: upgradeViewModel.courseID,
             pacing: upgradeViewModel.pacing,
-            lmsPrice: upgradeViewModel.lmsPrice,
-            screen: upgradeViewModel.screen
+            lmsPrice: upgradeViewModel.lmsPrice
         )
     }
 }
