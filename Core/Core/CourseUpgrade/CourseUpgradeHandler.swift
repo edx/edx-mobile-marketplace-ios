@@ -9,6 +9,7 @@ import Foundation
 
 public enum CourseUpgradeScreen: String {
     case dashboard
+    case trackSelection = "track_selection"
     case courseDashboard = "course_dashboard"
     case courseComponent = "course_component"
     case unknown
@@ -17,16 +18,10 @@ public enum CourseUpgradeScreen: String {
 public enum UpgradeMode: String {
     case silent
     case userInitiated = "user_initiated"
-    case trackSelection = "track_selection"
     case restore
 
     var isUserInitiated: Bool {
-        switch self {
-        case .userInitiated, .trackSelection:
-            return true
-        case .silent, .restore:
-            return false
-        }
+        return self == .userInitiated
     }
 }
 

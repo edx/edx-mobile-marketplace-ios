@@ -475,7 +475,6 @@ public class CourseContainerViewModel: BaseCourseViewModel {
         router.showTrackSelection(
             courseID: structure.id,
             productName: structure.displayName,
-            screen: .courseDashboard,
             sku: sku,
             pacing: structure.isSelfPaced ? Pacing.selfPace.rawValue : Pacing.instructor.rawValue,
             lmsPrice: lmsPrice,

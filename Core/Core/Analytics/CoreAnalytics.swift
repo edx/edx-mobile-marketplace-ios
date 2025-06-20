@@ -107,15 +107,13 @@ public protocol CoreAnalytics {
     func trackSelectionViewed(
         courseID: String,
         pacing: String,
-        lmsPrice: Double,
-        screen: CourseUpgradeScreen
+        lmsPrice: Double
     )
 
     func trackContinueWithFreeTrackClicked(
         courseID: String,
         pacing: String,
-        lmsPrice: Double,
-        screen: CourseUpgradeScreen
+        lmsPrice: Double
     )
 }
 
@@ -237,15 +235,13 @@ public class CoreAnalyticsMock: CoreAnalytics {
     public func trackSelectionViewed(
         courseID: String,
         pacing: String,
-        lmsPrice: Double,
-        screen: CourseUpgradeScreen
+        lmsPrice: Double
     ) {}
 
     public func trackContinueWithFreeTrackClicked(
         courseID: String,
         pacing: String,
-        lmsPrice: Double,
-        screen: CourseUpgradeScreen
+        lmsPrice: Double
     ) {}
 }
 #endif
