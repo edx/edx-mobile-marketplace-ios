@@ -183,6 +183,9 @@ public struct CourseContainerView: View {
     private var tabs: some View {
         TabView(selection: $viewModel.selection) {
             if let courseStart = viewModel.courseStart, courseStart > Date() {
+                // NEEDS WORK. Need to remove that view from that place and move to inner tab's views
+                // Becuase it needs bindings for `coordinate`, `collapsed`, `viewHeight` that used by
+                // DynamicOffsetView
                 UpgradeCourseView(
                     type: viewModel.type(for: actualAccess) ?? .startDateError(date: courseStart),
                     coordinate: $coordinate,
@@ -191,9 +194,11 @@ public struct CourseContainerView: View {
                     shouldShowUpgradeButton: $viewModel.shouldShowUpgradeButton,
                     shouldHideMenuBar: $viewModel.shouldHideMenuBar,
                     backAction: {
+                        // NEEDS WORK. That should be implemented by plugin's router
                         viewModel.router.back()
                     },
                     findAction: {
+                        // NEEDS WORK. That should be implemented by plugin's router
                         viewModel.router.backToRoot(animated: true)
                         viewModel.router.showTabScreen(tab: .discovery)
                     }
@@ -204,6 +209,9 @@ public struct CourseContainerView: View {
                     }
             } else {
                 if let type = viewModel.type(for: actualAccess) {
+                    // NEEDS WORK. Need to remove that view from that place and move to inner tab's views
+                    // Becuase it needs bindings for `coordinate`, `collapsed`, `viewHeight` that used by
+                    // DynamicOffsetView
                     UpgradeCourseView(
                         type: type,
                         coordinate: $coordinate,
@@ -212,9 +220,11 @@ public struct CourseContainerView: View {
                         shouldShowUpgradeButton: $viewModel.shouldShowUpgradeButton,
                         shouldHideMenuBar: $viewModel.shouldHideMenuBar,
                         backAction: {
+                            // NEEDS WORK. That should be implemented by plugin's router
                             viewModel.router.back()
                         },
                         findAction: {
+                            // NEEDS WORK. That should be implemented by plugin's router
                             viewModel.router.backToRoot(animated: true)
                             viewModel.router.showTabScreen(tab: .discovery)
                         }
@@ -431,7 +441,8 @@ struct CourseScreensView_Previews: PreviewProvider {
                 lastVisitedBlockID: nil,
                 coreAnalytics: CoreAnalyticsMock(),
                 serverConfig: ServerConfigProtocolMock(),
-                courseHelper: CourseDownloadHelper(courseStructure: nil, manager: DownloadManagerMock())
+                courseHelper: CourseDownloadHelper(courseStructure: nil, manager: DownloadManagerMock()),
+                iapService: nil
             ),
             courseDatesViewModel: CourseDatesViewModel(
                 interactor: CourseInteractor.mock,

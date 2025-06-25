@@ -344,6 +344,7 @@ public extension DataLayer {
 }
 
 extension DataLayer.CourseStructure {
+    // NEEDS WORK. Should be removed
     var isUpgradeable: Bool {
         guard let start = courseStart,
               let upgradeDeadline = enrollmentDetails?.upgradeDeadline,

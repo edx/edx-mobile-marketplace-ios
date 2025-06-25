@@ -12,7 +12,7 @@ public struct EDXProductInfo: IAPProductInfo {
     public var courseID: String
     public var isSelfPaced: Bool
     public var lmsPrice: Double
-    
+    // NEEDS WORK. Need to add info for course access: isUpgradeable, coursewareAccess and etc.
     public init(
         productName: String,
         sku: String,

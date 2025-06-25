@@ -71,6 +71,11 @@ public struct UpgradeCourseView: View {
                         of: CoreLocalization.CourseUpgrade.View.datePlaceholder,
                         with: date?.dateToString(style: .monthDayYear, useRelativeDates: false) ?? ""
                     )
+                // NEEDS WORK. Two options here:
+                // 1) use view from plugin without headerView and place that view into each tab CourseOutlineView,
+                // CourseDatesView, OfflineView, DiscussionTopicsView, HandoutsView
+                // 2) remove headerView animation on scrolling and use only static headerView that will be created by
+                // plugin
                 UpgradeInfoView(
                     isFindCourseButtonVisible: true,
                     viewModel: Container.shared.resolve(

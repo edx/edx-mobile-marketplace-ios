@@ -205,7 +205,7 @@ public struct CourseOutlineView: View {
                             maxHeight: .infinity)
                 }
             }
-            // NEEDS WORK
+            // NEEDS WORK. Plugin have method to show snackbar.
 //            .paymentSnackbar()
         }
         .onAppear {
@@ -363,7 +363,8 @@ struct CourseOutlineView_Previews: PreviewProvider {
             lastVisitedBlockID: nil,
             coreAnalytics: CoreAnalyticsMock(),
             serverConfig: ServerConfigProtocolMock(),
-            courseHelper: CourseDownloadHelper(courseStructure: nil, manager: DownloadManagerMock())
+            courseHelper: CourseDownloadHelper(courseStructure: nil, manager: DownloadManagerMock()),
+            iapService: nil
         )
         Task {
             await withTaskGroup(of: Void.self) { group in

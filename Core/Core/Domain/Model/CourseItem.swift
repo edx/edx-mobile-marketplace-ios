@@ -86,6 +86,9 @@ public struct CourseItem: Hashable, Sendable {
 }
 
 extension CourseItem {
+    // NEEDS WORK. Should be removed. Move that logic to info object from plugin.
+    // To check for purchase view ask view(for:) method from plugin.
+    // If it will return nil then think that isUpgradeable is false.
     public var isUpgradeable: Bool {
         guard let upgradeDeadline = dynamicUpgradeDeadline, mode == .audit else {
             return false

@@ -210,6 +210,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 provider: .init(
                     request: { product in
                         let interactor = Container.shared.resolve(CourseInteractorProtocol.self)
+                        // NEEDS WORK. Remove interactor and use API call to
+                        // retrieve Data object, serialize and create product
                         if let courseStructure = try await interactor?.getCourseBlocks(courseID: product.id) {
                             return EDXProductInfo(
                                 productName: courseStructure.displayName,

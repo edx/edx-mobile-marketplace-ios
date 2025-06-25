@@ -28,7 +28,7 @@ public struct CourseCellView: View {
     private var cellsCount: Int
     
     private var idiom: UIUserInterfaceIdiom { UIDevice.current.userInterfaceIdiom }
-    private var isUpgradeable: Bool
+    private var isUpgradeable: Bool // NEEDS WORK. Should be removed.
     private var upgradeAction: (() -> Void)?
     
     public init(
@@ -62,6 +62,7 @@ public struct CourseCellView: View {
                     .aspectRatio(contentMode: .fill)
                     .frame(width: idiom == .pad ? 171 : 105, height: 105)
                     .clipShape(
+                        // NEEDS WORK. Replace that to view(for:) call from plugin.
                         RoundedCorners(
                             tl: Theme.Shapes.cardImageRadius,
                             tr: Theme.Shapes.cardImageRadius,
@@ -113,6 +114,7 @@ public struct CourseCellView: View {
                 .padding(10)
                 Spacer()
             }
+            // NEEDS WORK. Replace that to view(for:) call from plugin.
             if isUpgradeable {
                 StyledButton(
                     CoreLocalization.CourseUpgrade.Button.upgrade,

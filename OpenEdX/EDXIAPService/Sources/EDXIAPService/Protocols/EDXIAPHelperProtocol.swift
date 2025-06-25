@@ -8,5 +8,5 @@
 @MainActor
 protocol EDXIAPHelperProtocol {
     func product(for object: Any) -> EDXProduct?
-    func info(for product: EDXProduct) async throws -> EDXProductInfo
+    func info(for object: Any) async throws -> EDXProductInfo
 }

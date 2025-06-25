@@ -104,7 +104,8 @@ struct LargestDownloadsView_Previews: PreviewProvider {
             lastVisitedBlockID: nil,
             coreAnalytics: CoreAnalyticsMock(),
             serverConfig: ServerConfigProtocolMock(),
-            courseHelper: CourseDownloadHelper(courseStructure: nil, manager: DownloadManagerMock())
+            courseHelper: CourseDownloadHelper(courseStructure: nil, manager: DownloadManagerMock()),
+            iapService: nil
         )
         
         LargestDownloadsView(viewModel: vm)

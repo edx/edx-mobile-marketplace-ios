@@ -8,6 +8,7 @@
 import SwiftUI
 import Theme
 
+// NEEDS WORK. Moved to plugin. That should be removed.
 public struct UpgradeInfoView<Content>: View where Content: View {
     let isFindCourseButtonVisible: Bool
     private let headerView: () -> Content

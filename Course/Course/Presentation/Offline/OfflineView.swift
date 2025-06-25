@@ -268,7 +268,8 @@ struct OfflineView: View {
         lastVisitedBlockID: nil,
         coreAnalytics: CoreAnalyticsMock(),
         serverConfig: ServerConfigProtocolMock(),
-        courseHelper: CourseDownloadHelper(courseStructure: nil, manager: DownloadManagerMock())
+        courseHelper: CourseDownloadHelper(courseStructure: nil, manager: DownloadManagerMock()),
+        iapService: nil
     )
     
     OfflineView(

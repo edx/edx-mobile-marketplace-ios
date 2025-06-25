@@ -69,6 +69,9 @@ public extension DataLayer {
             return mode?.lmsPrice
         }
         
+        // NEEDS WORK. Should be removed. Move that logic to info object from plugin.
+        // To check for purchase view ask view(for:) method from plugin.
+        // If it will return nil then think that isUpgradeable is false.
         var isUpgradeable: Bool {
             guard let start = course?.start,
                   let upgradeDeadline = course?.dynamicUpgradeDeadline,

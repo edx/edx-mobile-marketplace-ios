@@ -41,11 +41,25 @@ public class EDXIAPService: IAPServiceProtocol, EDXIAPHelperProtocol {
         provider.product(for: object)
     }
     
-    public func info(for product: EDXProduct) async throws -> ProductInfo {
-        try await provider.requestInfo(for: product)
+    public func info(for object: Any) async throws -> ProductInfo {
+        var product: EDXProduct?
+        if let object = object as? EDXProduct {
+            product = object
+        } else {
+            product = provider.product(for: object)
+        }
+        
+        guard let product = product else {
+            throw EDXIAPError.cantGetProduct
+        }
+
+        return try await provider.requestInfo(for: product)
     }
     
-    public func buy(product: Product) {}
+    public func buy(product: Product) -> IAPPurchaseResult {
+        // NEEDS WORK - remove purchase logic from handler and move it here.
+        EDXPurchaseResult(isSuccess: true, receipt: nil, error: nil)
+    }
     
     public func view(for object: Any) -> AnyView? {
         guard let product = product(for: object) else { return nil }
@@ -68,5 +82,11 @@ public class EDXIAPService: IAPServiceProtocol, EDXIAPHelperProtocol {
                     )
             })
         )
+    }
+}
+
+extension EDXIAPService {
+    enum EDXIAPError: Error {
+        case cantGetProduct
     }
 }

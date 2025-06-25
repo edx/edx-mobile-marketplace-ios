@@ -49,10 +49,12 @@ public struct PrimaryCourse: Hashable, Sendable {
     public let auditAccessExpires: Date?
     public let startDisplay: Date?
     public let startType: DisplayStartType?
-    public let isUpgradeable: Bool
-    public let sku: String?
-    public let lmsPrice: Double?
-    public let isSelfPaced: Bool
+    public let isUpgradeable: Bool // NEEDS WORK. Should be removed.
+    // To check for purchase view ask view(for:) method from plugin.
+    // If it will return nil then think that isUpgradeable is false.
+    public let sku: String? // NEEDS WORK. Should be removed.
+    public let lmsPrice: Double? // NEEDS WORK. Should be removed.
+    public let isSelfPaced: Bool // NEEDS WORK. Should be removed.
     public init(
         name: String,
         org: String,

@@ -187,7 +187,8 @@ public class CourseUpgradeHelper: @preconcurrency CourseUpgradeHelperProtocol {
         Task {
             await router.showSnackbar(animated: true, style: style)
         }
-//        NotificationCenter.default.post(name: .courseUpgradeCompletionNotification, object: showLoader) // NEEDS WORK
+//        NotificationCenter.default.post(name: .courseUpgradeCompletionNotification, object: showLoader) // NEEDS WORK.
+        // Need to think how to update main codebase after purchasing
     }
     
     private func showDashboardScreen() {

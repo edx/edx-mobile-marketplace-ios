@@ -83,6 +83,8 @@ public final class CourseContainerViewModel: BaseCourseViewModel {
     @Published var realDownloadedFilesSize: Int = 0
     @Published var largestDownloadBlocks: [CourseBlock] = []
     @Published var downloadAllButtonState: OfflineView.DownloadAllState = .start
+    var info: IAPProductInfo?
+    let iapService: (any IAPServiceProtocol)?
     
     let completionPublisher = NotificationCenter.default.publisher(for: .onblockCompletionRequested)
     
@@ -143,7 +145,8 @@ public final class CourseContainerViewModel: BaseCourseViewModel {
         coreAnalytics: CoreAnalytics,
         selection: CourseTab = CourseTab.course,
         serverConfig: ServerConfigProtocol,
-        courseHelper: CourseDownloadHelperProtocol
+        courseHelper: CourseDownloadHelperProtocol,
+        iapService: (any IAPServiceProtocol)?
     ) {
         self.interactor = interactor
         self.authInteractor = authInteractor
@@ -163,7 +166,7 @@ public final class CourseContainerViewModel: BaseCourseViewModel {
         self.coreAnalytics = coreAnalytics
         self.selection = selection.rawValue
         self.serverConfig = serverConfig
-        
+        self.iapService = iapService
         self.courseHelper = courseHelper
         self.courseHelper.videoQuality = storage.userSettings?.downloadQuality ?? .auto
         super.init(manager: manager)
@@ -258,6 +261,9 @@ public final class CourseContainerViewModel: BaseCourseViewModel {
         isShowRefresh = !withProgress
         do {
             let courseStructure = try await getCourseStructure(courseID: courseID)
+            if let courseStructure, let info = try await iapService?.info(for: courseStructure) {
+                self.info = info
+            }
             courseHelper.courseStructure = courseStructure
             await courseHelper.refreshValue()
             update(from: courseHelper.value ?? .empty)

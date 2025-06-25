@@ -23,10 +23,10 @@ public struct CourseStructure: Equatable, Sendable {
     public let media: CourseMedia
     public let certificate: Certificate?
     public let org: String
-    public let isSelfPaced: Bool
-    public let isUpgradeable: Bool
-    public let sku: String?
-    public let coursewareAccessDetails: CoursewareAccessDetails?
+    public let isSelfPaced: Bool // NEEDS WORK. Should be removed.
+    public let isUpgradeable: Bool // NEEDS WORK. Should be removed.
+    public let sku: String? // NEEDS WORK. Should be removed.
+    public let coursewareAccessDetails: CoursewareAccessDetails? // NEEDS WORK. Should be removed.
     public let courseProgress: CourseProgress?
     public let lmsPrice: Double?
     

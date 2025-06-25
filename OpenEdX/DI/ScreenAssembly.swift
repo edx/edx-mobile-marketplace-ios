@@ -399,7 +399,8 @@ class ScreenAssembly: Assembly {
                 coreAnalytics: r.resolve(CoreAnalytics.self)!,
                 selection: selection,
                 serverConfig: r.resolve(ServerConfigProtocol.self)!,
-                courseHelper: r.resolve(CourseDownloadHelperProtocol.self)!
+                courseHelper: r.resolve(CourseDownloadHelperProtocol.self)!,
+                iapService: r.resolve(PluginManager.self)?.iapService
             )
         }
         container.register(
