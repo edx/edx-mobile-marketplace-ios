@@ -62,6 +62,7 @@ public class EDXIAPService: IAPServiceProtocol, EDXIAPHelperProtocol {
     }
     
     public func view(for object: Any) -> AnyView? {
+        // NEEDS WORK. Implement other views
         guard let product = product(for: object) else { return nil }
         let upgradeHandler = CourseUpgradeHandler(
             validator: validator,
