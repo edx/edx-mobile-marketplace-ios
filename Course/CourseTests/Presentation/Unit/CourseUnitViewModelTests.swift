@@ -161,7 +161,7 @@ final class CourseUnitViewModelTests: XCTestCase {
             storage: CourseStorageMock(),
             manager: DownloadManagerMock(),
             serverConfig: ServerConfigProtocolMock(),
-            courseStructureHolder: CourseStructureHolderMock(),
+            courseStructureHolder: CourseStructureHolderMock()
         )
         
         Given(interactor, .blockCompletionRequest(courseID: .any, blockID: .any, willProduce: {_ in}))
@@ -193,7 +193,7 @@ final class CourseUnitViewModelTests: XCTestCase {
             storage: CourseStorageMock(),
             manager: DownloadManagerMock(),
             serverConfig: ServerConfigProtocolMock(),
-            courseStructureHolder: CourseStructureHolderMock(),
+            courseStructureHolder: CourseStructureHolderMock()
         )
         
         Given(interactor, .blockCompletionRequest(courseID: .any,
@@ -230,7 +230,7 @@ final class CourseUnitViewModelTests: XCTestCase {
             storage: CourseStorageMock(),
             manager: DownloadManagerMock(),
             serverConfig: ServerConfigProtocolMock(),
-            courseStructureHolder: CourseStructureHolderMock(),
+            courseStructureHolder: CourseStructureHolderMock()
         )
         
         let noInternetError = AFError.sessionInvalidated(error: URLError(.notConnectedToInternet))
@@ -269,7 +269,7 @@ final class CourseUnitViewModelTests: XCTestCase {
             storage: CourseStorageMock(),
             manager: DownloadManagerMock(),
             serverConfig: ServerConfigProtocolMock(),
-            courseStructureHolder: CourseStructureHolderMock(),
+            courseStructureHolder: CourseStructureHolderMock()
         )
         
         Given(interactor, .blockCompletionRequest(courseID: .any,
@@ -307,7 +307,7 @@ final class CourseUnitViewModelTests: XCTestCase {
             storage: CourseStorageMock(),
             manager: DownloadManagerMock(),
             serverConfig: ServerConfigProtocolMock(),
-            courseStructureHolder: CourseStructureHolderMock(),
+            courseStructureHolder: CourseStructureHolderMock()
         )
         
         viewModel.loadIndex()
