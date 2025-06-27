@@ -12,7 +12,7 @@ public struct GatedContentView: View {
     @StateObject var viewModel: UpgradeInfoViewModel
     
     public init(
-        viewModel: UpgradeInfoViewModel,
+        viewModel: UpgradeInfoViewModel
     ) {
         self._viewModel = .init(wrappedValue: viewModel)
     }
