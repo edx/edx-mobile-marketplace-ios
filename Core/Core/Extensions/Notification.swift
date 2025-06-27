@@ -22,6 +22,7 @@ public extension Notification.Name {
     static let profileUpdated = Notification.Name("profileUpdated")
     static let unfullfilledTransctionsNotification = Notification.Name("unfullfilledTransctionsNotification")
     static let courseUpgradeCompletionNotification = Notification.Name("CourseUpgradeCompletionNotification")
+    static let courseDataUpdatedNotification = Notification.Name("courseDataUpdatedNotification")
     static let getCourseDates = Notification.Name("getCourseDates")
     static let refreshEnrollments = Notification.Name("refreshEnrollments")
     static let notificationRegistration = Notification.Name("notificationRegistration")

@@ -293,7 +293,8 @@ public class CourseRepository: CourseRepositoryProtocol {
                     type: .hls
                 )
             ),
-            multiDevice: block.multiDevice
+            multiDevice: block.multiDevice,
+            authorizationDenialReason: AuthorizationDenialReason(rawValue: block.authorizationDenialReason ?? AuthorizationDenialReason.none.rawValue) ?? AuthorizationDenialReason.none
         )
     }
     
@@ -579,7 +580,8 @@ And there are various ways of describing it-- call it oral poetry or
                     type: .hls
                 )
             ),
-            multiDevice: block.multiDevice
+            multiDevice: block.multiDevice,
+            authorizationDenialReason: AuthorizationDenialReason(rawValue: block.authorizationDenialReason ?? AuthorizationDenialReason.none.rawValue) ?? AuthorizationDenialReason.none
         )
     }
 

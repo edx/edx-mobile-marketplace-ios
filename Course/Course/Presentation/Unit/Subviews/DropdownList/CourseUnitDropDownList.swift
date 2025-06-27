@@ -58,7 +58,8 @@ struct CourseUnitDropDownList_Previews: PreviewProvider {
                 studentUrl: "",
                 webUrl: "",
                 encodedVideo: nil,
-                multiDevice: true
+                multiDevice: true,
+                authorizationDenialReason: .none
             ),
             CourseBlock(
                 blockId: "2",
@@ -73,7 +74,8 @@ struct CourseUnitDropDownList_Previews: PreviewProvider {
                 studentUrl: "2",
                 webUrl: "2",
                 encodedVideo: nil,
-                multiDevice: false
+                multiDevice: false,
+                authorizationDenialReason: .none
             ),
             CourseBlock(
                 blockId: "3",
@@ -88,7 +90,8 @@ struct CourseUnitDropDownList_Previews: PreviewProvider {
                 studentUrl: "3",
                 webUrl: "3",
                 encodedVideo: nil,
-                multiDevice: true
+                multiDevice: true,
+                authorizationDenialReason: .none
             ),
             CourseBlock(
                 blockId: "4",
@@ -103,7 +106,8 @@ struct CourseUnitDropDownList_Previews: PreviewProvider {
                 studentUrl: "4",
                 webUrl: "4",
                 encodedVideo: nil,
-                multiDevice: false
+                multiDevice: false,
+                authorizationDenialReason: .none
             )
         ]
         

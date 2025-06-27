@@ -363,6 +363,7 @@ class ScreenAssembly: Assembly {
                 connectivity: r.resolve(ConnectivityProtocol.self)!,
                 manager: r.resolve(DownloadManagerProtocol.self)!,
                 storage: r.resolve(CourseStorage.self)!,
+                courseStructureHolder: r.resolve(CourseStructureHolderProtocol.self)!,
                 isActive: isActive,
                 courseStart: courseStart,
                 courseEnd: courseEnd,
@@ -405,7 +406,9 @@ class ScreenAssembly: Assembly {
                 analytics: r.resolve(CourseAnalytics.self)!,
                 connectivity: r.resolve(ConnectivityProtocol.self)!,
                 storage: r.resolve(CourseStorage.self)!,
-                manager: r.resolve(DownloadManagerProtocol.self)!
+                manager: r.resolve(DownloadManagerProtocol.self)!,
+                serverConfig: r.resolve(ServerConfigProtocol.self)!,
+                courseStructureHolder: r.resolve(CourseStructureHolderProtocol.self)!
             )
         }
         

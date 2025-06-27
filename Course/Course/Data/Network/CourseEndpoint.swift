@@ -25,7 +25,7 @@ enum CourseEndpoint: EndPointType {
     var path: String {
         switch self {
         case .getCourseBlocks:
-            return "/api/mobile/v3/course_info/blocks/"
+            return "/api/mobile/v4/course_info/blocks/"
         case .pageHTML(let url):
             return "/xblock/\(url)"
         case .blockCompletionRequest:

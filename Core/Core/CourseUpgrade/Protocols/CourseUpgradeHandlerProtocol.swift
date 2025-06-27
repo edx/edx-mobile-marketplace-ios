@@ -24,6 +24,8 @@ public protocol CourseUpgradeHandlerProtocol {
     ) async
     
     func fetchProduct(sku: String) async throws -> StoreProductInfo
+    
+    func removeLoader()
 }
 
 #if DEBUG
@@ -45,5 +47,7 @@ public class CourseUpgradeHandlerProtocolMock: CourseUpgradeHandlerProtocol {
     public func fetchProduct(sku: String) async throws -> StoreProductInfo {
         StoreProductInfo(price: .zero)
     }
+    
+    public func removeLoader() {}
 }
 #endif

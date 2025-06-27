@@ -192,4 +192,8 @@ public class UpgradeInfoViewModel: ObservableObject {
             screen: screen
         )
     }
+    
+    public func removeLoader() {
+        handler.removeLoader()
+    }
 }

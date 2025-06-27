@@ -403,6 +403,7 @@ struct CourseScreensView_Previews: PreviewProvider {
                 connectivity: Connectivity(),
                 manager: DownloadManagerMock(),
                 storage: CourseStorageMock(),
+                courseStructureHolder: CourseStructureHolderMock(),
                 isActive: true,
                 courseStart: nil,
                 courseEnd: nil,

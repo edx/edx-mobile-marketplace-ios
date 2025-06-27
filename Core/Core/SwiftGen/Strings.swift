@@ -208,6 +208,10 @@ public enum CoreLocalization {
       public static let datePlaceholder = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.VIEW.DATE_PLACEHOLDER", fallback: "#####")
       /// Your free audit access to this course expired on #####.
       public static let endDateMessage = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.VIEW.END_DATE_MESSAGE", fallback: "Your free audit access to this course expired on #####.")
+      /// Upgrade to gain access to locked features like this one and get the most out of your course.
+      public static let gatedContentMessage = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.VIEW.GATED_CONTENT_MESSAGE", fallback: "Upgrade to gain access to locked features like this one and get the most out of your course.")
+      /// Graded assignment are locked
+      public static let gatedContentTitle = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.VIEW.GATED_CONTENT_TITLE", fallback: "Graded assignment are locked")
       /// This course will begin on #####. Come back then to start learning!
       public static let startDateMessage = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.VIEW.START_DATE_MESSAGE", fallback: "This course will begin on #####. Come back then to start learning!")
       /// Upgrade
@@ -217,8 +221,8 @@ public enum CoreLocalization {
         public static let upgradeNow = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.VIEW.BUTTON.UPGRADE_NOW", fallback: "Upgrade now for")
       }
       public enum Option {
-        /// Earn a certificate of completion to showcase on your resume
-        public static let first = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.VIEW.OPTION.FIRST", fallback: "Earn a certificate of completion to showcase on your resume")
+        /// Earn a verified certificate of completion to showcase on your resume
+        public static let first = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.VIEW.OPTION.FIRST", fallback: "Earn a verified certificate of completion to showcase on your resume")
         /// Unlock access to all course activities, including graded assignments
         public static let second = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.VIEW.OPTION.SECOND", fallback: "Unlock access to all course activities, including graded assignments")
         /// Full access to course content and course material even after the course ends

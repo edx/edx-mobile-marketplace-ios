@@ -107,6 +107,7 @@ public class CourseContainerViewModel: BaseCourseViewModel {
     let analytics: CourseAnalytics
     let coreAnalytics: CoreAnalytics
     private(set) var storage: CourseStorage
+    private(set) var courseStructureHolder: CourseStructureHolderProtocol
     private var courseID: String?
     private var canShowTrackSelection: Bool
     let serverConfig: ServerConfigProtocol
@@ -121,6 +122,7 @@ public class CourseContainerViewModel: BaseCourseViewModel {
         connectivity: ConnectivityProtocol,
         manager: DownloadManagerProtocol,
         storage: CourseStorage,
+        courseStructureHolder: CourseStructureHolderProtocol,
         isActive: Bool?,
         courseStart: Date?,
         courseEnd: Date?,
@@ -144,6 +146,7 @@ public class CourseContainerViewModel: BaseCourseViewModel {
         self.enrollmentStart = enrollmentStart
         self.enrollmentEnd = enrollmentEnd
         self.storage = storage
+        self.courseStructureHolder = courseStructureHolder
         self.userSettings = storage.userSettings
         self.isInternetAvaliable = connectivity.isInternetAvaliable
         self.lastVisitedBlockID = lastVisitedBlockID
@@ -208,6 +211,7 @@ public class CourseContainerViewModel: BaseCourseViewModel {
             }
             group.addTask {
                 await self.getCourseBlocks(courseID: courseID)
+                NotificationCenter.default.post(name: .courseDataUpdatedNotification, object: nil)
             }
             group.addTask {
                 await self.getCourseDeadlineInfo(courseID: courseID, withProgress: false)
@@ -251,6 +255,8 @@ public class CourseContainerViewModel: BaseCourseViewModel {
         isShowRefresh = !withProgress
         do {
             let courseStructure = try await getCourseStructure(courseID: courseID)
+            courseStructureHolder.value = courseStructure
+            
             await setDownloadsStates(courseStructure: courseStructure)
             self.courseStructure = courseStructure
             let type = type(for: courseStructure?.coursewareAccessDetails?.coursewareAccess)

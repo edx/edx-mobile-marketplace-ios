@@ -54,6 +54,8 @@ public class DashboardRepository: DashboardRepositoryProtocol {
     }
     
     public func getEnrollmentsOffline() async throws -> [CourseItem] {
+        let config = try persistence.loadServerConfig()?.config
+        serverConfig.initialize(serverConfig: config)
         return try await persistence.loadEnrollments()
     }
     
@@ -75,6 +77,8 @@ public class DashboardRepository: DashboardRepositoryProtocol {
     }
     
     public func getPrimaryEnrollmentOffline() async throws -> PrimaryEnrollment {
+        let config = try persistence.loadServerConfig()?.config
+        serverConfig.initialize(serverConfig: config)
         return try await persistence.loadPrimaryEnrollment()
     }
     

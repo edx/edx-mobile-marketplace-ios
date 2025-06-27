@@ -162,7 +162,9 @@ struct CourseNavigationView_Previews: PreviewProvider {
             analytics: CourseAnalyticsMock(),
             connectivity: Connectivity(),
             storage: CourseStorageMock(),
-            manager: DownloadManagerMock()
+            manager: DownloadManagerMock(),
+            serverConfig: ServerConfigProtocolMock(),
+            courseStructureHolder: CourseStructureHolderMock()
         )
         
         CourseNavigationView(

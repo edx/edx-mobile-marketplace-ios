@@ -35,6 +35,7 @@ final class CourseContainerViewModelTests: XCTestCase {
             connectivity: connectivity,
             manager: DownloadManagerMock(), 
             storage: CourseStorageMock(),
+            courseStructureHolder: CourseStructureHolderMock(),
             isActive: true,
             courseStart: Date(),
             courseEnd: nil,
@@ -58,7 +59,8 @@ final class CourseContainerViewModelTests: XCTestCase {
             studentUrl: "",
             webUrl: "",
             encodedVideo: nil,
-            multiDevice: true
+            multiDevice: true,
+            authorizationDenialReason: .none
         )
         let vertical = CourseVertical(
             blockId: "",
@@ -154,6 +156,7 @@ final class CourseContainerViewModelTests: XCTestCase {
             connectivity: connectivity,
             manager: DownloadManagerMock(), 
             storage: CourseStorageMock(),
+            courseStructureHolder: CourseStructureHolderMock(),
             isActive: true,
             courseStart: Date(),
             courseEnd: nil,
@@ -220,6 +223,7 @@ final class CourseContainerViewModelTests: XCTestCase {
             connectivity: connectivity,
             manager: DownloadManagerMock(), 
             storage: CourseStorageMock(),
+            courseStructureHolder: CourseStructureHolderMock(),
             isActive: true,
             courseStart: Date(),
             courseEnd: nil,
@@ -264,6 +268,7 @@ final class CourseContainerViewModelTests: XCTestCase {
             connectivity: connectivity,
             manager: DownloadManagerMock(),
             storage: CourseStorageMock(),
+            courseStructureHolder: CourseStructureHolderMock(),
             isActive: true,
             courseStart: Date(),
             courseEnd: nil,
@@ -305,6 +310,7 @@ final class CourseContainerViewModelTests: XCTestCase {
             connectivity: connectivity,
             manager: DownloadManagerMock(), 
             storage: CourseStorageMock(),
+            courseStructureHolder: CourseStructureHolderMock(),
             isActive: true,
             courseStart: Date(),
             courseEnd: nil,
@@ -346,6 +352,7 @@ final class CourseContainerViewModelTests: XCTestCase {
             connectivity: connectivity,
             manager: DownloadManagerMock(), 
             storage: CourseStorageMock(),
+            courseStructureHolder: CourseStructureHolderMock(),
             isActive: true,
             courseStart: Date(),
             courseEnd: nil,
@@ -400,7 +407,8 @@ final class CourseContainerViewModelTests: XCTestCase {
                 mobileLow: nil,
                 hls: nil
             ),
-            multiDevice: true
+            multiDevice: true,
+            authorizationDenialReason: .none
 
         )
 
@@ -489,6 +497,7 @@ final class CourseContainerViewModelTests: XCTestCase {
             connectivity: connectivity,
             manager: downloadManager,
             storage: CourseStorageMock(),
+            courseStructureHolder: CourseStructureHolderMock(),
             isActive: true,
             courseStart: Date(),
             courseEnd: nil,
@@ -547,7 +556,8 @@ final class CourseContainerViewModelTests: XCTestCase {
                 mobileLow: nil,
                 hls: nil
             ),
-            multiDevice: true
+            multiDevice: true,
+            authorizationDenialReason: .none
         )
 
         let vertical = CourseVertical(
@@ -620,6 +630,7 @@ final class CourseContainerViewModelTests: XCTestCase {
             connectivity: connectivity,
             manager: downloadManager,
             storage: CourseStorageMock(),
+            courseStructureHolder: CourseStructureHolderMock(),
             isActive: true,
             courseStart: Date(),
             courseEnd: nil,
@@ -678,7 +689,8 @@ final class CourseContainerViewModelTests: XCTestCase {
                 mobileLow: nil,
                 hls: nil
             ),
-            multiDevice: true
+            multiDevice: true,
+            authorizationDenialReason: .none
         )
 
         let vertical = CourseVertical(
@@ -751,6 +763,7 @@ final class CourseContainerViewModelTests: XCTestCase {
             connectivity: connectivity,
             manager: downloadManager,
             storage: CourseStorageMock(),
+            courseStructureHolder: CourseStructureHolderMock(),
             isActive: true,
             courseStart: Date(),
             courseEnd: nil,
@@ -810,7 +823,8 @@ final class CourseContainerViewModelTests: XCTestCase {
                 mobileLow: nil,
                 hls: nil
             ),
-            multiDevice: true
+            multiDevice: true,
+            authorizationDenialReason: .none
         )
 
         let vertical = CourseVertical(
@@ -883,6 +897,7 @@ final class CourseContainerViewModelTests: XCTestCase {
             connectivity: connectivity,
             manager: downloadManager,
             storage: CourseStorageMock(),
+            courseStructureHolder: CourseStructureHolderMock(),
             isActive: true,
             courseStart: Date(),
             courseEnd: nil,
@@ -936,7 +951,8 @@ final class CourseContainerViewModelTests: XCTestCase {
                 mobileLow: nil,
                 hls: nil
             ),
-            multiDevice: true
+            multiDevice: true,
+            authorizationDenialReason: .none
         )
 
         let vertical = CourseVertical(
@@ -1024,6 +1040,7 @@ final class CourseContainerViewModelTests: XCTestCase {
             connectivity: connectivity,
             manager: downloadManager,
             storage: CourseStorageMock(),
+            courseStructureHolder: CourseStructureHolderMock(),
             isActive: true,
             courseStart: Date(),
             courseEnd: nil,
@@ -1077,7 +1094,8 @@ final class CourseContainerViewModelTests: XCTestCase {
                 mobileLow: nil,
                 hls: nil
             ),
-            multiDevice: true
+            multiDevice: true,
+            authorizationDenialReason: .none
         )
 
         let vertical = CourseVertical(
@@ -1165,6 +1183,7 @@ final class CourseContainerViewModelTests: XCTestCase {
             connectivity: connectivity,
             manager: downloadManager,
             storage: CourseStorageMock(),
+            courseStructureHolder: CourseStructureHolderMock(),
             isActive: true,
             courseStart: Date(),
             courseEnd: nil,
@@ -1217,7 +1236,8 @@ final class CourseContainerViewModelTests: XCTestCase {
                 mobileLow: nil,
                 hls: nil
             ),
-            multiDevice: true
+            multiDevice: true,
+            authorizationDenialReason: .none
         )
         let block2 = CourseBlock(
             blockId: "123",
@@ -1239,7 +1259,8 @@ final class CourseContainerViewModelTests: XCTestCase {
                 mobileLow: nil,
                 hls: nil
             ),
-            multiDevice: true
+            multiDevice: true,
+            authorizationDenialReason: .none
         )
 
         let vertical = CourseVertical(
@@ -1327,6 +1348,7 @@ final class CourseContainerViewModelTests: XCTestCase {
             connectivity: connectivity,
             manager: downloadManager,
             storage: CourseStorageMock(),
+            courseStructureHolder: CourseStructureHolderMock(),
             isActive: true,
             courseStart: Date(),
             courseEnd: nil,

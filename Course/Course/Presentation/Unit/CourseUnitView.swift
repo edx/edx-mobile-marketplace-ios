@@ -15,6 +15,7 @@ import Theme
 public struct CourseUnitView: View {
     
     @ObservedObject public var viewModel: CourseUnitViewModel
+    @State private var upgradeInfoViewModel: UpgradeInfoViewModel?
     @State private var showAlert: Bool = false
     @State var alertMessage: String? {
         didSet {
@@ -106,6 +107,7 @@ public struct CourseUnitView: View {
                     }
                 }
                 courseNavigation
+                    .paymentSnackbar()
             }
             .onDisappear {
                 if !isPresented {
@@ -169,117 +171,132 @@ public struct CourseUnitView: View {
                     if isDropdownActive {
                         videoTitle(block: block, width: reader.size.width)
                     }
-                    switch LessonType.from(block, streamingQuality: viewModel.streamingQuality) {
-                        // MARK: YouTube
-                    case let .youtube(url, blockID):
-                        if index == viewModel.index {
-                            if viewModel.connectivity.isInternetAvaliable {
-                                YouTubeView(
-                                    name: block.displayName,
-                                    url: url,
-                                    courseID: viewModel.courseID,
-                                    blockID: blockID,
-                                    playerStateSubject: playerStateSubject,
-                                    languages: block.subtitles ?? [],
-                                    isOnScreen: index == viewModel.index
-                                )
+                    
+                    if block.isGated {
+                        if viewModel.serverConfig.valuePropEnabled,
+                           let upgradeInfoViewModel = viewModel.upgradeInfoViewModel {
+                            GatedContentView(viewModel: upgradeInfoViewModel)
                                 .frameLimit(width: reader.size.width)
-
-                                if !isHorizontal {
-                                    Spacer(minLength: 150)
-                                }
-                            } else {
-                                FullScreenErrorView(type: .noInternet)
-                            }
-                            
                         } else {
-                            EmptyView()
-                        }
-                        // MARK: Encoded Video
-                    case let .video(encodedUrl, blockID):
-                        if index == viewModel.index {
-                            let url = viewModel.urlForVideoFileOrFallback(
-                                blockId: blockID,
-                                url: encodedUrl
-                            )
-                            if viewModel.connectivity.isInternetAvaliable || url?.isFileURL == true {
-                                EncodedVideoView(
-                                    name: block.displayName,
-                                    url: url,
-                                    courseID: viewModel.courseID,
-                                    blockID: blockID,
-                                    playerStateSubject: playerStateSubject,
-                                    languages: block.subtitles ?? [],
-                                    isOnScreen: index == viewModel.index
-                                )
-                                .padding(.top, 5)
-                                .frameLimit(width: reader.size.width)
-
-                                if !isHorizontal {
-                                    Spacer(minLength: 150)
+                            VStack(spacing: 0) {
+                                ScrollView {
+                                    NotAvailableOnMobileView(url: block.studentUrl)
+                                        .frameLimit(width: reader.size.width)
                                 }
-                            } else {
-                                FullScreenErrorView(type: .noInternet)
                             }
                         }
-                        // MARK: Web
-                    case let .web(url, injections):
-                        if index >= viewModel.index - 1 && index <= viewModel.index + 1 {
-                            if viewModel.connectivity.isInternetAvaliable {
-                                WebView(
-                                    url: url,
-                                    injections: injections,
-                                    roundedBackgroundEnabled: !viewModel.courseUnitProgressEnabled
-                                )
-                                // not need to add frame limit there because we did that with injection
-                            } else {
-                                FullScreenErrorView(type: .noInternet)
-                            }
-                        } else {
-                            EmptyView()
-                        }
-                        // MARK: Unknown
-                    case .unknown(let url):
-                        if index >= viewModel.index - 1 && index <= viewModel.index + 1 {
-                            if viewModel.connectivity.isInternetAvaliable {
-                                NotAvailableOnMobileView(url: url)
+                    } else {
+                        switch LessonType.from(block, streamingQuality: viewModel.streamingQuality) {
+                            // MARK: YouTube
+                        case let .youtube(url, blockID):
+                            if index == viewModel.index {
+                                if viewModel.connectivity.isInternetAvaliable {
+                                    YouTubeView(
+                                        name: block.displayName,
+                                        url: url,
+                                        courseID: viewModel.courseID,
+                                        blockID: blockID,
+                                        playerStateSubject: playerStateSubject,
+                                        languages: block.subtitles ?? [],
+                                        isOnScreen: index == viewModel.index
+                                    )
                                     .frameLimit(width: reader.size.width)
+
+                                    if !isHorizontal {
+                                        Spacer(minLength: 150)
+                                    }
+                                } else {
+                                    FullScreenErrorView(type: .noInternet)
+                                }
+                                
                             } else {
-                                FullScreenErrorView(type: .noInternet)
+                                EmptyView()
                             }
-                        } else {
-                            EmptyView()
-                        }
-                        // MARK: Discussion
-                    case let .discussion(blockID, blockKey, title):
-                        if index >= viewModel.index - 1 && index <= viewModel.index + 1 {
-                            if viewModel.connectivity.isInternetAvaliable {
-                                VStack {
-                                    if showDiscussion {
-                                        DiscussionView(
-                                            id: viewModel.courseID,
-                                            blockID: blockID,
-                                            blockKey: blockKey,
-                                            title: title,
-                                            viewModel: viewModel
-                                        )
-                                        Spacer(minLength: 100)
-                                    } else {
-                                        VStack {
-                                            Color.clear
+                            // MARK: Encoded Video
+                        case let .video(encodedUrl, blockID):
+                            if index == viewModel.index {
+                                let url = viewModel.urlForVideoFileOrFallback(
+                                    blockId: blockID,
+                                    url: encodedUrl
+                                )
+                                if viewModel.connectivity.isInternetAvaliable || url?.isFileURL == true {
+                                    EncodedVideoView(
+                                        name: block.displayName,
+                                        url: url,
+                                        courseID: viewModel.courseID,
+                                        blockID: blockID,
+                                        playerStateSubject: playerStateSubject,
+                                        languages: block.subtitles ?? [],
+                                        isOnScreen: index == viewModel.index
+                                    )
+                                    .padding(.top, 5)
+                                    .frameLimit(width: reader.size.width)
+
+                                    if !isHorizontal {
+                                        Spacer(minLength: 150)
+                                    }
+                                } else {
+                                    FullScreenErrorView(type: .noInternet)
+                                }
+                            }
+                            // MARK: Web
+                        case let .web(url, injections):
+                            if index >= viewModel.index - 1 && index <= viewModel.index + 1 {
+                                if viewModel.connectivity.isInternetAvaliable {
+                                    WebView(
+                                        url: url,
+                                        injections: injections,
+                                        roundedBackgroundEnabled: !viewModel.courseUnitProgressEnabled
+                                    )
+                                    // not need to add frame limit there because we did that with injection
+                                } else {
+                                    FullScreenErrorView(type: .noInternet)
+                                }
+                            } else {
+                                EmptyView()
+                            }
+                            // MARK: Unknown
+                        case .unknown(let url):
+                            if index >= viewModel.index - 1 && index <= viewModel.index + 1 {
+                                if viewModel.connectivity.isInternetAvaliable {
+                                    NotAvailableOnMobileView(url: url)
+                                        .frameLimit(width: reader.size.width)
+                                } else {
+                                    FullScreenErrorView(type: .noInternet)
+                                }
+                            } else {
+                                EmptyView()
+                            }
+                            // MARK: Discussion
+                        case let .discussion(blockID, blockKey, title):
+                            if index >= viewModel.index - 1 && index <= viewModel.index + 1 {
+                                if viewModel.connectivity.isInternetAvaliable {
+                                    VStack {
+                                        if showDiscussion {
+                                            DiscussionView(
+                                                id: viewModel.courseID,
+                                                blockID: blockID,
+                                                blockKey: blockKey,
+                                                title: title,
+                                                viewModel: viewModel
+                                            )
+                                            Spacer(minLength: 100)
+                                        } else {
+                                            VStack {
+                                                Color.clear
+                                            }
                                         }
                                     }
+                                    //No need iPad paddings there bacause they were added
+                                    //to PostsView that placed inside DiscussionView
+                                } else {
+                                    FullScreenErrorView(type: .noInternet)
                                 }
-                                //No need iPad paddings there bacause they were added
-                                //to PostsView that placed inside DiscussionView
                             } else {
-                                FullScreenErrorView(type: .noInternet)
+                                EmptyView()
                             }
-                        } else {
-                            EmptyView()
                         }
                     }
-
                 }
                 .frame(
                     width: isHorizontal ? reader.size.width - (isHorizontalNavigation ? 0 : 16) : reader.size.width,
@@ -447,7 +464,8 @@ struct CourseUnitView_Previews: PreviewProvider {
                 studentUrl: "",
                 webUrl: "",
                 encodedVideo: nil,
-                multiDevice: true
+                multiDevice: true,
+                authorizationDenialReason: .none
             ),
             CourseBlock(
                 blockId: "2",
@@ -462,7 +480,8 @@ struct CourseUnitView_Previews: PreviewProvider {
                 studentUrl: "2",
                 webUrl: "2",
                 encodedVideo: nil,
-                multiDevice: false
+                multiDevice: false,
+                authorizationDenialReason: .none
             ),
             CourseBlock(
                 blockId: "3",
@@ -477,7 +496,8 @@ struct CourseUnitView_Previews: PreviewProvider {
                 studentUrl: "3",
                 webUrl: "3",
                 encodedVideo: nil,
-                multiDevice: true
+                multiDevice: true,
+                authorizationDenialReason: .none
             ),
             CourseBlock(
                 blockId: "4",
@@ -492,7 +512,8 @@ struct CourseUnitView_Previews: PreviewProvider {
                 studentUrl: "4",
                 webUrl: "4",
                 encodedVideo: nil,
-                multiDevice: false
+                multiDevice: false,
+                authorizationDenialReason: .none
             ),
         ]
         
@@ -580,7 +601,9 @@ struct CourseUnitView_Previews: PreviewProvider {
             analytics: CourseAnalyticsMock(),
             connectivity: Connectivity(),
             storage: CourseStorageMock(),
-            manager: DownloadManagerMock()
+            manager: DownloadManagerMock(),
+            serverConfig: ServerConfigProtocolMock(),
+            courseStructureHolder: CourseStructureHolderMock()
         ))
     }
 }

@@ -200,6 +200,7 @@
 		973CCD7C2D3660D100949756 /* AttributedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CCD782D3660D100949756 /* AttributedText.swift */; };
 		9784D47E2BF7762800AFEFFF /* FullScreenErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9784D47D2BF7762800AFEFFF /* FullScreenErrorView.swift */; };
 		97904D982DDA0545003F2BE2 /* EnrollmentDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97904D972DDA053C003F2BE2 /* EnrollmentDetails.swift */; };
+		9796D6832E04915700BF6077 /* GatedContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796D6822E04915700BF6077 /* GatedContentView.swift */; };
 		A51CDBE72B6D21F2009B6D4E /* SegmentConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51CDBE62B6D21F2009B6D4E /* SegmentConfig.swift */; };
 		A53A32352B233DEC005FE38A /* ThemeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53A32342B233DEC005FE38A /* ThemeConfig.swift */; };
 		A595689B2B6173DF00ED4F90 /* BranchConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A595689A2B6173DF00ED4F90 /* BranchConfig.swift */; };
@@ -450,6 +451,7 @@
 		973CCD792D3660D100949756 /* HTML2TextParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTML2TextParser.swift; sourceTree = "<group>"; };
 		9784D47D2BF7762800AFEFFF /* FullScreenErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullScreenErrorView.swift; sourceTree = "<group>"; };
 		97904D972DDA053C003F2BE2 /* EnrollmentDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrollmentDetails.swift; sourceTree = "<group>"; };
+		9796D6822E04915700BF6077 /* GatedContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatedContentView.swift; sourceTree = "<group>"; };
 		9D5B06CAA99EA5CD49CBE2BB /* Pods-App-Core.debugdev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Core.debugdev.xcconfig"; path = "Target Support Files/Pods-App-Core/Pods-App-Core.debugdev.xcconfig"; sourceTree = "<group>"; };
 		A51CDBE62B6D21F2009B6D4E /* SegmentConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentConfig.swift; sourceTree = "<group>"; };
 		A53A32342B233DEC005FE38A /* ThemeConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeConfig.swift; sourceTree = "<group>"; };
@@ -957,6 +959,7 @@
 				062C69A42C198323002BD311 /* UpgradeInfoSheetView.swift */,
 				062C69A62C198323002BD311 /* UpgradeInfoView.swift */,
 				149936CD2BEB4F8900B4C89F /* CourseUpgradeUnlockView.swift */,
+				9796D6822E04915700BF6077 /* GatedContentView.swift */,
 				14F8E66A2C0F4D1200E4EF69 /* RestoreInProgressView.swift */,
 				942C4D512DC505F1002BA81C /* TrackSelectionView.swift */,
 				942C4D532DC508B7002BA81C /* TrackCardView.swift */,
@@ -1455,6 +1458,7 @@
 				141DB4662BF4A1F900BDA069 /* EmailTemplates.swift in Sources */,
 				BA8FA6612AD5974300EA029A /* AppleAuthProvider.swift in Sources */,
 				BA8FA6702AD59EA300EA029A /* MicrosoftAuthProvider.swift in Sources */,
+				9796D6832E04915700BF6077 /* GatedContentView.swift in Sources */,
 				BA76135C2B21BC7300B599B7 /* SocialAuthResponse.swift in Sources */,
 				020306CC2932C0C4000949EA /* PickerView.swift in Sources */,
 				027BD3C52909707700392132 /* Shake.swift in Sources */,

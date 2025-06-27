@@ -10,10 +10,11 @@ import Theme
 
 struct UpgradeInfoCellView: View {
     var title: String
+    let image: Image?
     
     var body: some View {
-        HStack(spacing: 10) {
-            UpgradeInfoPointView()
+        HStack(alignment: .top, spacing: 10) {
+            UpgradeInfoPointView(image: image)
             Text(title)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .font(Theme.Fonts.bodyLarge)
@@ -22,19 +23,23 @@ struct UpgradeInfoCellView: View {
 }
 
 struct UpgradeInfoPointView: View {
+    let image: Image?
+    
     var body: some View {
-        CoreAssets.upgradeCheckmarkImage.swiftUIImage
+        (image ?? CoreAssets.upgradeCheckmarkImage.swiftUIImage)
             .resizable()
-        .frame(width: 30, height: 30)
+            .frame(width: 20, height: 20)
     }
 }
 
 public struct UpgradeOptionsView: View {
+    var image: Image?
+    
     public var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            UpgradeInfoCellView(title: CoreLocalization.CourseUpgrade.View.Option.first)
-            UpgradeInfoCellView(title: CoreLocalization.CourseUpgrade.View.Option.second)
-            UpgradeInfoCellView(title: CoreLocalization.CourseUpgrade.View.Option.third)
+            UpgradeInfoCellView(title: CoreLocalization.CourseUpgrade.View.Option.first, image: image)
+            UpgradeInfoCellView(title: CoreLocalization.CourseUpgrade.View.Option.second, image: image)
+            UpgradeInfoCellView(title: CoreLocalization.CourseUpgrade.View.Option.third, image: image)
         }
     }
 }

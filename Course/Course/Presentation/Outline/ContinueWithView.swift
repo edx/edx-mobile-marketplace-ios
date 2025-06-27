@@ -89,7 +89,8 @@ struct ContinueWithView_Previews: PreviewProvider {
                 studentUrl: "",
                 webUrl: "",
                 encodedVideo: nil,
-                multiDevice: true
+                multiDevice: true,
+                authorizationDenialReason: .none
             ),
             CourseBlock(
                 blockId: "2",
@@ -103,8 +104,8 @@ struct ContinueWithView_Previews: PreviewProvider {
                 studentUrl: "",
                 webUrl: "",
                 encodedVideo: nil,
-                multiDevice: false
-                
+                multiDevice: false,
+                authorizationDenialReason: .none
             )
         ]
         
