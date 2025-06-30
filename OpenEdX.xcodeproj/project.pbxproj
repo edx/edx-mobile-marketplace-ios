@@ -168,7 +168,7 @@
 		0770DE6528D0BCC7006D8A5D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0780ABE72BFCA1530093A4A6 /* NotificationsEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsEndpoints.swift; sourceTree = "<group>"; };
 		07A7D78E28F5C9060000BE81 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		07D5DA3128D075AA00752FD9 /* edX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = edX.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		07D5DA3128D075AA00752FD9 /* OpenEdX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenEdX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07D5DA3428D075AA00752FD9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		07D5DA3D28D075AB00752FD9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		146CF94B2D0C0248000955B2 /* NotificationsPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsPersistence.swift; sourceTree = "<group>"; };
@@ -287,7 +287,7 @@
 		07D5DA3228D075AA00752FD9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				07D5DA3128D075AA00752FD9 /* edX.app */,
+				07D5DA3128D075AA00752FD9 /* OpenEdX.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -506,7 +506,7 @@
 				9426DE882DB28B3A00230582 /* EDXFeatureManagement */,
 			);
 			productName = OpenEdX;
-			productReference = 07D5DA3128D075AA00752FD9 /* edX.app */;
+			productReference = 07D5DA3128D075AA00752FD9 /* OpenEdX.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
