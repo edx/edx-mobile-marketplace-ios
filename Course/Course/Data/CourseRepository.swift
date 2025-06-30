@@ -355,6 +355,7 @@ class CourseRepositoryMock: CourseRepositoryProtocol {
     func getEnrollmentDetails(courseID: String) async throws -> EnrollmentDetails {
         return EnrollmentDetails(
             id: "",
+            discussionURL: nil,
             coursewareAccess: CoursewareAccess(
                 hasAccess: false,
                 errorCode: .notStarted,
