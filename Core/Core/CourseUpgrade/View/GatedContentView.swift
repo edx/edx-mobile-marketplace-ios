@@ -46,11 +46,13 @@ public struct GatedContentView: View {
                         Text(CoreLocalization.CourseUpgrade.View.gatedContentTitle)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .font(Theme.Fonts.titleMedium)
+                            .foregroundColor(Theme.Colors.textPrimary)
                     }
                     
                     Text(CoreLocalization.CourseUpgrade.View.gatedContentMessage)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .font(Theme.Fonts.bodyLarge)
+                        .foregroundColor(Theme.Colors.textPrimary)
                         .padding(.top, 9)
                         .padding(.bottom, 21)
                     

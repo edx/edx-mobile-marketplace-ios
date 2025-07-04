@@ -603,7 +603,10 @@ struct CourseUnitView_Previews: PreviewProvider {
             storage: CourseStorageMock(),
             manager: DownloadManagerMock(),
             serverConfig: ServerConfigProtocolMock(),
-            courseStructureHolder: CourseStructureHolderMock()
+            courseStructureHolder: CourseStructureHolderMock(),
+            upgradeInfoViewModelFactory: { _, _, _, _, _, _ in
+                return nil
+            }
         ))
     }
 }

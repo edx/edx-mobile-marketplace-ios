@@ -123,6 +123,14 @@ public class CourseUnitViewModel: ObservableObject {
     let serverConfig: ServerConfigProtocol
     let storage: CourseStorage
     private(set) var courseStructureHolder: CourseStructureHolderProtocol
+    private let upgradeInfoViewModelFactory: (
+        _ productName: String,
+        _ sku: String,
+        _ courseID: String,
+        _ screen: CourseUpgradeScreen,
+        _ pacing: String,
+        _ lmsPrice: Double
+    ) -> UpgradeInfoViewModel?
     private let manager: DownloadManagerProtocol
     private var subtitlesDownloaded: Bool = false
     private var cancellables = Set<AnyCancellable>()
@@ -162,7 +170,15 @@ public class CourseUnitViewModel: ObservableObject {
         storage: CourseStorage,
         manager: DownloadManagerProtocol,
         serverConfig: ServerConfigProtocol,
-        courseStructureHolder: CourseStructureHolderProtocol
+        courseStructureHolder: CourseStructureHolderProtocol,
+        upgradeInfoViewModelFactory: @escaping (
+            _ productName: String,
+            _ sku: String,
+            _ courseID: String,
+            _ screen: CourseUpgradeScreen,
+            _ pacing: String,
+            _ lmsPrice: Double
+        ) -> UpgradeInfoViewModel?
     ) {
         self.lessonID = lessonID
         self.courseID = courseID
@@ -181,6 +197,7 @@ public class CourseUnitViewModel: ObservableObject {
         self.storage = storage
         self.serverConfig = serverConfig
         self.courseStructureHolder = courseStructureHolder
+        self.upgradeInfoViewModelFactory = upgradeInfoViewModelFactory
         
         addObservers()
     }
@@ -193,8 +210,10 @@ public class CourseUnitViewModel: ObservableObject {
                 DispatchQueue.main.async {
                     Task {
                         let courseStructure = self.courseStructureHolder.value
-                        self.chapters = courseStructure?.childs ?? []
-                        self.verticals = self.chapters[self.chapterIndex].childs[self.sequentialIndex].childs
+                        if courseStructure?.id == self.courseID {
+                            self.chapters = courseStructure?.childs ?? []
+                            self.verticals = self.chapters[self.chapterIndex].childs[self.sequentialIndex].childs
+                        }
                         self.upgradeInfoViewModel?.removeLoader()
                     }
                 }
@@ -398,14 +417,11 @@ public class CourseUnitViewModel: ObservableObject {
             return nil
         }
         
-        return Container.shared.resolve(
-            UpgradeInfoViewModel.self,
-            arguments:
-                courseStructure.displayName,
-            "",
+        return upgradeInfoViewModelFactory(
+            courseStructure.displayName,
             sku,
             currentCourseId,
-            Core.CourseUpgradeScreen.courseComponent,
+            .courseComponent,
             courseStructure.isSelfPaced ? Pacing.selfPace.rawValue : Pacing.instructor.rawValue,
             lmsPrice
         )

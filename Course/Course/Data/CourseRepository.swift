@@ -294,7 +294,9 @@ public class CourseRepository: CourseRepositoryProtocol {
                 )
             ),
             multiDevice: block.multiDevice,
-            authorizationDenialReason: AuthorizationDenialReason(rawValue: block.authorizationDenialReason ?? AuthorizationDenialReason.none.rawValue) ?? AuthorizationDenialReason.none
+            authorizationDenialReason: AuthorizationDenialReason(
+                rawValue: block.authorizationDenialReason ?? AuthorizationDenialReason.none.rawValue
+            ) ?? .none
         )
     }
     
@@ -581,7 +583,9 @@ And there are various ways of describing it-- call it oral poetry or
                 )
             ),
             multiDevice: block.multiDevice,
-            authorizationDenialReason: AuthorizationDenialReason(rawValue: block.authorizationDenialReason ?? AuthorizationDenialReason.none.rawValue) ?? AuthorizationDenialReason.none
+            authorizationDenialReason: AuthorizationDenialReason(
+                rawValue: block.authorizationDenialReason ?? AuthorizationDenialReason.none.rawValue
+            ) ?? .none
         )
     }
 

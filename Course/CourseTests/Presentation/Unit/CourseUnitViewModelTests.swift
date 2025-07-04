@@ -161,7 +161,10 @@ final class CourseUnitViewModelTests: XCTestCase {
             storage: CourseStorageMock(),
             manager: DownloadManagerMock(),
             serverConfig: ServerConfigProtocolMock(),
-            courseStructureHolder: CourseStructureHolderMock()
+            courseStructureHolder: CourseStructureHolderMock(),
+            upgradeInfoViewModelFactory: { _, _, _, _, _, _ in
+                return nil
+            }
         )
         
         Given(interactor, .blockCompletionRequest(courseID: .any, blockID: .any, willProduce: {_ in}))
@@ -193,7 +196,10 @@ final class CourseUnitViewModelTests: XCTestCase {
             storage: CourseStorageMock(),
             manager: DownloadManagerMock(),
             serverConfig: ServerConfigProtocolMock(),
-            courseStructureHolder: CourseStructureHolderMock()
+            courseStructureHolder: CourseStructureHolderMock(),
+            upgradeInfoViewModelFactory: { _, _, _, _, _, _ in
+                return nil
+            }
         )
         
         Given(interactor, .blockCompletionRequest(courseID: .any,
@@ -230,7 +236,10 @@ final class CourseUnitViewModelTests: XCTestCase {
             storage: CourseStorageMock(),
             manager: DownloadManagerMock(),
             serverConfig: ServerConfigProtocolMock(),
-            courseStructureHolder: CourseStructureHolderMock()
+            courseStructureHolder: CourseStructureHolderMock(),
+            upgradeInfoViewModelFactory: { _, _, _, _, _, _ in
+                return nil
+            }
         )
         
         let noInternetError = AFError.sessionInvalidated(error: URLError(.notConnectedToInternet))
@@ -269,7 +278,10 @@ final class CourseUnitViewModelTests: XCTestCase {
             storage: CourseStorageMock(),
             manager: DownloadManagerMock(),
             serverConfig: ServerConfigProtocolMock(),
-            courseStructureHolder: CourseStructureHolderMock()
+            courseStructureHolder: CourseStructureHolderMock(),
+            upgradeInfoViewModelFactory: { _, _, _, _, _, _ in
+                return nil
+            }
         )
         
         Given(interactor, .blockCompletionRequest(courseID: .any,
@@ -307,7 +319,10 @@ final class CourseUnitViewModelTests: XCTestCase {
             storage: CourseStorageMock(),
             manager: DownloadManagerMock(),
             serverConfig: ServerConfigProtocolMock(),
-            courseStructureHolder: CourseStructureHolderMock()
+            courseStructureHolder: CourseStructureHolderMock(),
+            upgradeInfoViewModelFactory: { _, _, _, _, _, _ in
+                return nil
+            }
         )
         
         viewModel.loadIndex()

@@ -210,8 +210,8 @@ public enum CoreLocalization {
       public static let endDateMessage = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.VIEW.END_DATE_MESSAGE", fallback: "Your free audit access to this course expired on #####.")
       /// Upgrade to gain access to locked features like this one and get the most out of your course.
       public static let gatedContentMessage = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.VIEW.GATED_CONTENT_MESSAGE", fallback: "Upgrade to gain access to locked features like this one and get the most out of your course.")
-      /// Graded assignment are locked
-      public static let gatedContentTitle = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.VIEW.GATED_CONTENT_TITLE", fallback: "Graded assignment are locked")
+      /// Graded assignments are locked
+      public static let gatedContentTitle = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.VIEW.GATED_CONTENT_TITLE", fallback: "Graded assignments are locked")
       /// This course will begin on #####. Come back then to start learning!
       public static let startDateMessage = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.VIEW.START_DATE_MESSAGE", fallback: "This course will begin on #####. Come back then to start learning!")
       /// Upgrade

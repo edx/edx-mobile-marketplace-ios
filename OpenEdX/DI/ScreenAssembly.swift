@@ -408,7 +408,13 @@ class ScreenAssembly: Assembly {
                 storage: r.resolve(CourseStorage.self)!,
                 manager: r.resolve(DownloadManagerProtocol.self)!,
                 serverConfig: r.resolve(ServerConfigProtocol.self)!,
-                courseStructureHolder: r.resolve(CourseStructureHolderProtocol.self)!
+                courseStructureHolder: r.resolve(CourseStructureHolderProtocol.self)!,
+                upgradeInfoViewModelFactory: { productName, sku, courseID, screen, pacing, lmsPrice in
+                    r.resolve(
+                        UpgradeInfoViewModel.self,
+                        arguments: productName, "", sku, courseID, screen, pacing, lmsPrice
+                    )!
+                }
             )
         }
         
