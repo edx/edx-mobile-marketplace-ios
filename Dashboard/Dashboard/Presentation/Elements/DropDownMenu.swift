@@ -9,7 +9,7 @@ import Theme
 import Core
 import SwiftUI
 
-enum MenuOption: String, CaseIterable {
+public enum MenuOption: String, CaseIterable {
     case courses
     case programs
     
