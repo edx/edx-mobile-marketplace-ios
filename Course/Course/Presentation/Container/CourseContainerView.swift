@@ -204,7 +204,7 @@ public struct CourseContainerView: View {
                     ignoreOffset = true
                 }
             } else {
-                ForEach(CourseTab.allCases) { tab in
+                ForEach(viewModel.tabs) { tab in
                     switch tab {
                     case .course:
                         CourseOutlineView(
