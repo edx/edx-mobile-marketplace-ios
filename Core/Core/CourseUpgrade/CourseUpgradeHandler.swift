@@ -211,10 +211,6 @@ public class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
     public func fetchProduct(sku: String) async throws -> StoreProductInfo {
         try await storeKitHandler.fetchProduct(sku: sku)
     }
-    
-    public func removeLoader() {
-        helper.removeLoader()
-    }
 }
 
 extension CourseUpgradeHandler {

@@ -10,6 +10,7 @@ import StoreKit
 import SwiftUI
 import MessageUI
 import Alamofire
+import Combine
 
 private let InProgressIAPKey = "InProgressIAPKey"
 
@@ -80,6 +81,7 @@ public class CourseUpgradeHelper: CourseUpgradeHelperProtocol {
     private var lmsPrice: Double?
     weak private(set) var upgradeHadler: CourseUpgradeHandler?
     private let router: BaseRouter
+    private var cancellables = Set<AnyCancellable>()
     
     public init(
         config: ConfigProtocol,
@@ -107,6 +109,20 @@ public class CourseUpgradeHelper: CourseUpgradeHelperProtocol {
         self.screen = screen
         self.localizedCurrencyCode = localizedCurrencyCode
         self.lmsPrice = lmsPrice
+        
+        addObservers()
+    }
+    
+    private func addObservers() {
+        NotificationCenter.default
+            .publisher(for: .courseUpgradeUILoadingShouldEnd)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    self.removeLoader(success: true, shouldRemoveView: true)
+                }
+            }
+            .store(in: &cancellables)
     }
     
     public func handleCourseUpgrade(
@@ -459,10 +475,6 @@ extension CourseUpgradeHelper {
             message: CoreLocalization.CourseUpgrade.Restore.alertMessage,
             actions: actions
         )
-    }
-    
-    public func removeLoader() {
-        removeLoader(success: true, shouldRemoveView: true)
     }
 }
 

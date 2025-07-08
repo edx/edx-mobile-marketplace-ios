@@ -214,7 +214,7 @@ public class CourseUnitViewModel: ObservableObject {
                             self.chapters = courseStructure?.childs ?? []
                             self.verticals = self.chapters[self.chapterIndex].childs[self.sequentialIndex].childs
                         }
-                        self.upgradeInfoViewModel?.removeLoader()
+                        NotificationCenter.default.post(name: .courseUpgradeUILoadingShouldEnd, object: nil)
                     }
                 }
             }
