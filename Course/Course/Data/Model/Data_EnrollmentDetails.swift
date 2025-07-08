@@ -11,18 +11,22 @@ import Core
 public extension DataLayer {
     struct EnrollmentDetails: Decodable {
         public let id: String
+        public let discussionURL: String?
         public let coursewareAccessDetails: CoursewareAccessDetails?
         
         enum CodingKeys: String, CodingKey {
             case id
+            case discussionURL = "discussion_url"
             case coursewareAccessDetails = "course_access_details"
         }
         
         public init(
             id: String,
+            discussionURL: String? = nil,
             coursewareAccessDetails: CoursewareAccessDetails? = nil
         ) {
             self.id = id
+            self.discussionURL = discussionURL
             self.coursewareAccessDetails = coursewareAccessDetails
         }
         
@@ -30,6 +34,7 @@ public extension DataLayer {
             let values = try decoder.container(keyedBy: CodingKeys.self)
             
             id = try values.decode(String.self, forKey: .id)
+            discussionURL = try? values.decode(String.self, forKey: .discussionURL)
             coursewareAccessDetails = try? values.decode(CoursewareAccessDetails.self, forKey: .coursewareAccessDetails)
         }
     }
@@ -55,6 +60,7 @@ public extension DataLayer.EnrollmentDetails {
         
         return EnrollmentDetails(
             id: id,
+            discussionURL: discussionURL,
             coursewareAccess: coursewareAccess
         )
     }

@@ -202,7 +202,7 @@ struct CourseHeaderView: View {
     private func courseMenuBar(containerWidth: CGFloat) -> some View {
         ScrollSlidingTabBar(
             selection: $viewModel.selection,
-            tabs: CourseTab.allCases.map { ($0.title, $0.image) },
+            tabs: viewModel.tabs.map { ($0.title, $0.image) },
             containerWidth: containerWidth
         ) { newValue in
             isAnimatingForTap = true

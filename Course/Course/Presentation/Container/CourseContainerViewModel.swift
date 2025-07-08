@@ -56,6 +56,7 @@ extension CourseTab {
 public class CourseContainerViewModel: BaseCourseViewModel {
 
     @Published public var selection: Int
+    @Published var tabs: [CourseTab] = CourseTab.allCases.filter { $0 != .discussion }
     @Published var isShowProgress = true
     @Published var isShowRefresh = false
     @Published var canShowBanner = false
@@ -309,6 +310,11 @@ public class CourseContainerViewModel: BaseCourseViewModel {
         do {
             let enrollmentDetails = try await interactor.getEnrollmentDetails(courseID: courseID)
             self.enrollmentDetails = enrollmentDetails
+
+            tabs = CourseTab.allCases
+            if enrollmentDetails.discussionURL == nil {
+                tabs.removeAll { $0 == .discussion }
+            }
         } catch let error {
             debugLog(error.localizedDescription)
         }
