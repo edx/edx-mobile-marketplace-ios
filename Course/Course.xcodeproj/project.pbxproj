@@ -78,7 +78,6 @@
 		0766DFD0299AB29000EBEF6A /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0766DFCF299AB29000EBEF6A /* PlayerViewController.swift */; };
 		07DE59862BECB868001CBFBC /* CourseAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DE59852BECB868001CBFBC /* CourseAnalytics.swift */; };
 		197FB8EA8F92F00A8F383D82 /* Pods_App_Course.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5E795BD160CDA7D9C120DE6 /* Pods_App_Course.framework */; };
-		9730D3CE2E0C5EA30027353A /* CourseStructureHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9730D3CD2E0C5EA30027353A /* CourseStructureHolder.swift */; };
 		975F475E2B6151FD00E5B031 /* CourseDatesMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975F475D2B6151FD00E5B031 /* CourseDatesMock.swift */; };
 		975F47602B615DA700E5B031 /* CourseStructureMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975F475F2B615DA700E5B031 /* CourseStructureMock.swift */; };
 		97904D962DDA0141003F2BE2 /* Data_EnrollmentDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97904D952DDA0136003F2BE2 /* Data_EnrollmentDetails.swift */; };
@@ -198,7 +197,6 @@
 		600A464AEDA7BEFEC1A7FE99 /* Pods-App-Course-CourseTests.debugdev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Course-CourseTests.debugdev.xcconfig"; path = "Target Support Files/Pods-App-Course-CourseTests/Pods-App-Course-CourseTests.debugdev.xcconfig"; sourceTree = "<group>"; };
 		69A261790A0B4C724CCFA4F2 /* Pods-App-CourseDetails.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-CourseDetails.release.xcconfig"; path = "Target Support Files/Pods-App-CourseDetails/Pods-App-CourseDetails.release.xcconfig"; sourceTree = "<group>"; };
 		831B08139890634968EDD44D /* Pods-App-Course-CourseTests.debugstage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Course-CourseTests.debugstage.xcconfig"; path = "Target Support Files/Pods-App-Course-CourseTests/Pods-App-Course-CourseTests.debugstage.xcconfig"; sourceTree = "<group>"; };
-		9730D3CD2E0C5EA30027353A /* CourseStructureHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseStructureHolder.swift; sourceTree = "<group>"; };
 		975F475D2B6151FD00E5B031 /* CourseDatesMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDatesMock.swift; sourceTree = "<group>"; };
 		975F475F2B615DA700E5B031 /* CourseStructureMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseStructureMock.swift; sourceTree = "<group>"; };
 		97904D952DDA0136003F2BE2 /* Data_EnrollmentDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data_EnrollmentDetails.swift; sourceTree = "<group>"; };
@@ -556,7 +554,6 @@
 			isa = PBXGroup;
 			children = (
 				97EA4D852B85034D00663F58 /* CalendarManager.swift */,
-				9730D3CD2E0C5EA30027353A /* CourseStructureHolder.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -916,7 +913,6 @@
 				027020FC28E7362100F54332 /* Data_CourseOutlineResponse.swift in Sources */,
 				97904D962DDA0141003F2BE2 /* Data_EnrollmentDetails.swift in Sources */,
 				DB7D6EB02ADFDA0E0036BB13 /* CourseDates.swift in Sources */,
-				9730D3CE2E0C5EA30027353A /* CourseStructureHolder.swift in Sources */,
 				067B7B532BED339200D1768F /* PlayerServiceProtocol.swift in Sources */,
 				BAD9CA2D2B2736BB00DE790A /* LessonLineProgressView.swift in Sources */,
 				060E8BCA2B5FD68C0080C952 /* UnitStack.swift in Sources */,

@@ -139,7 +139,8 @@ public class PipManager: PipManagerProtocol {
                 title: courseStructure.childs[data.chapterIndex].childs[data.sequentialIndex].displayName,
                 chapters: courseStructure.childs,
                 chapterIndex: data.chapterIndex,
-                sequentialIndex: data.sequentialIndex
+                sequentialIndex: data.sequentialIndex,
+                courseStructurePublisher: nil
             )
         }
        
@@ -167,7 +168,8 @@ public class PipManager: PipManagerProtocol {
                 verticalIndex: data.verticalIndex,
                 chapters: courseStructure.childs,
                 chapterIndex: data.chapterIndex,
-                sequentialIndex: data.sequentialIndex
+                sequentialIndex: data.sequentialIndex,
+                courseStructurePublisher: nil
             )
         }
        

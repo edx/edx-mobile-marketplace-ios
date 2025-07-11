@@ -57,7 +57,8 @@ public struct CourseVerticalView: View {
                                             verticalIndex: index,
                                             chapters: viewModel.chapters,
                                             chapterIndex: viewModel.chapterIndex,
-                                            sequentialIndex: viewModel.sequentialIndex
+                                            sequentialIndex: viewModel.sequentialIndex,
+                                            courseStructurePublisher: viewModel.courseStructurePublisher
                                         )
                                     }
                                 }, label: {
@@ -223,7 +224,8 @@ struct CourseVerticalView_Previews: PreviewProvider {
             manager: DownloadManagerMock(),
             router: CourseRouterMock(),
             analytics: CourseAnalyticsMock(),
-            connectivity: Connectivity()
+            connectivity: Connectivity(),
+            courseStructurePublisher: nil
         )
         
         return Group {

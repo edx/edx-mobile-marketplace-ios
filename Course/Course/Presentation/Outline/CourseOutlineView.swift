@@ -361,7 +361,6 @@ struct CourseOutlineView_Previews: PreviewProvider {
             connectivity: Connectivity(),
             manager: DownloadManagerMock(),
             storage: CourseStorageMock(),
-            courseStructureHolder: CourseStructureHolderMock(),
             isActive: true,
             courseStart: Date(),
             courseEnd: nil,

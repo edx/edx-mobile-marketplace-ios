@@ -59,7 +59,11 @@ public class CourseContainerViewModel: BaseCourseViewModel {
     @Published var isShowProgress = true
     @Published var isShowRefresh = false
     @Published var canShowBanner = false
-    @Published var courseStructure: CourseStructure?
+    @Published var courseStructure: CourseStructure? {
+        didSet {
+            courseStructureSubject.value = courseStructure
+        }
+    }
     @Published var courseDeadlineInfo: CourseDateBanner?
     @Published var courseVideosStructure: CourseStructure?
     @Published var showError: Bool = false
@@ -71,6 +75,12 @@ public class CourseContainerViewModel: BaseCourseViewModel {
     @Published var dueDatesShifted: Bool = false
     @Published var shouldHideMenuBar: Bool = false
     @Published var updateCourseProgress: Bool = false
+    
+    private var courseStructureSubject = CurrentValueSubject<CourseStructure?, Never>(nil)
+    
+    public var courseStructurePublisher: AnyPublisher<CourseStructure?, Never> {
+        courseStructureSubject.eraseToAnyPublisher()
+    }
     
     let completionPublisher = NotificationCenter.default.publisher(for: .onblockCompletionRequested)
 
@@ -107,7 +117,6 @@ public class CourseContainerViewModel: BaseCourseViewModel {
     let analytics: CourseAnalytics
     let coreAnalytics: CoreAnalytics
     private(set) var storage: CourseStorage
-    private(set) var courseStructureHolder: CourseStructureHolderProtocol
     private var courseID: String?
     private var canShowTrackSelection: Bool
     let serverConfig: ServerConfigProtocol
@@ -122,7 +131,6 @@ public class CourseContainerViewModel: BaseCourseViewModel {
         connectivity: ConnectivityProtocol,
         manager: DownloadManagerProtocol,
         storage: CourseStorage,
-        courseStructureHolder: CourseStructureHolderProtocol,
         isActive: Bool?,
         courseStart: Date?,
         courseEnd: Date?,
@@ -146,7 +154,6 @@ public class CourseContainerViewModel: BaseCourseViewModel {
         self.enrollmentStart = enrollmentStart
         self.enrollmentEnd = enrollmentEnd
         self.storage = storage
-        self.courseStructureHolder = courseStructureHolder
         self.userSettings = storage.userSettings
         self.isInternetAvaliable = connectivity.isInternetAvaliable
         self.lastVisitedBlockID = lastVisitedBlockID
@@ -194,7 +201,8 @@ public class CourseContainerViewModel: BaseCourseViewModel {
             verticalIndex: continueWith.verticalIndex,
             chapters: courseStructure.childs,
             chapterIndex: continueWith.chapterIndex,
-            sequentialIndex: continueWith.sequentialIndex
+            sequentialIndex: continueWith.sequentialIndex,
+            courseStructurePublisher: courseStructurePublisher
         )
         
         self.lastVisitedBlockID = nil
@@ -211,7 +219,6 @@ public class CourseContainerViewModel: BaseCourseViewModel {
             }
             group.addTask {
                 await self.getCourseBlocks(courseID: courseID)
-                NotificationCenter.default.post(name: .courseDataUpdatedNotification, object: nil)
             }
             group.addTask {
                 await self.getCourseDeadlineInfo(courseID: courseID, withProgress: false)
@@ -255,7 +262,6 @@ public class CourseContainerViewModel: BaseCourseViewModel {
         isShowRefresh = !withProgress
         do {
             let courseStructure = try await getCourseStructure(courseID: courseID)
-            courseStructureHolder.value = courseStructure
             
             await setDownloadsStates(courseStructure: courseStructure)
             self.courseStructure = courseStructure

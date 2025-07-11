@@ -233,11 +233,6 @@ class AppAssembly: Assembly {
             )
         }.inObjectScope(.container)
 
-        container.register(CourseStructureHolderProtocol.self) { _ in
-            CourseStructureHolder()
-        }
-        .inObjectScope(.container)
-        
         container.register(FeatureManagerProtocol.self) { r in
             FeatureManager(
                 config: r.resolve(ConfigProtocol.self)!

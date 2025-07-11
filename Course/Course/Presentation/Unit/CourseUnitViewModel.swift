@@ -103,6 +103,8 @@ public class CourseUnitViewModel: ObservableObject {
     var courseName: String
     
     @Published var index: Int = 0
+    private(set) var courseStructure: CourseStructure?
+    var courseStructurePublisher: AnyPublisher<CourseStructure?, Never>?
     var previousLesson: String = ""
     var nextLesson: String = ""
     @Published var showError: Bool = false
@@ -122,7 +124,6 @@ public class CourseUnitViewModel: ObservableObject {
     let connectivity: ConnectivityProtocol
     let serverConfig: ServerConfigProtocol
     let storage: CourseStorage
-    private(set) var courseStructureHolder: CourseStructureHolderProtocol
     private let upgradeInfoViewModelFactory: (
         _ productName: String,
         _ sku: String,
@@ -170,7 +171,7 @@ public class CourseUnitViewModel: ObservableObject {
         storage: CourseStorage,
         manager: DownloadManagerProtocol,
         serverConfig: ServerConfigProtocol,
-        courseStructureHolder: CourseStructureHolderProtocol,
+        courseStructurePublisher: AnyPublisher<CourseStructure?, Never>?,
         upgradeInfoViewModelFactory: @escaping (
             _ productName: String,
             _ sku: String,
@@ -196,22 +197,22 @@ public class CourseUnitViewModel: ObservableObject {
         self.manager = manager
         self.storage = storage
         self.serverConfig = serverConfig
-        self.courseStructureHolder = courseStructureHolder
+        self.courseStructurePublisher = courseStructurePublisher
         self.upgradeInfoViewModelFactory = upgradeInfoViewModelFactory
         
         addObservers()
     }
     
     private func addObservers() {
-        NotificationCenter.default
-            .publisher(for: .courseDataUpdatedNotification)
-            .sink { [weak self] _ in
+        courseStructurePublisher?
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] value in
                 guard let self = self else { return }
                 DispatchQueue.main.async {
                     Task {
-                        let courseStructure = self.courseStructureHolder.value
-                        if courseStructure?.id == self.courseID {
-                            self.chapters = courseStructure?.childs ?? []
+                        self.courseStructure = value
+                        if self.courseStructure?.id == self.courseID {
+                            self.chapters = self.courseStructure?.childs ?? []
                             self.verticals = self.chapters[self.chapterIndex].childs[self.sequentialIndex].childs
                         }
                         NotificationCenter.default.post(name: .courseUpgradeUILoadingShouldEnd, object: nil)
@@ -395,7 +396,8 @@ public class CourseUnitViewModel: ObservableObject {
                 chapters: chapters,
                 chapterIndex: data.chapterIndex,
                 sequentialIndex: data.sequentialIndex,
-                animated: animated
+                animated: animated,
+                courseStructurePublisher: courseStructurePublisher
             )
         }
     }
@@ -410,7 +412,7 @@ public class CourseUnitViewModel: ObservableObject {
     }
     
     public func loadUpgradeInfoViewModel() -> UpgradeInfoViewModel? {
-        guard let courseStructure = courseStructureHolder.value,
+        guard let courseStructure = courseStructure,
               let sku = courseStructure.sku,
               let lmsPrice = courseStructure.lmsPrice
         else {

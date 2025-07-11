@@ -161,7 +161,7 @@ final class CourseUnitViewModelTests: XCTestCase {
             storage: CourseStorageMock(),
             manager: DownloadManagerMock(),
             serverConfig: ServerConfigProtocolMock(),
-            courseStructureHolder: CourseStructureHolderMock(),
+            courseStructurePublisher: nil,
             upgradeInfoViewModelFactory: { _, _, _, _, _, _ in
                 return nil
             }
@@ -196,7 +196,7 @@ final class CourseUnitViewModelTests: XCTestCase {
             storage: CourseStorageMock(),
             manager: DownloadManagerMock(),
             serverConfig: ServerConfigProtocolMock(),
-            courseStructureHolder: CourseStructureHolderMock(),
+            courseStructurePublisher: nil,
             upgradeInfoViewModelFactory: { _, _, _, _, _, _ in
                 return nil
             }
@@ -236,7 +236,7 @@ final class CourseUnitViewModelTests: XCTestCase {
             storage: CourseStorageMock(),
             manager: DownloadManagerMock(),
             serverConfig: ServerConfigProtocolMock(),
-            courseStructureHolder: CourseStructureHolderMock(),
+            courseStructurePublisher: nil,
             upgradeInfoViewModelFactory: { _, _, _, _, _, _ in
                 return nil
             }
@@ -278,7 +278,7 @@ final class CourseUnitViewModelTests: XCTestCase {
             storage: CourseStorageMock(),
             manager: DownloadManagerMock(),
             serverConfig: ServerConfigProtocolMock(),
-            courseStructureHolder: CourseStructureHolderMock(),
+            courseStructurePublisher: nil,
             upgradeInfoViewModelFactory: { _, _, _, _, _, _ in
                 return nil
             }
@@ -319,7 +319,7 @@ final class CourseUnitViewModelTests: XCTestCase {
             storage: CourseStorageMock(),
             manager: DownloadManagerMock(),
             serverConfig: ServerConfigProtocolMock(),
-            courseStructureHolder: CourseStructureHolderMock(),
+            courseStructurePublisher: nil,
             upgradeInfoViewModelFactory: { _, _, _, _, _, _ in
                 return nil
             }

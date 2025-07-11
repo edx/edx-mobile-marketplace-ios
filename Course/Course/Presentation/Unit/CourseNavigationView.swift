@@ -129,7 +129,8 @@ struct CourseNavigationView: View {
                             chapters: viewModel.chapters,
                             chapterIndex: data.chapterIndex,
                             sequentialIndex: data.sequentialIndex,
-                            animated: true
+                            animated: true,
+                            courseStructurePublisher: viewModel.courseStructurePublisher
                         )
                     }
                 )
@@ -164,7 +165,7 @@ struct CourseNavigationView_Previews: PreviewProvider {
             storage: CourseStorageMock(),
             manager: DownloadManagerMock(),
             serverConfig: ServerConfigProtocolMock(),
-            courseStructureHolder: CourseStructureHolderMock(),
+            courseStructurePublisher: nil,
             upgradeInfoViewModelFactory: { _, _, _, _, _, _ in
                 return nil
             }
