@@ -60,7 +60,11 @@ public class CourseContainerViewModel: BaseCourseViewModel {
     @Published var isShowProgress = true
     @Published var isShowRefresh = false
     @Published var canShowBanner = false
-    @Published var courseStructure: CourseStructure?
+    @Published var courseStructure: CourseStructure? {
+        didSet {
+            courseStructureSubject.value = courseStructure
+        }
+    }
     @Published var courseDeadlineInfo: CourseDateBanner?
     @Published var courseVideosStructure: CourseStructure?
     @Published var showError: Bool = false
@@ -72,6 +76,12 @@ public class CourseContainerViewModel: BaseCourseViewModel {
     @Published var dueDatesShifted: Bool = false
     @Published var shouldHideMenuBar: Bool = false
     @Published var updateCourseProgress: Bool = false
+    
+    private var courseStructureSubject = CurrentValueSubject<CourseStructure?, Never>(nil)
+    
+    public var courseStructurePublisher: AnyPublisher<CourseStructure?, Never> {
+        courseStructureSubject.eraseToAnyPublisher()
+    }
     
     let completionPublisher = NotificationCenter.default.publisher(for: .onblockCompletionRequested)
 
@@ -192,7 +202,8 @@ public class CourseContainerViewModel: BaseCourseViewModel {
             verticalIndex: continueWith.verticalIndex,
             chapters: courseStructure.childs,
             chapterIndex: continueWith.chapterIndex,
-            sequentialIndex: continueWith.sequentialIndex
+            sequentialIndex: continueWith.sequentialIndex,
+            courseStructurePublisher: courseStructurePublisher
         )
         
         self.lastVisitedBlockID = nil
@@ -252,6 +263,7 @@ public class CourseContainerViewModel: BaseCourseViewModel {
         isShowRefresh = !withProgress
         do {
             let courseStructure = try await getCourseStructure(courseID: courseID)
+            
             await setDownloadsStates(courseStructure: courseStructure)
             self.courseStructure = courseStructure
             let type = type(for: courseStructure?.coursewareAccessDetails?.coursewareAccess)

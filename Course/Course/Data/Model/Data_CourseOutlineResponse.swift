@@ -149,6 +149,7 @@ public extension DataLayer {
         public let userViewData: CourseDetailUserViewData?
         public let multiDevice: Bool?
         public let assignmentProgress: AssignmentProgress?
+        public let authorizationDenialReason: String?
         
         public init(
             blockId: String,
@@ -164,7 +165,8 @@ public extension DataLayer {
             allSources: [String]?,
             userViewData: CourseDetailUserViewData?,
             multiDevice: Bool?,
-            assignmentProgress: AssignmentProgress?
+            assignmentProgress: AssignmentProgress?,
+            authorizationDenialReason: String?
         ) {
             self.blockId = blockId
             self.id = id
@@ -180,6 +182,7 @@ public extension DataLayer {
             self.userViewData = userViewData
             self.multiDevice = multiDevice
             self.assignmentProgress = assignmentProgress
+            self.authorizationDenialReason = authorizationDenialReason
         }
         
         public enum CodingKeys: String, CodingKey {
@@ -192,6 +195,7 @@ public extension DataLayer {
             case allSources = "all_sources"
             case multiDevice = "student_view_multi_device"
             case assignmentProgress = "assignment_progress"
+            case authorizationDenialReason = "authorization_denial_reason"
         }
     }
     

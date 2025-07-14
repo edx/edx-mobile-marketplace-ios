@@ -7,6 +7,8 @@
 
 import SwiftUI
 import Core
+import Swinject
+import Combine
 
 public enum LessonType: Equatable {
     case web(url: String, injections: [WebviewInjection])
@@ -96,11 +98,13 @@ public class CourseUnitViewModel: ObservableObject {
         case previous
     }
 
-    var verticals: [CourseVertical]
+    @Published var verticals: [CourseVertical]
     var verticalIndex: Int
     var courseName: String
     
     @Published var index: Int = 0
+    private(set) var courseStructure: CourseStructure?
+    var courseStructurePublisher: AnyPublisher<CourseStructure?, Never>?
     var previousLesson: String = ""
     var nextLesson: String = ""
     @Published var showError: Bool = false
@@ -118,10 +122,20 @@ public class CourseUnitViewModel: ObservableObject {
     let config: ConfigProtocol
     let analytics: CourseAnalytics
     let connectivity: ConnectivityProtocol
+    let serverConfig: ServerConfigProtocol
     let storage: CourseStorage
+    private let upgradeInfoViewModelFactory: (
+        _ productName: String,
+        _ sku: String,
+        _ courseID: String,
+        _ screen: CourseUpgradeScreen,
+        _ pacing: String,
+        _ lmsPrice: Double
+    ) -> UpgradeInfoViewModel?
     private let manager: DownloadManagerProtocol
     private var subtitlesDownloaded: Bool = false
-    let chapters: [CourseChapter]
+    private var cancellables = Set<AnyCancellable>()
+    var chapters: [CourseChapter]
     let chapterIndex: Int
     let sequentialIndex: Int
 
@@ -129,6 +143,10 @@ public class CourseUnitViewModel: ObservableObject {
         storage.userSettings?.streamingQuality ?? .auto
     }
 
+    var upgradeInfoViewModel: UpgradeInfoViewModel? {
+        loadUpgradeInfoViewModel()
+    }
+    
     func loadIndex() {
         index = selectLesson()
     }
@@ -151,7 +169,17 @@ public class CourseUnitViewModel: ObservableObject {
         analytics: CourseAnalytics,
         connectivity: ConnectivityProtocol,
         storage: CourseStorage,
-        manager: DownloadManagerProtocol
+        manager: DownloadManagerProtocol,
+        serverConfig: ServerConfigProtocol,
+        courseStructurePublisher: AnyPublisher<CourseStructure?, Never>?,
+        upgradeInfoViewModelFactory: @escaping (
+            _ productName: String,
+            _ sku: String,
+            _ courseID: String,
+            _ screen: CourseUpgradeScreen,
+            _ pacing: String,
+            _ lmsPrice: Double
+        ) -> UpgradeInfoViewModel?
     ) {
         self.lessonID = lessonID
         self.courseID = courseID
@@ -168,6 +196,26 @@ public class CourseUnitViewModel: ObservableObject {
         self.connectivity = connectivity
         self.manager = manager
         self.storage = storage
+        self.serverConfig = serverConfig
+        self.courseStructurePublisher = courseStructurePublisher
+        self.upgradeInfoViewModelFactory = upgradeInfoViewModelFactory
+        
+        addObservers()
+    }
+    
+    private func addObservers() {
+        courseStructurePublisher?
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] value in
+                guard let self = self else { return }
+                self.courseStructure = value
+                if self.courseStructure?.id == self.courseID {
+                    self.chapters = self.courseStructure?.childs ?? []
+                    self.verticals = self.chapters[self.chapterIndex].childs[self.sequentialIndex].childs
+                }
+                NotificationCenter.default.post(name: .courseUpgradeUILoadingShouldEnd, object: nil)
+            }
+            .store(in: &cancellables)
     }
     
     private func selectLesson() -> Int {
@@ -344,7 +392,8 @@ public class CourseUnitViewModel: ObservableObject {
                 chapters: chapters,
                 chapterIndex: data.chapterIndex,
                 sequentialIndex: data.sequentialIndex,
-                animated: animated
+                animated: animated,
+                courseStructurePublisher: courseStructurePublisher
             )
         }
     }
@@ -356,5 +405,23 @@ public class CourseUnitViewModel: ObservableObject {
     
     public var currentCourseId: String {
         courseID
+    }
+    
+    public func loadUpgradeInfoViewModel() -> UpgradeInfoViewModel? {
+        guard let courseStructure = courseStructure,
+              let sku = courseStructure.sku,
+              let lmsPrice = courseStructure.lmsPrice
+        else {
+            return nil
+        }
+        
+        return upgradeInfoViewModelFactory(
+            courseStructure.displayName,
+            sku,
+            currentCourseId,
+            .courseComponent,
+            courseStructure.isSelfPaced ? Pacing.selfPace.rawValue : Pacing.instructor.rawValue,
+            lmsPrice
+        )
     }
 }

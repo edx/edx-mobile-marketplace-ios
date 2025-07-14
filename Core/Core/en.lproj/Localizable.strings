@@ -161,7 +161,9 @@
 "COURSE_UPGRADE.BUTTON.UPGRADE"="Upgrade to access more features";
 "COURSE_UPGRADE.VIEW.BUTTON.UPGRADE_NOW"="Upgrade now for";
 "COURSE_UPGRADE.VIEW.TITLE"="Upgrade";
-"COURSE_UPGRADE.VIEW.OPTION.FIRST"="Earn a certificate of completion to showcase on your resume";
+"COURSE_UPGRADE.VIEW.GATED_CONTENT_TITLE"="Graded assignments are locked";
+"COURSE_UPGRADE.VIEW.GATED_CONTENT_MESSAGE"="Upgrade to gain access to locked features like this one and get the most out of your course.";
+"COURSE_UPGRADE.VIEW.OPTION.FIRST"="Earn a verified certificate of completion to showcase on your resume";
 "COURSE_UPGRADE.VIEW.OPTION.SECOND"="Unlock access to all course activities, including graded assignments";
 "COURSE_UPGRADE.VIEW.OPTION.THIRD"="Full access to course content and course material even after the course ends";
 "COURSE_UPGRADE.SNACKBAR.TITLE"="Course upgraded";

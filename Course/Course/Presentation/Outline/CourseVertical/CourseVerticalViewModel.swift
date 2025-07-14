@@ -19,6 +19,7 @@ public class CourseVerticalViewModel: BaseCourseViewModel {
     let chapters: [CourseChapter]
     let chapterIndex: Int
     let sequentialIndex: Int
+    var courseStructurePublisher: AnyPublisher<CourseStructure?, Never>?
     
     var errorMessage: String? {
         didSet {
@@ -35,7 +36,8 @@ public class CourseVerticalViewModel: BaseCourseViewModel {
         manager: DownloadManagerProtocol,
         router: CourseRouter,
         analytics: CourseAnalytics,
-        connectivity: ConnectivityProtocol
+        connectivity: ConnectivityProtocol,
+        courseStructurePublisher: AnyPublisher<CourseStructure?, Never>?
     ) {
         self.chapters = chapters
         self.chapterIndex = chapterIndex
@@ -44,6 +46,7 @@ public class CourseVerticalViewModel: BaseCourseViewModel {
         self.analytics = analytics
         self.connectivity = connectivity
         self.verticals = chapters[chapterIndex].childs[sequentialIndex].childs
+        self.courseStructurePublisher = courseStructurePublisher
         super.init(manager: manager)
         
         manager.publisher()

@@ -110,7 +110,8 @@ struct CustomDisclosureGroup: View {
                                                         verticalIndex: 0,
                                                         chapters: course.childs,
                                                         chapterIndex: chapterIndex,
-                                                        sequentialIndex: sequentialIndex
+                                                        sequentialIndex: sequentialIndex,
+                                                        courseStructurePublisher: viewModel.courseStructurePublisher
                                                     )
                                                 } else {
                                                     viewModel.router.showCourseVerticalView(
@@ -119,7 +120,8 @@ struct CustomDisclosureGroup: View {
                                                         title: sequential.displayName,
                                                         chapters: course.childs,
                                                         chapterIndex: chapterIndex,
-                                                        sequentialIndex: sequentialIndex
+                                                        sequentialIndex: sequentialIndex,
+                                                        courseStructurePublisher: viewModel.courseStructurePublisher
                                                     )
                                                 }
                                             },

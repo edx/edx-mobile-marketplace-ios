@@ -13,6 +13,7 @@ import Discussion
 import Course
 import Profile
 import Notifications
+import Combine
 
 // swiftlint:disable function_body_length type_body_length
 //sourcery: AutoMockable
@@ -257,7 +258,7 @@ public class DeepLinkManager: NotificationsDeepLinkManager {
             router.showCourseDetail(
                 link: link,
                 courseDetails: courseDetails
-            ) { [weak self] in
+            ) { [weak self] courseContainerViewModel in
                 guard let self else { return }
                 guard courseDetails.isEnrolled else { return }
 
@@ -302,7 +303,11 @@ public class DeepLinkManager: NotificationsDeepLinkManager {
                 if self.isCourseComponent(type: type) {
                     self.router.showProgress()
                     Task {
-                        await self.showCourseComponent(link: link, courseDetails: courseDetails)
+                        await self.showCourseComponent(
+                            link: link,
+                            courseDetails: courseDetails,
+                            courseStructurePublisher: courseContainerViewModel?.courseStructurePublisher
+                        )
                         self.router.dismissProgress()
                     }
                     return
@@ -465,7 +470,8 @@ public class DeepLinkManager: NotificationsDeepLinkManager {
     @MainActor
     private func showCourseComponent(
         link: DeepLink,
-        courseDetails: CourseDetails
+        courseDetails: CourseDetails,
+        courseStructurePublisher: AnyPublisher<CourseStructure?, Never>?
     ) async {
         guard let courseID = link.courseID else { return }
         guard let courseStructure = try? await courseInteractor.getCourseBlocks(courseID: courseID) else {
@@ -474,7 +480,8 @@ public class DeepLinkManager: NotificationsDeepLinkManager {
         router.showCourseComponent(
             componentID: link.componentID ?? "",
             courseStructure: courseStructure,
-            blockLink: ""
+            blockLink: "",
+            courseStructurePublisher: courseStructurePublisher
         )
     }
     

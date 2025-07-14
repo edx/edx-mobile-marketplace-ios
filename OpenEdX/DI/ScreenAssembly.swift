@@ -376,7 +376,7 @@ class ScreenAssembly: Assembly {
             )
         }
         
-        container.register(CourseVerticalViewModel.self) { r, chapters, chapterIndex, sequentialIndex in
+        container.register(CourseVerticalViewModel.self) { r, chapters, chapterIndex, sequentialIndex, courseStructurePublisher in
             CourseVerticalViewModel(
                 chapters: chapters,
                 chapterIndex: chapterIndex,
@@ -384,13 +384,14 @@ class ScreenAssembly: Assembly {
                 manager: r.resolve(DownloadManagerProtocol.self)!,
                 router: r.resolve(CourseRouter.self)!,
                 analytics: r.resolve(CourseAnalytics.self)!,
-                connectivity: r.resolve(ConnectivityProtocol.self)!
+                connectivity: r.resolve(ConnectivityProtocol.self)!,
+                courseStructurePublisher: courseStructurePublisher
             )
         }
         
         container.register(
             CourseUnitViewModel.self
-        ) { r, blockId, courseId, courseName, chapters, chapterIndex, sequentialIndex, verticalIndex in
+        ) { r, blockId, courseId, courseName, chapters, chapterIndex, sequentialIndex, verticalIndex, courseStructurePublisher in
             CourseUnitViewModel(
                 lessonID: blockId,
                 courseID: courseId,
@@ -405,7 +406,15 @@ class ScreenAssembly: Assembly {
                 analytics: r.resolve(CourseAnalytics.self)!,
                 connectivity: r.resolve(ConnectivityProtocol.self)!,
                 storage: r.resolve(CourseStorage.self)!,
-                manager: r.resolve(DownloadManagerProtocol.self)!
+                manager: r.resolve(DownloadManagerProtocol.self)!,
+                serverConfig: r.resolve(ServerConfigProtocol.self)!,
+                courseStructurePublisher: courseStructurePublisher,
+                upgradeInfoViewModelFactory: { productName, sku, courseID, screen, pacing, lmsPrice in
+                    r.resolve(
+                        UpgradeInfoViewModel.self,
+                        arguments: productName, "", sku, courseID, screen, pacing, lmsPrice
+                    )!
+                }
             )
         }
         

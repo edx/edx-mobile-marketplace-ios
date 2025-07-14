@@ -314,11 +314,18 @@ public struct CourseBlock: Hashable, Identifiable {
     public let subtitles: [SubtitleUrl]?
     public let encodedVideo: CourseBlockEncodedVideo?
     public let multiDevice: Bool?
+    /// Authorization Denial Reason if the block content is gated
+    public let authorizationDenialReason: AuthorizationDenialReason
 
     public var isDownloadable: Bool {
         encodedVideo?.isDownloadable ?? false
     }
 
+    /// Property to represent gated content
+    public var isGated: Bool {
+        return authorizationDenialReason == .featureBasedEnrollment
+    }
+    
     public init(
         blockId: String,
         id: String,
@@ -333,7 +340,8 @@ public struct CourseBlock: Hashable, Identifiable {
         webUrl: String,
         subtitles: [SubtitleUrl]? = nil,
         encodedVideo: CourseBlockEncodedVideo?,
-        multiDevice: Bool?
+        multiDevice: Bool?,
+        authorizationDenialReason: AuthorizationDenialReason
     ) {
         self.blockId = blockId
         self.id = id
@@ -349,6 +357,7 @@ public struct CourseBlock: Hashable, Identifiable {
         self.subtitles = subtitles
         self.encodedVideo = encodedVideo
         self.multiDevice = multiDevice
+        self.authorizationDenialReason = authorizationDenialReason
     }
 }
 
@@ -459,4 +468,9 @@ public struct CourseBlockVideo: Equatable {
     public var isDownloadable: Bool {
         [".mp4"].contains(where: { url?.contains($0) == true })
     }
+}
+
+public enum AuthorizationDenialReason: String {
+    case featureBasedEnrollment = "Feature-based Enrollments"
+    case none = "none"
 }

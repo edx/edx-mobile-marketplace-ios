@@ -49,6 +49,7 @@ public class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
     private var courseID: String = ""
     private var lmsPrice: Double?
     private var componentID: String?
+    private var screen: CourseUpgradeScreen?
 
     private(set) var state: UpgradeState = .initial {
         didSet {
@@ -70,7 +71,7 @@ public class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
         case .verify:
             return .fulfillment(showLoader: upgradeMode.isUserInitiated)
         case .complete:
-            return .success(courseID, componentID)
+            return .success(courseID, componentID, screen)
         case .error(let error):
             return .error(error)
         }
@@ -104,6 +105,7 @@ public class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
         self.courseID = courseID
         self.componentID = componentID
         self.productInfo = productInfo
+        self.screen = screen
         courseSku = sku
         self.lmsPrice = lmsPrice
         guard let sku = sku, !sku.isEmpty else {

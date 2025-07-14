@@ -10,20 +10,21 @@ import StoreKit
 import SwiftUI
 import MessageUI
 import Alamofire
+import Combine
 
 private let InProgressIAPKey = "InProgressIAPKey"
 
 public struct CourseUpgradeHelperModel {
     let courseID: String
     let blockID: String?
-    let screen: CourseUpgradeScreen
+    let screen: CourseUpgradeScreen?
 }
 
 public enum UpgradeCompletionState {
     case initial
     case payment
     case fulfillment(showLoader: Bool)
-    case success(_ courseID: String, _ componentID: String?)
+    case success(_ courseID: String, _ componentID: String?, _ screen: CourseUpgradeScreen?)
     case error(UpgradeError)
 }
 
@@ -80,6 +81,7 @@ public class CourseUpgradeHelper: CourseUpgradeHelperProtocol {
     private var lmsPrice: Double?
     weak private(set) var upgradeHadler: CourseUpgradeHandler?
     private let router: BaseRouter
+    private var cancellables = Set<AnyCancellable>()
     
     public init(
         config: ConfigProtocol,
@@ -107,6 +109,20 @@ public class CourseUpgradeHelper: CourseUpgradeHelperProtocol {
         self.screen = screen
         self.localizedCurrencyCode = localizedCurrencyCode
         self.lmsPrice = lmsPrice
+        
+        addObservers()
+    }
+    
+    private func addObservers() {
+        NotificationCenter.default
+            .publisher(for: .courseUpgradeUILoadingShouldEnd)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    self.removeLoader(success: true, shouldRemoveView: true)
+                }
+            }
+            .store(in: &cancellables)
     }
     
     public func handleCourseUpgrade(
@@ -124,14 +140,16 @@ public class CourseUpgradeHelper: CourseUpgradeHelperProtocol {
             if show {
                 showLoader()
             }
-        case .success(let courseID, let blockID):
+        case .success(let courseID, let blockID, let screen):
             helperModel = CourseUpgradeHelperModel(courseID: courseID, blockID: blockID, screen: screen)
-            if upgradeHadler.upgradeMode.isUserInitiated {
-                removeLoader(success: true, shouldRemoveView: true)
-                postSuccessNotification()
-            } else {
+            guard upgradeHadler.upgradeMode.isUserInitiated else {
                 showSilentRefreshAlert()
+                return
             }
+            if screen != .courseComponent {
+                removeLoader(success: true, shouldRemoveView: true)
+            }
+            postSuccessNotification()
         case .error(let error):
             if case .paymentError = error {
                 if error.isCancelled {
@@ -364,7 +382,7 @@ extension CourseUpgradeHelper {
 }
 
 extension CourseUpgradeHelper {
-    public func showLoader(animated: Bool = false, completion: (() -> Void)? = nil) {
+    private func showLoader(animated: Bool = false, completion: (() -> Void)? = nil) {
         Task {@MainActor [weak self] in
             guard let self = self else { return }
             await self.router.hideUpgradeInfo(animated: false)
@@ -373,7 +391,7 @@ extension CourseUpgradeHelper {
         }
     }
     
-    public func removeLoader(
+    private func removeLoader(
         success: Bool? = false,
         shouldRemoveView: Bool? = false,
         completion: (() -> Void)? = nil

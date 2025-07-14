@@ -28,7 +28,8 @@ final class CourseUnitViewModelTests: XCTestCase {
                     studentUrl: "",
                     webUrl: "",
                     encodedVideo: nil,
-                    multiDevice: true
+                    multiDevice: true,
+                    authorizationDenialReason: .none
                    ),
         CourseBlock(blockId: "2",
                     id: "2",
@@ -42,7 +43,8 @@ final class CourseUnitViewModelTests: XCTestCase {
                     studentUrl: "2",
                     webUrl: "2",
                     encodedVideo: nil,
-                    multiDevice: false
+                    multiDevice: false,
+                    authorizationDenialReason: .none
                    ),
         CourseBlock(blockId: "3",
                     id: "3",
@@ -56,7 +58,8 @@ final class CourseUnitViewModelTests: XCTestCase {
                     studentUrl: "3",
                     webUrl: "3",
                     encodedVideo: nil,
-                    multiDevice: true
+                    multiDevice: true,
+                    authorizationDenialReason: .none
                    ),
         CourseBlock(blockId: "4",
                     id: "4",
@@ -70,7 +73,8 @@ final class CourseUnitViewModelTests: XCTestCase {
                     studentUrl: "4",
                     webUrl: "4",
                     encodedVideo: nil,
-                    multiDevice: false
+                    multiDevice: false,
+                    authorizationDenialReason: .none
                    ),
     ]
     
@@ -155,7 +159,12 @@ final class CourseUnitViewModelTests: XCTestCase {
             analytics: analytics,
             connectivity: connectivity,
             storage: CourseStorageMock(),
-            manager: DownloadManagerMock()
+            manager: DownloadManagerMock(),
+            serverConfig: ServerConfigProtocolMock(),
+            courseStructurePublisher: nil,
+            upgradeInfoViewModelFactory: { _, _, _, _, _, _ in
+                return nil
+            }
         )
         
         Given(interactor, .blockCompletionRequest(courseID: .any, blockID: .any, willProduce: {_ in}))
@@ -185,7 +194,12 @@ final class CourseUnitViewModelTests: XCTestCase {
             analytics: analytics,
             connectivity: connectivity, 
             storage: CourseStorageMock(),
-            manager: DownloadManagerMock()
+            manager: DownloadManagerMock(),
+            serverConfig: ServerConfigProtocolMock(),
+            courseStructurePublisher: nil,
+            upgradeInfoViewModelFactory: { _, _, _, _, _, _ in
+                return nil
+            }
         )
         
         Given(interactor, .blockCompletionRequest(courseID: .any,
@@ -220,7 +234,12 @@ final class CourseUnitViewModelTests: XCTestCase {
             analytics: analytics,
             connectivity: connectivity,
             storage: CourseStorageMock(),
-            manager: DownloadManagerMock()
+            manager: DownloadManagerMock(),
+            serverConfig: ServerConfigProtocolMock(),
+            courseStructurePublisher: nil,
+            upgradeInfoViewModelFactory: { _, _, _, _, _, _ in
+                return nil
+            }
         )
         
         let noInternetError = AFError.sessionInvalidated(error: URLError(.notConnectedToInternet))
@@ -257,7 +276,12 @@ final class CourseUnitViewModelTests: XCTestCase {
             analytics: analytics,
             connectivity: connectivity,
             storage: CourseStorageMock(),
-            manager: DownloadManagerMock()
+            manager: DownloadManagerMock(),
+            serverConfig: ServerConfigProtocolMock(),
+            courseStructurePublisher: nil,
+            upgradeInfoViewModelFactory: { _, _, _, _, _, _ in
+                return nil
+            }
         )
         
         Given(interactor, .blockCompletionRequest(courseID: .any,
@@ -293,7 +317,12 @@ final class CourseUnitViewModelTests: XCTestCase {
             analytics: analytics,
             connectivity: connectivity,
             storage: CourseStorageMock(),
-            manager: DownloadManagerMock()
+            manager: DownloadManagerMock(),
+            serverConfig: ServerConfigProtocolMock(),
+            courseStructurePublisher: nil,
+            upgradeInfoViewModelFactory: { _, _, _, _, _, _ in
+                return nil
+            }
         )
         
         viewModel.loadIndex()

@@ -12,6 +12,7 @@ import Discovery
 import Discussion
 import Course
 import Profile
+import Combine
 
 public protocol DeepLinkRouter: BaseRouter {
     func showTabScreen(tab: MainTab)
@@ -23,12 +24,13 @@ public protocol DeepLinkRouter: BaseRouter {
     func showCourseDetail(
         link: DeepLink,
         courseDetails: CourseDetails,
-        completion: @escaping () -> Void
+        completion: @escaping (CourseContainerViewModel?) -> Void
     )
     func showCourseComponent(
         componentID: String,
         courseStructure: CourseStructure,
-        blockLink: String
+        blockLink: String,
+        courseStructurePublisher: AnyPublisher<CourseStructure?, Never>?
     )
     func showAnnouncement(
         courseDetails: CourseDetails,
@@ -105,7 +107,7 @@ extension Router: DeepLinkRouter {
     public func showCourseDetail(
         link: DeepLink,
         courseDetails: CourseDetails,
-        completion: @escaping () -> Void
+        completion: @escaping (CourseContainerViewModel?) -> Void
     ) {
         let isCourseOpened = hostCourseContainerView?.rootView.courseID == courseDetails.courseID
 
@@ -167,7 +169,7 @@ extension Router: DeepLinkRouter {
                 break
             }
 
-            completion()
+            completion(self.hostCourseContainerView?.rootView.viewModel)
         }
     }
 
@@ -363,12 +365,13 @@ public class DeepLinkRouterMock: BaseRouterMock, DeepLinkRouter {
     public func showCourseDetail(
         link: DeepLink,
         courseDetails: CourseDetails,
-        completion: @escaping () -> Void
+        completion: @escaping (CourseContainerViewModel?) -> Void
     ) {}
     public func showCourseComponent(
         componentID: String,
         courseStructure: CourseStructure,
-        blockLink: String
+        blockLink: String,
+        courseStructurePublisher: AnyPublisher<CourseStructure?, Never>? = nil
     ) {}
     public func showAnnouncement(
         courseDetails: CourseDetails,

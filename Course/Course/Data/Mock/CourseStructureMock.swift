@@ -260,7 +260,9 @@ extension CourseRepository {
               "descendants": [
                 
               ],
-              "completion": 0.0
+              "completion": 0.0,
+              "authorization_denial_reason": "Feature-based Enrollments",
+              "authorization_denial_message": "Graded assessments are available to Verified Track learners. Upgrade to Unlock."
             },
             "block-v1:QA+comparison+2022+type@vertical+block@e5b2e105f4f947c5b76fb12c35da1eca": {
               "id": "block-v1:QA+comparison+2022+type@vertical+block@e5b2e105f4f947c5b76fb12c35da1eca",

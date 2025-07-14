@@ -7,6 +7,7 @@
 
 import Foundation
 import Core
+import Combine
 
 public protocol CourseRouter: BaseRouter {
     
@@ -19,7 +20,8 @@ public protocol CourseRouter: BaseRouter {
         verticalIndex: Int,
         chapters: [CourseChapter],
         chapterIndex: Int,
-        sequentialIndex: Int
+        sequentialIndex: Int,
+        courseStructurePublisher: AnyPublisher<CourseStructure?, Never>?
     )
     
     func replaceCourseUnit(
@@ -30,7 +32,8 @@ public protocol CourseRouter: BaseRouter {
         chapters: [CourseChapter],
         chapterIndex: Int,
         sequentialIndex: Int,
-        animated: Bool
+        animated: Bool,
+        courseStructurePublisher: AnyPublisher<CourseStructure?, Never>?
     )
     
     func showCourseVerticalView(
@@ -39,7 +42,8 @@ public protocol CourseRouter: BaseRouter {
         title: String,
         chapters: [CourseChapter],
         chapterIndex: Int,
-        sequentialIndex: Int
+        sequentialIndex: Int,
+        courseStructurePublisher: AnyPublisher<CourseStructure?, Never>?
     )
     
     func showHandoutsUpdatesView(
@@ -53,7 +57,8 @@ public protocol CourseRouter: BaseRouter {
     func showCourseComponent(
         componentID: String,
         courseStructure: CourseStructure,
-        blockLink: String
+        blockLink: String,
+        courseStructurePublisher: AnyPublisher<CourseStructure?, Never>?
     )
 
     func showDownloads(
@@ -81,7 +86,8 @@ public class CourseRouterMock: BaseRouterMock, CourseRouter {
         verticalIndex: Int,
         chapters: [CourseChapter],
         chapterIndex: Int,
-        sequentialIndex: Int
+        sequentialIndex: Int,
+        courseStructurePublisher: AnyPublisher<CourseStructure?, Never>? = nil
     ) {}
     
     public func replaceCourseUnit(
@@ -92,7 +98,8 @@ public class CourseRouterMock: BaseRouterMock, CourseRouter {
         chapters: [CourseChapter],
         chapterIndex: Int,
         sequentialIndex: Int,
-        animated: Bool
+        animated: Bool,
+        courseStructurePublisher: AnyPublisher<CourseStructure?, Never>? = nil
     ) {}
     
     public func showCourseVerticalView(
@@ -101,7 +108,8 @@ public class CourseRouterMock: BaseRouterMock, CourseRouter {
         title: String,
         chapters: [CourseChapter],
         chapterIndex: Int,
-        sequentialIndex: Int
+        sequentialIndex: Int,
+        courseStructurePublisher: AnyPublisher<CourseStructure?, Never>? = nil
     ) {}
     
     public func showHandoutsUpdatesView(
@@ -115,7 +123,8 @@ public class CourseRouterMock: BaseRouterMock, CourseRouter {
     public func showCourseComponent(
         componentID: String,
         courseStructure: CourseStructure,
-        blockLink: String
+        blockLink: String,
+        courseStructurePublisher: AnyPublisher<CourseStructure?, Never>? = nil
     ) {}
 
     public func showDownloads(
