@@ -208,16 +208,12 @@ public class CourseUnitViewModel: ObservableObject {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] value in
                 guard let self = self else { return }
-                DispatchQueue.main.async {
-                    Task {
-                        self.courseStructure = value
-                        if self.courseStructure?.id == self.courseID {
-                            self.chapters = self.courseStructure?.childs ?? []
-                            self.verticals = self.chapters[self.chapterIndex].childs[self.sequentialIndex].childs
-                        }
-                        NotificationCenter.default.post(name: .courseUpgradeUILoadingShouldEnd, object: nil)
-                    }
+                self.courseStructure = value
+                if self.courseStructure?.id == self.courseID {
+                    self.chapters = self.courseStructure?.childs ?? []
+                    self.verticals = self.chapters[self.chapterIndex].childs[self.sequentialIndex].childs
                 }
+                NotificationCenter.default.post(name: .courseUpgradeUILoadingShouldEnd, object: nil)
             }
             .store(in: &cancellables)
     }

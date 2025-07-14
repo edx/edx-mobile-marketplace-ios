@@ -141,7 +141,8 @@ public class CourseDatesViewModel: ObservableObject {
             router.showCourseComponent(
                 componentID: componentID,
                 courseStructure: courseStructure,
-                blockLink: blockLink
+                blockLink: blockLink,
+                courseStructurePublisher: nil
             )
         } catch _ {
             errorMessage = CourseLocalization.Error.componentNotFount

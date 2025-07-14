@@ -549,7 +549,8 @@ public class Router: AuthorizationRouter,
     public func showCourseComponent(
         componentID: String,
         courseStructure: CourseStructure,
-        blockLink: String) {
+        blockLink: String,
+        courseStructurePublisher: AnyPublisher<CourseStructure?, Never>?) {
             var courseBlock: CourseBlock?
             var chapterPosition: Int?
             var sequentialPosition: Int?
@@ -582,7 +583,7 @@ public class Router: AuthorizationRouter,
                         chapters: courseStructure.childs,
                         chapterIndex: chapterPosition ?? 0,
                         sequentialIndex: sequentialPosition ?? 0,
-                        courseStructurePublisher: nil
+                        courseStructurePublisher: courseStructurePublisher
                     )
                 }
             } else if !blockLink.isEmpty, let blockURL = URL(string: blockLink) {
