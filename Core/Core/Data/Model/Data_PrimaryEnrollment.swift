@@ -73,9 +73,8 @@ public extension DataLayer {
             
             let startDate = Date(iso8601: start)
             let dynamicUpgradeDeadline = Date(iso8601: upgradeDeadline)
-            let isPriceValid = (lmsPrice ?? 0.0) >= IAPPriceRange.minimum && (lmsPrice ?? 0.0) <= IAPPriceRange.maximum
             return startDate.isInPast()
-            && isPriceValid
+            && SKUBuilder.isPriceValid(lmsPrice)
             && !dynamicUpgradeDeadline.isInPast()
         }
 
@@ -268,7 +267,7 @@ public extension DataLayer.PrimaryEnrollment {
             startDisplay: primary.course?.startDisplay.flatMap { Date(iso8601: $0) },
             startType: DisplayStartType(value: primary.course?.startType.rawValue),
             isUpgradeable: primary.isUpgradeable,
-            sku: iosProductPrefix.isEmpty ? "" : iosProductPrefix + String(Int(primary.lmsPrice ?? 0)),
+            sku: SKUBuilder.buildSKU(prefix: iosProductPrefix, price: primary.lmsPrice),
             lmsPrice: primary.lmsPrice,
             isSelfPaced: primary.course?.isSelfPaced ?? false,
             coursewareAccess: coursewareAccess

@@ -178,9 +178,7 @@ public class CourseRepository: CourseRepositoryProtocol {
             org: course.org ?? "",
             isSelfPaced: course.isSelfPaced,
             isUpgradeable: course.isUpgradeable,
-            sku: serverConfig.iapConfig.iosProductPrefix.isEmpty
-            ? ""
-            : serverConfig.iapConfig.iosProductPrefix + String(Int(course.lmsPrice ?? 0)),
+            sku: SKUBuilder.buildSKU(prefix: serverConfig.iapConfig.iosProductPrefix, price: course.lmsPrice),
             coursewareAccessDetails: coursewareAccessDetails,
             courseProgress: course.courseProgress == nil ? nil : CourseProgress(
                 totalAssignmentsCount: course.courseProgress?.totalAssignmentsCount ?? 0,
@@ -325,6 +323,8 @@ public class CourseRepository: CourseRepositoryProtocol {
 // swiftlint:disable all
 #if DEBUG
 class CourseRepositoryMock: CourseRepositoryProtocol {
+    private let serverConfig = ServerConfigProtocolMock()
+    
     func getCourseDatesOffline(courseID: String) async throws -> CourseDates {
         throw NoCachedDataError()
     }
@@ -473,7 +473,7 @@ And there are various ways of describing it-- call it oral poetry or
             org: course.org ?? "",
             isSelfPaced: course.isSelfPaced,
             isUpgradeable: course.isUpgradeable,
-            sku: "mobile.ios.usd" + String(course.lmsPrice ?? 0),
+            sku: SKUBuilder.buildSKU(prefix: serverConfig.iapConfig.iosProductPrefix, price: course.lmsPrice),
             coursewareAccessDetails: coursewareAccessDetails,
             courseProgress: course.courseProgress == nil ? nil : CourseProgress(
                 totalAssignmentsCount: course.courseProgress?.totalAssignmentsCount ?? 0,

@@ -287,7 +287,7 @@ public extension DataLayer.CourseEnrollments {
             var lmsPrice: Double?
             
             for mode in result.courseModes where mode.slug == DataLayer.Mode.verified {
-                sku = iosProductPrefix.isEmpty ? "" : iosProductPrefix + String(Int(mode.lmsPrice ?? 0))
+                sku = SKUBuilder.buildSKU(prefix: iosProductPrefix, price: mode.lmsPrice)
                 lmsPrice = mode.lmsPrice
             }
             

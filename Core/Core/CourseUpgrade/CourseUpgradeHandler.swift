@@ -35,6 +35,23 @@ public enum UpgradeState {
     case error(UpgradeError)
 }
 
+public struct SKUBuilder {
+    private static let minimum = 1.0
+    private static let maximum = 1000.0
+
+    public static func buildSKU(prefix: String, price: Double?) -> String {
+        guard !prefix.isEmpty, let price = price else {
+            return ""
+        }
+        return prefix + String(Int(price))
+    }
+    
+    public static func isPriceValid(_ price: Double?) -> Bool {
+        guard let price = price else { return false }
+        return price >= minimum && price <= maximum
+    }
+}
+
 public class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
     static var ecommerceURL: String = ""
     

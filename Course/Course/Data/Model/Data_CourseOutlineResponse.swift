@@ -76,7 +76,7 @@ public extension DataLayer {
             }
             self.courseProgress = courseProgress
             
-            populatelmsPrice()
+            populateLMSPrice()
         }
         
         public init(from decoder: Decoder) throws {
@@ -94,10 +94,10 @@ public extension DataLayer {
             courseStart = try? values.decode(String.self, forKey: .courseStart)
             coursewareAccessDetails = try? values.decode(CoursewareAccessDetails.self, forKey: .coursewareAccessDetails)
             courseProgress = try? values.decode(DataLayer.CourseProgress.self, forKey: .courseProgress)
-            populatelmsPrice()
+            populateLMSPrice()
         }
         
-        mutating func populatelmsPrice() {
+        mutating func populateLMSPrice() {
             for mode in courseModes ?? [] where mode.slug == .verified {
                 lmsPrice = mode.lmsPrice
             }
@@ -331,10 +331,9 @@ extension DataLayer.CourseStructure {
         
         let startDate = Date(iso8601: start)
         let dynamicUpgradeDeadline = Date(iso8601: upgradeDeadline)
-        let isPriceValid = (lmsPrice ?? 0.0) >= IAPPriceRange.minimum && (lmsPrice ?? 0.0) <= IAPPriceRange.maximum
         
         return startDate.isInPast()
-        && isPriceValid
+        && SKUBuilder.isPriceValid(lmsPrice)
         && !dynamicUpgradeDeadline.isInPast()
     }
 }

@@ -78,8 +78,6 @@ public class DashboardRepository: DashboardRepositoryProtocol {
         persistence.savePrimaryEnrollment(enrollments: mappedResult.0)
         persistence.saveServerConfig(configs: mappedResult.1)
         
-        serverConfig.initialize(serverConfig: mappedResult.1?.config)
-        
         return mappedResult.0
     }
     

@@ -47,7 +47,7 @@ public class ServerConfig: ServerConfigProtocol {
 #if DEBUG
 public class ServerConfigProtocolMock: ServerConfigProtocol {
     
-    let configString = "{\"iap_config\":{\"enabled\":true,\"experiment_enabled\":false,\"android_product_prefix\":\"mobile.android.usd\",\"allowed_users\":[\"all_users\"]},\"value_prop_enabled\":true,\"feedback_form_url\":\"https://bit.ly/edx-apps-feedback\",\"course_dates_calendar_sync\":{\"ios\":{\"enabled\":true,\"self_paced_enabled\":true,\"instructor_paced_enabled\":true,\"deep_links_enabled\":true},\"android\":{\"enabled\":true,\"self_paced_enabled\":true,\"instructor_paced_enabled\":true,\"deep_links_enabled\":true}}}"
+    let configString = "{\"iap_config\":{\"enabled\":true,\"experiment_enabled\":false,\"restore_enabled\":true,\"android_product_prefix\":\"mobile.android.usd\",\"ios_product_prefix\":\"mobile.ios.usd\",\"allowed_users\":[\"all_users\"]},\"value_prop_enabled\":true,\"feedback_form_url\":\"https://bit.ly/edx-apps-feedback\",\"disabled_countries\":[\"RU\"],\"course_dates_calendar_sync\":{\"ios\":{\"enabled\":true,\"self_paced_enabled\":true,\"instructor_paced_enabled\":true,\"deep_links_enabled\":true},\"android\":{\"enabled\":true,\"self_paced_enabled\":true,\"instructor_paced_enabled\":true,\"deep_links_enabled\":true}}}"
     
     var config: [String: Any] = [:]
     
@@ -63,7 +63,7 @@ public class ServerConfigProtocolMock: ServerConfigProtocol {
     
     public init() {
         valuePropEnabled = false
-        iapConfig = IAPConfig(dictionary: ["enabled": true, "restore_enabled": true])
+        iapConfig = IAPConfig(dictionary: ["enabled": true, "restore_enabled": true, "ios_product_prefix": "mobile.ios.usd"])
         initialize(serverConfig: configString)
     }
 }

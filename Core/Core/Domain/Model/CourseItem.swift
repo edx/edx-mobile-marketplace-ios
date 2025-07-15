@@ -90,9 +90,8 @@ extension CourseItem {
         guard let upgradeDeadline = dynamicUpgradeDeadline, mode == .audit else {
             return false
         }
-        let isPriceValid = (lmsPrice ?? 0.0) >= IAPPriceRange.minimum && (lmsPrice ?? 0.0) <= IAPPriceRange.maximum
         return !upgradeDeadline.isInPast()
-        && isPriceValid
+        && SKUBuilder.isPriceValid(lmsPrice)
         && courseStart?.isInPast() ?? false
     }
 }
