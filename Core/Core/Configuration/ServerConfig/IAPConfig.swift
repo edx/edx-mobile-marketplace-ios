@@ -14,16 +14,19 @@ public class IAPConfig: NSObject {
         case disabledVersions = "ios_disabled_versions"
         case restoreEnabled = "restore_enabled"
         case bundelVersionString = "CFBundleShortVersionString"
+        case iosProductPrefix = "ios_product_prefix"
     }
 
     public var enabled: Bool = false
     private var disabledVersions: [String] = []
     public var restoreEnabled: Bool = false
+    public var iosProductPrefix: String
     
     init(dictionary: [String: Any]) {
         enabled = dictionary[Keys.enabled] as? Bool ?? false
         disabledVersions = dictionary[Keys.disabledVersions] as? [String] ?? []
         restoreEnabled = dictionary[Keys.restoreEnabled] as? Bool ?? false
+        iosProductPrefix = dictionary[Keys.iosProductPrefix] as? String ?? ""
         
         if let info = Bundle.main.infoDictionary,
            let currentVersion = info[Keys.bundelVersionString] as? String,

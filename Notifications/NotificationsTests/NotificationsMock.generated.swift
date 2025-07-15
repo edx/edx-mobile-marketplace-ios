@@ -2026,17 +2026,10 @@ open class CourseUpgradeHandlerProtocolMock: CourseUpgradeHandlerProtocol, Mock 
 		return __value
     }
 
-    open func removeLoader() {
-        addInvocation(.m_removeLoader)
-		let perform = methodPerformValue(.m_removeLoader) as? () -> Void
-		perform?()
-    }
-
 
     fileprivate enum MethodType {
         case m_upgradeCourse__sku_skumode_modeproductInfo_productInfopacing_pacingcourseID_courseIDlmsPrice_lmsPricecomponentID_componentIDscreen_screencompletion_completion(Parameter<String?>, Parameter<UpgradeMode>, Parameter<StoreProductInfo?>, Parameter<String>, Parameter<String>, Parameter<Double>, Parameter<String?>, Parameter<CourseUpgradeScreen>, Parameter<UpgradeCompletionHandler?>)
         case m_fetchProduct__sku_sku(Parameter<String>)
-        case m_removeLoader
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
@@ -2057,8 +2050,6 @@ open class CourseUpgradeHandlerProtocolMock: CourseUpgradeHandlerProtocol, Mock 
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsSku, rhs: rhsSku, with: matcher), lhsSku, rhsSku, "sku"))
 				return Matcher.ComparisonResult(results)
-
-            case (.m_removeLoader, .m_removeLoader): return .match
             default: return .none
             }
         }
@@ -2067,14 +2058,12 @@ open class CourseUpgradeHandlerProtocolMock: CourseUpgradeHandlerProtocol, Mock 
             switch self {
             case let .m_upgradeCourse__sku_skumode_modeproductInfo_productInfopacing_pacingcourseID_courseIDlmsPrice_lmsPricecomponentID_componentIDscreen_screencompletion_completion(p0, p1, p2, p3, p4, p5, p6, p7, p8): return p0.intValue + p1.intValue + p2.intValue + p3.intValue + p4.intValue + p5.intValue + p6.intValue + p7.intValue + p8.intValue
             case let .m_fetchProduct__sku_sku(p0): return p0.intValue
-            case .m_removeLoader: return 0
             }
         }
         func assertionName() -> String {
             switch self {
             case .m_upgradeCourse__sku_skumode_modeproductInfo_productInfopacing_pacingcourseID_courseIDlmsPrice_lmsPricecomponentID_componentIDscreen_screencompletion_completion: return ".upgradeCourse(sku:mode:productInfo:pacing:courseID:lmsPrice:componentID:screen:completion:)"
             case .m_fetchProduct__sku_sku: return ".fetchProduct(sku:)"
-            case .m_removeLoader: return ".removeLoader()"
             }
         }
     }
@@ -2108,7 +2097,6 @@ open class CourseUpgradeHandlerProtocolMock: CourseUpgradeHandlerProtocol, Mock 
 
         public static func upgradeCourse(sku: Parameter<String?>, mode: Parameter<UpgradeMode>, productInfo: Parameter<StoreProductInfo?>, pacing: Parameter<String>, courseID: Parameter<String>, lmsPrice: Parameter<Double>, componentID: Parameter<String?>, screen: Parameter<CourseUpgradeScreen>, completion: Parameter<UpgradeCompletionHandler?>) -> Verify { return Verify(method: .m_upgradeCourse__sku_skumode_modeproductInfo_productInfopacing_pacingcourseID_courseIDlmsPrice_lmsPricecomponentID_componentIDscreen_screencompletion_completion(`sku`, `mode`, `productInfo`, `pacing`, `courseID`, `lmsPrice`, `componentID`, `screen`, `completion`))}
         public static func fetchProduct(sku: Parameter<String>) -> Verify { return Verify(method: .m_fetchProduct__sku_sku(`sku`))}
-        public static func removeLoader() -> Verify { return Verify(method: .m_removeLoader)}
     }
 
     public struct Perform {
@@ -2120,9 +2108,6 @@ open class CourseUpgradeHandlerProtocolMock: CourseUpgradeHandlerProtocol, Mock 
         }
         public static func fetchProduct(sku: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
             return Perform(method: .m_fetchProduct__sku_sku(`sku`), performs: perform)
-        }
-        public static func removeLoader(perform: @escaping () -> Void) -> Perform {
-            return Perform(method: .m_removeLoader, performs: perform)
         }
     }
 
@@ -2261,18 +2246,11 @@ open class CourseUpgradeHelperProtocolMock: CourseUpgradeHelperProtocol, Mock {
 		perform?()
     }
 
-    open func removeLoader() {
-        addInvocation(.m_removeLoader)
-		let perform = methodPerformValue(.m_removeLoader) as? () -> Void
-		perform?()
-    }
-
 
     fileprivate enum MethodType {
         case m_setData__courseID_courseIDpacing_pacingblockID_blockIDlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screen(Parameter<String>, Parameter<String>, Parameter<String?>, Parameter<NSDecimalNumber?>, Parameter<String?>, Parameter<Double?>, Parameter<CourseUpgradeScreen>)
         case m_handleCourseUpgrade__upgradeHadler_upgradeHadlerstate_statedelegate_delegate(Parameter<CourseUpgradeHandler>, Parameter<UpgradeCompletionState>, Parameter<CourseUpgradeHelperDelegate?>)
         case m_showRestorePurchasesAlert
-        case m_removeLoader
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
@@ -2295,8 +2273,6 @@ open class CourseUpgradeHelperProtocolMock: CourseUpgradeHelperProtocol, Mock {
 				return Matcher.ComparisonResult(results)
 
             case (.m_showRestorePurchasesAlert, .m_showRestorePurchasesAlert): return .match
-
-            case (.m_removeLoader, .m_removeLoader): return .match
             default: return .none
             }
         }
@@ -2306,7 +2282,6 @@ open class CourseUpgradeHelperProtocolMock: CourseUpgradeHelperProtocol, Mock {
             case let .m_setData__courseID_courseIDpacing_pacingblockID_blockIDlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screen(p0, p1, p2, p3, p4, p5, p6): return p0.intValue + p1.intValue + p2.intValue + p3.intValue + p4.intValue + p5.intValue + p6.intValue
             case let .m_handleCourseUpgrade__upgradeHadler_upgradeHadlerstate_statedelegate_delegate(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
             case .m_showRestorePurchasesAlert: return 0
-            case .m_removeLoader: return 0
             }
         }
         func assertionName() -> String {
@@ -2314,7 +2289,6 @@ open class CourseUpgradeHelperProtocolMock: CourseUpgradeHelperProtocol, Mock {
             case .m_setData__courseID_courseIDpacing_pacingblockID_blockIDlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screen: return ".setData(courseID:pacing:blockID:localizedPrice:localizedCurrencyCode:lmsPrice:screen:)"
             case .m_handleCourseUpgrade__upgradeHadler_upgradeHadlerstate_statedelegate_delegate: return ".handleCourseUpgrade(upgradeHadler:state:delegate:)"
             case .m_showRestorePurchasesAlert: return ".showRestorePurchasesAlert()"
-            case .m_removeLoader: return ".removeLoader()"
             }
         }
     }
@@ -2336,7 +2310,6 @@ open class CourseUpgradeHelperProtocolMock: CourseUpgradeHelperProtocol, Mock {
         public static func setData(courseID: Parameter<String>, pacing: Parameter<String>, blockID: Parameter<String?>, localizedPrice: Parameter<NSDecimalNumber?>, localizedCurrencyCode: Parameter<String?>, lmsPrice: Parameter<Double?>, screen: Parameter<CourseUpgradeScreen>) -> Verify { return Verify(method: .m_setData__courseID_courseIDpacing_pacingblockID_blockIDlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screen(`courseID`, `pacing`, `blockID`, `localizedPrice`, `localizedCurrencyCode`, `lmsPrice`, `screen`))}
         public static func handleCourseUpgrade(upgradeHadler: Parameter<CourseUpgradeHandler>, state: Parameter<UpgradeCompletionState>, delegate: Parameter<CourseUpgradeHelperDelegate?>) -> Verify { return Verify(method: .m_handleCourseUpgrade__upgradeHadler_upgradeHadlerstate_statedelegate_delegate(`upgradeHadler`, `state`, `delegate`))}
         public static func showRestorePurchasesAlert() -> Verify { return Verify(method: .m_showRestorePurchasesAlert)}
-        public static func removeLoader() -> Verify { return Verify(method: .m_removeLoader)}
     }
 
     public struct Perform {
@@ -2351,9 +2324,6 @@ open class CourseUpgradeHelperProtocolMock: CourseUpgradeHelperProtocol, Mock {
         }
         public static func showRestorePurchasesAlert(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_showRestorePurchasesAlert, performs: perform)
-        }
-        public static func removeLoader(perform: @escaping () -> Void) -> Perform {
-            return Perform(method: .m_removeLoader, performs: perform)
         }
     }
 

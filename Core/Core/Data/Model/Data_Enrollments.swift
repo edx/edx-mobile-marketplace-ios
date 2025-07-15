@@ -193,20 +193,17 @@ public extension DataLayer {
     struct CourseMode: Codable {
         public let slug: Mode?
         public let sku: String?
-        public let iosSku: String?
         public let lmsPrice: Double?
 
         enum CodingKeys: String, CodingKey {
             case slug
             case sku
-            case iosSku = "ios_sku"
             case lmsPrice = "min_price"
         }
 
-        public init(slug: Mode?, sku: String?, iosSku: String?, lmsPrice: Double?) {
+        public init(slug: Mode?, sku: String?, lmsPrice: Double?) {
             self.slug = slug
             self.sku = sku
-            self.iosSku = iosSku
             self.lmsPrice = lmsPrice
         }
     }
@@ -279,7 +276,7 @@ public extension DataLayer {
 }
 
 public extension DataLayer.CourseEnrollments {
-    func domain(baseURL: String) -> ([CourseItem], DataLayer.ServerConfigs?) {
+    func domain(baseURL: String, iosProductPrefix: String) -> ([CourseItem], DataLayer.ServerConfigs?) {
         return (enrollments.results.map { result in
             let course = result.course
             
@@ -290,7 +287,7 @@ public extension DataLayer.CourseEnrollments {
             var lmsPrice: Double?
             
             for mode in result.courseModes where mode.slug == DataLayer.Mode.verified {
-                sku = mode.iosSku ?? ""
+                sku = iosProductPrefix.isEmpty ? "" : iosProductPrefix + String(Int(mode.lmsPrice ?? 0))
                 lmsPrice = mode.lmsPrice
             }
             

@@ -12,3 +12,8 @@ public struct Constants {
     public static let GrantTypePassword = "password"
     public static let GrantTypeRefreshToken = "refresh_token"
 }
+
+public struct IAPPriceRange {
+    public static let minimum = 1.0
+    public static let maximum = 1000.0
+}

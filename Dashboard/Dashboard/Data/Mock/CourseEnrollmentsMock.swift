@@ -70,14 +70,12 @@ extension DashboardRepository {
               {
                 "slug": "audit",
                 "sku": "08D0410",
-                "android_sku": null,
-                "ios_sku": null
+                "android_sku": null
               },
               {
                 "slug": "verified",
                 "sku": "6D7CAF1",
-                "android_sku": null,
-                "ios_sku": null
+                "android_sku": null
               }
             ]
           },
@@ -130,8 +128,7 @@ extension DashboardRepository {
               {
                 "slug": "audit",
                 "sku": "C748313",
-                "android_sku": null,
-                "ios_sku": null
+                "android_sku": null
               }
             ]
           },
@@ -184,14 +181,12 @@ extension DashboardRepository {
               {
                 "slug": "audit",
                 "sku": "F84F145",
-                "android_sku": null,
-                "ios_sku": null
+                "android_sku": null
               },
               {
                 "slug": "verified",
                 "sku": "7B00BCC",
-                "android_sku": "mobile.android.7b00bcc",
-                "ios_sku": "mobile.ios.7b00bcc"
+                "android_sku": "mobile.android.7b00bcc"
               }
             ]
           },
@@ -244,8 +239,7 @@ extension DashboardRepository {
               {
                 "slug": "audit",
                 "sku": "E059A8E",
-                "android_sku": null,
-                "ios_sku": null
+                "android_sku": null
               }
             ]
           },
@@ -298,14 +292,12 @@ extension DashboardRepository {
               {
                 "slug": "audit",
                 "sku": "C08ED36",
-                "android_sku": null,
-                "ios_sku": null
+                "android_sku": null
               },
               {
                 "slug": "verified",
                 "sku": "10E91CB",
-                "android_sku": null,
-                "ios_sku": null
+                "android_sku": null
               }
             ]
           },
@@ -358,14 +350,12 @@ extension DashboardRepository {
               {
                 "slug": "audit",
                 "sku": "22F61B0",
-                "android_sku": null,
-                "ios_sku": null
+                "android_sku": null
               },
               {
                 "slug": "verified",
                 "sku": "28D953F",
-                "android_sku": null,
-                "ios_sku": null
+                "android_sku": null
               }
             ]
           },
@@ -418,14 +408,12 @@ extension DashboardRepository {
               {
                 "slug": "audit",
                 "sku": "4FACA1A",
-                "android_sku": null,
-                "ios_sku": null
+                "android_sku": null
               },
               {
                 "slug": "verified",
                 "sku": "85B9FCB",
-                "android_sku": "mobile.android.85b9fcb",
-                "ios_sku": "mobile.ios.85b9fcb"
+                "android_sku": "mobile.android.85b9fcb"
               }
             ]
           },
@@ -478,14 +466,12 @@ extension DashboardRepository {
               {
                 "slug": "audit",
                 "sku": "4273238",
-                "android_sku": null,
-                "ios_sku": null
+                "android_sku": null
               },
               {
                 "slug": "verified",
                 "sku": "403F90D",
-                "android_sku": "mobile.android.403f90d",
-                "ios_sku": "mobile.ios.403f90d"
+                "android_sku": "mobile.android.403f90d"
               }
             ]
           },
@@ -538,14 +524,12 @@ extension DashboardRepository {
               {
                 "slug": "audit",
                 "sku": "A962046",
-                "android_sku": null,
-                "ios_sku": null
+                "android_sku": null
               },
               {
                 "slug": "verified",
                 "sku": "AD41871",
-                "android_sku": "mobile.android.ad41871",
-                "ios_sku": "mobile.ios.ad41871"
+                "android_sku": "mobile.android.ad41871"
               }
             ]
           },
@@ -598,8 +582,7 @@ extension DashboardRepository {
               {
                 "slug": "audit",
                 "sku": "99D8FF6",
-                "android_sku": null,
-                "ios_sku": null
+                "android_sku": null
               }
             ]
           }

@@ -329,7 +329,8 @@ class ScreenAssembly: Assembly {
                 api: r.resolve(API.self)!,
                 coreStorage: r.resolve(CoreStorage.self)!,
                 config: r.resolve(ConfigProtocol.self)!,
-                persistence: r.resolve(CoursePersistenceProtocol.self)!
+                persistence: r.resolve(CoursePersistenceProtocol.self)!,
+                serverConfig: r.resolve(ServerConfigProtocol.self)!
             )
         }
         container.register(CourseInteractorProtocol.self) { r in

@@ -43,14 +43,16 @@ public class DashboardRepository: DashboardRepositoryProtocol {
             DashboardEndpoint.getEnrollments(username: storage.user?.username ?? "", page: page)
         )
             .mapResponse(DataLayer.CourseEnrollments.self)
-            .domain(baseURL: config.baseURL.absoluteString)
+        serverConfig.initialize(serverConfig: result.configs?.config)
+        let mappedResult = result.domain(
+            baseURL: config.baseURL.absoluteString,
+            iosProductPrefix: serverConfig.iapConfig.iosProductPrefix
+        )
         
-        persistence.saveEnrollments(items: result.0)
-        persistence.saveServerConfig(configs: result.1)
+        persistence.saveEnrollments(items: mappedResult.0)
+        persistence.saveServerConfig(configs: mappedResult.1)
         
-        serverConfig.initialize(serverConfig: result.1?.config)
-        
-        return result.0
+        return mappedResult.0
     }
     
     public func getEnrollmentsOffline() async throws -> [CourseItem] {
@@ -67,13 +69,18 @@ public class DashboardRepository: DashboardRepositoryProtocol {
             )
         )
             .mapResponse(DataLayer.PrimaryEnrollment.self)
-            .domain(baseURL: config.baseURL.absoluteString)
-        persistence.savePrimaryEnrollment(enrollments: result.0)
-        persistence.saveServerConfig(configs: result.1)
+        serverConfig.initialize(serverConfig: result.configs?.config)
+        let mappedResult = result.domain(
+            baseURL: config.baseURL.absoluteString,
+            iosProductPrefix: serverConfig.iapConfig.iosProductPrefix
+        )
         
-        serverConfig.initialize(serverConfig: result.1?.config)
+        persistence.savePrimaryEnrollment(enrollments: mappedResult.0)
+        persistence.saveServerConfig(configs: mappedResult.1)
         
-        return result.0
+        serverConfig.initialize(serverConfig: mappedResult.1?.config)
+        
+        return mappedResult.0
     }
     
     public func getPrimaryEnrollmentOffline() async throws -> PrimaryEnrollment {
@@ -91,7 +98,7 @@ public class DashboardRepository: DashboardRepositoryProtocol {
             )
         )
             .mapResponse(DataLayer.PrimaryEnrollment.self)
-            .domain(baseURL: config.baseURL.absoluteString)
+            .domain(baseURL: config.baseURL.absoluteString, iosProductPrefix: "")
         return result.0
     }
 }
@@ -105,7 +112,7 @@ class DashboardRepositoryMock: DashboardRepositoryProtocol {
             let courseEnrollments = try
             DashboardRepository.CourseEnrollmentsJSON.data(using: .utf8)!
                 .mapResponse(DataLayer.CourseEnrollments.self)
-                .domain(baseURL: baseURL)
+                .domain(baseURL: baseURL, iosProductPrefix: "mobile.ios.usd")
             return courseEnrollments.0
         } catch {
             throw error

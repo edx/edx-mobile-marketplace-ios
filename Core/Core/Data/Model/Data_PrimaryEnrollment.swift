@@ -60,10 +60,6 @@ public extension DataLayer {
             case courseAssignments = "course_assignments"
         }
         
-        public var sku: String? {
-            let mode = courseModes?.first { $0.slug == .verified }
-            return mode?.iosSku
-        }
         public var lmsPrice: Double? {
             let mode = courseModes?.first { $0.slug == .verified }
             return mode?.lmsPrice
@@ -77,9 +73,9 @@ public extension DataLayer {
             
             let startDate = Date(iso8601: start)
             let dynamicUpgradeDeadline = Date(iso8601: upgradeDeadline)
-            
+            let isPriceValid = (lmsPrice ?? 0.0) >= IAPPriceRange.minimum && (lmsPrice ?? 0.0) <= IAPPriceRange.maximum
             return startDate.isInPast()
-            && sku?.isEmpty == false
+            && isPriceValid
             && !dynamicUpgradeDeadline.isInPast()
         }
 
@@ -213,8 +209,12 @@ public extension DataLayer {
 
 public extension DataLayer.PrimaryEnrollment {
     
-    func domain(baseURL: String) -> (PrimaryEnrollment, DataLayer.ServerConfigs?) {
-        let primaryCourse = createPrimaryCourse(from: self.primary, baseURL: baseURL)
+    func domain(baseURL: String, iosProductPrefix: String) -> (PrimaryEnrollment, DataLayer.ServerConfigs?) {
+        let primaryCourse = createPrimaryCourse(
+            from: self.primary,
+            baseURL: baseURL,
+            iosProductPrefix: iosProductPrefix
+        )
         let courses = createCourseItems(from: self.enrollments, baseURL: baseURL)
         
         return (PrimaryEnrollment(
@@ -225,7 +225,11 @@ public extension DataLayer.PrimaryEnrollment {
         ), configs)
     }
     
-    private func createPrimaryCourse(from primary: DataLayer.ActiveEnrollment?, baseURL: String) -> PrimaryCourse? {
+    private func createPrimaryCourse(
+        from primary: DataLayer.ActiveEnrollment?,
+        baseURL: String,
+        iosProductPrefix: String
+    ) -> PrimaryCourse? {
         guard let primary = primary else { return nil }
         
         let futureAssignments = primary.courseAssignments?.futureAssignments ?? []
@@ -264,7 +268,7 @@ public extension DataLayer.PrimaryEnrollment {
             startDisplay: primary.course?.startDisplay.flatMap { Date(iso8601: $0) },
             startType: DisplayStartType(value: primary.course?.startType.rawValue),
             isUpgradeable: primary.isUpgradeable,
-            sku: primary.sku,
+            sku: iosProductPrefix.isEmpty ? "" : iosProductPrefix + String(Int(primary.lmsPrice ?? 0)),
             lmsPrice: primary.lmsPrice,
             isSelfPaced: primary.course?.isSelfPaced ?? false,
             coursewareAccess: coursewareAccess

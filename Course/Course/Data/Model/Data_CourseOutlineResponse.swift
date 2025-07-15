@@ -24,7 +24,6 @@ public extension DataLayer {
         public let courseModes: [CourseMode]?
         public let enrollmentDetails: EnrollmentDetail?
         public let courseStart: String?
-        public var courseSKU: String?
         public var lmsPrice: Double?
         public var courseMode: Mode?
         public let coursewareAccessDetails: CoursewareAccessDetails?
@@ -56,7 +55,6 @@ public extension DataLayer {
             courseModes: [CourseMode]? = nil,
             enrollmentDetails: EnrollmentDetail? = nil,
             courseStart: String? = nil,
-            courseSKU: String? = nil,
             courseMode: Mode? = .unknown,
             coursewareAccessDetails: CoursewareAccessDetails? = nil,
             courseProgress: CourseProgress?
@@ -78,7 +76,7 @@ public extension DataLayer {
             }
             self.courseProgress = courseProgress
             
-            populateCourseSKU()
+            populatelmsPrice()
         }
         
         public init(from decoder: Decoder) throws {
@@ -96,12 +94,11 @@ public extension DataLayer {
             courseStart = try? values.decode(String.self, forKey: .courseStart)
             coursewareAccessDetails = try? values.decode(CoursewareAccessDetails.self, forKey: .coursewareAccessDetails)
             courseProgress = try? values.decode(DataLayer.CourseProgress.self, forKey: .courseProgress)
-            populateCourseSKU()
+            populatelmsPrice()
         }
         
-        mutating func populateCourseSKU() {
+        mutating func populatelmsPrice() {
             for mode in courseModes ?? [] where mode.slug == .verified {
-                courseSKU = mode.iosSku ?? ""
                 lmsPrice = mode.lmsPrice
             }
         }
@@ -334,9 +331,10 @@ extension DataLayer.CourseStructure {
         
         let startDate = Date(iso8601: start)
         let dynamicUpgradeDeadline = Date(iso8601: upgradeDeadline)
+        let isPriceValid = (lmsPrice ?? 0.0) >= IAPPriceRange.minimum && (lmsPrice ?? 0.0) <= IAPPriceRange.maximum
         
         return startDate.isInPast()
-        && courseSKU?.isEmpty == false
+        && isPriceValid
         && !dynamicUpgradeDeadline.isInPast()
     }
 }
