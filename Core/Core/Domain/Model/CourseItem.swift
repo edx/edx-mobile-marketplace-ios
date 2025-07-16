@@ -91,7 +91,7 @@ extension CourseItem {
             return false
         }
         return !upgradeDeadline.isInPast()
-        && !sku.isEmpty
+        && SKUBuilder.isPriceValid(lmsPrice)
         && courseStart?.isInPast() ?? false
     }
 }

@@ -29,17 +29,20 @@ public class CourseRepository: CourseRepositoryProtocol {
     private let coreStorage: CoreStorage
     private let config: ConfigProtocol
     private let persistence: CoursePersistenceProtocol
+    private let serverConfig: ServerConfigProtocol
     
     public init(
         api: API,
         coreStorage: CoreStorage,
         config: ConfigProtocol,
-        persistence: CoursePersistenceProtocol
+        persistence: CoursePersistenceProtocol,
+        serverConfig: ServerConfigProtocol
     ) {
         self.api = api
         self.coreStorage = coreStorage
         self.config = config
         self.persistence = persistence
+        self.serverConfig = serverConfig
     }
     
     public func getCourseBlocks(courseID: String) async throws -> CourseStructure {
@@ -175,7 +178,7 @@ public class CourseRepository: CourseRepositoryProtocol {
             org: course.org ?? "",
             isSelfPaced: course.isSelfPaced,
             isUpgradeable: course.isUpgradeable,
-            sku: course.courseSKU,
+            sku: SKUBuilder.buildSKU(prefix: serverConfig.iapConfig.iosProductPrefix, price: course.lmsPrice),
             coursewareAccessDetails: coursewareAccessDetails,
             courseProgress: course.courseProgress == nil ? nil : CourseProgress(
                 totalAssignmentsCount: course.courseProgress?.totalAssignmentsCount ?? 0,
@@ -320,6 +323,8 @@ public class CourseRepository: CourseRepositoryProtocol {
 // swiftlint:disable all
 #if DEBUG
 class CourseRepositoryMock: CourseRepositoryProtocol {
+    private let serverConfig = ServerConfigProtocolMock()
+    
     func getCourseDatesOffline(courseID: String) async throws -> CourseDates {
         throw NoCachedDataError()
     }
@@ -468,7 +473,7 @@ And there are various ways of describing it-- call it oral poetry or
             org: course.org ?? "",
             isSelfPaced: course.isSelfPaced,
             isUpgradeable: course.isUpgradeable,
-            sku: course.courseSKU,
+            sku: SKUBuilder.buildSKU(prefix: serverConfig.iapConfig.iosProductPrefix, price: course.lmsPrice),
             coursewareAccessDetails: coursewareAccessDetails,
             courseProgress: course.courseProgress == nil ? nil : CourseProgress(
                 totalAssignmentsCount: course.courseProgress?.totalAssignmentsCount ?? 0,

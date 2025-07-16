@@ -24,7 +24,6 @@ public extension DataLayer {
         public let courseModes: [CourseMode]?
         public let enrollmentDetails: EnrollmentDetail?
         public let courseStart: String?
-        public var courseSKU: String?
         public var lmsPrice: Double?
         public var courseMode: Mode?
         public let coursewareAccessDetails: CoursewareAccessDetails?
@@ -56,7 +55,6 @@ public extension DataLayer {
             courseModes: [CourseMode]? = nil,
             enrollmentDetails: EnrollmentDetail? = nil,
             courseStart: String? = nil,
-            courseSKU: String? = nil,
             courseMode: Mode? = .unknown,
             coursewareAccessDetails: CoursewareAccessDetails? = nil,
             courseProgress: CourseProgress?
@@ -78,7 +76,7 @@ public extension DataLayer {
             }
             self.courseProgress = courseProgress
             
-            populateCourseSKU()
+            populateLMSPrice()
         }
         
         public init(from decoder: Decoder) throws {
@@ -96,12 +94,11 @@ public extension DataLayer {
             courseStart = try? values.decode(String.self, forKey: .courseStart)
             coursewareAccessDetails = try? values.decode(CoursewareAccessDetails.self, forKey: .coursewareAccessDetails)
             courseProgress = try? values.decode(DataLayer.CourseProgress.self, forKey: .courseProgress)
-            populateCourseSKU()
+            populateLMSPrice()
         }
         
-        mutating func populateCourseSKU() {
+        mutating func populateLMSPrice() {
             for mode in courseModes ?? [] where mode.slug == .verified {
-                courseSKU = mode.iosSku ?? ""
                 lmsPrice = mode.lmsPrice
             }
         }
@@ -336,7 +333,7 @@ extension DataLayer.CourseStructure {
         let dynamicUpgradeDeadline = Date(iso8601: upgradeDeadline)
         
         return startDate.isInPast()
-        && courseSKU?.isEmpty == false
+        && SKUBuilder.isPriceValid(lmsPrice)
         && !dynamicUpgradeDeadline.isInPast()
     }
 }
