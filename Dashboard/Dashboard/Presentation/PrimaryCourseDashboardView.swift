@@ -14,18 +14,18 @@ public struct PrimaryCourseDashboardView<ProgramView: View, TopBarButtons: View>
     @StateObject private var viewModel: PrimaryCourseDashboardViewModel
     private let router: DashboardRouter
     private let supportsElevatedTabBar: Bool
+    @Binding private var selectedMenu: MenuOption
     @ViewBuilder private let topBarButtons: () -> TopBarButtons
     @ViewBuilder let programView: ProgramView
     private let onRefresh: (() -> Void)?
     private var openDiscoveryPage: () -> Void
     private var idiom: UIUserInterfaceIdiom { UIDevice.current.userInterfaceIdiom }
     
-    @State private var selectedMenu: MenuOption = .courses
-    
     public init(
         viewModel: PrimaryCourseDashboardViewModel,
         router: DashboardRouter,
         supportsElevatedTabBar: Bool,
+        selectedMenu: Binding<MenuOption>,
         @ViewBuilder topBarButtons: @escaping () -> TopBarButtons,
         programView: ProgramView,
         onRefresh: (() -> Void)? = nil,
@@ -34,6 +34,7 @@ public struct PrimaryCourseDashboardView<ProgramView: View, TopBarButtons: View>
         self._viewModel = StateObject(wrappedValue: { viewModel }())
         self.router = router
         self.supportsElevatedTabBar = supportsElevatedTabBar
+        self._selectedMenu = selectedMenu
         self.topBarButtons = topBarButtons
         self.programView = programView
         self.onRefresh = onRefresh
@@ -411,6 +412,7 @@ struct PrimaryCourseDashboardView_Previews: PreviewProvider {
             viewModel: vm,
             router: DashboardRouterMock(),
             supportsElevatedTabBar: false,
+            selectedMenu: .constant(.courses),
             topBarButtons: {},
             programView: EmptyView(),
             openDiscoveryPage: {
@@ -423,6 +425,7 @@ struct PrimaryCourseDashboardView_Previews: PreviewProvider {
             viewModel: vm,
             router: DashboardRouterMock(),
             supportsElevatedTabBar: false,
+            selectedMenu: .constant(.courses),
             topBarButtons: {},
             programView: EmptyView(),
             openDiscoveryPage: {

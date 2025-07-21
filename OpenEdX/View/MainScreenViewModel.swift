@@ -7,6 +7,7 @@
 
 import Foundation
 import Core
+import Dashboard
 import Notifications
 import Profile
 import Combine
@@ -23,6 +24,7 @@ final class MainScreenViewModel: ObservableObject {
     private var postLoginData: PostLoginData?
     
     @Published var selection: MainTab = .dashboard
+    @Published var dashboardMenu: Dashboard.MenuOption = .courses
     @Published var showRegisterBanner: Bool = false
     @Published var notificationBellIndicator: NotificationBellButton.Indicator = .none
 
@@ -56,6 +58,16 @@ final class MainScreenViewModel: ObservableObject {
     
     public func select(tab: MainTab) {
         selection = tab
+    }
+
+    func showPrograms() {
+        switch config.dashboard.type {
+        case .gallery:
+            select(tab: .dashboard)
+            dashboardMenu = .programs
+        case .list:
+            select(tab: .programs)
+        }
     }
 
     func trackMainDiscoveryTabClicked() {

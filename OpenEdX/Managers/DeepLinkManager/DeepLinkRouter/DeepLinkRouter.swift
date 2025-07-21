@@ -16,6 +16,7 @@ import Combine
 
 public protocol DeepLinkRouter: BaseRouter {
     func showTabScreen(tab: MainTab)
+    func showPrograms()
     func showDiscovery()
     func showDiscoveryDetails(
         link: DeepLink,
@@ -75,6 +76,12 @@ public extension DeepLinkRouter {
 extension Router: DeepLinkRouter {
 
     // MARK: - DeepLinkRouter
+
+    public func showPrograms() {
+        dismiss()
+        hostMainScreen?.rootView.viewModel.showPrograms()
+    }
+
     public func showDiscoveryDetails(
         link: DeepLink,
         pathID: String
@@ -213,7 +220,7 @@ extension Router: DeepLinkRouter {
         if hostProgramWebviewView?.rootView.pathID == pathID {
             return
         }
-        showTabScreen(tab: .programs)
+        showPrograms()
         showWebProgramDetails(
             pathID: pathID,
             viewType: .programDetail
@@ -357,6 +364,7 @@ extension Router: DeepLinkRouter {
 public class DeepLinkRouterMock: BaseRouterMock, DeepLinkRouter {
     public override init() {}
     public func showTabScreen(tab: MainTab) {}
+    public func showPrograms() {}
     public func showDiscovery() {}
     public func showDiscoveryDetails(
         link: DeepLink,

@@ -212,7 +212,7 @@ public class DeepLinkManager: NotificationsDeepLinkManager {
                 router.showProgram(pathID: pathID)
                 return
             }
-            router.showTabScreen(tab: .programs)
+            router.showPrograms()
         case .profile:
             router.showTabScreen(tab: .profile)
         case .userProfile:
