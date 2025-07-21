@@ -24,10 +24,8 @@ enum NotificationsEndpoint: EndPointType {
             "/api/notifications/count"
         case .getAllNotifications:
             "/api/notifications/"
-        case .getPreferences:
-            "/api/notifications/configurations"
-        case .updatePreferences:
-            "/api/notifications/preferences/update-all/"
+        case .getPreferences, .updatePreferences:
+            "/api/notifications/v2/configurations/"
         case .markSeen:
             "/api/notifications/mark-seen/discussion/"
         case .markRead:
@@ -42,7 +40,7 @@ enum NotificationsEndpoint: EndPointType {
         case .getNotificationsCount, .getAllNotifications, .getPreferences:
             return .get
         case .updatePreferences:
-            return .post
+            return .put
         case .markSeen:
             return .put
         case .markRead, .markAllRead:
