@@ -96,6 +96,7 @@ struct MainScreenView: View {
                             viewModel: Container.shared.resolve(PrimaryCourseDashboardViewModel.self)!,
                             router: Container.shared.resolve(DashboardRouter.self)!,
                             supportsElevatedTabBar: supportsElevatedTabBar,
+                            selectedMenu: $viewModel.dashboardMenu,
                             topBarButtons: { notificationBell },
                             programView: ProgramWebviewView(
                                 viewModel: Container.shared.resolve(ProgramWebviewViewModel.self)!,
