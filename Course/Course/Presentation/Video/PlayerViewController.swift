@@ -8,6 +8,7 @@
 import Combine
 import Core
 import SwiftUI
+import UIKit
 import _AVKit_SwiftUI
 
 struct PlayerViewController: UIViewControllerRepresentable {
@@ -30,7 +31,12 @@ struct PlayerViewController: UIViewControllerRepresentable {
 }
 
 class CustomAVPlayerViewController: AVPlayerViewController {
+    private let overlayViewModel = VideoPlayerOverlayViewModel()
+    private var overlayController: UIHostingController<VideoPlayerOverlay>?
     private let subtitleLabel = UILabel()
+
+    private let speedUpRate: Float = 2.0
+    private var originalRate: Float?
 
     var subtitleText: String = "" {
         didSet {
@@ -46,6 +52,9 @@ class CustomAVPlayerViewController: AVPlayerViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        setupOverlay()
+        setupGestures()
 
         // Configure the subtitle label
         subtitleLabel.textColor = .white
@@ -69,6 +78,52 @@ class CustomAVPlayerViewController: AVPlayerViewController {
             subtitleLabel.bottomAnchor.constraint(equalTo: contentOverlayView!.bottomAnchor, constant: -20),
             subtitleLabel.widthAnchor.constraint(lessThanOrEqualTo: contentOverlayView!.widthAnchor, multiplier: 0.9)
         ])
+    }
+
+    private func setupOverlay() {
+        guard let contentOverlayView else { return }
+
+        let hosting = UIHostingController(
+            rootView: VideoPlayerOverlay(viewModel: overlayViewModel)
+        )
+        hosting.view.backgroundColor = .clear
+        hosting.view.translatesAutoresizingMaskIntoConstraints = false
+        contentOverlayView.addSubview(hosting.view)
+
+        NSLayoutConstraint.activate([
+            hosting.view.topAnchor.constraint(equalTo: contentOverlayView.safeAreaLayoutGuide.topAnchor),
+            hosting.view.bottomAnchor.constraint(equalTo: contentOverlayView.safeAreaLayoutGuide.bottomAnchor),
+            hosting.view.leadingAnchor.constraint(equalTo: contentOverlayView.leadingAnchor),
+            hosting.view.trailingAnchor.constraint(equalTo: contentOverlayView.trailingAnchor)
+        ])
+
+        self.overlayController = hosting
+    }
+
+    private func setupGestures() {
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
+        contentOverlayView?.addGestureRecognizer(longPress)
+    }
+
+    @objc private func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
+        switch gesture.state {
+        case .began:
+            guard let player else { return }
+
+            if player.rate > 0 && player.rate < speedUpRate {
+                originalRate = player.rate
+                player.rate = speedUpRate
+                overlayViewModel.showSpeedOverlay = true
+            }
+        case .ended, .cancelled, .failed:
+            if let rate = originalRate {
+                player?.rate = rate
+                originalRate = nil
+            }
+            overlayViewModel.showSpeedOverlay = false
+        default:
+            break
+        }
     }
 }
 
