@@ -15,7 +15,7 @@ public struct CreateNewThreadView: View {
     @State private var postTypes: [PostType] = [.discussion, .question]
     @State private var postTitle: String = ""
     @State private var postBody: String = ""
-    @State private var followPost: Bool = false
+    @State private var followPost: Bool = true
     private var onPostCreated: (() -> Void) = {}
     private var courseID: String
     
