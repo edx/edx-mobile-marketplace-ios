@@ -78,6 +78,8 @@
 		0766DFD0299AB29000EBEF6A /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0766DFCF299AB29000EBEF6A /* PlayerViewController.swift */; };
 		07DE59862BECB868001CBFBC /* CourseAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DE59852BECB868001CBFBC /* CourseAnalytics.swift */; };
 		197FB8EA8F92F00A8F383D82 /* Pods_App_Course.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5E795BD160CDA7D9C120DE6 /* Pods_App_Course.framework */; };
+		94521BCF2E2517A70011BAB2 /* VideoPlayerOverlayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94521BCE2E2517A30011BAB2 /* VideoPlayerOverlayViewModel.swift */; };
+		946101042E2149820095846B /* VideoPlayerOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946101032E2149820095846B /* VideoPlayerOverlay.swift */; };
 		975F475E2B6151FD00E5B031 /* CourseDatesMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975F475D2B6151FD00E5B031 /* CourseDatesMock.swift */; };
 		975F47602B615DA700E5B031 /* CourseStructureMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975F475F2B615DA700E5B031 /* CourseStructureMock.swift */; };
 		97904D962DDA0141003F2BE2 /* Data_EnrollmentDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97904D952DDA0136003F2BE2 /* Data_EnrollmentDetails.swift */; };
@@ -197,6 +199,8 @@
 		600A464AEDA7BEFEC1A7FE99 /* Pods-App-Course-CourseTests.debugdev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Course-CourseTests.debugdev.xcconfig"; path = "Target Support Files/Pods-App-Course-CourseTests/Pods-App-Course-CourseTests.debugdev.xcconfig"; sourceTree = "<group>"; };
 		69A261790A0B4C724CCFA4F2 /* Pods-App-CourseDetails.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-CourseDetails.release.xcconfig"; path = "Target Support Files/Pods-App-CourseDetails/Pods-App-CourseDetails.release.xcconfig"; sourceTree = "<group>"; };
 		831B08139890634968EDD44D /* Pods-App-Course-CourseTests.debugstage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Course-CourseTests.debugstage.xcconfig"; path = "Target Support Files/Pods-App-Course-CourseTests/Pods-App-Course-CourseTests.debugstage.xcconfig"; sourceTree = "<group>"; };
+		94521BCE2E2517A30011BAB2 /* VideoPlayerOverlayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerOverlayViewModel.swift; sourceTree = "<group>"; };
+		946101032E2149820095846B /* VideoPlayerOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerOverlay.swift; sourceTree = "<group>"; };
 		975F475D2B6151FD00E5B031 /* CourseDatesMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDatesMock.swift; sourceTree = "<group>"; };
 		975F475F2B615DA700E5B031 /* CourseStructureMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseStructureMock.swift; sourceTree = "<group>"; };
 		97904D952DDA0136003F2BE2 /* Data_EnrollmentDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data_EnrollmentDetails.swift; sourceTree = "<group>"; };
@@ -492,6 +496,8 @@
 				022F8E172A1E2642008EFAB9 /* EncodedVideoPlayerViewModel.swift */,
 				0766DFCF299AB29000EBEF6A /* PlayerViewController.swift */,
 				02FFAD0C29E4347300140E46 /* VideoPlayerViewModel.swift */,
+				946101032E2149820095846B /* VideoPlayerOverlay.swift */,
+				94521BCE2E2517A30011BAB2 /* VideoPlayerOverlayViewModel.swift */,
 			);
 			path = Video;
 			sourceTree = "<group>";
@@ -883,6 +889,7 @@
 				022C64E029ADEA9B000F532B /* Data_UpdatesResponse.swift in Sources */,
 				02D4FC2E2BBD7C9C00C47748 /* MessageSectionView.swift in Sources */,
 				02454CA02A2618E70043052A /* YouTubeView.swift in Sources */,
+				94521BCF2E2517A70011BAB2 /* VideoPlayerOverlayViewModel.swift in Sources */,
 				02454CA22A26190A0043052A /* EncodedVideoView.swift in Sources */,
 				065275352BB1B39C0093BCCA /* PlayerViewControllerHolder.swift in Sources */,
 				068DDA612B1E198700FF8CCB /* CourseUnitDropDownCell.swift in Sources */,
@@ -934,6 +941,7 @@
 				022C64D829ACEC48000F532B /* HandoutsView.swift in Sources */,
 				02454CA82A2619890043052A /* DiscussionView.swift in Sources */,
 				0265B4B728E2141D00E6EAFD /* Strings.swift in Sources */,
+				946101042E2149820095846B /* VideoPlayerOverlay.swift in Sources */,
 				97C99C362B9A08FE004EEDE2 /* CalendarSyncProgressView.swift in Sources */,
 				BAC0E0D82B32EF03006B68A9 /* DownloadsView.swift in Sources */,
 				97CA95252B875EE200A9EDEA /* DatesSuccessView.swift in Sources */,
