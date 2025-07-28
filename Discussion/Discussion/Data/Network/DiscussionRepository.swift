@@ -24,13 +24,13 @@ public protocol DiscussionRepositoryProtocol {
     func getQuestionComments(threadID: String, page: Int) async throws -> ([UserComment], Pagination)
     func getCommentResponses(commentID: String, page: Int) async throws -> ([UserComment], Pagination)
     func getResponse(responseID: String) async throws -> UserComment
-    func addCommentTo(threadID: String, rawBody: String, parentID: String?) async throws -> Post
+    func addCommentTo(threadID: String, rawBody: String, parentID: String?, captchaToken: String) async throws -> Post
     func voteThread(voted: Bool, threadID: String) async throws
     func voteResponse(voted: Bool, responseID: String) async throws
     func flagThread(abuseFlagged: Bool, threadID: String) async throws
     func flagComment(abuseFlagged: Bool, commentID: String) async throws
     func followThread(following: Bool, threadID: String) async throws
-    func createNewThread(newThread: DiscussionNewThread) async throws
+    func createNewThread(newThread: DiscussionNewThread, captchaToken: String) async throws
     func readBody(threadID: String) async throws
 }
 
@@ -121,8 +121,18 @@ public class DiscussionRepository: DiscussionRepositoryProtocol {
         return response.domain
     }
 
-    public func addCommentTo(threadID: String, rawBody: String, parentID: String? = nil) async throws -> Post {
-        let endpoint = DiscussionEndpoint.addCommentTo(threadID: threadID, rawBody: rawBody, parentID: parentID)
+    public func addCommentTo(
+        threadID: String,
+        rawBody: String,
+        parentID: String? = nil,
+        captchaToken: String
+    ) async throws -> Post {
+        let endpoint = DiscussionEndpoint.addCommentTo(
+            threadID: threadID,
+            rawBody: rawBody,
+            parentID: parentID,
+            captchaToken: captchaToken
+        )
         return try await api.requestData(endpoint).mapResponse(DataLayer.CreatedComment.self).domain
     }
     
@@ -146,8 +156,8 @@ public class DiscussionRepository: DiscussionRepositoryProtocol {
         try await api.requestData(DiscussionEndpoint.followThread(following: following, threadID: threadID))
     }
     
-    public func createNewThread(newThread: DiscussionNewThread) async throws {
-        try await api.requestData(DiscussionEndpoint.createNewThread(newThread: newThread))
+    public func createNewThread(newThread: DiscussionNewThread, captchaToken: String) async throws {
+        try await api.requestData(DiscussionEndpoint.createNewThread(newThread: newThread, captchaToken: captchaToken))
     }
     
     public func readBody(threadID: String) async throws {
@@ -448,7 +458,7 @@ public class DiscussionRepositoryMock: DiscussionRepositoryProtocol {
         UserComment(authorName: "", authorAvatar: "", postDate: Date(), postTitle: "", postBody: "", postBodyHtml: "", postVisible: true, voted: true, followed: true, votesCount: 1, responsesCount: 1, threadID: "", commentID: "", parentID: "", abuseFlagged: true)
     }
 
-    public func addCommentTo(threadID: String, rawBody: String, parentID: String?) async throws  -> Post {
+    public func addCommentTo(threadID: String, rawBody: String, parentID: String?, captchaToken: String) async throws  -> Post {
         Post(
             isAuthor: true,
             authorName: "John",
@@ -491,8 +501,8 @@ public class DiscussionRepositoryMock: DiscussionRepositoryProtocol {
         
     }
     
-    public func createNewThread(newThread: DiscussionNewThread) async throws {
-        
+    public func createNewThread(newThread: DiscussionNewThread, captchaToken: String) async throws {
+
     }
     
     public func readBody(threadID: String) async throws {
