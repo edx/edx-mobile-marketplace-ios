@@ -187,6 +187,7 @@
 		942A98592D4CAF5200DD8BBC /* ScreenStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942A98582D4CAF5200DD8BBC /* ScreenStateView.swift */; };
 		942C4D522DC505F1002BA81C /* TrackSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942C4D512DC505F1002BA81C /* TrackSelectionView.swift */; };
 		942C4D542DC508B7002BA81C /* TrackCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942C4D532DC508B7002BA81C /* TrackCardView.swift */; };
+		9476DCF42E3B9C8800FEC095 /* VideoPlayerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9476DCF32E3B9C8800FEC095 /* VideoPlayerConfig.swift */; };
 		949094972DC8E2D800A341D4 /* TrackSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949094962DC8E2D100A341D4 /* TrackSelectionViewModel.swift */; };
 		949094992DC8E44C00A341D4 /* TrackCardInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949094982DC8E44700A341D4 /* TrackCardInfo.swift */; };
 		9499F1262D41375B00558D59 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9499F1252D41375B00558D59 /* AppEnvironment.swift */; };
@@ -439,6 +440,7 @@
 		942A98582D4CAF5200DD8BBC /* ScreenStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenStateView.swift; sourceTree = "<group>"; };
 		942C4D512DC505F1002BA81C /* TrackSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSelectionView.swift; sourceTree = "<group>"; };
 		942C4D532DC508B7002BA81C /* TrackCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackCardView.swift; sourceTree = "<group>"; };
+		9476DCF32E3B9C8800FEC095 /* VideoPlayerConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerConfig.swift; sourceTree = "<group>"; };
 		949094962DC8E2D100A341D4 /* TrackSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSelectionViewModel.swift; sourceTree = "<group>"; };
 		949094982DC8E44700A341D4 /* TrackCardInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackCardInfo.swift; sourceTree = "<group>"; };
 		9499F1252D41375B00558D59 /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
@@ -1130,6 +1132,7 @@
 				E0D586192B2FF74C009B4BA7 /* DiscoveryConfig.swift */,
 				14D912D82C2553C70077CCCE /* FullStoryConfig.swift */,
 				94D1FC4C2DA7F39F000A904F /* OptimizelyConfig.swift */,
+				9476DCF32E3B9C8800FEC095 /* VideoPlayerConfig.swift */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -1438,6 +1441,7 @@
 				BA981BCE2B8F5C49005707C2 /* Sequence+Extensions.swift in Sources */,
 				02C917F029CDA99E00DBB8BD /* Data_Enrollments.swift in Sources */,
 				062C69AA2C198323002BD311 /* UpgradeInfoSheetView.swift in Sources */,
+				9476DCF42E3B9C8800FEC095 /* VideoPlayerConfig.swift in Sources */,
 				024FCD0028EF1CD300232339 /* WebBrowser.swift in Sources */,
 				027BD3B52909475900392132 /* KeyboardStateObserver.swift in Sources */,
 				0283347D28D4D3DE00C828FC /* Data_Discovery.swift in Sources */,

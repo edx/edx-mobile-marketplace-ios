@@ -186,7 +186,11 @@ public struct CourseUnitView: View {
                             }
                         }
                     } else {
-                        switch LessonType.from(block, streamingQuality: viewModel.streamingQuality) {
+                        switch LessonType.from(
+                            block,
+                            streamingQuality: viewModel.streamingQuality,
+                            config: viewModel.config
+                        ) {
                             // MARK: YouTube
                         case let .youtube(url, blockID):
                             if index == viewModel.index {
