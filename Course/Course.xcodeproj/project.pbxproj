@@ -82,7 +82,6 @@
 		946101042E2149820095846B /* VideoPlayerOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946101032E2149820095846B /* VideoPlayerOverlay.swift */; };
 		975F475E2B6151FD00E5B031 /* CourseDatesMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975F475D2B6151FD00E5B031 /* CourseDatesMock.swift */; };
 		975F47602B615DA700E5B031 /* CourseStructureMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975F475F2B615DA700E5B031 /* CourseStructureMock.swift */; };
-		97904D962DDA0141003F2BE2 /* Data_EnrollmentDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97904D952DDA0136003F2BE2 /* Data_EnrollmentDetails.swift */; };
 		97C99C362B9A08FE004EEDE2 /* CalendarSyncProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C99C352B9A08FE004EEDE2 /* CalendarSyncProgressView.swift */; };
 		97CA95252B875EE200A9EDEA /* DatesSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CA95242B875EE200A9EDEA /* DatesSuccessView.swift */; };
 		97E7DF0F2B7C852A00A2A09B /* DatesStatusInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E7DF0E2B7C852A00A2A09B /* DatesStatusInfoView.swift */; };
@@ -203,7 +202,6 @@
 		946101032E2149820095846B /* VideoPlayerOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerOverlay.swift; sourceTree = "<group>"; };
 		975F475D2B6151FD00E5B031 /* CourseDatesMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDatesMock.swift; sourceTree = "<group>"; };
 		975F475F2B615DA700E5B031 /* CourseStructureMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseStructureMock.swift; sourceTree = "<group>"; };
-		97904D952DDA0136003F2BE2 /* Data_EnrollmentDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data_EnrollmentDetails.swift; sourceTree = "<group>"; };
 		97C99C352B9A08FE004EEDE2 /* CalendarSyncProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSyncProgressView.swift; sourceTree = "<group>"; };
 		97CA95242B875EE200A9EDEA /* DatesSuccessView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatesSuccessView.swift; sourceTree = "<group>"; };
 		97E7DF0E2B7C852A00A2A09B /* DatesStatusInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatesStatusInfoView.swift; sourceTree = "<group>"; };
@@ -374,7 +372,6 @@
 				022C64DB29ACFDEE000F532B /* Data_HandoutsResponse.swift */,
 				022C64DF29ADEA9B000F532B /* Data_UpdatesResponse.swift */,
 				DB7D6EB12ADFE9510036BB13 /* Data_CourseDates.swift */,
-				97904D952DDA0136003F2BE2 /* Data_EnrollmentDetails.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -918,7 +915,6 @@
 				067B7B4F2BED339200D1768F /* PlayerDelegateProtocol.swift in Sources */,
 				0231124D28EDA804002588FB /* CourseUnitView.swift in Sources */,
 				027020FC28E7362100F54332 /* Data_CourseOutlineResponse.swift in Sources */,
-				97904D962DDA0141003F2BE2 /* Data_EnrollmentDetails.swift in Sources */,
 				DB7D6EB02ADFDA0E0036BB13 /* CourseDates.swift in Sources */,
 				067B7B532BED339200D1768F /* PlayerServiceProtocol.swift in Sources */,
 				BAD9CA2D2B2736BB00DE790A /* LessonLineProgressView.swift in Sources */,

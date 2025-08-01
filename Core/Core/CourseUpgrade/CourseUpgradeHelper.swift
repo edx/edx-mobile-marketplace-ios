@@ -24,18 +24,18 @@ public enum UpgradeCompletionState {
     case initial
     case payment
     case fulfillment(showLoader: Bool)
+    case unverified(UpgradeError)
     case success(_ courseID: String, _ componentID: String?, _ screen: CourseUpgradeScreen?)
     case error(UpgradeError)
 }
 
 public enum UpgradeAlertType: String {
     case priceFetch = "price_fetch"
-    case basket
-    case checkout
     case payment
     case execute
     case restore
     case unfulfilled
+    case unverified
     case unknown
 }
 
@@ -150,6 +150,8 @@ public class CourseUpgradeHelper: CourseUpgradeHelperProtocol {
                 removeLoader(success: true, shouldRemoveView: true)
             }
             postSuccessNotification()
+        case .unverified(let error):
+            showUnverifiedCourseModeAlert(error)
         case .error(let error):
             if case .paymentError = error {
                 if error.isCancelled {
@@ -216,7 +218,7 @@ public class CourseUpgradeHelper: CourseUpgradeHelperProtocol {
         else { return }
         
         switch state {
-        case .basket:
+        case .initial:
             saveInProgressIAP(courseID: courseID, sku: sku, lmsPrice: lmsPrice ?? .zero)
         case .complete:
             removeInProgressIAP()
@@ -275,6 +277,12 @@ extension CourseUpgradeHelper {
         // not showing any error if payment is canceled by user
         if case .error(let error) = upgradeHadler?.state {
             if error.isCancelled { return }
+            
+            // Payment is already in progress; show alert for unverified course mode
+            if case .verifyReceiptError(let nestedError) = error, nestedError.errorCode == 409 {
+                showUnverifiedCourseModeAlert(error)
+                return
+            }
             
             var actions: [UIAlertAction] = []
             
@@ -362,14 +370,12 @@ extension CourseUpgradeHelper {
     
     private var alertType: UpgradeAlertType {
         switch upgradeHadler?.state {
-        case .basket:
-            return .basket
-        case .checkout:
-            return .checkout
         case .payment:
             return .payment
         case .verify, .complete:
             return .execute
+        case .unverified:
+            return .unverified
         default:
             return .unknown
         }
@@ -473,6 +479,69 @@ extension CourseUpgradeHelper {
         router.presentNativeAlert(
             title: CoreLocalization.CourseUpgrade.Restore.alertTitle,
             message: CoreLocalization.CourseUpgrade.Restore.alertMessage,
+            actions: actions
+        )
+    }
+    
+    private func showUnverifiedCourseModeAlert(_ error: UpgradeError) {
+        var actions: [UIAlertAction] = []
+        
+        actions.append(
+            UIAlertAction(
+                title: CoreLocalization.CourseUpgrade.FailureAlert.refreshToRetry,
+                style: .default
+            ) { [weak self] _ in
+                guard let self = self else { return }
+                self.trackUpgradeErrorAction(
+                    errorAction: .refreshToRetry,
+                    error: error,
+                    alertType: self.alertType
+                )
+                
+                Task {
+                    await self.upgradeHadler?.reverifyCourseModeChange()
+                }
+            }
+        )
+        
+        actions.append(
+            UIAlertAction(
+                title: CoreLocalization.CourseUpgrade.FailureAlert.getHelp,
+                style: .default
+            ) { [weak self] _ in
+                guard let self = self else { return }
+                self.trackUpgradeErrorAction(
+                    errorAction: .emailSupport,
+                    error: error,
+                    alertType: .unverified
+                )
+                
+                self.hideAlertAction()
+                Task { @MainActor in
+                    await self.router.hideUpgradeLoaderView(animated: true)
+                }
+                self.launchEmailComposer(errorMessage: "Error: \(error.formattedError)")
+            }
+        )
+        
+        actions.append(
+            UIAlertAction(
+                title: CoreLocalization.Alert.cancel,
+                style: .default
+            ) { [weak self] _ in
+                guard let self = self else { return }
+                self.trackUpgradeErrorAction(errorAction: .close, alertType: .restore)
+                
+                self.hideAlertAction()
+                Task { @MainActor in
+                    await self.router.hideUpgradeLoaderView(animated: true)
+                }
+            }
+        )
+        
+        router.presentNativeAlert(
+            title: CoreLocalization.CourseUpgrade.FailureAlert.alertTitle,
+            message: CoreLocalization.CourseUpgrade.FailureAlert.courseNotFullfilled,
             actions: actions
         )
     }

@@ -18,6 +18,7 @@ public enum UpgradeError: Error, LocalizedError, Equatable {
     case basketError(Error) // basket API returns error
     case checkoutError(Error) // checkout API returns error
     case verifyReceiptError(Error) // verify receipt API returns error
+    case unverifiedCourseError(Error) // unverified course mode error
     case productNotExist // product not existed on app appstore
     case generalError(Error?) // general error
     
@@ -31,6 +32,8 @@ public enum UpgradeError: Error, LocalizedError, Equatable {
             return "payment"
         case .verifyReceiptError:
             return "execute"
+        case .unverifiedCourseError:
+            return "unverified"
         default:
             return CoreLocalization.CourseUpgrade.FailureAlert.paymentNotProcessed
         }
@@ -44,7 +47,7 @@ public enum UpgradeError: Error, LocalizedError, Equatable {
             return checkoutErrorMessage(for: error)
         case .paymentError:
             return CoreLocalization.CourseUpgrade.FailureAlert.paymentNotProcessed
-        case .verifyReceiptError(let error):
+        case .verifyReceiptError(let error), .unverifiedCourseError(let error):
             return executeErrorMessage(for: error)
         default:
             break
@@ -92,6 +95,8 @@ public enum UpgradeError: Error, LocalizedError, Equatable {
         case .checkoutError(let error):
             return error
         case .verifyReceiptError(let error):
+            return error
+        case .unverifiedCourseError(let error):
             return error
         case .generalError(let error):
             return error

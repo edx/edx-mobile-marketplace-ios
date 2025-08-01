@@ -333,10 +333,20 @@ class ScreenAssembly: Assembly {
                 serverConfig: r.resolve(ServerConfigProtocol.self)!
             )
         }
+        container.register(EnrollmentRepositoryProtocol.self) { r in
+            EnrollmentRepository(
+                api: r.resolve(API.self)!
+            )
+        }
         container.register(CourseInteractorProtocol.self) { r in
             CourseInteractor(
                 repository: r.resolve(CourseRepositoryProtocol.self)!,
                 storage: r.resolve(CourseStorage.self)!
+            )
+        }
+        container.register(EnrollmentInteractorProtocol.self) { r in
+            EnrollmentInteractor(
+                repository: r.resolve(EnrollmentRepositoryProtocol.self)!
             )
         }
         container.register(CourseDetailsViewModel.self) { r in
@@ -358,6 +368,7 @@ class ScreenAssembly: Assembly {
             CourseContainerViewModel(
                 interactor: r.resolve(CourseInteractorProtocol.self)!,
                 authInteractor: r.resolve(AuthInteractorProtocol.self)!,
+                enrollmentInteractor: r.resolve(EnrollmentInteractorProtocol.self)!,
                 router: r.resolve(CourseRouter.self)!,
                 analytics: r.resolve(CourseAnalytics.self)!,
                 config: r.resolve(ConfigProtocol.self)!,
@@ -655,6 +666,7 @@ class ScreenAssembly: Assembly {
             CourseUpgradeHandler(
                 config: r.resolve(ConfigProtocol.self)!,
                 interactor: r.resolve(CourseUpgradeInteractorProtocol.self)!,
+                enrollmentInteractor: r.resolve(EnrollmentInteractorProtocol.self)!,
                 storeKitHandler: r.resolve(StoreKitHandlerProtocol.self)!,
                 helper: r.resolve(CourseUpgradeHelperProtocol.self)!
             )

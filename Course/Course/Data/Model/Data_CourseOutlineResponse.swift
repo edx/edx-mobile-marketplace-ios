@@ -103,32 +103,6 @@ public extension DataLayer {
             }
         }
     }
-    
-    struct CoursewareAccessDetails: Codable {
-        public let hasUNMETPrerequisites: Bool
-        public let isTooEarly: Bool
-        public let auditAccessExpires: String?
-        public let coursewareAccess: CoursewareAccess?
-        
-        public init(
-            hasUNMETPrerequisites: Bool,
-            isTooEarly: Bool,
-            auditAccessExpires: String?,
-            coursewareAccess: CoursewareAccess?
-        ) {
-            self.hasUNMETPrerequisites = hasUNMETPrerequisites
-            self.isTooEarly = isTooEarly
-            self.auditAccessExpires = auditAccessExpires
-            self.coursewareAccess = coursewareAccess
-        }
-        
-        public enum CodingKeys: String, CodingKey {
-            case hasUNMETPrerequisites = "has_unmet_prerequisites"
-            case isTooEarly = "is_too_early"
-            case auditAccessExpires = "audit_access_expires"
-            case coursewareAccess = "courseware_access"
-        }
-    }
 }
 public extension DataLayer {
     struct CourseBlock: Decodable {
@@ -223,27 +197,6 @@ public extension DataLayer {
 
         public init(en: String?) {
             self.en = en
-        }
-    }
-    
-    struct EnrollmentDetail: Codable {
-        let created: String
-        let isActive: Bool
-        let mode: Mode
-        let upgradeDeadline: String?
-        
-        public enum CodingKeys: String, CodingKey {
-            case created
-            case isActive = "is_active"
-            case mode
-            case upgradeDeadline = "upgrade_deadline"
-        }
-        
-        init(created: String, isActive: Bool, mode: Mode, upgradeDeadline: String?) {
-            self.created = created
-            self.isActive = isActive
-            self.mode = mode
-            self.upgradeDeadline = upgradeDeadline
         }
     }
     

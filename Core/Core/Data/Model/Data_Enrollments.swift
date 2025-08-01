@@ -226,6 +226,33 @@ public extension DataLayer {
         public let twitter: String
     }
     
+    // MARK: - CoursewareAccessDetails
+    struct CoursewareAccessDetails: Codable {
+        public let hasUNMETPrerequisites: Bool
+        public let isTooEarly: Bool
+        public let auditAccessExpires: String?
+        public let coursewareAccess: CoursewareAccess?
+        
+        public init(
+            hasUNMETPrerequisites: Bool,
+            isTooEarly: Bool,
+            auditAccessExpires: String?,
+            coursewareAccess: CoursewareAccess?
+        ) {
+            self.hasUNMETPrerequisites = hasUNMETPrerequisites
+            self.isTooEarly = isTooEarly
+            self.auditAccessExpires = auditAccessExpires
+            self.coursewareAccess = coursewareAccess
+        }
+        
+        public enum CodingKeys: String, CodingKey {
+            case hasUNMETPrerequisites = "has_unmet_prerequisites"
+            case isTooEarly = "is_too_early"
+            case auditAccessExpires = "audit_access_expires"
+            case coursewareAccess = "courseware_access"
+        }
+    }
+    
     // MARK: - CoursewareAccess
     struct CoursewareAccess: Codable {
         public let hasAccess: Bool

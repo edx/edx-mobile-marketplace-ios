@@ -151,6 +151,25 @@ public struct CoursewareAccess: Hashable {
     }
 }
 
+public struct EnrollmentDetail: Hashable {
+    public let created: String?
+    public let mode: DataLayer.Mode?
+    public let isActive: Bool?
+    public let upgradeDeadline: String?
+    
+    public init(
+        created: String?,
+        mode: DataLayer.Mode?,
+        isActive: Bool?,
+        upgradeDeadline: String?
+    ) {
+        self.created = created
+        self.mode = mode
+        self.isActive = isActive
+        self.upgradeDeadline = upgradeDeadline
+    }
+}
+
 public enum CourseAccessError: String {
     case notStarted = "course_not_started"
     case auditExpired = "audit_expired"
