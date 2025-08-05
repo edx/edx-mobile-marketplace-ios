@@ -1,36 +1,11 @@
 [
     {
-        "version": "6.0",
+        "version": "6.2",
         "messages": [
             {
-                "image": "whats_new_1_6.0",
-                "title": "A Whole New Design",
-                "message": "Experience the completely redesigned app with an intuitive and modern interface that enhances your learning journey."
-            },
-            {
-                "image": "whats_new_2_6.0",
-                "title": "Focused Learning",
-                "message": "Keep your most active course at the forefront with a dedicated card on the Learn tab for seamless access and engagement."
-            },
-            {
-                "image": "whats_new_3_6.0",
-                "title": "Dates",
-                "message": "Easily track your course dates with a new layout that groups past due, upcoming, and completed course content for better clarity."
-            },
-            {
-                "image": "whats_new_4_6.0",
-                "title": "Discussions",
-                "message": "Enjoy a revamped forum with improved organization for discussion topics and posts, making it easier to follow and engage."
-            },
-            {
-                "image": "whats_new_5_6.0",
-                "title": "Feedback Submission",
-                "message": "We value your input! Use our new feedback button in Settings to share your thoughts and help us enhance your app experience."
-            },
-            {
-                "image": "whats_new_6_6.0",
-                "title": "Dark Mode",
-                "message": "Switch to Dark Mode for a visually comfortable and eye-friendly learning experience, especially in low-light environments."
+                "image": "whats_new_1_6.2",
+                "title": "Never miss a Conversation",
+                "message": "Get notified when someone responds to your posts, comments, or followed discussions. Customise your preferences in the app settings."
             }
         ]
     }
