@@ -102,7 +102,7 @@ final class CreateNewThreadViewModelTests: XCTestCase {
         
         XCTAssertFalse(result)
         XCTAssertTrue(viewModel.showError)
-        XCTAssertEqual(viewModel.errorMessage, CoreLocalization.Error.unknownError)
+        XCTAssertEqual(viewModel.errorMessage, DiscussionLocalization.Error.somethingWentWrong)
         XCTAssertFalse(viewModel.isShowProgress)
     }
 }

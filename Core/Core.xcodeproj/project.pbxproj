@@ -187,12 +187,16 @@
 		942A98592D4CAF5200DD8BBC /* ScreenStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942A98582D4CAF5200DD8BBC /* ScreenStateView.swift */; };
 		942C4D522DC505F1002BA81C /* TrackSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942C4D512DC505F1002BA81C /* TrackSelectionView.swift */; };
 		942C4D542DC508B7002BA81C /* TrackCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942C4D532DC508B7002BA81C /* TrackCardView.swift */; };
+		94747BA82E3362DD00F4E2C3 /* RecaptchaEnterprise in Frameworks */ = {isa = PBXBuildFile; productRef = 94747BA72E3362DD00F4E2C3 /* RecaptchaEnterprise */; };
+		94747BAB2E3362F900F4E2C3 /* CaptchaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94747BA92E3362F900F4E2C3 /* CaptchaService.swift */; };
+		94747BAD2E336FFC00F4E2C3 /* DefaultCaptchaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94747BAC2E336FFA00F4E2C3 /* DefaultCaptchaService.swift */; };
 		949094972DC8E2D800A341D4 /* TrackSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949094962DC8E2D100A341D4 /* TrackSelectionViewModel.swift */; };
 		949094992DC8E44C00A341D4 /* TrackCardInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949094982DC8E44700A341D4 /* TrackCardInfo.swift */; };
 		9499F1262D41375B00558D59 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9499F1252D41375B00558D59 /* AppEnvironment.swift */; };
 		94AE32362D8B329D00FA048D /* NotificationBellButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AE32352D8B329D00FA048D /* NotificationBellButton.swift */; };
 		94D1FC482DA6AF44000A904F /* EDXFeatureManagement in Frameworks */ = {isa = PBXBuildFile; productRef = 94D1FC472DA6AF44000A904F /* EDXFeatureManagement */; };
 		94D1FC4D2DA7F3A6000A904F /* OptimizelyConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D1FC4C2DA7F39F000A904F /* OptimizelyConfig.swift */; };
+		94E4988D2E3764D300A48451 /* RecaptchaConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E4988C2E3764CE00A48451 /* RecaptchaConfig.swift */; };
 		94E5D5962DE4959900DE43ED /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E5D5952DE4959600DE43ED /* AppTheme.swift */; };
 		94E5D5982DE495BD00DE43ED /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E5D5972DE495BA00DE43ED /* ThemeManager.swift */; };
 		94E5D59A2DE4990700DE43ED /* ThemeManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E5D5992DE4990100DE43ED /* ThemeManagerProtocol.swift */; };
@@ -439,11 +443,14 @@
 		942A98582D4CAF5200DD8BBC /* ScreenStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenStateView.swift; sourceTree = "<group>"; };
 		942C4D512DC505F1002BA81C /* TrackSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSelectionView.swift; sourceTree = "<group>"; };
 		942C4D532DC508B7002BA81C /* TrackCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackCardView.swift; sourceTree = "<group>"; };
+		94747BA92E3362F900F4E2C3 /* CaptchaService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptchaService.swift; sourceTree = "<group>"; };
+		94747BAC2E336FFA00F4E2C3 /* DefaultCaptchaService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCaptchaService.swift; sourceTree = "<group>"; };
 		949094962DC8E2D100A341D4 /* TrackSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSelectionViewModel.swift; sourceTree = "<group>"; };
 		949094982DC8E44700A341D4 /* TrackCardInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackCardInfo.swift; sourceTree = "<group>"; };
 		9499F1252D41375B00558D59 /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
 		94AE32352D8B329D00FA048D /* NotificationBellButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationBellButton.swift; sourceTree = "<group>"; };
 		94D1FC4C2DA7F39F000A904F /* OptimizelyConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptimizelyConfig.swift; sourceTree = "<group>"; };
+		94E4988C2E3764CE00A48451 /* RecaptchaConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecaptchaConfig.swift; sourceTree = "<group>"; };
 		94E5D5952DE4959600DE43ED /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
 		94E5D5972DE495BA00DE43ED /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		94E5D5992DE4990100DE43ED /* ThemeManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManagerProtocol.swift; sourceTree = "<group>"; };
@@ -513,6 +520,7 @@
 				BA8FA66C2AD59BBC00EA029A /* GoogleSignIn in Frameworks */,
 				94D1FC482DA6AF44000A904F /* EDXFeatureManagement in Frameworks */,
 				E055A5392B18DC95008D9E5E /* Theme.framework in Frameworks */,
+				94747BA82E3362DD00F4E2C3 /* RecaptchaEnterprise in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -835,6 +843,7 @@
 				062C69BA2C199C2A002BD311 /* Enums */,
 				14A832502BD7533000E5654D /* CourseUpgrade */,
 				14769D3A2B9822D900AB36D4 /* Analytics */,
+				94747BAA2E3362F900F4E2C3 /* Captcha */,
 				BA8FA65F2AD5973500EA029A /* Providers */,
 				027BD3A12909470F00392132 /* AvoidingHelpers */,
 				0770DE5528D0B142006D8A5D /* SwiftGen */,
@@ -1011,6 +1020,15 @@
 			path = Pagination;
 			sourceTree = "<group>";
 		};
+		94747BAA2E3362F900F4E2C3 /* Captcha */ = {
+			isa = PBXGroup;
+			children = (
+				94747BA92E3362F900F4E2C3 /* CaptchaService.swift */,
+				94747BAC2E336FFA00F4E2C3 /* DefaultCaptchaService.swift */,
+			);
+			path = Captcha;
+			sourceTree = "<group>";
+		};
 		94E5D5942DE4958E00DE43ED /* Theme */ = {
 			isa = PBXGroup;
 			children = (
@@ -1130,6 +1148,7 @@
 				E0D586192B2FF74C009B4BA7 /* DiscoveryConfig.swift */,
 				14D912D82C2553C70077CCCE /* FullStoryConfig.swift */,
 				94D1FC4C2DA7F39F000A904F /* OptimizelyConfig.swift */,
+				94E4988C2E3764CE00A48451 /* RecaptchaConfig.swift */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -1216,6 +1235,7 @@
 				142EDD6B2B831D1400F9F320 /* BranchSDK */,
 				14A832542BD753F800E5654D /* SwiftyStoreKit */,
 				94D1FC472DA6AF44000A904F /* EDXFeatureManagement */,
+				94747BA72E3362DD00F4E2C3 /* RecaptchaEnterprise */,
 			);
 			productName = Core;
 			productReference = 0770DE0828D07831006D8A5D /* Core.framework */;
@@ -1258,6 +1278,7 @@
 				142EDD6A2B831D1400F9F320 /* XCRemoteSwiftPackageReference "ios-branch-sdk-spm" */,
 				14A832532BD753F800E5654D /* XCRemoteSwiftPackageReference "SwiftyStoreKit" */,
 				94D1FC462DA6AF44000A904F /* XCLocalSwiftPackageReference "../EDXFeatureManagement" */,
+				94747BA62E3362DD00F4E2C3 /* XCRemoteSwiftPackageReference "recaptcha-enterprise-mobile-sdk" */,
 			);
 			productRefGroup = 0770DE0928D07831006D8A5D /* Products */;
 			projectDirPath = "";
@@ -1388,6 +1409,7 @@
 				BAD9CA332B28A8F300DE790A /* AjaxProvider.swift in Sources */,
 				0295C885299B99DD00ABE571 /* RefreshableScrollView.swift in Sources */,
 				A51CDBE72B6D21F2009B6D4E /* SegmentConfig.swift in Sources */,
+				94747BAB2E3362F900F4E2C3 /* CaptchaService.swift in Sources */,
 				06EA8A4F2BFDFF8F005DFB90 /* StoreProductInfo.swift in Sources */,
 				0282DA7328F98CC9003C3F07 /* WebUnitView.swift in Sources */,
 				97904D982DDA0545003F2BE2 /* EnrollmentDetails.swift in Sources */,
@@ -1413,6 +1435,7 @@
 				06EA8A482BFDFEFD005DFB90 /* CourseUpgradeHandlerProtocol.swift in Sources */,
 				06078B712BA49C3100576798 /* String+JSON.swift in Sources */,
 				0233D5732AF13EEE00BAC8BD /* AppReviewButton.swift in Sources */,
+				94E4988D2E3764D300A48451 /* RecaptchaConfig.swift in Sources */,
 				02512FF0299533DF0024D438 /* CoreDataHandlerProtocol.swift in Sources */,
 				0260E58028FD792800BBBE18 /* WebUnitViewModel.swift in Sources */,
 				02A4833A29B8A9AB00D33F33 /* DownloadManager.swift in Sources */,
@@ -1555,6 +1578,7 @@
 				14A832592BD75EC400E5654D /* CourseUpgradeInteractor.swift in Sources */,
 				024BE3DF29B2615500BCDEE2 /* CGColorExtension.swift in Sources */,
 				0770DE6128D0B2CB006D8A5D /* Assets.swift in Sources */,
+				94747BAD2E336FFC00F4E2C3 /* DefaultCaptchaService.swift in Sources */,
 				07E0939F2B308D2800F1E4B2 /* Data_Certificate.swift in Sources */,
 				020D72F42BB76DFE00773319 /* VisualEffectView.swift in Sources */,
 				0727878928D31734002E9142 /* User.swift in Sources */,
@@ -2611,6 +2635,14 @@
 				minimumVersion = 0.16.4;
 			};
 		};
+		94747BA62E3362DD00F4E2C3 /* XCRemoteSwiftPackageReference "recaptcha-enterprise-mobile-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/GoogleCloudPlatform/recaptcha-enterprise-mobile-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 18.4.0;
+			};
+		};
 		BA8FA65E2AD574D700EA029A /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
@@ -2644,6 +2676,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 14A832532BD753F800E5654D /* XCRemoteSwiftPackageReference "SwiftyStoreKit" */;
 			productName = SwiftyStoreKit;
+		};
+		94747BA72E3362DD00F4E2C3 /* RecaptchaEnterprise */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 94747BA62E3362DD00F4E2C3 /* XCRemoteSwiftPackageReference "recaptcha-enterprise-mobile-sdk" */;
+			productName = RecaptchaEnterprise;
 		};
 		94D1FC472DA6AF44000A904F /* EDXFeatureManagement */ = {
 			isa = XCSwiftPackageProductDependency;

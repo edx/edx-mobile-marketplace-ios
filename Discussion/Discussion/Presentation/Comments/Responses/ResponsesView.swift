@@ -245,7 +245,10 @@ struct ResponsesView_Previews: PreviewProvider {
     static var previews: some View {
         let viewModel = ResponsesViewModel(
             courseID: "",
-            interactor: DiscussionInteractor(repository: DiscussionRepositoryMock()),
+            interactor: DiscussionInteractor(
+                repository: DiscussionRepositoryMock(),
+                captchaService: CaptchaServiceMock()
+            ),
             router: DiscussionRouterMock(),
             config: ConfigMock(),
             coreStorage: CoreStorageMock(),

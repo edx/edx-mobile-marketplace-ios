@@ -264,7 +264,7 @@ final class ResponsesViewModelTests: XCTestCase {
         
         XCTAssertFalse(viewModel.isShowProgress)
         XCTAssertTrue(viewModel.showError)
-        XCTAssertEqual(viewModel.errorMessage, CoreLocalization.Error.unknownError)
+        XCTAssertEqual(viewModel.errorMessage, DiscussionLocalization.Error.somethingWentWrong)
     }
     
     func testFetchMorePosts() async {
