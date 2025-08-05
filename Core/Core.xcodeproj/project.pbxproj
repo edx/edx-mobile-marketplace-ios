@@ -196,6 +196,7 @@
 		94AE32362D8B329D00FA048D /* NotificationBellButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AE32352D8B329D00FA048D /* NotificationBellButton.swift */; };
 		94D1FC482DA6AF44000A904F /* EDXFeatureManagement in Frameworks */ = {isa = PBXBuildFile; productRef = 94D1FC472DA6AF44000A904F /* EDXFeatureManagement */; };
 		94D1FC4D2DA7F3A6000A904F /* OptimizelyConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D1FC4C2DA7F39F000A904F /* OptimizelyConfig.swift */; };
+		94E333FE2E41F47C00444444 /* VideoPlayerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E333FD2E41F47C00444444 /* VideoPlayerConfig.swift */; };
 		94E4988D2E3764D300A48451 /* RecaptchaConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E4988C2E3764CE00A48451 /* RecaptchaConfig.swift */; };
 		94E5D5962DE4959900DE43ED /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E5D5952DE4959600DE43ED /* AppTheme.swift */; };
 		94E5D5982DE495BD00DE43ED /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E5D5972DE495BA00DE43ED /* ThemeManager.swift */; };
@@ -450,6 +451,7 @@
 		9499F1252D41375B00558D59 /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
 		94AE32352D8B329D00FA048D /* NotificationBellButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationBellButton.swift; sourceTree = "<group>"; };
 		94D1FC4C2DA7F39F000A904F /* OptimizelyConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptimizelyConfig.swift; sourceTree = "<group>"; };
+		94E333FD2E41F47C00444444 /* VideoPlayerConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerConfig.swift; sourceTree = "<group>"; };
 		94E4988C2E3764CE00A48451 /* RecaptchaConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecaptchaConfig.swift; sourceTree = "<group>"; };
 		94E5D5952DE4959600DE43ED /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
 		94E5D5972DE495BA00DE43ED /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
@@ -1149,6 +1151,7 @@
 				14D912D82C2553C70077CCCE /* FullStoryConfig.swift */,
 				94D1FC4C2DA7F39F000A904F /* OptimizelyConfig.swift */,
 				94E4988C2E3764CE00A48451 /* RecaptchaConfig.swift */,
+				94E333FD2E41F47C00444444 /* VideoPlayerConfig.swift */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -1515,6 +1518,7 @@
 				DBF6F2412B014ADA0098414B /* FirebaseConfig.swift in Sources */,
 				072787B628D37A0E002E9142 /* Validator.swift in Sources */,
 				0236961D28F9A2D200EEF206 /* Data_AuthResponse.swift in Sources */,
+				94E333FE2E41F47C00444444 /* VideoPlayerConfig.swift in Sources */,
 				A5F4E7B52B61544A00ACD166 /* BrazeConfig.swift in Sources */,
 				06DEA4A52BBD66D700110D20 /* BackNavigationButtonViewModel.swift in Sources */,
 				973CCD7B2D3660D100949756 /* HTML2TextParser.swift in Sources */,

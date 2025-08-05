@@ -36,6 +36,7 @@ public protocol ConfigProtocol {
     var pushNotificationsEnabled: Bool { get }
     var optimizely: OptimizelyConfig { get }
     var recaptcha: RecaptchaConfig { get }
+    var videoPlayer: VideoPlayerConfig { get }
 }
 
 public enum TokenType: String {
