@@ -195,6 +195,20 @@ public struct CreateNewThreadView: View {
                         }.scrollAvoidKeyboard(dismissKeyboardByTap: true)
                     }
                 }.padding(.top, 8)
+
+                // MARK: - Error Alert
+                if viewModel.showError {
+                    VStack {
+                        Spacer()
+                        SnackBarView(message: viewModel.errorMessage)
+                    }
+                    .transition(.move(edge: .bottom))
+                    .onAppear {
+                        doAfter(Theme.Timeout.snackbarMessageLongTimeout) {
+                            viewModel.errorMessage = nil
+                        }
+                    }
+                }
             }
             .hideNavigationBar(false)
             .navigationBarBackButtonHidden(false)

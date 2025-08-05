@@ -72,6 +72,8 @@ public enum DiscussionLocalization {
     public static let topic = DiscussionLocalization.tr("Localizable", "CREATE_THREAD.TOPIC", fallback: "Topic")
   }
   public enum Error {
+    /// Something went wrong. Please try again later.
+    public static let somethingWentWrong = DiscussionLocalization.tr("Localizable", "ERROR.SOMETHING_WENT_WRONG", fallback: "Something went wrong. Please try again later.")
     /// Unable to load discussions.
     /// Try again later.
     public static let unableToLoadDiscussion = DiscussionLocalization.tr("Localizable", "ERROR.UNABLE_TO_LOAD_DISCUSSION", fallback: "Unable to load discussions.\nTry again later.")

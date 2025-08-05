@@ -554,7 +554,8 @@ class ScreenAssembly: Assembly {
         
         container.register(DiscussionInteractorProtocol.self) { r in
             DiscussionInteractor(
-                repository: r.resolve(DiscussionRepositoryProtocol.self)!
+                repository: r.resolve(DiscussionRepositoryProtocol.self)!,
+                captchaService: r.resolve(CaptchaService.self)!
             )
         }
         
