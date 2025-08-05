@@ -83,7 +83,7 @@ public class ResponsesViewModel: BaseResponsesViewModel, ObservableObject {
             if error.isInternetError {
                 errorMessage = CoreLocalization.Error.slowOrNoInternetConnection
             } else {
-                errorMessage = CoreLocalization.Error.unknownError
+                errorMessage = DiscussionLocalization.Error.somethingWentWrong
             }
         }
     }

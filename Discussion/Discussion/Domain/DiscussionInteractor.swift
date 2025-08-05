@@ -37,9 +37,20 @@ public protocol DiscussionInteractorProtocol {
 public class DiscussionInteractor: DiscussionInteractorProtocol {
     
     private let repository: DiscussionRepositoryProtocol
-    
-    public init(repository: DiscussionRepositoryProtocol) {
+    private let captchaService: CaptchaService
+
+    private enum Constants {
+        static let captchaTimeout: TimeInterval = 10.0
+        static let threadAction = "thread"
+        static let commentAction = "comment"
+    }
+
+    public init(
+        repository: DiscussionRepositoryProtocol,
+        captchaService: CaptchaService
+    ) {
         self.repository = repository
+        self.captchaService = captchaService
     }
 
     public func getCourseDiscussionInfo(courseID: String) async throws -> DiscussionInfo {
@@ -88,9 +99,14 @@ public class DiscussionInteractor: DiscussionInteractorProtocol {
     }
 
     public func addCommentTo(threadID: String, rawBody: String, parentID: String? = nil) async throws -> Post {
+        let captchaToken = try await captchaService.executeCaptcha(
+            action: Constants.commentAction,
+            timeout: Constants.captchaTimeout
+        )
         return try await repository.addCommentTo(threadID: threadID,
                                                  rawBody: rawBody,
-                                                 parentID: parentID)
+                                                 parentID: parentID,
+                                                 captchaToken: captchaToken)
     }
     
     public func voteThread(voted: Bool, threadID: String) async throws {
@@ -117,18 +133,24 @@ public class DiscussionInteractor: DiscussionInteractorProtocol {
     }
     
     public func createNewThread(newThread: DiscussionNewThread) async throws {
-        return try await repository.createNewThread(newThread: newThread)
+        let captchaToken = try await captchaService.executeCaptcha(
+            action: Constants.threadAction,
+            timeout: Constants.captchaTimeout
+        )
+        return try await repository.createNewThread(newThread: newThread, captchaToken: captchaToken)
     }
     
     public func readBody(threadID: String) async throws {
         return try await repository.readBody(threadID: threadID)
     }
-    
 }
 
 // Mark - For testing and SwiftUI preview
 #if DEBUG
 public extension DiscussionInteractor {
-    static let mock: DiscussionInteractor = DiscussionInteractor(repository: DiscussionRepositoryMock())
+    static let mock: DiscussionInteractor = DiscussionInteractor(
+        repository: DiscussionRepositoryMock(),
+        captchaService: CaptchaServiceMock()
+    )
 }
 #endif
