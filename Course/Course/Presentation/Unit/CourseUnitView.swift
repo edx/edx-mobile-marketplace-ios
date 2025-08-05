@@ -169,7 +169,11 @@ public struct CourseUnitView: View {
                     if isDropdownActive {
                         videoTitle(block: block, width: reader.size.width)
                     }
-                    switch LessonType.from(block, streamingQuality: viewModel.streamingQuality) {
+                    switch LessonType.from(
+                        block,
+                        streamingQuality: viewModel.streamingQuality,
+                        config: viewModel.config
+                    ) {
                         // MARK: YouTube
                     case let .youtube(url, blockID):
                         if index == viewModel.index {

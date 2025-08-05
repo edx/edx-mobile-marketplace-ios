@@ -15,7 +15,11 @@ public enum LessonType: Equatable {
     case unknown(String)
     case discussion(String, String, String)
     
-    static func from(_ block: CourseBlock, streamingQuality: StreamingQuality) -> Self {
+    static func from(
+        _ block: CourseBlock,
+        streamingQuality: StreamingQuality,
+        config: ConfigProtocol
+    ) -> Self {
         let mandatoryInjections: [WebviewInjection] = [.colorInversionCss, .ajaxCallback, .readability, .accessibility]
         switch block.type {
         case .course, .chapter, .vertical, .sequential:
@@ -32,7 +36,8 @@ public enum LessonType: Equatable {
             return .discussion(block.topicId ?? "", block.id, block.displayName)
         case .video:
             if let encodedVideo = block.encodedVideo?.video(streamingQuality: streamingQuality),
-               let videoURL = encodedVideo.url {
+               let videoURL = encodedVideo.url,
+               !config.videoPlayer.blacklistURLs.contains(where: { videoURL.hasPrefix($0) }) {
                 if encodedVideo.type == .youtube {
                     return .youtube(youtubeVideoUrl: videoURL, blockID: block.id)
                 } else if encodedVideo.isVideoURL {
