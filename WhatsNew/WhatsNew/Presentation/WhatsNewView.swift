@@ -132,12 +132,14 @@ public struct WhatsNewView: View {
                     if isHorizontal {
                         Spacer()
                     }
-                    PageControl(numberOfPages: viewModel.newItems.count, currentPage: viewModel.index)
-                        .frame(height: isHorizontal ? 8 : nil)
-                        .allowsHitTesting(false)
-                        .padding(.top, isHorizontal ? 0 : 170)
-                        .padding(.bottom, 8)
-                        .accessibilityIdentifier("whatsnew_pagecontrol")
+                    if viewModel.newItems.count > 1 {
+                        PageControl(numberOfPages: viewModel.newItems.count, currentPage: viewModel.index)
+                            .frame(height: isHorizontal ? 8 : nil)
+                            .allowsHitTesting(false)
+                            .padding(.top, isHorizontal ? 0 : 170)
+                            .padding(.bottom, 8)
+                            .accessibilityIdentifier("whatsnew_pagecontrol")
+                    }
                 }
                 
             }.onChange(of: index) { ind in
