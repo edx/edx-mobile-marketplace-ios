@@ -63,3 +63,4 @@
 "ANONYMOUS" = "Anonymous";
 
 "ERROR.UNABLE_TO_LOAD_DISCUSSION" = "Unable to load discussions.\nTry again later.";
+"ERROR.SOMETHING_WENT_WRONG" = "Something went wrong. Please try again later.";

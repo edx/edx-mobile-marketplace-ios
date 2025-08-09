@@ -19,13 +19,13 @@ enum DiscussionEndpoint: EndPointType {
     case getQuestionComments(threadID: String, page: Int)
     case getCommentResponses(commentID: String, page: Int)
     case getResponse(responseID: String)
-    case addCommentTo(threadID: String, rawBody: String, parentID: String? = nil)
+    case addCommentTo(threadID: String, rawBody: String, parentID: String? = nil, captchaToken: String)
     case voteThread(voted: Bool, threadID: String)
     case voteResponse(voted: Bool, responseID: String)
     case flagThread(abuseFlagged: Bool, threadID: String)
     case flagComment(abuseFlagged: Bool, commentID: String)
     case followThread(following: Bool, threadID: String)
-    case createNewThread(newThread: DiscussionNewThread)
+    case createNewThread(newThread: DiscussionNewThread, captchaToken: String)
     case readBody(threadID: String)
     case searchThreads(courseID: String, searchText: String, pageNumber: Int = 1)
     
@@ -118,10 +118,10 @@ enum DiscussionEndpoint: EndPointType {
                 .getDiscussionComments,
                 .getQuestionComments,
                 .getCommentResponses,
-                .addCommentTo,
-                .createNewThread,
                 .searchThreads:
             return nil
+        case .addCommentTo, .createNewThread:
+            return ["Mobile-Platform-Identifier": "ios"]
         case .voteThread,
                 .voteResponse,
                 .flagThread,
@@ -223,10 +223,11 @@ enum DiscussionEndpoint: EndPointType {
             return .requestParameters(parameters: parameters, encoding: URLEncoding.queryString)
         case .getResponse:
             return .requestParameters(parameters: [:], encoding: URLEncoding.queryString)
-        case let .addCommentTo(threadID, rawBody, parentID):
+        case let .addCommentTo(threadID, rawBody, parentID, captchaToken):
             var parameters: [String: Encodable] = [
                 "thread_id": threadID,
-                "raw_body": rawBody
+                "raw_body": rawBody,
+                "captcha_token": captchaToken
             ]
             if parentID != "" {
                 parameters["parent_id"] = parentID
@@ -257,14 +258,15 @@ enum DiscussionEndpoint: EndPointType {
                 "following": !following
             ]
             return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
-        case let .createNewThread(newThread):
+        case let .createNewThread(newThread, captchaToken):
             let parameters: [String: Encodable] = [
                 "course_id": newThread.courseID,
                 "topic_id": newThread.topicID,
                 "type": newThread.type.rawValue,
                 "title": newThread.title,
                 "raw_body": newThread.rawBody,
-                "following": newThread.followPost
+                "following": newThread.followPost,
+                "captcha_token": captchaToken
             ]
             return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
         case .readBody:
