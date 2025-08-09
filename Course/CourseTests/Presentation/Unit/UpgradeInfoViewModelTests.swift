@@ -23,7 +23,7 @@ final class UpgradeInfoViewModelTests: XCTestCase {
     
     var config: Config?
     var interactor: CourseUpgradeInteractorProtocolMock?
-    var enrollmentInteractor: EnrollmentInteractorProtocol?
+    var enrollmentInteractor: EnrollmentInteractorProtocolMock?
     var storeHandler: StoreKitHandlerProtocolMock?
     var helper: CourseUpgradeHelper?
     var handler: CourseUpgradeHandler?
@@ -50,6 +50,7 @@ final class UpgradeInfoViewModelTests: XCTestCase {
             helper: helper
         )
 
+        Given(enrollmentInteractor, .getEnrollmentDetails(courseID: .any, willReturn: enrollmentDetails(mode: .audit)))
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
 
@@ -88,6 +89,27 @@ final class UpgradeInfoViewModelTests: XCTestCase {
             analytics: CoreAnalyticsMock(),
             router: router ?? BaseRouterMock(),
             lmsPrice: .zero
+        )
+    }
+    
+    private func enrollmentDetails(mode: DataLayer.Mode) -> EnrollmentDetails {
+        return EnrollmentDetails(
+            id: "course1",
+            discussionURL: nil,
+            enrollmentDetail: EnrollmentDetail(
+                created: "2025-07-25T11:50:18Z",
+                mode: mode,
+                isActive: true,
+                upgradeDeadline: nil
+            ),
+            coursewareAccess: CoursewareAccess(
+                hasAccess: false,
+                errorCode: .notStarted,
+                developerMessage: "Course does not start until 2025-07-15 04:00:00+00:00",
+                userMessage: "Course does not start until July 15, 2025",
+                additionalContextUserMessage: nil,
+                userFragment: nil
+            )
         )
     }
     
@@ -133,6 +155,18 @@ final class UpgradeInfoViewModelTests: XCTestCase {
     }
 
     private func prepareSuccessFlow(for sku: String, product: StoreProductInfo, courseRunKey: String) throws -> FlowData {
+        guard let enrollmentInteractor else { throw UpgradeInfoViewModelTestsError.cantSetup }
+
+        // 1st call -> audit, 2nd+ -> verified
+        Given(
+            enrollmentInteractor,
+            .getEnrollmentDetails(
+                courseID: .any,
+                willReturn: enrollmentDetails(mode: .audit),
+                enrollmentDetails(mode: .verified)
+            )
+        )
+
         guard let interactor else { throw UpgradeInfoViewModelTestsError.interactorIsNil }
         
         guard let storeHandler else { throw UpgradeInfoViewModelTestsError.storeMockIsNil }
@@ -143,7 +177,7 @@ final class UpgradeInfoViewModelTests: XCTestCase {
               let currencyCode = product.currencyCode
         else { throw UpgradeInfoViewModelTestsError.incorrectValuesReturned }
         
-        let order = FulfillOrder(orderId: "1", orderNumber: "1")
+        let order = FulfillOrder(orderId: "test_order_id", orderNumber: "test_order_number")
         Given(
             interactor, .createOrder(
                 courseRunKey: .value(courseRunKey),
