@@ -9,6 +9,7 @@ import Foundation
 import Core
 import SwiftUI
 import Combine
+import KeychainSwift
 
 public class ListDashboardViewModel: ObservableObject {
     
@@ -36,13 +37,15 @@ public class ListDashboardViewModel: ObservableObject {
     private var onCourseEnrolledCancellable: AnyCancellable?
     private var refreshEnrollmentsCancellable: AnyCancellable?
     let serverConfig: ServerConfigProtocol
+    private var storage: CoreStorage
     
     public init(interactor: DashboardInteractorProtocol,
                 connectivity: ConnectivityProtocol,
                 analytics: DashboardAnalytics,
                 upgradehandler: CourseUpgradeHandlerProtocol,
                 coreAnalytics: CoreAnalytics,
-                serverConfig: ServerConfigProtocol
+                serverConfig: ServerConfigProtocol,
+                storage: CoreStorage
     ) {
         self.interactor = interactor
         self.connectivity = connectivity
@@ -50,6 +53,7 @@ public class ListDashboardViewModel: ObservableObject {
         self.upgradehandler = upgradehandler
         self.coreAnalytics = coreAnalytics
         self.serverConfig = serverConfig
+        self.storage = storage
         
         addObservers()
     }
@@ -153,13 +157,21 @@ extension ListDashboardViewModel {
     
     @MainActor
     func resolveUnfinishedPayment() async {
-        guard let inprogressIAP = CourseUpgradeHelper.getInProgressIAP() else { return }
+        let inProgressIAPs = CourseUpgradeHelper.getAllInProgressIAP(
+            KeychainSwift(),
+            loggedInUserID: storage.user?.id ?? .zero
+        )
+        guard !inProgressIAPs.isEmpty else {
+            return
+        }
         
-        do {
-            let product = try await upgradehandler.fetchProduct(sku: inprogressIAP.sku)
-            await fulfillPurchase(inprogressIAP: inprogressIAP, product: product)
-        } catch _ {
-            
+        for inprogressIAP in inProgressIAPs {
+            do {
+                let product = try await upgradehandler.fetchProduct(sku: inprogressIAP.sku)
+                await fulfillPurchase(inprogressIAP: inprogressIAP, product: product)
+            } catch {
+                
+            }
         }
     }
     

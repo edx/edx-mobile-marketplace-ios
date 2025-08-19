@@ -333,7 +333,8 @@ struct SettingsView_Previews: PreviewProvider {
             coreAnalytics: CoreAnalyticsMock(),
             config: ConfigMock(),
             serverConfig: ServerConfigProtocolMock(),
-            upgradeHandler: CourseUpgradeHandlerProtocolMock()
+            upgradeHandler: CourseUpgradeHandlerProtocolMock(),
+            storage: CoreStorageMock()
         )
         
         SettingsView(viewModel: vm)

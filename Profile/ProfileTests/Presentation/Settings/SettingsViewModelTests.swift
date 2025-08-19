@@ -41,7 +41,8 @@ final class SettingsViewModelTests: XCTestCase {
             config:  ConfigMock(),
             serverConfig: ServerConfigProtocolMock(),
             upgradeHandler: CourseUpgradeHandlerProtocolMock(),
-            upgradeHelper: CourseUpgradeHelperProtocolMock()
+            upgradeHelper: CourseUpgradeHelperProtocolMock(),
+            storage: CoreStorageMock()
         )
         
         await viewModel.logOut()
@@ -77,7 +78,8 @@ final class SettingsViewModelTests: XCTestCase {
             config:  ConfigMock(),
             serverConfig: ServerConfigProtocolMock(),
             upgradeHandler: CourseUpgradeHandlerProtocolMock(),
-            upgradeHelper: CourseUpgradeHelperProtocolMock()
+            upgradeHelper: CourseUpgradeHelperProtocolMock(),
+            storage: CoreStorageMock()
         )
         
         viewModel.trackProfileVideoSettingsClicked()
@@ -112,7 +114,8 @@ final class SettingsViewModelTests: XCTestCase {
             config:  ConfigMock(),
             serverConfig: ServerConfigProtocolMock(),
             upgradeHandler: CourseUpgradeHandlerProtocolMock(),
-            upgradeHelper: CourseUpgradeHelperProtocolMock()
+            upgradeHelper: CourseUpgradeHelperProtocolMock(),
+            storage: CoreStorageMock()
         )
         
         viewModel.trackEmailSupportClicked()
@@ -147,7 +150,8 @@ final class SettingsViewModelTests: XCTestCase {
             config:  ConfigMock(),
             serverConfig: ServerConfigProtocolMock(),
             upgradeHandler: CourseUpgradeHandlerProtocolMock(),
-            upgradeHelper: CourseUpgradeHelperProtocolMock()
+            upgradeHelper: CourseUpgradeHelperProtocolMock(),
+            storage: CoreStorageMock()
         )
         
         viewModel.trackCookiePolicyClicked()
@@ -182,7 +186,8 @@ final class SettingsViewModelTests: XCTestCase {
             config:  ConfigMock(),
             serverConfig: ServerConfigProtocolMock(),
             upgradeHandler: CourseUpgradeHandlerProtocolMock(),
-            upgradeHelper: CourseUpgradeHelperProtocolMock()
+            upgradeHelper: CourseUpgradeHelperProtocolMock(),
+            storage: CoreStorageMock()
         )
         
         viewModel.trackPrivacyPolicyClicked()
@@ -217,7 +222,8 @@ final class SettingsViewModelTests: XCTestCase {
             config:  ConfigMock(),
             serverConfig: ServerConfigProtocolMock(),
             upgradeHandler: CourseUpgradeHandlerProtocolMock(),
-            upgradeHelper: CourseUpgradeHelperProtocolMock()
+            upgradeHelper: CourseUpgradeHelperProtocolMock(),
+            storage: CoreStorageMock()
         )
         
         viewModel.trackProfileEditClicked()

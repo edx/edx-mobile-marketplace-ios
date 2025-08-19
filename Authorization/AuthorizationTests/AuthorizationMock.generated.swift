@@ -3426,11 +3426,26 @@ open class CourseUpgradeHelperProtocolMock: CourseUpgradeHelperProtocol, Mock {
 		perform?()
     }
 
+    open func isAllowedToPurchase(_ sku: String, courseID: String) -> Bool {
+        addInvocation(.m_isAllowedToPurchase__skucourseID_courseID(Parameter<String>.value(`sku`), Parameter<String>.value(`courseID`)))
+		let perform = methodPerformValue(.m_isAllowedToPurchase__skucourseID_courseID(Parameter<String>.value(`sku`), Parameter<String>.value(`courseID`))) as? (String, String) -> Void
+		perform?(`sku`, `courseID`)
+		var __value: Bool
+		do {
+		    __value = try methodReturnValue(.m_isAllowedToPurchase__skucourseID_courseID(Parameter<String>.value(`sku`), Parameter<String>.value(`courseID`))).casted()
+		} catch {
+			onFatalFailure("Stub return value not specified for isAllowedToPurchase(_ sku: String, courseID: String). Use given")
+			Failure("Stub return value not specified for isAllowedToPurchase(_ sku: String, courseID: String). Use given")
+		}
+		return __value
+    }
+
 
     fileprivate enum MethodType {
         case m_setData__courseID_courseIDpacing_pacingblockID_blockIDlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screen(Parameter<String>, Parameter<String>, Parameter<String?>, Parameter<NSDecimalNumber?>, Parameter<String?>, Parameter<Double?>, Parameter<CourseUpgradeScreen>)
         case m_handleCourseUpgrade__upgradeHadler_upgradeHadlerstate_statedelegate_delegate(Parameter<CourseUpgradeHandler>, Parameter<UpgradeCompletionState>, Parameter<CourseUpgradeHelperDelegate?>)
         case m_showRestorePurchasesAlert
+        case m_isAllowedToPurchase__skucourseID_courseID(Parameter<String>, Parameter<String>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
@@ -3453,6 +3468,12 @@ open class CourseUpgradeHelperProtocolMock: CourseUpgradeHelperProtocol, Mock {
 				return Matcher.ComparisonResult(results)
 
             case (.m_showRestorePurchasesAlert, .m_showRestorePurchasesAlert): return .match
+
+            case (.m_isAllowedToPurchase__skucourseID_courseID(let lhsSku, let lhsCourseid), .m_isAllowedToPurchase__skucourseID_courseID(let rhsSku, let rhsCourseid)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsSku, rhs: rhsSku, with: matcher), lhsSku, rhsSku, "_ sku"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseID"))
+				return Matcher.ComparisonResult(results)
             default: return .none
             }
         }
@@ -3462,6 +3483,7 @@ open class CourseUpgradeHelperProtocolMock: CourseUpgradeHelperProtocol, Mock {
             case let .m_setData__courseID_courseIDpacing_pacingblockID_blockIDlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screen(p0, p1, p2, p3, p4, p5, p6): return p0.intValue + p1.intValue + p2.intValue + p3.intValue + p4.intValue + p5.intValue + p6.intValue
             case let .m_handleCourseUpgrade__upgradeHadler_upgradeHadlerstate_statedelegate_delegate(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
             case .m_showRestorePurchasesAlert: return 0
+            case let .m_isAllowedToPurchase__skucourseID_courseID(p0, p1): return p0.intValue + p1.intValue
             }
         }
         func assertionName() -> String {
@@ -3469,6 +3491,7 @@ open class CourseUpgradeHelperProtocolMock: CourseUpgradeHelperProtocol, Mock {
             case .m_setData__courseID_courseIDpacing_pacingblockID_blockIDlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screen: return ".setData(courseID:pacing:blockID:localizedPrice:localizedCurrencyCode:lmsPrice:screen:)"
             case .m_handleCourseUpgrade__upgradeHadler_upgradeHadlerstate_statedelegate_delegate: return ".handleCourseUpgrade(upgradeHadler:state:delegate:)"
             case .m_showRestorePurchasesAlert: return ".showRestorePurchasesAlert()"
+            case .m_isAllowedToPurchase__skucourseID_courseID: return ".isAllowedToPurchase(_:courseID:)"
             }
         }
     }
@@ -3482,6 +3505,16 @@ open class CourseUpgradeHelperProtocolMock: CourseUpgradeHelperProtocol, Mock {
         }
 
 
+        public static func isAllowedToPurchase(_ sku: Parameter<String>, courseID: Parameter<String>, willReturn: Bool...) -> MethodStub {
+            return Given(method: .m_isAllowedToPurchase__skucourseID_courseID(`sku`, `courseID`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func isAllowedToPurchase(_ sku: Parameter<String>, courseID: Parameter<String>, willProduce: (Stubber<Bool>) -> Void) -> MethodStub {
+            let willReturn: [Bool] = []
+			let given: Given = { return Given(method: .m_isAllowedToPurchase__skucourseID_courseID(`sku`, `courseID`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (Bool).self)
+			willProduce(stubber)
+			return given
+        }
     }
 
     public struct Verify {
@@ -3490,6 +3523,7 @@ open class CourseUpgradeHelperProtocolMock: CourseUpgradeHelperProtocol, Mock {
         public static func setData(courseID: Parameter<String>, pacing: Parameter<String>, blockID: Parameter<String?>, localizedPrice: Parameter<NSDecimalNumber?>, localizedCurrencyCode: Parameter<String?>, lmsPrice: Parameter<Double?>, screen: Parameter<CourseUpgradeScreen>) -> Verify { return Verify(method: .m_setData__courseID_courseIDpacing_pacingblockID_blockIDlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screen(`courseID`, `pacing`, `blockID`, `localizedPrice`, `localizedCurrencyCode`, `lmsPrice`, `screen`))}
         public static func handleCourseUpgrade(upgradeHadler: Parameter<CourseUpgradeHandler>, state: Parameter<UpgradeCompletionState>, delegate: Parameter<CourseUpgradeHelperDelegate?>) -> Verify { return Verify(method: .m_handleCourseUpgrade__upgradeHadler_upgradeHadlerstate_statedelegate_delegate(`upgradeHadler`, `state`, `delegate`))}
         public static func showRestorePurchasesAlert() -> Verify { return Verify(method: .m_showRestorePurchasesAlert)}
+        public static func isAllowedToPurchase(_ sku: Parameter<String>, courseID: Parameter<String>) -> Verify { return Verify(method: .m_isAllowedToPurchase__skucourseID_courseID(`sku`, `courseID`))}
     }
 
     public struct Perform {
@@ -3504,6 +3538,9 @@ open class CourseUpgradeHelperProtocolMock: CourseUpgradeHelperProtocol, Mock {
         }
         public static func showRestorePurchasesAlert(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_showRestorePurchasesAlert, performs: perform)
+        }
+        public static func isAllowedToPurchase(_ sku: Parameter<String>, courseID: Parameter<String>, perform: @escaping (String, String) -> Void) -> Perform {
+            return Perform(method: .m_isAllowedToPurchase__skucourseID_courseID(`sku`, `courseID`), performs: perform)
         }
     }
 

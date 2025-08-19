@@ -11,8 +11,9 @@ import SwiftUI
 import MessageUI
 import Alamofire
 import Combine
+import KeychainSwift
 
-private let InProgressIAPKey = "InProgressIAPKey"
+private let InProgressIAPListKey = "InProgressIAPListKey"
 
 public struct CourseUpgradeHelperModel {
     let courseID: String
@@ -81,16 +82,20 @@ public class CourseUpgradeHelper: CourseUpgradeHelperProtocol {
     private var lmsPrice: Double?
     weak private(set) var upgradeHadler: CourseUpgradeHandler?
     private let router: BaseRouter
+    private var storage: CoreStorage
     private var cancellables = Set<AnyCancellable>()
+    private let keychain = KeychainSwift()
     
     public init(
         config: ConfigProtocol,
         analytics: CoreAnalytics,
-        router: BaseRouter
+        router: BaseRouter,
+        storage: CoreStorage
     ) {
         self.config = config
         self.analytics = analytics
         self.router = router
+        self.storage = storage
     }
     
     public func setData(
@@ -219,16 +224,18 @@ public class CourseUpgradeHelper: CourseUpgradeHelperProtocol {
         
         switch state {
         case .initial:
-            saveInProgressIAP(courseID: courseID, sku: sku, lmsPrice: lmsPrice ?? .zero)
+            saveInProgressIAP(
+                courseID: courseID,
+                sku: sku,
+                lmsPrice: lmsPrice ?? .zero,
+                userID: storage.user?.id ?? .zero
+            )
         case .complete:
-            removeInProgressIAP()
+            removeInProgressIAP(bySKU: sku)
         case .error(let upgradeError):
-            if case .verifyReceiptError(let error) = upgradeError, error.errorCode == 409 {
-                removeInProgressIAP()
-            }
-            
-            if upgradeError != .verifyReceiptError(upgradeError), upgradeMode.isUserInitiated {
-                removeInProgressIAP()
+            if upgradeError != .verifyReceiptError(upgradeError),
+               upgradeError != .unverifiedCourseError(upgradeError) {
+                removeInProgressIAP(bySKU: sku)
             }
         default:
             break
@@ -360,9 +367,16 @@ extension CourseUpgradeHelper {
                 )
             )
 
+            let message: String
+            if case .generalError(let nestedError) = error {
+                message = nestedError?.localizedDescription ?? error.localizedDescription
+            } else {
+                message = error.localizedDescription
+            }
+            
             router.presentNativeAlert(
                 title: CoreLocalization.CourseUpgrade.FailureAlert.alertTitle,
-                message: error.localizedDescription,
+                message: message,
                 actions: actions
             )
         }
@@ -596,28 +610,66 @@ extension CourseUpgradeHelper {
 // Enrollments API is paginated so it's not sure the course will be available in first response
 
 extension CourseUpgradeHelper {
-    private func saveInProgressIAP(courseID: String, sku: String, lmsPrice: Double) {
-        let IAP = InProgressIAP(courseID: courseID, sku: sku, pacing: pacing ?? "", lmsPrice: lmsPrice)
+    public func isAllowedToPurchase(_ sku: String, courseID: String) -> Bool {
+        guard let inProgressIAP = getInProgressIAP(bySKU: sku) else {
+            return true // No existing purchase, so allowed
+        }
         
-        if let data = try? NSKeyedArchiver.archivedData(withRootObject: IAP, requiringSecureCoding: true) {
-            UserDefaults.standard.set(data, forKey: InProgressIAPKey)
-            UserDefaults.standard.synchronize()
+        let isSameUser = storage.user?.id == inProgressIAP.userID
+        let isSameSKU = inProgressIAP.sku == sku
+        let isSameCourse = inProgressIAP.courseID == courseID
+        
+        return isSameUser && isSameSKU && isSameCourse
+    }
+    
+    // Save or update
+    private func saveInProgressIAP(courseID: String, sku: String, lmsPrice: Double, userID: Int) {
+        let item = InProgressIAP(courseID: courseID, sku: sku, pacing: pacing ?? "", lmsPrice: lmsPrice, userID: userID)
+        
+        var list = CourseUpgradeHelper.getAllInProgressIAP(keychain, loggedInUserID: storage.user?.id ?? .zero)
+        
+        // Remove old item if sku already exists
+        if let index = list.firstIndex(where: { $0.sku == item.sku }) {
+            list[index] = item
+        } else {
+            list.append(item)
+        }
+        
+        if let data = try? NSKeyedArchiver.archivedData(withRootObject: list, requiringSecureCoding: true) {
+            keychain.set(data, forKey: InProgressIAPListKey)
         }
     }
     
-    public class func getInProgressIAP() -> InProgressIAP? {
-        guard let data = UserDefaults.standard.object(forKey: InProgressIAPKey) as? Data else {
-            return nil
-        }
-        
-        let IAP = try? NSKeyedUnarchiver.unarchivedObject(ofClass: InProgressIAP.self, from: data)
-        
-        return IAP
+    // Fetch single by SKU
+    private func getInProgressIAP(bySKU sku: String) -> InProgressIAP? {
+        return CourseUpgradeHelper.getAllInProgressIAP(keychain, loggedInUserID: storage.user?.id ?? .zero).first(where: { $0.sku == sku })
     }
     
-    private func removeInProgressIAP() {
-        UserDefaults.standard.removeObject(forKey: InProgressIAPKey)
-        UserDefaults.standard.synchronize()
+    // Delete single by SKU
+    private func removeInProgressIAP(bySKU sku: String) {
+        var list = CourseUpgradeHelper.getAllInProgressIAP(keychain, loggedInUserID: storage.user?.id ?? .zero)
+        list.removeAll(where: { $0.sku == sku })
+        
+        if let data = try? NSKeyedArchiver.archivedData(withRootObject: list, requiringSecureCoding: true) {
+            keychain.set(data, forKey: InProgressIAPListKey)
+        }
+    }
+    
+    // Get all
+    public class func getAllInProgressIAP(_ keychain: KeychainSwift, loggedInUserID: Int) -> [InProgressIAP] {//, loggedInUser: User
+        guard let data = keychain.getData(InProgressIAPListKey),
+              let list = try? NSKeyedUnarchiver.unarchivedObject(
+                ofClasses: [NSArray.self, InProgressIAP.self], from: data
+              ) as? [InProgressIAP]
+        else {
+            return []
+        }
+        return list.filter { $0.userID == loggedInUserID }
+    }
+    
+    // Delete all
+    private func clearAllInProgressIAP() {
+        keychain.delete(InProgressIAPListKey)
     }
 }
 
@@ -627,12 +679,14 @@ public class InProgressIAP: NSObject, NSCoding, NSSecureCoding {
     public var sku: String = ""
     public var pacing: String = ""
     public var lmsPrice: Double = 0.0
+    public var userID: Int
     
-    init(courseID: String, sku: String, pacing: String, lmsPrice: Double) {
+    init(courseID: String, sku: String, pacing: String, lmsPrice: Double, userID: Int) {
         self.courseID = courseID
         self.sku = sku
         self.pacing = pacing
         self.lmsPrice = lmsPrice
+        self.userID = userID
     }
     
     public func encode(with coder: NSCoder) {
@@ -640,13 +694,15 @@ public class InProgressIAP: NSObject, NSCoding, NSSecureCoding {
         coder.encode(sku, forKey: "sku")
         coder.encode(pacing, forKey: "pacing")
         coder.encode(lmsPrice, forKey: "lmsPrice")
+        coder.encode(userID, forKey: "userID")
     }
     
     public required init?(coder: NSCoder) {
         courseID = coder.decodeObject(forKey: "courseID") as? String ?? ""
         sku = coder.decodeObject(forKey: "sku") as? String ?? ""
         pacing = coder.decodeObject(forKey: "pacing") as? String ?? ""
-        lmsPrice = coder.decodeObject(forKey: "lmsPrice") as? Double ?? .zero
+        lmsPrice = coder.decodeDouble(forKey: "lmsPrice")
+        userID = coder.decodeInteger(forKey: "userID")
     }
     
     public static var supportsSecureCoding: Bool {

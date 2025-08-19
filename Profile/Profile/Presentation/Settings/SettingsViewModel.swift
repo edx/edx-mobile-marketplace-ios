@@ -9,6 +9,7 @@ import Foundation
 import Core
 import SwiftUI
 import Combine
+import KeychainSwift
 
 public class SettingsViewModel: ObservableObject {
     
@@ -73,6 +74,7 @@ public class SettingsViewModel: ObservableObject {
     let serverConfig: ServerConfigProtocol
     let upgradeHandler: CourseUpgradeHandlerProtocol
     let upgradeHelper: CourseUpgradeHelperProtocol?
+    private var storage: CoreStorage
     
     public init(
         interactor: ProfileInteractorProtocol,
@@ -83,7 +85,8 @@ public class SettingsViewModel: ObservableObject {
         config: ConfigProtocol,
         serverConfig: ServerConfigProtocol,
         upgradeHandler: CourseUpgradeHandlerProtocol,
-        upgradeHelper: CourseUpgradeHelperProtocol? = nil
+        upgradeHelper: CourseUpgradeHelperProtocol? = nil,
+        storage: CoreStorage
     ) {
         self.interactor = interactor
         self.downloadManager = downloadManager
@@ -94,6 +97,7 @@ public class SettingsViewModel: ObservableObject {
         self.serverConfig = serverConfig
         self.upgradeHandler = upgradeHandler
         self.upgradeHelper = upgradeHelper
+        self.storage = storage
         
         let userSettings = interactor.getSettings()
         self.userSettings = userSettings
@@ -209,48 +213,90 @@ public class SettingsViewModel: ObservableObject {
         coreAnalytics.trackRestorePurchaseClicked()
         router.showRestoreProgressView()
         
-        guard let inprogressIAP = CourseUpgradeHelper.getInProgressIAP() else {
+        let inProgressIAPs = CourseUpgradeHelper.getAllInProgressIAP(
+            KeychainSwift(),
+            loggedInUserID: storage.user?.id ?? .zero
+        )
+        guard !inProgressIAPs.isEmpty else {
             hideRestoreProgressView(showAlert: true, delay: 3)
             return
         }
         
-        do {
-            let product = try await upgradeHandler.fetchProduct(sku: inprogressIAP.sku)
-            await fulfillPurchase(inprogressIAP: inprogressIAP, product: product)
-        } catch _ {
-            hideRestoreProgressView(showAlert: true)
+        var showAlert = false
+        
+        for inprogressIAP in inProgressIAPs {
+            do {
+                let product = try await upgradeHandler.fetchProduct(sku: inprogressIAP.sku)
+                showAlert = await fulfillPurchase(inprogressIAP: inprogressIAP, product: product)
+            } catch {
+                showAlert = true
+            }
         }
+        
+        // Only hide once when all purchases have been processed
+        hideRestoreProgressView(showAlert: showAlert)
     }
     
-    private func fulfillPurchase(inprogressIAP: InProgressIAP, product: StoreProductInfo) async {
+    private func fulfillPurchase(inprogressIAP: InProgressIAP, product: StoreProductInfo) async -> Bool {
         coreAnalytics.trackCourseUnfulfilledPurchaseInitiated(
             courseID: inprogressIAP.courseID,
             pacing: inprogressIAP.pacing,
             screen: .dashboard,
             flowType: .restore
         )
-
-        await upgradeHandler.upgradeCourse(
-            sku: inprogressIAP.sku,
-            mode: .silent,
-            productInfo: product,
-            pacing: inprogressIAP.pacing,
-            courseID: inprogressIAP.courseID,
-            lmsPrice: inprogressIAP.lmsPrice,
-            componentID: nil,
-            screen: .dashboard,
-            completion: {[weak self] state in
-                guard let self else { return }
-                switch state {
-                case .error:
-                    self.hideRestoreProgressView()
-                case .complete:
-                    self.hideRestoreProgressView()
-                default:
-                   debugLog("Upgrade state changed: \(state)")
+        
+        return await withCheckedContinuation { continuation in
+            // Run the async upgradeCourse in a detached Task so we can wait for the completion callback
+            Task { [weak self] in
+                let lock = NSLock()
+                var resumed = false
+                
+                func resumeOnce(_ value: Bool) {
+                    lock.lock()
+                    defer { lock.unlock() }
+                    guard !resumed else { return }
+                    resumed = true
+                    continuation.resume(returning: value)
                 }
+                
+                // Start a timeout guard so we don't hang if neither .complete nor .error comes.
+                let timeoutTask = Task {
+                    try? await Task.sleep(nanoseconds: 15 * 1_000_000_000)
+                    resumeOnce(false)
+                }
+                
+                guard let strongSelf = self else {
+                    continuation.resume(returning: false)
+                    return
+                }
+                
+                await strongSelf.upgradeHandler.upgradeCourse(
+                    sku: inprogressIAP.sku,
+                    mode: .silent,
+                    productInfo: product,
+                    pacing: inprogressIAP.pacing,
+                    courseID: inprogressIAP.courseID,
+                    lmsPrice: inprogressIAP.lmsPrice,
+                    componentID: nil,
+                    screen: .dashboard,
+                    completion: { [weak self] state in
+                        guard self != nil else {
+                            timeoutTask.cancel()
+                            resumeOnce(false)
+                            return
+                        }
+                        switch state {
+                        case .complete, .unverified, .error:
+                            timeoutTask.cancel()
+                            resumeOnce(false)
+                        default:
+                            debugLog("Upgrade state changed: \(state)")
+                            // don't resume here; wait for .complete/.unverified/.error
+                        }
+                    }
+                )
             }
-        )
+        }
     }
     
     private func hideRestoreProgressView(showAlert: Bool = false, delay: TimeInterval = 0) {

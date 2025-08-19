@@ -177,7 +177,8 @@ class ScreenAssembly: Assembly {
                 analytics: r.resolve(DashboardAnalytics.self)!,
                 upgradehandler: r.resolve(CourseUpgradeHandlerProtocol.self)!,
                 coreAnalytics: r.resolve(CoreAnalytics.self)!,
-                serverConfig: r.resolve(ServerConfigProtocol.self)!
+                serverConfig: r.resolve(ServerConfigProtocol.self)!,
+                storage: r.resolve(CoreStorage.self)!
             )
         }
         
@@ -187,7 +188,10 @@ class ScreenAssembly: Assembly {
                 connectivity: r.resolve(ConnectivityProtocol.self)!,
                 analytics: r.resolve(DashboardAnalytics.self)!,
                 config: r.resolve(ConfigProtocol.self)!,
-                serverConfig: r.resolve(ServerConfigProtocol.self)!
+                serverConfig: r.resolve(ServerConfigProtocol.self)!,
+                coreAnalytics: r.resolve(CoreAnalytics.self)!,
+                upgradehandler: r.resolve(CourseUpgradeHandlerProtocol.self)!,
+                storage: r.resolve(CoreStorage.self)!
             )
         }
         
@@ -245,7 +249,8 @@ class ScreenAssembly: Assembly {
                 config: r.resolve(ConfigProtocol.self)!,
                 serverConfig: r.resolve(ServerConfigProtocol.self)!,
                 upgradeHandler: r.resolve(CourseUpgradeHandlerProtocol.self)!,
-                upgradeHelper: r.resolve(CourseUpgradeHelperProtocol.self)!
+                upgradeHelper: r.resolve(CourseUpgradeHelperProtocol.self)!,
+                storage: r.resolve(CoreStorage.self)!
             )
         }
         
@@ -677,7 +682,8 @@ class ScreenAssembly: Assembly {
             CourseUpgradeHelper(
                 config: r.resolve(ConfigProtocol.self)!,
                 analytics: r.resolve(CoreAnalytics.self)!,
-                router: r.resolve(CourseRouter.self)!
+                router: r.resolve(CourseRouter.self)!,
+                storage: r.resolve(CoreStorage.self)!
             )
         }.inObjectScope(.container)
 

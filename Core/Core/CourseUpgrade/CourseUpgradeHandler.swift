@@ -151,6 +151,17 @@ public class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
             return
         }
         
+        guard helper.isAllowedToPurchase(sku, courseID: courseID) else {
+            state = .error(
+                .generalError(
+                    error(
+                        message: CoreLocalization.CourseUpgrade.FailureAlert.generalErrorMessage
+                    )
+                )
+            )
+            return
+        }
+        
         helper.setData(
             courseID: courseID,
             pacing: pacing,

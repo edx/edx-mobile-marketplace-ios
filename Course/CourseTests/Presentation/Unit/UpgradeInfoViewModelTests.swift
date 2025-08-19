@@ -28,18 +28,20 @@ final class UpgradeInfoViewModelTests: XCTestCase {
     var helper: CourseUpgradeHelper?
     var handler: CourseUpgradeHandler?
     var router: BaseRouterMock?
+    var storage: CoreStorageMock?
     
     override func setUpWithError() throws {
         config = ConfigMock()
         interactor = CourseUpgradeInteractorProtocolMock()
         enrollmentInteractor = EnrollmentInteractorProtocolMock()
         storeHandler = StoreKitHandlerProtocolMock()
+        storage = CoreStorageMock()
         let analytics = CoreAnalyticsMock()
         
         router = BaseRouterMock()
-        guard let config, let interactor, let enrollmentInteractor, let storeHandler, let router else { throw UpgradeInfoViewModelTestsError.cantSetup }
+        guard let config, let interactor, let enrollmentInteractor, let storeHandler, let router, let storage else { throw UpgradeInfoViewModelTestsError.cantSetup }
         
-        helper = CourseUpgradeHelper(config: config, analytics: analytics, router: router)
+        helper = CourseUpgradeHelper(config: config, analytics: analytics, router: router, storage: storage)
         
         guard let helper else { throw UpgradeInfoViewModelTestsError.cantSetup }
         handler = CourseUpgradeHandler(
@@ -236,25 +238,27 @@ final class UpgradeInfoViewModelTests: XCTestCase {
     }
     
     func testUpgradeHelperSuccess() async throws {
-        let helper = CourseUpgradeHelperProtocolMock()
+        let courseUpgradeHelper = CourseUpgradeHelperProtocolMock()
         guard let config, let interactor, let enrollmentInteractor, let storeHandler else { throw UpgradeInfoViewModelTestsError.cantSetup }
         let handler = CourseUpgradeHandler(
             config: config,
             interactor: interactor,
             enrollmentInteractor: enrollmentInteractor,
             storeKitHandler: storeHandler,
-            helper: helper
+            helper: courseUpgradeHelper
         )
         
         let product = productInfo()
         let viewModel = try self.viewModel(with: handler)
         viewModel.product = product
         
+        Given(courseUpgradeHelper, .isAllowedToPurchase(.any, courseID: .any, willReturn: true))
+        
         let _ = try prepareSuccessFlow(for: viewModel.sku, product: product, courseRunKey: viewModel.courseID)
         await viewModel.purchase()
         
         Verify(
-            helper,
+            courseUpgradeHelper,
             1,
             .setData(courseID: .value(viewModel.courseID),
                      pacing: .value(viewModel.pacing),

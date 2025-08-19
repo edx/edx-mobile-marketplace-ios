@@ -15,8 +15,6 @@ public enum UpgradeError: Error, LocalizedError, Equatable {
     case paymentsNotAvailable // device isn't allowed to make payments
     case paymentError(Error?) // unable to purchase a product
     case receiptNotAvailable(Error?) // unable to fetech inapp purchase receipt
-    case basketError(Error) // basket API returns error
-    case checkoutError(Error) // checkout API returns error
     case verifyReceiptError(Error) // verify receipt API returns error
     case unverifiedCourseError(Error) // unverified course mode error
     case productNotExist // product not existed on app appstore
@@ -24,10 +22,6 @@ public enum UpgradeError: Error, LocalizedError, Equatable {
     
     var errorString: String {
         switch self {
-        case .basketError:
-            return "basket"
-        case .checkoutError:
-            return "checkout"
         case .paymentError:
             return "payment"
         case .verifyReceiptError:
@@ -41,10 +35,6 @@ public enum UpgradeError: Error, LocalizedError, Equatable {
     
     public var errorDescription: String? {
         switch self {
-        case .basketError(let error):
-            return basketErrorMessage(for: error)
-        case .checkoutError(let error):
-            return checkoutErrorMessage(for: error)
         case .paymentError:
             return CoreLocalization.CourseUpgrade.FailureAlert.paymentNotProcessed
         case .verifyReceiptError(let error), .unverifiedCourseError(let error):
@@ -55,28 +45,6 @@ public enum UpgradeError: Error, LocalizedError, Equatable {
         return nil
     }
     
-    private func basketErrorMessage(for error: Error) -> String {
-        switch error.errorCode {
-        case 400:
-            return CoreLocalization.CourseUpgrade.FailureAlert.courseNotFount
-        case 403:
-            return CoreLocalization.CourseUpgrade.FailureAlert.authenticationErrorMessage
-        case 406:
-            return CoreLocalization.CourseUpgrade.FailureAlert.courseAlreadyPaid
-        default:
-            return CoreLocalization.CourseUpgrade.FailureAlert.paymentNotProcessed
-        }
-    }
-
-    private func checkoutErrorMessage(for error: Error) -> String {
-        switch error.errorCode {
-        case 403:
-            return CoreLocalization.CourseUpgrade.FailureAlert.authenticationErrorMessage
-        default:
-            return CoreLocalization.CourseUpgrade.FailureAlert.paymentNotProcessed
-        }
-    }
-
     private func executeErrorMessage(for error: Error) -> String {
         switch error.errorCode {
         case 409:
@@ -89,10 +57,6 @@ public enum UpgradeError: Error, LocalizedError, Equatable {
     private var nestedError: Error? {
         switch self {
         case .receiptNotAvailable(let error):
-            return error
-        case .basketError(let error):
-            return error
-        case .checkoutError(let error):
             return error
         case .verifyReceiptError(let error):
             return error
