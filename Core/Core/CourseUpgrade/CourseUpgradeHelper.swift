@@ -544,7 +544,7 @@ extension CourseUpgradeHelper {
                 style: .default
             ) { [weak self] _ in
                 guard let self = self else { return }
-                self.trackUpgradeErrorAction(errorAction: .close, alertType: .restore)
+                self.trackUpgradeErrorAction(errorAction: .close, alertType: self.alertType)
                 
                 self.hideAlertAction()
                 Task { @MainActor in
@@ -642,7 +642,10 @@ extension CourseUpgradeHelper {
     
     // Fetch single by SKU
     private func getInProgressIAP(bySKU sku: String) -> InProgressIAP? {
-        return CourseUpgradeHelper.getAllInProgressIAP(keychain, loggedInUserID: storage.user?.id ?? .zero).first(where: { $0.sku == sku })
+        return CourseUpgradeHelper.getAllInProgressIAP(
+            keychain,
+            loggedInUserID: storage.user?.id ?? .zero).first(where: { $0.sku == sku }
+            )
     }
     
     // Delete single by SKU
@@ -656,7 +659,10 @@ extension CourseUpgradeHelper {
     }
     
     // Get all
-    public class func getAllInProgressIAP(_ keychain: KeychainSwift, loggedInUserID: Int) -> [InProgressIAP] {//, loggedInUser: User
+    public class func getAllInProgressIAP(
+        _ keychain: KeychainSwift = KeychainSwift(),
+        loggedInUserID: Int
+    ) -> [InProgressIAP] {
         guard let data = keychain.getData(InProgressIAPListKey),
               let list = try? NSKeyedUnarchiver.unarchivedObject(
                 ofClasses: [NSArray.self, InProgressIAP.self], from: data

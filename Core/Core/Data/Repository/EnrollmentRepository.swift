@@ -38,7 +38,7 @@ class EnrollmentRepositoryMock: EnrollmentRepositoryProtocol {
         return EnrollmentDetails(
             id: "",
             discussionURL: nil,
-            enrollmentDetail: EnrollmentDetail(
+            enrollmentMetadata: EnrollmentMetadata(
                 created: "2025-07-25T11:50:18Z",
                 mode: .audit,
                 isActive: true,

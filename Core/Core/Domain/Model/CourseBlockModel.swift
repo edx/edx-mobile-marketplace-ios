@@ -151,7 +151,7 @@ public struct CoursewareAccess: Hashable {
     }
 }
 
-public struct EnrollmentDetail: Hashable {
+public struct EnrollmentMetadata: Hashable {
     public let created: String?
     public let mode: DataLayer.Mode?
     public let isActive: Bool?

@@ -9,7 +9,6 @@ import Foundation
 import Core
 import SwiftUI
 import Combine
-import KeychainSwift
 
 public class SettingsViewModel: ObservableObject {
     
@@ -214,7 +213,6 @@ public class SettingsViewModel: ObservableObject {
         router.showRestoreProgressView()
         
         let inProgressIAPs = CourseUpgradeHelper.getAllInProgressIAP(
-            KeychainSwift(),
             loggedInUserID: storage.user?.id ?? .zero
         )
         guard !inProgressIAPs.isEmpty else {

@@ -181,7 +181,7 @@ public class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
         do {
             let enrollmentDetails = try await self.enrollmentInteractor.getEnrollmentDetails(courseID: courseID)
             
-            if enrollmentDetails.enrollmentDetail?.mode == .verified {
+            if enrollmentDetails.enrollmentMetadata?.mode == .verified {
                 // Course is already purchased
                 storeKitHandler.markPurchaseComplete(
                     courseSku ?? "",
@@ -239,7 +239,7 @@ public class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
         do {
             try await pollForVerifiedEnrollment(courseID: courseID, pollingConfig: pollingConfig) { courseID in
                 let enrollmentDetails = try await self.enrollmentInteractor.getEnrollmentDetails(courseID: courseID)
-                return enrollmentDetails.enrollmentDetail?.mode
+                return enrollmentDetails.enrollmentMetadata?.mode
             }
             // Success flow
             storeKitHandler.markPurchaseComplete(
@@ -302,6 +302,55 @@ extension CourseUpgradeHandler {
             domain: "edx.app.courseupgrade",
             code: 409,
             userInfo: [NSLocalizedDescriptionKey: CoreLocalization.CourseUpgrade.FailureAlert.courseNotFullfilled]
+        )
+    }
+}
+
+extension CourseUpgradeHandler {
+    @MainActor
+    public func resolveUnfinishedPayments(
+        loggedInUserID: Int,
+        coreAnalytics: CoreAnalytics
+    ) async {
+        let inProgressIAPs = CourseUpgradeHelper.getAllInProgressIAP(loggedInUserID: loggedInUserID)
+        guard !inProgressIAPs.isEmpty else { return }
+        
+        for inprogressIAP in inProgressIAPs {
+            do {
+                let product = try await fetchProduct(sku: inprogressIAP.sku)
+                await fulfillPurchase(
+                    inprogressIAP: inprogressIAP,
+                    product: product,
+                    coreAnalytics: coreAnalytics
+                )
+            } catch {
+                debugLog("⛔️⛔️⛔️⛔️⛔️", error)
+            }
+        }
+    }
+    
+    public func fulfillPurchase(
+        inprogressIAP: InProgressIAP,
+        product: StoreProductInfo,
+        coreAnalytics: CoreAnalytics
+    ) async {
+        coreAnalytics.trackCourseUnfulfilledPurchaseInitiated(
+            courseID: inprogressIAP.courseID,
+            pacing: inprogressIAP.pacing,
+            screen: .dashboard,
+            flowType: .silent
+        )
+        
+        await upgradeCourse(
+            sku: inprogressIAP.sku,
+            mode: .silent,
+            productInfo: product,
+            pacing: inprogressIAP.pacing,
+            courseID: inprogressIAP.courseID,
+            lmsPrice: inprogressIAP.lmsPrice,
+            componentID: nil,
+            screen: .dashboard,
+            completion: nil
         )
     }
 }

@@ -98,7 +98,7 @@ final class UpgradeInfoViewModelTests: XCTestCase {
         return EnrollmentDetails(
             id: "course1",
             discussionURL: nil,
-            enrollmentDetail: EnrollmentDetail(
+            enrollmentMetadata: EnrollmentMetadata(
                 created: "2025-07-25T11:50:18Z",
                 mode: mode,
                 isActive: true,

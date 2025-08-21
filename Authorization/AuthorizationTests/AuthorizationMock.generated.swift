@@ -3206,10 +3206,24 @@ open class CourseUpgradeHandlerProtocolMock: CourseUpgradeHandlerProtocol, Mock 
 		return __value
     }
 
+    open func resolveUnfinishedPayments(loggedInUserID: Int, coreAnalytics: CoreAnalytics) {
+        addInvocation(.m_resolveUnfinishedPayments__loggedInUserID_loggedInUserIDcoreAnalytics_coreAnalytics(Parameter<Int>.value(`loggedInUserID`), Parameter<CoreAnalytics>.value(`coreAnalytics`)))
+		let perform = methodPerformValue(.m_resolveUnfinishedPayments__loggedInUserID_loggedInUserIDcoreAnalytics_coreAnalytics(Parameter<Int>.value(`loggedInUserID`), Parameter<CoreAnalytics>.value(`coreAnalytics`))) as? (Int, CoreAnalytics) -> Void
+		perform?(`loggedInUserID`, `coreAnalytics`)
+    }
+
+    open func fulfillPurchase(inprogressIAP: InProgressIAP, product: StoreProductInfo, coreAnalytics: CoreAnalytics) {
+        addInvocation(.m_fulfillPurchase__inprogressIAP_inprogressIAPproduct_productcoreAnalytics_coreAnalytics(Parameter<InProgressIAP>.value(`inprogressIAP`), Parameter<StoreProductInfo>.value(`product`), Parameter<CoreAnalytics>.value(`coreAnalytics`)))
+		let perform = methodPerformValue(.m_fulfillPurchase__inprogressIAP_inprogressIAPproduct_productcoreAnalytics_coreAnalytics(Parameter<InProgressIAP>.value(`inprogressIAP`), Parameter<StoreProductInfo>.value(`product`), Parameter<CoreAnalytics>.value(`coreAnalytics`))) as? (InProgressIAP, StoreProductInfo, CoreAnalytics) -> Void
+		perform?(`inprogressIAP`, `product`, `coreAnalytics`)
+    }
+
 
     fileprivate enum MethodType {
         case m_upgradeCourse__sku_skumode_modeproductInfo_productInfopacing_pacingcourseID_courseIDlmsPrice_lmsPricecomponentID_componentIDscreen_screencompletion_completion(Parameter<String?>, Parameter<UpgradeMode>, Parameter<StoreProductInfo?>, Parameter<String>, Parameter<String>, Parameter<Double>, Parameter<String?>, Parameter<CourseUpgradeScreen>, Parameter<UpgradeCompletionHandler?>)
         case m_fetchProduct__sku_sku(Parameter<String>)
+        case m_resolveUnfinishedPayments__loggedInUserID_loggedInUserIDcoreAnalytics_coreAnalytics(Parameter<Int>, Parameter<CoreAnalytics>)
+        case m_fulfillPurchase__inprogressIAP_inprogressIAPproduct_productcoreAnalytics_coreAnalytics(Parameter<InProgressIAP>, Parameter<StoreProductInfo>, Parameter<CoreAnalytics>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
@@ -3230,6 +3244,19 @@ open class CourseUpgradeHandlerProtocolMock: CourseUpgradeHandlerProtocol, Mock 
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsSku, rhs: rhsSku, with: matcher), lhsSku, rhsSku, "sku"))
 				return Matcher.ComparisonResult(results)
+
+            case (.m_resolveUnfinishedPayments__loggedInUserID_loggedInUserIDcoreAnalytics_coreAnalytics(let lhsLoggedinuserid, let lhsCoreanalytics), .m_resolveUnfinishedPayments__loggedInUserID_loggedInUserIDcoreAnalytics_coreAnalytics(let rhsLoggedinuserid, let rhsCoreanalytics)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLoggedinuserid, rhs: rhsLoggedinuserid, with: matcher), lhsLoggedinuserid, rhsLoggedinuserid, "loggedInUserID"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCoreanalytics, rhs: rhsCoreanalytics, with: matcher), lhsCoreanalytics, rhsCoreanalytics, "coreAnalytics"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_fulfillPurchase__inprogressIAP_inprogressIAPproduct_productcoreAnalytics_coreAnalytics(let lhsInprogressiap, let lhsProduct, let lhsCoreanalytics), .m_fulfillPurchase__inprogressIAP_inprogressIAPproduct_productcoreAnalytics_coreAnalytics(let rhsInprogressiap, let rhsProduct, let rhsCoreanalytics)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsInprogressiap, rhs: rhsInprogressiap, with: matcher), lhsInprogressiap, rhsInprogressiap, "inprogressIAP"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsProduct, rhs: rhsProduct, with: matcher), lhsProduct, rhsProduct, "product"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCoreanalytics, rhs: rhsCoreanalytics, with: matcher), lhsCoreanalytics, rhsCoreanalytics, "coreAnalytics"))
+				return Matcher.ComparisonResult(results)
             default: return .none
             }
         }
@@ -3238,12 +3265,16 @@ open class CourseUpgradeHandlerProtocolMock: CourseUpgradeHandlerProtocol, Mock 
             switch self {
             case let .m_upgradeCourse__sku_skumode_modeproductInfo_productInfopacing_pacingcourseID_courseIDlmsPrice_lmsPricecomponentID_componentIDscreen_screencompletion_completion(p0, p1, p2, p3, p4, p5, p6, p7, p8): return p0.intValue + p1.intValue + p2.intValue + p3.intValue + p4.intValue + p5.intValue + p6.intValue + p7.intValue + p8.intValue
             case let .m_fetchProduct__sku_sku(p0): return p0.intValue
+            case let .m_resolveUnfinishedPayments__loggedInUserID_loggedInUserIDcoreAnalytics_coreAnalytics(p0, p1): return p0.intValue + p1.intValue
+            case let .m_fulfillPurchase__inprogressIAP_inprogressIAPproduct_productcoreAnalytics_coreAnalytics(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
             }
         }
         func assertionName() -> String {
             switch self {
             case .m_upgradeCourse__sku_skumode_modeproductInfo_productInfopacing_pacingcourseID_courseIDlmsPrice_lmsPricecomponentID_componentIDscreen_screencompletion_completion: return ".upgradeCourse(sku:mode:productInfo:pacing:courseID:lmsPrice:componentID:screen:completion:)"
             case .m_fetchProduct__sku_sku: return ".fetchProduct(sku:)"
+            case .m_resolveUnfinishedPayments__loggedInUserID_loggedInUserIDcoreAnalytics_coreAnalytics: return ".resolveUnfinishedPayments(loggedInUserID:coreAnalytics:)"
+            case .m_fulfillPurchase__inprogressIAP_inprogressIAPproduct_productcoreAnalytics_coreAnalytics: return ".fulfillPurchase(inprogressIAP:product:coreAnalytics:)"
             }
         }
     }
@@ -3277,6 +3308,8 @@ open class CourseUpgradeHandlerProtocolMock: CourseUpgradeHandlerProtocol, Mock 
 
         public static func upgradeCourse(sku: Parameter<String?>, mode: Parameter<UpgradeMode>, productInfo: Parameter<StoreProductInfo?>, pacing: Parameter<String>, courseID: Parameter<String>, lmsPrice: Parameter<Double>, componentID: Parameter<String?>, screen: Parameter<CourseUpgradeScreen>, completion: Parameter<UpgradeCompletionHandler?>) -> Verify { return Verify(method: .m_upgradeCourse__sku_skumode_modeproductInfo_productInfopacing_pacingcourseID_courseIDlmsPrice_lmsPricecomponentID_componentIDscreen_screencompletion_completion(`sku`, `mode`, `productInfo`, `pacing`, `courseID`, `lmsPrice`, `componentID`, `screen`, `completion`))}
         public static func fetchProduct(sku: Parameter<String>) -> Verify { return Verify(method: .m_fetchProduct__sku_sku(`sku`))}
+        public static func resolveUnfinishedPayments(loggedInUserID: Parameter<Int>, coreAnalytics: Parameter<CoreAnalytics>) -> Verify { return Verify(method: .m_resolveUnfinishedPayments__loggedInUserID_loggedInUserIDcoreAnalytics_coreAnalytics(`loggedInUserID`, `coreAnalytics`))}
+        public static func fulfillPurchase(inprogressIAP: Parameter<InProgressIAP>, product: Parameter<StoreProductInfo>, coreAnalytics: Parameter<CoreAnalytics>) -> Verify { return Verify(method: .m_fulfillPurchase__inprogressIAP_inprogressIAPproduct_productcoreAnalytics_coreAnalytics(`inprogressIAP`, `product`, `coreAnalytics`))}
     }
 
     public struct Perform {
@@ -3288,6 +3321,12 @@ open class CourseUpgradeHandlerProtocolMock: CourseUpgradeHandlerProtocol, Mock 
         }
         public static func fetchProduct(sku: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
             return Perform(method: .m_fetchProduct__sku_sku(`sku`), performs: perform)
+        }
+        public static func resolveUnfinishedPayments(loggedInUserID: Parameter<Int>, coreAnalytics: Parameter<CoreAnalytics>, perform: @escaping (Int, CoreAnalytics) -> Void) -> Perform {
+            return Perform(method: .m_resolveUnfinishedPayments__loggedInUserID_loggedInUserIDcoreAnalytics_coreAnalytics(`loggedInUserID`, `coreAnalytics`), performs: perform)
+        }
+        public static func fulfillPurchase(inprogressIAP: Parameter<InProgressIAP>, product: Parameter<StoreProductInfo>, coreAnalytics: Parameter<CoreAnalytics>, perform: @escaping (InProgressIAP, StoreProductInfo, CoreAnalytics) -> Void) -> Perform {
+            return Perform(method: .m_fulfillPurchase__inprogressIAP_inprogressIAPproduct_productcoreAnalytics_coreAnalytics(`inprogressIAP`, `product`, `coreAnalytics`), performs: perform)
         }
     }
 

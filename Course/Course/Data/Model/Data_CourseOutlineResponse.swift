@@ -22,7 +22,7 @@ public extension DataLayer {
         public let org: String?
         public let isSelfPaced: Bool
         public let courseModes: [CourseMode]?
-        public let enrollmentDetails: EnrollmentDetail?
+        public let enrollmentMetadata: EnrollmentMetadata?
         public let courseStart: String?
         public var lmsPrice: Double?
         public var courseMode: Mode?
@@ -37,7 +37,7 @@ public extension DataLayer {
             case certificate
             case org
             case isSelfPaced = "is_self_paced"
-            case enrollmentDetails = "enrollment_details"
+            case enrollmentMetadata = "enrollment_details"
             case courseStart = "start"
             case courseModes = "course_modes"
             case coursewareAccessDetails = "course_access_details"
@@ -53,7 +53,7 @@ public extension DataLayer {
             org: String?,
             isSelfPaced: Bool,
             courseModes: [CourseMode]? = nil,
-            enrollmentDetails: EnrollmentDetail? = nil,
+            enrollmentMetadata: EnrollmentMetadata? = nil,
             courseStart: String? = nil,
             courseMode: Mode? = .unknown,
             coursewareAccessDetails: CoursewareAccessDetails? = nil,
@@ -67,12 +67,12 @@ public extension DataLayer {
             self.org = org
             self.isSelfPaced = isSelfPaced
             self.courseModes = courseModes
-            self.enrollmentDetails = enrollmentDetails
+            self.enrollmentMetadata = enrollmentMetadata
             self.courseStart = courseStart
             self.coursewareAccessDetails = coursewareAccessDetails
             
-            if enrollmentDetails?.mode != nil {
-                self.courseMode = enrollmentDetails?.mode
+            if enrollmentMetadata?.mode != nil {
+                self.courseMode = enrollmentMetadata?.mode
             }
             self.courseProgress = courseProgress
             
@@ -90,7 +90,7 @@ public extension DataLayer {
             org = try values.decode(String.self, forKey: .org)
             isSelfPaced = try values.decode(Bool.self, forKey: .isSelfPaced)
             courseModes = try? values.decode([CourseMode].self, forKey: .courseModes)
-            enrollmentDetails = try? values.decode(EnrollmentDetail.self, forKey: .enrollmentDetails)
+            enrollmentMetadata = try? values.decode(EnrollmentMetadata.self, forKey: .enrollmentMetadata)
             courseStart = try? values.decode(String.self, forKey: .courseStart)
             coursewareAccessDetails = try? values.decode(CoursewareAccessDetails.self, forKey: .coursewareAccessDetails)
             courseProgress = try? values.decode(DataLayer.CourseProgress.self, forKey: .courseProgress)
@@ -278,8 +278,8 @@ public extension DataLayer {
 extension DataLayer.CourseStructure {
     var isUpgradeable: Bool {
         guard let start = courseStart,
-              let upgradeDeadline = enrollmentDetails?.upgradeDeadline,
-              enrollmentDetails?.mode == .audit
+              let upgradeDeadline = enrollmentMetadata?.upgradeDeadline,
+              enrollmentMetadata?.mode == .audit
         else { return false }
         
         let startDate = Date(iso8601: start)
