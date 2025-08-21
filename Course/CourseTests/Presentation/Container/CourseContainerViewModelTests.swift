@@ -18,6 +18,7 @@ final class CourseContainerViewModelTests: XCTestCase {
     func testGetCourseBlocksSuccess() async throws {
         let interactor = CourseInteractorProtocolMock()
         let authInteractor = AuthInteractorProtocolMock()
+        let enrollmentInteractor = EnrollmentInteractorProtocolMock()
         let router = CourseRouterMock()
         let analytics = CourseAnalyticsMock()
         let config = ConfigMock()
@@ -29,6 +30,7 @@ final class CourseContainerViewModelTests: XCTestCase {
         let viewModel = CourseContainerViewModel(
             interactor: interactor,
             authInteractor: authInteractor,
+            enrollmentInteractor: enrollmentInteractor,
             router: router,
             analytics: analytics,
             config: config,
@@ -138,6 +140,7 @@ final class CourseContainerViewModelTests: XCTestCase {
     func testGetCourseBlocksOfflineSuccess() async throws {
         let interactor = CourseInteractorProtocolMock()
         let authInteractor = AuthInteractorProtocolMock()
+        let enrollmentInteractor = EnrollmentInteractorProtocolMock()
         let router = CourseRouterMock()
         let analytics = CourseAnalyticsMock()
         let config = ConfigMock()
@@ -149,6 +152,7 @@ final class CourseContainerViewModelTests: XCTestCase {
         let viewModel = CourseContainerViewModel(
             interactor: interactor,
             authInteractor: authInteractor,
+            enrollmentInteractor: enrollmentInteractor,
             router: router,
             analytics: analytics,
             config: config,
@@ -204,6 +208,7 @@ final class CourseContainerViewModelTests: XCTestCase {
     func testGetCourseBlocksNoInternetError() async throws {
         let interactor = CourseInteractorProtocolMock()
         let authInteractor = AuthInteractorProtocolMock()
+        let enrollmentInteractor = EnrollmentInteractorProtocolMock()
         let router = CourseRouterMock()
         let analytics = CourseAnalyticsMock()
         let config = ConfigMock()
@@ -215,6 +220,7 @@ final class CourseContainerViewModelTests: XCTestCase {
         let viewModel = CourseContainerViewModel(
             interactor: interactor,
             authInteractor: authInteractor,
+            enrollmentInteractor: enrollmentInteractor,
             router: router,
             analytics: analytics,
             config: config,
@@ -248,6 +254,7 @@ final class CourseContainerViewModelTests: XCTestCase {
     func testGetCourseBlocksNoCacheError() async throws {
         let interactor = CourseInteractorProtocolMock()
         let authInteractor = AuthInteractorProtocolMock()
+        let enrollmentInteractor = EnrollmentInteractorProtocolMock()
         let router = CourseRouterMock()
         let analytics = CourseAnalyticsMock()
         let config = ConfigMock()
@@ -259,6 +266,7 @@ final class CourseContainerViewModelTests: XCTestCase {
         let viewModel = CourseContainerViewModel(
             interactor: interactor,
             authInteractor: authInteractor,
+            enrollmentInteractor: enrollmentInteractor,
             router: router,
             analytics: analytics,
             config: config,
@@ -289,6 +297,7 @@ final class CourseContainerViewModelTests: XCTestCase {
     func testGetCourseBlocksUnknownError() async throws {
         let interactor = CourseInteractorProtocolMock()
         let authInteractor = AuthInteractorProtocolMock()
+        let enrollmentInteractor = EnrollmentInteractorProtocolMock()
         let router = CourseRouterMock()
         let analytics = CourseAnalyticsMock()
         let config = ConfigMock()
@@ -300,6 +309,7 @@ final class CourseContainerViewModelTests: XCTestCase {
         let viewModel = CourseContainerViewModel(
             interactor: interactor,
             authInteractor: authInteractor,
+            enrollmentInteractor: enrollmentInteractor,
             router: router,
             analytics: analytics,
             config: config,
@@ -330,6 +340,7 @@ final class CourseContainerViewModelTests: XCTestCase {
     func testTabSelectedAnalytics() {
         let interactor = CourseInteractorProtocolMock()
         let authInteractor = AuthInteractorProtocolMock()
+        let enrollmentInteractor = EnrollmentInteractorProtocolMock()
         let router = CourseRouterMock()
         let analytics = CourseAnalyticsMock()
         let config = ConfigMock()
@@ -341,6 +352,7 @@ final class CourseContainerViewModelTests: XCTestCase {
         let viewModel = CourseContainerViewModel(
             interactor: interactor,
             authInteractor: authInteractor,
+            enrollmentInteractor: enrollmentInteractor,
             router: router,
             analytics: analytics,
             config: config,
@@ -373,6 +385,7 @@ final class CourseContainerViewModelTests: XCTestCase {
     func testOnDownloadViewAvailableTap() async throws {
         let interactor = CourseInteractorProtocolMock()
         let authInteractor = AuthInteractorProtocolMock()
+        let enrollmentInteractor = EnrollmentInteractorProtocolMock()
         let router = CourseRouterMock()
         let analytics = CourseAnalyticsMock()
         let config = ConfigMock()
@@ -485,6 +498,7 @@ final class CourseContainerViewModelTests: XCTestCase {
         let viewModel = CourseContainerViewModel(
             interactor: interactor,
             authInteractor: authInteractor,
+            enrollmentInteractor: enrollmentInteractor,
             router: router,
             analytics: analytics,
             config: config,
@@ -521,6 +535,7 @@ final class CourseContainerViewModelTests: XCTestCase {
     func testOnDownloadViewDownloadingTap() async {
         let interactor = CourseInteractorProtocolMock()
         let authInteractor = AuthInteractorProtocolMock()
+        let enrollmentInteractor = EnrollmentInteractorProtocolMock()
         let router = CourseRouterMock()
         let analytics = CourseAnalyticsMock()
         let config = ConfigMock()
@@ -617,6 +632,7 @@ final class CourseContainerViewModelTests: XCTestCase {
         let viewModel = CourseContainerViewModel(
             interactor: interactor,
             authInteractor: authInteractor,
+            enrollmentInteractor: enrollmentInteractor,
             router: router,
             analytics: analytics,
             config: config,
@@ -653,6 +669,7 @@ final class CourseContainerViewModelTests: XCTestCase {
     func testOnDownloadViewFinishedTap() async throws {
         let interactor = CourseInteractorProtocolMock()
         let authInteractor = AuthInteractorProtocolMock()
+        let enrollmentInteractor = EnrollmentInteractorProtocolMock()
         let router = CourseRouterMock()
         let analytics = CourseAnalyticsMock()
         let config = ConfigMock()
@@ -749,6 +766,7 @@ final class CourseContainerViewModelTests: XCTestCase {
         let viewModel = CourseContainerViewModel(
             interactor: interactor,
             authInteractor: authInteractor,
+            enrollmentInteractor: enrollmentInteractor,
             router: router,
             analytics: analytics,
             config: config,
@@ -786,6 +804,7 @@ final class CourseContainerViewModelTests: XCTestCase {
     func testSetDownloadsStatesAvailable() async throws {
         let interactor = CourseInteractorProtocolMock()
         let authInteractor = AuthInteractorProtocolMock()
+        let enrollmentInteractor = EnrollmentInteractorProtocolMock()
         let router = CourseRouterMock()
         let analytics = CourseAnalyticsMock()
         let config = ConfigMock()
@@ -882,6 +901,7 @@ final class CourseContainerViewModelTests: XCTestCase {
         let viewModel = CourseContainerViewModel(
             interactor: interactor,
             authInteractor: authInteractor,
+            enrollmentInteractor: enrollmentInteractor,
             router: router,
             analytics: analytics,
             config: config,
@@ -913,6 +933,7 @@ final class CourseContainerViewModelTests: XCTestCase {
     func testSetDownloadsStatesDownloading() async throws {
         let interactor = CourseInteractorProtocolMock()
         let authInteractor = AuthInteractorProtocolMock()
+        let enrollmentInteractor = EnrollmentInteractorProtocolMock()
         let router = CourseRouterMock()
         let analytics = CourseAnalyticsMock()
         let config = ConfigMock()
@@ -1024,6 +1045,7 @@ final class CourseContainerViewModelTests: XCTestCase {
         let viewModel = CourseContainerViewModel(
             interactor: interactor,
             authInteractor: authInteractor,
+            enrollmentInteractor: enrollmentInteractor,
             router: router,
             analytics: analytics,
             config: config,
@@ -1055,6 +1077,7 @@ final class CourseContainerViewModelTests: XCTestCase {
     func testSetDownloadsStatesFinished() async throws {
         let interactor = CourseInteractorProtocolMock()
         let authInteractor = AuthInteractorProtocolMock()
+        let enrollmentInteractor = EnrollmentInteractorProtocolMock()
         let router = CourseRouterMock()
         let analytics = CourseAnalyticsMock()
         let config = ConfigMock()
@@ -1166,6 +1189,7 @@ final class CourseContainerViewModelTests: XCTestCase {
         let viewModel = CourseContainerViewModel(
             interactor: interactor,
             authInteractor: authInteractor,
+            enrollmentInteractor: enrollmentInteractor,
             router: router,
             analytics: analytics,
             config: config,
@@ -1196,6 +1220,7 @@ final class CourseContainerViewModelTests: XCTestCase {
     func testSetDownloadsStatesPartiallyFinished() async throws {
         let interactor = CourseInteractorProtocolMock()
         let authInteractor = AuthInteractorProtocolMock()
+        let enrollmentInteractor = EnrollmentInteractorProtocolMock()
         let router = CourseRouterMock()
         let analytics = CourseAnalyticsMock()
         let config = ConfigMock()
@@ -1330,6 +1355,7 @@ final class CourseContainerViewModelTests: XCTestCase {
         let viewModel = CourseContainerViewModel(
             interactor: interactor,
             authInteractor: authInteractor,
+            enrollmentInteractor: enrollmentInteractor,
             router: router,
             analytics: analytics,
             config: config,

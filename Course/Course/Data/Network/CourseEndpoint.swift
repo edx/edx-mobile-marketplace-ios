@@ -19,7 +19,6 @@ enum CourseEndpoint: EndPointType {
     case getSubtitles(url: String, selectedLanguage: String)
     case getCourseDates(courseID: String)
     case getCourseDeadlineInfo(courseID: String)
-    case getEnrollmentDetails(courseID: String)
     case courseDatesReset(courseID: String)
 
     var path: String {
@@ -42,8 +41,6 @@ enum CourseEndpoint: EndPointType {
             return "/api/course_home/v1/dates/\(courseID)"
         case .getCourseDeadlineInfo(let courseID):
             return "/api/course_experience/v1/course_deadlines_info/\(courseID)"
-        case .getEnrollmentDetails(let courseID):
-            return "/api/mobile/v1/course_info/\(courseID)/enrollment_details"
         case .courseDatesReset:
             return "/api/course_experience/v1/reset_course_deadlines"
         }
@@ -58,8 +55,7 @@ enum CourseEndpoint: EndPointType {
                 .resumeBlock,
                 .getSubtitles,
                 .getCourseDates,
-                .getCourseDeadlineInfo,
-                .getEnrollmentDetails:
+                .getCourseDeadlineInfo:
             return .get
         case .blockCompletionRequest,
                 .courseDatesReset:
@@ -111,8 +107,6 @@ enum CourseEndpoint: EndPointType {
         case .getCourseDates:
             return .requestParameters(encoding: JSONEncoding.default)
         case .getCourseDeadlineInfo:
-            return .requestParameters(encoding: JSONEncoding.default)
-        case .getEnrollmentDetails:
             return .requestParameters(encoding: JSONEncoding.default)
         case let .courseDatesReset(courseID):
             return .requestParameters(parameters: ["course_key": courseID], encoding: JSONEncoding.default)

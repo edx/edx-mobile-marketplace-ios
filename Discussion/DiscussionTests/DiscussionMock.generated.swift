@@ -2026,10 +2026,24 @@ open class CourseUpgradeHandlerProtocolMock: CourseUpgradeHandlerProtocol, Mock 
 		return __value
     }
 
+    open func resolveUnfinishedPayments(loggedInUserID: Int, coreAnalytics: CoreAnalytics) {
+        addInvocation(.m_resolveUnfinishedPayments__loggedInUserID_loggedInUserIDcoreAnalytics_coreAnalytics(Parameter<Int>.value(`loggedInUserID`), Parameter<CoreAnalytics>.value(`coreAnalytics`)))
+		let perform = methodPerformValue(.m_resolveUnfinishedPayments__loggedInUserID_loggedInUserIDcoreAnalytics_coreAnalytics(Parameter<Int>.value(`loggedInUserID`), Parameter<CoreAnalytics>.value(`coreAnalytics`))) as? (Int, CoreAnalytics) -> Void
+		perform?(`loggedInUserID`, `coreAnalytics`)
+    }
+
+    open func fulfillPurchase(inprogressIAP: InProgressIAP, product: StoreProductInfo, coreAnalytics: CoreAnalytics) {
+        addInvocation(.m_fulfillPurchase__inprogressIAP_inprogressIAPproduct_productcoreAnalytics_coreAnalytics(Parameter<InProgressIAP>.value(`inprogressIAP`), Parameter<StoreProductInfo>.value(`product`), Parameter<CoreAnalytics>.value(`coreAnalytics`)))
+		let perform = methodPerformValue(.m_fulfillPurchase__inprogressIAP_inprogressIAPproduct_productcoreAnalytics_coreAnalytics(Parameter<InProgressIAP>.value(`inprogressIAP`), Parameter<StoreProductInfo>.value(`product`), Parameter<CoreAnalytics>.value(`coreAnalytics`))) as? (InProgressIAP, StoreProductInfo, CoreAnalytics) -> Void
+		perform?(`inprogressIAP`, `product`, `coreAnalytics`)
+    }
+
 
     fileprivate enum MethodType {
         case m_upgradeCourse__sku_skumode_modeproductInfo_productInfopacing_pacingcourseID_courseIDlmsPrice_lmsPricecomponentID_componentIDscreen_screencompletion_completion(Parameter<String?>, Parameter<UpgradeMode>, Parameter<StoreProductInfo?>, Parameter<String>, Parameter<String>, Parameter<Double>, Parameter<String?>, Parameter<CourseUpgradeScreen>, Parameter<UpgradeCompletionHandler?>)
         case m_fetchProduct__sku_sku(Parameter<String>)
+        case m_resolveUnfinishedPayments__loggedInUserID_loggedInUserIDcoreAnalytics_coreAnalytics(Parameter<Int>, Parameter<CoreAnalytics>)
+        case m_fulfillPurchase__inprogressIAP_inprogressIAPproduct_productcoreAnalytics_coreAnalytics(Parameter<InProgressIAP>, Parameter<StoreProductInfo>, Parameter<CoreAnalytics>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
@@ -2050,6 +2064,19 @@ open class CourseUpgradeHandlerProtocolMock: CourseUpgradeHandlerProtocol, Mock 
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsSku, rhs: rhsSku, with: matcher), lhsSku, rhsSku, "sku"))
 				return Matcher.ComparisonResult(results)
+
+            case (.m_resolveUnfinishedPayments__loggedInUserID_loggedInUserIDcoreAnalytics_coreAnalytics(let lhsLoggedinuserid, let lhsCoreanalytics), .m_resolveUnfinishedPayments__loggedInUserID_loggedInUserIDcoreAnalytics_coreAnalytics(let rhsLoggedinuserid, let rhsCoreanalytics)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLoggedinuserid, rhs: rhsLoggedinuserid, with: matcher), lhsLoggedinuserid, rhsLoggedinuserid, "loggedInUserID"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCoreanalytics, rhs: rhsCoreanalytics, with: matcher), lhsCoreanalytics, rhsCoreanalytics, "coreAnalytics"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_fulfillPurchase__inprogressIAP_inprogressIAPproduct_productcoreAnalytics_coreAnalytics(let lhsInprogressiap, let lhsProduct, let lhsCoreanalytics), .m_fulfillPurchase__inprogressIAP_inprogressIAPproduct_productcoreAnalytics_coreAnalytics(let rhsInprogressiap, let rhsProduct, let rhsCoreanalytics)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsInprogressiap, rhs: rhsInprogressiap, with: matcher), lhsInprogressiap, rhsInprogressiap, "inprogressIAP"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsProduct, rhs: rhsProduct, with: matcher), lhsProduct, rhsProduct, "product"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCoreanalytics, rhs: rhsCoreanalytics, with: matcher), lhsCoreanalytics, rhsCoreanalytics, "coreAnalytics"))
+				return Matcher.ComparisonResult(results)
             default: return .none
             }
         }
@@ -2058,12 +2085,16 @@ open class CourseUpgradeHandlerProtocolMock: CourseUpgradeHandlerProtocol, Mock 
             switch self {
             case let .m_upgradeCourse__sku_skumode_modeproductInfo_productInfopacing_pacingcourseID_courseIDlmsPrice_lmsPricecomponentID_componentIDscreen_screencompletion_completion(p0, p1, p2, p3, p4, p5, p6, p7, p8): return p0.intValue + p1.intValue + p2.intValue + p3.intValue + p4.intValue + p5.intValue + p6.intValue + p7.intValue + p8.intValue
             case let .m_fetchProduct__sku_sku(p0): return p0.intValue
+            case let .m_resolveUnfinishedPayments__loggedInUserID_loggedInUserIDcoreAnalytics_coreAnalytics(p0, p1): return p0.intValue + p1.intValue
+            case let .m_fulfillPurchase__inprogressIAP_inprogressIAPproduct_productcoreAnalytics_coreAnalytics(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
             }
         }
         func assertionName() -> String {
             switch self {
             case .m_upgradeCourse__sku_skumode_modeproductInfo_productInfopacing_pacingcourseID_courseIDlmsPrice_lmsPricecomponentID_componentIDscreen_screencompletion_completion: return ".upgradeCourse(sku:mode:productInfo:pacing:courseID:lmsPrice:componentID:screen:completion:)"
             case .m_fetchProduct__sku_sku: return ".fetchProduct(sku:)"
+            case .m_resolveUnfinishedPayments__loggedInUserID_loggedInUserIDcoreAnalytics_coreAnalytics: return ".resolveUnfinishedPayments(loggedInUserID:coreAnalytics:)"
+            case .m_fulfillPurchase__inprogressIAP_inprogressIAPproduct_productcoreAnalytics_coreAnalytics: return ".fulfillPurchase(inprogressIAP:product:coreAnalytics:)"
             }
         }
     }
@@ -2097,6 +2128,8 @@ open class CourseUpgradeHandlerProtocolMock: CourseUpgradeHandlerProtocol, Mock 
 
         public static func upgradeCourse(sku: Parameter<String?>, mode: Parameter<UpgradeMode>, productInfo: Parameter<StoreProductInfo?>, pacing: Parameter<String>, courseID: Parameter<String>, lmsPrice: Parameter<Double>, componentID: Parameter<String?>, screen: Parameter<CourseUpgradeScreen>, completion: Parameter<UpgradeCompletionHandler?>) -> Verify { return Verify(method: .m_upgradeCourse__sku_skumode_modeproductInfo_productInfopacing_pacingcourseID_courseIDlmsPrice_lmsPricecomponentID_componentIDscreen_screencompletion_completion(`sku`, `mode`, `productInfo`, `pacing`, `courseID`, `lmsPrice`, `componentID`, `screen`, `completion`))}
         public static func fetchProduct(sku: Parameter<String>) -> Verify { return Verify(method: .m_fetchProduct__sku_sku(`sku`))}
+        public static func resolveUnfinishedPayments(loggedInUserID: Parameter<Int>, coreAnalytics: Parameter<CoreAnalytics>) -> Verify { return Verify(method: .m_resolveUnfinishedPayments__loggedInUserID_loggedInUserIDcoreAnalytics_coreAnalytics(`loggedInUserID`, `coreAnalytics`))}
+        public static func fulfillPurchase(inprogressIAP: Parameter<InProgressIAP>, product: Parameter<StoreProductInfo>, coreAnalytics: Parameter<CoreAnalytics>) -> Verify { return Verify(method: .m_fulfillPurchase__inprogressIAP_inprogressIAPproduct_productcoreAnalytics_coreAnalytics(`inprogressIAP`, `product`, `coreAnalytics`))}
     }
 
     public struct Perform {
@@ -2108,6 +2141,12 @@ open class CourseUpgradeHandlerProtocolMock: CourseUpgradeHandlerProtocol, Mock 
         }
         public static func fetchProduct(sku: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
             return Perform(method: .m_fetchProduct__sku_sku(`sku`), performs: perform)
+        }
+        public static func resolveUnfinishedPayments(loggedInUserID: Parameter<Int>, coreAnalytics: Parameter<CoreAnalytics>, perform: @escaping (Int, CoreAnalytics) -> Void) -> Perform {
+            return Perform(method: .m_resolveUnfinishedPayments__loggedInUserID_loggedInUserIDcoreAnalytics_coreAnalytics(`loggedInUserID`, `coreAnalytics`), performs: perform)
+        }
+        public static func fulfillPurchase(inprogressIAP: Parameter<InProgressIAP>, product: Parameter<StoreProductInfo>, coreAnalytics: Parameter<CoreAnalytics>, perform: @escaping (InProgressIAP, StoreProductInfo, CoreAnalytics) -> Void) -> Perform {
+            return Perform(method: .m_fulfillPurchase__inprogressIAP_inprogressIAPproduct_productcoreAnalytics_coreAnalytics(`inprogressIAP`, `product`, `coreAnalytics`), performs: perform)
         }
     }
 
@@ -2246,11 +2285,26 @@ open class CourseUpgradeHelperProtocolMock: CourseUpgradeHelperProtocol, Mock {
 		perform?()
     }
 
+    open func isAllowedToPurchase(_ sku: String, courseID: String) -> Bool {
+        addInvocation(.m_isAllowedToPurchase__skucourseID_courseID(Parameter<String>.value(`sku`), Parameter<String>.value(`courseID`)))
+		let perform = methodPerformValue(.m_isAllowedToPurchase__skucourseID_courseID(Parameter<String>.value(`sku`), Parameter<String>.value(`courseID`))) as? (String, String) -> Void
+		perform?(`sku`, `courseID`)
+		var __value: Bool
+		do {
+		    __value = try methodReturnValue(.m_isAllowedToPurchase__skucourseID_courseID(Parameter<String>.value(`sku`), Parameter<String>.value(`courseID`))).casted()
+		} catch {
+			onFatalFailure("Stub return value not specified for isAllowedToPurchase(_ sku: String, courseID: String). Use given")
+			Failure("Stub return value not specified for isAllowedToPurchase(_ sku: String, courseID: String). Use given")
+		}
+		return __value
+    }
+
 
     fileprivate enum MethodType {
         case m_setData__courseID_courseIDpacing_pacingblockID_blockIDlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screen(Parameter<String>, Parameter<String>, Parameter<String?>, Parameter<NSDecimalNumber?>, Parameter<String?>, Parameter<Double?>, Parameter<CourseUpgradeScreen>)
         case m_handleCourseUpgrade__upgradeHadler_upgradeHadlerstate_statedelegate_delegate(Parameter<CourseUpgradeHandler>, Parameter<UpgradeCompletionState>, Parameter<CourseUpgradeHelperDelegate?>)
         case m_showRestorePurchasesAlert
+        case m_isAllowedToPurchase__skucourseID_courseID(Parameter<String>, Parameter<String>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
@@ -2273,6 +2327,12 @@ open class CourseUpgradeHelperProtocolMock: CourseUpgradeHelperProtocol, Mock {
 				return Matcher.ComparisonResult(results)
 
             case (.m_showRestorePurchasesAlert, .m_showRestorePurchasesAlert): return .match
+
+            case (.m_isAllowedToPurchase__skucourseID_courseID(let lhsSku, let lhsCourseid), .m_isAllowedToPurchase__skucourseID_courseID(let rhsSku, let rhsCourseid)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsSku, rhs: rhsSku, with: matcher), lhsSku, rhsSku, "_ sku"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseID"))
+				return Matcher.ComparisonResult(results)
             default: return .none
             }
         }
@@ -2282,6 +2342,7 @@ open class CourseUpgradeHelperProtocolMock: CourseUpgradeHelperProtocol, Mock {
             case let .m_setData__courseID_courseIDpacing_pacingblockID_blockIDlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screen(p0, p1, p2, p3, p4, p5, p6): return p0.intValue + p1.intValue + p2.intValue + p3.intValue + p4.intValue + p5.intValue + p6.intValue
             case let .m_handleCourseUpgrade__upgradeHadler_upgradeHadlerstate_statedelegate_delegate(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
             case .m_showRestorePurchasesAlert: return 0
+            case let .m_isAllowedToPurchase__skucourseID_courseID(p0, p1): return p0.intValue + p1.intValue
             }
         }
         func assertionName() -> String {
@@ -2289,6 +2350,7 @@ open class CourseUpgradeHelperProtocolMock: CourseUpgradeHelperProtocol, Mock {
             case .m_setData__courseID_courseIDpacing_pacingblockID_blockIDlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screen: return ".setData(courseID:pacing:blockID:localizedPrice:localizedCurrencyCode:lmsPrice:screen:)"
             case .m_handleCourseUpgrade__upgradeHadler_upgradeHadlerstate_statedelegate_delegate: return ".handleCourseUpgrade(upgradeHadler:state:delegate:)"
             case .m_showRestorePurchasesAlert: return ".showRestorePurchasesAlert()"
+            case .m_isAllowedToPurchase__skucourseID_courseID: return ".isAllowedToPurchase(_:courseID:)"
             }
         }
     }
@@ -2302,6 +2364,16 @@ open class CourseUpgradeHelperProtocolMock: CourseUpgradeHelperProtocol, Mock {
         }
 
 
+        public static func isAllowedToPurchase(_ sku: Parameter<String>, courseID: Parameter<String>, willReturn: Bool...) -> MethodStub {
+            return Given(method: .m_isAllowedToPurchase__skucourseID_courseID(`sku`, `courseID`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func isAllowedToPurchase(_ sku: Parameter<String>, courseID: Parameter<String>, willProduce: (Stubber<Bool>) -> Void) -> MethodStub {
+            let willReturn: [Bool] = []
+			let given: Given = { return Given(method: .m_isAllowedToPurchase__skucourseID_courseID(`sku`, `courseID`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (Bool).self)
+			willProduce(stubber)
+			return given
+        }
     }
 
     public struct Verify {
@@ -2310,6 +2382,7 @@ open class CourseUpgradeHelperProtocolMock: CourseUpgradeHelperProtocol, Mock {
         public static func setData(courseID: Parameter<String>, pacing: Parameter<String>, blockID: Parameter<String?>, localizedPrice: Parameter<NSDecimalNumber?>, localizedCurrencyCode: Parameter<String?>, lmsPrice: Parameter<Double?>, screen: Parameter<CourseUpgradeScreen>) -> Verify { return Verify(method: .m_setData__courseID_courseIDpacing_pacingblockID_blockIDlocalizedPrice_localizedPricelocalizedCurrencyCode_localizedCurrencyCodelmsPrice_lmsPricescreen_screen(`courseID`, `pacing`, `blockID`, `localizedPrice`, `localizedCurrencyCode`, `lmsPrice`, `screen`))}
         public static func handleCourseUpgrade(upgradeHadler: Parameter<CourseUpgradeHandler>, state: Parameter<UpgradeCompletionState>, delegate: Parameter<CourseUpgradeHelperDelegate?>) -> Verify { return Verify(method: .m_handleCourseUpgrade__upgradeHadler_upgradeHadlerstate_statedelegate_delegate(`upgradeHadler`, `state`, `delegate`))}
         public static func showRestorePurchasesAlert() -> Verify { return Verify(method: .m_showRestorePurchasesAlert)}
+        public static func isAllowedToPurchase(_ sku: Parameter<String>, courseID: Parameter<String>) -> Verify { return Verify(method: .m_isAllowedToPurchase__skucourseID_courseID(`sku`, `courseID`))}
     }
 
     public struct Perform {
@@ -2324,6 +2397,9 @@ open class CourseUpgradeHelperProtocolMock: CourseUpgradeHelperProtocol, Mock {
         }
         public static func showRestorePurchasesAlert(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_showRestorePurchasesAlert, performs: perform)
+        }
+        public static func isAllowedToPurchase(_ sku: Parameter<String>, courseID: Parameter<String>, perform: @escaping (String, String) -> Void) -> Perform {
+            return Perform(method: .m_isAllowedToPurchase__skucourseID_courseID(`sku`, `courseID`), performs: perform)
         }
     }
 
@@ -2444,49 +2520,17 @@ open class CourseUpgradeInteractorProtocolMock: CourseUpgradeInteractorProtocol,
 
 
 
-    open func addBasket(sku: String) throws -> UpgradeBasket {
-        addInvocation(.m_addBasket__sku_sku(Parameter<String>.value(`sku`)))
-		let perform = methodPerformValue(.m_addBasket__sku_sku(Parameter<String>.value(`sku`))) as? (String) -> Void
-		perform?(`sku`)
-		var __value: UpgradeBasket
-		do {
-		    __value = try methodReturnValue(.m_addBasket__sku_sku(Parameter<String>.value(`sku`))).casted()
-		} catch MockError.notStubed {
-			onFatalFailure("Stub return value not specified for addBasket(sku: String). Use given")
-			Failure("Stub return value not specified for addBasket(sku: String). Use given")
-		} catch {
-		    throw error
-		}
-		return __value
-    }
-
-    open func checkoutBasket(basketID: Int) throws -> CheckoutBasket {
-        addInvocation(.m_checkoutBasket__basketID_basketID(Parameter<Int>.value(`basketID`)))
-		let perform = methodPerformValue(.m_checkoutBasket__basketID_basketID(Parameter<Int>.value(`basketID`))) as? (Int) -> Void
-		perform?(`basketID`)
-		var __value: CheckoutBasket
-		do {
-		    __value = try methodReturnValue(.m_checkoutBasket__basketID_basketID(Parameter<Int>.value(`basketID`))).casted()
-		} catch MockError.notStubed {
-			onFatalFailure("Stub return value not specified for checkoutBasket(basketID: Int). Use given")
-			Failure("Stub return value not specified for checkoutBasket(basketID: Int). Use given")
-		} catch {
-		    throw error
-		}
-		return __value
-    }
-
     @discardableResult
-	open func fulfillCheckout(basketID: Int, price: NSDecimalNumber, currencyCode: String, receipt: String) throws -> FulfillCheckout {
-        addInvocation(.m_fulfillCheckout__basketID_basketIDprice_pricecurrencyCode_currencyCodereceipt_receipt(Parameter<Int>.value(`basketID`), Parameter<NSDecimalNumber>.value(`price`), Parameter<String>.value(`currencyCode`), Parameter<String>.value(`receipt`)))
-		let perform = methodPerformValue(.m_fulfillCheckout__basketID_basketIDprice_pricecurrencyCode_currencyCodereceipt_receipt(Parameter<Int>.value(`basketID`), Parameter<NSDecimalNumber>.value(`price`), Parameter<String>.value(`currencyCode`), Parameter<String>.value(`receipt`))) as? (Int, NSDecimalNumber, String, String) -> Void
-		perform?(`basketID`, `price`, `currencyCode`, `receipt`)
-		var __value: FulfillCheckout
+	open func createOrder(courseRunKey: String, currencyCode: String, price: NSDecimalNumber, receipt: String) throws -> FulfillOrder {
+        addInvocation(.m_createOrder__courseRunKey_courseRunKeycurrencyCode_currencyCodeprice_pricereceipt_receipt(Parameter<String>.value(`courseRunKey`), Parameter<String>.value(`currencyCode`), Parameter<NSDecimalNumber>.value(`price`), Parameter<String>.value(`receipt`)))
+		let perform = methodPerformValue(.m_createOrder__courseRunKey_courseRunKeycurrencyCode_currencyCodeprice_pricereceipt_receipt(Parameter<String>.value(`courseRunKey`), Parameter<String>.value(`currencyCode`), Parameter<NSDecimalNumber>.value(`price`), Parameter<String>.value(`receipt`))) as? (String, String, NSDecimalNumber, String) -> Void
+		perform?(`courseRunKey`, `currencyCode`, `price`, `receipt`)
+		var __value: FulfillOrder
 		do {
-		    __value = try methodReturnValue(.m_fulfillCheckout__basketID_basketIDprice_pricecurrencyCode_currencyCodereceipt_receipt(Parameter<Int>.value(`basketID`), Parameter<NSDecimalNumber>.value(`price`), Parameter<String>.value(`currencyCode`), Parameter<String>.value(`receipt`))).casted()
+		    __value = try methodReturnValue(.m_createOrder__courseRunKey_courseRunKeycurrencyCode_currencyCodeprice_pricereceipt_receipt(Parameter<String>.value(`courseRunKey`), Parameter<String>.value(`currencyCode`), Parameter<NSDecimalNumber>.value(`price`), Parameter<String>.value(`receipt`))).casted()
 		} catch MockError.notStubed {
-			onFatalFailure("Stub return value not specified for fulfillCheckout(basketID: Int, price: NSDecimalNumber, currencyCode: String, receipt: String). Use given")
-			Failure("Stub return value not specified for fulfillCheckout(basketID: Int, price: NSDecimalNumber, currencyCode: String, receipt: String). Use given")
+			onFatalFailure("Stub return value not specified for createOrder(courseRunKey: String, currencyCode: String, price: NSDecimalNumber, receipt: String). Use given")
+			Failure("Stub return value not specified for createOrder(courseRunKey: String, currencyCode: String, price: NSDecimalNumber, receipt: String). Use given")
 		} catch {
 		    throw error
 		}
@@ -2495,45 +2539,28 @@ open class CourseUpgradeInteractorProtocolMock: CourseUpgradeInteractorProtocol,
 
 
     fileprivate enum MethodType {
-        case m_addBasket__sku_sku(Parameter<String>)
-        case m_checkoutBasket__basketID_basketID(Parameter<Int>)
-        case m_fulfillCheckout__basketID_basketIDprice_pricecurrencyCode_currencyCodereceipt_receipt(Parameter<Int>, Parameter<NSDecimalNumber>, Parameter<String>, Parameter<String>)
+        case m_createOrder__courseRunKey_courseRunKeycurrencyCode_currencyCodeprice_pricereceipt_receipt(Parameter<String>, Parameter<String>, Parameter<NSDecimalNumber>, Parameter<String>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
-            case (.m_addBasket__sku_sku(let lhsSku), .m_addBasket__sku_sku(let rhsSku)):
+            case (.m_createOrder__courseRunKey_courseRunKeycurrencyCode_currencyCodeprice_pricereceipt_receipt(let lhsCourserunkey, let lhsCurrencycode, let lhsPrice, let lhsReceipt), .m_createOrder__courseRunKey_courseRunKeycurrencyCode_currencyCodeprice_pricereceipt_receipt(let rhsCourserunkey, let rhsCurrencycode, let rhsPrice, let rhsReceipt)):
 				var results: [Matcher.ParameterComparisonResult] = []
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsSku, rhs: rhsSku, with: matcher), lhsSku, rhsSku, "sku"))
-				return Matcher.ComparisonResult(results)
-
-            case (.m_checkoutBasket__basketID_basketID(let lhsBasketid), .m_checkoutBasket__basketID_basketID(let rhsBasketid)):
-				var results: [Matcher.ParameterComparisonResult] = []
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsBasketid, rhs: rhsBasketid, with: matcher), lhsBasketid, rhsBasketid, "basketID"))
-				return Matcher.ComparisonResult(results)
-
-            case (.m_fulfillCheckout__basketID_basketIDprice_pricecurrencyCode_currencyCodereceipt_receipt(let lhsBasketid, let lhsPrice, let lhsCurrencycode, let lhsReceipt), .m_fulfillCheckout__basketID_basketIDprice_pricecurrencyCode_currencyCodereceipt_receipt(let rhsBasketid, let rhsPrice, let rhsCurrencycode, let rhsReceipt)):
-				var results: [Matcher.ParameterComparisonResult] = []
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsBasketid, rhs: rhsBasketid, with: matcher), lhsBasketid, rhsBasketid, "basketID"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPrice, rhs: rhsPrice, with: matcher), lhsPrice, rhsPrice, "price"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourserunkey, rhs: rhsCourserunkey, with: matcher), lhsCourserunkey, rhsCourserunkey, "courseRunKey"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCurrencycode, rhs: rhsCurrencycode, with: matcher), lhsCurrencycode, rhsCurrencycode, "currencyCode"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPrice, rhs: rhsPrice, with: matcher), lhsPrice, rhsPrice, "price"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsReceipt, rhs: rhsReceipt, with: matcher), lhsReceipt, rhsReceipt, "receipt"))
 				return Matcher.ComparisonResult(results)
-            default: return .none
             }
         }
 
         func intValue() -> Int {
             switch self {
-            case let .m_addBasket__sku_sku(p0): return p0.intValue
-            case let .m_checkoutBasket__basketID_basketID(p0): return p0.intValue
-            case let .m_fulfillCheckout__basketID_basketIDprice_pricecurrencyCode_currencyCodereceipt_receipt(p0, p1, p2, p3): return p0.intValue + p1.intValue + p2.intValue + p3.intValue
+            case let .m_createOrder__courseRunKey_courseRunKeycurrencyCode_currencyCodeprice_pricereceipt_receipt(p0, p1, p2, p3): return p0.intValue + p1.intValue + p2.intValue + p3.intValue
             }
         }
         func assertionName() -> String {
             switch self {
-            case .m_addBasket__sku_sku: return ".addBasket(sku:)"
-            case .m_checkoutBasket__basketID_basketID: return ".checkoutBasket(basketID:)"
-            case .m_fulfillCheckout__basketID_basketIDprice_pricecurrencyCode_currencyCodereceipt_receipt: return ".fulfillCheckout(basketID:price:currencyCode:receipt:)"
+            case .m_createOrder__courseRunKey_courseRunKeycurrencyCode_currencyCodeprice_pricereceipt_receipt: return ".createOrder(courseRunKey:currencyCode:price:receipt:)"
             }
         }
     }
@@ -2547,45 +2574,19 @@ open class CourseUpgradeInteractorProtocolMock: CourseUpgradeInteractorProtocol,
         }
 
 
-        public static func addBasket(sku: Parameter<String>, willReturn: UpgradeBasket...) -> MethodStub {
-            return Given(method: .m_addBasket__sku_sku(`sku`), products: willReturn.map({ StubProduct.return($0 as Any) }))
-        }
-        public static func checkoutBasket(basketID: Parameter<Int>, willReturn: CheckoutBasket...) -> MethodStub {
-            return Given(method: .m_checkoutBasket__basketID_basketID(`basketID`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        @discardableResult
+		public static func createOrder(courseRunKey: Parameter<String>, currencyCode: Parameter<String>, price: Parameter<NSDecimalNumber>, receipt: Parameter<String>, willReturn: FulfillOrder...) -> MethodStub {
+            return Given(method: .m_createOrder__courseRunKey_courseRunKeycurrencyCode_currencyCodeprice_pricereceipt_receipt(`courseRunKey`, `currencyCode`, `price`, `receipt`), products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
         @discardableResult
-		public static func fulfillCheckout(basketID: Parameter<Int>, price: Parameter<NSDecimalNumber>, currencyCode: Parameter<String>, receipt: Parameter<String>, willReturn: FulfillCheckout...) -> MethodStub {
-            return Given(method: .m_fulfillCheckout__basketID_basketIDprice_pricecurrencyCode_currencyCodereceipt_receipt(`basketID`, `price`, `currencyCode`, `receipt`), products: willReturn.map({ StubProduct.return($0 as Any) }))
-        }
-        public static func addBasket(sku: Parameter<String>, willThrow: Error...) -> MethodStub {
-            return Given(method: .m_addBasket__sku_sku(`sku`), products: willThrow.map({ StubProduct.throw($0) }))
-        }
-        public static func addBasket(sku: Parameter<String>, willProduce: (StubberThrows<UpgradeBasket>) -> Void) -> MethodStub {
-            let willThrow: [Error] = []
-			let given: Given = { return Given(method: .m_addBasket__sku_sku(`sku`), products: willThrow.map({ StubProduct.throw($0) })) }()
-			let stubber = given.stubThrows(for: (UpgradeBasket).self)
-			willProduce(stubber)
-			return given
-        }
-        public static func checkoutBasket(basketID: Parameter<Int>, willThrow: Error...) -> MethodStub {
-            return Given(method: .m_checkoutBasket__basketID_basketID(`basketID`), products: willThrow.map({ StubProduct.throw($0) }))
-        }
-        public static func checkoutBasket(basketID: Parameter<Int>, willProduce: (StubberThrows<CheckoutBasket>) -> Void) -> MethodStub {
-            let willThrow: [Error] = []
-			let given: Given = { return Given(method: .m_checkoutBasket__basketID_basketID(`basketID`), products: willThrow.map({ StubProduct.throw($0) })) }()
-			let stubber = given.stubThrows(for: (CheckoutBasket).self)
-			willProduce(stubber)
-			return given
+		public static func createOrder(courseRunKey: Parameter<String>, currencyCode: Parameter<String>, price: Parameter<NSDecimalNumber>, receipt: Parameter<String>, willThrow: Error...) -> MethodStub {
+            return Given(method: .m_createOrder__courseRunKey_courseRunKeycurrencyCode_currencyCodeprice_pricereceipt_receipt(`courseRunKey`, `currencyCode`, `price`, `receipt`), products: willThrow.map({ StubProduct.throw($0) }))
         }
         @discardableResult
-		public static func fulfillCheckout(basketID: Parameter<Int>, price: Parameter<NSDecimalNumber>, currencyCode: Parameter<String>, receipt: Parameter<String>, willThrow: Error...) -> MethodStub {
-            return Given(method: .m_fulfillCheckout__basketID_basketIDprice_pricecurrencyCode_currencyCodereceipt_receipt(`basketID`, `price`, `currencyCode`, `receipt`), products: willThrow.map({ StubProduct.throw($0) }))
-        }
-        @discardableResult
-		public static func fulfillCheckout(basketID: Parameter<Int>, price: Parameter<NSDecimalNumber>, currencyCode: Parameter<String>, receipt: Parameter<String>, willProduce: (StubberThrows<FulfillCheckout>) -> Void) -> MethodStub {
+		public static func createOrder(courseRunKey: Parameter<String>, currencyCode: Parameter<String>, price: Parameter<NSDecimalNumber>, receipt: Parameter<String>, willProduce: (StubberThrows<FulfillOrder>) -> Void) -> MethodStub {
             let willThrow: [Error] = []
-			let given: Given = { return Given(method: .m_fulfillCheckout__basketID_basketIDprice_pricecurrencyCode_currencyCodereceipt_receipt(`basketID`, `price`, `currencyCode`, `receipt`), products: willThrow.map({ StubProduct.throw($0) })) }()
-			let stubber = given.stubThrows(for: (FulfillCheckout).self)
+			let given: Given = { return Given(method: .m_createOrder__courseRunKey_courseRunKeycurrencyCode_currencyCodeprice_pricereceipt_receipt(`courseRunKey`, `currencyCode`, `price`, `receipt`), products: willThrow.map({ StubProduct.throw($0) })) }()
+			let stubber = given.stubThrows(for: (FulfillOrder).self)
 			willProduce(stubber)
 			return given
         }
@@ -2594,25 +2595,17 @@ open class CourseUpgradeInteractorProtocolMock: CourseUpgradeInteractorProtocol,
     public struct Verify {
         fileprivate var method: MethodType
 
-        public static func addBasket(sku: Parameter<String>) -> Verify { return Verify(method: .m_addBasket__sku_sku(`sku`))}
-        public static func checkoutBasket(basketID: Parameter<Int>) -> Verify { return Verify(method: .m_checkoutBasket__basketID_basketID(`basketID`))}
         @discardableResult
-		public static func fulfillCheckout(basketID: Parameter<Int>, price: Parameter<NSDecimalNumber>, currencyCode: Parameter<String>, receipt: Parameter<String>) -> Verify { return Verify(method: .m_fulfillCheckout__basketID_basketIDprice_pricecurrencyCode_currencyCodereceipt_receipt(`basketID`, `price`, `currencyCode`, `receipt`))}
+		public static func createOrder(courseRunKey: Parameter<String>, currencyCode: Parameter<String>, price: Parameter<NSDecimalNumber>, receipt: Parameter<String>) -> Verify { return Verify(method: .m_createOrder__courseRunKey_courseRunKeycurrencyCode_currencyCodeprice_pricereceipt_receipt(`courseRunKey`, `currencyCode`, `price`, `receipt`))}
     }
 
     public struct Perform {
         fileprivate var method: MethodType
         var performs: Any
 
-        public static func addBasket(sku: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
-            return Perform(method: .m_addBasket__sku_sku(`sku`), performs: perform)
-        }
-        public static func checkoutBasket(basketID: Parameter<Int>, perform: @escaping (Int) -> Void) -> Perform {
-            return Perform(method: .m_checkoutBasket__basketID_basketID(`basketID`), performs: perform)
-        }
         @discardableResult
-		public static func fulfillCheckout(basketID: Parameter<Int>, price: Parameter<NSDecimalNumber>, currencyCode: Parameter<String>, receipt: Parameter<String>, perform: @escaping (Int, NSDecimalNumber, String, String) -> Void) -> Perform {
-            return Perform(method: .m_fulfillCheckout__basketID_basketIDprice_pricecurrencyCode_currencyCodereceipt_receipt(`basketID`, `price`, `currencyCode`, `receipt`), performs: perform)
+		public static func createOrder(courseRunKey: Parameter<String>, currencyCode: Parameter<String>, price: Parameter<NSDecimalNumber>, receipt: Parameter<String>, perform: @escaping (String, String, NSDecimalNumber, String) -> Void) -> Perform {
+            return Perform(method: .m_createOrder__courseRunKey_courseRunKeycurrencyCode_currencyCodeprice_pricereceipt_receipt(`courseRunKey`, `currencyCode`, `price`, `receipt`), performs: perform)
         }
     }
 
@@ -5440,6 +5433,400 @@ open class DownloadManagerProtocolMock: DownloadManagerProtocol, Mock {
     }
 }
 
+// MARK: - EnrollmentInteractorProtocol
+
+open class EnrollmentInteractorProtocolMock: EnrollmentInteractorProtocol, Mock {
+    public init(sequencing sequencingPolicy: SequencingPolicy = .lastWrittenResolvedFirst, stubbing stubbingPolicy: StubbingPolicy = .wrap, file: StaticString = #file, line: UInt = #line) {
+        SwiftyMockyTestObserver.setup()
+        self.sequencingPolicy = sequencingPolicy
+        self.stubbingPolicy = stubbingPolicy
+        self.file = file
+        self.line = line
+    }
+
+    var matcher: Matcher = Matcher.default
+    var stubbingPolicy: StubbingPolicy = .wrap
+    var sequencingPolicy: SequencingPolicy = .lastWrittenResolvedFirst
+
+    private var queue = DispatchQueue(label: "com.swiftymocky.invocations", qos: .userInteractive)
+    private var invocations: [MethodType] = []
+    private var methodReturnValues: [Given] = []
+    private var methodPerformValues: [Perform] = []
+    private var file: StaticString?
+    private var line: UInt?
+
+    public typealias PropertyStub = Given
+    public typealias MethodStub = Given
+    public typealias SubscriptStub = Given
+
+    /// Convenience method - call setupMock() to extend debug information when failure occurs
+    public func setupMock(file: StaticString = #file, line: UInt = #line) {
+        self.file = file
+        self.line = line
+    }
+
+    /// Clear mock internals. You can specify what to reset (invocations aka verify, givens or performs) or leave it empty to clear all mock internals
+    public func resetMock(_ scopes: MockScope...) {
+        let scopes: [MockScope] = scopes.isEmpty ? [.invocation, .given, .perform] : scopes
+        if scopes.contains(.invocation) { invocations = [] }
+        if scopes.contains(.given) { methodReturnValues = [] }
+        if scopes.contains(.perform) { methodPerformValues = [] }
+    }
+
+
+
+
+
+    open func getEnrollmentDetails(courseID: String) throws -> EnrollmentDetails {
+        addInvocation(.m_getEnrollmentDetails__courseID_courseID(Parameter<String>.value(`courseID`)))
+		let perform = methodPerformValue(.m_getEnrollmentDetails__courseID_courseID(Parameter<String>.value(`courseID`))) as? (String) -> Void
+		perform?(`courseID`)
+		var __value: EnrollmentDetails
+		do {
+		    __value = try methodReturnValue(.m_getEnrollmentDetails__courseID_courseID(Parameter<String>.value(`courseID`))).casted()
+		} catch MockError.notStubed {
+			onFatalFailure("Stub return value not specified for getEnrollmentDetails(courseID: String). Use given")
+			Failure("Stub return value not specified for getEnrollmentDetails(courseID: String). Use given")
+		} catch {
+		    throw error
+		}
+		return __value
+    }
+
+
+    fileprivate enum MethodType {
+        case m_getEnrollmentDetails__courseID_courseID(Parameter<String>)
+
+        static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
+            switch (lhs, rhs) {
+            case (.m_getEnrollmentDetails__courseID_courseID(let lhsCourseid), .m_getEnrollmentDetails__courseID_courseID(let rhsCourseid)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseID"))
+				return Matcher.ComparisonResult(results)
+            }
+        }
+
+        func intValue() -> Int {
+            switch self {
+            case let .m_getEnrollmentDetails__courseID_courseID(p0): return p0.intValue
+            }
+        }
+        func assertionName() -> String {
+            switch self {
+            case .m_getEnrollmentDetails__courseID_courseID: return ".getEnrollmentDetails(courseID:)"
+            }
+        }
+    }
+
+    open class Given: StubbedMethod {
+        fileprivate var method: MethodType
+
+        private init(method: MethodType, products: [StubProduct]) {
+            self.method = method
+            super.init(products)
+        }
+
+
+        public static func getEnrollmentDetails(courseID: Parameter<String>, willReturn: EnrollmentDetails...) -> MethodStub {
+            return Given(method: .m_getEnrollmentDetails__courseID_courseID(`courseID`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func getEnrollmentDetails(courseID: Parameter<String>, willThrow: Error...) -> MethodStub {
+            return Given(method: .m_getEnrollmentDetails__courseID_courseID(`courseID`), products: willThrow.map({ StubProduct.throw($0) }))
+        }
+        public static func getEnrollmentDetails(courseID: Parameter<String>, willProduce: (StubberThrows<EnrollmentDetails>) -> Void) -> MethodStub {
+            let willThrow: [Error] = []
+			let given: Given = { return Given(method: .m_getEnrollmentDetails__courseID_courseID(`courseID`), products: willThrow.map({ StubProduct.throw($0) })) }()
+			let stubber = given.stubThrows(for: (EnrollmentDetails).self)
+			willProduce(stubber)
+			return given
+        }
+    }
+
+    public struct Verify {
+        fileprivate var method: MethodType
+
+        public static func getEnrollmentDetails(courseID: Parameter<String>) -> Verify { return Verify(method: .m_getEnrollmentDetails__courseID_courseID(`courseID`))}
+    }
+
+    public struct Perform {
+        fileprivate var method: MethodType
+        var performs: Any
+
+        public static func getEnrollmentDetails(courseID: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
+            return Perform(method: .m_getEnrollmentDetails__courseID_courseID(`courseID`), performs: perform)
+        }
+    }
+
+    public func given(_ method: Given) {
+        methodReturnValues.append(method)
+    }
+
+    public func perform(_ method: Perform) {
+        methodPerformValues.append(method)
+        methodPerformValues.sort { $0.method.intValue() < $1.method.intValue() }
+    }
+
+    public func verify(_ method: Verify, count: Count = Count.moreOrEqual(to: 1), file: StaticString = #file, line: UInt = #line) {
+        let fullMatches = matchingCalls(method, file: file, line: line)
+        let success = count.matches(fullMatches)
+        let assertionName = method.method.assertionName()
+        let feedback: String = {
+            guard !success else { return "" }
+            return Utils.closestCallsMessage(
+                for: self.invocations.map { invocation in
+                    matcher.set(file: file, line: line)
+                    defer { matcher.clearFileAndLine() }
+                    return MethodType.compareParameters(lhs: invocation, rhs: method.method, matcher: matcher)
+                },
+                name: assertionName
+            )
+        }()
+        MockyAssert(success, "Expected: \(count) invocations of `\(assertionName)`, but was: \(fullMatches).\(feedback)", file: file, line: line)
+    }
+
+    private func addInvocation(_ call: MethodType) {
+        self.queue.sync { invocations.append(call) }
+    }
+    private func methodReturnValue(_ method: MethodType) throws -> StubProduct {
+        matcher.set(file: self.file, line: self.line)
+        defer { matcher.clearFileAndLine() }
+        let candidates = sequencingPolicy.sorted(methodReturnValues, by: { $0.method.intValue() > $1.method.intValue() })
+        let matched = candidates.first(where: { $0.isValid && MethodType.compareParameters(lhs: $0.method, rhs: method, matcher: matcher).isFullMatch })
+        guard let product = matched?.getProduct(policy: self.stubbingPolicy) else { throw MockError.notStubed }
+        return product
+    }
+    private func methodPerformValue(_ method: MethodType) -> Any? {
+        matcher.set(file: self.file, line: self.line)
+        defer { matcher.clearFileAndLine() }
+        let matched = methodPerformValues.reversed().first { MethodType.compareParameters(lhs: $0.method, rhs: method, matcher: matcher).isFullMatch }
+        return matched?.performs
+    }
+    private func matchingCalls(_ method: MethodType, file: StaticString?, line: UInt?) -> [MethodType] {
+        matcher.set(file: file ?? self.file, line: line ?? self.line)
+        defer { matcher.clearFileAndLine() }
+        return invocations.filter { MethodType.compareParameters(lhs: $0, rhs: method, matcher: matcher).isFullMatch }
+    }
+    private func matchingCalls(_ method: Verify, file: StaticString?, line: UInt?) -> Int {
+        return matchingCalls(method.method, file: file, line: line).count
+    }
+    private func givenGetterValue<T>(_ method: MethodType, _ message: String) -> T {
+        do {
+            return try methodReturnValue(method).casted()
+        } catch {
+            onFatalFailure(message)
+            Failure(message)
+        }
+    }
+    private func optionalGivenGetterValue<T>(_ method: MethodType, _ message: String) -> T? {
+        do {
+            return try methodReturnValue(method).casted()
+        } catch {
+            return nil
+        }
+    }
+    private func onFatalFailure(_ message: String) {
+        guard let file = self.file, let line = self.line else { return } // Let if fail if cannot handle gratefully
+        SwiftyMockyTestObserver.handleFatalError(message: message, file: file, line: line)
+    }
+}
+
+// MARK: - EnrollmentRepositoryProtocol
+
+open class EnrollmentRepositoryProtocolMock: EnrollmentRepositoryProtocol, Mock {
+    public init(sequencing sequencingPolicy: SequencingPolicy = .lastWrittenResolvedFirst, stubbing stubbingPolicy: StubbingPolicy = .wrap, file: StaticString = #file, line: UInt = #line) {
+        SwiftyMockyTestObserver.setup()
+        self.sequencingPolicy = sequencingPolicy
+        self.stubbingPolicy = stubbingPolicy
+        self.file = file
+        self.line = line
+    }
+
+    var matcher: Matcher = Matcher.default
+    var stubbingPolicy: StubbingPolicy = .wrap
+    var sequencingPolicy: SequencingPolicy = .lastWrittenResolvedFirst
+
+    private var queue = DispatchQueue(label: "com.swiftymocky.invocations", qos: .userInteractive)
+    private var invocations: [MethodType] = []
+    private var methodReturnValues: [Given] = []
+    private var methodPerformValues: [Perform] = []
+    private var file: StaticString?
+    private var line: UInt?
+
+    public typealias PropertyStub = Given
+    public typealias MethodStub = Given
+    public typealias SubscriptStub = Given
+
+    /// Convenience method - call setupMock() to extend debug information when failure occurs
+    public func setupMock(file: StaticString = #file, line: UInt = #line) {
+        self.file = file
+        self.line = line
+    }
+
+    /// Clear mock internals. You can specify what to reset (invocations aka verify, givens or performs) or leave it empty to clear all mock internals
+    public func resetMock(_ scopes: MockScope...) {
+        let scopes: [MockScope] = scopes.isEmpty ? [.invocation, .given, .perform] : scopes
+        if scopes.contains(.invocation) { invocations = [] }
+        if scopes.contains(.given) { methodReturnValues = [] }
+        if scopes.contains(.perform) { methodPerformValues = [] }
+    }
+
+
+
+
+
+    open func getEnrollmentDetails(courseID: String) throws -> EnrollmentDetails {
+        addInvocation(.m_getEnrollmentDetails__courseID_courseID(Parameter<String>.value(`courseID`)))
+		let perform = methodPerformValue(.m_getEnrollmentDetails__courseID_courseID(Parameter<String>.value(`courseID`))) as? (String) -> Void
+		perform?(`courseID`)
+		var __value: EnrollmentDetails
+		do {
+		    __value = try methodReturnValue(.m_getEnrollmentDetails__courseID_courseID(Parameter<String>.value(`courseID`))).casted()
+		} catch MockError.notStubed {
+			onFatalFailure("Stub return value not specified for getEnrollmentDetails(courseID: String). Use given")
+			Failure("Stub return value not specified for getEnrollmentDetails(courseID: String). Use given")
+		} catch {
+		    throw error
+		}
+		return __value
+    }
+
+
+    fileprivate enum MethodType {
+        case m_getEnrollmentDetails__courseID_courseID(Parameter<String>)
+
+        static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
+            switch (lhs, rhs) {
+            case (.m_getEnrollmentDetails__courseID_courseID(let lhsCourseid), .m_getEnrollmentDetails__courseID_courseID(let rhsCourseid)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCourseid, rhs: rhsCourseid, with: matcher), lhsCourseid, rhsCourseid, "courseID"))
+				return Matcher.ComparisonResult(results)
+            }
+        }
+
+        func intValue() -> Int {
+            switch self {
+            case let .m_getEnrollmentDetails__courseID_courseID(p0): return p0.intValue
+            }
+        }
+        func assertionName() -> String {
+            switch self {
+            case .m_getEnrollmentDetails__courseID_courseID: return ".getEnrollmentDetails(courseID:)"
+            }
+        }
+    }
+
+    open class Given: StubbedMethod {
+        fileprivate var method: MethodType
+
+        private init(method: MethodType, products: [StubProduct]) {
+            self.method = method
+            super.init(products)
+        }
+
+
+        public static func getEnrollmentDetails(courseID: Parameter<String>, willReturn: EnrollmentDetails...) -> MethodStub {
+            return Given(method: .m_getEnrollmentDetails__courseID_courseID(`courseID`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func getEnrollmentDetails(courseID: Parameter<String>, willThrow: Error...) -> MethodStub {
+            return Given(method: .m_getEnrollmentDetails__courseID_courseID(`courseID`), products: willThrow.map({ StubProduct.throw($0) }))
+        }
+        public static func getEnrollmentDetails(courseID: Parameter<String>, willProduce: (StubberThrows<EnrollmentDetails>) -> Void) -> MethodStub {
+            let willThrow: [Error] = []
+			let given: Given = { return Given(method: .m_getEnrollmentDetails__courseID_courseID(`courseID`), products: willThrow.map({ StubProduct.throw($0) })) }()
+			let stubber = given.stubThrows(for: (EnrollmentDetails).self)
+			willProduce(stubber)
+			return given
+        }
+    }
+
+    public struct Verify {
+        fileprivate var method: MethodType
+
+        public static func getEnrollmentDetails(courseID: Parameter<String>) -> Verify { return Verify(method: .m_getEnrollmentDetails__courseID_courseID(`courseID`))}
+    }
+
+    public struct Perform {
+        fileprivate var method: MethodType
+        var performs: Any
+
+        public static func getEnrollmentDetails(courseID: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
+            return Perform(method: .m_getEnrollmentDetails__courseID_courseID(`courseID`), performs: perform)
+        }
+    }
+
+    public func given(_ method: Given) {
+        methodReturnValues.append(method)
+    }
+
+    public func perform(_ method: Perform) {
+        methodPerformValues.append(method)
+        methodPerformValues.sort { $0.method.intValue() < $1.method.intValue() }
+    }
+
+    public func verify(_ method: Verify, count: Count = Count.moreOrEqual(to: 1), file: StaticString = #file, line: UInt = #line) {
+        let fullMatches = matchingCalls(method, file: file, line: line)
+        let success = count.matches(fullMatches)
+        let assertionName = method.method.assertionName()
+        let feedback: String = {
+            guard !success else { return "" }
+            return Utils.closestCallsMessage(
+                for: self.invocations.map { invocation in
+                    matcher.set(file: file, line: line)
+                    defer { matcher.clearFileAndLine() }
+                    return MethodType.compareParameters(lhs: invocation, rhs: method.method, matcher: matcher)
+                },
+                name: assertionName
+            )
+        }()
+        MockyAssert(success, "Expected: \(count) invocations of `\(assertionName)`, but was: \(fullMatches).\(feedback)", file: file, line: line)
+    }
+
+    private func addInvocation(_ call: MethodType) {
+        self.queue.sync { invocations.append(call) }
+    }
+    private func methodReturnValue(_ method: MethodType) throws -> StubProduct {
+        matcher.set(file: self.file, line: self.line)
+        defer { matcher.clearFileAndLine() }
+        let candidates = sequencingPolicy.sorted(methodReturnValues, by: { $0.method.intValue() > $1.method.intValue() })
+        let matched = candidates.first(where: { $0.isValid && MethodType.compareParameters(lhs: $0.method, rhs: method, matcher: matcher).isFullMatch })
+        guard let product = matched?.getProduct(policy: self.stubbingPolicy) else { throw MockError.notStubed }
+        return product
+    }
+    private func methodPerformValue(_ method: MethodType) -> Any? {
+        matcher.set(file: self.file, line: self.line)
+        defer { matcher.clearFileAndLine() }
+        let matched = methodPerformValues.reversed().first { MethodType.compareParameters(lhs: $0.method, rhs: method, matcher: matcher).isFullMatch }
+        return matched?.performs
+    }
+    private func matchingCalls(_ method: MethodType, file: StaticString?, line: UInt?) -> [MethodType] {
+        matcher.set(file: file ?? self.file, line: line ?? self.line)
+        defer { matcher.clearFileAndLine() }
+        return invocations.filter { MethodType.compareParameters(lhs: $0, rhs: method, matcher: matcher).isFullMatch }
+    }
+    private func matchingCalls(_ method: Verify, file: StaticString?, line: UInt?) -> Int {
+        return matchingCalls(method.method, file: file, line: line).count
+    }
+    private func givenGetterValue<T>(_ method: MethodType, _ message: String) -> T {
+        do {
+            return try methodReturnValue(method).casted()
+        } catch {
+            onFatalFailure(message)
+            Failure(message)
+        }
+    }
+    private func optionalGivenGetterValue<T>(_ method: MethodType, _ message: String) -> T? {
+        do {
+            return try methodReturnValue(method).casted()
+        } catch {
+            return nil
+        }
+    }
+    private func onFatalFailure(_ message: String) {
+        guard let file = self.file, let line = self.line else { return } // Let if fail if cannot handle gratefully
+        SwiftyMockyTestObserver.handleFatalError(message: message, file: file, line: line)
+    }
+}
+
 // MARK: - StoreKitHandlerProtocol
 
 open class StoreKitHandlerProtocolMock: StoreKitHandlerProtocol, Mock {
@@ -5552,6 +5939,12 @@ open class StoreKitHandlerProtocolMock: StoreKitHandlerProtocol, Mock {
 		return __value
     }
 
+    open func markPurchaseComplete(_ productID: String, type: TransactionType) {
+        addInvocation(.m_markPurchaseComplete__productIDtype_type(Parameter<String>.value(`productID`), Parameter<TransactionType>.value(`type`)))
+		let perform = methodPerformValue(.m_markPurchaseComplete__productIDtype_type(Parameter<String>.value(`productID`), Parameter<TransactionType>.value(`type`))) as? (String, TransactionType) -> Void
+		perform?(`productID`, `type`)
+    }
+
 
     fileprivate enum MethodType {
         case m_fetchProduct__sku_sku(Parameter<String>)
@@ -5561,6 +5954,7 @@ open class StoreKitHandlerProtocolMock: StoreKitHandlerProtocol, Mock {
         case m_purchaseProduct__identifiercompletion_completion(Parameter<String>, Parameter<PurchaseCompletionHandler?>)
         case m_purchaseReceipt__completion_completion(Parameter<PurchaseCompletionHandler?>)
         case m_purchaseReceipt
+        case m_markPurchaseComplete__productIDtype_type(Parameter<String>, Parameter<TransactionType>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
@@ -5594,6 +5988,12 @@ open class StoreKitHandlerProtocolMock: StoreKitHandlerProtocol, Mock {
 				return Matcher.ComparisonResult(results)
 
             case (.m_purchaseReceipt, .m_purchaseReceipt): return .match
+
+            case (.m_markPurchaseComplete__productIDtype_type(let lhsProductid, let lhsType), .m_markPurchaseComplete__productIDtype_type(let rhsProductid, let rhsType)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsProductid, rhs: rhsProductid, with: matcher), lhsProductid, rhsProductid, "_ productID"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsType, rhs: rhsType, with: matcher), lhsType, rhsType, "type"))
+				return Matcher.ComparisonResult(results)
             default: return .none
             }
         }
@@ -5607,6 +6007,7 @@ open class StoreKitHandlerProtocolMock: StoreKitHandlerProtocol, Mock {
             case let .m_purchaseProduct__identifiercompletion_completion(p0, p1): return p0.intValue + p1.intValue
             case let .m_purchaseReceipt__completion_completion(p0): return p0.intValue
             case .m_purchaseReceipt: return 0
+            case let .m_markPurchaseComplete__productIDtype_type(p0, p1): return p0.intValue + p1.intValue
             }
         }
         func assertionName() -> String {
@@ -5618,6 +6019,7 @@ open class StoreKitHandlerProtocolMock: StoreKitHandlerProtocol, Mock {
             case .m_purchaseProduct__identifiercompletion_completion: return ".purchaseProduct(_:completion:)"
             case .m_purchaseReceipt__completion_completion: return ".purchaseReceipt(completion:)"
             case .m_purchaseReceipt: return ".purchaseReceipt()"
+            case .m_markPurchaseComplete__productIDtype_type: return ".markPurchaseComplete(_:type:)"
             }
         }
     }
@@ -5676,6 +6078,7 @@ open class StoreKitHandlerProtocolMock: StoreKitHandlerProtocol, Mock {
         public static func purchaseProduct(_ identifier: Parameter<String>, completion: Parameter<PurchaseCompletionHandler?>) -> Verify { return Verify(method: .m_purchaseProduct__identifiercompletion_completion(`identifier`, `completion`))}
         public static func purchaseReceipt(completion: Parameter<PurchaseCompletionHandler?>) -> Verify { return Verify(method: .m_purchaseReceipt__completion_completion(`completion`))}
         public static func purchaseReceipt() -> Verify { return Verify(method: .m_purchaseReceipt)}
+        public static func markPurchaseComplete(_ productID: Parameter<String>, type: Parameter<TransactionType>) -> Verify { return Verify(method: .m_markPurchaseComplete__productIDtype_type(`productID`, `type`))}
     }
 
     public struct Perform {
@@ -5702,6 +6105,9 @@ open class StoreKitHandlerProtocolMock: StoreKitHandlerProtocol, Mock {
         }
         public static func purchaseReceipt(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_purchaseReceipt, performs: perform)
+        }
+        public static func markPurchaseComplete(_ productID: Parameter<String>, type: Parameter<TransactionType>, perform: @escaping (String, TransactionType) -> Void) -> Perform {
+            return Perform(method: .m_markPurchaseComplete__productIDtype_type(`productID`, `type`), performs: perform)
         }
     }
 

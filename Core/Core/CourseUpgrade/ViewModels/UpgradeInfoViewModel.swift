@@ -124,7 +124,7 @@ public class UpgradeInfoViewModel: ObservableObject {
                     blockID: "",
                     pacing: pacing,
                     localizedPrice: nil,
-                    localizedCurrencyCode: product?.currencySymbol,
+                    localizedCurrencyCode: product?.currencyCode,
                     lmsPrice: lmsPrice,
                     screen: self.screen,
                     alertType: .priceFetch,
@@ -152,7 +152,7 @@ public class UpgradeInfoViewModel: ObservableObject {
             pacing: pacing,
             screen: screen,
             localizedPrice: product?.price,
-            localizedCurrencyCode: product?.currencySymbol,
+            localizedCurrencyCode: product?.currencyCode,
             lmsPrice: lmsPrice
         )
         await handler.upgradeCourse(

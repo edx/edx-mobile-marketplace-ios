@@ -34,6 +34,9 @@ public class PrimaryCourseDashboardViewModel: ObservableObject {
     let connectivity: ConnectivityProtocol
     private let interactor: DashboardInteractorProtocol
     let analytics: DashboardAnalytics
+    private let coreAnalytics: CoreAnalytics
+    private let upgradehandler: CourseUpgradeHandlerProtocol
+    private var storage: CoreStorage
     let config: ConfigProtocol
     let serverConfig: ServerConfigProtocol
     private var cancellables = Set<AnyCancellable>()
@@ -46,13 +49,19 @@ public class PrimaryCourseDashboardViewModel: ObservableObject {
         connectivity: ConnectivityProtocol,
         analytics: DashboardAnalytics,
         config: ConfigProtocol,
-        serverConfig: ServerConfigProtocol
+        serverConfig: ServerConfigProtocol,
+        coreAnalytics: CoreAnalytics,
+        upgradehandler: CourseUpgradeHandlerProtocol,
+        storage: CoreStorage
     ) {
         self.interactor = interactor
         self.connectivity = connectivity
         self.analytics = analytics
         self.config = config
         self.serverConfig = serverConfig
+        self.coreAnalytics = coreAnalytics
+        self.upgradehandler = upgradehandler
+        self.storage = storage
         
         let enrollmentPublisher = NotificationCenter.default.publisher(for: .onCourseEnrolled)
         let completionPublisher = NotificationCenter.default.publisher(for: .onblockCompletionRequested)
@@ -137,5 +146,15 @@ public class PrimaryCourseDashboardViewModel: ObservableObject {
     
     func trackLearnPrimaryCourseCardClicked(courseID: String, action: PrimaryCourseCardAction, blockId: String?) {
         analytics.learnPrimaryCourseCardClicked(courseID: courseID, action: action, blockId: blockId ?? "")
+    }
+}
+
+// Course upgrade
+extension PrimaryCourseDashboardViewModel {
+    func resolveUnfinishedPayment() async {
+        await upgradehandler.resolveUnfinishedPayments(
+            loggedInUserID: storage.user?.id ?? .zero,
+            coreAnalytics: coreAnalytics
+        )
     }
 }
