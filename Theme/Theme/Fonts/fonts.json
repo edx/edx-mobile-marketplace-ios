@@ -1,7 +1,1 @@
-{
-    "light": "SFPro-Light",
-    "regular": "SFPro-Regular",
-    "medium": "SFPro-Medium",
-    "semiBold": "SFPro-Semibold",
-    "bold": "SFPro-Bold"
-}
+{"light": "SFPro-Light", "regular": "Inter-Regular", "medium": "Inter-Regular_Medium", "semiBold": "Inter-Regular_SemiBold", "bold": "Inter-Regular_Bold"}
