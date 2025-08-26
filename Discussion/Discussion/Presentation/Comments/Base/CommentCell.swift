@@ -14,7 +14,7 @@ public struct CommentCell: View {
     
     private let comment: Post
     private let addCommentAvailable: Bool
-    private var onAvatarTap: ((String) -> Void)
+    private var onAuthorTap: ((String) -> Void)
     private var onLikeTap: (() -> Void)
     private var onReportTap: (() -> Void)
     private var onCommentsTap: (() -> Void)
@@ -29,7 +29,7 @@ public struct CommentCell: View {
         addCommentAvailable: Bool,
         shouldHighlight: Bool = false,
         leftLineEnabled: Bool = false,
-        onAvatarTap: @escaping (String) -> Void,
+        onAuthorTap: @escaping (String) -> Void,
         onLikeTap: @escaping () -> Void,
         onReportTap: @escaping () -> Void,
         onCommentsTap: @escaping () -> Void,
@@ -39,7 +39,7 @@ public struct CommentCell: View {
         self.addCommentAvailable = addCommentAvailable
         self.shouldHighlight = shouldHighlight
         self.leftLineEnabled = leftLineEnabled
-        self.onAvatarTap = onAvatarTap
+        self.onAuthorTap = onAuthorTap
         self.onLikeTap = onLikeTap
         self.onReportTap = onReportTap
         self.onCommentsTap = onCommentsTap
@@ -50,7 +50,7 @@ public struct CommentCell: View {
         VStack(alignment: .leading) {
             HStack {
                 Button(action: {
-                    onAvatarTap(comment.authorName)
+                    onAuthorTap(comment.authorName)
                 }, label: {
                 KFImage(URL(string: comment.authorAvatar))
                     .onFailureImage(KFCrossPlatformImage(systemName: "person.circle"))
@@ -64,8 +64,12 @@ public struct CommentCell: View {
                 })
                 
                 VStack(alignment: .leading) {
-                    Text(comment.authorName)
-                        .font(Theme.Fonts.titleSmall)
+                    Button(action: {
+                        onAuthorTap(comment.authorName)
+                    }, label: {
+                        Text(comment.authorName)
+                            .font(Theme.Fonts.titleSmall)
+                    })
                     Text(comment.postDate.dateToString(style: .lastPost))
                         .font(Theme.Fonts.labelSmall)
                         .foregroundColor(Theme.Colors.textSecondary)
@@ -194,7 +198,7 @@ struct CommentView_Previews: PreviewProvider {
                 comment: comment,
                 addCommentAvailable: true,
                 leftLineEnabled: false,
-                onAvatarTap: {_ in},
+                onAuthorTap: {_ in},
                 onLikeTap: {},
                 onReportTap: {},
                 onCommentsTap: {},
@@ -203,7 +207,7 @@ struct CommentView_Previews: PreviewProvider {
                 comment: comment,
                 addCommentAvailable: true,
                 leftLineEnabled: false,
-                onAvatarTap: {_ in},
+                onAuthorTap: {_ in},
                 onLikeTap: {},
                 onReportTap: {},
                 onCommentsTap: {},
@@ -218,7 +222,7 @@ struct CommentView_Previews: PreviewProvider {
                 comment: comment,
                 addCommentAvailable: true,
                 leftLineEnabled: false,
-                onAvatarTap: {_ in},
+                onAuthorTap: {_ in},
                 onLikeTap: {},
                 onReportTap: {},
                 onCommentsTap: {},
@@ -227,7 +231,7 @@ struct CommentView_Previews: PreviewProvider {
                 comment: comment,
                 addCommentAvailable: true,
                 leftLineEnabled: false,
-                onAvatarTap: {_ in},
+                onAuthorTap: {_ in},
                 onLikeTap: {},
                 onReportTap: {},
                 onCommentsTap: {},

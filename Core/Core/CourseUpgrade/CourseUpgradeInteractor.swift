@@ -15,39 +15,23 @@ public class CourseUpgradeInteractor: CourseUpgradeInteractorProtocol {
         self.repository = repository
     }
     
-    public func addBasket(sku: String) async throws -> UpgradeBasket {
-        return try await repository.addbasket(sku: sku)
-    }
-    
-    public func checkoutBasket(basketID: Int) async throws -> CheckoutBasket {
-        return try await repository.checkoutBasket(basketID: basketID)
-    }
-    
     @discardableResult
-    public func fulfillCheckout(
-        basketID: Int,
-        price: NSDecimalNumber,
+    public func createOrder(
+        courseRunKey: String,
         currencyCode: String,
+        price: NSDecimalNumber,
         receipt: String
-    ) async throws -> FulfillCheckout {
-        return try await repository.fulfillCheckout(
-            basketID: basketID,
-            price: price,
+    ) async throws -> FulfillOrder {
+        return try await repository.createOrder(
+            courseRunKey: courseRunKey,
             currencyCode: currencyCode,
+            price: price,
             receipt: receipt
         )
     }
 }
 
-public struct UpgradeBasket {
-    let success: String
-    let basketID: Int
-}
-
-public struct CheckoutBasket {
-    let paymentPageURL: String
-}
-
-public struct FulfillCheckout {
-    let orderData: DataLayer.OrderData
+public struct FulfillOrder {
+    let orderId: String
+    let orderNumber: String
 }

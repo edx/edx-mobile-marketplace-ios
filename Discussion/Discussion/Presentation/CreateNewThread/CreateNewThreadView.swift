@@ -15,7 +15,8 @@ public struct CreateNewThreadView: View {
     @State private var postTypes: [PostType] = [.discussion, .question]
     @State private var postTitle: String = ""
     @State private var postBody: String = ""
-    @State private var followPost: Bool = true
+
+    private let followPost = true
     private var onPostCreated: (() -> Void) = {}
     private var courseID: String
     
@@ -153,13 +154,6 @@ public struct CreateNewThreadView: View {
                                                 Theme.Colors.textInputStroke
                                             )
                                     )
-                                
-                                CheckBoxView(checked: $followPost,
-                                             text: postType == .discussion
-                                             ? DiscussionLocalization.CreateThread.followDiscussion
-                                             : DiscussionLocalization.CreateThread.followQuestion
-                                )
-                                .padding(.top, 16)
                                 
                                 StyledButton(postType == .discussion
                                              ? DiscussionLocalization.CreateThread.createDiscussion

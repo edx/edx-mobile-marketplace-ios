@@ -27,12 +27,15 @@ public enum UpgradeMode: String {
 
 public enum UpgradeState {
     case initial
-    case basket
-    case checkout
     case payment
     case verify
+    case unverified(UpgradeError)
     case complete
     case error(UpgradeError)
+}
+
+private enum EnrollmentPollingError: Error {
+    case courseNotVerified
 }
 
 public struct SKUBuilder {
@@ -52,21 +55,30 @@ public struct SKUBuilder {
     }
 }
 
+private struct PollingConfig {
+    let maxRetryCount: Int
+    let baseDelayMilliseconds: Int
+}
+
 public class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
     static var ecommerceURL: String = ""
     
     private var completion: UpgradeCompletionHandler?
-    private var basketID: Int = 0
     private(set) var courseSku: String?
     private(set) var upgradeMode: UpgradeMode = .userInitiated
     private(set) var productInfo: StoreProductInfo?
     private var interactor: CourseUpgradeInteractorProtocol
+    private var enrollmentInteractor: EnrollmentInteractorProtocol
     private var storeKitHandler: StoreKitHandlerProtocol
     private let helper: CourseUpgradeHelperProtocol
     private var courseID: String = ""
     private var lmsPrice: Double?
     private var componentID: String?
     private var screen: CourseUpgradeScreen?
+    private var pollingConfig = PollingConfig(
+        maxRetryCount: 3,
+        baseDelayMilliseconds: 2500
+    )
 
     private(set) var state: UpgradeState = .initial {
         didSet {
@@ -83,10 +95,12 @@ public class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
         switch state {
         case .initial:
             return .initial
-        case .basket, .checkout, .payment:
+        case .payment:
             return .payment
         case .verify:
             return .fulfillment(showLoader: upgradeMode.isUserInitiated)
+        case .unverified(let error):
+            return .unverified(error)
         case .complete:
             return .success(courseID, componentID, screen)
         case .error(let error):
@@ -97,10 +111,12 @@ public class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
     public init(
         config: ConfigProtocol,
         interactor: CourseUpgradeInteractorProtocol,
+        enrollmentInteractor: EnrollmentInteractorProtocol,
         storeKitHandler: StoreKitHandlerProtocol,
         helper: CourseUpgradeHelperProtocol
     ) {
         self.interactor = interactor
+        self.enrollmentInteractor = enrollmentInteractor
         self.storeKitHandler = storeKitHandler
         self.helper = helper
         CourseUpgradeHandler.ecommerceURL = config.ecommerceURL ?? ""
@@ -135,53 +151,53 @@ public class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
             return
         }
         
+        guard helper.isAllowedToPurchase(sku, courseID: courseID) else {
+            state = .error(
+                .generalError(
+                    error(
+                        message: CoreLocalization.CourseUpgrade.FailureAlert.generalErrorMessage
+                    )
+                )
+            )
+            return
+        }
+        
         helper.setData(
             courseID: courseID,
             pacing: pacing,
             blockID: componentID,
             localizedPrice: productInfo.price,
-            localizedCurrencyCode: productInfo.currencySymbol,
+            localizedCurrencyCode: productInfo.currencyCode,
             lmsPrice: lmsPrice,
             screen: screen
         )
         state = .initial
-        await proceedWithUpgrade(sku: sku)
+        
+        await checkCourseMode(sku)
     }
     
     @MainActor
-    private func proceedWithUpgrade(sku: String) async {
-        state = .basket
-        
+    private func checkCourseMode(_ sku: String) async {
         do {
-            let basket = try await interactor.addBasket(sku: sku)
-            basketID = basket.basketID
-            await checkout(basketID: basketID, sku: sku)
+            let enrollmentDetails = try await self.enrollmentInteractor.getEnrollmentDetails(courseID: courseID)
             
-        } catch let error {
-            state = .error(.basketError(error))
-        }
-    }
-    
-    @MainActor
-    private func checkout(basketID: Int, sku: String) async {
-        // Checkout API
-        guard basketID > 0 else {
-            state = .error(.checkoutError(error(message: "invalid basket id < zero")))
-            return
-        }
-        
-        state = .checkout
-        do {
-            _ = try await interactor.checkoutBasket(basketID: basketID)
-            if !upgradeMode.isUserInitiated {
-                await reverifyPayment()
+            if enrollmentDetails.enrollmentMetadata?.mode == .verified {
+                // Course is already purchased
+                storeKitHandler.markPurchaseComplete(
+                    courseSku ?? "",
+                    type: (upgradeMode == .userInitiated) ? .purchase : .transction
+                )
+                state = .complete
             } else {
-                let response = await makePayment(sku: sku)
-                await verifyResponse(response)
+                if !upgradeMode.isUserInitiated {
+                    await reverifyPayment()
+                } else {
+                    let response = await makePayment(sku: sku)
+                    await verifyResponse(response)
+                }
             }
-            
         } catch let error {
-            state = .error(.checkoutError(error))
+            state = .error(.generalError(error))
         }
     }
     
@@ -204,25 +220,69 @@ public class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
     @MainActor
     private func verifyPayment(_ receipt: String) async {
         state = .verify
-        
+        debugLog("receipt: \(receipt)")
         do {
-            try await interactor.fulfillCheckout(
-                basketID: basketID,
+            try await interactor.createOrder(
+                courseRunKey: courseID,
+                currencyCode: productInfo?.currencyCode ?? "",
                 price: productInfo?.price ?? 0.0,
-                currencyCode: productInfo?.currencySymbol ?? "",
                 receipt: receipt
             )
-            state = .complete
-            
+            await verifyCourseModeChange()
         } catch let error {
             state = .error(.verifyReceiptError(error))
         }
+    }
+    
+    @MainActor
+    private func verifyCourseModeChange() async {
+        do {
+            try await pollForVerifiedEnrollment(courseID: courseID, pollingConfig: pollingConfig) { courseID in
+                let enrollmentDetails = try await self.enrollmentInteractor.getEnrollmentDetails(courseID: courseID)
+                return enrollmentDetails.enrollmentMetadata?.mode
+            }
+            // Success flow
+            storeKitHandler.markPurchaseComplete(
+                courseSku ?? "",
+                type: (upgradeMode == .userInitiated) ? .purchase : .transction
+            )
+            state = .complete
+        } catch {
+            debugLog("Enrollment failed to update to verified. Show retry dialog.")
+            state = .unverified(.unverifiedCourseError(unverifiedCourseError()))
+        }
+    }
+    
+    private func pollForVerifiedEnrollment(
+        courseID: String,
+        pollingConfig: PollingConfig,
+        fetchEnrollmentMode: @escaping (String) async throws -> DataLayer.Mode?
+    ) async throws {
+        for attempt in 1...pollingConfig.maxRetryCount {
+            let delay = UInt64(attempt * pollingConfig.baseDelayMilliseconds) * 1_000_000
+            try await Task.sleep(nanoseconds: delay)
+            
+            let mode = try await fetchEnrollmentMode(courseID)
+            
+            if mode == .verified {
+                debugLog("Course mode updated to verified.")
+                return
+            } else {
+                debugLog("Attempt \(attempt): Course mode is still '\(String(describing: mode))'. Retrying...")
+            }
+        }
+        
+        throw EnrollmentPollingError.courseNotVerified
     }
     
     // Give an option of retry to learner
     func reverifyPayment() async {
         let response = await storeKitHandler.purchaseReceipt()
         await verifyResponse(response)
+    }
+    
+    func reverifyCourseModeChange() async {
+        await verifyCourseModeChange()
     }
     
     public func fetchProduct(sku: String) async throws -> StoreProductInfo {
@@ -235,5 +295,62 @@ extension CourseUpgradeHandler {
 
     fileprivate func error(message: String) -> Error {
         return NSError(domain: "edx.app.courseupgrade", code: 1010, userInfo: [NSLocalizedDescriptionKey: message])
+    }
+    
+    fileprivate func unverifiedCourseError() -> Error {
+        return NSError(
+            domain: "edx.app.courseupgrade",
+            code: 409,
+            userInfo: [NSLocalizedDescriptionKey: CoreLocalization.CourseUpgrade.FailureAlert.courseNotFullfilled]
+        )
+    }
+}
+
+extension CourseUpgradeHandler {
+    @MainActor
+    public func resolveUnfinishedPayments(
+        loggedInUserID: Int,
+        coreAnalytics: CoreAnalytics
+    ) async {
+        let inProgressIAPs = CourseUpgradeHelper.getAllInProgressIAP(loggedInUserID: loggedInUserID)
+        guard !inProgressIAPs.isEmpty else { return }
+        
+        for inprogressIAP in inProgressIAPs {
+            do {
+                let product = try await fetchProduct(sku: inprogressIAP.sku)
+                await fulfillPurchase(
+                    inprogressIAP: inprogressIAP,
+                    product: product,
+                    coreAnalytics: coreAnalytics
+                )
+            } catch {
+                debugLog("⛔️⛔️⛔️⛔️⛔️", error)
+            }
+        }
+    }
+    
+    public func fulfillPurchase(
+        inprogressIAP: InProgressIAP,
+        product: StoreProductInfo,
+        coreAnalytics: CoreAnalytics
+    ) async {
+        coreAnalytics.trackCourseUnfulfilledPurchaseInitiated(
+            courseID: inprogressIAP.courseID,
+            pacing: inprogressIAP.pacing,
+            screen: .dashboard,
+            flowType: .silent
+        )
+        
+        await upgradeCourse(
+            sku: inprogressIAP.sku,
+            mode: .silent,
+            productInfo: product,
+            pacing: inprogressIAP.pacing,
+            courseID: inprogressIAP.courseID,
+            lmsPrice: inprogressIAP.lmsPrice,
+            componentID: nil,
+            screen: .dashboard,
+            completion: nil
+        )
     }
 }

@@ -24,7 +24,8 @@ final class ListDashboardViewModelTests: XCTestCase {
             analytics: analytics,
             upgradehandler: CourseUpgradeHandlerProtocolMock(),
             coreAnalytics: CoreAnalyticsMock(),
-            serverConfig: ServerConfigProtocolMock()
+            serverConfig: ServerConfigProtocolMock(),
+            storage: CoreStorageMock()
         )
         
         let items = [
@@ -93,7 +94,8 @@ final class ListDashboardViewModelTests: XCTestCase {
             analytics: analytics,
             upgradehandler: CourseUpgradeHandlerProtocolMock(),
             coreAnalytics: CoreAnalyticsMock(),
-            serverConfig: ServerConfigProtocolMock()
+            serverConfig: ServerConfigProtocolMock(),
+            storage: CoreStorageMock()
         )
         
         let items = [
@@ -162,7 +164,8 @@ final class ListDashboardViewModelTests: XCTestCase {
             analytics: analytics,
             upgradehandler: CourseUpgradeHandlerProtocolMock(),
             coreAnalytics: CoreAnalyticsMock(),
-            serverConfig: ServerConfigProtocolMock()
+            serverConfig: ServerConfigProtocolMock(),
+            storage: CoreStorageMock()
         )
         
         Given(connectivity, .isInternetAvaliable(getter: true))
@@ -187,7 +190,8 @@ final class ListDashboardViewModelTests: XCTestCase {
             analytics: analytics,
             upgradehandler: CourseUpgradeHandlerProtocolMock(),
             coreAnalytics: CoreAnalyticsMock(),
-            serverConfig: ServerConfigProtocolMock()
+            serverConfig: ServerConfigProtocolMock(),
+            storage: CoreStorageMock()
         )
         
         Given(connectivity, .isInternetAvaliable(getter: true))

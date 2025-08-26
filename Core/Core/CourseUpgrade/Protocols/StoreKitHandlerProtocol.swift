@@ -19,4 +19,5 @@ public protocol StoreKitHandlerProtocol {
     
     func purchaseReceipt(completion: PurchaseCompletionHandler?)
     func purchaseReceipt() async -> StoreKitUpgradeResponse
+    func markPurchaseComplete(_ productID: String, type: TransactionType)
 }

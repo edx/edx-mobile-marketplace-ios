@@ -36,13 +36,15 @@ public class ListDashboardViewModel: ObservableObject {
     private var onCourseEnrolledCancellable: AnyCancellable?
     private var refreshEnrollmentsCancellable: AnyCancellable?
     let serverConfig: ServerConfigProtocol
+    private var storage: CoreStorage
     
     public init(interactor: DashboardInteractorProtocol,
                 connectivity: ConnectivityProtocol,
                 analytics: DashboardAnalytics,
                 upgradehandler: CourseUpgradeHandlerProtocol,
                 coreAnalytics: CoreAnalytics,
-                serverConfig: ServerConfigProtocol
+                serverConfig: ServerConfigProtocol,
+                storage: CoreStorage
     ) {
         self.interactor = interactor
         self.connectivity = connectivity
@@ -50,6 +52,7 @@ public class ListDashboardViewModel: ObservableObject {
         self.upgradehandler = upgradehandler
         self.coreAnalytics = coreAnalytics
         self.serverConfig = serverConfig
+        self.storage = storage
         
         addObservers()
     }
@@ -150,38 +153,10 @@ public class ListDashboardViewModel: ObservableObject {
 
 // Course upgrade
 extension ListDashboardViewModel {
-    
-    @MainActor
     func resolveUnfinishedPayment() async {
-        guard let inprogressIAP = CourseUpgradeHelper.getInProgressIAP() else { return }
-        
-        do {
-            let product = try await upgradehandler.fetchProduct(sku: inprogressIAP.sku)
-            await fulfillPurchase(inprogressIAP: inprogressIAP, product: product)
-        } catch _ {
-            
-        }
-    }
-    
-    private func fulfillPurchase(inprogressIAP: InProgressIAP, product: StoreProductInfo) async {
-        
-        coreAnalytics.trackCourseUnfulfilledPurchaseInitiated(
-            courseID: inprogressIAP.courseID,
-            pacing: inprogressIAP.pacing,
-            screen: .dashboard,
-            flowType: .silent
-        )
-        
-        await upgradehandler.upgradeCourse(
-            sku: inprogressIAP.sku,
-            mode: .silent,
-            productInfo: product,
-            pacing: inprogressIAP.pacing,
-            courseID: inprogressIAP.courseID,
-            lmsPrice: inprogressIAP.lmsPrice,
-            componentID: nil,
-            screen: .dashboard,
-            completion: nil
+        await upgradehandler.resolveUnfinishedPayments(
+            loggedInUserID: storage.user?.id ?? .zero,
+            coreAnalytics: coreAnalytics
         )
     }
 }

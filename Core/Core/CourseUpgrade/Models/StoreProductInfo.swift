@@ -10,5 +10,5 @@ import Foundation
 public struct StoreProductInfo {
     var price: NSDecimalNumber
     var localizedPrice: String?
-    var currencySymbol: String?
+    var currencyCode: String?
 }
