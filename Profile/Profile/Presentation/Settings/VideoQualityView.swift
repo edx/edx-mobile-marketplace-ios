@@ -134,7 +134,8 @@ struct VideoQualityView_Previews: PreviewProvider {
             coreAnalytics: CoreAnalyticsMock(),
             config: ConfigMock(),
             serverConfig: ServerConfigProtocolMock(),
-            upgradeHandler: CourseUpgradeHandlerProtocolMock()
+            upgradeHandler: CourseUpgradeHandlerProtocolMock(),
+            storage: CoreStorageMock()
         )
         
         VideoQualityView(viewModel: vm)

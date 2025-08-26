@@ -14,7 +14,7 @@ public struct ParentCommentView: View {
     
     private let comments: Post
     private var isThread: Bool
-    private var onAvatarTap: ((String) -> Void)
+    private var onAuthorTap: ((String) -> Void)
     private var onLikeTap: (() -> Void)
     private var onReportTap: (() -> Void)
     private var onFollowTap: (() -> Void)
@@ -24,14 +24,14 @@ public struct ParentCommentView: View {
     public init(
         comments: Post,
         isThread: Bool,
-        onAvatarTap: @escaping (String) -> Void,
+        onAuthorTap: @escaping (String) -> Void,
         onLikeTap: @escaping () -> Void,
         onReportTap: @escaping () -> Void,
         onFollowTap: @escaping () -> Void
     ) {
         self.comments = comments
         self.isThread = isThread
-        self.onAvatarTap = onAvatarTap
+        self.onAuthorTap = onAuthorTap
         self.onLikeTap = onLikeTap
         self.onReportTap = onReportTap
         self.onFollowTap = onFollowTap
@@ -41,7 +41,7 @@ public struct ParentCommentView: View {
         VStack(alignment: .leading) {
             HStack {
                 Button(action: {
-                    onAvatarTap(comments.authorName)
+                    onAuthorTap(comments.authorName)
                 }, label: {
                 KFImage(URL(string: comments.authorAvatar))
                     .onFailureImage(KFCrossPlatformImage(systemName: "person"))
@@ -55,9 +55,13 @@ public struct ParentCommentView: View {
                     
                 })
                 VStack(alignment: .leading) {
-                    Text(comments.authorName)
-                        .font(Theme.Fonts.titleMedium)
-                        .foregroundColor(Theme.Colors.textPrimary)
+                    Button(action: {
+                        onAuthorTap(comments.authorName)
+                    }, label: {
+                        Text(comments.authorName)
+                            .font(Theme.Fonts.titleMedium)
+                            .foregroundColor(Theme.Colors.textPrimary)
+                    })
                     Text(comments.postDate
                         .dateToString(style: .lastPost))
                     .font(Theme.Fonts.labelSmall)
@@ -179,7 +183,7 @@ struct ParentCommentView_Previews: PreviewProvider {
             ParentCommentView(
                 comments: comment,
                 isThread: true,
-                onAvatarTap: {_ in},
+                onAuthorTap: {_ in},
                 onLikeTap: {},
                 onReportTap: {},
                 onFollowTap: {}

@@ -26,4 +26,6 @@ public protocol CourseUpgradeHelperProtocol {
     )
     
     func showRestorePurchasesAlert()
+    
+    func isAllowedToPurchase(_ sku: String, courseID: String) -> Bool
 }

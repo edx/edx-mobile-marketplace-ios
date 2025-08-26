@@ -9,13 +9,11 @@ import Foundation
 
 //sourcery: AutoMockable
 public protocol CourseUpgradeInteractorProtocol {
-    func addBasket(sku: String) async throws -> UpgradeBasket
-    func checkoutBasket(basketID: Int) async throws -> CheckoutBasket
     @discardableResult
-    func fulfillCheckout(
-        basketID: Int,
-        price: NSDecimalNumber,
+    func createOrder(
+        courseRunKey: String,
         currencyCode: String,
+        price: NSDecimalNumber,
         receipt: String
-    ) async throws -> FulfillCheckout
+    ) async throws -> FulfillOrder
 }

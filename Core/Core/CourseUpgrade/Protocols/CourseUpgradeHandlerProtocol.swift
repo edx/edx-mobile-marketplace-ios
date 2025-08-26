@@ -24,6 +24,17 @@ public protocol CourseUpgradeHandlerProtocol {
     ) async
     
     func fetchProduct(sku: String) async throws -> StoreProductInfo
+    
+    func resolveUnfinishedPayments(
+        loggedInUserID: Int,
+        coreAnalytics: CoreAnalytics
+    ) async
+    
+    func fulfillPurchase(
+        inprogressIAP: InProgressIAP,
+        product: StoreProductInfo,
+        coreAnalytics: CoreAnalytics
+    ) async
 }
 
 #if DEBUG
@@ -45,5 +56,16 @@ public class CourseUpgradeHandlerProtocolMock: CourseUpgradeHandlerProtocol {
     public func fetchProduct(sku: String) async throws -> StoreProductInfo {
         StoreProductInfo(price: .zero)
     }
+    
+    public func resolveUnfinishedPayments(
+        loggedInUserID: Int,
+        coreAnalytics: CoreAnalytics
+    ) async {}
+    
+    public func fulfillPurchase(
+        inprogressIAP: InProgressIAP,
+        product: StoreProductInfo,
+        coreAnalytics: CoreAnalytics
+    ) async {}
 }
 #endif

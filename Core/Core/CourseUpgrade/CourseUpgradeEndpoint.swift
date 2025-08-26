@@ -8,36 +8,26 @@
 import Foundation
 import Alamofire
 
-private let PaymentProcessor = "ios-iap"
+private let PaymentProcessor = "ios_iap"
 
 enum CourseUpgradeEndpoint: EndPointType {
-    case addBasket(sku: String)
-    case checkout(basketID: Int)
-    case fulfillCheckout(
-        basketID: Int,
-        price: NSDecimalNumber,
+    case createOrder(
+        courseRunKey: String,
         currencyCode: String,
+        price: NSDecimalNumber,
         receipt: String
     )
     
     var path: String {
         switch self {
-        case let .addBasket(sku):
-            return "/api/iap/v1/basket/add/?sku=\(sku)"
-        case .checkout:
-            return "/api/iap/v1/checkout/"
-        case .fulfillCheckout:
-            return "/api/iap/v1/execute/"
+        case .createOrder:
+            return "/iap/create-order/"
         }
     }
     
     var httpMethod: HTTPMethod {
         switch self {
-        case .addBasket:
-            return .get
-        case .checkout:
-            return .post
-        case .fulfillCheckout:
+        case .createOrder:
             return .post
         }
     }
@@ -52,27 +42,18 @@ enum CourseUpgradeEndpoint: EndPointType {
     
     var task: HTTPTask {
         switch self {
-        case .addBasket:
-            return .request
-        case let .checkout(basketID):
-            let params: Parameters = [
-                "basket_id": basketID,
-                "payment_processor": PaymentProcessor
-            ]
-            return .requestParameters(parameters: params, encoding: URLEncoding.httpBody)
-            
-        case let .fulfillCheckout(
-            basketID: basketID,
-            price: price,
+        case let .createOrder(
+            courseRunKey: courseRunKey,
             currencyCode: currencyCode,
+            price: price,
             receipt: receipt
         ):
             let params: Parameters = [
-                "basket_id": basketID,
-                "price": price,
+                "course_run_key": courseRunKey,
                 "currency_code": currencyCode,
-                "purchase_token": receipt,
-                "payment_processor": PaymentProcessor
+                "price": price,
+                "payment_processor": PaymentProcessor,
+                "purchase_token": receipt
             ]
             return .requestParameters(parameters: params, encoding: URLEncoding.httpBody)
         }

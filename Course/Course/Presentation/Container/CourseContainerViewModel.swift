@@ -115,6 +115,7 @@ public class CourseContainerViewModel: BaseCourseViewModel {
 
     private let interactor: CourseInteractorProtocol
     private let authInteractor: AuthInteractorProtocol
+    private let enrollmentInteractor: EnrollmentInteractorProtocol
     let analytics: CourseAnalytics
     let coreAnalytics: CoreAnalytics
     private(set) var storage: CourseStorage
@@ -126,6 +127,7 @@ public class CourseContainerViewModel: BaseCourseViewModel {
     public init(
         interactor: CourseInteractorProtocol,
         authInteractor: AuthInteractorProtocol,
+        enrollmentInteractor: EnrollmentInteractorProtocol,
         router: CourseRouter,
         analytics: CourseAnalytics,
         config: ConfigProtocol,
@@ -145,6 +147,7 @@ public class CourseContainerViewModel: BaseCourseViewModel {
     ) {
         self.interactor = interactor
         self.authInteractor = authInteractor
+        self.enrollmentInteractor = enrollmentInteractor
         self.router = router
         self.analytics = analytics
         self.config = config
@@ -320,7 +323,7 @@ public class CourseContainerViewModel: BaseCourseViewModel {
     @MainActor
     func getEnrollmentDetails(courseID: String) async {
         do {
-            let enrollmentDetails = try await interactor.getEnrollmentDetails(courseID: courseID)
+            let enrollmentDetails = try await enrollmentInteractor.getEnrollmentDetails(courseID: courseID)
             self.enrollmentDetails = enrollmentDetails
 
             tabs = CourseTab.allCases

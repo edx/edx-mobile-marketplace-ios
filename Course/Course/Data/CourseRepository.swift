@@ -19,7 +19,6 @@ public protocol CourseRepositoryProtocol {
     func getCourseDates(courseID: String) async throws -> CourseDates
     func getCourseDatesOffline(courseID: String) async throws -> CourseDates
     func getCourseDeadlineInfo(courseID: String) async throws -> CourseDateBanner
-    func getEnrollmentDetails(courseID: String) async throws -> EnrollmentDetails
     func shiftDueDates(courseID: String) async throws
 }
 
@@ -115,13 +114,6 @@ public class CourseRepository: CourseRepositoryProtocol {
             CourseEndpoint.getCourseDeadlineInfo(courseID: courseID)
         ).mapResponse(DataLayer.CourseDateBanner.self).domain
         return courseDateBanner
-    }
-    
-    public func getEnrollmentDetails(courseID: String) async throws -> EnrollmentDetails {
-        let enrollmentDetails = try await api.requestData(
-            CourseEndpoint.getEnrollmentDetails(courseID: courseID)
-        ).mapResponse(DataLayer.EnrollmentDetails.self).domain
-        return enrollmentDetails
     }
     
     public func getCourseDatesOffline(courseID: String) async throws -> CourseDates {
@@ -357,21 +349,6 @@ class CourseRepositoryMock: CourseRepositoryProtocol {
         return CourseDateBanner(
             datesBannerInfo: courseDates.datesBannerInfo,
             hasEnded: courseDates.hasEnded
-        )
-    }
-    
-    func getEnrollmentDetails(courseID: String) async throws -> EnrollmentDetails {
-        return EnrollmentDetails(
-            id: "",
-            discussionURL: nil,
-            coursewareAccess: CoursewareAccess(
-                hasAccess: false,
-                errorCode: .notStarted,
-                developerMessage: "Course does not start until 2025-07-15 04:00:00+00:00",
-                userMessage: "Course does not start until July 15, 2025",
-                additionalContextUserMessage: nil,
-                userFragment: nil
-            )
         )
     }
     
