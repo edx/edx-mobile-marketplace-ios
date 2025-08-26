@@ -387,6 +387,7 @@ struct CustomDisclosureGroup_Previews: PreviewProvider {
         let viewModel = CourseContainerViewModel(
             interactor: CourseInteractor.mock,
             authInteractor: AuthInteractor.mock,
+            enrollmentInteractor: EnrollmentInteractor.mock,
             router: CourseRouterMock(),
             analytics: CourseAnalyticsMock(),
             config: ConfigMock(),

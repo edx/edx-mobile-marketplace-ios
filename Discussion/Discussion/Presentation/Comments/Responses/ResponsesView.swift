@@ -63,7 +63,7 @@ public struct ResponsesView: View {
                                         ParentCommentView(
                                             comments: comments,
                                             isThread: false,
-                                            onAvatarTap: { username in
+                                            onAuthorTap: { username in
                                                 viewModel.router.showUserDetails(username: username)
                                             },
                                             onLikeTap: {
@@ -111,7 +111,7 @@ public struct ResponsesView: View {
                                             CommentCell(
                                                 comment: comment,
                                                 addCommentAvailable: false, leftLineEnabled: true,
-                                                onAvatarTap: { username in
+                                                onAuthorTap: { username in
                                                     viewModel.router.showUserDetails(username: username)
                                                 },
                                                 onLikeTap: {

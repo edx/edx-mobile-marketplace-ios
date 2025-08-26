@@ -255,6 +255,7 @@ public struct PrimaryCourseDashboardView<ProgramView: View, TopBarButtons: View>
             .onFirstAppear {
                 Task {
                     await viewModel.getEnrollments()
+                    await viewModel.resolveUnfinishedPayment()
                 }
             }
             .onAppear {
@@ -405,7 +406,10 @@ struct PrimaryCourseDashboardView_Previews: PreviewProvider {
             connectivity: Connectivity(),
             analytics: DashboardAnalyticsMock(),
             config: ConfigMock(),
-            serverConfig: ServerConfigProtocolMock()
+            serverConfig: ServerConfigProtocolMock(),
+            coreAnalytics: CoreAnalyticsMock(),
+            upgradehandler: CourseUpgradeHandlerProtocolMock(),
+            storage: CoreStorageMock()
         )
         
         PrimaryCourseDashboardView(

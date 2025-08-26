@@ -48,7 +48,7 @@ public struct ThreadView: View {
                                         ParentCommentView(
                                             comments: comments,
                                             isThread: true,
-                                            onAvatarTap: { username in
+                                            onAuthorTap: { username in
                                                 viewModel.router.showUserDetails(username: username)
                                             },
                                             onLikeTap: {
@@ -111,7 +111,7 @@ public struct ThreadView: View {
                                                 comment: comment,
                                                 addCommentAvailable: true,
                                                 shouldHighlight: viewModel.shouldHighlightResponse(index),
-                                                onAvatarTap: { username in
+                                                onAuthorTap: { username in
                                                     viewModel.router.showUserDetails(username: username)
                                                 },
                                                 onLikeTap: {

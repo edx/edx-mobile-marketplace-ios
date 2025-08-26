@@ -97,7 +97,7 @@ public class StorekitHandler: NSObject, StoreKitHandlerProtocol {
                     let dataProduct = StoreProductInfo(
                         price: product.price,
                         localizedPrice: product.localizedPrice,
-                        currencySymbol: product.priceLocale.currencySymbol
+                        currencyCode: product.priceLocale.currencyCode
                     )
                     continuation.resume(returning: dataProduct)
                 }
@@ -113,7 +113,7 @@ public class StorekitHandler: NSObject, StoreKitHandlerProtocol {
                 let dataProduct = StoreProductInfo(
                     price: product.price,
                     localizedPrice: product.localizedPrice,
-                    currencySymbol: product.priceLocale.currencySymbol
+                    currencyCode: product.priceLocale.currencyCode
                 )
                 completion(dataProduct, nil)
             }
