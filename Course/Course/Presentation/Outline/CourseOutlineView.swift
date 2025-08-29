@@ -149,6 +149,7 @@ public struct CourseOutlineView: View {
                                         CustomDisclosureGroup(
                                             course: course,
                                             proxy: proxy,
+                                            isVideo: isVideo,
                                             viewModel: viewModel
                                         )
                                     }
