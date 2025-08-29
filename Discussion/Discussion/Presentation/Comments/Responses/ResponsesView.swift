@@ -18,7 +18,6 @@ public struct ResponsesView: View {
     private let parentComment: Post
     
     @ObservedObject private var viewModel: ResponsesViewModel
-    @State private var isShowProgress: Bool = true
 
     public init(
         commentID: String,
@@ -215,7 +214,15 @@ public struct ResponsesView: View {
                         }
                     }
                 }
+                if viewModel.isShowProgress {
+                    VStack(alignment: .center) {
+                        ProgressBar(size: 40, lineWidth: 8)
+                            .padding(.horizontal)
+                    }.frame(maxWidth: .infinity,
+                            maxHeight: .infinity)
+                }
             }
+            .disabled(viewModel.isShowProgress)
             .ignoresSafeArea(.all, edges: .horizontal)
             .hideNavigationBar(false)
             .navigationBarBackButtonHidden(true)
