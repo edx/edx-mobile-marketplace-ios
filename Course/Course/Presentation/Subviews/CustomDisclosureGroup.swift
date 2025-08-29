@@ -14,12 +14,14 @@ struct CustomDisclosureGroup: View {
     
     private let proxy: GeometryProxy
     private let course: CourseStructure
+    private let isVideo: Bool
     private let viewModel: CourseContainerViewModel
     private var idiom: UIUserInterfaceIdiom { UIDevice.current.userInterfaceIdiom }
     
-    init(course: CourseStructure, proxy: GeometryProxy, viewModel: CourseContainerViewModel) {
+    init(course: CourseStructure, proxy: GeometryProxy, isVideo: Bool, viewModel: CourseContainerViewModel) {
         self.course = course
         self.proxy = proxy
+        self.isVideo = isVideo
         self.viewModel = viewModel
     }
     
@@ -111,7 +113,9 @@ struct CustomDisclosureGroup: View {
                                                         chapters: course.childs,
                                                         chapterIndex: chapterIndex,
                                                         sequentialIndex: sequentialIndex,
-                                                        courseStructurePublisher: viewModel.courseStructurePublisher
+                                                        courseStructurePublisher: self.isVideo
+                                                        ? nil
+                                                        : viewModel.courseStructurePublisher
                                                     )
                                                 } else {
                                                     viewModel.router.showCourseVerticalView(
@@ -121,7 +125,9 @@ struct CustomDisclosureGroup: View {
                                                         chapters: course.childs,
                                                         chapterIndex: chapterIndex,
                                                         sequentialIndex: sequentialIndex,
-                                                        courseStructurePublisher: viewModel.courseStructurePublisher
+                                                        courseStructurePublisher: self.isVideo
+                                                        ? nil
+                                                        : viewModel.courseStructurePublisher
                                                     )
                                                 }
                                             },
@@ -436,6 +442,7 @@ struct CustomDisclosureGroup_Previews: PreviewProvider {
                         lmsPrice: .zero
                     ),
                     proxy: proxy,
+                    isVideo: false,
                     viewModel: viewModel
                 )
             }
