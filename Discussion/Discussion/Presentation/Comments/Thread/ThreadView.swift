@@ -250,6 +250,7 @@ public struct ThreadView: View {
                     VStack(alignment: .center) {
                         ProgressBar(size: 40, lineWidth: 8)
                             .padding(.horizontal)
+                            .accessibilityIdentifier("progress_bar")
                     }.frame(maxWidth: .infinity,
                             maxHeight: .infinity)
                 }

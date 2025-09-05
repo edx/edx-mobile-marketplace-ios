@@ -152,7 +152,11 @@ public class ThreadViewModel: BaseResponsesViewModel, ObservableObject {
     }
     
     @MainActor
-    public func getThreadData(thread: UserThread, page: Int, refresh: Bool = false, onFirstAppear: Bool = false) async -> Bool {
+    public func getThreadData(
+        thread: UserThread,
+        page: Int, refresh: Bool = false,
+        onFirstAppear: Bool = false
+    ) async -> Bool {
         guard !fetchInProgress else { return false }
         fetchInProgress = onFirstAppear
         do {
