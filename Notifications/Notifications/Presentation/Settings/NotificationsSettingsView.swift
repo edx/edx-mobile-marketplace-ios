@@ -142,6 +142,7 @@ struct NotificationsSettingsView_Previews: PreviewProvider {
     static var previews: some View {
         NotificationsSettingsView(
             viewModel: NotificationsSettingsViewModel(
+                userNotificationCenter: UserNotificationCenterMock(),
                 interactor: NotificationsInteractor.mock,
                 analytics: NotificationsAnalyticsMock(),
                 router: NotificationsRouterMock(),
