@@ -251,8 +251,7 @@ public struct ThreadView: View {
                         ProgressBar(size: 40, lineWidth: 8)
                             .padding(.horizontal)
                             .accessibilityIdentifier("progress_bar")
-                    }.frame(maxWidth: .infinity,
-                            maxHeight: .infinity)
+                    }.frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
             }
             .disabled(viewModel.fetchInProgress)
