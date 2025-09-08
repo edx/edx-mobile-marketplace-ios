@@ -110,6 +110,7 @@ public class ResponsesViewModel: BaseResponsesViewModel, ObservableObject {
     @MainActor
     func getResponsesData(commentID: String, parentComment: Post, page: Int, refresh: Bool = false) async -> Bool {
         guard !fetchInProgress else { return false }
+        isShowProgress = true
         do {
             let (comments, pagination) = try await interactor
                 .getCommentResponses(commentID: commentID, page: page)
@@ -125,6 +126,7 @@ public class ResponsesViewModel: BaseResponsesViewModel, ObservableObject {
                 self.comments += comments
             }
             postComments = generateCommentsResponses(comments: self.comments, parentComment: parentPost)
+            isShowProgress = false
             return true
         } catch let error {
             if error.isInternetError {
@@ -132,6 +134,7 @@ public class ResponsesViewModel: BaseResponsesViewModel, ObservableObject {
             } else {
                 errorMessage = CoreLocalization.Error.unknownError
             }
+            isShowProgress = false
             return false
         }
     }

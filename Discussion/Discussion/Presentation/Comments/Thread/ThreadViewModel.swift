@@ -111,12 +111,12 @@ public class ThreadViewModel: BaseResponsesViewModel, ObservableObject {
         rawBody: String,
         parentID: String?
     ) async {
-        isShowProgress = true
+        fetchInProgress = true
         do {
             let newComment = try await interactor.addCommentTo(threadID: threadID,
                                                                rawBody: rawBody,
                                                                parentID: parentID)
-            isShowProgress = false
+            fetchInProgress = false
             addPostSubject.send(newComment)
             trackResponseAdded(
                 courseID: courseID,
@@ -125,7 +125,7 @@ public class ThreadViewModel: BaseResponsesViewModel, ObservableObject {
                 author: newComment.authorName
             )
         } catch let error {
-            isShowProgress = false
+            fetchInProgress = false
             if error.isInternetError {
                 errorMessage = CoreLocalization.Error.slowOrNoInternetConnection
             } else {
@@ -152,9 +152,13 @@ public class ThreadViewModel: BaseResponsesViewModel, ObservableObject {
     }
     
     @MainActor
-    public func getThreadData(thread: UserThread, page: Int, refresh: Bool = false) async -> Bool {
+    public func getThreadData(
+        thread: UserThread,
+        page: Int, refresh: Bool = false,
+        onFirstAppear: Bool = false
+    ) async -> Bool {
         guard !fetchInProgress else { return false }
-        fetchInProgress = true
+        fetchInProgress = onFirstAppear
         do {
             try await interactor.readBody(threadID: thread.id)
             switch thread.type {
