@@ -23,7 +23,7 @@ public class BaseResponsesViewModel {
     public var nextPage = 2
     public var totalPages = 1
     @Published public var itemsCount = 0
-    public var fetchInProgress = false
+    @Published public var fetchInProgress = false
     
     var errorMessage: String? {
         didSet {
