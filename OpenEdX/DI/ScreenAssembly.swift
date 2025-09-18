@@ -33,7 +33,8 @@ class ScreenAssembly: Assembly {
         container.register(AuthInteractorProtocol.self) { r in
             AuthInteractor(
                 repository: r.resolve(AuthRepositoryProtocol.self)!,
-                featureManager: r.resolve(FeatureManagerProtocol.self)!
+                featureManager: r.resolve(FeatureManagerProtocol.self)!,
+                captchaService: r.resolve(CaptchaService.self)!
             )
         }
         
