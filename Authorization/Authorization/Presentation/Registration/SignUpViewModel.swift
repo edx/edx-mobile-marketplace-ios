@@ -140,7 +140,10 @@ public class SignUpViewModel: ObservableObject {
 
     @MainActor
     func registerUser(authMetod: AuthMethod = .password) async {
-        let validateFields = await configureFields()
+        var validateFields = await configureFields()
+        validateFields["captcha_token"] = nil
+        let registerFields = await configureFields()
+        
         do {
             let errors = try await interactor.validateRegistrationFields(fields: validateFields)
             if showErrors(errors: errors) {
@@ -164,7 +167,7 @@ public class SignUpViewModel: ObservableObject {
         do {
             isShowProgress = true
             let user = try await interactor.registerUser(
-                fields: validateFields,
+                fields: registerFields,
                 isSocial: externalToken != nil
             )
             analytics.identify(id: "\(user.id)", username: user.username, email: user.email)
