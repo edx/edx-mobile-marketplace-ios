@@ -62,13 +62,7 @@ enum AuthEndpoint: EndPointType {
         switch self {
         case .registerUser:
             return ["Mobile-Platform-Identifier": "ios"]
-        case .exchangeAccessToken,
-                .getAccessToken,
-                .getUserInfo,
-                .getAuthCookies,
-                .getRegisterFields,
-                .validateRegistrationFields,
-                .resetPassword:
+        default:
             return nil
         }
     }

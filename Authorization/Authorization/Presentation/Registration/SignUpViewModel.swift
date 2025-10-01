@@ -140,9 +140,8 @@ public class SignUpViewModel: ObservableObject {
 
     @MainActor
     func registerUser(authMetod: AuthMethod = .password) async {
-        var validateFields = await configureFields()
-        validateFields["captcha_token"] = nil
         let registerFields = await configureFields()
+        let validateFields = registerFields.filter { $0.key != "captcha_token" }
         
         do {
             let errors = try await interactor.validateRegistrationFields(fields: validateFields)
@@ -189,7 +188,8 @@ public class SignUpViewModel: ObservableObject {
             )
         }
     }
-
+    
+    @MainActor
     private func configureFields() async -> [String: String] {
         var validateFields: [String: String] = [:]
         fields.forEach { validateFields[$0.field.name] = $0.text }
