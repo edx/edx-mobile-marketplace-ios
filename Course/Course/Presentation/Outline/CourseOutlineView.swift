@@ -149,6 +149,7 @@ public struct CourseOutlineView: View {
                                         CustomDisclosureGroup(
                                             course: course,
                                             proxy: proxy,
+                                            isVideo: isVideo,
                                             viewModel: viewModel
                                         )
                                     }
@@ -355,6 +356,7 @@ struct CourseOutlineView_Previews: PreviewProvider {
         let viewModel = CourseContainerViewModel(
             interactor: CourseInteractor.mock,
             authInteractor: AuthInteractor.mock,
+            enrollmentInteractor: EnrollmentInteractor.mock,
             router: CourseRouterMock(),
             analytics: CourseAnalyticsMock(),
             config: ConfigMock(),

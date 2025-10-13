@@ -8,14 +8,12 @@
 import Foundation
 
 public protocol CourseUpgradeRepositoryProtocol {
-    func addbasket(sku: String) async throws -> UpgradeBasket
-    func checkoutBasket(basketID: Int) async throws -> CheckoutBasket
-    func fulfillCheckout(
-        basketID: Int,
-        price: NSDecimalNumber,
+    func createOrder(
+        courseRunKey: String,
         currencyCode: String,
+        price: NSDecimalNumber,
         receipt: String
-    ) async throws -> FulfillCheckout
+    ) async throws -> FulfillOrder
 }
 
 public class CourseUpgradeRepository: CourseUpgradeRepositoryProtocol {
@@ -27,36 +25,20 @@ public class CourseUpgradeRepository: CourseUpgradeRepositoryProtocol {
         self.config = config
     }
     
-    public func addbasket(sku: String) async throws -> UpgradeBasket {
-        let result = try await api.requestData(
-            CourseUpgradeEndpoint.addBasket(sku: sku)
-        ).mapResponse(DataLayer.UpgradeBasket.self)
-        
-        return result.domain
-    }
-    
-    public func checkoutBasket(basketID: Int) async throws -> CheckoutBasket {
-        let result = try await api.requestData(
-            CourseUpgradeEndpoint.checkout(basketID: basketID)
-        ).mapResponse(DataLayer.CheckoutBasket.self)
-        
-        return result.domain
-    }
-    
-    public func fulfillCheckout(
-        basketID: Int,
-        price: NSDecimalNumber,
+    public func createOrder(
+        courseRunKey: String,
         currencyCode: String,
+        price: NSDecimalNumber,
         receipt: String
-    ) async throws -> FulfillCheckout {
+    ) async throws -> FulfillOrder {
         let result = try await api.requestData(
-            CourseUpgradeEndpoint.fulfillCheckout(
-                basketID: basketID,
-                price: price,
+            CourseUpgradeEndpoint.createOrder(
+                courseRunKey: courseRunKey,
                 currencyCode: currencyCode,
+                price: price,
                 receipt: receipt
             )
-        ).mapResponse(DataLayer.FulfillCheckout.self)
+        ).mapResponse(DataLayer.FulfillOrder.self)
         
         return result.domain
     }

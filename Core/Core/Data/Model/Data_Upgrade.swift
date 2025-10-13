@@ -8,63 +8,24 @@
 import Foundation
 
 public extension DataLayer {
-    struct UpgradeBasket: Codable {
-        public let success: String
-        public let basketID: Int
+    struct FulfillOrder: Codable {
+        let orderId: String
+        let orderNumber: String
         
         enum CodingKeys: String, CodingKey {
-            case success
-            case basketID = "basket_id"
-        }
-    }
-
-    struct CheckoutBasket: Codable {
-        let paymentPageURL: String
-        
-        enum CodingKeys: String, CodingKey {
-            case paymentPageURL = "payment_page_url"
-        }
-    }
-
-    struct FulfillCheckout: Codable {
-        let orderData: OrderData
-        
-        enum CodingKeys: String, CodingKey {
-            case orderData = "order_data"
+            case orderId = "order_id"
+            case orderNumber = "order_number"
         }
         
-        public init(orderData: OrderData) {
-            self.orderData = orderData
-        }
-    }
-    
-    struct OrderData: Codable {
-        let status: String
-        
-        enum CodingKeys: String, CodingKey {
-            case status
-        }
-        
-        public init(status: String) {
-            self.status = status
+        public init(orderId: String, orderNumber: String) {
+            self.orderId = orderId
+            self.orderNumber = orderNumber
         }
     }
 }
 
-public extension DataLayer.UpgradeBasket {
-    var domain: UpgradeBasket {
-        UpgradeBasket(success: success, basketID: basketID)
-    }
-}
-
-public extension DataLayer.CheckoutBasket {
-    var domain: CheckoutBasket {
-        CheckoutBasket(paymentPageURL: paymentPageURL)
-    }
-}
-
-public extension DataLayer.FulfillCheckout {
-    var domain: FulfillCheckout {
-        FulfillCheckout(orderData: orderData)
+public extension DataLayer.FulfillOrder {
+    var domain: FulfillOrder {
+        FulfillOrder(orderId: orderId, orderNumber: orderNumber)
     }
 }

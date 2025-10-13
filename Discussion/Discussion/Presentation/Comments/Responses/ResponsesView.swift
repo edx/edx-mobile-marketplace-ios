@@ -18,7 +18,6 @@ public struct ResponsesView: View {
     private let parentComment: Post
     
     @ObservedObject private var viewModel: ResponsesViewModel
-    @State private var isShowProgress: Bool = true
 
     public init(
         commentID: String,
@@ -64,7 +63,7 @@ public struct ResponsesView: View {
                                         ParentCommentView(
                                             comments: comments,
                                             isThread: false,
-                                            onAvatarTap: { username in
+                                            onAuthorTap: { username in
                                                 viewModel.router.showUserDetails(username: username)
                                             },
                                             onLikeTap: {
@@ -112,7 +111,7 @@ public struct ResponsesView: View {
                                             CommentCell(
                                                 comment: comment,
                                                 addCommentAvailable: false, leftLineEnabled: true,
-                                                onAvatarTap: { username in
+                                                onAuthorTap: { username in
                                                     viewModel.router.showUserDetails(username: username)
                                                 },
                                                 onLikeTap: {
@@ -215,7 +214,15 @@ public struct ResponsesView: View {
                         }
                     }
                 }
+                if viewModel.isShowProgress {
+                    VStack(alignment: .center) {
+                        ProgressBar(size: 40, lineWidth: 8)
+                            .padding(.horizontal)
+                            .accessibilityIdentifier("progress_bar")
+                    }.frame(maxWidth: .infinity, maxHeight: .infinity)
+                }
             }
+            .disabled(viewModel.isShowProgress)
             .ignoresSafeArea(.all, edges: .horizontal)
             .hideNavigationBar(false)
             .navigationBarBackButtonHidden(true)

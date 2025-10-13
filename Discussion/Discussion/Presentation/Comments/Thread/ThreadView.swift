@@ -18,7 +18,6 @@ public struct ThreadView: View {
     @ObservedObject private var viewModel: ThreadViewModel
     @Environment(\.colorScheme) var colorScheme
     @State private var headingID = UUID()
-    @State private var isShowProgress: Bool = true
     @State private var commentText: String = ""
     @State private var commentSize: CGFloat = .init(64)
 
@@ -49,7 +48,7 @@ public struct ThreadView: View {
                                         ParentCommentView(
                                             comments: comments,
                                             isThread: true,
-                                            onAvatarTap: { username in
+                                            onAuthorTap: { username in
                                                 viewModel.router.showUserDetails(username: username)
                                             },
                                             onLikeTap: {
@@ -112,7 +111,7 @@ public struct ThreadView: View {
                                                 comment: comment,
                                                 addCommentAvailable: true,
                                                 shouldHighlight: viewModel.shouldHighlightResponse(index),
-                                                onAvatarTap: { username in
+                                                onAuthorTap: { username in
                                                     viewModel.router.showUserDetails(username: username)
                                                 },
                                                 onLikeTap: {
@@ -247,7 +246,15 @@ public struct ThreadView: View {
                         }
                     }
                 }
+                if viewModel.fetchInProgress {
+                    VStack(alignment: .center) {
+                        ProgressBar(size: 40, lineWidth: 8)
+                            .padding(.horizontal)
+                            .accessibilityIdentifier("progress_bar")
+                    }.frame(maxWidth: .infinity, maxHeight: .infinity)
+                }
             }
+            .disabled(viewModel.fetchInProgress)
             .ignoresSafeArea(.all, edges: .horizontal)
             .hideNavigationBar(false)
             .navigationBarBackButtonHidden(true)
@@ -265,7 +272,7 @@ public struct ThreadView: View {
             }
             .onFirstAppear {
                 Task {
-                    await viewModel.getThreadData(thread: thread, page: 1)
+                    await viewModel.getThreadData(thread: thread, page: 1, onFirstAppear: true)
                 }
                 viewModel.trackDiscussionPostViewed(
                     courseID: thread.courseID,

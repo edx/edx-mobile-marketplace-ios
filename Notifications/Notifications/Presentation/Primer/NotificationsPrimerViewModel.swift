@@ -15,6 +15,7 @@ public final class NotificationsPrimerViewModel: ObservableObject {
 
     private var openedSettings = false
 
+    private let userNotificationCenter: UserNotificationCenterProtocol
     private let interactor: NotificationsInteractorProtocol
     private let router: NotificationsRouter
     private let analytics: NotificationsAnalytics
@@ -30,10 +31,12 @@ public final class NotificationsPrimerViewModel: ObservableObject {
     }
 
     public init(
+        userNotificationCenter: UserNotificationCenterProtocol = UNUserNotificationCenter.current(),
         interactor: NotificationsInteractorProtocol,
         router: NotificationsRouter,
         analytics: NotificationsAnalytics
     ) {
+        self.userNotificationCenter = userNotificationCenter
         self.interactor = interactor
         self.router = router
         self.analytics = analytics
@@ -101,8 +104,8 @@ public final class NotificationsPrimerViewModel: ObservableObject {
     private func requestNotificationPermissions() async {
         isUpdating = true
 
-        let settings = await UNUserNotificationCenter.current().notificationSettings()
-        if settings.authorizationStatus == .notDetermined {
+        let authorizationStatus = await userNotificationCenter.authorizationStatus()
+        if authorizationStatus == .notDetermined {
             router.performNotificationRegistration()
             trackSystemPermissionDialogViewed()
         } else {

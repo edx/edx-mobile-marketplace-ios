@@ -10,7 +10,7 @@ import XCTest
 import SwiftyMocky
 
 final class UpgradeInfoViewModelTests: XCTestCase {
-    typealias FlowData = (sku: String, product: StoreProductInfo, basketID: Int, symbol: String, receipt: String )
+    typealias FlowData = (sku: String, product: StoreProductInfo, currencyCode: String, receipt: String )
     
     enum UpgradeInfoViewModelTestsError: Error {
         case cantSetup
@@ -23,30 +23,36 @@ final class UpgradeInfoViewModelTests: XCTestCase {
     
     var config: Config?
     var interactor: CourseUpgradeInteractorProtocolMock?
+    var enrollmentInteractor: EnrollmentInteractorProtocolMock?
     var storeHandler: StoreKitHandlerProtocolMock?
     var helper: CourseUpgradeHelper?
     var handler: CourseUpgradeHandler?
     var router: BaseRouterMock?
+    var storage: CoreStorageMock?
     
     override func setUpWithError() throws {
         config = ConfigMock()
         interactor = CourseUpgradeInteractorProtocolMock()
+        enrollmentInteractor = EnrollmentInteractorProtocolMock()
         storeHandler = StoreKitHandlerProtocolMock()
+        storage = CoreStorageMock()
         let analytics = CoreAnalyticsMock()
         
         router = BaseRouterMock()
-        guard let config, let interactor, let storeHandler, let router else { throw UpgradeInfoViewModelTestsError.cantSetup }
+        guard let config, let interactor, let enrollmentInteractor, let storeHandler, let router, let storage else { throw UpgradeInfoViewModelTestsError.cantSetup }
         
-        helper = CourseUpgradeHelper(config: config, analytics: analytics, router: router)
+        helper = CourseUpgradeHelper(config: config, analytics: analytics, router: router, storage: storage)
         
         guard let helper else { throw UpgradeInfoViewModelTestsError.cantSetup }
         handler = CourseUpgradeHandler(
             config: config,
             interactor: interactor,
+            enrollmentInteractor: enrollmentInteractor,
             storeKitHandler: storeHandler,
             helper: helper
         )
 
+        Given(enrollmentInteractor, .getEnrollmentDetails(courseID: .any, willReturn: enrollmentDetails(mode: .audit)))
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
 
@@ -88,15 +94,36 @@ final class UpgradeInfoViewModelTests: XCTestCase {
         )
     }
     
+    private func enrollmentDetails(mode: DataLayer.Mode) -> EnrollmentDetails {
+        return EnrollmentDetails(
+            id: "course1",
+            discussionURL: nil,
+            enrollmentMetadata: EnrollmentMetadata(
+                created: "2025-07-25T11:50:18Z",
+                mode: mode,
+                isActive: true,
+                upgradeDeadline: nil
+            ),
+            coursewareAccess: CoursewareAccess(
+                hasAccess: false,
+                errorCode: .notStarted,
+                developerMessage: "Course does not start until 2025-07-15 04:00:00+00:00",
+                userMessage: "Course does not start until July 15, 2025",
+                additionalContextUserMessage: nil,
+                userFragment: nil
+            )
+        )
+    }
+    
     private func productInfo() -> StoreProductInfo {
         let price = NSDecimalNumber(decimal: 99)
         let localizedPrice: String? = "test localized price"
-        let currencySymbol: String? = "$"
+        let currencyCode: String? = "USD"
 
         return StoreProductInfo(
             price: price,
             localizedPrice: localizedPrice,
-            currencySymbol: currencySymbol
+            currencyCode: currencyCode
         )
     }
     
@@ -111,7 +138,7 @@ final class UpgradeInfoViewModelTests: XCTestCase {
         try verifyFetchProduct()
         XCTAssertEqual(viewModel.product?.price, product.price)
         XCTAssertEqual(viewModel.product?.localizedPrice, product.localizedPrice)
-        XCTAssertEqual(viewModel.product?.currencySymbol, product.currencySymbol)
+        XCTAssertEqual(viewModel.product?.currencyCode, product.currencyCode)
     }
     
     func testFetchProductFailure() async throws {
@@ -129,48 +156,55 @@ final class UpgradeInfoViewModelTests: XCTestCase {
         Verify(router, 1, .presentNativeAlert(title: .any, message: .any, actions: .any))
     }
 
-    private func prepareSuccessFlow(for sku: String, product: StoreProductInfo) throws -> FlowData {
+    private func prepareSuccessFlow(for sku: String, product: StoreProductInfo, courseRunKey: String) throws -> FlowData {
+        guard let enrollmentInteractor else { throw UpgradeInfoViewModelTestsError.cantSetup }
+
+        // 1st call -> audit, 2nd+ -> verified
+        Given(
+            enrollmentInteractor,
+            .getEnrollmentDetails(
+                courseID: .any,
+                willReturn: enrollmentDetails(mode: .audit),
+                enrollmentDetails(mode: .verified)
+            )
+        )
+
         guard let interactor else { throw UpgradeInfoViewModelTestsError.interactorIsNil }
-        
-        let basket = UpgradeBasket(success: "true", basketID: 99)
-        Given(interactor, .addBasket(sku: .value(sku), willReturn: basket))
-        
-        let checkoutBasket = CheckoutBasket(paymentPageURL: "paymentURL")
-        Given(interactor, .checkoutBasket(basketID: .value(basket.basketID), willReturn: checkoutBasket))
         
         guard let storeHandler else { throw UpgradeInfoViewModelTestsError.storeMockIsNil }
         let response = StoreKitUpgradeResponse(success: true, receipt: "Some receipt here")
         Given(storeHandler, .purchaseProduct(.value(sku), willReturn: response))
         
         guard let receipt = response.receipt,
-              let symbol = product.currencySymbol
+              let currencyCode = product.currencyCode
         else { throw UpgradeInfoViewModelTestsError.incorrectValuesReturned }
         
-        let checkout = FulfillCheckout(orderData: .init(status: "Success"))
-        Given(interactor, .fulfillCheckout(
-            basketID: .value(basket.basketID),
-            price: .value(product.price),
-            currencyCode: .value(symbol),
-            receipt: .value(receipt),
-            willReturn: checkout)
+        let order = FulfillOrder(orderId: "test_order_id", orderNumber: "test_order_number")
+        Given(
+            interactor, .createOrder(
+                courseRunKey: .value(courseRunKey),
+                currencyCode: .value(currencyCode),
+                price: .value(product.price),
+                receipt: .value(receipt),
+                willReturn: order
+            )
         )
-        return (sku: sku, product: product, basketID: basket.basketID, symbol: symbol, receipt: receipt)
+        return (sku: sku, product: product, currencyCode: currencyCode, receipt: receipt)
     }
     
     @MainActor 
-    private func verifySuccessFlow(flowData: FlowData) throws {
+    private func verifySuccessFlow(flowData: FlowData, courseRunKey: String) throws {
         guard let interactor else { throw UpgradeInfoViewModelTestsError.interactorIsNil }
-        Verify(interactor, 1, .addBasket(sku: .value(flowData.sku)))
-        Verify(interactor, 1, .checkoutBasket(basketID: .value(flowData.basketID)))
+        
         guard let storeHandler else { throw UpgradeInfoViewModelTestsError.storeMockIsNil }
         Verify(storeHandler, 1, .purchaseProduct(.value(flowData.sku)))
         Verify(
             interactor,
             1,
-            .fulfillCheckout(
-                basketID: .value(flowData.basketID),
+            .createOrder(
+                courseRunKey: .value(courseRunKey),
+                currencyCode: .value(flowData.currencyCode),
                 price: .value(flowData.product.price),
-                currencyCode: .value(flowData.symbol),
                 receipt: .value(flowData.receipt)
             )
         )
@@ -187,12 +221,12 @@ final class UpgradeInfoViewModelTests: XCTestCase {
 
         let product = productInfo()
         viewModel.product = product
-        let flowData = try prepareSuccessFlow(for: viewModel.sku, product: product)
+        let flowData = try prepareSuccessFlow(for: viewModel.sku, product: product, courseRunKey: viewModel.courseID)
         
         await viewModel.purchase()
         
         // Verify purchase backend processing
-        try await verifySuccessFlow(flowData: flowData)
+        try await verifySuccessFlow(flowData: flowData, courseRunKey: viewModel.courseID)
         
         var stateIsSuccess: Bool = false
         if case .complete = handler.state {
@@ -204,25 +238,33 @@ final class UpgradeInfoViewModelTests: XCTestCase {
     }
     
     func testUpgradeHelperSuccess() async throws {
-        let helper = CourseUpgradeHelperProtocolMock()
-        guard let config, let interactor, let storeHandler else { throw UpgradeInfoViewModelTestsError.cantSetup }
-        let handler = CourseUpgradeHandler(config: config, interactor: interactor, storeKitHandler: storeHandler, helper: helper)
+        let courseUpgradeHelper = CourseUpgradeHelperProtocolMock()
+        guard let config, let interactor, let enrollmentInteractor, let storeHandler else { throw UpgradeInfoViewModelTestsError.cantSetup }
+        let handler = CourseUpgradeHandler(
+            config: config,
+            interactor: interactor,
+            enrollmentInteractor: enrollmentInteractor,
+            storeKitHandler: storeHandler,
+            helper: courseUpgradeHelper
+        )
         
         let product = productInfo()
         let viewModel = try self.viewModel(with: handler)
         viewModel.product = product
         
-        let _ = try prepareSuccessFlow(for: viewModel.sku, product: product)
+        Given(courseUpgradeHelper, .isAllowedToPurchase(.any, courseID: .any, willReturn: true))
+        
+        let _ = try prepareSuccessFlow(for: viewModel.sku, product: product, courseRunKey: viewModel.courseID)
         await viewModel.purchase()
         
         Verify(
-            helper,
+            courseUpgradeHelper,
             1,
             .setData(courseID: .value(viewModel.courseID),
                      pacing: .value(viewModel.pacing),
                      blockID: .value(nil),
                      localizedPrice: .value(product.price),
-                     localizedCurrencyCode: .value(product.currencySymbol),
+                     localizedCurrencyCode: .value(product.currencyCode),
                      lmsPrice: .value(.zero),
                      screen: .value(viewModel.screen)
                     )
@@ -233,23 +275,6 @@ final class UpgradeInfoViewModelTests: XCTestCase {
         case unknown
     }
     
-    private func prepareFailureAddBasketFlow(for sku: String, product: StoreProductInfo) throws -> FlowData {
-        guard let interactor else { throw UpgradeInfoViewModelTestsError.interactorIsNil }
-        
-        Given(interactor, .addBasket(sku: .value(sku), willThrow: UknownTestError.unknown))
-
-        guard let symbol = product.currencySymbol
-        else { throw UpgradeInfoViewModelTestsError.incorrectValuesReturned }
-        
-        return (sku: sku, product: product, basketID: .zero, symbol: symbol, receipt: "")
-    }
-    
-    @MainActor
-    private func verifyFailureBasketFlow(flowData: FlowData) throws {
-        guard let interactor else { throw UpgradeInfoViewModelTestsError.interactorIsNil }
-        Verify(interactor, 1, .addBasket(sku: .value(flowData.sku)))
-    }
-
     @MainActor
     private func verifyFailureRouterFlow(flowData: FlowData) throws {
         // Check router flow
@@ -257,91 +282,18 @@ final class UpgradeInfoViewModelTests: XCTestCase {
         Verify(router, 1, .hideUpgradeLoaderView(animated: .any))
         Verify(router, 1, .presentNativeAlert(title: .any, message: .any, actions: .any))
     }
-
-    
-    @MainActor
-    private func verifyFailureCheckoutFlow(flowData: FlowData) throws {
-        guard let interactor else { throw UpgradeInfoViewModelTestsError.interactorIsNil }
-        Verify(interactor, 1, .checkoutBasket(basketID: .value(flowData.basketID)))
-    }
-    
-    func testUpgradeHandlerAddBasketFailure() async throws {
-        guard let handler else { throw UpgradeInfoViewModelTestsError.handlerIsNil }
-        let viewModel = try self.viewModel(with: handler)
-
-        let product = productInfo()
-        viewModel.product = product
-        let flowData = try prepareFailureAddBasketFlow(for: viewModel.sku, product: product)
-        
-        await viewModel.purchase()
-        
-        // Verify purchase backend processing
-        try await verifyFailureBasketFlow(flowData: flowData)
-        try await verifyFailureRouterFlow(flowData: flowData)
-        
-        var stateIsSuccess: Bool = false
-        if case .error = handler.state {
-            stateIsSuccess = true
-        }
-        XCTAssertTrue(stateIsSuccess)
-        XCTAssertEqual(viewModel.isLoading, false)
-        XCTAssertEqual(viewModel.interactiveDismissDisabled, false)
-    }
-    
-    private func prepareFailureCheckoutBasketFlow(for sku: String, product: StoreProductInfo) throws -> FlowData {
-        guard let interactor else { throw UpgradeInfoViewModelTestsError.interactorIsNil }
-        
-        let basket = UpgradeBasket(success: "true", basketID: 99)
-        Given(interactor, .addBasket(sku: .value(sku), willReturn: basket))
-        Given(interactor, .checkoutBasket(basketID: .value(basket.basketID), willThrow: UknownTestError.unknown))
-
-        guard let symbol = product.currencySymbol
-        else { throw UpgradeInfoViewModelTestsError.incorrectValuesReturned }
-        
-        return (sku: sku, product: product, basketID: basket.basketID, symbol: symbol, receipt: "")
-    }
-    
-    func testUpgradeHandlerCheckoutBasketFailure() async throws {
-        guard let handler else { throw UpgradeInfoViewModelTestsError.handlerIsNil }
-        let viewModel = try self.viewModel(with: handler)
-
-        let product = productInfo()
-        viewModel.product = product
-        let flowData = try prepareFailureCheckoutBasketFlow(for: viewModel.sku, product: product)
-        
-        await viewModel.purchase()
-        
-        // Verify purchase backend processing
-        try await verifyFailureBasketFlow(flowData: flowData)
-        try await verifyFailureCheckoutFlow(flowData: flowData)
-        try await verifyFailureRouterFlow(flowData: flowData)
-        
-        var stateIsSuccess: Bool = false
-        if case .error = handler.state {
-            stateIsSuccess = true
-        }
-        XCTAssertTrue(stateIsSuccess)
-        XCTAssertEqual(viewModel.isLoading, false)
-        XCTAssertEqual(viewModel.interactiveDismissDisabled, false)
-    }
     
     private func prepareFailurePurchaseFlow(for sku: String, product: StoreProductInfo) throws -> FlowData {
         guard let interactor else { throw UpgradeInfoViewModelTestsError.interactorIsNil }
         
-        let basket = UpgradeBasket(success: "true", basketID: 99)
-        Given(interactor, .addBasket(sku: .value(sku), willReturn: basket))
-        
-        let checkoutBasket = CheckoutBasket(paymentPageURL: "paymentURL")
-        Given(interactor, .checkoutBasket(basketID: .value(basket.basketID), willReturn: checkoutBasket))
-        
         let response = StoreKitUpgradeResponse(success: false, receipt: nil, error: .paymentError(UknownTestError.unknown))
         guard let storeHandler else { throw UpgradeInfoViewModelTestsError.storeMockIsNil }
         Given(storeHandler, .purchaseProduct(.value(sku), willReturn: response))
-               
-        guard let symbol = product.currencySymbol
+        
+        guard let currencyCode = product.currencyCode
         else { throw UpgradeInfoViewModelTestsError.incorrectValuesReturned }
         
-        return (sku: sku, product: product, basketID: basket.basketID, symbol: symbol, receipt: "")
+        return (sku: sku, product: product, currencyCode: currencyCode, receipt: "")
     }
     
     private func verifyFailurePurchaseFlow(flowData: FlowData) throws {
@@ -360,8 +312,6 @@ final class UpgradeInfoViewModelTests: XCTestCase {
         await viewModel.purchase()
         
         // Verify purchase backend processing
-        try await verifyFailureBasketFlow(flowData: flowData)
-        try await verifyFailureCheckoutFlow(flowData: flowData)
         try verifyFailurePurchaseFlow(flowData: flowData)
         try await verifyFailureRouterFlow(flowData: flowData)
 
@@ -375,63 +325,57 @@ final class UpgradeInfoViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.interactiveDismissDisabled, false)
     }
     
-
-    private func prepareFailureFullfillCheckoutFlow(for sku: String, product: StoreProductInfo) throws -> FlowData {
+    private func prepareFailureFullfillOrderFlow(for sku: String, product: StoreProductInfo, courseRunKey: String) throws -> FlowData {
         guard let interactor else { throw UpgradeInfoViewModelTestsError.interactorIsNil }
-        
-        let basket = UpgradeBasket(success: "true", basketID: 99)
-        Given(interactor, .addBasket(sku: .value(sku), willReturn: basket))
-        
-        let checkoutBasket = CheckoutBasket(paymentPageURL: "paymentURL")
-        Given(interactor, .checkoutBasket(basketID: .value(basket.basketID), willReturn: checkoutBasket))
         
         guard let storeHandler else { throw UpgradeInfoViewModelTestsError.storeMockIsNil }
         let response = StoreKitUpgradeResponse(success: true, receipt: "Some receipt here")
         Given(storeHandler, .purchaseProduct(.value(sku), willReturn: response))
         
         guard let receipt = response.receipt,
-              let symbol = product.currencySymbol
+              let currencyCode = product.currencyCode
         else { throw UpgradeInfoViewModelTestsError.incorrectValuesReturned }
         
-        Given(interactor, .fulfillCheckout(
-            basketID: .value(basket.basketID),
-            price: .value(product.price),
-            currencyCode: .value(symbol),
-            receipt: .value(receipt),
-            willThrow: UknownTestError.unknown)
+        Given(
+            interactor, .createOrder(
+                courseRunKey: .value(courseRunKey),
+                currencyCode: .value(currencyCode),
+                price: .value(product.price),
+                receipt: .value(receipt),
+                willThrow: UknownTestError.unknown
+            )
         )
-        return (sku: sku, product: product, basketID: basket.basketID, symbol: symbol, receipt: receipt)
+        
+        return (sku: sku, product: product, currencyCode: currencyCode, receipt: receipt)
     }
     
-    private func verifyFullfillCheckoutFlow(flowData: FlowData) throws {
+    private func verifyFullfillOrderFlow(flowData: FlowData, courseRunKey: String) throws {
         guard let interactor else { throw UpgradeInfoViewModelTestsError.interactorIsNil }
         Verify(
             interactor,
             1,
-            .fulfillCheckout(
-                basketID: .value(flowData.basketID),
+            .createOrder(
+                courseRunKey: .value(courseRunKey),
+                currencyCode: .value(flowData.currencyCode),
                 price: .value(flowData.product.price),
-                currencyCode: .value(flowData.symbol),
                 receipt: .value(flowData.receipt)
             )
         )
     }
     
-    func testFullfillCheckoutFailure() async throws {
+    func testFullfillOrderFailure() async throws {
         guard let handler else { throw UpgradeInfoViewModelTestsError.handlerIsNil }
         let viewModel = try self.viewModel(with: handler)
 
         let product = productInfo()
         viewModel.product = product
-        let flowData = try prepareFailureFullfillCheckoutFlow(for: viewModel.sku, product: product)
+        let flowData = try prepareFailureFullfillOrderFlow(for: viewModel.sku, product: product, courseRunKey: viewModel.courseID)
         
         await viewModel.purchase()
         
         // Verify purchase backend processing
-        try await verifyFailureBasketFlow(flowData: flowData)
-        try await verifyFailureCheckoutFlow(flowData: flowData)
         try verifyFailurePurchaseFlow(flowData: flowData)
-        try verifyFullfillCheckoutFlow(flowData: flowData)
+        try verifyFullfillOrderFlow(flowData: flowData, courseRunKey: viewModel.courseID)
         guard let router else { throw UpgradeInfoViewModelTestsError.routerIsNil }
         Verify(router, 1, .presentNativeAlert(title: .any, message: .any, actions: .any))
 

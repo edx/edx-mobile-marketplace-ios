@@ -169,7 +169,8 @@ struct ListDashboardView_Previews: PreviewProvider {
             analytics: DashboardAnalyticsMock(),
             upgradehandler: CourseUpgradeHandlerProtocolMock(),
             coreAnalytics: CoreAnalyticsMock(),
-            serverConfig: ServerConfigProtocolMock()
+            serverConfig: ServerConfigProtocolMock(),
+            storage: CoreStorageMock()
         )
         let router = DashboardRouterMock()
         

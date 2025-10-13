@@ -20,7 +20,6 @@ public protocol CourseInteractorProtocol {
     func getSubtitles(url: String, selectedLanguage: String) async throws -> [Subtitle]
     func getCourseDates(courseID: String) async throws -> CourseDates
     func getCourseDeadlineInfo(courseID: String) async throws -> CourseDateBanner
-    func getEnrollmentDetails(courseID: String) async throws -> EnrollmentDetails
     func shiftDueDates(courseID: String) async throws
     func canShowBanner(_ bannerType: CourseBannerType?, forCourse courseID: String) -> Bool
     func markBannerDismissed(_ bannerType: CourseBannerType, forCourse courseID: String)
@@ -115,10 +114,6 @@ public class CourseInteractor: CourseInteractorProtocol {
     
     public func getCourseDeadlineInfo(courseID: String) async throws -> CourseDateBanner {
         return try await repository.getCourseDeadlineInfo(courseID: courseID)
-    }
-    
-    public func getEnrollmentDetails(courseID: String) async throws -> EnrollmentDetails {
-        return try await repository.getEnrollmentDetails(courseID: courseID)
     }
     
     private func filterChapter(chapter: CourseChapter) -> CourseChapter {
