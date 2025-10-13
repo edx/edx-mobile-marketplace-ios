@@ -1024,12 +1024,7 @@ extension Router {
                 )!
             )
             let controller = UIHostingController(rootView: view)
-            if let sheet = controller.sheetPresentationController {
-                sheet.detents = [.large()]
-                sheet.prefersEdgeAttachedInCompactHeight = true
-                sheet.widthFollowsPreferredContentSizeWhenEdgeAttached = true
-                sheet.prefersGrabberVisible = true
-            }
+            controller.modalPresentationStyle = .fullScreen
             navigationController.present(controller, animated: true) {
                 continuation.resume()
             }

@@ -28,7 +28,7 @@ public struct UpgradeInfoSheetView: View {
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem(placement: .navigationBarLeading) {
                     Button {
                         if !viewModel.interactiveDismissDisabled {
                             dismiss()
