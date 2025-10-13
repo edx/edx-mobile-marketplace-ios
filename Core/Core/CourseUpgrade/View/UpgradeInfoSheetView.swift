@@ -34,7 +34,7 @@ public struct UpgradeInfoSheetView: View {
                             dismiss()
                         }
                     } label: {
-                        Image(systemName: "xmark")
+                        Image(asset: ImageAsset(name: "arrowLeft"))
                             .foregroundColor(Theme.Colors.accentColor)
                     }
                     .accessibilityIdentifier("close_button")
