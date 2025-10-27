@@ -836,7 +836,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 6.2.2;
+				MARKETING_VERSION = 6.2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = org.edx.mobile;
 				PRODUCT_NAME = "edX Stage";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -925,7 +925,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 6.2.2;
+				MARKETING_VERSION = 6.2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = org.edx.mobile;
 				PRODUCT_NAME = "edX Stage";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1021,7 +1021,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 6.2.2;
+				MARKETING_VERSION = 6.2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = org.edx.mobile;
 				PRODUCT_NAME = "edX Dev";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1110,7 +1110,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 6.2.2;
+				MARKETING_VERSION = 6.2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = org.edx.mobile;
 				PRODUCT_NAME = "edX Dev";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1260,7 +1260,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 6.2.2;
+				MARKETING_VERSION = 6.2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = org.edx.mobile;
 				PRODUCT_NAME = edX;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1295,7 +1295,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 6.2.2;
+				MARKETING_VERSION = 6.2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = org.edx.mobile;
 				PRODUCT_NAME = edX;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
