@@ -388,13 +388,11 @@ extension CourseUpgradeHelper {
                 message = error.localizedDescription
             }
             
-            doAfter(0.5) { [weak self] in
-                self?.router.presentNativeAlert(
-                    title: CoreLocalization.CourseUpgrade.FailureAlert.alertTitle,
-                    message: message,
-                    actions: actions
-                )
-            }
+            router.presentNativeAlert(
+                title: CoreLocalization.CourseUpgrade.FailureAlert.alertTitle,
+                message: message,
+                actions: actions
+            )
         }
     }
     
