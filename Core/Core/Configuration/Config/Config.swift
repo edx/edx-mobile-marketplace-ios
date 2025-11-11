@@ -32,7 +32,6 @@ public protocol ConfigProtocol {
     var program: DiscoveryConfig { get }
     var URIScheme: String { get }
     var ecommerceURL: String? { get }
-    var fullStory: FullStoryConfig { get }
     var pushNotificationsEnabled: Bool { get }
     var optimizely: OptimizelyConfig { get }
     var recaptcha: RecaptchaConfig { get }
