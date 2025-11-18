@@ -28,7 +28,7 @@ public struct ThreadView: View {
     public init(thread: UserThread,
                 viewModel: ThreadViewModel) {
         self.thread = thread
-        self.title = thread.title
+        self.title = DiscussionLocalization.Thread.title
         self.viewModel = viewModel
     }
     
