@@ -49,6 +49,8 @@ public enum UpgradeError: Error, LocalizedError, Equatable {
         switch error.errorCode {
         case 409:
             return CoreLocalization.CourseUpgrade.FailureAlert.courseAlreadyPaid
+        case 402:
+            return CoreLocalization.CourseUpgrade.FailureAlert.generalErrorMessage
         default:
             return CoreLocalization.CourseUpgrade.FailureAlert.courseNotFullfilled
         }

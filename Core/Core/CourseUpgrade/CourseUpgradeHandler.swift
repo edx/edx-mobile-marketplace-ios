@@ -230,8 +230,21 @@ public class CourseUpgradeHandler: CourseUpgradeHandlerProtocol {
             )
             await verifyCourseModeChange()
         } catch let error {
-            state = .error(.verifyReceiptError(error))
+            if error.errorCode == 402 {
+                handleError402()
+            } else {
+                state = .error(.verifyReceiptError(error))
+            }
         }
+    }
+
+    @MainActor
+    private func handleError402() {
+        storeKitHandler.markPurchaseComplete(
+            courseSku ?? "",
+            type: (upgradeMode == .userInitiated) ? .purchase : .transction
+        )
+        state = .error(.verifyReceiptError(emptyReceiptError()))
     }
     
     @MainActor
@@ -302,6 +315,14 @@ extension CourseUpgradeHandler {
             domain: "edx.app.courseupgrade",
             code: 409,
             userInfo: [NSLocalizedDescriptionKey: CoreLocalization.CourseUpgrade.FailureAlert.courseNotFullfilled]
+        )
+    }
+    
+    fileprivate func emptyReceiptError() -> Error {
+        return NSError(
+            domain: "edx.app.courseupgrade",
+            code: 402,
+            userInfo: [NSLocalizedDescriptionKey: CoreLocalization.CourseUpgrade.FailureAlert.generalErrorMessage]
         )
     }
 }
