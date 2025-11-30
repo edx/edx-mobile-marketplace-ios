@@ -441,6 +441,7 @@
 		A59702272B83C84800CA064C /* FirebaseAnalyticsService */ = {
 			isa = PBXGroup;
 			children = (
+				D39950072EDCB81800B81F8A /* FirebaseAnalyticsTracker.swift */,
 				A59702282B83C87900CA064C /* FirebaseAnalyticsService.swift */,
 			);
 			path = FirebaseAnalyticsService;
