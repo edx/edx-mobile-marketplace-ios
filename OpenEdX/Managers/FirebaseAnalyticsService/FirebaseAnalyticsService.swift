@@ -8,8 +8,6 @@
 import Foundation
 import Core
 import FirebaseAnalytics
-import EDXFeatureManagement
-import FirebaseRemoteConfig
 import FirebaseCore
 
 private let MaxParameterValueCharacters = 100
@@ -93,66 +91,5 @@ extension FirebaseAnalyticsService {
 extension String {
     func replace(string: String, replacement: String) -> String {
         return replacingOccurrences(of: string, with: replacement, options: NSString.CompareOptions.literal, range: nil)
-    }
-}
-
-public protocol ExperimentAssignmentStore {
-    var showCertificatePreview: Bool { get  set}
-}
-
-public final class CertificateExperimentAssignmentStore: ExperimentAssignmentStore {
-    private let key = "exp.show_certificate_preview"
-    
-    public var showCertificatePreview: Bool {
-        get { UserDefaults.standard.bool(forKey: key) }
-        set { UserDefaults.standard.set(newValue, forKey: key) }
-    }
-}
-
-public struct FirebaseFeatureDecision: FeatureDecision {
-    public let key: String
-    public let value: Any?
-    public let metadata: [String: Any]
-}
-
-final class CertificatePreviewExperimentManager: FeatureManagerProtocol {
-    private var assignmentStore: ExperimentAssignmentStore
-    private static let treatment = "treatment"
-    private static let control = "control"
-    
-    public init(assignmentStore: ExperimentAssignmentStore) {
-        self.assignmentStore = assignmentStore
-    }
-    
-    func identifyUser(id: String, attributes: [String: Any]?) {
-        guard let intId = Int(id) else { return }
-        let inTreatment = intId % 2 == 0
-        assignmentStore.showCertificatePreview = inTreatment
-    }
-    
-    func resetUser() {
-        assignmentStore.showCertificatePreview = false
-    }
-    
-    func decision(forKey key: String) -> FeatureDecision? {
-        switch key {
-        case FeatureKeys.showCertificatePreview:
-            let value = assignmentStore.showCertificatePreview
-            return FirebaseFeatureDecision(
-                key: key,
-                value: value,
-                metadata: [:]
-            )
-        default:
-            return nil
-        }
-    }
-    
-    public func trackEvent(_ name: String, properties: [String: Any]?) {
-        var props = properties ?? [:]
-        let showPreview = assignmentStore.showCertificatePreview
-        props[CertPreviewPropertyKey.showCertificatePreview.rawValue] = showPreview
-        props[CertPreviewPropertyKey.certPreviewVariant.rawValue] = showPreview ? CertificatePreviewExperimentManager.treatment : CertificatePreviewExperimentManager.control
-        Analytics.logEvent(name, parameters: props)
     }
 }

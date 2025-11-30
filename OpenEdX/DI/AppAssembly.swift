@@ -223,9 +223,18 @@ class AppAssembly: Assembly {
             CertificateExperimentAssignmentStore()
         }.inObjectScope(.container)
         
+        container.register(AnalyticsTracking.self) { _ in
+            FirebaseAnalyticsTracker()
+        }
+        .inObjectScope(.container)
+        
         container.register(FeatureManagerProtocol.self) { r in
             let store = r.resolve(ExperimentAssignmentStore.self)!
-            return CertificatePreviewExperimentManager(assignmentStore: store)
+            let tracker = r.resolve(AnalyticsTracking.self)!
+            return CertificatePreviewExperimentManager(
+                assignmentStore: store,
+                analytics: tracker
+            )
         }.inObjectScope(.container)
         
         container.register(FullStoryAnalyticsService.self) { _, firebaseEnabled in
