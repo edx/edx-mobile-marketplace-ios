@@ -8,6 +8,7 @@
 import XCTest
 @testable import Core
 import SwiftyMocky
+@testable import EDXFeatureManagement
 
 final class UpgradeInfoViewModelTests: XCTestCase {
     typealias FlowData = (sku: String, product: StoreProductInfo, currencyCode: String, receipt: String )
@@ -388,5 +389,34 @@ final class UpgradeInfoViewModelTests: XCTestCase {
         XCTAssertTrue(stateIsSuccess)
         XCTAssertEqual(viewModel.isLoading, false)
         XCTAssertEqual(viewModel.interactiveDismissDisabled, false)
+    }
+}
+
+public final class FeatureManagerMock: FeatureManagerProtocol {
+    public var userID: String?
+    public var userAttributes: [String: Any]?
+    public var featureDecisions: [String: FeatureDecisionMock] = [:]
+
+    public var trackedEvents: [(name: String, properties: [String: Any]?)] = []
+
+    public init() { }
+
+    public func identifyUser(id: String, attributes: [String: Any]?) {
+        self.userID = id
+        self.userAttributes = attributes
+    }
+
+    public func resetUser() {
+        userID = nil
+        userAttributes = nil
+    }
+
+    public func decision(forKey key: String) -> FeatureDecision? {
+        guard let userID else { return nil }
+        return featureDecisions[key]
+    }
+
+    public func trackEvent(_ name: String, properties: [String: Any]?) {
+        trackedEvents.append((name: name, properties: properties))
     }
 }
