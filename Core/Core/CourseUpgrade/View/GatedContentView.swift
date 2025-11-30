@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Theme
+import EDXFeatureManagement
 
 public struct GatedContentView: View {
     @StateObject var viewModel: UpgradeInfoViewModel
@@ -111,6 +112,7 @@ public struct GatedContentView: View {
             handler: CourseUpgradeHandlerProtocolMock(),
             pacing: "self",
             analytics: CoreAnalyticsMock(),
+            certificatePreviewExperimentManager: FeatureManagerMock(),
             router: BaseRouterMock(),
             lmsPrice: .zero
         )

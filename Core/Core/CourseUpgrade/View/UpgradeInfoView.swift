@@ -8,6 +8,7 @@
 import SwiftUI
 import Theme
 import Swinject
+import EDXFeatureManagement
 
 public struct UpgradeInfoView<Content>: View where Content: View {
     let isFindCourseButtonVisible: Bool
@@ -53,6 +54,10 @@ public struct UpgradeInfoView<Content>: View where Content: View {
     
     private var isiPad: Bool {
         return (verticalSizeClass == .regular && horizontalSizeClass == .regular)
+    }
+    
+    private var shouldShowCertificatePreview: Bool {
+        return viewModel.shouldShowCertificatePreview()
     }
     
     public var body: some View {
@@ -110,9 +115,11 @@ public struct UpgradeInfoView<Content>: View where Content: View {
                                 .padding(.horizontal, 20)
                                 .padding(.bottom, 20)
                             }
-                            CertificateView(name: storage?.user?.username ?? "", courseName: viewModel.productName)
-                                .padding(.leading, isiPad ? 50 : 0)
-                                .padding(.trailing, isiPad ? 50 : 0)
+                            if shouldShowCertificatePreview {
+                                CertificateView(name: storage?.user?.username ?? "", courseName: viewModel.productName)
+                                    .padding(.leading, isiPad ? 50 : 0)
+                                    .padding(.trailing, isiPad ? 50 : 0)
+                            }
                         }
                     } else {
                         if !viewModel.productName.isEmpty {
@@ -121,10 +128,12 @@ public struct UpgradeInfoView<Content>: View where Content: View {
                         }
                         UpgradeOptionsView()
                             .foregroundColor(Theme.Colors.textPrimary)
-                        CertificateView(name: storage?.user?.username ?? "", courseName: viewModel.productName)
-                            .padding(.leading, isiPad ? 150 : 0)
-                            .padding(.trailing, isiPad ? 150 : 0)
-                        Spacer(minLength: 20)
+                        if shouldShowCertificatePreview {
+                            CertificateView(name: storage?.user?.username ?? "", courseName: viewModel.productName)
+                                .padding(.leading, isiPad ? 150 : 0)
+                                .padding(.trailing, isiPad ? 150 : 0)
+                            Spacer(minLength: 20)
+                        }
                         if isFindCourseButtonVisible {
                             StyledButton(
                                 CoreLocalization.CourseUpgrade.Button.findCourse,
@@ -177,6 +186,9 @@ public struct UpgradeInfoView<Content>: View where Content: View {
                 await viewModel.fetchProduct()
             }
             viewModel.trackValuePropViewed()
+            if shouldShowCertificatePreview {
+                viewModel.trackCertificateShown()
+            }
         }
         .background(
             GeometryReader { geometry in
@@ -354,6 +366,7 @@ struct CertificateView: View {
             handler: CourseUpgradeHandlerProtocolMock(),
             pacing: "self",
             analytics: CoreAnalyticsMock(),
+            certificatePreviewExperimentManager: FeatureManagerMock(),
             router: BaseRouterMock(),
             lmsPrice: .zero
         ),

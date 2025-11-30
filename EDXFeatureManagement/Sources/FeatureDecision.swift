@@ -24,6 +24,18 @@ public protocol FeatureDecision {
     var metadata: [String: Any] { get }
 }
 
+public extension FeatureDecision {
+    var boolValue: Bool? {
+        if let boolean = value as? Bool {return boolean}
+        if let string = value as? String {return (string as NSString).boolValue}
+        if let number = value as? NSNumber {return number.boolValue}
+        return nil
+    }
+    var strignValue: String? {
+        value as? String
+    }
+}
+
 #if DEBUG
 public struct FeatureDecisionMock: FeatureDecision {
     public var key: String

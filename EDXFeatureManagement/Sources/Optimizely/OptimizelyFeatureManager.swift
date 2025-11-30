@@ -6,6 +6,7 @@
 //
 
 import Foundation
+/*
 import Optimizely
 
 public final class OptimizelyFeatureManager: FeatureManagerProtocol {
@@ -66,3 +67,4 @@ public final class OptimizelyFeatureManager: FeatureManagerProtocol {
         try? userContext.trackEvent(eventKey: name, eventTags: properties)
     }
 }
+*/

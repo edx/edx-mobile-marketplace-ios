@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import EDXFeatureManagement
 
 public class UpgradeInfoViewModel: ObservableObject {
     let productName: String
@@ -16,6 +17,7 @@ public class UpgradeInfoViewModel: ObservableObject {
     let handler: CourseUpgradeHandlerProtocol
     let pacing: String
     let analytics: CoreAnalytics
+    let certificatePreviewExperimentManager: FeatureManagerProtocol
     let router: BaseRouter
     let lmsPrice: Double
 
@@ -39,6 +41,7 @@ public class UpgradeInfoViewModel: ObservableObject {
         handler: CourseUpgradeHandlerProtocol,
         pacing: String,
         analytics: CoreAnalytics,
+        certificatePreviewExperimentManager: FeatureManagerProtocol,
         router: BaseRouter,
         lmsPrice: Double
     ) {
@@ -49,6 +52,7 @@ public class UpgradeInfoViewModel: ObservableObject {
         self.handler = handler
         self.pacing = pacing
         self.analytics = analytics
+        self.certificatePreviewExperimentManager = certificatePreviewExperimentManager
         self.router = router
         self.message = message
         self.lmsPrice = lmsPrice
@@ -155,6 +159,7 @@ public class UpgradeInfoViewModel: ObservableObject {
             localizedCurrencyCode: product?.currencyCode,
             lmsPrice: lmsPrice
         )
+        trackOnCertificatePreviewUpgradeClick()
         await handler.upgradeCourse(
             sku: sku,
             mode: mode,
@@ -177,6 +182,7 @@ public class UpgradeInfoViewModel: ObservableObject {
                         self.isLoading = false
                         self.interactiveDismissDisabled = false
                     }
+                    trackOnCertificatePreviewPurchased()
                 default:
                     debugLog("Upgrade state changed: \(state)")
                 }
@@ -191,5 +197,42 @@ public class UpgradeInfoViewModel: ObservableObject {
             lmsPrice: lmsPrice,
             screen: screen
         )
+    }
+    
+    func trackCertificateShown() {
+        let props: [String: Any] = [
+            CertPreviewPropertyKey.courseId.rawValue: courseID,
+            CertPreviewPropertyKey.price.rawValue: lmsPrice
+        ]
+        certificatePreviewExperimentManager.trackEvent(
+            CertPreviewEventKey.certPreviewShown.rawValue,
+            properties: props
+       )
+    }
+ 
+    func trackOnCertificatePreviewUpgradeClick() {
+        let props: [String: Any] = [
+            CertPreviewPropertyKey.courseId.rawValue: courseID,
+            CertPreviewPropertyKey.price.rawValue: lmsPrice
+        ]
+        certificatePreviewExperimentManager.trackEvent(
+            CertPreviewEventKey.certUpgradeNowClicked.rawValue,
+            properties: props
+        )
+    }
+    
+    func trackOnCertificatePreviewPurchased() {
+        let props: [String: Any] = [
+            CertPreviewPropertyKey.courseId.rawValue: courseID,
+            CertPreviewPropertyKey.price.rawValue: lmsPrice
+        ]
+        certificatePreviewExperimentManager.trackEvent(
+            CertPreviewEventKey.certPreviewPurchased.rawValue,
+            properties: props
+        )
+    }
+    
+    func shouldShowCertificatePreview() -> Bool {
+        return certificatePreviewExperimentManager.decision(forKey: FeatureKeys.showCertificatePreview)?.boolValue ?? false
     }
 }

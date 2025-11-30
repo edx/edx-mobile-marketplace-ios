@@ -7,6 +7,10 @@
 
 import Foundation
 
+public enum FeatureKeys {
+    public static let showCertificatePreview = "show_certificate_preview_ios"
+}
+
 /// A service that manages feature flagging, A/B testing, and user identification across different vendors.
 public protocol FeatureManagerProtocol {
     /// Identifies the active user for feature evaluation and tracking.

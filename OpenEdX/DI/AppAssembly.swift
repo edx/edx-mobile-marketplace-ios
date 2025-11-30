@@ -218,6 +218,15 @@ class AppAssembly: Assembly {
         container.register(FirebaseAnalyticsService.self) { _ in
             FirebaseAnalyticsService()
         }.inObjectScope(.container)
+
+        container.register(ExperimentAssignmentStore.self) { _ in
+            CertificateExperimentAssignmentStore()
+        }.inObjectScope(.container)
+        
+        container.register(FeatureManagerProtocol.self) { r in
+            let store = r.resolve(ExperimentAssignmentStore.self)!
+            return CertificatePreviewExperimentManager(assignmentStore: store)
+        }.inObjectScope(.container)
         
         container.register(FullStoryAnalyticsService.self) { _, firebaseEnabled in
             FullStoryAnalyticsService(firebaseEnabled)
@@ -236,12 +245,6 @@ class AppAssembly: Assembly {
                 discoveryInteractor: r.resolve(DiscoveryInteractorProtocol.self)!,
                 courseInteractor: r.resolve(CourseInteractorProtocol.self)!,
                 courseDropDownNavigationEnabled: config.uiComponents.courseDropDownNavigationEnabled
-            )
-        }.inObjectScope(.container)
-
-        container.register(FeatureManagerProtocol.self) { r in
-            FeatureManager(
-                config: r.resolve(ConfigProtocol.self)!
             )
         }.inObjectScope(.container)
 

@@ -8,7 +8,7 @@
 import Foundation
 import EDXFeatureManagement
 import Core
-
+/*
 final class FeatureManager: FeatureManagerProtocol {
     private var optimizelyManager: FeatureManagerProtocol?
 
@@ -36,3 +36,4 @@ final class FeatureManager: FeatureManagerProtocol {
         optimizelyManager?.trackEvent(name, properties: properties)
     }
 }
+*/
