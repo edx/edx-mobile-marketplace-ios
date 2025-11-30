@@ -270,7 +270,7 @@ public class SettingsViewModel: ObservableObject {
                 
                 await strongSelf.upgradeHandler.upgradeCourse(
                     sku: inprogressIAP.sku,
-                    mode: .silent,
+                    mode: .restore,
                     productInfo: product,
                     pacing: inprogressIAP.pacing,
                     courseID: inprogressIAP.courseID,

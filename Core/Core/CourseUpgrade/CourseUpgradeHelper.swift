@@ -233,8 +233,14 @@ public class CourseUpgradeHelper: CourseUpgradeHelperProtocol {
         case .complete:
             removeInProgressIAP(bySKU: sku)
         case .error(let upgradeError):
-            if upgradeError != .verifyReceiptError(upgradeError),
-               upgradeError != .unverifiedCourseError(upgradeError) {
+            switch upgradeError {
+            case .verifyReceiptError(let error):
+                if error.errorCode == 402 {
+                    removeInProgressIAP(bySKU: sku)
+                }
+            case .unverifiedCourseError:
+                break
+            default:
                 removeInProgressIAP(bySKU: sku)
             }
         default:
@@ -291,9 +297,17 @@ extension CourseUpgradeHelper {
                 return
             }
             
+            // don't show alert for 402 error, in case of background restore
+            if case .verifyReceiptError(let nestedError) = error,
+               nestedError.errorCode == 402,
+               upgradeHadler?.upgradeMode == .silent {
+                return
+            }
+            
             var actions: [UIAlertAction] = []
             
-            if case .verifyReceiptError(let nestedError) = error, nestedError.errorCode != 409 {
+            if case .verifyReceiptError(let nestedError) = error,
+               nestedError.errorCode != 409 && nestedError.errorCode != 402 {
                 actions.append(
                     UIAlertAction(
                         title: CoreLocalization.CourseUpgrade.FailureAlert.refreshToRetry,
