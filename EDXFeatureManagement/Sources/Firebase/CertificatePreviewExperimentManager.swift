@@ -41,7 +41,7 @@ public final class CertificatePreviewExperimentManager: FeatureManagerProtocol {
 
     public func identifyUser(id: String, attributes: [String: Any]?) {
         guard let intId = Int(id) else { return }
-        let inTreatment = intId % 2 == 0
+        let inTreatment = intId % 2 != 0
         assignmentStore.showCertificatePreview = inTreatment
     }
 
