@@ -34,7 +34,6 @@ public protocol ConfigProtocol {
     var ecommerceURL: String? { get }
     var fullStory: FullStoryConfig { get }
     var pushNotificationsEnabled: Bool { get }
-    var optimizely: OptimizelyConfig { get }
     var recaptcha: RecaptchaConfig { get }
     var videoPlayer: VideoPlayerConfig { get }
 }

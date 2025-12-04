@@ -21,9 +21,6 @@ let package = Package(
     targets: [
         .target(
             name: "EDXFeatureManagement",
-            dependencies: [
-                .product(name: "Optimizely", package: "swift-sdk")
-            ],
             plugins: [
                 .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
             ]
