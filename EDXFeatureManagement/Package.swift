@@ -16,7 +16,6 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/SimplyDanny/SwiftLintPlugins", from: "0.57.0"),
-        .package(url: "https://github.com/optimizely/swift-sdk.git", from: "5.1.0")
     ],
     targets: [
         .target(
