@@ -23,7 +23,7 @@ struct CertificateView: View {
                         .stroke(Theme.Colors.accentColor.opacity(0.2), lineWidth: 1)
                 )
                             
-            Text("PREVIEW")
+            Text(CoreLocalization.CertificateView.watermark)
                 .font(Theme.Fonts.custom(.bold, 50.0))
                 .foregroundColor(.gray)
                 .opacity(0.2)
@@ -36,16 +36,17 @@ struct CertificateView: View {
                     CoreAssets.verifiedCertificate.swiftUIImage
                         .resizable()
                         .frame(width: 70.0, height: 28.0)
+                        .foregroundStyle(.black)
                     Spacer()
                     VStack(alignment: .leading, spacing: 5.0, content: {
-                        Text("This is to certify that")
+                        Text(CoreLocalization.CertificateView.title)
                             .font(Theme.Fonts.custom(.regular, 8))
                             .foregroundStyle(Theme.Colors.certificateTextGrey)
                         Text(name)
                             .font(Theme.Fonts.custom(.bold, 22))
                             .foregroundStyle(Theme.Colors.certificateTitleTextColor)
                         
-                        Text("has successfully completed all courses and received passing grades for a Verified Certificate in")
+                        Text(CoreLocalization.CertificateView.titleCompleted)
                             .font(Theme.Fonts.custom(.regular, 8))
                             .fixedSize(horizontal: false, vertical: true)
                             .multilineTextAlignment(.leading)
@@ -56,7 +57,7 @@ struct CertificateView: View {
                             .font(Theme.Fonts.custom(.bold, 18))
                             .foregroundStyle(Theme.Colors.certificateTitleTextColor)
                         
-                        Text("a course offered by Google, an online learning partnership between Google & edX.")
+                        Text(CoreLocalization.CertificateView.courseOffered)
                             .font(Theme.Fonts.custom(.regular, 8))
                             .multilineTextAlignment(.leading)
                             .fixedSize(horizontal: false, vertical: true)
@@ -71,22 +72,22 @@ struct CertificateView: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(maxWidth: 57.0, maxHeight: 41.0)
-                                .colorMultiply(Theme.Colors.accentColor)
+                                .colorMultiply(.black)
                         }
                         HStack(spacing: 10.0) {
                             VStack(alignment: .leading) {
-                                Text("Verified Certificate")
+                                Text(CoreLocalization.CertificateView.verified)
                                     .font(Theme.Fonts.custom(.regular, 6))
                                     .foregroundStyle(Theme.Colors.certificateTextGrey)
-                                Text("Issued August 2023")
+                                Text(CoreLocalization.CertificateView.issued)
                                     .font(Theme.Fonts.custom(.regular, 6))
                                     .foregroundStyle(Theme.Colors.certificateLightTextColor)
                             }
                             VStack(alignment: .leading) {
-                                Text("Valid certificate ID:")
+                                Text(CoreLocalization.CertificateView.validityTitle)
                                     .font(Theme.Fonts.custom(.regular, 6))
                                     .foregroundStyle(Theme.Colors.certificateTextGrey)
-                                Text("1234567890")
+                                Text(CoreLocalization.CertificateView.certificateId)
                                     .font(Theme.Fonts.custom(.regular, 6))
                                     .foregroundStyle(Theme.Colors.certificateLightTextColor)
                             }
@@ -102,11 +103,13 @@ struct CertificateView: View {
                     Image(systemName: "globe")
                         .resizable()
                         .frame(width: 20, height: 20)
+                        .foregroundStyle(.black)
                     
                     VStack(alignment: .trailing, spacing: 10.0) {
                         VStack(alignment: .trailing) {
                             CoreAssets.signatureCertificate.swiftUIImage
                                 .padding(.bottom, 5)
+                                .foregroundStyle(.black)
                             Text("Maurilio Pugliesi")
                                 .font(Theme.Fonts.custom(.regular, 8))
                                 .foregroundStyle(Theme.Colors.certificateTextGrey)
@@ -122,6 +125,7 @@ struct CertificateView: View {
                         VStack(alignment: .trailing) {
                             CoreAssets.signatureCertificate.swiftUIImage
                                 .padding(.bottom, 5)
+                                .foregroundStyle(.black)
                             Text("Justine Doe, Ph.D.")
                                 .font(Theme.Fonts.custom(.regular, 8))
                                 .foregroundStyle(Theme.Colors.certificateTextGrey)
@@ -136,6 +140,7 @@ struct CertificateView: View {
                         VStack(alignment: .trailing) {
                             CoreAssets.signatureCertificate.swiftUIImage
                                 .padding(.bottom, 5)
+                                .foregroundStyle(.black)
                             Text("Helga Svobodová")
                                 .font(Theme.Fonts.custom(.regular, 8))
                                 .foregroundStyle(Theme.Colors.certificateTextGrey)
