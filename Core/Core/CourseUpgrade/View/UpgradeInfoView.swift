@@ -200,8 +200,7 @@ public struct UpgradeInfoView<Content>: View where Content: View {
                         isLandscape = newSize.width > newSize.height
                     }
             }
-        )
-        
+        )        
     }
 }
 
