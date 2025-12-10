@@ -198,6 +198,9 @@ public struct GatedContentView: View {
         }
         .onFirstAppear {
             viewModel.trackValuePropViewed()
+            if shouldShowCertificatePreview {
+                viewModel.trackCertificateShown()
+            }
         }
         .background(
             GeometryReader { geometry in
