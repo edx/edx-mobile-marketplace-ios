@@ -419,4 +419,12 @@ public final class FeatureManagerMock: FeatureManagerProtocol {
     public func trackEvent(_ name: String, properties: [String: Any]?) {
         trackedEvents.append((name: name, properties: properties))
     }
+    
+    public func recordCertificatePreviewShownAttempt(forCourseId courseId: String) {
+        
+    }
+    
+    public func attemptsSinceLastCertificatePreviewAndReset(forCourseId courseId: String) -> Int {
+        return 1
+    }
 }
