@@ -13,14 +13,64 @@ public protocol AnalyticsTracking {
 
 public protocol ExperimentAssignmentStore {
     var showCertificatePreview: Bool { get  set}
+    func incrementAttempts(forCourseId courseId: String)
+    func takeAndResetAttempts(forCourseId courseId: String) -> Int
+    func resetAllCertificatePreviewAttempts()
 }
 
 public final class CertificateExperimentAssignmentStore: ExperimentAssignmentStore {
     private let key = "exp.show_certificate_preview"
+    private let attemptsRegistryKey = "exp.show_certificate_preview.attempts.registry"
     public init() {}
     public var showCertificatePreview: Bool {
         get { UserDefaults.standard.bool(forKey: key) }
         set { UserDefaults.standard.set(newValue, forKey: key) }
+    }
+
+    // MARK: - Per-course attempts
+    public func incrementAttempts(forCourseId courseId: String) {
+        let key = attemptsKey(courseId: courseId)
+        let current = UserDefaults.standard.integer(forKey: key)
+        UserDefaults.standard.set(current + 1, forKey: key)
+        addCourseIdToRegistry(courseId)
+    }
+
+    public func takeAndResetAttempts(forCourseId courseId: String) -> Int {
+        let key = attemptsKey(courseId: courseId)
+        let attempts = UserDefaults.standard.integer(forKey: key)
+        UserDefaults.standard.set(0, forKey: key)
+        addCourseIdToRegistry(courseId)
+        return attempts
+    }
+
+    public func resetAllCertificatePreviewAttempts() {
+        let registry = courseIdRegistry()
+        guard !registry.isEmpty else { return }
+        registry.forEach { courseId in
+            let key = attemptsKey(courseId: courseId)
+            UserDefaults.standard.removeObject(forKey: key)
+        }
+        UserDefaults.standard.removeObject(forKey: attemptsRegistryKey)
+    }
+
+    // MARK: - Private
+
+    private func attemptsKey(courseId: String) -> String {
+        return "\(key).attempts.\(courseId)"
+    }
+
+    // Maintain a registry of course IDs that have attempts counters
+    private func addCourseIdToRegistry(_ courseId: String) {
+        var set = courseIdRegistry()
+        if !set.contains(courseId) {
+            set.insert(courseId)
+            UserDefaults.standard.set(Array(set), forKey: attemptsRegistryKey)
+        }
+    }
+
+    private func courseIdRegistry() -> Set<String> {
+        let arr = UserDefaults.standard.array(forKey: attemptsRegistryKey) as? [String] ?? []
+        return Set(arr)
     }
 }
 
@@ -47,6 +97,7 @@ public final class CertificatePreviewExperimentManager: FeatureManagerProtocol {
 
     public func resetUser() {
         assignmentStore.showCertificatePreview = false
+        assignmentStore.resetAllCertificatePreviewAttempts()
     }
 
     public func decision(forKey key: String) -> FeatureDecision? {
@@ -65,5 +116,13 @@ public final class CertificatePreviewExperimentManager: FeatureManagerProtocol {
 
     public func trackEvent(_ name: String, properties: [String: Any]?) {
         analytics.logEvent(name, parameters: properties)
+    }
+        
+    public func recordCertificatePreviewShownAttempt(forCourseId courseId: String) {
+        assignmentStore.incrementAttempts(forCourseId: courseId)
+    }
+    
+    public func attemptsSinceLastCertificatePreviewAndReset(forCourseId courseId: String) -> Int {
+        assignmentStore.takeAndResetAttempts(forCourseId: courseId)
     }
 }

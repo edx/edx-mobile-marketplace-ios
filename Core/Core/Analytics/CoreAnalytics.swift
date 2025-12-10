@@ -651,4 +651,5 @@ public enum CertPreviewPropertyKey: String {
     case price                  = "price"
     case treatment              = "treatment"
     case control                = "control"
+    case attemptsToPurchase     = "attempts_to_purchase"
 }

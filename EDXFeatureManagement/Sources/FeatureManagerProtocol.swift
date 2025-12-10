@@ -56,6 +56,10 @@ public protocol FeatureManagerProtocol {
     ///
     /// - Note: Platforms that don't support metadata or value will gracefully ignore unsupported fields.
     func trackEvent(_ name: String, properties: [String: Any]?)
+    
+    func recordCertificatePreviewShownAttempt(forCourseId courseId: String)
+    
+    func attemptsSinceLastCertificatePreviewAndReset(forCourseId courseId: String) -> Int
 }
 
 public extension FeatureManagerProtocol {
@@ -116,6 +120,14 @@ public final class FeatureManagerMock: FeatureManagerProtocol {
 
     public func trackEvent(_ name: String, properties: [String: Any]?) {
         trackedEvents.append((name: name, properties: properties))
+    }
+    
+    public func recordCertificatePreviewShownAttempt(forCourseId courseId: String) {
+        
+    }
+        
+    public func attemptsSinceLastCertificatePreviewAndReset(forCourseId courseId: String) -> Int {
+        return 1
     }
 }
 #endif

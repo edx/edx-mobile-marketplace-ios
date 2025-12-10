@@ -200,6 +200,7 @@ public class UpgradeInfoViewModel: ObservableObject {
     }
     
     func trackCertificateShown() {
+        certificatePreviewExperimentManager.recordCertificatePreviewShownAttempt(forCourseId: courseID)
         certificatePreviewExperimentManager.trackEvent(
             CertPreviewEventKey.certPreviewShown.rawValue,
             properties: certificatePreviewProps()
@@ -214,9 +215,11 @@ public class UpgradeInfoViewModel: ObservableObject {
     }
     
     func trackOnCertificatePreviewPurchased() {
+        var props = certificatePreviewProps()
+        props[CertPreviewPropertyKey.attemptsToPurchase.rawValue] = certificatePreviewExperimentManager.attemptsSinceLastCertificatePreviewAndReset(forCourseId: courseID)
         certificatePreviewExperimentManager.trackEvent(
             CertPreviewEventKey.certPreviewPurchased.rawValue,
-            properties: certificatePreviewProps()
+            properties: props
         )
     }
     
