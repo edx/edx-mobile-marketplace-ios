@@ -12,16 +12,21 @@ import Swinject
 
 public struct GatedContentView: View {
     @StateObject var viewModel: UpgradeInfoViewModel
-    
+    @State var reader: GeometryProxy
     @State var size: CGSize = .zero
-    @State private var isLandscape: Bool = false
     @Environment(\.verticalSizeClass) private var verticalSizeClass
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
+    private var isLandscape: Bool {
+        return reader.size.width > reader.size.height
+    }
+    
     public init(
-        viewModel: UpgradeInfoViewModel
+        viewModel: UpgradeInfoViewModel,
+        reader: GeometryProxy
     ) {
         self._viewModel = .init(wrappedValue: viewModel)
+        self._reader = .init(wrappedValue: reader)
     }
     
     private var shouldHideText: Bool {
@@ -124,8 +129,6 @@ public struct GatedContentView: View {
                             .padding(.bottom, 42)
                             if shouldShowCertificatePreview {
                                 CertificateView(name: storage?.user?.username ?? "", courseName: viewModel.productName)
-                                    .padding(.leading, isiPad ? 50 : 0)
-                                    .padding(.trailing, isiPad ? 50 : 0)
                                     .padding(.top, 42)
                                     .padding(.bottom, 182)
                             }
@@ -206,11 +209,7 @@ public struct GatedContentView: View {
             GeometryReader { geometry in
                 Color.clear
                     .onAppear {
-                        isLandscape = geometry.size.width > geometry.size.height
                         size = geometry.size
-                    }
-                    .onChange(of: geometry.size) { newSize in
-                        isLandscape = newSize.width > newSize.height
                     }
             }
         )
@@ -219,20 +218,23 @@ public struct GatedContentView: View {
 
 #if DEBUG
 #Preview {
-    GatedContentView(
-        viewModel: UpgradeInfoViewModel(
-            productName: "Preview",
-            message: "",
-            sku: "SKU",
-            courseID: "",
-            screen: .dashboard,
-            handler: CourseUpgradeHandlerProtocolMock(),
-            pacing: "self",
-            analytics: CoreAnalyticsMock(),
-            certificatePreviewExperimentManager: FeatureManagerMock(),
-            router: BaseRouterMock(),
-            lmsPrice: .zero
+    GeometryReader { previewProxy in
+        GatedContentView(
+            viewModel: UpgradeInfoViewModel(
+                productName: "Preview",
+                message: "",
+                sku: "SKU",
+                courseID: "",
+                screen: .dashboard,
+                handler: CourseUpgradeHandlerProtocolMock(),
+                pacing: "self",
+                analytics: CoreAnalyticsMock(),
+                certificatePreviewExperimentManager: FeatureManagerMock(),
+                router: BaseRouterMock(),
+                lmsPrice: .zero
+            ),
+            reader: previewProxy
         )
-    )
+    }
 }
 #endif

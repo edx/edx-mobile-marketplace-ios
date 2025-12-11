@@ -412,7 +412,7 @@ public final class FeatureManagerMock: FeatureManagerProtocol {
     }
 
     public func decision(forKey key: String) -> FeatureDecision? {
-        guard let userID else { return nil }
+        guard userID != nil else { return nil }
         return featureDecisions[key]
     }
 

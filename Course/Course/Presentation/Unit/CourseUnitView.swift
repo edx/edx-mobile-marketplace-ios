@@ -184,7 +184,7 @@ public struct CourseUnitView: View {
                     if block.isGated {
                         if viewModel.serverConfig.valuePropEnabled,
                            let upgradeInfoViewModel = viewModel.upgradeInfoViewModel {
-                            GatedContentView(viewModel: upgradeInfoViewModel)
+                            GatedContentView(viewModel: upgradeInfoViewModel, reader: reader)
                                 .frameLimit(width: reader.size.width)
                         } else {
                             VStack(spacing: 0) {
