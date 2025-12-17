@@ -39,6 +39,8 @@ public protocol DiscoveryRouter: BaseRouter {
         pathID: String,
         viewType: ProgramViewType
     )
+    
+    func showTabScreen(tab: MainTab)
 }
 
 // Mark - For testing and SwiftUI preview
@@ -76,6 +78,8 @@ public class DiscoveryRouterMock: BaseRouterMock, DiscoveryRouter {
         pathID: String,
         viewType: ProgramViewType
     ) {}
+    
+    public func showTabScreen(tab: MainTab) {}
 }
 #endif
 // swiftlint:enable function_parameter_count

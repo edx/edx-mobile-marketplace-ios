@@ -52,8 +52,6 @@
 		149FF39E2B9F1AB50034B33F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 149FF39C2B9F1AB50034B33F /* LaunchScreen.storyboard */; };
 		14BAE68E2D0974B700EAF0E4 /* Notifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14BAE68D2D0974B700EAF0E4 /* Notifications.framework */; };
 		14BAE68F2D0974B700EAF0E4 /* Notifications.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 14BAE68D2D0974B700EAF0E4 /* Notifications.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		14D912D32C25483F0077CCCE /* FullStory in Frameworks */ = {isa = PBXBuildFile; productRef = 14D912D22C25483F0077CCCE /* FullStory */; };
-		14D912D72C2551F60077CCCE /* FullStoryAnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D912D62C2551F60077CCCE /* FullStoryAnalyticsService.swift */; };
 		1924EDE8164C7AB17AD4946B /* Pods_App_OpenEdX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC49621A0942E5EE74BDC895 /* Pods_App_OpenEdX.framework */; };
 		9426DE892DB28B3A00230582 /* EDXFeatureManagement in Frameworks */ = {isa = PBXBuildFile; productRef = 9426DE882DB28B3A00230582 /* EDXFeatureManagement */; };
 		9426DE8D2DB28BD000230582 /* FeatureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9426DE8B2DB28BD000230582 /* FeatureManager.swift */; };
@@ -79,34 +77,6 @@
 		E0D6E6A32B1626B10089F9C9 /* Theme.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0D6E6A22B1626B10089F9C9 /* Theme.framework */; };
 		E0D6E6A42B1626D60089F9C9 /* Theme.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E0D6E6A22B1626B10089F9C9 /* Theme.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
-
-/* Begin PBXBuildRule section */
-		97C7D9712C7E115E00C1BDC0 /* PBXBuildRule */ = {
-			isa = PBXBuildRule;
-			compilerSpec = com.apple.compilers.proxy.script;
-			fileType = sourcecode.swift;
-			inputFiles = (
-			);
-			isEditable = 1;
-			outputFiles = (
-				"$(DERIVED_FILE_DIR)/$(INPUT_FILE_BASE)_transformed.swift",
-			);
-			runOncePerArchitecture = 0;
-			script = "\"${BUILD_DIR%Build/*}/SourcePackages/artifacts/fullstory-swift-package-ios/fullstory/tools/FullStorySwiftUITransformer\" \"$SCRIPT_INPUT_FILE\" \"$DERIVED_FILE_DIR/${INPUT_FILE_BASE}_transformed.swift\"\n";
-		};
-		97C7D9722C7E571800C1BDC0 /* PBXBuildRule */ = {
-			isa = PBXBuildRule;
-			compilerSpec = com.apple.xcode.tools.swift.compiler;
-			filePatterns = "*_transformed.swift";
-			fileType = pattern.proxy;
-			inputFiles = (
-			);
-			isEditable = 1;
-			outputFiles = (
-			);
-			script = "# Type a script or drag a script file from your workspace to insert its path.\n";
-		};
-/* End PBXBuildRule section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		0770DE1528D07845006D8A5D /* Embed Frameworks */ = {
@@ -168,13 +138,12 @@
 		0770DE6528D0BCC7006D8A5D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0780ABE72BFCA1530093A4A6 /* NotificationsEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsEndpoints.swift; sourceTree = "<group>"; };
 		07A7D78E28F5C9060000BE81 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		07D5DA3128D075AA00752FD9 /* edX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = edX.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		07D5DA3128D075AA00752FD9 /* OpenEdX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenEdX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07D5DA3428D075AA00752FD9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		07D5DA3D28D075AB00752FD9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		146CF94B2D0C0248000955B2 /* NotificationsPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsPersistence.swift; sourceTree = "<group>"; };
 		149FF39D2B9F1AB50034B33F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		14BAE68D2D0974B700EAF0E4 /* Notifications.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Notifications.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		14D912D62C2551F60077CCCE /* FullStoryAnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullStoryAnalyticsService.swift; sourceTree = "<group>"; };
 		1BB1F1D0FABF8788646FBAF2 /* Pods-App-OpenEdX.debugstage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-OpenEdX.debugstage.xcconfig"; path = "Target Support Files/Pods-App-OpenEdX/Pods-App-OpenEdX.debugstage.xcconfig"; sourceTree = "<group>"; };
 		37C50995093E34142FDE0ED9 /* Pods-App-OpenEdX.releasedev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-OpenEdX.releasedev.xcconfig"; path = "Target Support Files/Pods-App-OpenEdX/Pods-App-OpenEdX.releasedev.xcconfig"; sourceTree = "<group>"; };
 		9426DE8B2DB28BD000230582 /* FeatureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureManager.swift; sourceTree = "<group>"; };
@@ -223,7 +192,6 @@
 				A5BD3E302B83B0F7006A8983 /* SegmentFirebase in Frameworks */,
 				149B52D92C5FE5AB00C7BF5D /* FirebaseCrashlytics in Frameworks */,
 				A51CDBED2B6D2BEE009B6D4E /* SegmentBraze in Frameworks */,
-				14D912D32C25483F0077CCCE /* FullStory in Frameworks */,
 				A51CDBEF2B6D2BEE009B6D4E /* SegmentBrazeUI in Frameworks */,
 				1924EDE8164C7AB17AD4946B /* Pods_App_OpenEdX.framework in Frameworks */,
 			);
@@ -287,7 +255,7 @@
 		07D5DA3228D075AA00752FD9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				07D5DA3128D075AA00752FD9 /* edX.app */,
+				07D5DA3128D075AA00752FD9 /* OpenEdX.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -311,14 +279,6 @@
 				0770DE6628D0BCC7006D8A5D /* Localizable.strings */,
 			);
 			path = OpenEdX;
-			sourceTree = "<group>";
-		};
-		14D912D52C2551CE0077CCCE /* FullStoryAnalyticsService */ = {
-			isa = PBXGroup;
-			children = (
-				14D912D62C2551F60077CCCE /* FullStoryAnalyticsService.swift */,
-			);
-			path = FullStoryAnalyticsService;
 			sourceTree = "<group>";
 		};
 		4E6FB43543890E90BB88D64D /* Frameworks */ = {
@@ -383,7 +343,6 @@
 				A50066892B613E990024680B /* AnalyticsManager */,
 				A59702272B83C84800CA064C /* FirebaseAnalyticsService */,
 				A5C10D8D2B861A56008E864D /* SegmentAnalyticsService */,
-				14D912D52C2551CE0077CCCE /* FullStoryAnalyticsService */,
 				9426DE8C2DB28BD000230582 /* FeatureManager */,
 			);
 			path = Managers;
@@ -482,12 +441,9 @@
 				07D5DA2F28D075AA00752FD9 /* Resources */,
 				0770DE1528D07845006D8A5D /* Embed Frameworks */,
 				DB97C0542B002EF00035C36F /* Process Config */,
-				14D912D42C25493C0077CCCE /* Run FullStory Asset Uploader */,
 				02F175442A4E3B320019CD70 /* FirebaseCrashlytics */,
 			);
 			buildRules = (
-				97C7D9722C7E571800C1BDC0 /* PBXBuildRule */,
-				97C7D9712C7E115E00C1BDC0 /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
@@ -500,13 +456,12 @@
 				A5462D9E2B865713003B96A5 /* Segment */,
 				0780ABE22BFBA2E40093A4A6 /* FirebaseAnalytics */,
 				0780ABE42BFBA2E40093A4A6 /* FirebaseMessaging */,
-				14D912D22C25483F0077CCCE /* FullStory */,
 				149B52D82C5FE5AB00C7BF5D /* FirebaseCrashlytics */,
 				94F4AC6B2DAD398200D50B61 /* FirebasePerformance */,
 				9426DE882DB28B3A00230582 /* EDXFeatureManagement */,
 			);
 			productName = OpenEdX;
-			productReference = 07D5DA3128D075AA00752FD9 /* edX.app */;
+			productReference = 07D5DA3128D075AA00752FD9 /* OpenEdX.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -540,7 +495,6 @@
 				A5BD3E2E2B83B0F7006A8983 /* XCRemoteSwiftPackageReference "analytics-swift-firebase" */,
 				A5462D9D2B865713003B96A5 /* XCRemoteSwiftPackageReference "analytics-swift" */,
 				0780ABE12BFBA2E40093A4A6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				14D912D12C25483F0077CCCE /* XCRemoteSwiftPackageReference "fullstory-swift-package-ios" */,
 				9426DE872DB28B3900230582 /* XCLocalSwiftPackageReference "EDXFeatureManagement" */,
 			);
 			productRefGroup = 07D5DA3228D075AA00752FD9 /* Products */;
@@ -608,24 +562,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
-		};
-		14D912D42C25493C0077CCCE /* Run FullStory Asset Uploader */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Run FullStory Asset Uploader";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${BUILD_DIR%Build/*}/SourcePackages/artifacts/fullstory-swift-package-ios/fullstory/tools/FullStoryCommandLine\" \"${CONFIGURATION_BUILD_DIR}/${WRAPPER_NAME}\"\n";
 		};
 		B9442FD26CE9A85A43FC2CFA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -699,7 +635,6 @@
 				024E69202AEFC3FB00FA0B59 /* MainScreenViewModel.swift in Sources */,
 				065275372BB1B4070093BCCA /* PipManager.swift in Sources */,
 				0770DE2028D0858A006D8A5D /* Router.swift in Sources */,
-				14D912D72C2551F60077CCCE /* FullStoryAnalyticsService.swift in Sources */,
 				0293A2092A6FCDE50090A336 /* DashboardPersistence.swift in Sources */,
 				146CF94C2D0C0248000955B2 /* NotificationsPersistence.swift in Sources */,
 				0770DE1728D080A1006D8A5D /* RouteController.swift in Sources */,
@@ -822,8 +757,7 @@
 				CODE_SIGN_ENTITLEMENTS = OpenEdX/OpenEdX.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9G78FK843Y;
-				FULLSTORY_ENABLED = YES;
+				DEVELOPMENT_TEAM = L8PG7LC3Y3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OpenEdX/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
@@ -836,9 +770,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 6.2.3;
-				PRODUCT_BUNDLE_IDENTIFIER = org.edx.mobile;
-				PRODUCT_NAME = "edX Stage";
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.openedx.app.stage;
+				PRODUCT_NAME = "$(TARGET_NAME) Stage";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -911,8 +845,7 @@
 				CODE_SIGN_ENTITLEMENTS = OpenEdX/OpenEdX.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9G78FK843Y;
-				FULLSTORY_ENABLED = YES;
+				DEVELOPMENT_TEAM = L8PG7LC3Y3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OpenEdX/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
@@ -925,9 +858,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 6.2.3;
-				PRODUCT_BUNDLE_IDENTIFIER = org.edx.mobile;
-				PRODUCT_NAME = "edX Stage";
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.openedx.app.stage;
+				PRODUCT_NAME = "$(TARGET_NAME) Stage";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1007,8 +940,7 @@
 				CODE_SIGN_ENTITLEMENTS = OpenEdX/OpenEdX.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9G78FK843Y;
-				FULLSTORY_ENABLED = YES;
+				DEVELOPMENT_TEAM = L8PG7LC3Y3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OpenEdX/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
@@ -1021,9 +953,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 6.2.3;
-				PRODUCT_BUNDLE_IDENTIFIER = org.edx.mobile;
-				PRODUCT_NAME = "edX Dev";
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.openedx.app.dev;
+				PRODUCT_NAME = "$(TARGET_NAME) Dev";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1096,8 +1028,7 @@
 				CODE_SIGN_ENTITLEMENTS = OpenEdX/OpenEdX.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9G78FK843Y;
-				FULLSTORY_ENABLED = YES;
+				DEVELOPMENT_TEAM = L8PG7LC3Y3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OpenEdX/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
@@ -1110,9 +1041,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 6.2.3;
-				PRODUCT_BUNDLE_IDENTIFIER = org.edx.mobile;
-				PRODUCT_NAME = "edX Dev";
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.openedx.app.dev;
+				PRODUCT_NAME = "$(TARGET_NAME) Dev";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1246,8 +1177,7 @@
 				CODE_SIGN_ENTITLEMENTS = OpenEdX/OpenEdX.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9G78FK843Y;
-				FULLSTORY_ENABLED = YES;
+				DEVELOPMENT_TEAM = L8PG7LC3Y3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OpenEdX/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
@@ -1260,9 +1190,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 6.2.3;
-				PRODUCT_BUNDLE_IDENTIFIER = org.edx.mobile;
-				PRODUCT_NAME = edX;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.openedx.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1281,8 +1211,7 @@
 				CODE_SIGN_ENTITLEMENTS = OpenEdX/OpenEdX.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9G78FK843Y;
-				FULLSTORY_ENABLED = YES;
+				DEVELOPMENT_TEAM = L8PG7LC3Y3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OpenEdX/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
@@ -1295,9 +1224,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 6.2.3;
-				PRODUCT_BUNDLE_IDENTIFIER = org.edx.mobile;
-				PRODUCT_NAME = edX;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.openedx.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1355,14 +1284,6 @@
 				minimumVersion = 10.26.0;
 			};
 		};
-		14D912D12C25483F0077CCCE /* XCRemoteSwiftPackageReference "fullstory-swift-package-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/fullstorydev/fullstory-swift-package-ios";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.51.1;
-			};
-		};
 		A51CDBEB2B6D2BEE009B6D4E /* XCRemoteSwiftPackageReference "braze-segment-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/braze-inc/braze-segment-swift";
@@ -1411,11 +1332,6 @@
 		149B52D82C5FE5AB00C7BF5D /* FirebaseCrashlytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = FirebaseCrashlytics;
-		};
-		14D912D22C25483F0077CCCE /* FullStory */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 14D912D12C25483F0077CCCE /* XCRemoteSwiftPackageReference "fullstory-swift-package-ios" */;
-			productName = FullStory;
 		};
 		9426DE882DB28B3A00230582 /* EDXFeatureManagement */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -57,35 +57,6 @@ class AnalyticsManager: AuthorizationAnalytics,
             analyticsServices.append(segmentService)
         }
         
-        /**
-         This check is `edX/2U` specific.
-         We only want to record FullStory events for the `PROD` environment for the following reasons:
-         
-         1. `Dev` & `Stage` environments use an `orgID` of a test organization named `2U - Mobile Apps`.
-            We do not want to record events or other data for this test organization.
-         
-         2. Initially, we set up conditional loading for the FullStory SDK, but it caused issues with enabling
-            SwiftUI-based views in FullStory sessions.
-         
-            We reached out to FullStory's technical support, who informed us that conditional integration of the
-            FullStory SDK is not possible.
-         
-            As a workaround, we used the test organization `2U - Mobile Apps` and its `orgID` for the `Dev` and
-            `Stage` environments to avoid disrupting SDK functionality.
-         
-            We have also communicated our usage strategy to FullStory's support team and requested a more effective
-            solution in future SDK updates.
-         */
-        #if PROD
-        if config.fullStory.enabled,
-           let fullStoryService = Container.shared.resolve(
-            FullStoryAnalyticsService.self,
-            argument: config.firebase.enabled
-           ) {
-            analyticsServices.append(fullStoryService)
-        }
-        #endif
-        
         return analyticsServices
     }
     

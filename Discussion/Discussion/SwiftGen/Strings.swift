@@ -141,6 +141,8 @@ public enum DiscussionLocalization {
   public enum Thread {
     /// Add a response
     public static let addResponse = DiscussionLocalization.tr("Localizable", "THREAD.ADD_RESPONSE", fallback: "Add a response")
+    /// Discussion
+    public static let title = DiscussionLocalization.tr("Localizable", "THREAD.TITLE", fallback: "Discussion")
     public enum Alert {
       /// Comment added
       public static let commentAdded = DiscussionLocalization.tr("Localizable", "THREAD.ALERT.COMMENT_ADDED", fallback: "Comment added")

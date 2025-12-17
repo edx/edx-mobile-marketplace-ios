@@ -32,6 +32,7 @@
 
 "POST.LAST_POST" = "Last post:";
 
+"THREAD.TITLE" = "Discussion";
 "THREAD.ALERT.COMMENT_ADDED" = "Comment added";
 "THREAD.ADD_RESPONSE" = "Add a response";
 

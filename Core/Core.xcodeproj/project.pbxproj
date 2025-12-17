@@ -175,8 +175,6 @@
 		14A832632BD8D54100E5654D /* Dictionary+SafeAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A832622BD8D54100E5654D /* Dictionary+SafeAccess.swift */; };
 		14A832662BD8D5BD00E5654D /* Dictionary+SafeAccessTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A832652BD8D5BD00E5654D /* Dictionary+SafeAccessTests.swift */; };
 		14A832682BDA8B6000E5654D /* UIAlertController+BlockActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A832672BDA8B6000E5654D /* UIAlertController+BlockActions.swift */; };
-		14D912D92C2553C70077CCCE /* FullStoryConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D912D82C2553C70077CCCE /* FullStoryConfig.swift */; };
-		14D912DB2C257E9E0077CCCE /* FullStoryConfigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D912DA2C257E9E0077CCCE /* FullStoryConfigTests.swift */; };
 		14DE13DA2BDF7E5E0059168F /* IAPConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DE13D92BDF7E5E0059168F /* IAPConfig.swift */; };
 		14DE13DC2BDF83350059168F /* ServerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DE13DB2BDF83350059168F /* ServerConfig.swift */; };
 		14F8E66B2C0F4D1200E4EF69 /* RestoreInProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F8E66A2C0F4D1200E4EF69 /* RestoreInProgressView.swift */; };
@@ -431,8 +429,6 @@
 		14A832622BD8D54100E5654D /* Dictionary+SafeAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+SafeAccess.swift"; sourceTree = "<group>"; };
 		14A832652BD8D5BD00E5654D /* Dictionary+SafeAccessTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+SafeAccessTests.swift"; sourceTree = "<group>"; };
 		14A832672BDA8B6000E5654D /* UIAlertController+BlockActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+BlockActions.swift"; sourceTree = "<group>"; };
-		14D912D82C2553C70077CCCE /* FullStoryConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullStoryConfig.swift; sourceTree = "<group>"; };
-		14D912DA2C257E9E0077CCCE /* FullStoryConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullStoryConfigTests.swift; sourceTree = "<group>"; };
 		14DE13D92BDF7E5E0059168F /* IAPConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPConfig.swift; sourceTree = "<group>"; };
 		14DE13DB2BDF83350059168F /* ServerConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfig.swift; sourceTree = "<group>"; };
 		14F8E66A2C0F4D1200E4EF69 /* RestoreInProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreInProgressView.swift; sourceTree = "<group>"; };
@@ -1160,7 +1156,6 @@
 				02CA59832BD7DDBE00D517AA /* DashboardConfig.swift */,
 				A53A32342B233DEC005FE38A /* ThemeConfig.swift */,
 				E0D586192B2FF74C009B4BA7 /* DiscoveryConfig.swift */,
-				14D912D82C2553C70077CCCE /* FullStoryConfig.swift */,
 				94D1FC4C2DA7F39F000A904F /* OptimizelyConfig.swift */,
 				94E4988C2E3764CE00A48451 /* RecaptchaConfig.swift */,
 				94E333FD2E41F47C00444444 /* VideoPlayerConfig.swift */,
@@ -1182,7 +1177,6 @@
 			children = (
 				E09179FC2B0F204D002AB695 /* ConfigTests.swift */,
 				BAD9CA412B2B140100DE790A /* AgreementConfigTests.swift */,
-				14D912DA2C257E9E0077CCCE /* FullStoryConfigTests.swift */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -1377,7 +1371,6 @@
 			files = (
 				BAD9CA422B2B140100DE790A /* AgreementConfigTests.swift in Sources */,
 				14A832662BD8D5BD00E5654D /* Dictionary+SafeAccessTests.swift in Sources */,
-				14D912DB2C257E9E0077CCCE /* FullStoryConfigTests.swift in Sources */,
 				E09179FD2B0F204E002AB695 /* ConfigTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1460,7 +1453,6 @@
 				06078B702BA49C3100576798 /* Dictionary+JSON.swift in Sources */,
 				9784D47E2BF7762800AFEFFF /* FullScreenErrorView.swift in Sources */,
 				027BD3AE2909475000392132 /* KeyboardScrollerOptions.swift in Sources */,
-				14D912D92C2553C70077CCCE /* FullStoryConfig.swift in Sources */,
 				BAFB99922B14E23D007D09F9 /* AppleSignInConfig.swift in Sources */,
 				141F1D302B7328D4009E81EB /* WebviewCookiesUpdateProtocol.swift in Sources */,
 				062C69B32C198337002BD311 /* PaymentSnackbarModifierViewModel.swift in Sources */,

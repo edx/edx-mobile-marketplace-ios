@@ -191,8 +191,8 @@ extension ProgramWebviewViewModel: WebViewNavigationDelegate {
             guard let pathID = detailPathID(from: url) else { return false }
             router.showWebProgramDetails(pathID: pathID, viewType: .programDetail)
             
-        default:
-            break
+        case .courseProgram:
+            router.showTabScreen(tab: .discovery)
         }
         
         return true

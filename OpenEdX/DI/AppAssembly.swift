@@ -218,10 +218,6 @@ class AppAssembly: Assembly {
         container.register(FirebaseAnalyticsService.self) { _ in
             FirebaseAnalyticsService()
         }.inObjectScope(.container)
-        
-        container.register(FullStoryAnalyticsService.self) { _, firebaseEnabled in
-            FullStoryAnalyticsService(firebaseEnabled)
-        }.inObjectScope(.container)
 
         container.register(CaptchaService.self) { r in
             DefaultCaptchaService(
