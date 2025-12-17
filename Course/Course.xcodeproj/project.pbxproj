@@ -95,6 +95,7 @@
 		BAC0E0DE2B32F0F3006B68A9 /* DownloadsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC0E0DD2B32F0F3006B68A9 /* DownloadsViewModel.swift */; };
 		BAD9CA2D2B2736BB00DE790A /* LessonLineProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD9CA2C2B2736BB00DE790A /* LessonLineProgressView.swift */; };
 		BAD9CA4A2B2C88E000DE790A /* CourseVideoDownloadBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD9CA492B2C88E000DE790A /* CourseVideoDownloadBarView.swift */; };
+		D399500B2EDCD16D00B81F8A /* EDXFeatureManagement in Frameworks */ = {isa = PBXBuildFile; productRef = D399500A2EDCD16D00B81F8A /* EDXFeatureManagement */; };
 		DB205BFB2AE81B1200136EC2 /* CourseDateViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB205BFA2AE81B1200136EC2 /* CourseDateViewModelTests.swift */; };
 		DB7D6EAC2ADFCAC50036BB13 /* CourseDatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7D6EAB2ADFCAC40036BB13 /* CourseDatesView.swift */; };
 		DB7D6EAE2ADFCB4A0036BB13 /* CourseDatesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7D6EAD2ADFCB4A0036BB13 /* CourseDatesViewModel.swift */; };
@@ -240,6 +241,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				023812E8297AC8EB0087098F /* Course.framework in Frameworks */,
+				D399500B2EDCD16D00B81F8A /* EDXFeatureManagement in Frameworks */,
 				B8F50317B6B830A0E520C954 /* Pods_App_Course_CourseTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -735,6 +737,9 @@
 				uk,
 			);
 			mainGroup = 0289F8E428E1C3510064F8F3;
+			packageReferences = (
+				D39950092EDCD16D00B81F8A /* XCLocalSwiftPackageReference "../EDXFeatureManagement" */,
+			);
 			productRefGroup = 0289F8EF28E1C3510064F8F3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1961,6 +1966,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		D39950092EDCD16D00B81F8A /* XCLocalSwiftPackageReference "../EDXFeatureManagement" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../EDXFeatureManagement;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D399500A2EDCD16D00B81F8A /* EDXFeatureManagement */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = EDXFeatureManagement;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		02280F5C294B4FDA0032823A /* CourseCoreModel.xcdatamodeld */ = {

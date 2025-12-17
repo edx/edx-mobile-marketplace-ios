@@ -340,3 +340,31 @@ public extension EnvironmentValues {
         return false
     }
 }
+
+public extension View {
+    @ViewBuilder
+    func debugBounds(
+        _ lineWidth: CGFloat = 1,
+        color: Color = .random,
+        cornerRadius: CGFloat = 0,
+        showSize: Bool = false
+    ) -> some View {
+        self.overlay(
+            GeometryReader { proxy in
+                ZStack(alignment: .topLeading) {
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .stroke(color, lineWidth: lineWidth)
+                    if showSize {
+                        Text("\(Int(proxy.size.width))×\(Int(proxy.size.height))")
+                            .font(.caption2)
+                            .padding(2)
+                            .background(Color.black.opacity(0.6))
+                            .foregroundColor(.white)
+                            .cornerRadius(4)
+                            .offset(x: 2, y: 2)
+                    }
+                }
+            }
+        )
+    }
+}

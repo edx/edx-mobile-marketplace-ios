@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Theme
+import EDXFeatureManagement
 
 public struct UpgradeInfoSheetView: View {
     @Environment(\.dismiss) private var dismiss
@@ -28,13 +29,13 @@ public struct UpgradeInfoSheetView: View {
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem(placement: .navigationBarLeading) {
                     Button {
                         if !viewModel.interactiveDismissDisabled {
                             dismiss()
                         }
                     } label: {
-                        Image(systemName: "xmark")
+                        Image(asset: ImageAsset(name: "arrowLeft"))
                             .foregroundColor(Theme.Colors.accentColor)
                     }
                     .accessibilityIdentifier("close_button")
@@ -58,6 +59,7 @@ public struct UpgradeInfoSheetView: View {
             handler: CourseUpgradeHandlerProtocolMock(),
             pacing: "self",
             analytics: CoreAnalyticsMock(),
+            certificatePreviewExperimentManager: FeatureManagerMock(),
             router: BaseRouterMock(),
             lmsPrice: .zero
         )
