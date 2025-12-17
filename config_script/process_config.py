@@ -247,32 +247,6 @@ class ConfigurationManager:
             scheme = ["msauth." + bundle_identifier]
             self.add_url_scheme(scheme, plist, False)
             self.add_application_query_schemes(["msauthv2", "msauthv3"], plist)
-            
-    def add_fullstory_config(self, config, plist):
-        fullstory = config.get('FULLSTORY', {})
-        enabled = fullstory.get('ENABLED')
-        orgID = fullstory.get('ORG_ID')
-        recordOnStart = fullstory.get('RECORD_ON_START')
-        swiftUIEnabled = fullstory.get('SWIFTUI_ENABLED')
-        swiftUISelectorVersion = fullstory.get('SWIFTUI_SELECTOR_VERSION')
-        swiftUIPreviewVersion = fullstory.get('SWIFTUI_PREVIEW_VERSION')
-
-        if enabled and orgID:
-            plist["FullStory"] = {
-            "orgID": orgID,
-            "RecordOnStart": recordOnStart,
-            "SwiftUIEnabled": swiftUIEnabled,
-            "SwiftUISelectorVersion": swiftUISelectorVersion,
-            "SwiftUISelectorPreview": swiftUIPreviewVersion
-            }
-        else:
-            plist["FullStory"] = {
-            "orgID": '00000',
-            "RecordOnStart": False,
-            "SwiftUIEnabled": True,
-            "SwiftUISelectorVersion": 3,
-            "SwiftUISelectorPreview": 2
-            }
 
     def update_info_plist(self, plist_data, plist_path):
         if not plist_path:
@@ -329,7 +303,6 @@ def process_plist_files(configuration_manager, plist_manager, config):
     configuration_manager.add_google_config(config, info_plist_content)
     configuration_manager.add_microsoft_config(config, info_plist_content)
     configuration_manager.add_branch_config(config, info_plist_content)
-    configuration_manager.add_fullstory_config(config, info_plist_content)
 
     configuration_manager.update_info_plist(info_plist_content, info_plist_path)
 
