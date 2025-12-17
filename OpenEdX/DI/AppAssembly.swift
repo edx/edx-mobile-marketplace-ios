@@ -219,6 +219,24 @@ class AppAssembly: Assembly {
             FirebaseAnalyticsService()
         }.inObjectScope(.container)
 
+        container.register(ExperimentAssignmentStore.self) { _ in
+            CertificateExperimentAssignmentStore()
+        }.inObjectScope(.container)
+        
+        container.register(AnalyticsTracking.self) { _ in
+            FirebaseAnalyticsTracker()
+        }
+        .inObjectScope(.container)
+        
+        container.register(FeatureManagerProtocol.self) { r in
+            let store = r.resolve(ExperimentAssignmentStore.self)!
+            let tracker = r.resolve(AnalyticsTracking.self)!
+            return CertificatePreviewExperimentManager(
+                assignmentStore: store,
+                analytics: tracker
+            )
+        }.inObjectScope(.container)
+        
         container.register(CaptchaService.self) { r in
             DefaultCaptchaService(
                 config: r.resolve(ConfigProtocol.self)!
@@ -232,12 +250,6 @@ class AppAssembly: Assembly {
                 discoveryInteractor: r.resolve(DiscoveryInteractorProtocol.self)!,
                 courseInteractor: r.resolve(CourseInteractorProtocol.self)!,
                 courseDropDownNavigationEnabled: config.uiComponents.courseDropDownNavigationEnabled
-            )
-        }.inObjectScope(.container)
-
-        container.register(FeatureManagerProtocol.self) { r in
-            FeatureManager(
-                config: r.resolve(ConfigProtocol.self)!
             )
         }.inObjectScope(.container)
 

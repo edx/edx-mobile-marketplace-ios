@@ -83,7 +83,9 @@ public struct Theme {
         public private(set) static var primerHeaderBG = primaryCardUpgradeBG
         public private(set) static var primerHeaderButtonText = ThemeAssets.primerHeaderButtonText.swiftUIColor
         public private(set) static var primerContentBG = textInputBackground
-
+        public private(set) static var certificateLightTextColor = ThemeAssets.certificateTextLightGrey.swiftUIColor
+        public private(set) static var certificateTitleTextColor = ThemeAssets.certificateTitleTextColor.swiftUIColor
+        public private(set) static var certificateTextGrey = ThemeAssets.certificateTextGrey.swiftUIColor
         public static func update(
             accentColor: Color = ThemeAssets.accentColor.swiftUIColor,
             accentXColor: Color = ThemeAssets.accentXColor.swiftUIColor,
@@ -223,6 +225,10 @@ public struct Theme {
         public static let labelLarge: Font = .custom(fontsParser.fontName(for: .medium), size: 14)
         public static let labelMedium: Font = .custom(fontsParser.fontName(for: .regular), size: 12)
         public static let labelSmall: Font = .custom(fontsParser.fontName(for: .regular), size: 10)
+                
+        public static func custom(_ font: FontIdentifier = .regular, _ size: CGFloat = 10) -> Font {
+            return .custom(fontsParser.fontName(for: font), size: size)
+        }
     }
     
     public struct UIFonts {

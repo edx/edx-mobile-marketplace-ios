@@ -52,6 +52,24 @@ public enum CoreLocalization {
     /// Remove
     public static let remove = CoreLocalization.tr("Localizable", "ALERT.REMOVE", fallback: "Remove")
   }
+  public enum CertificateView {
+    /// 1234567890
+    public static let certificateId = CoreLocalization.tr("Localizable", "CERTIFICATE_VIEW.CERTIFICATE_ID", fallback: "1234567890")
+    /// a course offered by Google, an online learning partnership between Google & edX.
+    public static let courseOffered = CoreLocalization.tr("Localizable", "CERTIFICATE_VIEW.COURSE_OFFERED", fallback: "a course offered by Google, an online learning partnership between Google & edX.")
+    /// Issued August 2023
+    public static let issued = CoreLocalization.tr("Localizable", "CERTIFICATE_VIEW.ISSUED", fallback: "Issued August 2023")
+    /// This is to certify that
+    public static let title = CoreLocalization.tr("Localizable", "CERTIFICATE_VIEW.TITLE", fallback: "This is to certify that")
+    /// has successfully completed all courses and received passing grades for a Verified Certificate in
+    public static let titleCompleted = CoreLocalization.tr("Localizable", "CERTIFICATE_VIEW.TITLE_COMPLETED", fallback: "has successfully completed all courses and received passing grades for a Verified Certificate in")
+    /// Valid certificate ID:
+    public static let validityTitle = CoreLocalization.tr("Localizable", "CERTIFICATE_VIEW.VALIDITY_TITLE", fallback: "Valid certificate ID:")
+    /// Verified Certificate
+    public static let verified = CoreLocalization.tr("Localizable", "CERTIFICATE_VIEW.VERIFIED", fallback: "Verified Certificate")
+    /// PREVIEW
+    public static let watermark = CoreLocalization.tr("Localizable", "CERTIFICATE_VIEW.WATERMARK", fallback: "PREVIEW")
+  }
   public enum Course {
     /// Ended on %@
     public static func ended(_ p1: Any) -> String {

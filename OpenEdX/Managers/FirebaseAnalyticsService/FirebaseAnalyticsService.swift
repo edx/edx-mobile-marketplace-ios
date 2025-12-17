@@ -8,6 +8,7 @@
 import Foundation
 import Core
 import FirebaseAnalytics
+import FirebaseCore
 
 private let MaxParameterValueCharacters = 100
 private let MaxNameValueCharacters = 40

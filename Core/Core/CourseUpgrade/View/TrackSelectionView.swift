@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Theme
+import EDXFeatureManagement
 
 public struct TrackSelectionView: View {
     @Environment(\.isHorizontal) private var isHorizontal
@@ -141,6 +142,7 @@ public struct TrackSelectionView: View {
             accessExpires: Date(),
             handler: CourseUpgradeHandlerProtocolMock(),
             analytics: CoreAnalyticsMock(),
+            certificatePreviewExperimentManager: FeatureManagerMock(),
             router: BaseRouterMock()
         )
     )

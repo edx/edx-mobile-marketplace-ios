@@ -54,7 +54,6 @@
 		14BAE68F2D0974B700EAF0E4 /* Notifications.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 14BAE68D2D0974B700EAF0E4 /* Notifications.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1924EDE8164C7AB17AD4946B /* Pods_App_OpenEdX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC49621A0942E5EE74BDC895 /* Pods_App_OpenEdX.framework */; };
 		9426DE892DB28B3A00230582 /* EDXFeatureManagement in Frameworks */ = {isa = PBXBuildFile; productRef = 9426DE882DB28B3A00230582 /* EDXFeatureManagement */; };
-		9426DE8D2DB28BD000230582 /* FeatureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9426DE8B2DB28BD000230582 /* FeatureManager.swift */; };
 		94AE32322D8838E400FA048D /* Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AE32312D8838DE00FA048D /* Payload.swift */; };
 		94F4AC6C2DAD398200D50B61 /* FirebasePerformance in Frameworks */ = {isa = PBXBuildFile; productRef = 94F4AC6B2DAD398200D50B61 /* FirebasePerformance */; };
 		A500668B2B613ED10024680B /* PushNotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A500668A2B613ED10024680B /* PushNotificationsManager.swift */; };
@@ -74,6 +73,7 @@
 		A5C10D8F2B861A70008E864D /* SegmentAnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C10D8E2B861A70008E864D /* SegmentAnalyticsService.swift */; };
 		BA3042792B1F7147009B64B7 /* MSAL in Frameworks */ = {isa = PBXBuildFile; productRef = BA3042782B1F7147009B64B7 /* MSAL */; };
 		BA7468762B96201D00793145 /* DeepLinkRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7468752B96201D00793145 /* DeepLinkRouter.swift */; };
+		D39950082EDCB82100B81F8A /* FirebaseAnalyticsTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39950072EDCB81800B81F8A /* FirebaseAnalyticsTracker.swift */; };
 		E0D6E6A32B1626B10089F9C9 /* Theme.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0D6E6A22B1626B10089F9C9 /* Theme.framework */; };
 		E0D6E6A42B1626D60089F9C9 /* Theme.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E0D6E6A22B1626B10089F9C9 /* Theme.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -146,7 +146,6 @@
 		14BAE68D2D0974B700EAF0E4 /* Notifications.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Notifications.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BB1F1D0FABF8788646FBAF2 /* Pods-App-OpenEdX.debugstage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-OpenEdX.debugstage.xcconfig"; path = "Target Support Files/Pods-App-OpenEdX/Pods-App-OpenEdX.debugstage.xcconfig"; sourceTree = "<group>"; };
 		37C50995093E34142FDE0ED9 /* Pods-App-OpenEdX.releasedev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-OpenEdX.releasedev.xcconfig"; path = "Target Support Files/Pods-App-OpenEdX/Pods-App-OpenEdX.releasedev.xcconfig"; sourceTree = "<group>"; };
-		9426DE8B2DB28BD000230582 /* FeatureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureManager.swift; sourceTree = "<group>"; };
 		94AE32312D8838DE00FA048D /* Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payload.swift; sourceTree = "<group>"; };
 		A500668A2B613ED10024680B /* PushNotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationsManager.swift; sourceTree = "<group>"; };
 		A500668C2B6143000024680B /* FCMProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMProvider.swift; sourceTree = "<group>"; };
@@ -162,6 +161,7 @@
 		A681C3929FC384F83BCB6648 /* Pods-App-OpenEdX.debugprod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-OpenEdX.debugprod.xcconfig"; path = "Target Support Files/Pods-App-OpenEdX/Pods-App-OpenEdX.debugprod.xcconfig"; sourceTree = "<group>"; };
 		AA8BE99557031F3F33F8037C /* Pods-App-OpenEdX.releasestage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-OpenEdX.releasestage.xcconfig"; path = "Target Support Files/Pods-App-OpenEdX/Pods-App-OpenEdX.releasestage.xcconfig"; sourceTree = "<group>"; };
 		BA7468752B96201D00793145 /* DeepLinkRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkRouter.swift; sourceTree = "<group>"; };
+		D39950072EDCB81800B81F8A /* FirebaseAnalyticsTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAnalyticsTracker.swift; sourceTree = "<group>"; };
 		DAD1882A21DDAF1F67E4C546 /* Pods-App-OpenEdX.debugdev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-OpenEdX.debugdev.xcconfig"; path = "Target Support Files/Pods-App-OpenEdX/Pods-App-OpenEdX.debugdev.xcconfig"; sourceTree = "<group>"; };
 		E0D6E6A22B1626B10089F9C9 /* Theme.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Theme.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC49621A0942E5EE74BDC895 /* Pods_App_OpenEdX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_App_OpenEdX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -315,14 +315,6 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		9426DE8C2DB28BD000230582 /* FeatureManager */ = {
-			isa = PBXGroup;
-			children = (
-				9426DE8B2DB28BD000230582 /* FeatureManager.swift */,
-			);
-			path = FeatureManager;
-			sourceTree = "<group>";
-		};
 		A50066872B613E4B0024680B /* PushNotificationsManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -398,6 +390,7 @@
 		A59702272B83C84800CA064C /* FirebaseAnalyticsService */ = {
 			isa = PBXGroup;
 			children = (
+				D39950072EDCB81800B81F8A /* FirebaseAnalyticsTracker.swift */,
 				A59702282B83C87900CA064C /* FirebaseAnalyticsService.swift */,
 			);
 			path = FirebaseAnalyticsService;
@@ -611,7 +604,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9426DE8D2DB28BD000230582 /* FeatureManager.swift in Sources */,
 				0780ABE82BFCA1530093A4A6 /* NotificationsEndpoints.swift in Sources */,
 				A500668B2B613ED10024680B /* PushNotificationsManager.swift in Sources */,
 				0293A2052A6FCD430090A336 /* CoursePersistence.swift in Sources */,
@@ -640,6 +632,7 @@
 				0770DE1728D080A1006D8A5D /* RouteController.swift in Sources */,
 				A59568952B61630500ED4F90 /* DeepLinkManager.swift in Sources */,
 				A50066952B614DEF0024680B /* BrazeListener.swift in Sources */,
+				D39950082EDCB82100B81F8A /* FirebaseAnalyticsTracker.swift in Sources */,
 				071009C928D1DB3F00344290 /* ScreenAssembly.swift in Sources */,
 				A59568972B61653700ED4F90 /* DeepLink.swift in Sources */,
 				A5C10D8F2B861A70008E864D /* SegmentAnalyticsService.swift in Sources */,

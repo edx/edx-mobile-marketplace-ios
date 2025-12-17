@@ -193,7 +193,6 @@
 		9499F1262D41375B00558D59 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9499F1252D41375B00558D59 /* AppEnvironment.swift */; };
 		94AE32362D8B329D00FA048D /* NotificationBellButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AE32352D8B329D00FA048D /* NotificationBellButton.swift */; };
 		94D1FC482DA6AF44000A904F /* EDXFeatureManagement in Frameworks */ = {isa = PBXBuildFile; productRef = 94D1FC472DA6AF44000A904F /* EDXFeatureManagement */; };
-		94D1FC4D2DA7F3A6000A904F /* OptimizelyConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D1FC4C2DA7F39F000A904F /* OptimizelyConfig.swift */; };
 		94E333FE2E41F47C00444444 /* VideoPlayerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E333FD2E41F47C00444444 /* VideoPlayerConfig.swift */; };
 		94E4988D2E3764D300A48451 /* RecaptchaConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E4988C2E3764CE00A48451 /* RecaptchaConfig.swift */; };
 		94E5D5962DE4959900DE43ED /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E5D5952DE4959600DE43ED /* AppTheme.swift */; };
@@ -239,6 +238,7 @@
 		BAFB99922B14E23D007D09F9 /* AppleSignInConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFB99912B14E23D007D09F9 /* AppleSignInConfig.swift */; };
 		C8C446EF233F81B9FABB77D2 /* Pods_App_Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 349B90CD6579F7B8D257E515 /* Pods_App_Core.framework */; };
 		CFC84952299F8B890055E497 /* Debounce.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC84951299F8B890055E497 /* Debounce.swift */; };
+		D3D3D4CB2EE18D0B00FB1482 /* CertificateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D3D4CA2EE18D0B00FB1482 /* CertificateView.swift */; };
 		DBF6F2412B014ADA0098414B /* FirebaseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF6F2402B014ADA0098414B /* FirebaseConfig.swift */; };
 		DBF6F2462B01DAFE0098414B /* AgreementConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF6F2452B01DAFE0098414B /* AgreementConfig.swift */; };
 		DBF6F24A2B0380E00098414B /* FeaturesConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF6F2492B0380E00098414B /* FeaturesConfig.swift */; };
@@ -450,7 +450,6 @@
 		949094982DC8E44700A341D4 /* TrackCardInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackCardInfo.swift; sourceTree = "<group>"; };
 		9499F1252D41375B00558D59 /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
 		94AE32352D8B329D00FA048D /* NotificationBellButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationBellButton.swift; sourceTree = "<group>"; };
-		94D1FC4C2DA7F39F000A904F /* OptimizelyConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptimizelyConfig.swift; sourceTree = "<group>"; };
 		94E333FD2E41F47C00444444 /* VideoPlayerConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerConfig.swift; sourceTree = "<group>"; };
 		94E4988C2E3764CE00A48451 /* RecaptchaConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecaptchaConfig.swift; sourceTree = "<group>"; };
 		94E5D5952DE4959600DE43ED /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
@@ -495,6 +494,7 @@
 		BAFB99912B14E23D007D09F9 /* AppleSignInConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSignInConfig.swift; sourceTree = "<group>"; };
 		C7E5BCE79CE297B20777B27A /* Pods-App-Core.debugprod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Core.debugprod.xcconfig"; path = "Target Support Files/Pods-App-Core/Pods-App-Core.debugprod.xcconfig"; sourceTree = "<group>"; };
 		CFC84951299F8B890055E497 /* Debounce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debounce.swift; sourceTree = "<group>"; };
+		D3D3D4CA2EE18D0B00FB1482 /* CertificateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateView.swift; sourceTree = "<group>"; };
 		DBF6F2402B014ADA0098414B /* FirebaseConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConfig.swift; sourceTree = "<group>"; };
 		DBF6F2452B01DAFE0098414B /* AgreementConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementConfig.swift; sourceTree = "<group>"; };
 		DBF6F2492B0380E00098414B /* FeaturesConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturesConfig.swift; sourceTree = "<group>"; };
@@ -982,6 +982,7 @@
 				14F8E66A2C0F4D1200E4EF69 /* RestoreInProgressView.swift */,
 				942C4D512DC505F1002BA81C /* TrackSelectionView.swift */,
 				942C4D532DC508B7002BA81C /* TrackCardView.swift */,
+				D3D3D4CA2EE18D0B00FB1482 /* CertificateView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1156,7 +1157,6 @@
 				02CA59832BD7DDBE00D517AA /* DashboardConfig.swift */,
 				A53A32342B233DEC005FE38A /* ThemeConfig.swift */,
 				E0D586192B2FF74C009B4BA7 /* DiscoveryConfig.swift */,
-				94D1FC4C2DA7F39F000A904F /* OptimizelyConfig.swift */,
 				94E4988C2E3764CE00A48451 /* RecaptchaConfig.swift */,
 				94E333FD2E41F47C00444444 /* VideoPlayerConfig.swift */,
 			);
@@ -1393,6 +1393,7 @@
 				0727877728D23847002E9142 /* DataLayer.swift in Sources */,
 				0241666B28F5A78B00082765 /* HTMLFormattedText.swift in Sources */,
 				02D800CC29348F460099CF16 /* ImagePicker.swift in Sources */,
+				D3D3D4CB2EE18D0B00FB1482 /* CertificateView.swift in Sources */,
 				062C69A82C198323002BD311 /* PaymentSnakbarView.swift in Sources */,
 				027BD3B92909476200392132 /* KeyboardAvoidingModifier.swift in Sources */,
 				BA4AFB422B5A7A0900A21367 /* VideoDownloadQualityView.swift in Sources */,
@@ -1456,7 +1457,6 @@
 				BAFB99922B14E23D007D09F9 /* AppleSignInConfig.swift in Sources */,
 				141F1D302B7328D4009E81EB /* WebviewCookiesUpdateProtocol.swift in Sources */,
 				062C69B32C198337002BD311 /* PaymentSnackbarModifierViewModel.swift in Sources */,
-				94D1FC4D2DA7F3A6000A904F /* OptimizelyConfig.swift in Sources */,
 				064987992B4D69FF0071642A /* WebViewScriptInjectionProtocol.swift in Sources */,
 				14F8E66B2C0F4D1200E4EF69 /* RestoreInProgressView.swift in Sources */,
 				027BD3BE2909478B00392132 /* UIResponder+CurrentResponder.swift in Sources */,

@@ -33,7 +33,6 @@ public protocol ConfigProtocol {
     var URIScheme: String { get }
     var ecommerceURL: String? { get }
     var pushNotificationsEnabled: Bool { get }
-    var optimizely: OptimizelyConfig { get }
     var recaptcha: RecaptchaConfig { get }
     var videoPlayer: VideoPlayerConfig { get }
 }

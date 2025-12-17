@@ -636,3 +636,20 @@ public struct EventCategory {
     public static let learn = "learn"
     public static let myCourses = "my_courses"
 }
+
+public enum CertPreviewEventKey: String {
+    case certPreviewShown           = "Payments_Cert_Preview_Shown"
+    case certPreviewPurchased       = "Payments_Cert_Preview_Purchased"
+    case certCourseCompleted        = "Payments_Cert_Course_Completed"
+    case certUpgradeNowClicked      = "Payments_Upgrade_Now_Clicked"
+}
+
+public enum CertPreviewPropertyKey: String {
+    case showCertificatePreview = "show_certificate_preview"
+    case certPreviewVariant     = "cert_preview_variant"
+    case courseId               = "course_id"
+    case price                  = "price"
+    case treatment              = "treatment"
+    case control                = "control"
+    case attemptsToPurchase     = "attempts_to_purchase"
+}

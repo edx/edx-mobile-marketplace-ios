@@ -7,6 +7,10 @@
 
 import Foundation
 
+public enum FeatureKeys {
+    public static let showCertificatePreview = "show_certificate_preview_ios"
+}
+
 /// A service that manages feature flagging, A/B testing, and user identification across different vendors.
 public protocol FeatureManagerProtocol {
     /// Identifies the active user for feature evaluation and tracking.
@@ -52,6 +56,10 @@ public protocol FeatureManagerProtocol {
     ///
     /// - Note: Platforms that don't support metadata or value will gracefully ignore unsupported fields.
     func trackEvent(_ name: String, properties: [String: Any]?)
+    
+    func recordCertificatePreviewShownAttempt(forCourseId courseId: String)
+    
+    func attemptsSinceLastCertificatePreviewAndReset(forCourseId courseId: String) -> Int
 }
 
 public extension FeatureManagerProtocol {
@@ -112,6 +120,14 @@ public final class FeatureManagerMock: FeatureManagerProtocol {
 
     public func trackEvent(_ name: String, properties: [String: Any]?) {
         trackedEvents.append((name: name, properties: properties))
+    }
+    
+    public func recordCertificatePreviewShownAttempt(forCourseId courseId: String) {
+        
+    }
+        
+    public func attemptsSinceLastCertificatePreviewAndReset(forCourseId courseId: String) -> Int {
+        return 1
     }
 }
 #endif

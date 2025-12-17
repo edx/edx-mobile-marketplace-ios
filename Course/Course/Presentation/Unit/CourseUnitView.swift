@@ -26,6 +26,7 @@ public struct CourseUnitView: View {
     }
     @State var offsetView: CGPoint = .zero
     @State var showDiscussion: Bool = false
+    @State var size: CGSize = .zero
     @Environment(\.isPresented) private var isPresented
     @Environment(\.isHorizontal) private var isHorizontal
     public let playerStateSubject = CurrentValueSubject<VideoPlayerState?, Never>(nil)
@@ -144,6 +145,14 @@ public struct CourseUnitView: View {
             Theme.Colors.background
                 .ignoresSafeArea()
         )
+        .background(
+            GeometryReader { geometry in
+                Color.clear
+                    .onAppear {
+                        size = geometry.size
+                    }
+            }
+        )
         .dropdownAnimation(isActive: isDropdownActive, value: showDropdown)
     }
 
@@ -175,7 +184,7 @@ public struct CourseUnitView: View {
                     if block.isGated {
                         if viewModel.serverConfig.valuePropEnabled,
                            let upgradeInfoViewModel = viewModel.upgradeInfoViewModel {
-                            GatedContentView(viewModel: upgradeInfoViewModel)
+                            GatedContentView(viewModel: upgradeInfoViewModel, reader: reader)
                                 .frameLimit(width: reader.size.width)
                         } else {
                             VStack(spacing: 0) {
@@ -444,7 +453,7 @@ public struct CourseUnitView: View {
                 }
             }//.frame(height: isHorizontal ? nil : 44)
 
-            .padding(.bottom, isHorizontal ? 0 : 50)
+            .padding(.bottom, isHorizontal ? 0 : size.width <= 375 ? 20 : 50)
             .padding(.top, isHorizontal ? 12 : 0)
         }
     }
