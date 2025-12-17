@@ -237,10 +237,6 @@ class AppAssembly: Assembly {
             )
         }.inObjectScope(.container)
         
-        container.register(FullStoryAnalyticsService.self) { _, firebaseEnabled in
-            FullStoryAnalyticsService(firebaseEnabled)
-        }.inObjectScope(.container)
-
         container.register(CaptchaService.self) { r in
             DefaultCaptchaService(
                 config: r.resolve(ConfigProtocol.self)!
