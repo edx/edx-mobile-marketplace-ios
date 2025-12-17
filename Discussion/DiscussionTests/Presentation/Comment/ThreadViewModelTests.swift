@@ -327,8 +327,8 @@ final class ThreadViewModelTests: XCTestCase {
                                         responseID: "1",
                                         analytics: DiscussionAnalyticsMock())
                         
-        Given(interactor, .readBody(threadID: .any, willThrow: NSError()))
-        Given(interactor, .getQuestionComments(threadID: .any, page: .any, willThrow: NSError()))
+        Given(interactor, .readBody(threadID: .any, willThrow: NSError(domain: "error", code: -1, userInfo: nil)))
+        Given(interactor, .getQuestionComments(threadID: .any, page: .any, willThrow: NSError(domain: "error", code: -1, userInfo: nil)))
                 
         result = await viewModel.getThreadData(thread: threads.threads[0], page: 1)
         
@@ -431,7 +431,7 @@ final class ThreadViewModelTests: XCTestCase {
                                         responseID: "1",
                                         analytics: DiscussionAnalyticsMock())
                         
-        Given(interactor, .addCommentTo(threadID: .any, rawBody: .any, parentID: .any, willThrow: NSError()) )
+        Given(interactor, .addCommentTo(threadID: .any, rawBody: .any, parentID: .any, willThrow: NSError(domain: "error", code: -1, userInfo: nil)) )
                 
         await viewModel.postComment(courseID: "CourseID", threadID: "1", rawBody: "1", parentID: nil)
         

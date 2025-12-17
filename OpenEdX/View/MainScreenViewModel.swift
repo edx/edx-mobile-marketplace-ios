@@ -15,6 +15,14 @@ import Combine
 import Authorization
 import UserNotifications
 
+public enum MainTab {
+    case discovery
+    case dashboard
+    case programs
+    case downloads
+    case profile
+}
+
 @MainActor
 final class MainScreenViewModel: ObservableObject {
     
@@ -95,6 +103,10 @@ final class MainScreenViewModel: ObservableObject {
     
     func trackMainProgramsTabClicked() {
         analytics.mainProgramsTabClicked()
+    }
+    
+    func trackMainDownloadsTabClicked() {
+        analytics.mainDownloadsTabClicked()
     }
     
     func trackMainProfileTabClicked() {

@@ -224,7 +224,7 @@ struct CourseHeaderView: View {
             leftImage: Image(systemName: "lock.fill"),
             imagesStyle: .attachedToText,
             isTitleTracking: false,
-            isLimitedOnPad: false
+            maxWidthIpad: 260
         )
     }
 }

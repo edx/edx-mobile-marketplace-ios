@@ -16,8 +16,6 @@ public enum CoreLocalization {
   public static let close = CoreLocalization.tr("Localizable", "CLOSE", fallback: "Close")
   /// Done
   public static let done = CoreLocalization.tr("Localizable", "DONE", fallback: "Done")
-  /// Feedback
-  public static let feedbackEmailSubject = CoreLocalization.tr("Localizable", "FEEDBACK_EMAIL_SUBJECT", fallback: "Feedback")
   /// Ok
   public static let ok = CoreLocalization.tr("Localizable", "OK", fallback: "Ok")
   /// View in Safari
@@ -55,40 +53,58 @@ public enum CoreLocalization {
     public static let signIn = CoreLocalization.tr("Localizable", "ALERT.SIGN_IN", fallback: "Sign in")
   }
   public enum Course {
-    /// Ended on %@
-    public static func ended(_ p1: Any) -> String {
-      return CoreLocalization.tr("Localizable", "COURSE.ENDED", String(describing: p1), fallback: "Ended on %@")
+    public enum Alert {
+      /// Cancel
+      public static let cancel = CoreLocalization.tr("Localizable", "COURSE.ALERT.CANCEL", fallback: "Cancel")
+      /// Close
+      public static let close = CoreLocalization.tr("Localizable", "COURSE.ALERT.CLOSE", fallback: "Close")
+      /// Downloading this content will use %@ of cellular data.
+      public static func confirmDownloadCellularDescription(_ p1: Any) -> String {
+        return CoreLocalization.tr("Localizable", "COURSE.ALERT.CONFIRM_DOWNLOAD_CELLULAR_DESCRIPTION", String(describing: p1), fallback: "Downloading this content will use %@ of cellular data.")
+      }
+      /// Download on Cellular?
+      public static let confirmDownloadCellularTitle = CoreLocalization.tr("Localizable", "COURSE.ALERT.CONFIRM_DOWNLOAD_CELLULAR_TITLE", fallback: "Download on Cellular?")
+      /// Downloading this %@ of content will save available blocks offline.
+      public static func confirmDownloadDescription(_ p1: Any) -> String {
+        return CoreLocalization.tr("Localizable", "COURSE.ALERT.CONFIRM_DOWNLOAD_DESCRIPTION", String(describing: p1), fallback: "Downloading this %@ of content will save available blocks offline.")
+      }
+      /// Confirm Download
+      public static let confirmDownloadTitle = CoreLocalization.tr("Localizable", "COURSE.ALERT.CONFIRM_DOWNLOAD_TITLE", fallback: "Confirm Download")
+      /// Download
+      public static let download = CoreLocalization.tr("Localizable", "COURSE.ALERT.DOWNLOAD", fallback: "Download")
+      /// Remove
+      public static let remove = CoreLocalization.tr("Localizable", "COURSE.ALERT.REMOVE", fallback: "Remove")
+      /// Removing this content will free up %@.
+      public static func removeDescription(_ p1: Any) -> String {
+        return CoreLocalization.tr("Localizable", "COURSE.ALERT.REMOVE_DESCRIPTION", String(describing: p1), fallback: "Removing this content will free up %@.")
+      }
+      /// Remove Offline Content?
+      public static let removeTitle = CoreLocalization.tr("Localizable", "COURSE.ALERT.REMOVE_TITLE", fallback: "Remove Offline Content?")
+      /// Try again
+      public static let tryAgain = CoreLocalization.tr("Localizable", "COURSE.ALERT.TRY_AGAIN", fallback: "Try again")
     }
-    /// Ends %@
-    public static func ending(_ p1: Any) -> String {
-      return CoreLocalization.tr("Localizable", "COURSE.ENDING", String(describing: p1), fallback: "Ends %@")
+    public enum Error {
+      /// Unfortunately, this content failed to download. Please try again later or report this issue.
+      public static let downloadFailedDescription = CoreLocalization.tr("Localizable", "COURSE.ERROR.DOWNLOAD_FAILED_DESCRIPTION", fallback: "Unfortunately, this content failed to download. Please try again later or report this issue.")
+      /// Download Failed
+      public static let downloadFailedTitle = CoreLocalization.tr("Localizable", "COURSE.ERROR.DOWNLOAD_FAILED_TITLE", fallback: "Download Failed")
+      /// Downloading this content requires an active internet connection. Please connect to the internet and try again.
+      public static let noInternetConnectionDescription = CoreLocalization.tr("Localizable", "COURSE.ERROR.NO_INTERNET_CONNECTION_DESCRIPTION", fallback: "Downloading this content requires an active internet connection. Please connect to the internet and try again.")
+      /// No Internet Connection
+      public static let noInternetConnectionTitle = CoreLocalization.tr("Localizable", "COURSE.ERROR.NO_INTERNET_CONNECTION_TITLE", fallback: "No Internet Connection")
+      /// Downloading this content requires an active WiFi connection. Please connect to a WiFi network and try again.
+      public static let wifiRequiredDescription = CoreLocalization.tr("Localizable", "COURSE.ERROR.WIFI_REQUIRED_DESCRIPTION", fallback: "Downloading this content requires an active WiFi connection. Please connect to a WiFi network and try again.")
+      /// Wi-Fi Required
+      public static let wifiRequiredTitle = CoreLocalization.tr("Localizable", "COURSE.ERROR.WIFI_REQUIRED_TITLE", fallback: "Wi-Fi Required")
     }
-    /// Soon
-    public static let soon = CoreLocalization.tr("Localizable", "COURSE.SOON", fallback: "Soon")
-    /// Starts %@
-    public static func starting(_ p1: Any) -> String {
-      return CoreLocalization.tr("Localizable", "COURSE.STARTING", String(describing: p1), fallback: "Starts %@")
-    }
-    public enum Audit {
-      /// Access expired %@
-      public static func expiredAgo(_ p1: Any) -> String {
-        return CoreLocalization.tr("Localizable", "COURSE.AUDIT.EXPIRED_AGO", String(describing: p1), fallback: "Access expired %@")
-      }
-      /// Access expired %@ days ago
-      public static func expiredDaysAgo(_ p1: Any) -> String {
-        return CoreLocalization.tr("Localizable", "COURSE.AUDIT.EXPIRED_DAYS_AGO", String(describing: p1), fallback: "Access expired %@ days ago")
-      }
-      /// Expired on %@
-      public static func expiredOn(_ p1: Any) -> String {
-        return CoreLocalization.tr("Localizable", "COURSE.AUDIT.EXPIRED_ON", String(describing: p1), fallback: "Expired on %@")
-      }
-      /// Access expires in %@
-      public static func expiresIn(_ p1: Any) -> String {
-        return CoreLocalization.tr("Localizable", "COURSE.AUDIT.EXPIRES_IN", String(describing: p1), fallback: "Access expires in %@")
-      }
-      /// Access expires %@
-      public static func expiresOn(_ p1: Any) -> String {
-        return CoreLocalization.tr("Localizable", "COURSE.AUDIT.EXPIRES_ON", String(describing: p1), fallback: "Access expires %@")
+    public enum StorageAlert {
+      /// Your device does not have enough free space to download this content. Please free up some space and try again.
+      public static let description = CoreLocalization.tr("Localizable", "COURSE.STORAGE_ALERT.DESCRIPTION", fallback: "Your device does not have enough free space to download this content. Please free up some space and try again.")
+      /// Device Storage Full
+      public static let title = CoreLocalization.tr("Localizable", "COURSE.STORAGE_ALERT.TITLE", fallback: "Device Storage Full")
+      /// %@ used, %@ free
+      public static func usedAndFree(_ p1: Any, _ p2: Any) -> String {
+        return CoreLocalization.tr("Localizable", "COURSE.STORAGE_ALERT.USED_AND_FREE", String(describing: p1), String(describing: p2), fallback: "%@ used, %@ free")
       }
     }
   }
@@ -178,108 +194,6 @@ public enum CoreLocalization {
       }
     }
   }
-  public enum CourseUpgrade {
-    /// Your email is not set up on this device. Please reach out to {email} for support processing your payment.
-    public static let emailNotSetupMessage = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.EMAIL_NOT_SETUP_MESSAGE", fallback: "Your email is not set up on this device. Please reach out to {email} for support processing your payment.")
-    /// Email not set up
-    public static let emailNotSetupTitle = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.EMAIL_NOT_SETUP_TITLE", fallback: "Email not set up")
-    /// Unlock graded assignments
-    public static let learnHowToUnlock = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.LEARN_HOW_TO_UNLOCK", fallback: "Unlock graded assignments")
-    /// Error upgrading course in app
-    public static let supportEmailSubject = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.SUPPORT_EMAIL_SUBJECT", fallback: "Error upgrading course in app")
-    /// full access 
-    public static let unlockingFullAccess = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.UNLOCKING_FULL_ACCESS", fallback: "full access ")
-    /// Unlocking 
-    public static let unlockingText = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.UNLOCKING_TEXT", fallback: "Unlocking ")
-    /// to your course
-    public static let unlockingToCourse = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.UNLOCKING_TO_COURSE", fallback: "to your course")
-    public enum Button {
-      /// Back
-      public static let back = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.BUTTON.BACK", fallback: "Back")
-      /// Find a new course
-      public static let findCourse = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.BUTTON.FIND_COURSE", fallback: "Find a new course")
-      /// Upgrade to access more features
-      public static let upgrade = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.BUTTON.UPGRADE", fallback: "Upgrade to access more features")
-    }
-    public enum FailureAlert {
-      /// An error occurred
-      public static let alertTitle = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.FAILURE_ALERT.ALERT_TITLE", fallback: "An error occurred")
-      /// Your account could not be authenticated. Try signing out and signing back into the app. If this error continues, please contact Support.
-      public static let authenticationErrorMessage = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.FAILURE_ALERT.AUTHENTICATION_ERROR_MESSAGE", fallback: "Your account could not be authenticated. Try signing out and signing back into the app. If this error continues, please contact Support.")
-      /// The course you are looking to upgrade has already been paid for. For additional help, reach out to Support.
-      public static let courseAlreadyPaid = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.FAILURE_ALERT.COURSE_ALREADY_PAID", fallback: "The course you are looking to upgrade has already been paid for. For additional help, reach out to Support.")
-      /// The course you are looking to upgrade could not be found. Please try your upgrade again. If this error continues, contact Support.
-      public static let courseNotFount = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.FAILURE_ALERT.COURSE_NOT_FOUNT", fallback: "The course you are looking to upgrade could not be found. Please try your upgrade again. If this error continues, contact Support.")
-      /// Something happened when we tried to update your course experience. If this error continues, reach out to Support for help.
-      public static let courseNotFullfilled = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.FAILURE_ALERT.COURSE_NOT_FULLFILLED", fallback: "Something happened when we tried to update your course experience. If this error continues, reach out to Support for help.")
-      /// It looks like something went wrong when upgrading your course. If this error continues, please contact Support.
-      public static let generalErrorMessage = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.FAILURE_ALERT.GENERAL_ERROR_MESSAGE", fallback: "It looks like something went wrong when upgrading your course. If this error continues, please contact Support.")
-      /// Get help
-      public static let getHelp = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.FAILURE_ALERT.GET_HELP", fallback: "Get help")
-      /// Your payment could not be processed at this time. Please try again. For additional help, reach out to Support.
-      public static let paymentNotProcessed = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.FAILURE_ALERT.PAYMENT_NOT_PROCESSED", fallback: "Your payment could not be processed at this time. Please try again. For additional help, reach out to Support.")
-      /// Try again
-      public static let priceFetchError = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.FAILURE_ALERT.PRICE_FETCH_ERROR", fallback: "Try again")
-      /// Your request could not be completed at this time. If this error continues, please reach out to Support.
-      public static let priceFetchErrorMessage = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.FAILURE_ALERT.PRICE_FETCH_ERROR_MESSAGE", fallback: "Your request could not be completed at this time. If this error continues, please reach out to Support.")
-      /// Refresh to retry
-      public static let refreshToRetry = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.FAILURE_ALERT.REFRESH_TO_RETRY", fallback: "Refresh to retry")
-    }
-    public enum Restore {
-      /// All purchases are up to date. If you’re not seeing your purchases restored, please try restarting your app to refresh the experience.
-      public static let alertMessage = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.RESTORE.ALERT_MESSAGE", fallback: "All purchases are up to date. If you’re not seeing your purchases restored, please try restarting your app to refresh the experience.")
-      /// Purchases have been successfully restored
-      public static let alertTitle = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.RESTORE.ALERT_TITLE", fallback: "Purchases have been successfully restored")
-      /// Checking purchases...
-      public static let inprogressText = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.RESTORE.INPROGRESS_TEXT", fallback: "Checking purchases...")
-    }
-    public enum Snackbar {
-      /// Thank you for your purchase. Enjoy full access to your course!
-      public static let successMessage = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.SNACKBAR.SUCCESS_MESSAGE", fallback: "Thank you for your purchase. Enjoy full access to your course!")
-      /// Course upgraded
-      public static let title = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.SNACKBAR.TITLE", fallback: "Course upgraded")
-    }
-    public enum SuccessAlert {
-      /// Continue
-      public static let continueButtonTitle = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.SUCCESS_ALERT.CONTINUE_BUTTON_TITLE", fallback: "Continue")
-      /// Thank you for your purchase. You can pick up right where you left off and enjoy full access to your course content.
-      public static let message = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.SUCCESS_ALERT.MESSAGE", fallback: "Thank you for your purchase. You can pick up right where you left off and enjoy full access to your course content.")
-      /// Continue without update
-      public static let silentAlertContinue = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.SUCCESS_ALERT.SILENT_ALERT_CONTINUE", fallback: "Continue without update")
-      /// An update is available to unlock a purchased course. To update, we need to quickly refresh your app. If you choose not to update now, we’ll try again later.
-      public static let silentAlertMessage = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.SUCCESS_ALERT.SILENT_ALERT_MESSAGE", fallback: "An update is available to unlock a purchased course. To update, we need to quickly refresh your app. If you choose not to update now, we’ll try again later.")
-      /// Refresh now
-      public static let silentAlertRefresh = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.SUCCESS_ALERT.SILENT_ALERT_REFRESH", fallback: "Refresh now")
-      /// New experience available
-      public static let silentAlertTitle = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.SUCCESS_ALERT.SILENT_ALERT_TITLE", fallback: "New experience available")
-      /// Upgrade complete
-      public static let title = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.SUCCESS_ALERT.TITLE", fallback: "Upgrade complete")
-    }
-    public enum View {
-      /// Your free audit access to this course expired on #####. Please upgrade to continue learning and receive a verified certificate.
-      public static let auditMessage = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.VIEW.AUDIT_MESSAGE", fallback: "Your free audit access to this course expired on #####. Please upgrade to continue learning and receive a verified certificate.")
-      /// #####
-      public static let datePlaceholder = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.VIEW.DATE_PLACEHOLDER", fallback: "#####")
-      /// Your free audit access to this course expired on #####.
-      public static let endDateMessage = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.VIEW.END_DATE_MESSAGE", fallback: "Your free audit access to this course expired on #####.")
-      /// This course will begin on #####. Come back then to start learning!
-      public static let startDateMessage = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.VIEW.START_DATE_MESSAGE", fallback: "This course will begin on #####. Come back then to start learning!")
-      /// Upgrade
-      public static let title = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.VIEW.TITLE", fallback: "Upgrade")
-      public enum Button {
-        /// Upgrade now for
-        public static let upgradeNow = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.VIEW.BUTTON.UPGRADE_NOW", fallback: "Upgrade now for")
-      }
-      public enum Option {
-        /// Earn a certificate of completion to showcase on your resume
-        public static let first = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.VIEW.OPTION.FIRST", fallback: "Earn a certificate of completion to showcase on your resume")
-        /// Unlock access to all course activities, including graded assignments
-        public static let second = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.VIEW.OPTION.SECOND", fallback: "Unlock access to all course activities, including graded assignments")
-        /// Full access to course content and course material even after the course ends
-        public static let third = CoreLocalization.tr("Localizable", "COURSE_UPGRADE.VIEW.OPTION.THIRD", fallback: "Full access to course content and course material even after the course ends")
-      }
-    }
-  }
   public enum Date {
     /// Course Ended
     public static let courseEnded = CoreLocalization.tr("Localizable", "DATE.COURSE_ENDED", fallback: "Course Ended")
@@ -293,11 +207,23 @@ public enum CoreLocalization {
     }
     /// Due 
     public static let due = CoreLocalization.tr("Localizable", "DATE.DUE", fallback: "Due ")
+    /// %@ Days Past Due: %@
+    public static func dueDatePast(_ p1: Any, _ p2: Any) -> String {
+      return CoreLocalization.tr("Localizable", "DATE.DUE_DATE_PAST", String(describing: p1), String(describing: p2), fallback: "%@ Days Past Due: %@")
+    }
     /// Due in 
     public static let dueIn = CoreLocalization.tr("Localizable", "DATE.DUE_IN", fallback: "Due in ")
     /// Due in %@ Days
     public static func dueInDays(_ p1: Any) -> String {
       return CoreLocalization.tr("Localizable", "DATE.DUE_IN_DAYS", String(describing: p1), fallback: "Due in %@ Days")
+    }
+    /// Due in %@ Days: %@
+    public static func dueInLeft(_ p1: Any, _ p2: Any) -> String {
+      return CoreLocalization.tr("Localizable", "DATE.DUE_IN_LEFT", String(describing: p1), String(describing: p2), fallback: "Due in %@ Days: %@")
+    }
+    /// Due Today: %@
+    public static func dueToday(_ p1: Any) -> String {
+      return CoreLocalization.tr("Localizable", "DATE.DUE_TODAY", String(describing: p1), fallback: "Due Today: %@")
     }
     /// Ended
     public static let ended = CoreLocalization.tr("Localizable", "DATE.ENDED", fallback: "Ended")
@@ -322,6 +248,12 @@ public enum CoreLocalization {
     /// MMMM dd, yyyy
     public static let mmmmDdYyyy = CoreLocalization.tr("Localizable", "DATE_FORMAT.MMMM_DD_YYYY", fallback: "MMMM dd, yyyy")
   }
+  public enum Download {
+    /// Download
+    public static let download = CoreLocalization.tr("Localizable", "DOWNLOAD.DOWNLOAD", fallback: "Download")
+    /// The videos you've selected are larger than 1 GB. Do you want to download these videos?
+    public static let downloadLargeFileMessage = CoreLocalization.tr("Localizable", "DOWNLOAD.DOWNLOAD_LARGE_FILE_MESSAGE", fallback: "The videos you've selected are larger than 1 GB. Do you want to download these videos?")
+  }
   public enum DownloadManager {
     /// Completed
     public static let completed = CoreLocalization.tr("Localizable", "DOWNLOAD_MANAGER.COMPLETED", fallback: "Completed")
@@ -333,8 +265,6 @@ public enum CoreLocalization {
   public enum Error {
     /// Authorization failed.
     public static let authorizationFailed = CoreLocalization.tr("Localizable", "ERROR.AUTHORIZATION_FAILED", fallback: "Authorization failed.")
-    /// Cannot send email. It seems your email client is not set up.
-    public static let cannotSendEmail = CoreLocalization.tr("Localizable", "ERROR.CANNOT_SEND_EMAIL", fallback: "Cannot send email. It seems your email client is not set up.")
     /// Invalid credentials
     public static let invalidCredentials = CoreLocalization.tr("Localizable", "ERROR.INVALID_CREDENTIALS", fallback: "Invalid credentials")
     /// No cached data for offline mode
@@ -354,12 +284,6 @@ public enum CoreLocalization {
       public static let noInternetDescription = CoreLocalization.tr("Localizable", "ERROR.INTERNET.NO_INTERNET_DESCRIPTION", fallback: "Please connect to the internet to view this content.")
       /// No internet connection
       public static let noInternetTitle = CoreLocalization.tr("Localizable", "ERROR.INTERNET.NO_INTERNET_TITLE", fallback: "No internet connection")
-    }
-    public enum Server {
-      /// Something went wrong on our end. Please try again later.
-      public static let genericDescription = CoreLocalization.tr("Localizable", "ERROR.SERVER.GENERIC_DESCRIPTION", fallback: "Something went wrong on our end. Please try again later.")
-      /// Server error
-      public static let genericTitle = CoreLocalization.tr("Localizable", "ERROR.SERVER.GENERIC_TITLE", fallback: "Server error")
     }
   }
   public enum Mainscreen {
@@ -469,6 +393,8 @@ public enum CoreLocalization {
       public static let cancel = CoreLocalization.tr("Localizable", "WEBVIEW.ALERT.CANCEL", fallback: "Cancel")
       /// Continue
       public static let `continue` = CoreLocalization.tr("Localizable", "WEBVIEW.ALERT.CONTINUE", fallback: "Continue")
+      /// Ok
+      public static let ok = CoreLocalization.tr("Localizable", "WEBVIEW.ALERT.OK", fallback: "Ok")
     }
   }
 }

@@ -15,7 +15,6 @@ import Notifications
 public struct PrimaryCourseDashboardView<ProgramView: View>: View {
     
     @StateObject private var viewModel: PrimaryCourseDashboardViewModel
-    private let router: DashboardRouter
     @ViewBuilder let programView: ProgramView
     private var openDiscoveryPage: () -> Void
     private var idiom: UIUserInterfaceIdiom { UIDevice.current.userInterfaceIdiom }
@@ -24,12 +23,10 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
     
     public init(
         viewModel: PrimaryCourseDashboardViewModel,
-        router: DashboardRouter,
         programView: ProgramView,
         openDiscoveryPage: @escaping () -> Void
     ) {
         self._viewModel = StateObject(wrappedValue: { viewModel }())
-        self.router = router
         self.programView = programView
         self.openDiscoveryPage = openDiscoveryPage
     }
@@ -80,7 +77,7 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
                                                     startType: primary.startType,
                                                     useRelativeDates: viewModel.storage.useRelativeDates,
                                                     assignmentAction: { lastVisitedBlockID in
-                                                        router.showCourseScreens(
+                                                        viewModel.router.showCourseScreens(
                                                             courseID: primary.courseID,
                                                             hasAccess: primary.hasAccess,
                                                             courseStart: primary.courseStart,
@@ -96,7 +93,7 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
                                                         )
                                                     },
                                                     openCourseAction: {
-                                                        router.showCourseScreens(
+                                                        viewModel.router.showCourseScreens(
                                                             courseID: primary.courseID,
                                                             hasAccess: primary.hasAccess,
                                                             courseStart: primary.courseStart,
@@ -112,7 +109,7 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
                                                         )
                                                     },
                                                     resumeAction: {
-                                                        router.showCourseScreens(
+                                                        viewModel.router.showCourseScreens(
                                                             courseID: primary.courseID,
                                                             hasAccess: primary.hasAccess,
                                                             courseStart: primary.courseStart,
@@ -222,6 +219,7 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
                 Task {
                     await viewModel.getEnrollments()
                 }
+                viewModel.setupNotifications()
             }
             .onAppear {
                 viewModel.updateNeeded = true
@@ -247,7 +245,7 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
             id: \.offset
         ) { _, course in
             Button(action: {
-                router.showCourseScreens(
+                viewModel.router.showCourseScreens(
                     courseID: course.courseID,
                     hasAccess: course.hasAccess,
                     courseStart: course.courseStart,
@@ -287,7 +285,7 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
     
     private func viewAllButton(_ enrollments: PrimaryEnrollment) -> some View {
         Button(action: {
-            router.showAllCourses(courses: enrollments.courses)
+            viewModel.router.showAllCourses(courses: enrollments.courses)
         }, label: {
             ZStack(alignment: .topTrailing) {
                 HStack {
@@ -314,7 +312,7 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
     
     private func viewAll(_ enrollments: PrimaryEnrollment) -> some View {
         Button(action: {
-            router.showAllCourses(courses: enrollments.courses)
+            viewModel.router.showAllCourses(courses: enrollments.courses)
         }, label: {
             HStack {
                 Text(DashboardLocalization.Learn.viewAllCourses(enrollments.count + 1))
@@ -381,6 +379,17 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
                     }
                 }
                     .frameLimit(width: proxy.size.width)
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        viewModel.router.showSettings()
+                    }, label: {
+                        CoreAssets.settings.swiftUIImage.renderingMode(.template)
+                            .foregroundColor(Theme.Colors.accentColor)
+                    })
+                }
+                .padding(.top, 8)
+                .offset(x: idiom == .pad ? 1 : 5, y: idiom == .pad ? 4 : -5)
             }
             
             .listRowBackground(Color.clear)
@@ -401,12 +410,12 @@ struct PrimaryCourseDashboardView_Previews: PreviewProvider {
             config: ConfigMock(),
             serverConfig: ServerConfigProtocolMock(),
             notificationsInteractor: NotificationsInteractor.mock,
-            storage: CoreStorageMock()
+            storage: CoreStorageMock(),
+            router: DashboardRouterMock()
         )
         
         PrimaryCourseDashboardView(
             viewModel: vm,
-            router: DashboardRouterMock(),
             programView: EmptyView(),
             openDiscoveryPage: {
             }
@@ -416,7 +425,6 @@ struct PrimaryCourseDashboardView_Previews: PreviewProvider {
         
         PrimaryCourseDashboardView(
             viewModel: vm,
-            router: DashboardRouterMock(),
             programView: EmptyView(),
             openDiscoveryPage: {
             }

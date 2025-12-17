@@ -143,7 +143,8 @@ public struct VideoSettingsView: View {
             serverConfig: ServerConfigProtocolMock(),
             upgradeHandler: CourseUpgradeHandlerProtocolMock(),
             corePersistence: CorePersistenceMock(),
-            connectivity: Connectivity()
+            connectivity: Connectivity(),
+            coreStorage: CoreStorageMock()
         )
         
         VideoSettingsView(viewModel: vm)

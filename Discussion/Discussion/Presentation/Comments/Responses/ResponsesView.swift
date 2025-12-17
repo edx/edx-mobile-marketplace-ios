@@ -46,7 +46,14 @@ public struct ResponsesView: View {
     
     public var body: some View {
         GeometryReader { proxy in
-            ZStack(alignment: .top) {
+            ZStack(alignment: .center) {
+                
+                if viewModel.postComments == nil {
+                    ProgressBar(size: 40, lineWidth: 8)
+                        .frame(maxWidth: .infinity)
+                        .accessibilityIdentifier("progress_bar")
+                }
+                
                 // MARK: - Page Body
                 ScrollViewReader { scroll in
                     VStack {
@@ -161,9 +168,6 @@ public struct ResponsesView: View {
                                         }
                                     }
                                     Spacer(minLength: 84)
-                                }
-                                .onRightSwipeGesture {
-                                    viewModel.router.back()
                                 }
                                 .frameLimit(width: proxy.size.width)
                             }

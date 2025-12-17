@@ -27,8 +27,10 @@ public struct StyledButton: View {
     private let rightImage: Image?
     private let imagesStyle: ImagesStyle
     private let isTitleTracking: Bool
-    private let isLimitedOnPad: Bool
     private let shape: RoundedCorners
+    private let iconImage: Image?
+    private let iconPosition: IconImagePosition
+    private let maxWidthIpad: CGFloat?
     
     public init(_ title: String,
                 action: @escaping () -> Void,
@@ -41,9 +43,9 @@ public struct StyledButton: View {
                 imagesStyle: ImagesStyle = .attachedToText,
                 isActive: Bool = true,
                 isTitleTracking: Bool = true,
-                isLimitedOnPad: Bool = true,
                 shape: RoundedCorners = Theme.Shapes.buttonShape,
-                horizontalPadding: Bool = false
+                horizontalPadding: Bool = false,
+                maxWidthIpad: CGFloat? = 260
     ) {
         self.title = title
         self.action = action
@@ -56,9 +58,9 @@ public struct StyledButton: View {
         self.rightImage = rightImage
         self.imagesStyle = imagesStyle
         self.isTitleTracking = isTitleTracking
-        self.isLimitedOnPad = isLimitedOnPad
         self.shape = shape
         self.horizontalPadding = horizontalPadding
+        self.maxWidthIpad = maxWidthIpad
     }
     
     public var body: some View {
@@ -97,7 +99,7 @@ public struct StyledButton: View {
             
         }
         .disabled(!isActive)
-        .frame(maxWidth: idiom == .pad && isLimitedOnPad ? 260: .infinity, minHeight: isTransparent ? 36 : 42)
+        .frame(maxWidth: idiom == .pad ? maxWidthIpad : .infinity, minHeight: isTransparent ? 36 : 42)
         .background(
             shape
                 .fill(isTransparent ? .clear : buttonColor)
