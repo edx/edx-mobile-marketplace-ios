@@ -39,7 +39,9 @@ public class WhatsNewViewModel: ObservableObject {
         guard let currentVersion = getVersion() else { return false }
         
         // If there is no saved version in storage, we always show WhatsNew
-        guard let savedVersion = storage.whatsNewVersion else { return true }
+        guard let savedVersion = storage.whatsNewVersion else {
+            return true && newItems.count > 0
+        }
         
         // We break down the versions into components major, minor, patch
         let savedComponents = savedVersion.components(separatedBy: ".")
@@ -55,7 +57,7 @@ public class WhatsNewViewModel: ObservableObject {
             
             // If major or minor are different, show WhatsNew
             if savedMajor != currentMajor || savedMinor != currentMinor {
-                return true
+                return true && newItems.count > 0
             }
         }
         return false
