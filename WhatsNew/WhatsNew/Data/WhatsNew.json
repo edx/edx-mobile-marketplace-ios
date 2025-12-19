@@ -1,12 +1,6 @@
 [
     {
-        "version": "6.2",
-        "messages": [
-            {
-                "image": "whats_new_1_6.2",
-                "title": "Never miss a Conversation",
-                "message": "Get notified when someone responds to your posts, comments, or followed discussions. Customise your preferences in the app settings."
-            }
-        ]
+        "version": "6.3",
+        "messages": []
     }
 ]
