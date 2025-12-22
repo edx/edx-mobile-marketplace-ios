@@ -2,19 +2,25 @@
 //  AppStorage.swift
 //  OpenEdX
 //
-//  Created by  Stepanok Ivan on 31.08.2023.
+//  Created by  Stepanok Ivan on 31.08.2023.
 //
 
 import Foundation
 import KeychainSwift
 import Core
 import Profile
+import Downloads
 import WhatsNew
 import Course
 import Theme
 import Notifications
 
-public final class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, CourseStorage, NotificationsStorage {
+public final class AppStorage: CoreStorage,
+                                ProfileStorage,
+                                WhatsNewStorage,
+                                CourseStorage,
+                                DownloadsStorage,
+                                NotificationsStorage {
 
     private nonisolated(unsafe) let keychain: KeychainSwift
     private nonisolated(unsafe) let userDefaults: UserDefaults
@@ -197,6 +203,28 @@ public final class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, Cou
             } else {
                 userDefaults.set(nil, forKey: KEY_SETTINGS)
             }
+        }
+    }
+
+    public var latestAvailableAppVersion: String? {
+        get {
+            return userDefaults.string(forKey: KEY_LATEST_AVAILABLE_APP_VERSION)
+        }
+        set(newValue) {
+            if let newValue {
+                userDefaults.set(newValue, forKey: KEY_LATEST_AVAILABLE_APP_VERSION)
+            } else {
+                userDefaults.removeObject(forKey: KEY_LATEST_AVAILABLE_APP_VERSION)
+            }
+        }
+    }
+
+    public var updateAppRequired: Bool {
+        get {
+            return userDefaults.bool(forKey: KEY_UPDATE_APP_REQUIRED)
+        }
+        set {
+            userDefaults.set(newValue, forKey: KEY_UPDATE_APP_REQUIRED)
         }
     }
 
@@ -445,4 +473,6 @@ public final class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, Cou
     private let KEY_USE_RELATIVE_DATES = "useRelativeDates"
     private let KEY_NOTIFICATIONS_PRIMER_DISMISSAL_COUNT = "notificationsPrimerDismissalCount"
     private let KEY_NOTIFICATIONS_PRIMER_LAST_SHOWN_DATE = "notificationsPrimerLastShownDate"
+    private let KEY_LATEST_AVAILABLE_APP_VERSION = "latestVersion"
+    private let KEY_UPDATE_APP_REQUIRED = "updateAppRequired"
 }

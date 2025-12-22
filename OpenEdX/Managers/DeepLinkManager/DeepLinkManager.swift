@@ -124,6 +124,12 @@ public class DeepLinkManager: DeepLinkManagerProtocol, NotificationsDeepLinkMana
     }
     
     // This method process the deep link with response parameters
+    public func processLinkFrom(userInfo: [AnyHashable: Any]) {
+        guard let dictionary = userInfo as? [String: AnyHashable] else { return }
+        let link = PushLink(dictionary: dictionary)
+        processLinkFromNotification(link)
+    }
+
     public func processDeepLink(with params: [AnyHashable: Any]?) {
         guard let params = params else { return }
         let deeplink = DeepLink(dictionary: params)

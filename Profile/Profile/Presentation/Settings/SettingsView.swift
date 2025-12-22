@@ -322,7 +322,8 @@ public struct SettingsView: View {
         serverConfig: ServerConfigProtocolMock(),
         upgradeHandler: CourseUpgradeHandlerProtocolMock(),
         corePersistence: CorePersistenceMock(),
-        connectivity: Connectivity()
+        connectivity: Connectivity(),
+        coreStorage: CoreStorageMock()
     )
     
     SettingsView(viewModel: vm)

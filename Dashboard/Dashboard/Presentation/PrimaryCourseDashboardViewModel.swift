@@ -2,7 +2,7 @@
 //  PrimaryCourseDashboardViewModel.swift
 //  Dashboard
 //
-//  Created by  Stepanok Ivan on 16.04.2024.
+//  Created by  Stepanok Ivan on 16.04.2024.
 //
 
 import Foundation
@@ -21,6 +21,7 @@ public class PrimaryCourseDashboardViewModel: ObservableObject {
     @Published var showError: Bool = false
     @Published var updateNeeded: Bool = false
     @Published var hasUnreadNotifications: Bool = false
+    private var updateShowedOnce: Bool = false
     
     var errorMessage: String? {
         didSet {
@@ -36,6 +37,8 @@ public class PrimaryCourseDashboardViewModel: ObservableObject {
     let config: ConfigProtocol
     let serverConfig: ServerConfigProtocol
     let storage: CoreStorage
+    let router: DashboardRouter
+
     private var cancellables = Set<AnyCancellable>()
     private let notificationsInteractor: NotificationsInteractorProtocol
     
@@ -49,7 +52,8 @@ public class PrimaryCourseDashboardViewModel: ObservableObject {
         config: ConfigProtocol,
         serverConfig: ServerConfigProtocol,
         notificationsInteractor: NotificationsInteractorProtocol,
-        storage: CoreStorage
+        storage: CoreStorage,
+        router: DashboardRouter
     ) {
         self.interactor = interactor
         self.connectivity = connectivity
@@ -58,6 +62,7 @@ public class PrimaryCourseDashboardViewModel: ObservableObject {
         self.serverConfig = serverConfig
         self.notificationsInteractor = notificationsInteractor
         self.storage = storage
+        self.router = router
         
         let enrollmentPublisher = NotificationCenter.default.publisher(for: .onCourseEnrolled)
         let completionPublisher = NotificationCenter.default.publisher(for: .onblockCompletionRequested)
@@ -92,6 +97,31 @@ public class PrimaryCourseDashboardViewModel: ObservableObject {
     }
     
     @MainActor
+    func setupNotifications() {
+        NotificationCenter.default.publisher(for: .onActualVersionReceived)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] notification in
+                if let latestVersion = notification.object as? String {
+                    // Save the latest version to storage
+                    self?.storage.latestAvailableAppVersion = latestVersion
+                    
+                    if let info = Bundle.main.infoDictionary {
+                        guard let currentVersion = info["CFBundleShortVersionString"] as? String,
+                                let self else { return }
+                        if currentVersion.isAppVersionGreater(than: latestVersion) == false
+                            && currentVersion != latestVersion {
+                            if self.updateShowedOnce == false {
+                                DispatchQueue.main.async {
+                                    self.router.showUpdateRecomendedView()
+                                }
+                                self.updateShowedOnce = true
+                            }
+                        }
+                    }
+                }
+            }.store(in: &cancellables)
+    }
+    
     private func updateEnrollmentsIfNeeded() {
         guard updateNeeded else { return }
         Task {
@@ -118,6 +148,9 @@ public class PrimaryCourseDashboardViewModel: ObservableObject {
             fetchInProgress = false
             if error is NoCachedDataError {
                 errorMessage = CoreLocalization.Error.noCachedData
+            } else if error.isUpdateRequeiredError {
+                storage.updateAppRequired = true
+                self.router.showUpdateRequiredView(showAccountLink: true)
             } else {
                 errorMessage = CoreLocalization.Error.unknownError
             }

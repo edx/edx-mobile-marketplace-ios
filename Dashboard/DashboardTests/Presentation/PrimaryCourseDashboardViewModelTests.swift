@@ -22,6 +22,7 @@ final class PrimaryCourseDashboardViewModelTests: XCTestCase {
     var analytics: DashboardAnalyticsMock!
     var storage: CoreStorageMock!
     var config: ConfigProtocolMock!
+    var router: DashboardRouterMock!
     
     override func setUp() {
         super.setUp()
@@ -30,7 +31,7 @@ final class PrimaryCourseDashboardViewModelTests: XCTestCase {
         analytics = DashboardAnalyticsMock()
         storage = CoreStorageMock()
         config = ConfigProtocolMock()
-        interactor = DashboardInteractorProtocolMock()
+        router = DashboardRouterMock()
     }
     
     let enrollment = PrimaryEnrollment(
@@ -92,8 +93,9 @@ final class PrimaryCourseDashboardViewModelTests: XCTestCase {
             analytics: analytics,
             config: config,
             serverConfig: ServerConfigProtocolMock(),
-            notificationsInteractor: NotificationsInteractor.mock,
-            storage: storage
+            notificationsInteractor: NotificationsInteractor.mock,        
+            storage: storage,
+            router: router
         )
         
         Given(connectivity, .isInternetAvaliable(getter: true))
@@ -119,7 +121,8 @@ final class PrimaryCourseDashboardViewModelTests: XCTestCase {
             config: config,
             serverConfig: ServerConfigProtocolMock(),
             notificationsInteractor: NotificationsInteractor.mock,
-            storage: storage
+            storage: storage,
+            router: router
         )
                 
         Given(connectivity, .isInternetAvaliable(getter: false))
@@ -145,7 +148,8 @@ final class PrimaryCourseDashboardViewModelTests: XCTestCase {
             config: config,
             serverConfig: ServerConfigProtocolMock(),
             notificationsInteractor: NotificationsInteractor.mock,
-            storage: storage
+            storage: storage,
+            router: router
         )
         
         Given(connectivity, .isInternetAvaliable(getter: true))
@@ -171,11 +175,12 @@ final class PrimaryCourseDashboardViewModelTests: XCTestCase {
             config: config,
             serverConfig: ServerConfigProtocolMock(),
             notificationsInteractor: NotificationsInteractor.mock,
-            storage: storage
+            storage: storage,
+            router: router
         )
         
         Given(connectivity, .isInternetAvaliable(getter: true))
-        Given(interactor, .getPrimaryEnrollment(pageSize: .any, willThrow: NSError()))
+        Given(interactor, .getPrimaryEnrollment(pageSize: .any, willThrow: NSError(domain: "error", code: -1, userInfo: nil)))
         
         // When
         await viewModel.getEnrollments()
@@ -197,7 +202,8 @@ final class PrimaryCourseDashboardViewModelTests: XCTestCase {
             config: config,
             serverConfig: ServerConfigProtocolMock(),
             notificationsInteractor: NotificationsInteractor.mock,
-            storage: storage
+            storage: storage,
+            router: router
         )
         
         let courseID = "test-course-id"
@@ -219,7 +225,8 @@ final class PrimaryCourseDashboardViewModelTests: XCTestCase {
             config: config,
             serverConfig: ServerConfigProtocolMock(),
             notificationsInteractor: NotificationsInteractor.mock,
-            storage: storage
+            storage: storage,
+            router: router
         )
         
         Given(connectivity, .isInternetAvaliable(getter: true))

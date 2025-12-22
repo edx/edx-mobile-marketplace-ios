@@ -125,7 +125,7 @@ public struct CourseCellView: View {
                     rightImage: Image(systemName: "info.circle"),
                     imagesStyle: .onSides,
                     isTitleTracking: false,
-                    isLimitedOnPad: false,
+                    maxWidthIpad: .infinity,
                     shape: RoundedCorners(
                         tl: 0,
                         tr: 0,

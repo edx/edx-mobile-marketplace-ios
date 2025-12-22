@@ -34,12 +34,11 @@
 		02F6EF4328D9ECC500835477 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 02F6EF4528D9ECC500835477 /* Localizable.strings */; };
 		02F6EF4828D9ED8300835477 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F6EF4728D9ED8300835477 /* Strings.swift */; };
 		214DA1AADABC7BF4FB8EA1D7 /* Pods_App_Dashboard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B008B2F0762EF35CADE3DD4 /* Pods_App_Dashboard.framework */; };
-		97D2CBB92D354DCA006AC2C2 /* Notifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97D2CBB82D354DCA006AC2C2 /* Notifications.framework */; };
 		97E7DF0B2B7A3EAF00A2A09B /* CourseEnrollmentsMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E7DF0A2B7A3EAF00A2A09B /* CourseEnrollmentsMock.swift */; };
 		9AD4A6A1AAF97092CF457FE2 /* Pods_App_Dashboard_DashboardTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22905947A936093AD23D4CF8 /* Pods_App_Dashboard_DashboardTests.framework */; };
-		A5310EA52D7F64DB00020305 /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = A5310EA42D7F64DB00020305 /* OEXFoundation */; };
 		CE1735062CD2552A00F9606A /* PrimaryCourseDashboardViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1735052CD2552A00F9606A /* PrimaryCourseDashboardViewModelTests.swift */; };
 		CE17350A2CD26CB500F9606A /* AllCoursesViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1735092CD26CB500F9606A /* AllCoursesViewModelTests.swift */; };
+		CEB1E26D2CC14E9B00921517 /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = CEB1E26C2CC14E9B00921517 /* OEXFoundation */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,19 +50,6 @@
 			remoteInfo = Dashboard;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		A5310EA72D7F64DB00020305 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0277241D2BCE9E1500C2908D /* PrimaryCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryCardView.swift; sourceTree = "<group>"; };
@@ -105,7 +91,6 @@
 		65CD5AB152F3DEC88D48AE2D /* Pods-App-Dashboard.debugdev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Dashboard.debugdev.xcconfig"; path = "Target Support Files/Pods-App-Dashboard/Pods-App-Dashboard.debugdev.xcconfig"; sourceTree = "<group>"; };
 		6BA3D1943CAB859ECDC95C76 /* Pods-App-Dashboard.releasedev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Dashboard.releasedev.xcconfig"; path = "Target Support Files/Pods-App-Dashboard/Pods-App-Dashboard.releasedev.xcconfig"; sourceTree = "<group>"; };
 		89D6F05AC9854DBBAB091D9C /* Pods-App-Dashboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Dashboard.release.xcconfig"; path = "Target Support Files/Pods-App-Dashboard/Pods-App-Dashboard.release.xcconfig"; sourceTree = "<group>"; };
-		97D2CBB82D354DCA006AC2C2 /* Notifications.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Notifications.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		97E7DF0A2B7A3EAF00A2A09B /* CourseEnrollmentsMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseEnrollmentsMock.swift; sourceTree = "<group>"; };
 		BBABB135366FFB1DAEFA0D16 /* Pods-App-Dashboard-DashboardTests.debugprod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Dashboard-DashboardTests.debugprod.xcconfig"; path = "Target Support Files/Pods-App-Dashboard-DashboardTests/Pods-App-Dashboard-DashboardTests.debugprod.xcconfig"; sourceTree = "<group>"; };
 		CCF4C665AD91B6B96F6A11DF /* Pods-App-Dashboard-DashboardTests.debugdev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Dashboard-DashboardTests.debugdev.xcconfig"; path = "Target Support Files/Pods-App-Dashboard-DashboardTests/Pods-App-Dashboard-DashboardTests.debugdev.xcconfig"; sourceTree = "<group>"; };
@@ -131,9 +116,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A5310EA52D7F64DB00020305 /* OEXFoundation in Frameworks */,
-				97D2CBB92D354DCA006AC2C2 /* Notifications.framework in Frameworks */,
 				027DB33F28D8E605002B6862 /* Core.framework in Frameworks */,
+				CEB1E26D2CC14E9B00921517 /* OEXFoundation in Frameworks */,
 				214DA1AADABC7BF4FB8EA1D7 /* Pods_App_Dashboard.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -269,7 +253,6 @@
 		1E3E639E65A1C88EDE136CC9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				97D2CBB82D354DCA006AC2C2 /* Notifications.framework */,
 				027DB33E28D8E605002B6862 /* Core.framework */,
 				0B008B2F0762EF35CADE3DD4 /* Pods_App_Dashboard.framework */,
 				22905947A936093AD23D4CF8 /* Pods_App_Dashboard_DashboardTests.framework */,
@@ -352,7 +335,6 @@
 				02EF39E328D89F560058F6BD /* Sources */,
 				02EF39E428D89F560058F6BD /* Frameworks */,
 				02EF39E528D89F560058F6BD /* Resources */,
-				A5310EA72D7F64DB00020305 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -393,6 +375,7 @@
 			);
 			mainGroup = 02EF39DD28D89F560058F6BD;
 			packageReferences = (
+				CEB1E26B2CC14E9B00921517 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */,
 			);
 			productRefGroup = 02EF39E828D89F560058F6BD /* Products */;
 			projectDirPath = "";
@@ -1555,20 +1538,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		A5FB2CC22D75D91D00ECA001 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */ = {
+		CEB1E26B2CC14E9B00921517 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/openedx/openedx-app-foundation-ios/";
 			requirement = {
 				kind = exactVersion;
-				version = 1.0.3;
+				version = 1.0.4;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		A5310EA42D7F64DB00020305 /* OEXFoundation */ = {
+		CEB1E26C2CC14E9B00921517 /* OEXFoundation */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A5FB2CC22D75D91D00ECA001 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */;
+			package = CEB1E26B2CC14E9B00921517 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */;
 			productName = OEXFoundation;
 		};
 /* End XCSwiftPackageProductDependency section */
