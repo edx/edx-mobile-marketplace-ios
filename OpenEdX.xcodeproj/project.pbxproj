@@ -47,28 +47,20 @@
 		07D5DA3528D075AA00752FD9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D5DA3428D075AA00752FD9 /* AppDelegate.swift */; };
 		07D5DA3E28D075AB00752FD9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07D5DA3D28D075AB00752FD9 /* Assets.xcassets */; };
 		146CF94C2D0C0248000955B2 /* NotificationsPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146CF94B2D0C0248000955B2 /* NotificationsPersistence.swift */; };
-		149B52D92C5FE5AB00C7BF5D /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 149B52D82C5FE5AB00C7BF5D /* FirebaseCrashlytics */; };
 		149FF39E2B9F1AB50034B33F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 149FF39C2B9F1AB50034B33F /* LaunchScreen.storyboard */; };
 		14BAE68E2D0974B700EAF0E4 /* Notifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14BAE68D2D0974B700EAF0E4 /* Notifications.framework */; };
 		14BAE68F2D0974B700EAF0E4 /* Notifications.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 14BAE68D2D0974B700EAF0E4 /* Notifications.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		14D912D32C25483F0077CCCE /* FullStory in Frameworks */ = {isa = PBXBuildFile; productRef = 14D912D22C25483F0077CCCE /* FullStory */; };
 		3ACA3A1E886F3F9B2735B9AF /* Pods_App_OpenEdX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D27E034A83DDEBF18D53B04 /* Pods_App_OpenEdX.framework */; };
 		A500668B2B613ED10024680B /* PushNotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A500668A2B613ED10024680B /* PushNotificationsManager.swift */; };
 		A500668D2B6143000024680B /* FCMProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A500668C2B6143000024680B /* FCMProvider.swift */; };
 		A50066932B614DCD0024680B /* FCMListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50066922B614DCD0024680B /* FCMListener.swift */; };
-		A5265D492D77416F00D91735 /* OEXFoundation in Embed Frameworks */ = {isa = PBXBuildFile; productRef = A5FB2CB42D75D89E00ECA001 /* OEXFoundation */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		A538B5672D1D977C00216179 /* EDXMobileAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = A538B5662D1D977C00216179 /* EDXMobileAnalytics */; };
 		A5462D9C2B864AE0003B96A5 /* BranchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5462D9B2B864AE0003B96A5 /* BranchService.swift */; };
 		A59568952B61630500ED4F90 /* DeepLinkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59568942B61630500ED4F90 /* DeepLinkManager.swift */; };
 		A59568972B61653700ED4F90 /* DeepLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59568962B61653700ED4F90 /* DeepLink.swift */; };
 		A59568992B616D9400ED4F90 /* PushLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59568982B616D9400ED4F90 /* PushLink.swift */; };
-		A5FB2CB22D75D88900ECA001 /* OEXFirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = A5FB2CB12D75D88900ECA001 /* OEXFirebaseAnalytics */; };
-		A5FB2CB52D75D89E00ECA001 /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = A5FB2CB42D75D89E00ECA001 /* OEXFoundation */; };
 		BA7468762B96201D00793145 /* DeepLinkRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7468752B96201D00793145 /* DeepLinkRouter.swift */; };
-		CE0BF0BA2CD9203A00D10289 /* MSAL in Frameworks */ = {isa = PBXBuildFile; productRef = CE0BF0B92CD9203A00D10289 /* MSAL */; };
 		CE1D5B7B2CE60E000019CA34 /* ContainerMainActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D5B7A2CE60E000019CA34 /* ContainerMainActor.swift */; };
 		CE3BD14E2CBEB0DA0026F4E3 /* PluginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3BD14D2CBEB0DA0026F4E3 /* PluginManager.swift */; };
-		CE924BE72CD8FAB3000137CA /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = CE924BE62CD8FAB3000137CA /* FirebaseMessaging */; };
 		E0D6E6A32B1626B10089F9C9 /* Theme.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0D6E6A22B1626B10089F9C9 /* Theme.framework */; };
 		E0D6E6A42B1626D60089F9C9 /* Theme.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E0D6E6A22B1626B10089F9C9 /* Theme.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -109,7 +101,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				E0D6E6A42B1626D60089F9C9 /* Theme.framework in Embed Frameworks */,
-				A5265D492D77416F00D91735 /* OEXFoundation in Embed Frameworks */,
 				14BAE68F2D0974B700EAF0E4 /* Notifications.framework in Embed Frameworks */,
 				072787B228D34D83002E9142 /* Discovery.framework in Embed Frameworks */,
 				0218196528F734FA00202564 /* Discussion.framework in Embed Frameworks */,
@@ -197,19 +188,12 @@
 				14BAE68E2D0974B700EAF0E4 /* Notifications.framework in Frameworks */,
 				07A7D78F28F5C9060000BE81 /* Core.framework in Frameworks */,
 				028A37362ADFF404008CA604 /* WhatsNew.framework in Frameworks */,
-				CE0BF0BA2CD9203A00D10289 /* MSAL in Frameworks */,
 				025DE1A428DB4DAE0053E0F4 /* Profile.framework in Frameworks */,
 				0770DE4B28D0A462006D8A5D /* Authorization.framework in Frameworks */,
-				A5FB2CB22D75D88900ECA001 /* OEXFirebaseAnalytics in Frameworks */,
 				072787B128D34D83002E9142 /* Discovery.framework in Frameworks */,
-				CE924BE72CD8FAB3000137CA /* FirebaseMessaging in Frameworks */,
-				A5FB2CB52D75D89E00ECA001 /* OEXFoundation in Frameworks */,
-				A538B5672D1D977C00216179 /* EDXMobileAnalytics in Frameworks */,
 				0218196428F734FA00202564 /* Discussion.framework in Frameworks */,
 				0219C67728F4347600D64452 /* Course.framework in Frameworks */,
 				027DB33028D8A063002B6862 /* Dashboard.framework in Frameworks */,
-				149B52D92C5FE5AB00C7BF5D /* FirebaseCrashlytics in Frameworks */,
-				14D912D32C25483F0077CCCE /* FullStory in Frameworks */,
 				3ACA3A1E886F3F9B2735B9AF /* Pods_App_OpenEdX.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -442,13 +426,6 @@
 			);
 			name = OpenEdX;
 			packageProductDependencies = (
-				14D912D22C25483F0077CCCE /* FullStory */,
-				149B52D82C5FE5AB00C7BF5D /* FirebaseCrashlytics */,
-				CE924BE62CD8FAB3000137CA /* FirebaseMessaging */,
-				CE0BF0B92CD9203A00D10289 /* MSAL */,
-				A538B5662D1D977C00216179 /* EDXMobileAnalytics */,
-				A5FB2CB12D75D88900ECA001 /* OEXFirebaseAnalytics */,
-				A5FB2CB42D75D89E00ECA001 /* OEXFoundation */,
 			);
 			productName = OpenEdX;
 			productReference = 07D5DA3128D075AA00752FD9 /* OpenEdX.app */;
@@ -480,11 +457,6 @@
 			);
 			mainGroup = 07D5DA2828D075AA00752FD9;
 			packageReferences = (
-				CE924BE52CD8FAB3000137CA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				CE0BF0B82CD9203A00D10289 /* XCRemoteSwiftPackageReference "microsoft-authentication-library-for-objc" */,
-				A5DB687D2D3170850096CBF8 /* XCRemoteSwiftPackageReference "edx-mobile-app-analytics-ios" */,
-				A5FB2CB02D75D88900ECA001 /* XCRemoteSwiftPackageReference "openedx-app-firebase-analytics-ios" */,
-				A5FB2CB32D75D89E00ECA001 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */,
 			);
 			productRefGroup = 07D5DA3228D075AA00752FD9 /* Products */;
 			projectDirPath = "";
@@ -1294,93 +1266,6 @@
 			defaultConfigurationName = ReleaseProd;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		14D912D12C25483F0077CCCE /* XCRemoteSwiftPackageReference "fullstory-swift-package-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/fullstorydev/fullstory-swift-package-ios";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.51.1;
-			};
-		};
-		A5DB687D2D3170850096CBF8 /* XCRemoteSwiftPackageReference "edx-mobile-app-analytics-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/edx/edx-mobile-app-analytics-ios";
-			requirement = {
-				kind = exactVersion;
-				version = 1.0.3;
-			};
-		};
-		A5FB2CB02D75D88900ECA001 /* XCRemoteSwiftPackageReference "openedx-app-firebase-analytics-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/openedx/openedx-app-firebase-analytics-ios";
-			requirement = {
-				kind = exactVersion;
-				version = 1.0.3;
-			};
-		};
-		A5FB2CB32D75D89E00ECA001 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/openedx/openedx-app-foundation-ios/";
-			requirement = {
-				kind = exactVersion;
-				version = 1.0.3;
-			};
-		};
-		CE0BF0B82CD9203A00D10289 /* XCRemoteSwiftPackageReference "microsoft-authentication-library-for-objc" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/AzureAD/microsoft-authentication-library-for-objc";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.6.1;
-			};
-		};
-		CE924BE52CD8FAB3000137CA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
-			requirement = {
-				kind = exactVersion;
-				version = 11.3.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		149B52D82C5FE5AB00C7BF5D /* FirebaseCrashlytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = FirebaseCrashlytics;
-		};
-		14D912D22C25483F0077CCCE /* FullStory */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 14D912D12C25483F0077CCCE /* XCRemoteSwiftPackageReference "fullstory-swift-package-ios" */;
-			productName = FullStory;
-		};
-		A538B5662D1D977C00216179 /* EDXMobileAnalytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = EDXMobileAnalytics;
-		};
-		A5FB2CB12D75D88900ECA001 /* OEXFirebaseAnalytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A5FB2CB02D75D88900ECA001 /* XCRemoteSwiftPackageReference "openedx-app-firebase-analytics-ios" */;
-			productName = OEXFirebaseAnalytics;
-		};
-		A5FB2CB42D75D89E00ECA001 /* OEXFoundation */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A5FB2CB32D75D89E00ECA001 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */;
-			productName = OEXFoundation;
-		};
-		CE0BF0B92CD9203A00D10289 /* MSAL */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CE0BF0B82CD9203A00D10289 /* XCRemoteSwiftPackageReference "microsoft-authentication-library-for-objc" */;
-			productName = MSAL;
-		};
-		CE924BE62CD8FAB3000137CA /* FirebaseMessaging */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CE924BE52CD8FAB3000137CA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseMessaging;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 07D5DA2928D075AA00752FD9 /* Project object */;
 }
