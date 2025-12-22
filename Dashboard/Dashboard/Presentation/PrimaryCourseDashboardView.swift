@@ -48,100 +48,19 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
                     Spacer(minLength: 50)
                     switch selectedMenu {
                     case .courses:
-                    ScrollView {
-                        ZStack(alignment: .topLeading) {
-                            if viewModel.fetchInProgress {
-                                VStack(alignment: .center) {
-                                    ProgressBar(size: 40, lineWidth: 8)
-                                        .padding(.top, 200)
-                                }.frame(maxWidth: .infinity,
-                                        maxHeight: .infinity)
-                            } else {
-                                LazyVStack(spacing: 0) {
+                        ScrollView {
+                            ZStack(alignment: .topLeading) {
+                                if viewModel.fetchInProgress {
+                                    VStack(alignment: .center) {
+                                        ProgressBar(size: 40, lineWidth: 8)
+                                            .padding(.top, 200)
+                                    }.frame(maxWidth: .infinity,
+                                            maxHeight: .infinity)
+                                } else {
+                                    LazyVStack(spacing: 0) {
                                         if let enrollments = viewModel.enrollments {
                                             if let primary = enrollments.primaryCourse {
-                                                PrimaryCardView(
-                                                    courseName: primary.name,
-                                                    org: primary.org,
-                                                    courseImage: primary.courseBanner,
-                                                    courseStartDate: primary.courseStart,
-                                                    courseEndDate: primary.courseEnd,
-                                                    futureAssignments: primary.futureAssignments,
-                                                    pastAssignments: primary.pastAssignments,
-                                                    progressEarned: primary.progressEarned,
-                                                    progressPossible: primary.progressPossible,
-                                                    canResume: primary.lastVisitedBlockID != nil,
-                                                    resumeTitle: primary.resumeTitle,
-                                                    auditAccessExpires: primary.auditAccessExpires,
-                                                    startDisplay: primary.startDisplay,
-                                                    startType: primary.startType,
-                                                    useRelativeDates: viewModel.storage.useRelativeDates,
-                                                    assignmentAction: { lastVisitedBlockID in
-                                                        viewModel.router.showCourseScreens(
-                                                            courseID: primary.courseID,
-                                                            hasAccess: primary.hasAccess,
-                                                            courseStart: primary.courseStart,
-                                                            courseEnd: primary.courseEnd,
-                                                            enrollmentStart: nil,
-                                                            enrollmentEnd: nil,
-                                                            title: primary.name,
-                                                            org: primary.org,
-                                                            courseRawImage: primary.courseBanner,
-                                                            coursewareAccess: nil,
-                                                            showDates: lastVisitedBlockID == nil,
-                                                            lastVisitedBlockID: lastVisitedBlockID
-                                                        )
-                                                    },
-                                                    openCourseAction: {
-                                                        viewModel.router.showCourseScreens(
-                                                            courseID: primary.courseID,
-                                                            hasAccess: primary.hasAccess,
-                                                            courseStart: primary.courseStart,
-                                                            courseEnd: primary.courseEnd,
-                                                            enrollmentStart: nil,
-                                                            enrollmentEnd: nil,
-                                                            title: primary.name,
-                                                            org: primary.org,
-                                                            courseRawImage: primary.courseBanner,
-                                                            coursewareAccess: nil,
-                                                            showDates: false,
-                                                            lastVisitedBlockID: nil
-                                                        )
-                                                    },
-                                                    resumeAction: {
-                                                        viewModel.router.showCourseScreens(
-                                                            courseID: primary.courseID,
-                                                            hasAccess: primary.hasAccess,
-                                                            courseStart: primary.courseStart,
-                                                            courseEnd: primary.courseEnd,
-                                                            enrollmentStart: nil,
-                                                            enrollmentEnd: nil,
-                                                            title: primary.name,
-                                                            org: primary.org,
-                                                            courseRawImage: primary.courseBanner,
-                                                            coursewareAccess: nil,
-                                                            showDates: false,
-                                                            lastVisitedBlockID: primary.lastVisitedBlockID
-                                                        )
-                                                    },
-                                                    isUpgradeable: primary.isUpgradeable &&
-                                                    viewModel.serverConfig.iapConfig.enabled,
-                                                    upgradeAction: {
-                                                        Task {@MainActor in
-                                                            await self.router.showUpgradeInfo(
-                                                                productName: primary.name,
-                                                                message: "",
-                                                                sku: primary.sku ?? "",
-                                                                courseID: primary.courseID,
-                                                                screen: .dashboard,
-                                                                pacing: primary.isSelfPaced ?
-                                                                    Pacing.selfPace.rawValue :
-                                                                    Pacing.instructor.rawValue,
-                                                                lmsPrice: primary.lmsPrice ?? .zero
-                                                            )
-                                                        }
-                                                    }
-                                                )
+                                                primaryCourseView(primary)
                                             }
                                             if !enrollments.courses.isEmpty {
                                                 viewAll(enrollments)
@@ -170,18 +89,18 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
                                             }
                                             Spacer(minLength: 100)
                                         }
+                                    }
                                 }
                             }
+                            .frameLimit(width: proxy.size.width)
                         }
-                        .frameLimit(width: proxy.size.width)
-                    }
-                    .refreshable {
-                        Task {
-                            await viewModel.getEnrollments(showProgress: false)
-                            await viewModel.getNotificaitonsCount()
+                        .refreshable {
+                            Task {
+                                await viewModel.getEnrollments(showProgress: false)
+                                await viewModel.getNotificaitonsCount()
+                            }
                         }
-                    }
-                    .accessibilityAction {}
+                        .accessibilityAction {}
                     case .programs:
                         programView
                     }
@@ -328,7 +247,7 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
     
     private func learnTitleAndSearch(proxy: GeometryProxy) -> some View {
         let showDropdown = viewModel.config.program.enabled && viewModel.config.program.isWebViewConfigured
-       return ZStack(alignment: .top) {
+        return ZStack(alignment: .top) {
             Theme.Colors.background
                 .frame(height: showDropdown ? 70 : 50)
             ZStack(alignment: .topTrailing) {
@@ -342,7 +261,7 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
                         if viewModel.config.pushNotificationsEnabled {
                             Button(action: {
                                 viewModel.setNotificationMarkAsRead()
-                                router.showNotificationsScreen()
+                                viewModel.router.showNotificationsScreen()
                             }, label: {
                                 CoreAssets.notificationsIcon.swiftUIImage
                                     .renderingMode(.template)
@@ -378,7 +297,7 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
                         }
                     }
                 }
-                    .frameLimit(width: proxy.size.width)
+                .frameLimit(width: proxy.size.width)
                 HStack {
                     Spacer()
                     Button(action: {
@@ -397,6 +316,91 @@ public struct PrimaryCourseDashboardView<ProgramView: View>: View {
             .accessibilityElement(children: .ignore)
             .accessibilityLabel(DashboardLocalization.Header.courses + DashboardLocalization.Header.welcomeBack)
         }
+    }
+    
+    private func primaryCourseView(_ primary: PrimaryCourse) -> some View {
+        return PrimaryCardView(
+            courseName: primary.name,
+            org: primary.org,
+            courseImage: primary.courseBanner,
+            courseStartDate: primary.courseStart,
+            courseEndDate: primary.courseEnd,
+            futureAssignments: primary.futureAssignments,
+            pastAssignments: primary.pastAssignments,
+            progressEarned: primary.progressEarned,
+            progressPossible: primary.progressPossible,
+            canResume: primary.lastVisitedBlockID != nil,
+            resumeTitle: primary.resumeTitle,
+            auditAccessExpires: primary.auditAccessExpires,
+            startDisplay: primary.startDisplay,
+            startType: primary.startType,
+            useRelativeDates: viewModel.storage.useRelativeDates,
+            assignmentAction: { lastVisitedBlockID in
+                viewModel.router.showCourseScreens(
+                    courseID: primary.courseID,
+                    hasAccess: primary.hasAccess,
+                    courseStart: primary.courseStart,
+                    courseEnd: primary.courseEnd,
+                    enrollmentStart: nil,
+                    enrollmentEnd: nil,
+                    title: primary.name,
+                    org: primary.org,
+                    courseRawImage: primary.courseBanner,
+                    coursewareAccess: nil,
+                    showDates: lastVisitedBlockID == nil,
+                    lastVisitedBlockID: lastVisitedBlockID
+                )
+            },
+            openCourseAction: {
+                viewModel.router.showCourseScreens(
+                    courseID: primary.courseID,
+                    hasAccess: primary.hasAccess,
+                    courseStart: primary.courseStart,
+                    courseEnd: primary.courseEnd,
+                    enrollmentStart: nil,
+                    enrollmentEnd: nil,
+                    title: primary.name,
+                    org: primary.org,
+                    courseRawImage: primary.courseBanner,
+                    coursewareAccess: nil,
+                    showDates: false,
+                    lastVisitedBlockID: nil
+                )
+            },
+            resumeAction: {
+                viewModel.router.showCourseScreens(
+                    courseID: primary.courseID,
+                    hasAccess: primary.hasAccess,
+                    courseStart: primary.courseStart,
+                    courseEnd: primary.courseEnd,
+                    enrollmentStart: nil,
+                    enrollmentEnd: nil,
+                    title: primary.name,
+                    org: primary.org,
+                    courseRawImage: primary.courseBanner,
+                    coursewareAccess: nil,
+                    showDates: false,
+                    lastVisitedBlockID: primary.lastVisitedBlockID
+                )
+            },
+            isUpgradeable: primary.isUpgradeable &&
+            viewModel.serverConfig.iapConfig.enabled,
+            upgradeAction: {
+                Task {@MainActor in
+                    await viewModel.router.showUpgradeInfo(
+                        productName: primary.name,
+                        message: "",
+                        sku: primary.sku ?? "",
+                        courseID: primary.courseID,
+                        screen: .dashboard,
+                        pacing: primary.isSelfPaced ?
+                            Pacing.selfPace.rawValue :
+                            Pacing.instructor.rawValue,
+                        lmsPrice: primary.lmsPrice ?? .zero
+                    )
+                }
+            }
+        )
     }
 }
 

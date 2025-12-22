@@ -35,7 +35,11 @@ public actor CourseStructureManagerMock: CourseStructureManagerProtocol {
             certificate: nil,
             org: "org",
             isSelfPaced: false,
-            courseProgress: nil
+            isUpgradeable: false,
+            sku: "",
+            coursewareAccessDetails: nil,
+            courseProgress: nil,
+            lmsPrice: 10.0
         )
     }
     
@@ -58,7 +62,11 @@ public actor CourseStructureManagerMock: CourseStructureManagerProtocol {
             certificate: nil,
             org: "org",
             isSelfPaced: false,
-            courseProgress: nil
+            isUpgradeable: false,
+            sku: "",
+            coursewareAccessDetails: nil,
+            courseProgress: nil,
+            lmsPrice: 10.0
         )
     }
 }

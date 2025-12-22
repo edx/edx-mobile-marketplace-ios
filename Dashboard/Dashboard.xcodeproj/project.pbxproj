@@ -39,6 +39,8 @@
 		CE1735062CD2552A00F9606A /* PrimaryCourseDashboardViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1735052CD2552A00F9606A /* PrimaryCourseDashboardViewModelTests.swift */; };
 		CE17350A2CD26CB500F9606A /* AllCoursesViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1735092CD26CB500F9606A /* AllCoursesViewModelTests.swift */; };
 		CEB1E26D2CC14E9B00921517 /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = CEB1E26C2CC14E9B00921517 /* OEXFoundation */; };
+		D33FAE352EF9A529007EB2B9 /* Notifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33FAE342EF9A529007EB2B9 /* Notifications.framework */; };
+		D33FAE362EF9A529007EB2B9 /* Notifications.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D33FAE342EF9A529007EB2B9 /* Notifications.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +52,20 @@
 			remoteInfo = Dashboard;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D33FAE372EF9A529007EB2B9 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D33FAE362EF9A529007EB2B9 /* Notifications.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0277241D2BCE9E1500C2908D /* PrimaryCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryCardView.swift; sourceTree = "<group>"; };
@@ -96,6 +112,7 @@
 		CCF4C665AD91B6B96F6A11DF /* Pods-App-Dashboard-DashboardTests.debugdev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Dashboard-DashboardTests.debugdev.xcconfig"; path = "Target Support Files/Pods-App-Dashboard-DashboardTests/Pods-App-Dashboard-DashboardTests.debugdev.xcconfig"; sourceTree = "<group>"; };
 		CE1735052CD2552A00F9606A /* PrimaryCourseDashboardViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryCourseDashboardViewModelTests.swift; sourceTree = "<group>"; };
 		CE1735092CD26CB500F9606A /* AllCoursesViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCoursesViewModelTests.swift; sourceTree = "<group>"; };
+		D33FAE342EF9A529007EB2B9 /* Notifications.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Notifications.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE6CF4F983BBF52606807F9A /* Pods-App-Dashboard-DashboardTests.debugstage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Dashboard-DashboardTests.debugstage.xcconfig"; path = "Target Support Files/Pods-App-Dashboard-DashboardTests/Pods-App-Dashboard-DashboardTests.debugstage.xcconfig"; sourceTree = "<group>"; };
 		E36D702D7E3F9A8B3303AD0A /* Pods-App-Dashboard-DashboardTests.releasedev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Dashboard-DashboardTests.releasedev.xcconfig"; path = "Target Support Files/Pods-App-Dashboard-DashboardTests/Pods-App-Dashboard-DashboardTests.releasedev.xcconfig"; sourceTree = "<group>"; };
 		E5B672C28C8F9279BB4E5C9B /* Pods-App-Dashboard.releasestage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Dashboard.releasestage.xcconfig"; path = "Target Support Files/Pods-App-Dashboard/Pods-App-Dashboard.releasestage.xcconfig"; sourceTree = "<group>"; };
@@ -117,6 +134,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				027DB33F28D8E605002B6862 /* Core.framework in Frameworks */,
+				D33FAE352EF9A529007EB2B9 /* Notifications.framework in Frameworks */,
 				CEB1E26D2CC14E9B00921517 /* OEXFoundation in Frameworks */,
 				214DA1AADABC7BF4FB8EA1D7 /* Pods_App_Dashboard.framework in Frameworks */,
 			);
@@ -253,6 +271,7 @@
 		1E3E639E65A1C88EDE136CC9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D33FAE342EF9A529007EB2B9 /* Notifications.framework */,
 				027DB33E28D8E605002B6862 /* Core.framework */,
 				0B008B2F0762EF35CADE3DD4 /* Pods_App_Dashboard.framework */,
 				22905947A936093AD23D4CF8 /* Pods_App_Dashboard_DashboardTests.framework */,
@@ -335,6 +354,7 @@
 				02EF39E328D89F560058F6BD /* Sources */,
 				02EF39E428D89F560058F6BD /* Frameworks */,
 				02EF39E528D89F560058F6BD /* Resources */,
+				D33FAE372EF9A529007EB2B9 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

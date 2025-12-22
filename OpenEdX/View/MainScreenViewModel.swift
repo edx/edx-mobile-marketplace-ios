@@ -15,7 +15,6 @@ import Combine
 import Authorization
 import UserNotifications
 
-
 public enum MainTab {
     case discovery
     case dashboard

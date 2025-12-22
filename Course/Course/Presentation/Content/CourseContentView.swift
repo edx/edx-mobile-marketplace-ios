@@ -84,7 +84,9 @@ public struct CourseContentView: View {
                             DynamicOffsetView(
                                 coordinate: $coordinate,
                                 collapsed: $collapsed,
-                                viewHeight: $viewHeight
+                                viewHeight: $viewHeight,
+                                shouldShowUpgradeButton: $viewModel.shouldShowUpgradeButton,
+                                shouldHideMenuBar: $viewModel.shouldHideMenuBar
                             )
                             RefreshProgressView(isShowRefresh: $viewModel.isShowRefresh)
                             VStack(alignment: .leading) {
@@ -276,6 +278,7 @@ public struct CourseContentView: View {
         enrollmentEnd: nil,
         lastVisitedBlockID: nil,
         coreAnalytics: CoreAnalyticsMock(),
+        serverConfig: ServerConfigProtocolMock(),
         courseHelper: CourseDownloadHelper(courseStructure: nil, manager: DownloadManagerMock())
     )
     

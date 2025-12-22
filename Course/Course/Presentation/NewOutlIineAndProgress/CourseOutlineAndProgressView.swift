@@ -123,7 +123,7 @@ public struct CourseOutlineAndProgressView: View {
                                 DynamicOffsetView(
                                     coordinate: $coordinate,
                                     collapsed: $collapsed,
-                                    viewHeight: $viewHeight
+                                    viewHeight: $viewHeight,
                                 )
 
                                 VStack(alignment: .leading) {
@@ -484,6 +484,7 @@ public struct CourseOutlineAndProgressView: View {
         enrollmentEnd: nil,
         lastVisitedBlockID: nil,
         coreAnalytics: CoreAnalyticsMock(),
+        serverConfig: ServerConfigProtocolMock(),
         courseHelper: CourseDownloadHelper(courseStructure: nil, manager: DownloadManagerMock())
     )
 

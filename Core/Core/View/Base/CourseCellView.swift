@@ -125,13 +125,13 @@ public struct CourseCellView: View {
                     rightImage: Image(systemName: "info.circle"),
                     imagesStyle: .onSides,
                     isTitleTracking: false,
-                    maxWidthIpad: .infinity,
                     shape: RoundedCorners(
                         tl: 0,
                         tr: 0,
                         bl: Theme.Shapes.cardImageRadius,
                         br: Theme.Shapes.cardImageRadius
-                    )
+                    ),
+                    maxWidthIpad: .infinity,
                 )
                 .padding(.leading, 3)
             }

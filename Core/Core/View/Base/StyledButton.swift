@@ -8,6 +8,12 @@
 import SwiftUI
 import Theme
 
+public enum IconImagePosition {
+    case left
+    case right
+    case none
+}
+
 public struct StyledButton: View {
     public enum ImagesStyle {
         case onSides
@@ -26,7 +32,7 @@ public struct StyledButton: View {
     private let leftImage: Image?
     private let rightImage: Image?
     private let imagesStyle: ImagesStyle
-    private let isTitleTracking: Bool    
+    private let isTitleTracking: Bool
     private let shape: RoundedCorners
     private let iconImage: Image?
     private let iconPosition: IconImagePosition
@@ -41,10 +47,12 @@ public struct StyledButton: View {
                 leftImage: Image? = nil,
                 rightImage: Image? = nil,
                 imagesStyle: ImagesStyle = .attachedToText,
+                iconPosition: IconImagePosition = .none,
+                iconImage: Image? = nil,
                 isActive: Bool = true,
-                isTitleTracking: Bool = true,                
+                isTitleTracking: Bool = true,
                 shape: RoundedCorners = Theme.Shapes.buttonShape,
-                horizontalPadding: Bool = false,    
+                horizontalPadding: Bool = false,
                 maxWidthIpad: CGFloat? = 260) {
         self.title = title
         self.action = action
@@ -53,13 +61,15 @@ public struct StyledButton: View {
         self.borderColor = borderColor
         self.buttonColor = color
         self.isActive = isActive
+        self.iconPosition = iconPosition
         self.leftImage = leftImage
         self.rightImage = rightImage
         self.imagesStyle = imagesStyle
-        self.isTitleTracking = isTitleTracking        
+        self.isTitleTracking = isTitleTracking
         self.shape = shape
         self.horizontalPadding = horizontalPadding
         self.maxWidthIpad = maxWidthIpad
+        self.iconImage = iconImage
     }
     
     public var body: some View {

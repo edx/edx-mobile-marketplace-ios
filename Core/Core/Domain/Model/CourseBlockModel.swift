@@ -27,7 +27,7 @@ public struct CourseStructure: Equatable, Sendable {
     public let isUpgradeable: Bool
     public let sku: String?
     public let coursewareAccessDetails: CoursewareAccessDetails?
-    public let courseProgress: CourseProgress?
+    public var courseProgress: CourseProgress?
     public let lmsPrice: Double?
     
     public init(

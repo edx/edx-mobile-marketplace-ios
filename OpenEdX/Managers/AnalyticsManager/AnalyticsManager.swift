@@ -19,7 +19,7 @@ import Swinject
 import Notifications
 import OEXFoundation
 
-// swiftlint:disable file_length type_body_length
+// swiftlint:disable file_length type_body_length opening_brace
 class AnalyticsManager: AuthorizationAnalytics,
                         MainScreenAnalytics,
                         DiscoveryAnalytics,
@@ -30,9 +30,9 @@ class AnalyticsManager: AuthorizationAnalytics,
                         CoreAnalytics,
                         WhatsNewAnalytics,
                         NotificationsAnalytics,
-                        DownloadsAnalytics
-                        @unchecked Sendable {
-    
+                        DownloadsAnalytics,
+                        @unchecked Sendable
+{
     private var services: [AnalyticsService]
 
     public init(services: [AnalyticsService]) {
@@ -1708,4 +1708,4 @@ class AnalyticsManager: AuthorizationAnalytics,
     }
 }
 
-// swiftlint:enable file_length type_body_length
+// swiftlint:enable file_length type_body_length opening_brace

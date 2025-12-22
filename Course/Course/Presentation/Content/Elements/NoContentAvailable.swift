@@ -47,8 +47,8 @@ struct NoContentAvailable: View {
                 StyledButton(
                     CourseLocalization.Course.returnToHome,
                     action: action,
-                    iconImage: CoreAssets.arrowLeft.swiftUIImage,
-                    iconPosition: .left
+                    iconPosition: .left,
+                    iconImage: CoreAssets.arrowLeft.swiftUIImage
                 )
             }
         }

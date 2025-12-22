@@ -129,7 +129,11 @@ public actor CourseInteractor: CourseInteractorProtocol, CourseStructureManagerP
             certificate: course.certificate,
             org: course.org,
             isSelfPaced: course.isSelfPaced,
-            courseProgress: assignmentProgress
+            isUpgradeable: course.isUpgradeable,
+            sku: course.sku,
+            coursewareAccessDetails: course.coursewareAccessDetails,
+            courseProgress: assignmentProgress,
+            lmsPrice: course.lmsPrice
         )
         
         return filteredStructure

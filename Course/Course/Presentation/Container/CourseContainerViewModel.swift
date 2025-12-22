@@ -307,9 +307,9 @@ public final class CourseContainerViewModel: BaseCourseViewModel {
             update(from: courseHelper.value ?? .empty)
 
             self.courseStructure = courseStructure
-            let type = type(for: courseStructure?.coursewareAccessDetails?.coursewareAccess)
+            let type = type(for: courseStructure.coursewareAccessDetails?.coursewareAccess)
             shouldShowUpgradeButton = type == nil
-            && courseStructure?.isUpgradeable ?? false
+            && courseStructure.isUpgradeable
             && serverConfig.iapConfig.enabled
             
             updateMenuBarVisibility()
@@ -1947,6 +1947,7 @@ extension CourseContainerViewModel {
             enrollmentEnd: nil,
             lastVisitedBlockID: nil,
             coreAnalytics: CoreAnalyticsMock(),
+            serverConfig: ServerConfigProtocolMock(),
             courseHelper: CourseDownloadHelper(courseStructure: nil, manager: DownloadManagerMock())
         )
     }

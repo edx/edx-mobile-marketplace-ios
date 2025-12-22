@@ -151,8 +151,8 @@ struct DownloadCourseCell: View {
                     isCancelling = false
                     onDownloadTap()
                 },
-                iconImage: CoreAssets.downloads.swiftUIImage,
                 iconPosition: .left,
+                iconImage: CoreAssets.downloads.swiftUIImage,
                 maxWidthIpad: .infinity
             )
             .padding(.horizontal, 12)

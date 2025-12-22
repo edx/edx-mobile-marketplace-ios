@@ -155,6 +155,7 @@ struct AllContentView: View {
         enrollmentEnd: nil,
         lastVisitedBlockID: nil,
         coreAnalytics: CoreAnalyticsMock(),
+        serverConfig: ServerConfigProtocolMock(),
         courseHelper: CourseDownloadHelper(courseStructure: nil, manager: DownloadManagerMock())
     )
     

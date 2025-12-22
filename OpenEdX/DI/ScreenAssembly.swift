@@ -19,8 +19,7 @@ import Course
 import Discussion
 import Notifications
 @preconcurrency import Combine
-
-// swiftlint:disable function_body_length closure_parameter_position type_body_length
+// swiftlint:disable function_body_length type_body_length closure_parameter_position
 class ScreenAssembly: Assembly {
     func assemble(container: Container) {
         
@@ -291,7 +290,7 @@ class ScreenAssembly: Assembly {
                 upgradeHandler: r.resolve(CourseUpgradeHandlerProtocol.self)!,
                 upgradeHelper: r.resolve(CourseUpgradeHelperProtocol.self)!,
                 corePersistence: r.resolve(CorePersistenceProtocol.self)!,
-                connectivity: r.resolve(ConnectivityProtocol.self)!            
+                connectivity: r.resolve(ConnectivityProtocol.self)!
             )
         }
         
@@ -718,7 +717,6 @@ class ScreenAssembly: Assembly {
             r.resolve(Router.self)!
         }
         
-
         container.register(StoreKitHandlerProtocol.self) { @MainActor _ in
             StorekitHandler()
         }.inObjectScope(.container)
@@ -785,9 +783,7 @@ class ScreenAssembly: Assembly {
         container.register(NotificationsDeepLinkManager.self) { r in
             r.resolve(DeepLinkManager.self)!
         }
-    
-
-        // swiftlint:enable function_body_length type_body_length closure_parameter_position
+        
         // MARK: Downloads
         
         container.register(DownloadsPersistenceProtocol.self) { r in
@@ -835,5 +831,4 @@ class ScreenAssembly: Assembly {
         }
     }
 }
-// swiftlint:enable function_body_length closure_parameter_position type_body_length
-
+// swiftlint:enable function_body_length type_body_length closure_parameter_position

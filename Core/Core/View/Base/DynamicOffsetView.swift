@@ -46,6 +46,18 @@ public struct DynamicOffsetView: View {
         self._shouldHideMenuBar = shouldHideMenuBar
     }
     
+    public init(
+        coordinate: Binding<CGFloat>,
+        collapsed: Binding<Bool>,
+        viewHeight: Binding<CGFloat>
+    ) {
+        self._coordinate = coordinate
+        self._collapsed = collapsed
+        self._viewHeight = viewHeight
+        self._shouldShowUpgradeButton = .constant(false)
+        self._shouldHideMenuBar = .constant(false)
+    }
+    
     public var body: some View {
         VStack {
         }

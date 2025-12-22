@@ -36,7 +36,7 @@ public class PrimaryCourseDashboardViewModel: ObservableObject {
     let analytics: DashboardAnalytics
     let config: ConfigProtocol
     let serverConfig: ServerConfigProtocol
-    let storage: CoreStorage
+    var storage: CoreStorage
     let router: DashboardRouter
 
     private var cancellables = Set<AnyCancellable>()

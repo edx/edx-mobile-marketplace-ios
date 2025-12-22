@@ -24,7 +24,7 @@ public protocol CoreStorage: Sendable {
     var discussionNotificationsSettingStatus: Bool? {get set}
     var useRelativeDates: Bool {get set}
     var latestAvailableAppVersion: String? {get set}
-    var updateAppRequired: Bool {get set}    
+    var updateAppRequired: Bool {get set}
     func clear()
 }
 
