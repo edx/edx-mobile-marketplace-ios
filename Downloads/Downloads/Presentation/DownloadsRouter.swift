@@ -10,6 +10,7 @@ import Core
 
 @MainActor
 public protocol DownloadsRouter: BaseRouter {
+    // swiftlint:disable:next function_parameter_count
     func showCourseScreens(
         courseID: String,
         hasAccess: Bool?,
@@ -18,7 +19,9 @@ public protocol DownloadsRouter: BaseRouter {
         enrollmentStart: Date?,
         enrollmentEnd: Date?,
         title: String,
+        org: String?,
         courseRawImage: String?,
+        coursewareAccess: CoursewareAccess?,
         showDates: Bool,
         lastVisitedBlockID: String?
     )
@@ -28,6 +31,7 @@ public protocol DownloadsRouter: BaseRouter {
 // Mark - For testing and SwiftUI preview
 #if DEBUG
 public class DownloadsRouterMock: BaseRouterMock, DownloadsRouter {
+    // swiftlint:disable:next function_parameter_count
     public func showCourseScreens(
         courseID: String,
         hasAccess: Bool?,
@@ -36,7 +40,9 @@ public class DownloadsRouterMock: BaseRouterMock, DownloadsRouter {
         enrollmentStart: Date?,
         enrollmentEnd: Date?,
         title: String,
+        org: String?,
         courseRawImage: String?,
+        coursewareAccess: CoursewareAccess?,
         showDates: Bool,
         lastVisitedBlockID: String?
     ) {}

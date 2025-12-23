@@ -60,44 +60,8 @@ public struct AppDownloadsView: View {
                             
                             LazyVGrid(columns: columns(), spacing: 16) {
                                 ForEach(viewModel.courses) { course in
-                                    DownloadCourseCell(
-                                        course: course,
-                                        downloadedSize: Binding(
-                                            get: { viewModel.downloadedSizes[course.id] ?? 0 },
-                                            set: { viewModel.downloadedSizes[course.id] = $0 }
-                                        ),
-                                        downloadState: viewModel.downloadStates[course.id],
-                                        onDownloadTap: {
-                                            Task {
-                                                await viewModel.downloadCourse(courseID: course.id)
-                                            }
-                                        },
-                                        onCardTap: {
-                                            viewModel.router
-                                                .showCourseScreens(
-                                                    courseID: course.id,
-                                                    hasAccess: true,
-                                                    courseStart: Date(),
-                                                    courseEnd: nil,
-                                                    enrollmentStart: nil,
-                                                    enrollmentEnd: nil,
-                                                    title: course.name,
-                                                    courseRawImage: nil,
-                                                    showDates: false,
-                                                    lastVisitedBlockID: nil
-                                                )
-                                        },
-                                        onRemoveTap: {
-                                            Task {
-                                                await viewModel.removeDownload(courseID: course.id)
-                                            }
-                                        },
-                                        onCancelTap: {
-                                            Task {
-                                                await viewModel.cancelDownload(courseID: course.id)
-                                            }
-                                        }
-                                    ).id(course.id)
+                                    downloadCell(course)
+                                        .id(course.id)
                                         .frame(height: 330)
                                 }
                             }
@@ -149,6 +113,49 @@ public struct AppDownloadsView: View {
                 await viewModel.getDownloadCourses()
             }
         }
+    }
+    
+    private func downloadCell(_ course: DownloadCoursePreview) -> some View {
+        return DownloadCourseCell(
+            course: course,
+            downloadedSize: Binding(
+                get: { viewModel.downloadedSizes[course.id] ?? 0 },
+                set: { viewModel.downloadedSizes[course.id] = $0 }
+            ),
+            downloadState: viewModel.downloadStates[course.id],
+            onDownloadTap: {
+                Task {
+                    await viewModel.downloadCourse(courseID: course.id)
+                }
+            },
+            onCardTap: {
+                viewModel.router
+                    .showCourseScreens(
+                        courseID: course.id,
+                        hasAccess: true,
+                        courseStart: Date(),
+                        courseEnd: nil,
+                        enrollmentStart: nil,
+                        enrollmentEnd: nil,
+                        title: course.name,
+                        org: nil,
+                        courseRawImage: nil,
+                        coursewareAccess: nil,
+                        showDates: false,
+                        lastVisitedBlockID: nil
+                    )
+            },
+            onRemoveTap: {
+                Task {
+                    await viewModel.removeDownload(courseID: course.id)
+                }
+            },
+            onCancelTap: {
+                Task {
+                    await viewModel.cancelDownload(courseID: course.id)
+                }
+            }
+        )
     }
     
     // MARK: - Custom header view

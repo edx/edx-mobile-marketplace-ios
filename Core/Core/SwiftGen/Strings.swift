@@ -54,128 +54,98 @@ public enum CoreLocalization {
     /// Sign in
     public static let signIn = CoreLocalization.tr("Localizable", "ALERT.SIGN_IN", fallback: "Sign in")
   }
-  
   public enum Course {
     /// Ended on %@
     public static func ended(_ p1: Any) -> String {
       return CoreLocalization.tr("Localizable", "COURSE.ENDED", String(describing: p1), fallback: "Ended on %@")
     }
-
     /// Ends %@
     public static func ending(_ p1: Any) -> String {
       return CoreLocalization.tr("Localizable", "COURSE.ENDING", String(describing: p1), fallback: "Ends %@")
     }
-
     /// Soon
     public static let soon = CoreLocalization.tr("Localizable", "COURSE.SOON", fallback: "Soon")
-
     /// Starts %@
     public static func starting(_ p1: Any) -> String {
       return CoreLocalization.tr("Localizable", "COURSE.STARTING", String(describing: p1), fallback: "Starts %@")
     }
-
+    public enum Alert {
+      /// Cancel
+      public static let cancel = CoreLocalization.tr("Localizable", "COURSE.ALERT.CANCEL", fallback: "Cancel")
+      /// Close
+      public static let close = CoreLocalization.tr("Localizable", "COURSE.ALERT.CLOSE", fallback: "Close")
+      /// Downloading this content will use %@ of cellular data.
+      public static func confirmDownloadCellularDescription(_ p1: Any) -> String {
+        return CoreLocalization.tr("Localizable", "COURSE.ALERT.CONFIRM_DOWNLOAD_CELLULAR_DESCRIPTION", String(describing: p1), fallback: "Downloading this content will use %@ of cellular data.")
+      }
+      /// Download on Cellular?
+      public static let confirmDownloadCellularTitle = CoreLocalization.tr("Localizable", "COURSE.ALERT.CONFIRM_DOWNLOAD_CELLULAR_TITLE", fallback: "Download on Cellular?")
+      /// Downloading this %@ of content will save available blocks offline.
+      public static func confirmDownloadDescription(_ p1: Any) -> String {
+        return CoreLocalization.tr("Localizable", "COURSE.ALERT.CONFIRM_DOWNLOAD_DESCRIPTION", String(describing: p1), fallback: "Downloading this %@ of content will save available blocks offline.")
+      }
+      /// Confirm Download
+      public static let confirmDownloadTitle = CoreLocalization.tr("Localizable", "COURSE.ALERT.CONFIRM_DOWNLOAD_TITLE", fallback: "Confirm Download")
+      /// Download
+      public static let download = CoreLocalization.tr("Localizable", "COURSE.ALERT.DOWNLOAD", fallback: "Download")
+      /// Remove
+      public static let remove = CoreLocalization.tr("Localizable", "COURSE.ALERT.REMOVE", fallback: "Remove")
+      /// Removing this content will free up %@.
+      public static func removeDescription(_ p1: Any) -> String {
+        return CoreLocalization.tr("Localizable", "COURSE.ALERT.REMOVE_DESCRIPTION", String(describing: p1), fallback: "Removing this content will free up %@.")
+      }
+      /// Remove Offline Content?
+      public static let removeTitle = CoreLocalization.tr("Localizable", "COURSE.ALERT.REMOVE_TITLE", fallback: "Remove Offline Content?")
+      /// Try again
+      public static let tryAgain = CoreLocalization.tr("Localizable", "COURSE.ALERT.TRY_AGAIN", fallback: "Try again")
+    }
     public enum Audit {
       /// Access expired %@
       public static func expiredAgo(_ p1: Any) -> String {
         return CoreLocalization.tr("Localizable", "COURSE.AUDIT.EXPIRED_AGO", String(describing: p1), fallback: "Access expired %@")
       }
-
       /// Access expired %@ days ago
       public static func expiredDaysAgo(_ p1: Any) -> String {
         return CoreLocalization.tr("Localizable", "COURSE.AUDIT.EXPIRED_DAYS_AGO", String(describing: p1), fallback: "Access expired %@ days ago")
       }
-
       /// Expired on %@
       public static func expiredOn(_ p1: Any) -> String {
         return CoreLocalization.tr("Localizable", "COURSE.AUDIT.EXPIRED_ON", String(describing: p1), fallback: "Expired on %@")
       }
-
       /// Access expires in %@
       public static func expiresIn(_ p1: Any) -> String {
         return CoreLocalization.tr("Localizable", "COURSE.AUDIT.EXPIRES_IN", String(describing: p1), fallback: "Access expires in %@")
       }
-
       /// Access expires %@
       public static func expiresOn(_ p1: Any) -> String {
         return CoreLocalization.tr("Localizable", "COURSE.AUDIT.EXPIRES_ON", String(describing: p1), fallback: "Access expires %@")
       }
     }
-
-    public enum Alert {
-      /// Cancel
-      public static let cancel = CoreLocalization.tr("Localizable", "COURSE.ALERT.CANCEL", fallback: "Cancel")
-
-      /// Close
-      public static let close = CoreLocalization.tr("Localizable", "COURSE.ALERT.CLOSE", fallback: "Close")
-
-      /// Downloading this content will use %@ of cellular data.
-      public static func confirmDownloadCellularDescription(_ p1: Any) -> String {
-        return CoreLocalization.tr("Localizable", "COURSE.ALERT.CONFIRM_DOWNLOAD_CELLULAR_DESCRIPTION", String(describing: p1), fallback: "Downloading this content will use %@ of cellular data.")
-      }
-
-      /// Download on Cellular?
-      public static let confirmDownloadCellularTitle = CoreLocalization.tr("Localizable", "COURSE.ALERT.CONFIRM_DOWNLOAD_CELLULAR_TITLE", fallback: "Download on Cellular?")
-
-      /// Downloading this %@ of content will save available blocks offline.
-      public static func confirmDownloadDescription(_ p1: Any) -> String {
-        return CoreLocalization.tr("Localizable", "COURSE.ALERT.CONFIRM_DOWNLOAD_DESCRIPTION", String(describing: p1), fallback: "Downloading this %@ of content will save available blocks offline.")
-      }
-
-      /// Confirm Download
-      public static let confirmDownloadTitle = CoreLocalization.tr("Localizable", "COURSE.ALERT.CONFIRM_DOWNLOAD_TITLE", fallback: "Confirm Download")
-
-      /// Download
-      public static let download = CoreLocalization.tr("Localizable", "COURSE.ALERT.DOWNLOAD", fallback: "Download")
-
-      /// Remove
-      public static let remove = CoreLocalization.tr("Localizable", "COURSE.ALERT.REMOVE", fallback: "Remove")
-
-      /// Removing this content will free up %@.
-      public static func removeDescription(_ p1: Any) -> String {
-        return CoreLocalization.tr("Localizable", "COURSE.ALERT.REMOVE_DESCRIPTION", String(describing: p1), fallback: "Removing this content will free up %@.")
-      }
-
-      /// Remove Offline Content?
-      public static let removeTitle = CoreLocalization.tr("Localizable", "COURSE.ALERT.REMOVE_TITLE", fallback: "Remove Offline Content?")
-
-      /// Try again
-      public static let tryAgain = CoreLocalization.tr("Localizable", "COURSE.ALERT.TRY_AGAIN", fallback: "Try again")
-    }
-
     public enum Error {
       /// Unfortunately, this content failed to download. Please try again later or report this issue.
       public static let downloadFailedDescription = CoreLocalization.tr("Localizable", "COURSE.ERROR.DOWNLOAD_FAILED_DESCRIPTION", fallback: "Unfortunately, this content failed to download. Please try again later or report this issue.")
-
       /// Download Failed
       public static let downloadFailedTitle = CoreLocalization.tr("Localizable", "COURSE.ERROR.DOWNLOAD_FAILED_TITLE", fallback: "Download Failed")
-
       /// Downloading this content requires an active internet connection. Please connect to the internet and try again.
       public static let noInternetConnectionDescription = CoreLocalization.tr("Localizable", "COURSE.ERROR.NO_INTERNET_CONNECTION_DESCRIPTION", fallback: "Downloading this content requires an active internet connection. Please connect to the internet and try again.")
-
       /// No Internet Connection
       public static let noInternetConnectionTitle = CoreLocalization.tr("Localizable", "COURSE.ERROR.NO_INTERNET_CONNECTION_TITLE", fallback: "No Internet Connection")
-
       /// Downloading this content requires an active WiFi connection. Please connect to a WiFi network and try again.
       public static let wifiRequiredDescription = CoreLocalization.tr("Localizable", "COURSE.ERROR.WIFI_REQUIRED_DESCRIPTION", fallback: "Downloading this content requires an active WiFi connection. Please connect to a WiFi network and try again.")
-
       /// Wi-Fi Required
       public static let wifiRequiredTitle = CoreLocalization.tr("Localizable", "COURSE.ERROR.WIFI_REQUIRED_TITLE", fallback: "Wi-Fi Required")
     }
-
     public enum StorageAlert {
       /// Your device does not have enough free space to download this content. Please free up some space and try again.
       public static let description = CoreLocalization.tr("Localizable", "COURSE.STORAGE_ALERT.DESCRIPTION", fallback: "Your device does not have enough free space to download this content. Please free up some space and try again.")
-
       /// Device Storage Full
       public static let title = CoreLocalization.tr("Localizable", "COURSE.STORAGE_ALERT.TITLE", fallback: "Device Storage Full")
-
       /// %@ used, %@ free
       public static func usedAndFree(_ p1: Any, _ p2: Any) -> String {
         return CoreLocalization.tr("Localizable", "COURSE.STORAGE_ALERT.USED_AND_FREE", String(describing: p1), String(describing: p2), fallback: "%@ used, %@ free")
       }
     }
   }
-
   public enum Courseware {
     /// Back to outline
     public static let backToOutline = CoreLocalization.tr("Localizable", "COURSEWARE.BACK_TO_OUTLINE", fallback: "Back to outline")

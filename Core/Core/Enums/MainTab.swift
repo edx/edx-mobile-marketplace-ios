@@ -9,5 +9,6 @@ public enum MainTab {
     case discovery
     case dashboard
     case programs
+    case downloads
     case profile
 }

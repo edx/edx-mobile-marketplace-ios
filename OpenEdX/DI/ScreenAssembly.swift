@@ -290,7 +290,8 @@ class ScreenAssembly: Assembly {
                 upgradeHandler: r.resolve(CourseUpgradeHandlerProtocol.self)!,
                 upgradeHelper: r.resolve(CourseUpgradeHelperProtocol.self)!,
                 corePersistence: r.resolve(CorePersistenceProtocol.self)!,
-                connectivity: r.resolve(ConnectivityProtocol.self)!
+                connectivity: r.resolve(ConnectivityProtocol.self)!,
+                coreStorage: r.resolve(CoreStorage.self)!
             )
         }
         
@@ -326,9 +327,7 @@ class ScreenAssembly: Assembly {
                 interactor: r.resolve(NotificationsInteractorProtocol.self)!,
                 analytics: r.resolve(NotificationsAnalytics.self)!,
                 router: r.resolve(NotificationsRouter.self)!,
-                storage: r.resolve(CoreStorage.self)!,
-                connectivity: r.resolve(ConnectivityProtocol.self)!,
-                coreStorage: r.resolve(AppStorage.self)!
+                storage: r.resolve(CoreStorage.self)!
             )
         }
         

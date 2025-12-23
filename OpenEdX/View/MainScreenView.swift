@@ -123,7 +123,8 @@ struct MainScreenView: View {
                                 viewModel: Container.shared.resolve(
                                     DiscoveryWebviewViewModel.self,
                                     argument: viewModel.sourceScreen)!,
-                                router: Container.shared.resolve(DiscoveryRouter.self)!
+                                router: Container.shared.resolve(DiscoveryRouter.self)!,
+                                supportsElevatedTabBar: supportsElevatedTabBar
                             )
                         }
                     }
@@ -195,7 +196,11 @@ struct MainScreenView: View {
                     }
                 }
                 .tabItem {
-                    CoreAssets.discover.swiftUIImage.renderingMode(.template)
+                    if viewModel.selection == .discovery {
+                        CoreAssets.discoverActive.swiftUIImage.renderingMode(.template)
+                    } else {
+                        CoreAssets.discoverInactive.swiftUIImage.renderingMode(.template)
+                    }
                     Text(CoreLocalization.Mainscreen.discovery)
                 }
                 .tag(MainTab.discovery)
@@ -238,48 +243,43 @@ struct MainScreenView: View {
         .onReceive(NotificationCenter.default.publisher(for: .showDownloadFailed)) { downloads in
             if let downloads = downloads.object as? [DownloadDataTask] {
                 Task {
-                   await viewModel.showDownloadFailed(downloads: downloads)
+                    await viewModel.showDownloadFailed(downloads: downloads)
                 }
             }
-            .onChange(of: viewModel.selection) { _ in
-                if disableAllTabs {
-                    viewModel.selection = .profile
-                }
+        }
+        .onChange(of: viewModel.selection) { _ in
+            if disableAllTabs {
+                viewModel.selection = .profile
             }
-            .onChange(of: viewModel.selection, perform: { selection in
-                switch selection {
-                case .discovery:
-                    viewModel.trackMainDiscoveryTabClicked()
-                case .dashboard:
-                    viewModel.trackMainDashboardLearnTabClicked()
-                case .programs:
-                    viewModel.trackMainProgramsTabClicked()
-                case .profile:
-                    viewModel.trackMainProfileTabClicked()
-                case .downloads:
-                    viewModel.trackMainDownloadsTabClicked()
-                }
-            })
-            .onFirstAppear {
-                Task {
-                    await viewModel.prefetchDataForOffline()
-                    await viewModel.loadCalendar()
-                }
+        }
+        .onChange(of: viewModel.selection, perform: { selection in
+            switch selection {
+            case .discovery:
+                viewModel.trackMainDiscoveryTabClicked()
+            case .dashboard:
                 viewModel.trackMainDashboardLearnTabClicked()
-                viewModel.trackMainDashboardMyCoursesClicked()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    viewModel.checkIfNeedToShowRegisterBanner()
-                }
+            case .programs:
+                viewModel.trackMainProgramsTabClicked()
+            case .profile:
+                viewModel.trackMainProfileTabClicked()
+            case .downloads:
+                viewModel.trackMainDownloadsTabClicked()
             }
-            .accentColor(Theme.Colors.accentXColor)
-            if updateAvailable {
-                UpdateNotificationView(config: viewModel.config)
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                viewModel.checkIfNeedToShowRegisterBanner()
+        })
+        .onFirstAppear {
+            Task {
+                await viewModel.prefetchDataForOffline()
+                await viewModel.loadCalendar()
             }
             viewModel.trackMainDashboardLearnTabClicked()
             viewModel.trackMainDashboardMyCoursesClicked()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                viewModel.checkIfNeedToShowRegisterBanner()
+            }
+        }
+        .accentColor(Theme.Colors.accentXColor)
+        if updateAvailable {
+            UpdateNotificationView(config: viewModel.config)
         }
     }
     

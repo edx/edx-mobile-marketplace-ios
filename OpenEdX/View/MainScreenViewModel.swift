@@ -15,14 +15,6 @@ import Combine
 import Authorization
 import UserNotifications
 
-public enum MainTab {
-    case discovery
-    case dashboard
-    case programs
-    case downloads
-    case profile
-}
-
 @MainActor
 final class MainScreenViewModel: ObservableObject {
     
