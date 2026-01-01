@@ -216,7 +216,7 @@ public class UpgradeInfoViewModel: ObservableObject {
     
     func trackOnCertificatePreviewPurchased() {
         var props = certificatePreviewProps()
-        props[CertPreviewPropertyKey.attemptsToPurchase.rawValue] = certificatePreviewExperimentManager.attemptsSinceLastCertificatePreviewAndReset(forCourseId: courseID)
+        props[CertPreviewPropertyKey.attemptsToPurchase.rawValue] = "\(certificatePreviewExperimentManager.attemptsSinceLastCertificatePreviewAndReset(forCourseId: courseID))"
         certificatePreviewExperimentManager.trackEvent(
             CertPreviewEventKey.certPreviewPurchased.rawValue,
             properties: props
@@ -231,9 +231,13 @@ public class UpgradeInfoViewModel: ObservableObject {
         let props: [String: Any] = [
             CertPreviewPropertyKey.courseId.rawValue: courseID,
             CertPreviewPropertyKey.price.rawValue: lmsPrice,
-            CertPreviewPropertyKey.showCertificatePreview.rawValue: shouldShowCertificatePreview(),
+            CertPreviewPropertyKey.showCertificatePreview.rawValue: boolToString(shouldShowCertificatePreview()),
             CertPreviewPropertyKey.certPreviewVariant.rawValue: shouldShowCertificatePreview() ? CertPreviewPropertyKey.treatment.rawValue : CertPreviewPropertyKey.control.rawValue
         ]
         return props
+    }
+        
+    private func boolToString(_ value: Bool) -> String {
+        return value ? "true" : "false"
     }
 }
