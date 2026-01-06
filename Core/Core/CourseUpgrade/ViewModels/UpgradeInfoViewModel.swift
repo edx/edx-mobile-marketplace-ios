@@ -231,13 +231,9 @@ public class UpgradeInfoViewModel: ObservableObject {
         let props: [String: Any] = [
             CertPreviewPropertyKey.courseId.rawValue: courseID,
             CertPreviewPropertyKey.price.rawValue: lmsPrice,
-            CertPreviewPropertyKey.showCertificatePreview.rawValue: boolToString(shouldShowCertificatePreview()),
+            CertPreviewPropertyKey.showCertificatePreview.rawValue: String(shouldShowCertificatePreview()),
             CertPreviewPropertyKey.certPreviewVariant.rawValue: shouldShowCertificatePreview() ? CertPreviewPropertyKey.treatment.rawValue : CertPreviewPropertyKey.control.rawValue
         ]
         return props
-    }
-        
-    private func boolToString(_ value: Bool) -> String {
-        return value ? "true" : "false"
     }
 }
