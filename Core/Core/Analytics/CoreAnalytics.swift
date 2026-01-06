@@ -648,7 +648,7 @@ public enum CertPreviewPropertyKey: String {
     case showCertificatePreview = "show_certificate_preview"
     case certPreviewVariant     = "cert_preview_variant"
     case courseId               = "course_id"
-    case price                  = "price"
+    case price                  = "lms_usd_price"
     case treatment              = "treatment"
     case control                = "control"
     case attemptsToPurchase     = "attempts_to_purchase"
