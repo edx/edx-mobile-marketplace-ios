@@ -119,7 +119,7 @@ public struct UpgradeInfoView<Content>: View where Content: View {
                                 CertificateView(name: storage?.user?.username ?? "", courseName: viewModel.productName)
                                     .padding(.leading, isiPad ? 80 : 0)
                                     .padding(.trailing, isiPad ? 80 : 0)
-                                    .padding(.bottom, isiPad ? 0 : 50)
+                                    .padding(.bottom, 80)
                             }
                         }
                     } else {
