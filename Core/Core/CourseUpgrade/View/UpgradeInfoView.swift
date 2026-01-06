@@ -117,8 +117,9 @@ public struct UpgradeInfoView<Content>: View where Content: View {
                             }
                             if shouldShowCertificatePreview {
                                 CertificateView(name: storage?.user?.username ?? "", courseName: viewModel.productName)
-                                    .padding(.leading, isiPad ? 50 : 0)
-                                    .padding(.trailing, isiPad ? 50 : 0)
+                                    .padding(.leading, isiPad ? 80 : 0)
+                                    .padding(.trailing, isiPad ? 80 : 0)
+                                    .padding(.bottom, isiPad ? 0 : 50)
                             }
                         }
                     } else {
@@ -130,8 +131,8 @@ public struct UpgradeInfoView<Content>: View where Content: View {
                             .foregroundColor(Theme.Colors.textPrimary)
                         if shouldShowCertificatePreview {
                             CertificateView(name: storage?.user?.username ?? "", courseName: viewModel.productName)
-                                .padding(.leading, isiPad ? 150 : 0)
-                                .padding(.trailing, isiPad ? 150 : 0)
+                                .padding(.leading, isiPad ? 190 : 0)
+                                .padding(.trailing, isiPad ? 190 : 0)
                             Spacer(minLength: 20)
                         }
                         if isFindCourseButtonVisible {
