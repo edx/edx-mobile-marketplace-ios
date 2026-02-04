@@ -44,6 +44,8 @@ struct CertificateView: View {
                             .foregroundStyle(Theme.Colors.certificateTextGrey)
                         Text(name)
                             .font(Theme.Fonts.custom(.bold, 22))
+                            .fixedSize(horizontal: false, vertical: true)
+                            .lineLimit(2)
                             .foregroundStyle(Theme.Colors.certificateTitleTextColor)
                         
                         Text(CoreLocalization.CertificateView.titleCompleted)
@@ -55,6 +57,8 @@ struct CertificateView: View {
                         
                         Text(courseName)
                             .font(Theme.Fonts.custom(.bold, 18))
+                            .fixedSize(horizontal: false, vertical: true)
+                            .lineLimit(2)
                             .foregroundStyle(Theme.Colors.certificateTitleTextColor)
                         
                         Text(CoreLocalization.CertificateView.courseOffered)
