@@ -50,6 +50,7 @@ public struct ResponsesView: View {
                     VStack {
                         ZStack(alignment: .top) {
                             RefreshableScrollViewCompat(action: {
+                                viewModel.comments = []
                                 _ = await viewModel.getResponsesData(
                                     commentID: commentID,
                                     parentComment: parentComment,
