@@ -56,10 +56,12 @@ public protocol FeatureManagerProtocol {
     ///
     /// - Note: Platforms that don't support metadata or value will gracefully ignore unsupported fields.
     func trackEvent(_ name: String, properties: [String: Any]?)
-    
+
     func recordCertificatePreviewShownAttempt(forCourseId courseId: String)
-    
+
     func attemptsSinceLastCertificatePreviewAndReset(forCourseId courseId: String) -> Int
+
+    func trackAutoEvents()
 }
 
 public extension FeatureManagerProtocol {
@@ -91,6 +93,34 @@ public extension FeatureManagerProtocol {
             "value": value
         ])
     }
+
+    func identifyUser(id: String, attributes: [String : Any]?) {
+        
+    }
+    
+    func resetUser() {
+        
+    }
+    
+    func decision(forKey key: String) -> (any FeatureDecision)? {
+        return nil
+    }
+    
+    func recordCertificatePreviewShownAttempt(forCourseId courseId: String) {
+        
+    }
+    
+    func attemptsSinceLastCertificatePreviewAndReset(forCourseId courseId: String) -> Int {
+        return 0
+    }
+        
+    func trackAutoEvents() {
+        
+    }
+    
+    func trackEvent(_ name: String, properties: [String: Any]?) {
+        
+    }
 }
 
 #if DEBUG
@@ -117,17 +147,21 @@ public final class FeatureManagerMock: FeatureManagerProtocol {
         guard let userID else { return nil }
         return featureDecisions[key]
     }
-
+    
     public func trackEvent(_ name: String, properties: [String: Any]?) {
         trackedEvents.append((name: name, properties: properties))
     }
-    
+
     public func recordCertificatePreviewShownAttempt(forCourseId courseId: String) {
-        
+
     }
-        
+
     public func attemptsSinceLastCertificatePreviewAndReset(forCourseId courseId: String) -> Int {
         return 1
+    }
+
+    public func trackAutoEvents() {
+
     }
 }
 #endif

@@ -73,9 +73,11 @@
 		A5C10D8F2B861A70008E864D /* SegmentAnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C10D8E2B861A70008E864D /* SegmentAnalyticsService.swift */; };
 		BA3042792B1F7147009B64B7 /* MSAL in Frameworks */ = {isa = PBXBuildFile; productRef = BA3042782B1F7147009B64B7 /* MSAL */; };
 		BA7468762B96201D00793145 /* DeepLinkRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7468752B96201D00793145 /* DeepLinkRouter.swift */; };
+		D359C90B2F39A34C0055116E /* FeatureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D359C90A2F39A3460055116E /* FeatureManager.swift */; };
 		D39950082EDCB82100B81F8A /* FirebaseAnalyticsTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39950072EDCB81800B81F8A /* FirebaseAnalyticsTracker.swift */; };
 		E0D6E6A32B1626B10089F9C9 /* Theme.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0D6E6A22B1626B10089F9C9 /* Theme.framework */; };
 		E0D6E6A42B1626D60089F9C9 /* Theme.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E0D6E6A22B1626B10089F9C9 /* Theme.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F6B10A1CE2ED0ECCD9818252 /* Pods_App_OpenEdX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F761B072BFB540B6F8469E3E /* Pods_App_OpenEdX.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -328,6 +330,7 @@
 		A50066882B613E800024680B /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				D359C90A2F39A3460055116E /* FeatureManager.swift */,
 				94AE32312D8838DE00FA048D /* Payload.swift */,
 				065275362BB1B4070093BCCA /* PipManager.swift */,
 				A59568932B6162E400ED4F90 /* DeepLinkManager */,
@@ -335,7 +338,6 @@
 				A50066892B613E990024680B /* AnalyticsManager */,
 				A59702272B83C84800CA064C /* FirebaseAnalyticsService */,
 				A5C10D8D2B861A56008E864D /* SegmentAnalyticsService */,
-				9426DE8C2DB28BD000230582 /* FeatureManager */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -604,6 +606,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D359C90B2F39A34C0055116E /* FeatureManager.swift in Sources */,
 				0780ABE82BFCA1530093A4A6 /* NotificationsEndpoints.swift in Sources */,
 				A500668B2B613ED10024680B /* PushNotificationsManager.swift in Sources */,
 				0293A2052A6FCD430090A336 /* CoursePersistence.swift in Sources */,
