@@ -10,9 +10,9 @@ import Foundation
 
 private enum DatadogKey {
     static let enabled = "ENABLED"
-    static let appID = "77b5731a-3143-44ad-8dfe-b1e6dcf88ab8"
-    static let clientToken = "pub139dbaa28acbc5ce5eedb91a35ea8c54"
-    static let environment = "stage"
+    static let appID = "DATADOG_APPLICATION_ID"
+    static let clientToken = "DATADOG_CLIENT_TOKEN"
+    static let environment = "DATADOG_ENVIRONMENT"
 }
 
 public final class DatadogConfig: NSObject {
@@ -30,7 +30,7 @@ public final class DatadogConfig: NSObject {
     }
 }
 
-private let datadogKey = "DATADOGKEY"
+private let datadogKey = "DATADOG"
 
 extension Config {
     public var dataDog: DatadogConfig {
