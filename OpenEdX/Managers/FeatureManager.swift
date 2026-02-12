@@ -11,19 +11,24 @@ import Core
 
 final class DataDogFeatureManager: FeatureManagerProtocol {
     private var dataDogManager: FeatureManagerProtocol?
-
-    init(config: ConfigProtocol) {
+    private(set) var config: ConfigProtocol!
+    
+    init(_ config: ConfigProtocol) {
+        self.config = config
         if config.dataDog.enabled {
             dataDogManager = DatadogManager(appID: config.dataDog.appID, clientToken: config.dataDog.clientToken, environment: config.dataDog.environment)
         }
     }
     
     func trackAutoEvents() {
-        dataDogManager?.trackAutoEvents()
+        if config?.dataDog.enabled ?? false {
+            dataDogManager?.trackAutoEvents()
+        }
     }
     
-    func trackEvent(_ name: String, properties: [String : Any]?) {
-        dataDogManager?.trackEvent(name, properties: properties)
+    func trackEvent(_ name: String, properties: [String: Any]?) {
+        if config?.dataDog.enabled ?? false {
+            dataDogManager?.trackEvent(name, properties: properties)
+        }
     }
 }
-
