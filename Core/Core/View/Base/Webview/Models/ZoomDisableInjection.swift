@@ -21,4 +21,3 @@ struct ZoomDisableInjection: WebViewScriptInjectionProtocol {
     let injectionTime: WKUserScriptInjectionTime = .atDocumentEnd
     let forMainFrameOnly: Bool = true
 }
-
