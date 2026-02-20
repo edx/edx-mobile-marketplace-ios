@@ -20,7 +20,8 @@ public class NotificationsSettingsViewModel: ObservableObject {
             storage.discussionNotificationsSettingStatus = discussionNotificationsEnabled
         }
     }
-    
+
+    private var userNotificationCenter: UserNotificationCenterProtocol
     private var interactor: NotificationsInteractorProtocol
     private var analytics: NotificationsAnalytics
     private var storage: CoreStorage
@@ -44,11 +45,13 @@ public class NotificationsSettingsViewModel: ObservableObject {
     }
 
     public init(
+        userNotificationCenter: UserNotificationCenterProtocol = UNUserNotificationCenter.current(),
         interactor: NotificationsInteractorProtocol,
         analytics: NotificationsAnalytics,
         router: NotificationsRouter,
         storage: CoreStorage
     ) {
+        self.userNotificationCenter = userNotificationCenter
         self.interactor = interactor
         self.analytics = analytics
         self.router = router
@@ -116,28 +119,28 @@ public class NotificationsSettingsViewModel: ObservableObject {
     @objc private func refreshOSSettingsPermissionStatus() {
         getOSSettingsPermissionStatus(autoUpdate: true, track: true)
     }
-    
+
     private func getOSSettingsPermissionStatus(autoUpdate: Bool = false, track: Bool = false) {
-        UNUserNotificationCenter.current().getNotificationSettings(completionHandler: { [weak self] (settings) in
-            if settings.authorizationStatus == .notDetermined {
-                self?.authorizationStatus = .notDetermined
-            } else if settings.authorizationStatus == .denied {
-                self?.authorizationStatus = .denied
+        Task { @MainActor in
+            let systemStatus = await userNotificationCenter.authorizationStatus()
+
+            if systemStatus == .notDetermined {
+                authorizationStatus = .notDetermined
+            } else if systemStatus == .denied {
+                authorizationStatus = .denied
                 if track {
-                    self?.trackSystemPermissionDialogAction(action: Constants.dontAllow)
+                    trackSystemPermissionDialogAction(action: Constants.dontAllow)
                 }
-            } else if settings.authorizationStatus == .authorized {
-                self?.authorizationStatus = .authorized
+            } else if systemStatus == .authorized {
+                authorizationStatus = .authorized
                 if track {
-                    self?.trackSystemPermissionDialogAction(action: Constants.allow)
+                    trackSystemPermissionDialogAction(action: Constants.allow)
                 }
                 if autoUpdate {
-                    Task {
-                        await self?.updateDiscussionNotifications(enabled: true)
-                    }
+                    await updateDiscussionNotifications(enabled: true)
                 }
             }
-        })
+        }
     }
     
     private func showPermissionNeededAlert() {

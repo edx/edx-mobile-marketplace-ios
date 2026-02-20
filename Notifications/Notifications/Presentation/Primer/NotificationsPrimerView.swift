@@ -142,6 +142,7 @@ public struct NotificationsPrimerView: View {
 #Preview {
     NotificationsPrimerView(
         viewModel: NotificationsPrimerViewModel(
+            userNotificationCenter: UserNotificationCenterMock(),
             interactor: NotificationsInteractor.mock,
             router: NotificationsRouterMock(),
             analytics: NotificationsAnalyticsMock()

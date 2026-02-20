@@ -124,10 +124,15 @@ extension BaseRouter {
 // Mark - For testing and SwiftUI preview
 #if DEBUG
 open class BaseRouterMock: BaseRouter {
+    public var dismissCalled = false
+    public var performNotificationRegistrationCalled = false
+    public var presentNativeAlertCalled = false
 
     public init() {}
 
-    public func dismiss(animated: Bool, completion: (() -> Void)? = nil) {}
+    public func dismiss(animated: Bool, completion: (() -> Void)? = nil) {
+        dismissCalled = true
+    }
 
     public func showMainOrWhatsNewScreen(sourceScreen: LogistrationSourceScreen, postLoginData: PostLoginData?) {}
     
@@ -175,7 +180,9 @@ open class BaseRouterMock: BaseRouter {
 
     public func presentView(transitionStyle: UIModalTransitionStyle, animated: Bool, content: () -> any View) {}
     
-    public func presentNativeAlert(title: String?, message: String?, actions: [UIAlertAction]) {}
+    public func presentNativeAlert(title: String?, message: String?, actions: [UIAlertAction]) {
+        presentNativeAlertCalled = true
+    }
 
     @MainActor
     public func showTrackSelection(
@@ -214,7 +221,9 @@ open class BaseRouterMock: BaseRouter {
     public func hideRestoreProgressView() {}
     
     @MainActor
-    public func performNotificationRegistration() {}
+    public func performNotificationRegistration() {
+        performNotificationRegistrationCalled = true
+    }
 
     @MainActor
     public func showNotificationsScreen() {}

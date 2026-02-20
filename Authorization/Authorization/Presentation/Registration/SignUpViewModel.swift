@@ -140,7 +140,10 @@ public class SignUpViewModel: ObservableObject {
 
     @MainActor
     func registerUser(authMetod: AuthMethod = .password) async {
-        let validateFields = configureFields()
+        var validateFields = await configureFields()
+        validateFields["captcha_token"] = nil
+        let registerFields = await configureFields()
+        
         do {
             let errors = try await interactor.validateRegistrationFields(fields: validateFields)
             if showErrors(errors: errors) {
@@ -164,7 +167,7 @@ public class SignUpViewModel: ObservableObject {
         do {
             isShowProgress = true
             let user = try await interactor.registerUser(
-                fields: validateFields,
+                fields: registerFields,
                 isSocial: externalToken != nil
             )
             analytics.identify(id: "\(user.id)", username: user.username, email: user.email)
@@ -187,11 +190,19 @@ public class SignUpViewModel: ObservableObject {
         }
     }
 
-    private func configureFields() -> [String: String] {
+    private func configureFields() async -> [String: String] {
         var validateFields: [String: String] = [:]
         fields.forEach { validateFields[$0.field.name] = $0.text }
         validateFields["honor_code"] = "true"
         validateFields["terms_of_service"] = "true"
+        if fields.contains(where: { $0.field.name == "captcha_token" }) {
+            do {
+                let captchaToken = try await interactor.generateCaptchaToken()
+                validateFields["captcha_token"] = captchaToken
+            } catch {
+                print("Failed to generate CAPTCHA token: \(error)")
+            }
+        }
         if let externalToken = externalToken, let backend = backend {
             validateFields["access_token"] = externalToken
             validateFields["provider"] = backend
