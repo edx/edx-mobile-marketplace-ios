@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import WebKit
 
 public enum FeatureKeys {
     public static let showCertificatePreview = "show_certificate_preview_ios"
@@ -62,6 +63,10 @@ public protocol FeatureManagerProtocol {
     func attemptsSinceLastCertificatePreviewAndReset(forCourseId courseId: String) -> Int
 
     func trackAutoEvents()
+    
+    func enableWebViewTracking(_ webView: WKWebView, _ hosts: Set<URL>)
+    
+    func disableWebViewTracking(_ webView: WKWebView)
 }
 
 public extension FeatureManagerProtocol {
@@ -121,6 +126,14 @@ public extension FeatureManagerProtocol {
     func trackEvent(_ name: String, properties: [String: Any]?) {
         
     }
+    
+    func enableWebViewTracking(_ webView: WKWebView, _ hosts: Set<URL>) {
+        
+    }
+    
+    func disableWebViewTracking(_ webView: WKWebView) {
+        
+    }
 }
 
 #if DEBUG
@@ -162,6 +175,14 @@ public final class FeatureManagerMock: FeatureManagerProtocol {
 
     public func trackAutoEvents() {
 
+    }
+    
+    public func enableWebViewTracking(_ webView: WKWebView, _ hosts: Set<URL>) {
+        
+    }
+
+    public func disableWebViewTracking(_ webView: WKWebView) {
+        
     }
 }
 #endif

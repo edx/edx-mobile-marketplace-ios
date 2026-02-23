@@ -8,6 +8,7 @@
 import Foundation
 import EDXFeatureManagement
 import Core
+import WebKit
 
 final class DataDogFeatureManager: FeatureManagerProtocol {
     private var dataDogManager: FeatureManagerProtocol?
@@ -30,5 +31,13 @@ final class DataDogFeatureManager: FeatureManagerProtocol {
         if config?.dataDog.enabled ?? false {
             dataDogManager?.trackEvent(name, properties: properties)
         }
+    }
+    
+    func enableWebViewTracking(_ webView: WKWebView, _ hosts: Set<URL>) {
+        dataDogManager?.enableWebViewTracking(webView, hosts)
+    }
+    
+    func disableWebViewTracking(_ webView: WKWebView) {
+        dataDogManager?.disableWebViewTracking(webView)
     }
 }
