@@ -1566,6 +1566,7 @@
 				062C69BB2C199C2A002BD311 /* MainTab.swift in Sources */,
 				02CA59842BD7DDBE00D517AA /* DashboardConfig.swift in Sources */,
 				0727877B28D24A1D002E9142 /* HeadersRedirectHandler.swift in Sources */,
+				D359C9092F39A0F00055116E /* DatadogConfig.swift in Sources */,
 				0236961B28F9A28B00EEF206 /* AuthInteractor.swift in Sources */,
 				A5CAA1EC2C526901007690D9 /* SecureInputView.swift in Sources */,
 				0770DE3028D09793006D8A5D /* EndPointType.swift in Sources */,
