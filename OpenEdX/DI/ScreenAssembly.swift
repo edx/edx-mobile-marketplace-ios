@@ -138,7 +138,8 @@ class ScreenAssembly: Assembly {
                 interactor: r.resolve(DiscoveryInteractorProtocol.self)!,
                 connectivity: r.resolve(ConnectivityProtocol.self)!,
                 analytics: r.resolve(DiscoveryAnalytics.self)!,
-                authInteractor: r.resolve(AuthInteractorProtocol.self)!
+                authInteractor: r.resolve(AuthInteractorProtocol.self)!,
+                datadogManager: r.resolve(DataDogFeatureManager.self)!
             )
         }
         

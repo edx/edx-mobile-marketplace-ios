@@ -9,6 +9,7 @@ import Foundation
 import Core
 import SwiftUI
 import WebKit
+import EDXFeatureManagement
 
 public class ProgramWebviewViewModel: ObservableObject, WebviewCookiesUpdateProtocol {
     @Published var courseDetails: CourseDetails?
@@ -31,14 +32,16 @@ public class ProgramWebviewViewModel: ObservableObject, WebviewCookiesUpdateProt
     private let analytics: DiscoveryAnalytics
     var request: URLRequest?
     public let authInteractor: AuthInteractorProtocol
-    
+    private(set) var datadogManager: FeatureManagerProtocol
+
     public init(
         router: DiscoveryRouter,
         config: ConfigProtocol,
         interactor: DiscoveryInteractorProtocol,
         connectivity: ConnectivityProtocol,
         analytics: DiscoveryAnalytics,
-        authInteractor: AuthInteractorProtocol
+        authInteractor: AuthInteractorProtocol,
+        datadogManager: FeatureManagerProtocol
     ) {
         self.router = router
         self.config = config
@@ -46,6 +49,7 @@ public class ProgramWebviewViewModel: ObservableObject, WebviewCookiesUpdateProt
         self.connectivity = connectivity
         self.analytics = analytics
         self.authInteractor = authInteractor
+        self.datadogManager = datadogManager
     }
     
     @MainActor
@@ -139,6 +143,7 @@ extension ProgramWebviewViewModel: WebViewNavigationDelegate {
             return true
         }
         
+        datadogManager.enableWebViewTracking(webView, Set([request.url!]))        
         return false
     }
     
