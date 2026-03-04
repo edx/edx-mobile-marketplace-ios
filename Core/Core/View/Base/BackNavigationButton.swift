@@ -51,6 +51,11 @@ public struct BackNavigationButtonRepresentable: UIViewRepresentable {
         button.contentHorizontalAlignment = .leading
         button.addTarget(context.coordinator, action: #selector(Coordinator.buttonAction), for: .touchUpInside)
         button.accessibilityIdentifier = "back_button"
+        
+        // Fix: Set explicit frame to prevent layout issues
+        button.setContentHuggingPriority(.required, for: .horizontal)
+        button.setContentCompressionResistancePriority(.required, for: .horizontal)
+        
         return button
     }
 
@@ -64,6 +69,9 @@ public struct BackNavigationButtonRepresentable: UIViewRepresentable {
         } else {
             button.directionalInsets = .zero
         }
+        
+        // Fix: Ensure button intrinsic content size is respected
+        button.invalidateIntrinsicContentSize()
         
         var actions: [UIAction] = []
         for item in viewModel.items {
@@ -95,16 +103,29 @@ public struct BackNavigationButton: View {
     @StateObject var viewModel = BackNavigationButtonViewModel()
     private let color: Color
     private let insets: EdgeInsets?
+    var applyOffset: Bool
     private let action: (() -> Void)?
     
     public init(
         color: Color = Theme.Colors.accentXColor,
         insets: EdgeInsets? = nil,
+        applyOffset: Bool = false,
         action: (() -> Void)? = nil
     ) {
         self.color = color
         self.insets = insets
+        self.applyOffset = applyOffset
         self.action = action
+    }
+    
+    private var offsetValue: CGSize {
+        guard applyOffset else { return .zero }
+        
+        if #available(iOS 26.0, *) {
+            return .zero
+        } else {
+            return CGSize(width: -8, height: -1.5)
+        }
     }
     
     public var body: some View {
@@ -114,6 +135,7 @@ public struct BackNavigationButton: View {
             insets: insets,
             color: color
         )
+        .offset(offsetValue)
         .accessibilityIdentifier("back_button")
         .accessibilityLabel(CoreLocalization.back)
         .onAppear {
