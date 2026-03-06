@@ -32,10 +32,24 @@ public final class DatadogManager: FeatureManagerProtocol {
 }
 
 extension DatadogManager {
-    public func trackEvent(_ name: String, properties: [String: Any]?) {
-
+    public func identify(id: String, username: String?, email: String?) {
+        Datadog.setUserInfo(id: id, name: username, email: email)
     }
-
+    public func trackEvent(_ name: String, properties: [String: Any]?) {
+        var attributes: [String: any Encodable] = [:]
+        properties?.forEach { key, value in
+            guard let encodable = value as? any Encodable else {
+                assertionFailure("Unsupported attribute type for key: \(key)")
+                return
+            }
+            attributes[key] = encodable
+        }
+        RUMMonitor.shared().addAction(
+            type: .custom,
+            name: name,
+            attributes: attributes
+        )
+    }
     public func trackAutoEvents() {
         RUM.enable(
             with: RUM.Configuration(
@@ -45,7 +59,6 @@ extension DatadogManager {
             )
         )
     }
-
     public func enableWebViewTracking(_ webView: WKWebView, _ hosts: Set<URL>) {
         hosts.forEach { url in
             if #available(iOS 16.0, *) {
@@ -59,7 +72,6 @@ extension DatadogManager {
             }
         }
     }
-
     public func disableWebViewTracking(_ webView: WKWebView) {
         WebViewTracking.disable(webView: webView)
     }

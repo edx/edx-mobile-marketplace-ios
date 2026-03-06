@@ -20,7 +20,7 @@ public protocol FeatureManagerProtocol {
     ///   - id: The unique user identifier.
     ///   - attributes: Optional user attributes such as country, age, or subscription type.
     func identifyUser(id: String, attributes: [String: Any]?)
-
+    func identify(id: String, username: String?, email: String?)
     /// Resets the current user, clearing any associated data.
     ///
     /// - Note: This should be called upon logout to prevent data leakage between sessions.
@@ -175,6 +175,10 @@ public final class FeatureManagerMock: FeatureManagerProtocol {
 
     public func trackAutoEvents() {
 
+    }
+    
+    public func identify(id: String, username: String?, email: String?) {
+        
     }
     
     public func enableWebViewTracking(_ webView: WKWebView, _ hosts: Set<URL>) {

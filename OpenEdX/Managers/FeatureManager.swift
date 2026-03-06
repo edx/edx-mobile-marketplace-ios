@@ -27,6 +27,12 @@ final class DataDogFeatureManager: FeatureManagerProtocol {
         }
     }
     
+    func identify(id: String, username: String?, email: String?) {
+        if config?.dataDog.enabled ?? false {
+            dataDogManager?.identify(id: id, username: username, email: email)
+        }
+    }
+    
     func trackEvent(_ name: String, properties: [String: Any]?) {
         if config?.dataDog.enabled ?? false {
             dataDogManager?.trackEvent(name, properties: properties)
