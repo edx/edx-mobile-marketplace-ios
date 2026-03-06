@@ -85,24 +85,29 @@ public struct NotificationsInboxView: View {
                 )
                 .frame(maxWidth: .infinity, alignment: .center)
                 .accessibilityIdentifier("notifications_text")
-
-            Menu {
-                ForEach(viewModel.menus, id: \.self) { menu in
-                    Button(menu.localizedValue) {
-                        viewModel.menuSelected(menu)
-                    }
-                }
-            } label: {
-                NotificationsAssets.threeDotsMenu.swiftUIImage
-                    .frame(width: 24, height: 40)
-                    .padding(.leading, 8)
-                    .padding(.trailing, sideInset)
-                    .foregroundColor(Theme.Colors.textPrimary)
-                    .accessibilityIdentifier("three_dots_menu")
-            }
-            .buttonStyle(OnPressButtonStyle {
-                viewModel.trackInboxMenuClicked()
-            })
+            
+            UIKitMenuButton(
+                items: viewModel.menus,
+                titleProvider: { menu in
+                    menu.localizedValue
+                },
+                onTap: {
+                    viewModel.trackInboxMenuClicked()
+                },
+                onSelect: { menu in
+                    viewModel.menuSelected(menu)
+                },
+                buttonImage: UIImage(
+                    named: NotificationsAssets.threeDotsMenu.name,
+                    in: Bundle(for: NotificationsBundle.self),
+                    compatibleWith: nil)
+                ,
+                tintColor: UIColor(Theme.Colors.textPrimary),
+                accessibilityIdentifier: "three_dots_menu"
+            )
+            .frame(width: 24, height: 40)
+            .padding(.leading, 8)
+            .padding(.trailing, sideInset)
         }
         .padding(.bottom, 4)
     }
