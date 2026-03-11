@@ -16,12 +16,20 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/SimplyDanny/SwiftLintPlugins", from: "0.57.0"),
+        .package(url: "https://github.com/Datadog/dd-sdk-ios.git", exact: "3.7.0")
     ],
     targets: [
         .target(
             name: "EDXFeatureManagement",
+            dependencies: [
+                .product(name: "DatadogCore", package: "dd-sdk-ios"),
+                .product(name: "DatadogLogs", package: "dd-sdk-ios"),
+                .product(name: "DatadogRUM", package: "dd-sdk-ios"),
+                .product(name: "DatadogWebViewTracking", package: "dd-sdk-ios")
+            ],
+            linkerSettings: [.linkedFramework("WebKit")],
             plugins: [
-                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
+                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
             ]
         ),
         .testTarget(

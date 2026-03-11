@@ -259,8 +259,16 @@ class AppAssembly: Assembly {
             )
         }.inObjectScope(.container)
 
-        // Initialize Feature Manager...
-        container.resolve(FeatureManagerProtocol.self)
+        container.register(DataDogFeatureManager.self) { r in
+            return DataDogFeatureManager(r.resolve(ConfigProtocol.self)!)
+        }.inObjectScope(.container)
+        
+        // Register DataDogAnalyticsService
+        container.register(DataDogAnalyticsService.self) { resolver in
+            let config = resolver.resolve(ConfigProtocol.self)!
+            let dataDogManager = config.dataDog.enabled ? resolver.resolve(DataDogFeatureManager.self) : nil
+            return DataDogAnalyticsService(dataDogManager: dataDogManager)
+        }
     }
 }
 // swiftlint:enable function_body_length

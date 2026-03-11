@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import WebKit
 
 public enum FeatureKeys {
     public static let showCertificatePreview = "show_certificate_preview_ios"
@@ -19,7 +20,7 @@ public protocol FeatureManagerProtocol {
     ///   - id: The unique user identifier.
     ///   - attributes: Optional user attributes such as country, age, or subscription type.
     func identifyUser(id: String, attributes: [String: Any]?)
-
+    func identify(id: String, username: String?, email: String?)
     /// Resets the current user, clearing any associated data.
     ///
     /// - Note: This should be called upon logout to prevent data leakage between sessions.
@@ -56,10 +57,16 @@ public protocol FeatureManagerProtocol {
     ///
     /// - Note: Platforms that don't support metadata or value will gracefully ignore unsupported fields.
     func trackEvent(_ name: String, properties: [String: Any]?)
-    
+
     func recordCertificatePreviewShownAttempt(forCourseId courseId: String)
-    
+
     func attemptsSinceLastCertificatePreviewAndReset(forCourseId courseId: String) -> Int
+
+    func trackAutoEvents()
+    
+    func enableWebViewTracking(_ webView: WKWebView, _ hosts: Set<URL>)
+    
+    func disableWebViewTracking(_ webView: WKWebView)
 }
 
 public extension FeatureManagerProtocol {
@@ -91,6 +98,42 @@ public extension FeatureManagerProtocol {
             "value": value
         ])
     }
+
+    func identifyUser(id: String, attributes: [String : Any]?) {
+        
+    }
+    
+    func resetUser() {
+        
+    }
+    
+    func decision(forKey key: String) -> (any FeatureDecision)? {
+        return nil
+    }
+    
+    func recordCertificatePreviewShownAttempt(forCourseId courseId: String) {
+        
+    }
+    
+    func attemptsSinceLastCertificatePreviewAndReset(forCourseId courseId: String) -> Int {
+        return 0
+    }
+        
+    func trackAutoEvents() {
+        
+    }
+    
+    func trackEvent(_ name: String, properties: [String: Any]?) {
+        
+    }
+    
+    func enableWebViewTracking(_ webView: WKWebView, _ hosts: Set<URL>) {
+        
+    }
+    
+    func disableWebViewTracking(_ webView: WKWebView) {
+        
+    }
 }
 
 #if DEBUG
@@ -117,17 +160,33 @@ public final class FeatureManagerMock: FeatureManagerProtocol {
         guard let userID else { return nil }
         return featureDecisions[key]
     }
-
+    
     public func trackEvent(_ name: String, properties: [String: Any]?) {
         trackedEvents.append((name: name, properties: properties))
     }
-    
+
     public func recordCertificatePreviewShownAttempt(forCourseId courseId: String) {
-        
+
     }
-        
+
     public func attemptsSinceLastCertificatePreviewAndReset(forCourseId courseId: String) -> Int {
         return 1
+    }
+
+    public func trackAutoEvents() {
+
+    }
+    
+    public func identify(id: String, username: String?, email: String?) {
+        
+    }
+    
+    public func enableWebViewTracking(_ webView: WKWebView, _ hosts: Set<URL>) {
+        
+    }
+
+    public func disableWebViewTracking(_ webView: WKWebView) {
+        
     }
 }
 #endif

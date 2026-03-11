@@ -67,6 +67,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
             
+            if config.dataDog.enabled {
+                let dataDogFeatureManager = Container.shared.resolve(DataDogFeatureManager.self)
+                dataDogFeatureManager?.trackAutoEvents()
+            }
+            
             if pushManager?.hasProviders == true {
                 UIApplication.shared.registerForRemoteNotifications()
             }

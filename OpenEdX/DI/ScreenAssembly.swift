@@ -126,7 +126,8 @@ class ScreenAssembly: Assembly {
                 connectivity: r.resolve(ConnectivityProtocol.self)!,
                 analytics: r.resolve(DiscoveryAnalytics.self)!,
                 storage: r.resolve(CoreStorage.self)!,
-                sourceScreen: sourceScreen
+                sourceScreen: sourceScreen,
+                datadogManager: r.resolve(DataDogFeatureManager.self)!
             )
         }
         

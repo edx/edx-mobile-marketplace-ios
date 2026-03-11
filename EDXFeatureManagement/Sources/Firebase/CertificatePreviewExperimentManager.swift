@@ -81,6 +81,10 @@ public struct FirebaseFeatureDecision: FeatureDecision {
 }
 
 public final class CertificatePreviewExperimentManager: FeatureManagerProtocol {
+    public func identify(id: String, username: String?, email: String?) {
+        
+    }
+    
     private var assignmentStore: ExperimentAssignmentStore
     private var analytics: AnalyticsTracking
 
