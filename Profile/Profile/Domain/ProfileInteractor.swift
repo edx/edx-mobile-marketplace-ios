@@ -8,7 +8,6 @@
 import Foundation
 import Core
 import UIKit
-import EDXFeatureManagement
 
 //sourcery: AutoMockable
 public protocol ProfileInteractorProtocol {
@@ -29,11 +28,11 @@ public protocol ProfileInteractorProtocol {
 public class ProfileInteractor: ProfileInteractorProtocol {
     
     private let repository: ProfileRepositoryProtocol
-    private let featureManager: FeatureManagerProtocol
+    private let featureManager: UserSessionManaging
 
     public init(
         repository: ProfileRepositoryProtocol,
-        featureManager: FeatureManagerProtocol
+        featureManager: UserSessionManaging
     ) {
         self.repository = repository
         self.featureManager = featureManager
@@ -94,7 +93,7 @@ public class ProfileInteractor: ProfileInteractorProtocol {
 public extension ProfileInteractor {
     static let mock = ProfileInteractor(
         repository: ProfileRepositoryMock(),
-        featureManager: FeatureManagerMock()
+        featureManager: UserSessionManagingMock()
     )
 }
 #endif

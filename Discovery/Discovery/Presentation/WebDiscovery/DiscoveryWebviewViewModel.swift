@@ -9,7 +9,6 @@ import Foundation
 import Core
 import SwiftUI
 import WebKit
-import EDXFeatureManagement
 
 public class DiscoveryWebviewViewModel: ObservableObject {
     @Published var courseDetails: CourseDetails?
@@ -37,7 +36,7 @@ public class DiscoveryWebviewViewModel: ObservableObject {
     var userloggedIn: Bool {
         return storage.user?.username?.isEmpty == false
     }
-    private(set) var datadogManager: FeatureManagerProtocol
+    private(set) var datadogManager: WebViewTrackingProtocol
     public init(
         router: DiscoveryRouter,
         config: ConfigProtocol,
@@ -46,7 +45,7 @@ public class DiscoveryWebviewViewModel: ObservableObject {
         analytics: DiscoveryAnalytics,
         storage: CoreStorage,
         sourceScreen: LogistrationSourceScreen = .default,
-        datadogManager: FeatureManagerProtocol
+        datadogManager: WebViewTrackingProtocol
     ) {
         self.router = router
         self.config = config

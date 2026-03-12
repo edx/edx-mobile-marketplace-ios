@@ -8,7 +8,6 @@
 import SwiftUI
 import Theme
 import Swinject
-import EDXFeatureManagement
 
 public struct UpgradeInfoView<Content>: View where Content: View {
     let isFindCourseButtonVisible: Bool
@@ -218,7 +217,7 @@ public struct UpgradeInfoView<Content>: View where Content: View {
             handler: CourseUpgradeHandlerProtocolMock(),
             pacing: "self",
             analytics: CoreAnalyticsMock(),
-            certificatePreviewExperimentManager: FeatureManagerMock(),
+            certificatePreviewExperimentManager: CertificatePreviewManagingMock(),
             router: BaseRouterMock(),
             lmsPrice: .zero
         ),

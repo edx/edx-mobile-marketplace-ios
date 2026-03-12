@@ -69,7 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             if config.dataDog.enabled {
                 let dataDogFeatureManager = Container.shared.resolve(DataDogFeatureManager.self)
-                dataDogFeatureManager?.trackAutoEvents()
+                dataDogFeatureManager?.trackAutoEvents(Set([config.baseURL.appURLHost]))
             }
             
             if pushManager?.hasProviders == true {
