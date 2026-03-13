@@ -138,7 +138,8 @@ struct ProgramWebviewView_Previews: PreviewProvider {
                 interactor: DiscoveryInteractor.mock,
                 connectivity: Connectivity(),
                 analytics: DiscoveryAnalyticsMock(),
-                authInteractor: AuthInteractor.mock
+                authInteractor: AuthInteractor.mock,
+                datadogManager: WebViewTrackingMock()
             ),
             router: DiscoveryRouterMock(),
             viewType: .program,

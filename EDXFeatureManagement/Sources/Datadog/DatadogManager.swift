@@ -28,6 +28,7 @@ public final class DatadogManager: FeatureManagerProtocol {
             ),
             trackingConsent: .granted
         )
+        Datadog.verbosityLevel = .debug
     }
 }
 
@@ -50,12 +51,15 @@ extension DatadogManager {
             attributes: attributes
         )
     }
-    public func trackAutoEvents() {
+    public func trackAutoEvents(_ hosts: Set<String>) {
         RUM.enable(
             with: RUM.Configuration(
                 applicationID: appID,
                 uiKitViewsPredicate: DefaultUIKitRUMViewsPredicate(),
-                uiKitActionsPredicate: DefaultUIKitRUMActionsPredicate()
+                uiKitActionsPredicate: DefaultUIKitRUMActionsPredicate(),
+                urlSessionTracking: .init(
+                    firstPartyHostsTracing: .trace(hosts: hosts,
+                                                   sampleRate: 100))
             )
         )
     }
@@ -72,7 +76,17 @@ extension DatadogManager {
             }
         }
     }
+
     public func disableWebViewTracking(_ webView: WKWebView) {
         WebViewTracking.disable(webView: webView)
     }
+
+    // swiftlint:disable force_cast
+    public func trackURLSession(_ delegateClass: NSObject.Type) {
+        let anyDelegateClass: AnyClass = delegateClass as AnyClass
+        URLSessionInstrumentation.enable(
+            with: .init(delegateClass: anyDelegateClass as! any URLSessionDataDelegate.Type)
+        )
+    }
+    // swiftlint:enable force_cast
 }

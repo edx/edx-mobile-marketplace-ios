@@ -7,7 +7,6 @@
 
 import SwiftUI
 import Theme
-import EDXFeatureManagement
 
 public struct UpgradeInfoSheetView: View {
     @Environment(\.dismiss) private var dismiss
@@ -59,7 +58,7 @@ public struct UpgradeInfoSheetView: View {
             handler: CourseUpgradeHandlerProtocolMock(),
             pacing: "self",
             analytics: CoreAnalyticsMock(),
-            certificatePreviewExperimentManager: FeatureManagerMock(),
+            certificatePreviewExperimentManager: CertificatePreviewManagingMock(),
             router: BaseRouterMock(),
             lmsPrice: .zero
         )
