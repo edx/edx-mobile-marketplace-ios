@@ -47,16 +47,12 @@
 		07D5DA3528D075AA00752FD9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D5DA3428D075AA00752FD9 /* AppDelegate.swift */; };
 		07D5DA3E28D075AB00752FD9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07D5DA3D28D075AB00752FD9 /* Assets.xcassets */; };
 		146CF94C2D0C0248000955B2 /* NotificationsPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146CF94B2D0C0248000955B2 /* NotificationsPersistence.swift */; };
-		149B52D92C5FE5AB00C7BF5D /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 149B52D82C5FE5AB00C7BF5D /* FirebaseCrashlytics */; };
 		149FF39E2B9F1AB50034B33F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 149FF39C2B9F1AB50034B33F /* LaunchScreen.storyboard */; };
 		14BAE68E2D0974B700EAF0E4 /* Notifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14BAE68D2D0974B700EAF0E4 /* Notifications.framework */; };
 		14BAE68F2D0974B700EAF0E4 /* Notifications.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 14BAE68D2D0974B700EAF0E4 /* Notifications.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		14D912D32C25483F0077CCCE /* FullStory in Frameworks */ = {isa = PBXBuildFile; productRef = 14D912D22C25483F0077CCCE /* FullStory */; };
 		A500668B2B613ED10024680B /* PushNotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A500668A2B613ED10024680B /* PushNotificationsManager.swift */; };
 		A500668D2B6143000024680B /* FCMProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A500668C2B6143000024680B /* FCMProvider.swift */; };
 		A50066932B614DCD0024680B /* FCMListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50066922B614DCD0024680B /* FCMListener.swift */; };
-		A5224CE72D5E4447001982B4 /* EDXIAPService in Frameworks */ = {isa = PBXBuildFile; productRef = A5224CE62D5E4447001982B4 /* EDXIAPService */; };
-		A538B5672D1D977C00216179 /* EDXMobileAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = A538B5662D1D977C00216179 /* EDXMobileAnalytics */; };
 		A5462D9C2B864AE0003B96A5 /* BranchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5462D9B2B864AE0003B96A5 /* BranchService.swift */; };
 		A59568952B61630500ED4F90 /* DeepLinkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59568942B61630500ED4F90 /* DeepLinkManager.swift */; };
 		A59568972B61653700ED4F90 /* DeepLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59568962B61653700ED4F90 /* DeepLink.swift */; };
@@ -187,14 +183,10 @@
 				028A37362ADFF404008CA604 /* WhatsNew.framework in Frameworks */,
 				025DE1A428DB4DAE0053E0F4 /* Profile.framework in Frameworks */,
 				0770DE4B28D0A462006D8A5D /* Authorization.framework in Frameworks */,
-				A5224CE72D5E4447001982B4 /* EDXIAPService in Frameworks */,
 				072787B128D34D83002E9142 /* Discovery.framework in Frameworks */,
-				A538B5672D1D977C00216179 /* EDXMobileAnalytics in Frameworks */,
 				0218196428F734FA00202564 /* Discussion.framework in Frameworks */,
 				0219C67728F4347600D64452 /* Course.framework in Frameworks */,
 				027DB33028D8A063002B6862 /* Dashboard.framework in Frameworks */,
-				149B52D92C5FE5AB00C7BF5D /* FirebaseCrashlytics in Frameworks */,
-				14D912D32C25483F0077CCCE /* FullStory in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,10 +411,6 @@
 			);
 			name = OpenEdX;
 			packageProductDependencies = (
-				14D912D22C25483F0077CCCE /* FullStory */,
-				149B52D82C5FE5AB00C7BF5D /* FirebaseCrashlytics */,
-				A538B5662D1D977C00216179 /* EDXMobileAnalytics */,
-				A5224CE62D5E4447001982B4 /* EDXIAPService */,
 			);
 			productName = OpenEdX;
 			productReference = 07D5DA3128D075AA00752FD9 /* OpenEdX.app */;
@@ -1233,37 +1221,6 @@
 			defaultConfigurationName = ReleaseProd;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		14D912D12C25483F0077CCCE /* XCRemoteSwiftPackageReference "fullstory-swift-package-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/fullstorydev/fullstory-swift-package-ios";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.51.1;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		149B52D82C5FE5AB00C7BF5D /* FirebaseCrashlytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = FirebaseCrashlytics;
-		};
-		14D912D22C25483F0077CCCE /* FullStory */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 14D912D12C25483F0077CCCE /* XCRemoteSwiftPackageReference "fullstory-swift-package-ios" */;
-			productName = FullStory;
-		};
-		A5224CE62D5E4447001982B4 /* EDXIAPService */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = EDXIAPService;
-		};
-		A538B5662D1D977C00216179 /* EDXMobileAnalytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = EDXMobileAnalytics;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 07D5DA2928D075AA00752FD9 /* Project object */;
 }

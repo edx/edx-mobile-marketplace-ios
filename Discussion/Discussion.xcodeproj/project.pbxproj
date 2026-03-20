@@ -58,7 +58,6 @@
 		0766DFCA299AA3D400EBEF6A /* Data_CreatedComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0766DFC9299AA3D400EBEF6A /* Data_CreatedComment.swift */; };
 		7527943BE0D66C33B167A41A /* Pods_App_Discussion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66A7A0375EDDEB8948165EAD /* Pods_App_Discussion.framework */; };
 		9FC0EF907C0334E383C300C4 /* Pods_App_Discussion_DiscussionTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C40A586C6164140DC2079231 /* Pods_App_Discussion_DiscussionTests.framework */; };
-		A58363822D807E46008935FF /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = A58363812D807E46008935FF /* OEXFoundation */; };
 		A5967C292D7F69CE00781A74 /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = A5967C282D7F69CE00781A74 /* OEXFoundation */; };
 		BA3C45672BA9E13000672C96 /* Data_DiscussionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3C45662BA9E13000672C96 /* Data_DiscussionInfo.swift */; };
 		BA3C45692BA9E18D00672C96 /* DiscussionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3C45682BA9E18D00672C96 /* DiscussionInfo.swift */; };
@@ -177,7 +176,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0218195928F7347200202564 /* Core.framework in Frameworks */,
-				A58363822D807E46008935FF /* OEXFoundation in Frameworks */,
 				7527943BE0D66C33B167A41A /* Pods_App_Discussion.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1758,14 +1756,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		A51F8CD82D8070B500F3B60C /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/rnr/openedx-app-foundation-ios";
-			requirement = {
-				branch = "anton/plugins-experiments";
-				kind = branch;
-			};
-		};
 		A5FB2CCB2D75D95A00ECA001 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/openedx/openedx-app-foundation-ios/";
@@ -1777,11 +1767,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		A58363812D807E46008935FF /* OEXFoundation */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A51F8CD82D8070B500F3B60C /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */;
-			productName = OEXFoundation;
-		};
 		A5967C282D7F69CE00781A74 /* OEXFoundation */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A5FB2CCB2D75D95A00ECA001 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */;

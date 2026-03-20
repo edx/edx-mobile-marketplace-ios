@@ -26,7 +26,6 @@
 		02EC90AC2AE90C64007DE1E0 /* WhatsNewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02EC90AB2AE90C64007DE1E0 /* WhatsNewPage.swift */; };
 		14769D3E2B99713800AB36D4 /* WhatsNewAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14769D3D2B99713800AB36D4 /* WhatsNewAnalytics.swift */; };
 		A5310E9B2D7F63CD00020305 /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = A5310E9A2D7F63CD00020305 /* OEXFoundation */; };
-		A583637A2D807E01008935FF /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = A58363792D807E01008935FF /* OEXFoundation */; };
 		B3BB9B06B226989A619C6440 /* Pods_App_WhatsNew.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05AC45C7050E30F8394E0C76 /* Pods_App_WhatsNew.framework */; };
 		EF5CA11A55CB49F2DA030D25 /* Pods_App_WhatsNew_WhatsNewTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8D1A5DF016EC4630637336C /* Pods_App_WhatsNew_WhatsNewTests.framework */; };
 /* End PBXBuildFile section */
@@ -101,7 +100,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				028A373A2ADFF425008CA604 /* Core.framework in Frameworks */,
-				A583637A2D807E01008935FF /* OEXFoundation in Frameworks */,
 				B3BB9B06B226989A619C6440 /* Pods_App_WhatsNew.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1530,14 +1528,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		A51F8CC92D80705200F3B60C /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/rnr/openedx-app-foundation-ios";
-			requirement = {
-				branch = "anton/plugins-experiments";
-				kind = branch;
-			};
-		};
 		A5FB2CBC2D75D8F800ECA001 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/openedx/openedx-app-foundation-ios/";
@@ -1552,11 +1542,6 @@
 		A5310E9A2D7F63CD00020305 /* OEXFoundation */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A5FB2CBC2D75D8F800ECA001 /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */;
-			productName = OEXFoundation;
-		};
-		A58363792D807E01008935FF /* OEXFoundation */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A51F8CC92D80705200F3B60C /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */;
 			productName = OEXFoundation;
 		};
 /* End XCSwiftPackageProductDependency section */
