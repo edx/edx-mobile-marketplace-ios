@@ -27,7 +27,6 @@
 		02A98F172BD97886009B46BD /* CategoryFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A98F162BD97885009B46BD /* CategoryFilterView.swift */; };
 		02A9A90B2978194100B55797 /* DashboardViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A9A90A2978194100B55797 /* DashboardViewModelTests.swift */; };
 		02A9A90C2978194100B55797 /* Dashboard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02EF39E728D89F560058F6BD /* Dashboard.framework */; platformFilter = ios; };
-		02A9A92929781A4D00B55797 /* DashboardMock.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A9A92829781A4D00B55797 /* DashboardMock.generated.swift */; };
 		02F175332A4DABBF0019CD70 /* DashboardAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F175322A4DABBF0019CD70 /* DashboardAnalytics.swift */; };
 		02F3BFE129252FCB0051930C /* DashboardRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F3BFE029252FCB0051930C /* DashboardRouter.swift */; };
 		02F6EF3D28D9EB8C00835477 /* swiftgen.yml in Resources */ = {isa = PBXBuildFile; fileRef = 02F6EF3C28D9EB8C00835477 /* swiftgen.yml */; };
@@ -85,7 +84,6 @@
 		02A98F162BD97885009B46BD /* CategoryFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryFilterView.swift; sourceTree = "<group>"; };
 		02A9A9082978194100B55797 /* DashboardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DashboardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		02A9A90A2978194100B55797 /* DashboardViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModelTests.swift; sourceTree = "<group>"; };
-		02A9A92829781A4D00B55797 /* DashboardMock.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardMock.generated.swift; sourceTree = "<group>"; };
 		02EF39E728D89F560058F6BD /* Dashboard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Dashboard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		02F175322A4DABBF0019CD70 /* DashboardAnalytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardAnalytics.swift; sourceTree = "<group>"; };
 		02F3BFE029252FCB0051930C /* DashboardRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardRouter.swift; sourceTree = "<group>"; };
@@ -192,7 +190,6 @@
 			isa = PBXGroup;
 			children = (
 				0766DFD2299AD99B00EBEF6A /* Presentation */,
-				02A9A92829781A4D00B55797 /* DashboardMock.generated.swift */,
 			);
 			path = DashboardTests;
 			sourceTree = "<group>";
@@ -514,7 +511,6 @@
 			files = (
 				02A9A90B2978194100B55797 /* DashboardViewModelTests.swift in Sources */,
 				CE17350A2CD26CB500F9606A /* AllCoursesViewModelTests.swift in Sources */,
-				02A9A92929781A4D00B55797 /* DashboardMock.generated.swift in Sources */,
 				CE1735062CD2552A00F9606A /* PrimaryCourseDashboardViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

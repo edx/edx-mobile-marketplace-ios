@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		020A7B5F2AE131A9000BAF70 /* WhatsNewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020A7B5E2AE131A9000BAF70 /* WhatsNewModel.swift */; };
 		020A7B612AE136D2000BAF70 /* WhatsNew.json in Resources */ = {isa = PBXBuildFile; fileRef = 020A7B602AE136D2000BAF70 /* WhatsNew.json */; };
-		020AC2692AEBB69E0086E975 /* WhatsNewMock.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020AC2682AEBB69E0086E975 /* WhatsNewMock.generated.swift */; };
 		028A37262ADFF3F8008CA604 /* WhatsNew.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 028A371D2ADFF3F7008CA604 /* WhatsNew.framework */; };
 		028A372B2ADFF3F8008CA604 /* WhatsNewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028A372A2ADFF3F8008CA604 /* WhatsNewTests.swift */; };
 		028A373A2ADFF425008CA604 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 028A37392ADFF425008CA604 /* Core.framework */; };
@@ -56,7 +55,6 @@
 /* Begin PBXFileReference section */
 		020A7B5E2AE131A9000BAF70 /* WhatsNewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewModel.swift; sourceTree = "<group>"; };
 		020A7B602AE136D2000BAF70 /* WhatsNew.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = WhatsNew.json; path = WhatsNew/Data/WhatsNew.json; sourceTree = SOURCE_ROOT; };
-		020AC2682AEBB69E0086E975 /* WhatsNewMock.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WhatsNewMock.generated.swift; path = WhatsNewTests/WhatsNewMock.generated.swift; sourceTree = SOURCE_ROOT; };
 		028A371D2ADFF3F7008CA604 /* WhatsNew.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WhatsNew.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		028A37252ADFF3F7008CA604 /* WhatsNewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WhatsNewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		028A372A2ADFF3F8008CA604 /* WhatsNewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewTests.swift; sourceTree = "<group>"; };
@@ -164,7 +162,6 @@
 			isa = PBXGroup;
 			children = (
 				02EC90B52AE92AEB007DE1E0 /* Presentation */,
-				020AC2682AEBB69E0086E975 /* WhatsNewMock.generated.swift */,
 			);
 			path = WhatsNewTests;
 			sourceTree = "<group>";
@@ -475,7 +472,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				028A372B2ADFF3F8008CA604 /* WhatsNewTests.swift in Sources */,
-				020AC2692AEBB69E0086E975 /* WhatsNewMock.generated.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

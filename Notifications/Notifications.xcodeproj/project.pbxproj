@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		022D048B2976D7E100E0059B /* Notifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0727879928D34C03002E9142 /* Notifications.framework */; platformFilter = ios; };
-		022D04982976DA8A00E0059B /* NotificationsMock.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022D04972976DA8A00E0059B /* NotificationsMock.generated.swift */; };
 		0283347728D499BC00C828FC /* NotificationsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0283347628D499BC00C828FC /* NotificationsInteractor.swift */; };
 		0284DBFC28D4856A00830893 /* NotificationsEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0284DBFB28D4856A00830893 /* NotificationsEndpoint.swift */; };
 		0284DC0328D4922900830893 /* NotificationsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0284DC0228D4922900830893 /* NotificationsRepository.swift */; };
@@ -51,7 +50,6 @@
 /* Begin PBXFileReference section */
 		022C0492F3BB6C4C560B9A9F /* Pods-App-Notifications-NotificationsTests.releasestage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Notifications-NotificationsTests.releasestage.xcconfig"; path = "Target Support Files/Pods-App-Notifications-NotificationsTests/Pods-App-Notifications-NotificationsTests.releasestage.xcconfig"; sourceTree = "<group>"; };
 		022D04872976D7E100E0059B /* NotificationsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NotificationsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		022D04972976DA8A00E0059B /* NotificationsMock.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationsMock.generated.swift; path = NotificationsTests/NotificationsMock.generated.swift; sourceTree = SOURCE_ROOT; };
 		0283347628D499BC00C828FC /* NotificationsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsInteractor.swift; sourceTree = "<group>"; };
 		0284DBFB28D4856A00830893 /* NotificationsEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsEndpoint.swift; sourceTree = "<group>"; };
 		0284DC0228D4922900830893 /* NotificationsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsRepository.swift; sourceTree = "<group>"; };
@@ -134,7 +132,6 @@
 		022D04882976D7E100E0059B /* NotificationsTests */ = {
 			isa = PBXGroup;
 			children = (
-				022D04972976DA8A00E0059B /* NotificationsMock.generated.swift */,
 			);
 			path = NotificationsTests;
 			sourceTree = "<group>";
@@ -519,7 +516,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				022D04982976DA8A00E0059B /* NotificationsMock.generated.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
