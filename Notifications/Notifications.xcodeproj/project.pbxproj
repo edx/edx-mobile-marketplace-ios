@@ -359,7 +359,6 @@
 				0727879528D34C03002E9142 /* Sources */,
 				0727879628D34C03002E9142 /* Frameworks */,
 				0727879728D34C03002E9142 /* Resources */,
-				A58363802D807E2F008935FF /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -400,7 +399,6 @@
 			);
 			mainGroup = 0727878F28D34C03002E9142;
 			packageReferences = (
-				A51F8CDB2D8070C500F3B60C /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */,
 			);
 			productRefGroup = 0727879A28D34C03002E9142 /* Products */;
 			projectDirPath = "";
@@ -481,9 +479,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-App-Notifications-NotificationsTests/Pods-App-Notifications-NotificationsTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-App-Notifications-NotificationsTests/Pods-App-Notifications-NotificationsTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

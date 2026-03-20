@@ -75,7 +75,6 @@
 		02A4833A29B8A9AB00D33F33 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A4833929B8A9AB00D33F33 /* DownloadManager.swift */; };
 		02A4833C29B8C57800D33F33 /* DownloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A4833B29B8C57800D33F33 /* DownloadView.swift */; };
 		02A8C5812C05DBB4004B91FF /* Data_EnrollmentsStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A8C5802C05DBB4004B91FF /* Data_EnrollmentsStatus.swift */; };
-		02AA27942C2C1B88006F5B6A /* ZipArchive in Frameworks */ = {isa = PBXBuildFile; productRef = 02AA27932C2C1B88006F5B6A /* ZipArchive */; };
 		02AFCC182AEFDB24000360F0 /* ThirdPartyMailClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AFCC172AEFDB24000360F0 /* ThirdPartyMailClient.swift */; };
 		02AFCC1A2AEFDC18000360F0 /* ThirdPartyMailer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AFCC192AEFDC18000360F0 /* ThirdPartyMailer.swift */; };
 		02C917F029CDA99E00DBB8BD /* Data_Enrollments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C917EF29CDA99E00DBB8BD /* Data_Enrollments.swift */; };
@@ -172,10 +171,8 @@
 		A5265D4B2D7741A900D91735 /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5265D4A2D7741A900D91735 /* UINavigationController.swift */; };
 		A53A32352B233DEC005FE38A /* ThemeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53A32342B233DEC005FE38A /* ThemeConfig.swift */; };
 		A55DC36F2D774D30001E272B /* FullStoryConfigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55DC36E2D774D2F001E272B /* FullStoryConfigTests.swift */; };
-		A58363902D807EC2008935FF /* OEXFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = A583638F2D807EC2008935FF /* OEXFoundation */; };
 		A5935EA52CEF832500B4BB48 /* SegmentConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5935EA42CEF832500B4BB48 /* SegmentConfig.swift */; };
 		A595689B2B6173DF00ED4F90 /* BranchConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A595689A2B6173DF00ED4F90 /* BranchConfig.swift */; };
-		A5CBE6582D5B820E00FF455A /* SwiftyStoreKit in Frameworks */ = {isa = PBXBuildFile; productRef = A5CBE6572D5B820E00FF455A /* SwiftyStoreKit */; };
 		A5CBE65A2D5B828800FF455A /* FullStoryConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CBE6592D5B828800FF455A /* FullStoryConfig.swift */; };
 		A5D2A61A2D5E1C7000E98BCA /* RequestInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D2A6192D5E1C7000E98BCA /* RequestInterceptor.swift */; };
 		A5D4B3DE2CDD0A9700688951 /* SecureInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D4B3DD2CDD0A9700688951 /* SecureInputView.swift */; };
@@ -485,10 +482,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C8C446EF233F81B9FABB77D2 /* Pods_App_Core.framework in Frameworks */,
-				02AA27942C2C1B88006F5B6A /* ZipArchive in Frameworks */,
-				A5CBE6582D5B820E00FF455A /* SwiftyStoreKit in Frameworks */,
 				E055A5392B18DC95008D9E5E /* Theme.framework in Frameworks */,
-				A58363902D807EC2008935FF /* OEXFoundation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1171,9 +1165,6 @@
 			);
 			name = Core;
 			packageProductDependencies = (
-				02AA27932C2C1B88006F5B6A /* ZipArchive */,
-				A5CBE6572D5B820E00FF455A /* SwiftyStoreKit */,
-				A583638F2D807EC2008935FF /* OEXFoundation */,
 			);
 			productName = Core;
 			productReference = 0770DE0828D07831006D8A5D /* Core.framework */;
@@ -1210,9 +1201,6 @@
 			);
 			mainGroup = 0770DDFE28D07831006D8A5D;
 			packageReferences = (
-				02AA27922C2C1B61006F5B6A /* XCRemoteSwiftPackageReference "ZipArchive" */,
-				A5CBE6562D5B7ED900FF455A /* XCRemoteSwiftPackageReference "SwiftyStoreKit" */,
-				A51F8CC32D80702800F3B60C /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */,
 			);
 			productRefGroup = 0770DE0928D07831006D8A5D /* Products */;
 			projectDirPath = "";
@@ -1273,9 +1261,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-App-Core-CoreTests/Pods-App-Core-CoreTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-App-Core-CoreTests/Pods-App-Core-CoreTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2580,51 +2572,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		02AA27922C2C1B61006F5B6A /* XCRemoteSwiftPackageReference "ZipArchive" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ZipArchive/ZipArchive.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.5.5;
-			};
-		};
-		A51F8CC32D80702800F3B60C /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/rnr/openedx-app-foundation-ios";
-			requirement = {
-				branch = "anton/plugins-experiments";
-				kind = branch;
-			};
-		};
-		A5CBE6562D5B7ED900FF455A /* XCRemoteSwiftPackageReference "SwiftyStoreKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/bizz84/SwiftyStoreKit.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.16.4;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		02AA27932C2C1B88006F5B6A /* ZipArchive */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 02AA27922C2C1B61006F5B6A /* XCRemoteSwiftPackageReference "ZipArchive" */;
-			productName = ZipArchive;
-		};
-		A583638F2D807EC2008935FF /* OEXFoundation */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A51F8CC32D80702800F3B60C /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */;
-			productName = OEXFoundation;
-		};
-		A5CBE6572D5B820E00FF455A /* SwiftyStoreKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A5CBE6562D5B7ED900FF455A /* XCRemoteSwiftPackageReference "SwiftyStoreKit" */;
-			productName = SwiftyStoreKit;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		02A4833629B8A8F800D33F33 /* CoreDataModel.xcdatamodeld */ = {

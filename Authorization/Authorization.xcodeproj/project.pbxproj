@@ -404,7 +404,6 @@
 				0770DE3728D0A319006D8A5D /* Sources */,
 				0770DE3828D0A319006D8A5D /* Frameworks */,
 				0770DE3928D0A319006D8A5D /* Resources */,
-				A58363952D807EDB008935FF /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -445,9 +444,6 @@
 			);
 			mainGroup = 0770DE3128D0A318006D8A5D;
 			packageReferences = (
-				CE7FB8752CC13C0B0088001A /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
-				CE7FB8782CC13C3C0088001A /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
-				A51F8CC62D80703C00F3B60C /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */,
 			);
 			productRefGroup = 0770DE3C28D0A319006D8A5D /* Products */;
 			projectDirPath = "";
@@ -527,9 +523,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-App-Authorization-AuthorizationTests/Pods-App-Authorization-AuthorizationTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-App-Authorization-AuthorizationTests/Pods-App-Authorization-AuthorizationTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

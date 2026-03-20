@@ -772,7 +772,6 @@
 				0289F8EA28E1C3510064F8F3 /* Sources */,
 				0289F8EB28E1C3510064F8F3 /* Frameworks */,
 				0289F8EC28E1C3510064F8F3 /* Resources */,
-				A583638E2D807EA9008935FF /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -813,8 +812,6 @@
 			);
 			mainGroup = 0289F8E428E1C3510064F8F3;
 			packageReferences = (
-				CEBCA4322CC13CDE00076589 /* XCRemoteSwiftPackageReference "YouTubePlayerKit" */,
-				A51F8CD52D8070A500F3B60C /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */,
 			);
 			productRefGroup = 0289F8EF28E1C3510064F8F3 /* Products */;
 			projectDirPath = "";
@@ -873,9 +870,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-App-Course-CourseTests/Pods-App-Course-CourseTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-App-Course-CourseTests/Pods-App-Course-CourseTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

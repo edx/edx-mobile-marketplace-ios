@@ -497,7 +497,6 @@
 				020F834628DB4CCD0062FA70 /* Sources */,
 				020F834728DB4CCD0062FA70 /* Frameworks */,
 				020F834828DB4CCD0062FA70 /* Resources */,
-				A58363782D807DAD008935FF /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -569,8 +568,6 @@
 			);
 			mainGroup = 020F834028DB4CCD0062FA70;
 			packageReferences = (
-				CEBCA42F2CC13CB900076589 /* XCRemoteSwiftPackageReference "ios-branch-sdk-spm" */,
-				A51F8CD22D80709300F3B60C /* XCRemoteSwiftPackageReference "openedx-app-foundation-ios" */,
 			);
 			productRefGroup = 020F834B28DB4CCD0062FA70 /* Products */;
 			projectDirPath = "";
@@ -672,9 +669,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-App-Profile-ProfileTests/Pods-App-Profile-ProfileTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-App-Profile-ProfileTests/Pods-App-Profile-ProfileTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
