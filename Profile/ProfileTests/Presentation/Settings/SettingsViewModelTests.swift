@@ -42,6 +42,7 @@ final class SettingsViewModelTests: XCTestCase {
             serverConfig: ServerConfigProtocolMock(),
             upgradeHandler: CourseUpgradeHandlerProtocolMock(),
             upgradeHelper: CourseUpgradeHelperProtocolMock(),
+            trackingConsentManager: TrackingConsentManagingMock(),
             storage: CoreStorageMock()
         )
         
@@ -79,6 +80,7 @@ final class SettingsViewModelTests: XCTestCase {
             serverConfig: ServerConfigProtocolMock(),
             upgradeHandler: CourseUpgradeHandlerProtocolMock(),
             upgradeHelper: CourseUpgradeHelperProtocolMock(),
+            trackingConsentManager: TrackingConsentManagingMock(),
             storage: CoreStorageMock()
         )
         
@@ -115,6 +117,7 @@ final class SettingsViewModelTests: XCTestCase {
             serverConfig: ServerConfigProtocolMock(),
             upgradeHandler: CourseUpgradeHandlerProtocolMock(),
             upgradeHelper: CourseUpgradeHelperProtocolMock(),
+            trackingConsentManager: TrackingConsentManagingMock(),
             storage: CoreStorageMock()
         )
         
@@ -151,6 +154,7 @@ final class SettingsViewModelTests: XCTestCase {
             serverConfig: ServerConfigProtocolMock(),
             upgradeHandler: CourseUpgradeHandlerProtocolMock(),
             upgradeHelper: CourseUpgradeHelperProtocolMock(),
+            trackingConsentManager: TrackingConsentManagingMock(),
             storage: CoreStorageMock()
         )
         
@@ -187,6 +191,7 @@ final class SettingsViewModelTests: XCTestCase {
             serverConfig: ServerConfigProtocolMock(),
             upgradeHandler: CourseUpgradeHandlerProtocolMock(),
             upgradeHelper: CourseUpgradeHelperProtocolMock(),
+            trackingConsentManager: TrackingConsentManagingMock(),
             storage: CoreStorageMock()
         )
         
@@ -223,6 +228,7 @@ final class SettingsViewModelTests: XCTestCase {
             serverConfig: ServerConfigProtocolMock(),
             upgradeHandler: CourseUpgradeHandlerProtocolMock(),
             upgradeHelper: CourseUpgradeHelperProtocolMock(),
+            trackingConsentManager: TrackingConsentManagingMock(),
             storage: CoreStorageMock()
         )
         
