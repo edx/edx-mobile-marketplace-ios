@@ -252,6 +252,7 @@ class ScreenAssembly: Assembly {
                 serverConfig: r.resolve(ServerConfigProtocol.self)!,
                 upgradeHandler: r.resolve(CourseUpgradeHandlerProtocol.self)!,
                 upgradeHelper: r.resolve(CourseUpgradeHelperProtocol.self)!,
+                trackingConsentManager: r.resolve(TrackingConsentManaging.self)!,
                 storage: r.resolve(CoreStorage.self)!
             )
         }

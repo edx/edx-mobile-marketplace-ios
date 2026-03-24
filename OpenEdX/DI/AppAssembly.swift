@@ -276,6 +276,10 @@ class AppAssembly: Assembly {
         container.register(DataDogFeatureManager.self) { r in
             return DataDogFeatureManager(r.resolve(ConfigProtocol.self)!)
         }.inObjectScope(.container)
+
+        container.register(TrackingConsentManaging.self) { r in
+            r.resolve(DataDogFeatureManager.self)!
+        }.inObjectScope(.container)
         
         // Register DataDogAnalyticsService
         container.register(DataDogAnalyticsService.self) { resolver in

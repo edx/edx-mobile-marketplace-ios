@@ -111,7 +111,6 @@
 		064987972B4D69FF0071642A /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0649878E2B4D69FE0071642A /* WebView.swift */; };
 		064987982B4D69FF0071642A /* CSSInjectionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064987902B4D69FE0071642A /* CSSInjectionProtocol.swift */; };
 		064987992B4D69FF0071642A /* WebViewScriptInjectionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064987912B4D69FE0071642A /* WebViewScriptInjectionProtocol.swift */; };
-		D3AA00042F600001AA000004 /* WebViewTrackingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AA00052F600001AA000005 /* WebViewTrackingProtocol.swift */; };
 		0649879A2B4D69FF0071642A /* WebViewHTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064987922B4D69FE0071642A /* WebViewHTML.swift */; };
 		06619EAA2B8F2936001FAADE /* ReadabilityModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06619EA92B8F2936001FAADE /* ReadabilityModifier.swift */; };
 		06619EAD2B90918B001FAADE /* ReadabilityInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06619EAC2B90918B001FAADE /* ReadabilityInjection.swift */; };
@@ -190,8 +189,6 @@
 		94747BAB2E3362F900F4E2C3 /* CaptchaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94747BA92E3362F900F4E2C3 /* CaptchaService.swift */; };
 		94747BAD2E336FFC00F4E2C3 /* DefaultCaptchaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94747BAC2E336FFA00F4E2C3 /* DefaultCaptchaService.swift */; };
 		949094972DC8E2D800A341D4 /* TrackSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949094962DC8E2D100A341D4 /* TrackSelectionViewModel.swift */; };
-		D3AA00012F600001AA000001 /* CertificatePreviewManaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AA00002F600001AA000001 /* CertificatePreviewManaging.swift */; };
-		D3AA00032F600001AA000003 /* UserSessionManaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AA00022F600001AA000002 /* UserSessionManaging.swift */; };
 		949094992DC8E44C00A341D4 /* TrackCardInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949094982DC8E44700A341D4 /* TrackCardInfo.swift */; };
 		9499F1262D41375B00558D59 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9499F1252D41375B00558D59 /* AppEnvironment.swift */; };
 		94AE32362D8B329D00FA048D /* NotificationBellButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AE32352D8B329D00FA048D /* NotificationBellButton.swift */; };
@@ -242,6 +239,9 @@
 		C8C446EF233F81B9FABB77D2 /* Pods_App_Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 349B90CD6579F7B8D257E515 /* Pods_App_Core.framework */; };
 		CFC84952299F8B890055E497 /* Debounce.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC84951299F8B890055E497 /* Debounce.swift */; };
 		D359C9092F39A0F00055116E /* DatadogConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D359C9082F39A0EA0055116E /* DatadogConfig.swift */; };
+		D3AA00012F600001AA000001 /* CertificatePreviewManaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AA00002F600001AA000001 /* CertificatePreviewManaging.swift */; };
+		D3AA00032F600001AA000003 /* UserSessionManaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AA00022F600001AA000002 /* UserSessionManaging.swift */; };
+		D3AA00042F600001AA000004 /* WebViewTrackingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AA00052F600001AA000005 /* WebViewTrackingProtocol.swift */; };
 		D3D3D4CB2EE18D0B00FB1482 /* CertificateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D3D4CA2EE18D0B00FB1482 /* CertificateView.swift */; };
 		DBF6F2412B014ADA0098414B /* FirebaseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF6F2402B014ADA0098414B /* FirebaseConfig.swift */; };
 		DBF6F2462B01DAFE0098414B /* AgreementConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF6F2452B01DAFE0098414B /* AgreementConfig.swift */; };
@@ -368,7 +368,6 @@
 		0649878E2B4D69FE0071642A /* WebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		064987902B4D69FE0071642A /* CSSInjectionProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSSInjectionProtocol.swift; sourceTree = "<group>"; };
 		064987912B4D69FE0071642A /* WebViewScriptInjectionProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewScriptInjectionProtocol.swift; sourceTree = "<group>"; };
-		D3AA00052F600001AA000005 /* WebViewTrackingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewTrackingProtocol.swift; sourceTree = "<group>"; };
 		064987922B4D69FE0071642A /* WebViewHTML.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewHTML.swift; sourceTree = "<group>"; };
 		06619EA92B8F2936001FAADE /* ReadabilityModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadabilityModifier.swift; sourceTree = "<group>"; };
 		06619EAC2B90918B001FAADE /* ReadabilityInjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadabilityInjection.swift; sourceTree = "<group>"; };
@@ -452,8 +451,6 @@
 		94747BA92E3362F900F4E2C3 /* CaptchaService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptchaService.swift; sourceTree = "<group>"; };
 		94747BAC2E336FFA00F4E2C3 /* DefaultCaptchaService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCaptchaService.swift; sourceTree = "<group>"; };
 		949094962DC8E2D100A341D4 /* TrackSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSelectionViewModel.swift; sourceTree = "<group>"; };
-		D3AA00002F600001AA000001 /* CertificatePreviewManaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificatePreviewManaging.swift; sourceTree = "<group>"; };
-		D3AA00022F600001AA000002 /* UserSessionManaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSessionManaging.swift; sourceTree = "<group>"; };
 		949094982DC8E44700A341D4 /* TrackCardInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackCardInfo.swift; sourceTree = "<group>"; };
 		9499F1252D41375B00558D59 /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
 		94AE32352D8B329D00FA048D /* NotificationBellButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationBellButton.swift; sourceTree = "<group>"; };
@@ -502,6 +499,9 @@
 		C7E5BCE79CE297B20777B27A /* Pods-App-Core.debugprod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Core.debugprod.xcconfig"; path = "Target Support Files/Pods-App-Core/Pods-App-Core.debugprod.xcconfig"; sourceTree = "<group>"; };
 		CFC84951299F8B890055E497 /* Debounce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debounce.swift; sourceTree = "<group>"; };
 		D359C9082F39A0EA0055116E /* DatadogConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatadogConfig.swift; sourceTree = "<group>"; };
+		D3AA00002F600001AA000001 /* CertificatePreviewManaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificatePreviewManaging.swift; sourceTree = "<group>"; };
+		D3AA00022F600001AA000002 /* UserSessionManaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSessionManaging.swift; sourceTree = "<group>"; };
+		D3AA00052F600001AA000005 /* WebViewTrackingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewTrackingProtocol.swift; sourceTree = "<group>"; };
 		D3D3D4CA2EE18D0B00FB1482 /* CertificateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateView.swift; sourceTree = "<group>"; };
 		DBF6F2402B014ADA0098414B /* FirebaseConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConfig.swift; sourceTree = "<group>"; };
 		DBF6F2452B01DAFE0098414B /* AgreementConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementConfig.swift; sourceTree = "<group>"; };
@@ -1299,7 +1299,7 @@
 				BA8FA6712AD6ABA300EA029A /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
 				142EDD6A2B831D1400F9F320 /* XCRemoteSwiftPackageReference "ios-branch-sdk-spm" */,
 				14A832532BD753F800E5654D /* XCRemoteSwiftPackageReference "SwiftyStoreKit" */,
-				94D1FC462DA6AF44000A904F /* XCLocalSwiftPackageReference "../EDXFeatureManagement" */,
+				94D1FC462DA6AF44000A904F /* XCLocalSwiftPackageReference "EDXFeatureManagement" */,
 				94747BA62E3362DD00F4E2C3 /* XCRemoteSwiftPackageReference "recaptcha-enterprise-mobile-sdk" */,
 			);
 			productRefGroup = 0770DE0928D07831006D8A5D /* Products */;
@@ -2650,7 +2650,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		94D1FC462DA6AF44000A904F /* XCLocalSwiftPackageReference "../EDXFeatureManagement" */ = {
+		94D1FC462DA6AF44000A904F /* XCLocalSwiftPackageReference "EDXFeatureManagement" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../EDXFeatureManagement;
 		};

@@ -69,6 +69,7 @@ public protocol FeatureManagerProtocol {
     func disableWebViewTracking(_ webView: WKWebView)
 
     func trackURLSession(_ delegateClass: NSObject.Type)
+    func setTrackingConsent(granted: Bool)
 }
 
 public extension FeatureManagerProtocol {
@@ -140,6 +141,10 @@ public extension FeatureManagerProtocol {
     func trackURLSession(_ delegateClass: NSObject.Type) {
 
     }
+
+    func setTrackingConsent(granted: Bool) {
+
+    }
 }
 
 #if DEBUG
@@ -196,6 +201,10 @@ public final class FeatureManagerMock: FeatureManagerProtocol {
     }
 
     public func trackURLSession(_ delegateClass: NSObject.Type) {
+
+    }
+
+    public func setTrackingConsent(granted: Bool) {
 
     }
 }

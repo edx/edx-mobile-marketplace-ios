@@ -48,7 +48,7 @@ final class CertificatePreviewManager: CertificatePreviewManaging, UserSessionMa
     }
 }
 
-final class DataDogFeatureManager: FeatureManagerProtocol, WebViewTrackingProtocol {
+final class DataDogFeatureManager: FeatureManagerProtocol, WebViewTrackingProtocol, TrackingConsentManaging {
     private var dataDogManager: FeatureManagerProtocol?
     private(set) var config: ConfigProtocol!
     
@@ -89,5 +89,11 @@ final class DataDogFeatureManager: FeatureManagerProtocol, WebViewTrackingProtoc
     
     func trackURLSession(_ delegateClass: NSObject.Type) {
         dataDogManager?.trackURLSession(delegateClass)
+    }
+
+    func setTrackingConsent(granted: Bool) {
+        if config?.dataDog.enabled ?? false {
+            dataDogManager?.setTrackingConsent(granted: granted)
+        }
     }
 }

@@ -81,6 +81,10 @@ extension DatadogManager {
         WebViewTracking.disable(webView: webView)
     }
 
+    public func setTrackingConsent(granted: Bool) {
+        Datadog.set(trackingConsent: granted ? .granted : .notGranted)
+    }
+
     // swiftlint:disable force_cast
     public func trackURLSession(_ delegateClass: NSObject.Type) {
         let anyDelegateClass: AnyClass = delegateClass as AnyClass

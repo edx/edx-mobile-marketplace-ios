@@ -11,10 +11,19 @@ public protocol UserSessionManaging {
     func resetUser()
 }
 
+public protocol TrackingConsentManaging {
+    func setTrackingConsent(granted: Bool)
+}
+
 #if DEBUG
 public struct UserSessionManagingMock: UserSessionManaging {
     public init() {}
     public func identifyUser(id: String) {}
     public func resetUser() {}
+}
+
+public struct TrackingConsentManagingMock: TrackingConsentManaging {
+    public init() {}
+    public func setTrackingConsent(granted: Bool) {}
 }
 #endif

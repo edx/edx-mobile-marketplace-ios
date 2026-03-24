@@ -135,6 +135,7 @@ struct VideoQualityView_Previews: PreviewProvider {
             config: ConfigMock(),
             serverConfig: ServerConfigProtocolMock(),
             upgradeHandler: CourseUpgradeHandlerProtocolMock(),
+            trackingConsentManager: TrackingConsentManagingMock(),
             storage: CoreStorageMock()
         )
         
