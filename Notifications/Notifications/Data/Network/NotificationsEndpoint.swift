@@ -8,6 +8,7 @@
 import Foundation
 import Core
 import Alamofire
+import UIKit
 
 enum NotificationsEndpoint: EndPointType {
     case getNotificationsCount

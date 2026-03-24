@@ -55,7 +55,8 @@ public struct ResponsesView: View {
                                     commentID: commentID,
                                     parentComment: parentComment,
                                     page: 1,
-                                    refresh: true
+                                    refresh: true,
+                                    showProgress: false
                                 )
                             }) {
                                 VStack {
@@ -231,10 +232,12 @@ public struct ResponsesView: View {
                 ToolbarItem(
                     placement: .navigationBarLeading,
                     content: {
-                        BackNavigationButton(color: Theme.Colors.accentColor) {
+                        BackNavigationButton(
+                            color: Theme.Colors.accentColor,
+                            applyOffset: true
+                        ) {
                             viewModel.router.back()
                         }
-                        .offset(x: -8, y: -1.5)
                     }
                 )
             }

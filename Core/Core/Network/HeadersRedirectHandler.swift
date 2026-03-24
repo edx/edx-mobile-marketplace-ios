@@ -8,7 +8,7 @@
 import Foundation
 import Alamofire
 
-public class HeadersRedirectHandler: RedirectHandler {
+public final class HeadersRedirectHandler: RedirectHandler {
     
     public init() {
     }

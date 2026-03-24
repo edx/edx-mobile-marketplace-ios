@@ -34,7 +34,7 @@ public final class DatadogManager: FeatureManagerProtocol {
 
 extension DatadogManager {
     public func identify(id: String, username: String?, email: String?) {
-        Datadog.setUserInfo(id: id, name: username, email: email)
+        Datadog.setUserInfo(id: id)
     }
     public func trackEvent(_ name: String, properties: [String: Any]?) {
         var attributes: [String: any Encodable] = [:]
