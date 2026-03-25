@@ -66,4 +66,8 @@ public extension WebviewInjection {
         AccessibilityInjection()
             .webviewInjection()
     }
+    
+    static var discoveryInputZoomFix: WebviewInjection {
+        ZoomDisableInjection().webviewInjection()
+    }
 }

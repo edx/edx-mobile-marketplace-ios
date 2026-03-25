@@ -98,7 +98,8 @@ public struct DiscoveryWebview: View {
                     WebView(
                         viewModel: .init(
                             url: URLString,
-                            baseURL: ""
+                            baseURL: "",
+                            injections: [.discoveryInputZoomFix]
                         ),
                         isLoading: $isLoading,
                         refreshCookies: {},
