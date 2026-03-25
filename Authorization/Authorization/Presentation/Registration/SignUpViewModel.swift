@@ -140,9 +140,7 @@ public class SignUpViewModel: ObservableObject {
 
     @MainActor
     func registerUser(authMetod: AuthMethod = .password) async {
-        let registerFields = await configureFields()
-        let validateFields = registerFields.filter { $0.key != "captcha_token" }
-        
+        let validateFields = await configureFields(includeCaptcha: false)
         do {
             let errors = try await interactor.validateRegistrationFields(fields: validateFields)
             if showErrors(errors: errors) {
@@ -162,7 +160,7 @@ public class SignUpViewModel: ObservableObject {
             )
             return
         }
-        
+        let registerFields = await configureFields(includeCaptcha: true)
         do {
             isShowProgress = true
             let user = try await interactor.registerUser(
@@ -188,14 +186,13 @@ public class SignUpViewModel: ObservableObject {
             )
         }
     }
-    
-    @MainActor
-    private func configureFields() async -> [String: String] {
+
+    private func configureFields(includeCaptcha: Bool) async -> [String: String] {
         var validateFields: [String: String] = [:]
         fields.forEach { validateFields[$0.field.name] = $0.text }
         validateFields["honor_code"] = "true"
         validateFields["terms_of_service"] = "true"
-        if fields.contains(where: { $0.field.name == "captcha_token" }) {
+        if includeCaptcha && fields.contains(where: { $0.field.name == "captcha_token" }) {
             do {
                 let captchaToken = try await interactor.generateCaptchaToken()
                 validateFields["captcha_token"] = captchaToken
