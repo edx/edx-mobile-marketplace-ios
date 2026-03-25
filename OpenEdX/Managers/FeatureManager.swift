@@ -52,12 +52,14 @@ final class DataDogFeatureManager: FeatureManagerProtocol, WebViewTrackingProtoc
     private var dataDogManager: FeatureManagerProtocol?
     private(set) var config: ConfigProtocol!
     
-    init(_ config: ConfigProtocol) {
+    init(_ config: ConfigProtocol, storage: CoreStorage) {
         self.config = config
         if config.dataDog.enabled {
+            let trackingGranted = storage.datadogTrackingEnabled ?? true
             dataDogManager = DatadogManager(appID: config.dataDog.appID,
                                             clientToken: config.dataDog.clientToken,
-                                            environment: config.dataDog.environment)
+                                            environment: config.dataDog.environment,
+                                            trackingGranted: trackingGranted)
         }
     }
     

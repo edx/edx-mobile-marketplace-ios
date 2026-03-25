@@ -112,7 +112,9 @@ public class SettingsViewModel: ObservableObject {
 
         let userSettings = interactor.getSettings()
         self.userSettings = userSettings
-        self.datadogTrackingEnabled = storage.datadogTrackingEnabled ?? true
+        let trackingGranted = storage.datadogTrackingEnabled ?? true
+        self.datadogTrackingEnabled = trackingGranted
+        trackingConsentManager.setTrackingConsent(granted: trackingGranted)
         self.wifiOnly = userSettings.wifiOnly
         self.selectedQuality = userSettings.streamingQuality
         

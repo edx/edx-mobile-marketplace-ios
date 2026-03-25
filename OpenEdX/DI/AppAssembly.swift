@@ -274,7 +274,7 @@ class AppAssembly: Assembly {
         }.inObjectScope(.container)
 
         container.register(DataDogFeatureManager.self) { r in
-            return DataDogFeatureManager(r.resolve(ConfigProtocol.self)!)
+            return DataDogFeatureManager(r.resolve(ConfigProtocol.self)!, storage: r.resolve(CoreStorage.self)!)
         }.inObjectScope(.container)
 
         container.register(TrackingConsentManaging.self) { r in

@@ -16,7 +16,7 @@ public final class DatadogManager: FeatureManagerProtocol {
     private(set) var clientToken = ""
     private(set) var environment = ""
 
-    public init(appID: String, clientToken: String, environment: String) {
+    public init(appID: String, clientToken: String, environment: String, trackingGranted: Bool = true) {
         self.appID = appID
         self.clientToken = clientToken
         self.environment = environment
@@ -26,7 +26,7 @@ public final class DatadogManager: FeatureManagerProtocol {
                 env: environment,
                 site: .us1
             ),
-            trackingConsent: .granted
+            trackingConsent: trackingGranted ? .granted : .notGranted
         )
         Datadog.verbosityLevel = .debug
     }
