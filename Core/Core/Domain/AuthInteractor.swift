@@ -18,18 +18,27 @@ public protocol AuthInteractorProtocol {
     func getRegistrationFields() async throws -> [PickerFields]
     func registerUser(fields: [String: String], isSocial: Bool) async throws -> User
     func validateRegistrationFields(fields: [String: String]) async throws -> [String: String]
+    func generateCaptchaToken() async throws -> String
 }
 
 public class AuthInteractor: AuthInteractorProtocol {
     private let repository: AuthRepositoryProtocol
     private let featureManager: UserSessionManaging
+    private let captchaService: CaptchaService
+    
+    private enum Constants {
+        static let captchaTimeout: TimeInterval = 10.0
+        static let registrationAction = "signup"
+    }
 
     public init(
         repository: AuthRepositoryProtocol,
-        featureManager: UserSessionManaging
+        featureManager: UserSessionManaging,
+        captchaService: CaptchaService
     ) {
         self.repository = repository
         self.featureManager = featureManager
+        self.captchaService = captchaService
     }
     
     @discardableResult
@@ -67,6 +76,14 @@ public class AuthInteractor: AuthInteractorProtocol {
     public func validateRegistrationFields(fields: [String: String]) async throws -> [String: String] {
         return try await repository.validateRegistrationFields(fields: fields)
     }
+    
+    public func generateCaptchaToken() async throws -> String {
+        let captchaToken = try await captchaService.executeCaptcha(
+            action: Constants.registrationAction,
+            timeout: Constants.captchaTimeout
+        )
+        return captchaToken
+    }    
 }
 
 // Mark - For testing and SwiftUI preview
@@ -74,7 +91,8 @@ public class AuthInteractor: AuthInteractorProtocol {
 public extension AuthInteractor {
     static let mock = AuthInteractor(
         repository: AuthRepositoryMock(),
-        featureManager: UserSessionManagingMock()
+        featureManager: UserSessionManagingMock(),
+        captchaService: CaptchaServiceMock()
     )
 }
 #endif
