@@ -263,10 +263,12 @@ public struct ThreadView: View {
                 ToolbarItem(
                     placement: .navigationBarLeading,
                     content: {
-                        BackNavigationButton(color: Theme.Colors.accentColor) {
+                        BackNavigationButton(
+                            color: Theme.Colors.accentColor,
+                            applyOffset: true
+                        ) {
                             viewModel.router.back()
                         }
-                        .offset(x: -8, y: -1.5)
                     }
                 )
             }

@@ -6,8 +6,9 @@
 //
 
 import Alamofire
+import Foundation
 
-public class NetworkLogger: EventMonitor {
+public final class NetworkLogger: EventMonitor {
     
     public let queue = DispatchQueue(label: "com.raccoongang.networklogger")
     

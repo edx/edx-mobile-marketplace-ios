@@ -21,6 +21,7 @@
 		072787AD28D34D15002E9142 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072787AC28D34D15002E9142 /* Core.framework */; };
 		149D4A9A2D0BEF7E003A2E1D /* NotificationsSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149D4A992D0BEF7B003A2E1D /* NotificationsSettingsViewModel.swift */; };
 		14BAE6912D0978C300EAF0E4 /* NotificationsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BAE6902D0978BC00EAF0E4 /* NotificationsSettingsView.swift */; };
+		15446ACE2F59669200B8227F /* Discovery.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15446ACD2F59669200B8227F /* Discovery.framework */; };
 		87E3F4AB2D8BE4FD628C91C4 /* Pods_App_Notifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAFCD31A42C7E150939829CE /* Pods_App_Notifications.framework */; };
 		940DBF162D5F80180042335E /* NotificationsPrimerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940DBF152D5F80140042335E /* NotificationsPrimerViewModel.swift */; };
 		947488042D5DE91B00DD0A24 /* NotificationsPrimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947488032D5DE91B00DD0A24 /* NotificationsPrimerView.swift */; };
@@ -70,6 +71,7 @@
 		149D4A992D0BEF7B003A2E1D /* NotificationsSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsSettingsViewModel.swift; sourceTree = "<group>"; };
 		14BAE6902D0978BC00EAF0E4 /* NotificationsSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsSettingsView.swift; sourceTree = "<group>"; };
 		14BAE6A82D09D01400EAF0E4 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
+		15446ACD2F59669200B8227F /* Discovery.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Discovery.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CD79FA3FF160D72A5BE303D /* Pods-App-Notifications-NotificationsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Notifications-NotificationsTests.release.xcconfig"; path = "Target Support Files/Pods-App-Notifications-NotificationsTests/Pods-App-Notifications-NotificationsTests.release.xcconfig"; sourceTree = "<group>"; };
 		418EA7E50A2326EB4D36A99B /* Pods-App-Notifications.debugstage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Notifications.debugstage.xcconfig"; path = "Target Support Files/Pods-App-Notifications/Pods-App-Notifications.debugstage.xcconfig"; sourceTree = "<group>"; };
 		4BEE9A04A3253265E1ACC724 /* Pods-App-Notifications-NotificationsTests.debugdev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Notifications-NotificationsTests.debugdev.xcconfig"; path = "Target Support Files/Pods-App-Notifications-NotificationsTests/Pods-App-Notifications-NotificationsTests.debugdev.xcconfig"; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				072787AD28D34D15002E9142 /* Core.framework in Frameworks */,
 				87E3F4AB2D8BE4FD628C91C4 /* Pods_App_Notifications.framework in Frameworks */,
 				978648CE2D636AD600AB006B /* Discussion.framework in Frameworks */,
+				15446ACE2F59669200B8227F /* Discovery.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,6 +239,7 @@
 		072787AB28D34D15002E9142 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				15446ACD2F59669200B8227F /* Discovery.framework */,
 				978648CD2D636AD600AB006B /* Discussion.framework */,
 				E08D12E22B482D720096311A /* Course.framework */,
 				E0D586132B29F25A009B4BA7 /* Authorization.framework */,

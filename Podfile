@@ -16,15 +16,10 @@ abstract_target "App" do
   target "Core" do
     project './Core/Core.xcodeproj'
     workspace './Core/Core.xcodeproj'
-    #Networking
-    pod 'Alamofire', '~> 5.7'
-    #Keychain
-    pod 'KeychainSwift', '~> 20.0'
-    #SwiftUI backward UIKit access
-    #pod 'Introspect', '~> 0.6'
-    pod 'SwiftUIIntrospect', '~> 0.8'
-    pod 'Kingfisher', '~> 7.8'
-    pod 'Swinject', '2.8.3'
+
+    target 'CoreTests' do
+      pod 'SwiftyMocky', :git => 'https://github.com/MakeAWishFoundation/SwiftyMocky.git', :branch => 'master'
+    end
   end
   
   target "Authorization" do
@@ -32,7 +27,7 @@ abstract_target "App" do
     workspace './Authorization/Authorization.xcodeproj'
     
     target 'AuthorizationTests' do
-      pod 'SwiftyMocky', :git => 'https://github.com/MakeAWishFoundation/SwiftyMocky.git', :tag => '4.2.0'
+      pod 'SwiftyMocky', :git => 'https://github.com/MakeAWishFoundation/SwiftyMocky.git', :branch => 'master'
     end
   end
   
@@ -41,7 +36,7 @@ abstract_target "App" do
     workspace './Discovery/Discovery.xcodeproj'
     
     target 'DiscoveryUnitTests' do
-      pod 'SwiftyMocky', :git => 'https://github.com/MakeAWishFoundation/SwiftyMocky.git', :tag => '4.2.0'
+      pod 'SwiftyMocky', :git => 'https://github.com/MakeAWishFoundation/SwiftyMocky.git', :branch => 'master'
     end
   end
   
@@ -50,7 +45,7 @@ abstract_target "App" do
     workspace './WhatsNew/WhatsNew.xcodeproj'
     
     target 'WhatsNewTests' do
-      pod 'SwiftyMocky', :git => 'https://github.com/MakeAWishFoundation/SwiftyMocky.git', :tag => '4.2.0'
+      pod 'SwiftyMocky', :git => 'https://github.com/MakeAWishFoundation/SwiftyMocky.git', :branch => 'master'
     end
   end
   
@@ -59,7 +54,7 @@ abstract_target "App" do
     workspace './Dashboard/Dashboard.xcodeproj'
     
     target 'DashboardTests' do
-      pod 'SwiftyMocky', :git => 'https://github.com/MakeAWishFoundation/SwiftyMocky.git', :tag => '4.2.0'
+      pod 'SwiftyMocky', :git => 'https://github.com/MakeAWishFoundation/SwiftyMocky.git', :branch => 'master'
     end
   end
   
@@ -68,7 +63,7 @@ abstract_target "App" do
     workspace './Profile/Profile.xcodeproj'
     
     target 'ProfileTests' do
-      pod 'SwiftyMocky', :git => 'https://github.com/MakeAWishFoundation/SwiftyMocky.git', :tag => '4.2.0'
+      pod 'SwiftyMocky', :git => 'https://github.com/MakeAWishFoundation/SwiftyMocky.git', :branch => 'master'
     end
   end
   
@@ -77,7 +72,7 @@ abstract_target "App" do
     workspace './Course/Course.xcodeproj'
     
     target 'CourseTests' do
-      pod 'SwiftyMocky', :git => 'https://github.com/MakeAWishFoundation/SwiftyMocky.git', :tag => '4.2.0'
+      pod 'SwiftyMocky', :git => 'https://github.com/MakeAWishFoundation/SwiftyMocky.git', :branch => 'master'
     end
   end
   
@@ -86,7 +81,7 @@ abstract_target "App" do
     workspace './Discussion/Discussion.xcodeproj'
     
     target 'DiscussionTests' do
-      pod 'SwiftyMocky', :git => 'https://github.com/MakeAWishFoundation/SwiftyMocky.git', :tag => '4.2.0'
+      pod 'SwiftyMocky', :git => 'https://github.com/MakeAWishFoundation/SwiftyMocky.git', :branch => 'master'
     end
   end
   
@@ -95,7 +90,7 @@ abstract_target "App" do
     workspace './Theme/Theme.xcodeproj'
     
     target 'ThemeTests' do
-      pod 'SwiftyMocky', :git => 'https://github.com/MakeAWishFoundation/SwiftyMocky.git', :tag => '4.2.0'
+      pod 'SwiftyMocky', :git => 'https://github.com/MakeAWishFoundation/SwiftyMocky.git', :branch => 'master'
     end
   end
   
@@ -104,7 +99,7 @@ abstract_target "App" do
     workspace './Notifications/Notifications.xcodeproj'
     
     target 'NotificationsTests' do
-      pod 'SwiftyMocky', :git => 'https://github.com/MakeAWishFoundation/SwiftyMocky.git', :tag => '4.2.0'
+      pod 'SwiftyMocky', :git => 'https://github.com/MakeAWishFoundation/SwiftyMocky.git', :branch => 'master'
     end
   end
   
