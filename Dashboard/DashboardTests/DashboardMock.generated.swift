@@ -170,6 +170,22 @@ open class AuthInteractorProtocolMock: AuthInteractorProtocol, Mock {
 		return __value
     }
 
+    open func generateCaptchaToken() throws -> String {
+        addInvocation(.m_generateCaptchaToken)
+		let perform = methodPerformValue(.m_generateCaptchaToken) as? () -> Void
+		perform?()
+		var __value: String
+		do {
+		    __value = try methodReturnValue(.m_generateCaptchaToken).casted()
+		} catch MockError.notStubed {
+			onFatalFailure("Stub return value not specified for generateCaptchaToken(). Use given")
+			Failure("Stub return value not specified for generateCaptchaToken(). Use given")
+		} catch {
+		    throw error
+		}
+		return __value
+    }
+
 
     fileprivate enum MethodType {
         case m_login__username_usernamepassword_password(Parameter<String>, Parameter<String>)
@@ -179,6 +195,7 @@ open class AuthInteractorProtocolMock: AuthInteractorProtocol, Mock {
         case m_getRegistrationFields
         case m_registerUser__fields_fieldsisSocial_isSocial(Parameter<[String: String]>, Parameter<Bool>)
         case m_validateRegistrationFields__fields_fields(Parameter<[String: String]>)
+        case m_generateCaptchaToken
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
@@ -216,6 +233,8 @@ open class AuthInteractorProtocolMock: AuthInteractorProtocol, Mock {
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsFields, rhs: rhsFields, with: matcher), lhsFields, rhsFields, "fields"))
 				return Matcher.ComparisonResult(results)
+
+            case (.m_generateCaptchaToken, .m_generateCaptchaToken): return .match
             default: return .none
             }
         }
@@ -229,6 +248,7 @@ open class AuthInteractorProtocolMock: AuthInteractorProtocol, Mock {
             case .m_getRegistrationFields: return 0
             case let .m_registerUser__fields_fieldsisSocial_isSocial(p0, p1): return p0.intValue + p1.intValue
             case let .m_validateRegistrationFields__fields_fields(p0): return p0.intValue
+            case .m_generateCaptchaToken: return 0
             }
         }
         func assertionName() -> String {
@@ -240,6 +260,7 @@ open class AuthInteractorProtocolMock: AuthInteractorProtocol, Mock {
             case .m_getRegistrationFields: return ".getRegistrationFields()"
             case .m_registerUser__fields_fieldsisSocial_isSocial: return ".registerUser(fields:isSocial:)"
             case .m_validateRegistrationFields__fields_fields: return ".validateRegistrationFields(fields:)"
+            case .m_generateCaptchaToken: return ".generateCaptchaToken()"
             }
         }
     }
@@ -272,6 +293,9 @@ open class AuthInteractorProtocolMock: AuthInteractorProtocol, Mock {
         }
         public static func validateRegistrationFields(fields: Parameter<[String: String]>, willReturn: [String: String]...) -> MethodStub {
             return Given(method: .m_validateRegistrationFields__fields_fields(`fields`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func generateCaptchaToken(willReturn: String...) -> MethodStub {
+            return Given(method: .m_generateCaptchaToken, products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
         @discardableResult
 		public static func login(username: Parameter<String>, password: Parameter<String>, willThrow: Error...) -> MethodStub {
@@ -347,6 +371,16 @@ open class AuthInteractorProtocolMock: AuthInteractorProtocol, Mock {
 			willProduce(stubber)
 			return given
         }
+        public static func generateCaptchaToken(willThrow: Error...) -> MethodStub {
+            return Given(method: .m_generateCaptchaToken, products: willThrow.map({ StubProduct.throw($0) }))
+        }
+        public static func generateCaptchaToken(willProduce: (StubberThrows<String>) -> Void) -> MethodStub {
+            let willThrow: [Error] = []
+			let given: Given = { return Given(method: .m_generateCaptchaToken, products: willThrow.map({ StubProduct.throw($0) })) }()
+			let stubber = given.stubThrows(for: (String).self)
+			willProduce(stubber)
+			return given
+        }
     }
 
     public struct Verify {
@@ -361,6 +395,7 @@ open class AuthInteractorProtocolMock: AuthInteractorProtocol, Mock {
         public static func getRegistrationFields() -> Verify { return Verify(method: .m_getRegistrationFields)}
         public static func registerUser(fields: Parameter<[String: String]>, isSocial: Parameter<Bool>) -> Verify { return Verify(method: .m_registerUser__fields_fieldsisSocial_isSocial(`fields`, `isSocial`))}
         public static func validateRegistrationFields(fields: Parameter<[String: String]>) -> Verify { return Verify(method: .m_validateRegistrationFields__fields_fields(`fields`))}
+        public static func generateCaptchaToken() -> Verify { return Verify(method: .m_generateCaptchaToken)}
     }
 
     public struct Perform {
@@ -389,6 +424,9 @@ open class AuthInteractorProtocolMock: AuthInteractorProtocol, Mock {
         }
         public static func validateRegistrationFields(fields: Parameter<[String: String]>, perform: @escaping ([String: String]) -> Void) -> Perform {
             return Perform(method: .m_validateRegistrationFields__fields_fields(`fields`), performs: perform)
+        }
+        public static func generateCaptchaToken(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_generateCaptchaToken, performs: perform)
         }
     }
 
