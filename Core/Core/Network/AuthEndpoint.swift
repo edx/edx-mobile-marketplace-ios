@@ -59,7 +59,12 @@ enum AuthEndpoint: EndPointType {
     }
 
     var headers: HTTPHeaders? {
-        nil
+        switch self {
+        case .registerUser:
+            return ["Mobile-Platform-Identifier": "ios"]
+        default:
+            return nil
+        }
     }
 
     var task: HTTPTask {
