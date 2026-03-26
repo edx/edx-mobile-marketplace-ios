@@ -23,6 +23,6 @@ class DataDogAnalyticsService: AnalyticsService {
         dataDogManager?.trackEvent(event.rawValue, properties: parameters)
     }
     func logScreenEvent(_ event: Core.AnalyticsEvent, parameters: [String : Any]?) {
-        
+        dataDogManager?.trackEvent(event.rawValue, properties: parameters)
     }
 }
