@@ -57,6 +57,8 @@ extension DatadogManager {
                 applicationID: appID,
                 uiKitViewsPredicate: DefaultUIKitRUMViewsPredicate(),
                 uiKitActionsPredicate: DefaultUIKitRUMActionsPredicate(),
+                swiftUIViewsPredicate: DefaultSwiftUIRUMViewsPredicate(),
+                swiftUIActionsPredicate: DefaultSwiftUIRUMActionsPredicate(isLegacyDetectionEnabled: true),
                 urlSessionTracking: .init(
                     firstPartyHostsTracing: .trace(hosts: hosts,
                                                    sampleRate: 100))
