@@ -185,6 +185,7 @@
 		15FA08A62F5012B200E32824 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 15FA08A52F5012B200E32824 /* KeychainSwift */; };
 		15FA08A92F5012CB00E32824 /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = 15FA08A82F5012CB00E32824 /* SwiftUIIntrospect */; };
 		15FA08AF2F50133200E32824 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 15FA08AE2F50133200E32824 /* Swinject */; };
+		6A8CE6232F45B82200B3BD5B /* ZoomDisableInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8CE6222F45B81200B3BD5B /* ZoomDisableInjection.swift */; };
 		942A984E2D4B598C00DD8BBC /* PaginationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942A984D2D4B598C00DD8BBC /* PaginationManager.swift */; };
 		942A98552D4BD91700DD8BBC /* PaginationTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942A98542D4BD91700DD8BBC /* PaginationTask.swift */; };
 		942A98572D4BD92B00DD8BBC /* PaginationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942A98562D4BD92B00DD8BBC /* PaginationResult.swift */; };
@@ -454,6 +455,7 @@
 		60153262DBC2F9E660D7E11B /* Pods-App-Core.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Core.release.xcconfig"; path = "Target Support Files/Pods-App-Core/Pods-App-Core.release.xcconfig"; sourceTree = "<group>"; };
 		77DCD823305D336646EAE926 /* Pods-App-Core-CoreTests.debugdev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Core-CoreTests.debugdev.xcconfig"; path = "Target Support Files/Pods-App-Core-CoreTests/Pods-App-Core-CoreTests.debugdev.xcconfig"; sourceTree = "<group>"; };
 		8DEA605AFA1B0192454EE906 /* Pods-App-Core-CoreTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Core-CoreTests.release.xcconfig"; path = "Target Support Files/Pods-App-Core-CoreTests/Pods-App-Core-CoreTests.release.xcconfig"; sourceTree = "<group>"; };
+		6A8CE6222F45B81200B3BD5B /* ZoomDisableInjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomDisableInjection.swift; sourceTree = "<group>"; };
 		942A984D2D4B598C00DD8BBC /* PaginationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationManager.swift; sourceTree = "<group>"; };
 		942A98542D4BD91700DD8BBC /* PaginationTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationTask.swift; sourceTree = "<group>"; };
 		942A98562D4BD92B00DD8BBC /* PaginationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationResult.swift; sourceTree = "<group>"; };
@@ -739,6 +741,7 @@
 				0649878A2B4D69FE0071642A /* DragAndDropCssInjection.swift */,
 				0649878B2B4D69FE0071642A /* WebviewInjection.swift */,
 				0649878C2B4D69FE0071642A /* SurveyCssInjection.swift */,
+				6A8CE6222F45B81200B3BD5B /* ZoomDisableInjection.swift */,
 				0649878D2B4D69FE0071642A /* WebviewMessage.swift */,
 				06BEEA0D2B6A55C500D25A97 /* ColorInversionInjection.swift */,
 				06619EAC2B90918B001FAADE /* ReadabilityInjection.swift */,
@@ -1560,6 +1563,7 @@
 				D3AA00042F600001AA000004 /* WebViewTrackingProtocol.swift in Sources */,
 				14F8E66B2C0F4D1200E4EF69 /* RestoreInProgressView.swift in Sources */,
 				027BD3BE2909478B00392132 /* UIResponder+CurrentResponder.swift in Sources */,
+				6A8CE6232F45B82200B3BD5B /* ZoomDisableInjection.swift in Sources */,
 				070019AE28F701B200D5FC78 /* Certificate.swift in Sources */,
 				BA4AFB442B6A5AF100A21367 /* CheckBoxView.swift in Sources */,
 				076F297F2A1F80C800967E7D /* Pagination.swift in Sources */,

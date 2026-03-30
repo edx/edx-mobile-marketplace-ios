@@ -37,16 +37,25 @@ class CustomAVPlayerViewController: AVPlayerViewController {
 
     private let speedUpRate: Float = 2.0
     private var originalRate: Float?
+    private var mediaSelectionObserver: NSObjectProtocol?
 
     var subtitleText: String = "" {
         didSet {
             subtitleLabel.text = subtitleText
+            updateSubtitleVisibility()
         }
     }
     
-    var hideSubtitle: Bool = false {
+    var hideSubtitle: Bool = true {
         didSet {
-            subtitleLabel.isHidden = hideSubtitle
+            updateSubtitleVisibility()
+        }
+    }
+    
+    override var player: AVPlayer? {
+        didSet {
+            observeMediaSelection(for: player?.currentItem)
+            updateSubtitleVisibility()
         }
     }
 
@@ -66,6 +75,7 @@ class CustomAVPlayerViewController: AVPlayerViewController {
         subtitleLabel.layer.masksToBounds = true
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
         subtitleLabel.isHidden = true
+        subtitleLabel.text = subtitleText
         
         self.delegate = self
 
@@ -78,6 +88,45 @@ class CustomAVPlayerViewController: AVPlayerViewController {
             subtitleLabel.bottomAnchor.constraint(equalTo: contentOverlayView!.bottomAnchor, constant: -20),
             subtitleLabel.widthAnchor.constraint(lessThanOrEqualTo: contentOverlayView!.widthAnchor, multiplier: 0.9)
         ])
+    }
+    
+    deinit {
+        if let mediaSelectionObserver {
+            NotificationCenter.default.removeObserver(mediaSelectionObserver)
+        }
+    }
+    
+    private func observeMediaSelection(for item: AVPlayerItem?) {
+        if let mediaSelectionObserver {
+            NotificationCenter.default.removeObserver(mediaSelectionObserver)
+            self.mediaSelectionObserver = nil
+        }
+        
+        guard let item else { return }
+        
+        mediaSelectionObserver = NotificationCenter.default.addObserver(
+            forName: AVPlayerItem.mediaSelectionDidChangeNotification,
+            object: item,
+            queue: .main
+        ) { [weak self] _ in
+            self?.updateSubtitleVisibility()
+        }
+    }
+    
+    private func updateSubtitleVisibility() {
+        let hasSubtitleText = !subtitleText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        let subtitlesEnabledInPlayer = isLegibleMediaOptionSelected()
+        
+        subtitleLabel.isHidden = hideSubtitle || !hasSubtitleText || !subtitlesEnabledInPlayer
+    }
+    
+    private func isLegibleMediaOptionSelected() -> Bool {
+        guard let asset = player?.currentItem?.asset,
+              let group = asset.mediaSelectionGroup(forMediaCharacteristic: .legible) else {
+            return false
+        }
+        
+        return player?.currentItem?.currentMediaSelection.selectedMediaOption(in: group) != nil
     }
 
     private func setupOverlay() {
@@ -139,6 +188,10 @@ extension CustomAVPlayerViewController: AVPlayerViewControllerDelegate {
         _ playerViewController: AVPlayerViewController,
         willEndFullScreenPresentationWithAnimationCoordinator coordinator: any UIViewControllerTransitionCoordinator
     ) {
-        hideSubtitle = true
+        coordinator.animate(alongsideTransition: nil) { [ weak self ] context in
+            if !context.isCancelled {
+                self?.hideSubtitle = true
+            }
+        }
     }
 }
