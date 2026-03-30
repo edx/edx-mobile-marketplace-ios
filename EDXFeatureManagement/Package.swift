@@ -25,7 +25,8 @@ let package = Package(
                 .product(name: "DatadogCore", package: "dd-sdk-ios"),
                 .product(name: "DatadogLogs", package: "dd-sdk-ios"),
                 .product(name: "DatadogRUM", package: "dd-sdk-ios"),
-                .product(name: "DatadogWebViewTracking", package: "dd-sdk-ios")
+                .product(name: "DatadogWebViewTracking", package: "dd-sdk-ios"),
+                .product(name: "DatadogCrashReporting", package: "dd-sdk-ios")
             ],
             linkerSettings: [.linkedFramework("WebKit")],
             plugins: [

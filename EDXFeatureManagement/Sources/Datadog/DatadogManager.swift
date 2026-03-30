@@ -10,6 +10,7 @@ import DatadogWebViewTracking
 import DatadogRUM
 import Foundation
 import WebKit
+import DatadogCrashReporting
 
 public final class DatadogManager: FeatureManagerProtocol {
     private(set) var appID: String = ""
@@ -28,7 +29,8 @@ public final class DatadogManager: FeatureManagerProtocol {
             ),
             trackingConsent: trackingGranted ? .granted : .notGranted
         )
-        Datadog.verbosityLevel = .debug
+        CrashReporting.enable()
+//        Datadog.verbosityLevel = .debug
     }
 }
 
