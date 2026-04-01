@@ -175,7 +175,9 @@ extension DiscoveryWebviewViewModel: WebViewNavigationDelegate {
             return true
         }
         
-        datadogManager.enableWebViewTracking(webView, Set([request.url!]))
+        if let url = request.url {
+            datadogManager.enableWebViewTracking(webView, Set([url]))
+        }
         return false
     }
     
