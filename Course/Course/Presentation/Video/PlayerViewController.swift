@@ -58,6 +58,14 @@ class CustomAVPlayerViewController: AVPlayerViewController {
             updateSubtitleVisibility()
         }
     }
+    
+    var isOnScreen: Bool = true {
+            didSet {
+                if !isOnScreen {
+                    player?.pause()
+                }
+            }
+        }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,6 +97,20 @@ class CustomAVPlayerViewController: AVPlayerViewController {
             subtitleLabel.widthAnchor.constraint(lessThanOrEqualTo: contentOverlayView!.widthAnchor, multiplier: 0.9)
         ])
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+           super.viewWillAppear(animated)
+           if !isOnScreen {
+               player?.pause()
+           }
+       }
+       
+       override func viewDidAppear(_ animated: Bool) {
+           super.viewDidAppear(animated)
+           if !isOnScreen {
+               player?.pause()
+           }
+       }
     
     deinit {
         if let mediaSelectionObserver {

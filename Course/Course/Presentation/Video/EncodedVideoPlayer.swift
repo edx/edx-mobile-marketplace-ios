@@ -63,9 +63,16 @@ public struct EncodedVideoPlayer: View {
                             .frame(minWidth: playerWidth(for: reader.size))
                             .cornerRadius(12)
                             .onAppear {
-                                if !viewModel.isPlayingInPip,
+                                if isOnScreen, !viewModel.isPlayingInPip,
                                     !viewModel.isOtherPlayerInPip {
                                     viewModel.controller.player?.play()
+                                }
+                            }
+                            .onDisappear {
+                                if !viewModel.isPlayingInPip,
+                                   !viewModel.controller.isBeingPresented,
+                                   viewModel.controller.presentedViewController == nil {
+                                    viewModel.controller.player?.pause()
                                 }
                             }
                             if isHorizontal {
