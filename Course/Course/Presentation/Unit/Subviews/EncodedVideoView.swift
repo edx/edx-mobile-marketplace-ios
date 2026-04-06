@@ -2,7 +2,7 @@
 //  EncodedVideoView.swift
 //  Course
 //
-//  Created by  Stepanok Ivan on 30.05.2023.
+//  Created by Stepanok Ivan on 30.05.2023.
 //
 
 import SwiftUI
