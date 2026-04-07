@@ -660,7 +660,8 @@ class AnalyticsManager: AuthorizationAnalytics,
             EventParamKey.courseID: courseId,
             EventParamKey.courseName: courseName,
             EventParamKey.blockID: blockId,
-            EventParamKey.blockName: blockName
+            EventParamKey.blockName: blockName,
+            EventParamKey.name: EventBIValue.verticalClicked.rawValue
         ]
         logEvent(.verticalClicked, parameters: parameters)
     }
