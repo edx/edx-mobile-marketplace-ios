@@ -22,7 +22,7 @@ public protocol CoreStorage {
     var lastUsedSocialAuth: String? {get set}
     var discussionNotificationsSettingStatus: Bool? {get set}
     var selectedTheme: AppTheme? {get set}
-    var datadogTrackingEnabled: Bool? {get set}
+    var performanceUsageTrackingEnabled: Bool? {get set}
     func clear()
 }
 
@@ -42,7 +42,7 @@ public class CoreStorageMock: CoreStorage {
     public var lastUsedSocialAuth: String?
     public var discussionNotificationsSettingStatus: Bool?
     public var selectedTheme: AppTheme?
-    public var datadogTrackingEnabled: Bool?
+    public var performanceUsageTrackingEnabled: Bool?
     public func clear() {}
 
     public init() {}
