@@ -121,10 +121,10 @@ public struct ProgramWebviewView: View {
                 if let url = URL(string: URLString) {
                     viewModel.request = URLRequest(url: url)
                 }
+            }
+            .onAppear{
                 Task {
-                    if !viewModel.cookiesReady {
-                        await viewModel.updateCookies()
-                    }
+                    await viewModel.updateCookies(force: false)
                 }
             }
         }
