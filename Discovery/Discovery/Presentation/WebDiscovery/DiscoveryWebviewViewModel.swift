@@ -10,7 +10,7 @@ import Core
 import SwiftUI
 import WebKit
 
-public class DiscoveryWebviewViewModel: ObservableObject {
+public class DiscoveryWebviewViewModel: ObservableObject, WebViewTrustedHostsProtocol {
     @Published var courseDetails: CourseDetails?
     @Published private(set) var showProgress = false
     @Published var showError: Bool = false
@@ -25,7 +25,7 @@ public class DiscoveryWebviewViewModel: ObservableObject {
     }
     
     let router: DiscoveryRouter
-    let config: ConfigProtocol
+    public let config: ConfigProtocol
     let connectivity: ConnectivityProtocol
     private let interactor: DiscoveryInteractorProtocol
     private let analytics: DiscoveryAnalytics
@@ -127,9 +127,12 @@ extension DiscoveryWebviewViewModel: WebViewNavigationDelegate {
            await handleNavigation(url: URL, urlAction: urlAction) {
             return true
         }
-        
-        let capturedLink = navigationAction.navigationType == .linkActivated
-        let outsideLink = (request.mainDocumentURL?.host != self.request?.url?.host)
+        let outsideLink: Bool
+        if let destinationHost = request.mainDocumentURL?.host {
+            outsideLink = !trustedHosts.contains(destinationHost)
+        } else {
+            outsideLink = false
+        }
         var externalLink = false
         
         if let queryParameters = request.url?.queryParameters,
@@ -138,7 +141,7 @@ extension DiscoveryWebviewViewModel: WebViewNavigationDelegate {
             externalLink = true
         }
         
-        if let url = request.url, outsideLink || capturedLink || externalLink, UIApplication.shared.canOpenURL(url) {
+        if let url = request.url, outsideLink || externalLink, UIApplication.shared.canOpenURL(url) {
             analytics.externalLinkOpen(url: url.absoluteString, screen: sourceScreen.value ?? "")
             
             let actions = [
