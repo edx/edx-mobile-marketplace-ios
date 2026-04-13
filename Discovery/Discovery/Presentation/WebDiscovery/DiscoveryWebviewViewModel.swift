@@ -127,11 +127,15 @@ extension DiscoveryWebviewViewModel: WebViewNavigationDelegate {
            await handleNavigation(url: URL, urlAction: urlAction) {
             return true
         }
-        let outsideLink: Bool
+        var outsideLink: Bool
         if let destinationHost = request.mainDocumentURL?.host {
             outsideLink = !trustedHosts.contains(destinationHost)
         } else {
             outsideLink = false
+        }
+        // When BaseURL is same as clicked url on webview
+        if !outsideLink && navigationAction.navigationType == .linkActivated {
+            outsideLink = true
         }
         var externalLink = false
         
