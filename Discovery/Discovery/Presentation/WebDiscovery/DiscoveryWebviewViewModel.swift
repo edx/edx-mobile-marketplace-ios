@@ -127,16 +127,25 @@ extension DiscoveryWebviewViewModel: WebViewNavigationDelegate {
            await handleNavigation(url: URL, urlAction: urlAction) {
             return true
         }
-        var outsideLink: Bool
+        
+        var outsideLink = false
         if let destinationHost = request.mainDocumentURL?.host {
-            outsideLink = !trustedHosts.contains(destinationHost)
-        } else {
-            outsideLink = false
+            let isTrusted = trustedHosts.contains(destinationHost)
+            
+            // Silently cancel trusted cross-domain main-frame navigations
+            // These should never replace the current webview content
+            if isTrusted, destinationHost != self.request?.url?.host {
+                return true
+            }
+            
+            outsideLink = !isTrusted
         }
-        // When BaseURL is same as clicked url on webview
-        if !outsideLink && navigationAction.navigationType == .linkActivated {
+
+        // Check if the navigation was triggered by the user tapping a link.
+        if navigationAction.navigationType == .linkActivated {
             outsideLink = true
         }
+        
         var externalLink = false
         
         if let queryParameters = request.url?.queryParameters,
