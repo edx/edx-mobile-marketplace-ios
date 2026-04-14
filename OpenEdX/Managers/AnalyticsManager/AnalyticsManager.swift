@@ -580,7 +580,8 @@ class AnalyticsManager: AuthorizationAnalytics,
             EventParamKey.courseID: courseId,
             EventParamKey.courseName: courseName,
             EventParamKey.conversion: courseId,
-            EventParamKey.category: EventCategory.discovery
+            EventParamKey.category: EventCategory.discovery,
+            EventParamKey.name: EventBIValue.courseEnrollClicked.rawValue
         ]
         logEvent(.courseEnrollClicked, parameters: parameters)
     }
@@ -590,7 +591,8 @@ class AnalyticsManager: AuthorizationAnalytics,
             EventParamKey.courseID: courseId,
             EventParamKey.courseName: courseName,
             EventParamKey.conversion: courseId,
-            EventParamKey.category: EventCategory.discovery
+            EventParamKey.category: EventCategory.discovery,
+            EventParamKey.name: EventBIValue.courseEnrollSuccess.rawValue
         ]
         logEvent(.courseEnrollSuccess, parameters: parameters)
     }
