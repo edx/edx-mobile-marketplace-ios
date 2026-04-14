@@ -35,6 +35,10 @@ public extension WebViewTrustedHostsProtocol {
         return hosts
     }
     
+    /// Classifies a webview navigation for policy decisions.
+    /// - Parameter destinationHost: The host of the main document URL (`request.mainDocumentURL?.host`),
+    ///   which filters out sub-resource loads automatically.
+    /// - Parameter originHost: The host of the webview's original/initial URL.
     func classifyNavigation(
         destinationHost: String?,
         originHost: String?

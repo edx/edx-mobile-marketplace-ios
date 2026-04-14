@@ -117,32 +117,27 @@ extension ProgramWebviewViewModel: WebViewNavigationDelegate {
            await handleNavigation(url: URL, urlAction: urlAction) {
             return true
         }
-        
-        var outsideLink = false
 
-        switch classifyNavigation(
-            destinationHost: request.mainDocumentURL?.host,
-            originHost: self.request?.url?.host
-        ) {
-        case .silentCancel:
-            return true
-        case .outsideLink:
-            outsideLink = true
-        case .allow:
-            break
-        }
-        
-        // Check if the navigation was triggered by the user tapping a link.
-        if navigationAction.navigationType == .linkActivated {
-            outsideLink = true
-        }
-        
         var externalLink = false
-        
         if let queryParameters = request.url?.queryParameters,
-            let externalLinkValue = queryParameters["external_link"] as? String,
+           let externalLinkValue = queryParameters["external_link"] as? String,
            externalLinkValue.caseInsensitiveCompare("true") == .orderedSame {
             externalLink = true
+        }
+        
+        var outsideLink = navigationAction.navigationType == .linkActivated
+        if !outsideLink && !externalLink {
+            switch classifyNavigation(
+                destinationHost: request.mainDocumentURL?.host,
+                originHost: self.request?.url?.host
+            ) {
+            case .silentCancel:
+                return true
+            case .outsideLink:
+                outsideLink = true
+            case .allow:
+                break
+            }
         }
         
         if let url = request.url, outsideLink || externalLink, UIApplication.shared.canOpenURL(url) {
