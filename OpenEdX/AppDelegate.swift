@@ -176,7 +176,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         if let userInfo = notification.userInfo,
            userInfo[Notification.UserInfoKey.isForced] as? Bool == true {
-            let featureManager = Container.shared.resolve(FeatureManagerProtocol.self) as? CertificatePreviewExperimentManager
+            let featureManager = Container.shared.resolve(FeatureManagerProtocol.self) as? CertificatePreviewFeatureManager
             featureManager?.resetUser()
 
             let analyticsManager = Container.shared.resolve(AnalyticsManager.self)

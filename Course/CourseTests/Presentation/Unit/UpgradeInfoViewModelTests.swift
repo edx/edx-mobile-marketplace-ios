@@ -89,7 +89,7 @@ final class UpgradeInfoViewModelTests: XCTestCase {
             handler: handler,
             pacing: Pacing.selfPace.rawValue,
             analytics: CoreAnalyticsMock(),
-            certificatePreviewExperimentManager: CertificatePreviewManagingMock(),
+            certificatePreviewFeatureManager: CertificatePreviewFeatureManagingMock(),
             router: router ?? BaseRouterMock(),
             lmsPrice: .zero
         )

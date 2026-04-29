@@ -703,7 +703,7 @@ class ScreenAssembly: Assembly {
                 accessExpires: accessExpires,
                 handler: r.resolve(CourseUpgradeHandlerProtocol.self)!,
                 analytics: r.resolve(CoreAnalytics.self)!,
-                certificatePreviewExperimentManager: r.resolve(CertificatePreviewManaging.self)!,
+                certificatePreviewFeatureManager: r.resolve(CertificatePreviewFeatureManaging.self)!,
                 router: r.resolve(CourseRouter.self)!
             )
         }
@@ -721,7 +721,7 @@ class ScreenAssembly: Assembly {
                 handler: r.resolve(CourseUpgradeHandlerProtocol.self)!,
                 pacing: pacing,
                 analytics: r.resolve(CoreAnalytics.self)!,
-                certificatePreviewExperimentManager: r.resolve(CertificatePreviewManaging.self)!,
+                certificatePreviewFeatureManager: r.resolve(CertificatePreviewFeatureManaging.self)!,
                 router: r.resolve(CourseRouter.self)!,
                 lmsPrice: lmsPrice
             )
