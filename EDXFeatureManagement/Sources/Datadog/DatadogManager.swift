@@ -42,7 +42,7 @@ extension DatadogManager {
         var attributes: [String: any Encodable] = [:]
         properties?.forEach { key, value in
             guard let encodable = value as? any Encodable else {
-                assertionFailure("Unsupported attribute type for key: \(key)")
+                //assertionFailure("Unsupported attribute type for key: \(key)")
                 return
             }
             attributes[key] = encodable
