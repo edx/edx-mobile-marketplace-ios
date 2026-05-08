@@ -45,6 +45,11 @@ public struct CourseVerticalView: View {
                                 Button(action: {
                                     let vertical = viewModel.verticals[index]
                                     if let block = vertical.childs.first {
+                                        viewModel.trackVerticalClicked(
+                                            courseId: courseID,
+                                            courseName: courseName,
+                                            vertical: vertical
+                                        )
                                         viewModel.router.showCourseUnit(
                                             courseName: courseName,
                                             blockId: block.id,

@@ -297,19 +297,6 @@ public class CourseUnitViewModel: ObservableObject {
     func trackFinishVerticalBackToOutlineClicked() {
         analytics.finishVerticalBackToOutlineClicked(courseId: courseID, courseName: courseName)
     }
-    
-    func trackVerticalClicked(
-        courseId: String,
-        courseName: String,
-        vertical: CourseVertical
-    ) {
-        analytics.verticalClicked(
-            courseId: courseId,
-            courseName: courseName,
-            blockId: vertical.blockId,
-            blockName: vertical.displayName
-        )
-    }
 
     // MARK: Navigation to next vertical
     var nextData: VerticalData? {
