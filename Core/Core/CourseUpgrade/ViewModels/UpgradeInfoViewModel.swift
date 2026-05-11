@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import EDXFeatureManagement
 
 public class UpgradeInfoViewModel: ObservableObject {
     let productName: String
@@ -17,7 +16,7 @@ public class UpgradeInfoViewModel: ObservableObject {
     let handler: CourseUpgradeHandlerProtocol
     let pacing: String
     let analytics: CoreAnalytics
-    let certificatePreviewExperimentManager: FeatureManagerProtocol
+    let certificatePreviewExperimentManager: CertificatePreviewManaging
     let router: BaseRouter
     let lmsPrice: Double
 
@@ -41,7 +40,7 @@ public class UpgradeInfoViewModel: ObservableObject {
         handler: CourseUpgradeHandlerProtocol,
         pacing: String,
         analytics: CoreAnalytics,
-        certificatePreviewExperimentManager: FeatureManagerProtocol,
+        certificatePreviewExperimentManager: CertificatePreviewManaging,
         router: BaseRouter,
         lmsPrice: Double
     ) {
@@ -224,7 +223,7 @@ public class UpgradeInfoViewModel: ObservableObject {
     }
     
     func shouldShowCertificatePreview() -> Bool {
-        return certificatePreviewExperimentManager.decision(forKey: FeatureKeys.showCertificatePreview)?.boolValue ?? false
+        return certificatePreviewExperimentManager.shouldShowCertificatePreview()
     }
     
     private func certificatePreviewProps() -> [String: Any] {

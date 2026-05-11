@@ -31,14 +31,16 @@ public class ProgramWebviewViewModel: ObservableObject, WebviewCookiesUpdateProt
     private let analytics: DiscoveryAnalytics
     var request: URLRequest?
     public let authInteractor: AuthInteractorProtocol
-    
+    private(set) var datadogManager: WebViewTrackingProtocol
+
     public init(
         router: DiscoveryRouter,
         config: ConfigProtocol,
         interactor: DiscoveryInteractorProtocol,
         connectivity: ConnectivityProtocol,
         analytics: DiscoveryAnalytics,
-        authInteractor: AuthInteractorProtocol
+        authInteractor: AuthInteractorProtocol,
+        datadogManager: WebViewTrackingProtocol
     ) {
         self.router = router
         self.config = config
@@ -46,6 +48,7 @@ public class ProgramWebviewViewModel: ObservableObject, WebviewCookiesUpdateProt
         self.connectivity = connectivity
         self.analytics = analytics
         self.authInteractor = authInteractor
+        self.datadogManager = datadogManager
     }
     
     @MainActor
@@ -138,7 +141,9 @@ extension ProgramWebviewViewModel: WebViewNavigationDelegate {
             )
             return true
         }
-        
+        if let url = request.url {
+            datadogManager.enableWebViewTracking(webView, Set([url]))
+        }
         return false
     }
     

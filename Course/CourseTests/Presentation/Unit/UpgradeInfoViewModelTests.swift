@@ -8,7 +8,6 @@
 import XCTest
 @testable import Core
 import SwiftyMocky
-@testable import EDXFeatureManagement
 
 final class UpgradeInfoViewModelTests: XCTestCase {
     typealias FlowData = (sku: String, product: StoreProductInfo, currencyCode: String, receipt: String )
@@ -90,7 +89,7 @@ final class UpgradeInfoViewModelTests: XCTestCase {
             handler: handler,
             pacing: Pacing.selfPace.rawValue,
             analytics: CoreAnalyticsMock(),
-            certificatePreviewExperimentManager: FeatureManagerMock(),
+            certificatePreviewExperimentManager: CertificatePreviewManagingMock(),
             router: router ?? BaseRouterMock(),
             lmsPrice: .zero
         )
@@ -392,39 +391,3 @@ final class UpgradeInfoViewModelTests: XCTestCase {
     }
 }
 
-public final class FeatureManagerMock: FeatureManagerProtocol {
-    public var userID: String?
-    public var userAttributes: [String: Any]?
-    public var featureDecisions: [String: FeatureDecisionMock] = [:]
-
-    public var trackedEvents: [(name: String, properties: [String: Any]?)] = []
-
-    public init() { }
-
-    public func identifyUser(id: String, attributes: [String: Any]?) {
-        self.userID = id
-        self.userAttributes = attributes
-    }
-
-    public func resetUser() {
-        userID = nil
-        userAttributes = nil
-    }
-
-    public func decision(forKey key: String) -> FeatureDecision? {
-        guard userID != nil else { return nil }
-        return featureDecisions[key]
-    }
-
-    public func trackEvent(_ name: String, properties: [String: Any]?) {
-        trackedEvents.append((name: name, properties: properties))
-    }
-    
-    public func recordCertificatePreviewShownAttempt(forCourseId courseId: String) {
-        
-    }
-    
-    public func attemptsSinceLastCertificatePreviewAndReset(forCourseId courseId: String) -> Int {
-        return 1
-    }
-}

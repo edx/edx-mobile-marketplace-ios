@@ -57,6 +57,11 @@ class AnalyticsManager: AuthorizationAnalytics,
             analyticsServices.append(segmentService)
         }
         
+        if config.dataDog.enabled,
+           let datadogService = Container.shared.resolve(DataDogAnalyticsService.self) {
+            analyticsServices.append(datadogService)
+        }
+        
         return analyticsServices
     }
     

@@ -66,6 +66,7 @@
 
 "SETTINGS.VIDEO_SETTINGS_TITLE" = "Налаштування відео";
 "SETTINGS.APPEARANCE_SETTINGS_TITLE" = "Appearance";
+"SETTINGS.DATADOG_TRACKING_TITLE" = "Відстеження Datadog";
 "SETTINGS.WIFI_TITLE" = "Тільки Wi-fi";
 "SETTINGS.WIFI_DESCRIPTION" = "Завантажувати відео, лише коли Wi-Fi увімкнено";
 "SETTINGS.VIDEO_QUALITY_TITLE" = "Якість потокового відео";

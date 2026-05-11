@@ -14,6 +14,15 @@ public class SettingsViewModel: ObservableObject {
     
     @Published private(set) var isShowProgress = false
     @Published var showError: Bool = false
+    @Published var datadogTrackingEnabled: Bool {
+        willSet {
+            if newValue != datadogTrackingEnabled {
+                storage.datadogTrackingEnabled = newValue
+                trackingConsentManager.setTrackingConsent(granted: newValue)
+            }
+        }
+    }
+
     @Published var wifiOnly: Bool {
         willSet {
             if newValue != wifiOnly {
@@ -73,6 +82,7 @@ public class SettingsViewModel: ObservableObject {
     let serverConfig: ServerConfigProtocol
     let upgradeHandler: CourseUpgradeHandlerProtocol
     let upgradeHelper: CourseUpgradeHelperProtocol?
+    private let trackingConsentManager: TrackingConsentManaging
     private var storage: CoreStorage
     
     public init(
@@ -85,6 +95,7 @@ public class SettingsViewModel: ObservableObject {
         serverConfig: ServerConfigProtocol,
         upgradeHandler: CourseUpgradeHandlerProtocol,
         upgradeHelper: CourseUpgradeHelperProtocol? = nil,
+        trackingConsentManager: TrackingConsentManaging,
         storage: CoreStorage
     ) {
         self.interactor = interactor
@@ -96,10 +107,14 @@ public class SettingsViewModel: ObservableObject {
         self.serverConfig = serverConfig
         self.upgradeHandler = upgradeHandler
         self.upgradeHelper = upgradeHelper
+        self.trackingConsentManager = trackingConsentManager
         self.storage = storage
-        
+
         let userSettings = interactor.getSettings()
         self.userSettings = userSettings
+        let trackingGranted = storage.datadogTrackingEnabled ?? true
+        self.datadogTrackingEnabled = trackingGranted
+        trackingConsentManager.setTrackingConsent(granted: trackingGranted)
         self.wifiOnly = userSettings.wifiOnly
         self.selectedQuality = userSettings.streamingQuality
         
