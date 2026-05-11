@@ -134,6 +134,11 @@ public struct CourseUnitView: View {
             viewModel.router.back()
         }
         .onAppear {
+            viewModel.trackVerticalClicked(
+                courseId: viewModel.courseID,
+                courseName: viewModel.courseName,
+                vertical: viewModel.verticals[viewModel.verticalIndex]
+            )
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 showDiscussion = viewModel.selectedLesson().type == .discussion
             }
