@@ -10,12 +10,12 @@
 #     https://docs.fastlane.tools/plugins/available-plugins
 #
 
-# Uncomment the line if you want fastlane to automatically update itself
-update_fastlane
+# Keep fastlane version controlled by Bundler/Gemfile.lock, especially in CI
+# update_fastlane
 
 before_all do
   xcodes(
-    version: '16.4',
+    version: '26.3',
     select_for_current_build_only: true,
   )
 
@@ -37,7 +37,7 @@ end
 lane :unit_tests do
   run_tests(
     workspace: "OpenEdX.xcworkspace",
-    device: "iPhone 16",
+    device: "iPhone 17",
     scheme: "OpenEdXDev",
     xcargs: "-skipPackagePluginValidation"
   )

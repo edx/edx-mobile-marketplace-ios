@@ -33,7 +33,7 @@ class ScreenAssembly: Assembly {
         container.register(AuthInteractorProtocol.self) { r in
             AuthInteractor(
                 repository: r.resolve(AuthRepositoryProtocol.self)!,
-                featureManager: r.resolve(FeatureManagerProtocol.self)!,
+                featureManager: r.resolve(UserSessionManaging.self)!,
                 captchaService: r.resolve(CaptchaService.self)!
             )
         }
@@ -127,7 +127,8 @@ class ScreenAssembly: Assembly {
                 connectivity: r.resolve(ConnectivityProtocol.self)!,
                 analytics: r.resolve(DiscoveryAnalytics.self)!,
                 storage: r.resolve(CoreStorage.self)!,
-                sourceScreen: sourceScreen
+                sourceScreen: sourceScreen,
+                datadogManager: r.resolve(DataDogFeatureManager.self)!
             )
         }
         
@@ -138,7 +139,8 @@ class ScreenAssembly: Assembly {
                 interactor: r.resolve(DiscoveryInteractorProtocol.self)!,
                 connectivity: r.resolve(ConnectivityProtocol.self)!,
                 analytics: r.resolve(DiscoveryAnalytics.self)!,
-                authInteractor: r.resolve(AuthInteractorProtocol.self)!
+                authInteractor: r.resolve(AuthInteractorProtocol.self)!,
+                datadogManager: r.resolve(DataDogFeatureManager.self)!
             )
         }
         
@@ -218,7 +220,7 @@ class ScreenAssembly: Assembly {
         container.register(ProfileInteractorProtocol.self) { r in
             ProfileInteractor(
                 repository: r.resolve(ProfileRepositoryProtocol.self)!,
-                featureManager: r.resolve(FeatureManagerProtocol.self)!
+                featureManager: r.resolve(UserSessionManaging.self)!
             )
         }
         container.register(ProfileViewModel.self) { r in
@@ -251,6 +253,7 @@ class ScreenAssembly: Assembly {
                 serverConfig: r.resolve(ServerConfigProtocol.self)!,
                 upgradeHandler: r.resolve(CourseUpgradeHandlerProtocol.self)!,
                 upgradeHelper: r.resolve(CourseUpgradeHelperProtocol.self)!,
+                trackingConsentManager: r.resolve(TrackingConsentManaging.self)!,
                 storage: r.resolve(CoreStorage.self)!
             )
         }
@@ -700,7 +703,7 @@ class ScreenAssembly: Assembly {
                 accessExpires: accessExpires,
                 handler: r.resolve(CourseUpgradeHandlerProtocol.self)!,
                 analytics: r.resolve(CoreAnalytics.self)!,
-                certificatePreviewExperimentManager: r.resolve(FeatureManagerProtocol.self)!,
+                certificatePreviewExperimentManager: r.resolve(CertificatePreviewManaging.self)!,
                 router: r.resolve(CourseRouter.self)!
             )
         }
@@ -718,7 +721,7 @@ class ScreenAssembly: Assembly {
                 handler: r.resolve(CourseUpgradeHandlerProtocol.self)!,
                 pacing: pacing,
                 analytics: r.resolve(CoreAnalytics.self)!,
-                certificatePreviewExperimentManager: r.resolve(FeatureManagerProtocol.self)!,
+                certificatePreviewExperimentManager: r.resolve(CertificatePreviewManaging.self)!,
                 router: r.resolve(CourseRouter.self)!,
                 lmsPrice: lmsPrice
             )

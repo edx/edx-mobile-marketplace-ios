@@ -81,6 +81,9 @@ public struct FirebaseFeatureDecision: FeatureDecision {
 }
 
 public final class CertificatePreviewExperimentManager: FeatureManagerProtocol {
+    public func identify(id: String, username: String?, email: String?) {
+    }
+
     private var assignmentStore: ExperimentAssignmentStore
     private var analytics: AnalyticsTracking
 
@@ -117,11 +120,11 @@ public final class CertificatePreviewExperimentManager: FeatureManagerProtocol {
     public func trackEvent(_ name: String, properties: [String: Any]?) {
         analytics.logEvent(name, parameters: properties)
     }
-        
+
     public func recordCertificatePreviewShownAttempt(forCourseId courseId: String) {
         assignmentStore.incrementAttempts(forCourseId: courseId)
     }
-    
+
     public func attemptsSinceLastCertificatePreviewAndReset(forCourseId courseId: String) -> Int {
         assignmentStore.takeAndResetAttempts(forCourseId: courseId)
     }

@@ -57,6 +57,11 @@ class AnalyticsManager: AuthorizationAnalytics,
             analyticsServices.append(segmentService)
         }
         
+        if config.dataDog.enabled,
+           let datadogService = Container.shared.resolve(DataDogAnalyticsService.self) {
+            analyticsServices.append(datadogService)
+        }
+        
         return analyticsServices
     }
     
@@ -575,7 +580,8 @@ class AnalyticsManager: AuthorizationAnalytics,
             EventParamKey.courseID: courseId,
             EventParamKey.courseName: courseName,
             EventParamKey.conversion: courseId,
-            EventParamKey.category: EventCategory.discovery
+            EventParamKey.category: EventCategory.discovery,
+            EventParamKey.name: EventBIValue.courseEnrollClicked.rawValue
         ]
         logEvent(.courseEnrollClicked, parameters: parameters)
     }
@@ -585,7 +591,8 @@ class AnalyticsManager: AuthorizationAnalytics,
             EventParamKey.courseID: courseId,
             EventParamKey.courseName: courseName,
             EventParamKey.conversion: courseId,
-            EventParamKey.category: EventCategory.discovery
+            EventParamKey.category: EventCategory.discovery,
+            EventParamKey.name: EventBIValue.courseEnrollSuccess.rawValue
         ]
         logEvent(.courseEnrollSuccess, parameters: parameters)
     }
@@ -655,7 +662,8 @@ class AnalyticsManager: AuthorizationAnalytics,
             EventParamKey.courseID: courseId,
             EventParamKey.courseName: courseName,
             EventParamKey.blockID: blockId,
-            EventParamKey.blockName: blockName
+            EventParamKey.blockName: blockName,
+            EventParamKey.name: EventBIValue.verticalClicked.rawValue
         ]
         logEvent(.verticalClicked, parameters: parameters)
     }

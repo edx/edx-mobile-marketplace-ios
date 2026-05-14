@@ -738,7 +738,6 @@
 			);
 			mainGroup = 0289F8E428E1C3510064F8F3;
 			packageReferences = (
-				D39950092EDCD16D00B81F8A /* XCLocalSwiftPackageReference "../EDXFeatureManagement" */,
 			);
 			productRefGroup = 0289F8EF28E1C3510064F8F3 /* Products */;
 			projectDirPath = "";
@@ -1966,13 +1965,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCLocalSwiftPackageReference section */
-		D39950092EDCD16D00B81F8A /* XCLocalSwiftPackageReference "../EDXFeatureManagement" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../EDXFeatureManagement;
-		};
-/* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
 		D399500A2EDCD16D00B81F8A /* EDXFeatureManagement */ = {

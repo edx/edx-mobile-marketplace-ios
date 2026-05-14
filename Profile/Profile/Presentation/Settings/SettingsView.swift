@@ -223,6 +223,21 @@ public struct SettingsView: View {
                 }
             })
             .accessibilityIdentifier("appearance_settings_button")
+
+            if viewModel.config.dataDog.enabled {
+                Divider()
+
+                HStack {
+                    SettingsCell(
+                        title: ProfileLocalization.Settings.datadogTrackingTitle,
+                        description: nil
+                    )
+                    Toggle(isOn: $viewModel.datadogTrackingEnabled, label: {})
+                        .toggleStyle(SwitchToggleStyle(tint: Theme.Colors.toggleSwitchColor))
+                        .frame(width: 50)
+                        .accessibilityIdentifier("datadog_tracking_switch")
+                }.foregroundColor(Theme.Colors.textPrimary)
+            }
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(ProfileLocalization.settingsVideo)
@@ -334,9 +349,10 @@ struct SettingsView_Previews: PreviewProvider {
             config: ConfigMock(),
             serverConfig: ServerConfigProtocolMock(),
             upgradeHandler: CourseUpgradeHandlerProtocolMock(),
+            trackingConsentManager: TrackingConsentManagingMock(),
             storage: CoreStorageMock()
         )
-        
+
         SettingsView(viewModel: vm)
             .preferredColorScheme(.light)
             .previewDisplayName("SettingsView Light")

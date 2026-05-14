@@ -302,6 +302,22 @@ public class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, CourseSto
         }
     }
 
+    public var datadogTrackingEnabled: Bool? {
+        get {
+            guard userDefaults.object(forKey: KEY_DATADOG_TRACKING_ENABLED) != nil else {
+                return nil
+            }
+            return userDefaults.bool(forKey: KEY_DATADOG_TRACKING_ENABLED)
+        }
+        set(newValue) {
+            if let newValue {
+                userDefaults.set(newValue, forKey: KEY_DATADOG_TRACKING_ENABLED)
+            } else {
+                userDefaults.removeObject(forKey: KEY_DATADOG_TRACKING_ENABLED)
+            }
+        }
+    }
+
     public var notificationsPrimerDismissalCount: Int {
         get {
             return userDefaults.integer(forKey: KEY_NOTIFICATIONS_PRIMER_DISMISSAL_COUNT)
@@ -366,6 +382,7 @@ public class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, CourseSto
     private let KEY_LAST_USED_SOCIAL_AUTH = "lastUsedSocialAuth"
     private let KEY_DISCUSSION_NOTIFICATIONS_SETTING_STATUS = "discussionNotificationsSettingStatus"
     private let KEY_SELECTED_THEME = "selectedTheme"
+    private let KEY_DATADOG_TRACKING_ENABLED = "datadogTrackingEnabled"
     private let KEY_NOTIFICATIONS_PRIMER_DISMISSAL_COUNT = "notificationsPrimerDismissalCount"
     private let KEY_NOTIFICATIONS_PRIMER_LAST_SHOWN_DATE = "notificationsPrimerLastShownDate"
 

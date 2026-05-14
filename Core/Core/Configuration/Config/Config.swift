@@ -35,6 +35,7 @@ public protocol ConfigProtocol {
     var pushNotificationsEnabled: Bool { get }
     var recaptcha: RecaptchaConfig { get }
     var videoPlayer: VideoPlayerConfig { get }
+    var dataDog: DatadogConfig { get }
 }
 
 public enum TokenType: String {
