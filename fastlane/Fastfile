@@ -10,8 +10,8 @@
 #     https://docs.fastlane.tools/plugins/available-plugins
 #
 
-# Uncomment the line if you want fastlane to automatically update itself
-update_fastlane
+# Keep fastlane version controlled by Bundler/Gemfile.lock, especially in CI
+# update_fastlane
 
 before_all do
   xcodes(

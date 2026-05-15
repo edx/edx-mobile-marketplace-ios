@@ -89,7 +89,7 @@ class CustomAVPlayerViewController: AVPlayerViewController {
             subtitleLabel.widthAnchor.constraint(lessThanOrEqualTo: contentOverlayView!.widthAnchor, multiplier: 0.9)
         ])
     }
-    
+
     deinit {
         if let mediaSelectionObserver {
             NotificationCenter.default.removeObserver(mediaSelectionObserver)
