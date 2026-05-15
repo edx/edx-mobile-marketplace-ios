@@ -453,9 +453,9 @@
 		3B74C6685E416657F3C5F5A8 /* Pods-App-Core.releaseprod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Core.releaseprod.xcconfig"; path = "Target Support Files/Pods-App-Core/Pods-App-Core.releaseprod.xcconfig"; sourceTree = "<group>"; };
 		4E457ECBC84FD2E913621312 /* Pods-App-Core-CoreTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Core-CoreTests.debug.xcconfig"; path = "Target Support Files/Pods-App-Core-CoreTests/Pods-App-Core-CoreTests.debug.xcconfig"; sourceTree = "<group>"; };
 		60153262DBC2F9E660D7E11B /* Pods-App-Core.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Core.release.xcconfig"; path = "Target Support Files/Pods-App-Core/Pods-App-Core.release.xcconfig"; sourceTree = "<group>"; };
+		6A8CE6222F45B81200B3BD5B /* ZoomDisableInjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomDisableInjection.swift; sourceTree = "<group>"; };
 		77DCD823305D336646EAE926 /* Pods-App-Core-CoreTests.debugdev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Core-CoreTests.debugdev.xcconfig"; path = "Target Support Files/Pods-App-Core-CoreTests/Pods-App-Core-CoreTests.debugdev.xcconfig"; sourceTree = "<group>"; };
 		8DEA605AFA1B0192454EE906 /* Pods-App-Core-CoreTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Core-CoreTests.release.xcconfig"; path = "Target Support Files/Pods-App-Core-CoreTests/Pods-App-Core-CoreTests.release.xcconfig"; sourceTree = "<group>"; };
-		6A8CE6222F45B81200B3BD5B /* ZoomDisableInjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomDisableInjection.swift; sourceTree = "<group>"; };
 		942A984D2D4B598C00DD8BBC /* PaginationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationManager.swift; sourceTree = "<group>"; };
 		942A98542D4BD91700DD8BBC /* PaginationTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationTask.swift; sourceTree = "<group>"; };
 		942A98562D4BD92B00DD8BBC /* PaginationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationResult.swift; sourceTree = "<group>"; };
@@ -1278,7 +1278,6 @@
 				0770DE0428D07831006D8A5D /* Sources */,
 				0770DE0528D07831006D8A5D /* Frameworks */,
 				0770DE0628D07831006D8A5D /* Resources */,
-				812E0FFD8BBD67CDA4F22738 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1428,13 +1427,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-App-Core-CoreTests/Pods-App-Core-CoreTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-App-Core-CoreTests/Pods-App-Core-CoreTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

@@ -24,9 +24,13 @@ public typealias AssetImageTypeAlias = ImageAsset.Image
 
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 public enum CoreAssets {
+  public static let calendarAccess2 = ImageAsset(name: "calendarAccess 2")
   public static let calendarAccess = ImageAsset(name: "calendarAccess")
+  public static let syncFailed2 = ImageAsset(name: "syncFailed 2")
   public static let syncFailed = ImageAsset(name: "syncFailed")
+  public static let syncOffline2 = ImageAsset(name: "syncOffline 2")
   public static let syncOffline = ImageAsset(name: "syncOffline")
+  public static let synced2 = ImageAsset(name: "synced 2")
   public static let synced = ImageAsset(name: "synced")
   public static let appleButtonColor = ColorAsset(name: "AppleButtonColor")
   public static let facebookButtonColor = ColorAsset(name: "FacebookButtonColor")
