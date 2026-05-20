@@ -160,6 +160,23 @@ public protocol CourseAnalytics {
         currentTime: Double,
         duration: Double
     )
+    
+    func courseHomeGradesViewProgressClicked(courseId: String, courseName: String)
+    func courseHomeViewAllContentClicked(courseId: String, courseName: String)
+    func courseHomeAssignmentClicked(courseId: String, courseName: String, blockId: String, blockName: String)
+    func courseHomeViewAllVideosClicked(courseId: String, courseName: String)
+    func courseHomeViewAllAssignmentsClicked(courseId: String, courseName: String)
+    func contentPageShowCompletedSubsectionClicked(courseId: String, courseName: String)
+    func courseHomeVideoClicked(courseId: String, courseName: String, blockId: String, blockName: String)
+    func courseVideoClicked(courseId: String, courseName: String, blockId: String, blockName: String)
+    func courseHomeSectionSubsectionClick(
+        courseId: String,
+        courseName: String,
+        courseSection: String,
+        courseSubsection: String
+    )
+    func courseOutlineProgressTabClicked(courseId: String, courseName: String)
+    func courseAssignmentClicked(courseId: String, courseName: String, blockId: String, blockName: String)
 }
 
 #if DEBUG
@@ -280,5 +297,22 @@ class CourseAnalyticsMock: CourseAnalytics {
         currentTime: Double,
         duration: Double
     ) {}
+    
+    func courseHomeGradesViewProgressClicked(courseId: String, courseName: String) {}
+    func courseHomeViewAllContentClicked(courseId: String, courseName: String) {}
+    func courseHomeAssignmentClicked(courseId: String, courseName: String, blockId: String, blockName: String) {}
+    func courseHomeViewAllVideosClicked(courseId: String, courseName: String) {}
+    func courseHomeViewAllAssignmentsClicked(courseId: String, courseName: String) {}
+    func contentPageShowCompletedSubsectionClicked(courseId: String, courseName: String) {}
+    func courseHomeVideoClicked(courseId: String, courseName: String, blockId: String, blockName: String) {}
+    func courseVideoClicked(courseId: String, courseName: String, blockId: String, blockName: String) {}
+    func courseHomeSectionSubsectionClick(
+        courseId: String,
+        courseName: String,
+        courseSection: String,
+        courseSubsection: String
+    ) {}
+    func courseOutlineProgressTabClicked(courseId: String, courseName: String) {}
+    func courseAssignmentClicked(courseId: String, courseName: String, blockId: String, blockName: String) {}
 }
 #endif

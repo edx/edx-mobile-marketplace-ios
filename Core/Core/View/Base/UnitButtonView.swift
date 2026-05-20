@@ -19,6 +19,7 @@ public enum UnitButtonType: Equatable {
     case continueLesson
     case nextSection
     case custom(String)
+    case customContinueLesson(String)
     
     func stringValue() -> String {
         switch self {
@@ -39,6 +40,8 @@ public enum UnitButtonType: Equatable {
         case .nextSection:
             return CoreLocalization.Courseware.nextSection
         case let .custom(text):
+            return text
+        case let .customContinueLesson(text):
             return text
         }
     }
@@ -159,6 +162,25 @@ public struct UnitButtonView: View {
                                 .rotationEffect(Angle.degrees(180))
                                 .padding(.trailing, 20)
                         }
+                    case .customContinueLesson:
+                        HStack {
+                            Text(type.stringValue())
+                                .foregroundColor(Theme.Colors.resumeButtonText)
+                                .font(Theme.Fonts.titleMedium)
+                                .padding(.leading, 16)
+                                .lineLimit(1)
+                            
+                            Spacer()
+                            
+                            Text(CoreLocalization.Courseware.continue)
+                                .foregroundColor(Theme.Colors.resumeButtonText)
+                                .font(Theme.Fonts.labelMedium)
+                            
+                            CoreAssets.arrowLeft.swiftUIImage.renderingMode(.template)
+                                .foregroundColor(Theme.Colors.resumeButtonText)
+                                .rotationEffect(Angle.degrees(180))
+                                .padding(.trailing, 16)
+                        }
                     }
                 }
                 .frame(maxWidth: .infinity, minHeight: 42)
@@ -184,7 +206,7 @@ public struct UnitButtonView: View {
                                         )
                                 )
                                 
-                        case .continueLesson, .nextSection, .reload, .finish, .custom:
+                        case .continueLesson, .nextSection, .reload, .finish, .custom, .customContinueLesson:
                             Theme.Shapes.buttonShape
                                 .fill(
                                     type == .continueLesson ? Theme.Colors.resumeButtonBG :

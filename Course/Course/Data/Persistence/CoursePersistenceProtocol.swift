@@ -17,6 +17,10 @@ public protocol CoursePersistenceProtocol {
     func loadSubtitles(url: String) async -> String?
     func saveCourseDates(courseID: String, courseDates: CourseDates)
     func loadCourseDates(courseID: String) throws -> CourseDates
+    func saveCourseProgress(courseID: String, courseProgress: CourseProgressDetails) async
+    func loadCourseProgress(courseID: String) async throws -> CourseProgressDetails
+    func updateLocalVideoProgress(blockID: String, progress: Double) async
+    func loadLocalVideoProgress(blockID: String) async -> Double?
 }
 
 public final class CourseBundle {

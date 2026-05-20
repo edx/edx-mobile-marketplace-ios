@@ -52,6 +52,15 @@
 "DATE.START" = "Початок";
 "DATE.STARTED" = "Почався";
 "DATE.JUST_NOW" = "Прямо зараз";
+"DATE.TODAY" = "Сьогодні";
+"DATE.NEXT" = "Наступний %@";
+"DATE.DAYS_AGO" = "%@ днів тому";
+"DATE.DUE" = "Термін ";
+"DATE.DUE_IN" = "Термін через ";
+"DATE.DUE_IN_DAYS" = "Термін через %@ днів";
+"DATE.DUE_TODAY" = "Термін сьогодні: %@";
+"DATE.DUE_DATE_PAST" = "Прострочено на %@ днів: %@";
+"DATE.DUE_IN_LEFT" = "Термін через %@ днів: %@";
 
 "ALERT.ACCEPT" = "ТАК";
 "ALERT.CANCEL" = "СКАСУВАТИ";
@@ -169,6 +178,12 @@
 "COURSE_UPGRADE.VIEW.START_DATE_MESSAGE" = "This course will begin on #####. Come back then to start learning!";
 "COURSE_UPGRADE.VIEW.END_DATE_MESSAGE" = "Your free audit access to this course expired on #####.";
 
+"COURSE_DATES.TODAY" = "Today";
+"COURSE_DATES.COMPLETED" = "Completed";
+"COURSE_DATES.PAST_DUE" = "Past due";
+"COURSE_DATES.THIS_WEEK" = "This week";
+"COURSE_DATES.NEXT_WEEK" = "Next week";
+"COURSE_DATES.UPCOMING" = "Upcoming";
 
 "TRACK_SELECTION.VIEW.TITLE" = "Choose a path.";
 "TRACK_SELECTION.CARD.EARN_CERTIFICATE_HEADING" = "Earn a certificate";

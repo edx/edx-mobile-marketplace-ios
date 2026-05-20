@@ -492,6 +492,7 @@ public class DashboardPersistence: DashboardPersistenceProtocol {
                 try context.execute(batchDeleteRequest1)
                 try context.execute(batchDeleteRequest2)
                 try context.execute(batchDeleteRequest3)
+                context.reset()
             } catch {
                 print("Error when deleting old data:", error)
             }

@@ -57,6 +57,15 @@
 "DATE.START" = "Start";
 "DATE.STARTED" = "Started";
 "DATE.JUST_NOW" = "Just now";
+"DATE.TODAY" = "Today";
+"DATE.NEXT" = "Next %@";
+"DATE.DAYS_AGO" = "%@ Days Ago";
+"DATE.DUE" = "Due ";
+"DATE.DUE_IN" = "Due in ";
+"DATE.DUE_IN_DAYS" = "Due in %@ Days";
+"DATE.DUE_TODAY" = "Due Today: %@";
+"DATE.DUE_DATE_PAST" = "%@ Days Past Due: %@";
+"DATE.DUE_IN_LEFT" = "Due in %@ Days: %@";
 
 "ALERT.ACCEPT" = "Accept";
 "ALERT.CANCEL" = "Cancel";
@@ -184,6 +193,13 @@
 "COURSE.AUDIT.EXPIRED_AGO" = "Access expired %@";
 "COURSE.AUDIT.EXPIRED_ON" = "Expired on %@";
 "COURSE.SOON" = "Soon";
+
+"COURSE_DATES.TODAY" = "Today";
+"COURSE_DATES.COMPLETED" = "Completed";
+"COURSE_DATES.PAST_DUE" = "Past due";
+"COURSE_DATES.THIS_WEEK" = "This week";
+"COURSE_DATES.NEXT_WEEK" = "Next week";
+"COURSE_DATES.UPCOMING" = "Upcoming";
 
 "TRACK_SELECTION.VIEW.TITLE" = "Choose a path.";
 "TRACK_SELECTION.CARD.EARN_CERTIFICATE_HEADING" = "Earn a certificate";

@@ -180,6 +180,7 @@
 		14DE13DC2BDF83350059168F /* ServerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DE13DB2BDF83350059168F /* ServerConfig.swift */; };
 		14F8E66B2C0F4D1200E4EF69 /* RestoreInProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F8E66A2C0F4D1200E4EF69 /* RestoreInProgressView.swift */; };
 		1512465D2F5AE5B4004787A0 /* UIKitMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1512465C2F5AE5B4004787A0 /* UIKitMenuButton.swift */; };
+		151246812FA33D5A004787A0 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151246802FA33D5A004787A0 /* ColorExtension.swift */; };
 		15446AC82F50518C00B8227F /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 15446AC72F50518C00B8227F /* Kingfisher */; };
 		15FA08A32F50127A00E32824 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 15FA08A22F50127A00E32824 /* Alamofire */; };
 		15FA08A62F5012B200E32824 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 15FA08A52F5012B200E32824 /* KeychainSwift */; };
@@ -440,6 +441,7 @@
 		14DE13DB2BDF83350059168F /* ServerConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfig.swift; sourceTree = "<group>"; };
 		14F8E66A2C0F4D1200E4EF69 /* RestoreInProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreInProgressView.swift; sourceTree = "<group>"; };
 		1512465C2F5AE5B4004787A0 /* UIKitMenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitMenuButton.swift; sourceTree = "<group>"; };
+		151246802FA33D5A004787A0 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		1A154A95AF4EE85A4A1C083B /* Pods-App-Core.releasedev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Core.releasedev.xcconfig"; path = "Target Support Files/Pods-App-Core/Pods-App-Core.releasedev.xcconfig"; sourceTree = "<group>"; };
 		1B45FFE88143127AE5EE188F /* Pods-App-Core-CoreTests.releasedev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Core-CoreTests.releasedev.xcconfig"; path = "Target Support Files/Pods-App-Core-CoreTests/Pods-App-Core-CoreTests.releasedev.xcconfig"; sourceTree = "<group>"; };
 		1E22C158A7A03BC6CFC29BC1 /* Pods-App-Core-CoreTests.debugstage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Core-CoreTests.debugstage.xcconfig"; path = "Target Support Files/Pods-App-Core-CoreTests/Pods-App-Core-CoreTests.debugstage.xcconfig"; sourceTree = "<group>"; };
@@ -449,9 +451,9 @@
 		3B74C6685E416657F3C5F5A8 /* Pods-App-Core.releaseprod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Core.releaseprod.xcconfig"; path = "Target Support Files/Pods-App-Core/Pods-App-Core.releaseprod.xcconfig"; sourceTree = "<group>"; };
 		4E457ECBC84FD2E913621312 /* Pods-App-Core-CoreTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Core-CoreTests.debug.xcconfig"; path = "Target Support Files/Pods-App-Core-CoreTests/Pods-App-Core-CoreTests.debug.xcconfig"; sourceTree = "<group>"; };
 		60153262DBC2F9E660D7E11B /* Pods-App-Core.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Core.release.xcconfig"; path = "Target Support Files/Pods-App-Core/Pods-App-Core.release.xcconfig"; sourceTree = "<group>"; };
+		6A8CE6222F45B81200B3BD5B /* ZoomDisableInjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomDisableInjection.swift; sourceTree = "<group>"; };
 		77DCD823305D336646EAE926 /* Pods-App-Core-CoreTests.debugdev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Core-CoreTests.debugdev.xcconfig"; path = "Target Support Files/Pods-App-Core-CoreTests/Pods-App-Core-CoreTests.debugdev.xcconfig"; sourceTree = "<group>"; };
 		8DEA605AFA1B0192454EE906 /* Pods-App-Core-CoreTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Core-CoreTests.release.xcconfig"; path = "Target Support Files/Pods-App-Core-CoreTests/Pods-App-Core-CoreTests.release.xcconfig"; sourceTree = "<group>"; };
-		6A8CE6222F45B81200B3BD5B /* ZoomDisableInjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomDisableInjection.swift; sourceTree = "<group>"; };
 		942A984D2D4B598C00DD8BBC /* PaginationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationManager.swift; sourceTree = "<group>"; };
 		942A98542D4BD91700DD8BBC /* PaginationTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationTask.swift; sourceTree = "<group>"; };
 		942A98562D4BD92B00DD8BBC /* PaginationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationResult.swift; sourceTree = "<group>"; };
@@ -629,6 +631,7 @@
 		0283347E28D4DCC100C828FC /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				151246802FA33D5A004787A0 /* ColorExtension.swift */,
 				06078B6E2BA49C3100576798 /* Dictionary+JSON.swift */,
 				06078B6F2BA49C3100576798 /* String+JSON.swift */,
 				02F164362902A9EB0090DDEF /* StringExtension.swift */,
@@ -1596,6 +1599,7 @@
 				0727877F28D25B24002E9142 /* Alamofire+Error.swift in Sources */,
 				02A4833829B8A8F900D33F33 /* CoreDataModel.xcdatamodeld in Sources */,
 				062C69AC2C198323002BD311 /* UpgradeInfoView.swift in Sources */,
+				151246812FA33D5A004787A0 /* ColorExtension.swift in Sources */,
 				064987952B4D69FF0071642A /* SurveyCssInjection.swift in Sources */,
 				949094992DC8E44C00A341D4 /* TrackCardInfo.swift in Sources */,
 				94E5D59A2DE4990700DE43ED /* ThemeManagerProtocol.swift in Sources */,

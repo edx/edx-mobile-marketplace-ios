@@ -335,7 +335,6 @@
 				A50066892B613E990024680B /* AnalyticsManager */,
 				A59702272B83C84800CA064C /* FirebaseAnalyticsService */,
 				A5C10D8D2B861A56008E864D /* SegmentAnalyticsService */,
-				9426DE8C2DB28BD000230582 /* FeatureManager */,
 			);
 			path = Managers;
 			sourceTree = "<group>";

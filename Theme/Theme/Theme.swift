@@ -86,6 +86,12 @@ public struct Theme {
         public private(set) static var certificateLightTextColor = ThemeAssets.certificateTextLightGrey.swiftUIColor
         public private(set) static var certificateTitleTextColor = ThemeAssets.certificateTitleTextColor.swiftUIColor
         public private(set) static var certificateTextGrey = ThemeAssets.certificateTextGrey.swiftUIColor
+        public private(set) static var textSecondaryDark = ThemeAssets.textSecondaryDark.swiftUIColor
+        public private(set) static var shade = ThemeAssets.shade.swiftUIColor
+        public private(set) static var circleProgressBG = ThemeAssets.circleProgressBG.swiftUIColor
+        public private(set) static var progressPercentage = ThemeAssets.progressPercentage.swiftUIColor
+        public private(set) static var progressLineBG = ThemeAssets.progressLineBG.swiftUIColor
+        
         public static func update(
             accentColor: Color = ThemeAssets.accentColor.swiftUIColor,
             accentXColor: Color = ThemeAssets.accentXColor.swiftUIColor,

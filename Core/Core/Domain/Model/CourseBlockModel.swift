@@ -300,12 +300,18 @@ public struct SequentialProgress {
     public let assignmentType: String?
     public let numPointsEarned: Int?
     public let numPointsPossible: Int?
+    public let shortLabel: String?
     
-    public init(assignmentType: String?, numPointsEarned: Int?, numPointsPossible: Int?) {
-        self.assignmentType = assignmentType
-        self.numPointsEarned = numPointsEarned
-        self.numPointsPossible = numPointsPossible
-    }
+    public init(
+        assignmentType: String?,
+        numPointsEarned: Int?,
+        numPointsPossible: Int?,
+        shortLabel: String?) {
+            self.assignmentType = assignmentType
+            self.numPointsEarned = numPointsEarned
+            self.numPointsPossible = numPointsPossible
+            self.shortLabel = shortLabel
+        }
 }
 
 public struct CourseBlock: Hashable, Identifiable {
@@ -326,6 +332,7 @@ public struct CourseBlock: Hashable, Identifiable {
     public let graded: Bool
     public let due: Date?
     public var completion: Double
+    public var localVideoProgress: Double
     public let type: BlockType
     public let displayName: String
     public let studentUrl: String
@@ -353,6 +360,7 @@ public struct CourseBlock: Hashable, Identifiable {
         graded: Bool,
         due: Date?,
         completion: Double,
+        localVideoProgress: Double = 0.0,
         type: BlockType,
         displayName: String,
         studentUrl: String,
@@ -369,6 +377,7 @@ public struct CourseBlock: Hashable, Identifiable {
         self.graded = graded
         self.due = due
         self.completion = completion
+        self.localVideoProgress = localVideoProgress
         self.type = type
         self.displayName = displayName
         self.studentUrl = studentUrl
