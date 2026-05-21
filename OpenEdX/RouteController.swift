@@ -42,6 +42,10 @@ class RouteController: UIViewController {
             analytics.identify(id: "\(user.id)", username: user.username ?? "", email: user.email ?? "")
             featureManager.identifyUser(id: "\(user.id)")
 
+            Task {
+                try? await Container.shared.resolve(AuthInteractorProtocol.self)?.getCookies(force: false)
+            }
+
             DispatchQueue.main.async {
                 self.showMainOrWhatsNewScreen()
             }

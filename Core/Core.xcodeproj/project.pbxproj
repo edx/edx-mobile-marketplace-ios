@@ -245,6 +245,7 @@
 		BAFB99922B14E23D007D09F9 /* AppleSignInConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFB99912B14E23D007D09F9 /* AppleSignInConfig.swift */; };
 		C8C446EF233F81B9FABB77D2 /* Pods_App_Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 349B90CD6579F7B8D257E515 /* Pods_App_Core.framework */; };
 		CFC84952299F8B890055E497 /* Debounce.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC84951299F8B890055E497 /* Debounce.swift */; };
+		D32270422FB6F8230020D1CF /* ProductCacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32270412FB6F8230020D1CF /* ProductCacheService.swift */; };
 		D359C9092F39A0F00055116E /* DatadogConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D359C9082F39A0EA0055116E /* DatadogConfig.swift */; };
 		D3AA00012F600001AA000001 /* CertificatePreviewManaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AA00002F600001AA000001 /* CertificatePreviewManaging.swift */; };
 		D3AA00032F600001AA000003 /* UserSessionManaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AA00022F600001AA000002 /* UserSessionManaging.swift */; };
@@ -513,6 +514,7 @@
 		BAFB99912B14E23D007D09F9 /* AppleSignInConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSignInConfig.swift; sourceTree = "<group>"; };
 		C7E5BCE79CE297B20777B27A /* Pods-App-Core.debugprod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Core.debugprod.xcconfig"; path = "Target Support Files/Pods-App-Core/Pods-App-Core.debugprod.xcconfig"; sourceTree = "<group>"; };
 		CFC84951299F8B890055E497 /* Debounce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debounce.swift; sourceTree = "<group>"; };
+		D32270412FB6F8230020D1CF /* ProductCacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCacheService.swift; sourceTree = "<group>"; };
 		D359C9082F39A0EA0055116E /* DatadogConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatadogConfig.swift; sourceTree = "<group>"; };
 		D3AA00002F600001AA000001 /* CertificatePreviewManaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificatePreviewManaging.swift; sourceTree = "<group>"; };
 		D3AA00022F600001AA000002 /* UserSessionManaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSessionManaging.swift; sourceTree = "<group>"; };
@@ -1025,6 +1027,7 @@
 		14A832502BD7533000E5654D /* CourseUpgrade */ = {
 			isa = PBXGroup;
 			children = (
+				D32270412FB6F8230020D1CF /* ProductCacheService.swift */,
 				062C69B22C198337002BD311 /* Modifiers */,
 				062C69B02C198337002BD311 /* ViewModels */,
 				06EA8A4B2BFDFF5F005DFB90 /* Models */,
@@ -1482,6 +1485,7 @@
 				14A832522BD7537A00E5654D /* StorekitHandler.swift in Sources */,
 				027BD3AF2909475000392132 /* DismissKeyboardTapHandler.swift in Sources */,
 				027F1BF72C071C820001A24C /* NavigationTitle.swift in Sources */,
+				D32270422FB6F8230020D1CF /* ProductCacheService.swift in Sources */,
 				06619EAA2B8F2936001FAADE /* ReadabilityModifier.swift in Sources */,
 				BAFB99902B14B377007D09F9 /* GoogleConfig.swift in Sources */,
 				02E225B0291D29EB0067769A /* UrlExtension.swift in Sources */,
