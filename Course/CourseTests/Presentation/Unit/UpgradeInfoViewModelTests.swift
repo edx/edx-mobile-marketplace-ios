@@ -31,6 +31,7 @@ final class UpgradeInfoViewModelTests: XCTestCase {
     var storage: CoreStorageMock?
     
     override func setUpWithError() throws {
+        UpgradeInfoViewModel.clearSharedProductCacheSync()
         config = ConfigMock()
         interactor = CourseUpgradeInteractorProtocolMock()
         enrollmentInteractor = EnrollmentInteractorProtocolMock()
@@ -57,6 +58,7 @@ final class UpgradeInfoViewModelTests: XCTestCase {
     }
 
     override func tearDownWithError() throws {
+        UpgradeInfoViewModel.clearSharedProductCacheSync()
         config = nil
         interactor = nil
         storeHandler = nil

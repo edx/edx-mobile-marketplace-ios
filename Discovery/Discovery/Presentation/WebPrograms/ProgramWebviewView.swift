@@ -52,22 +52,24 @@ public struct ProgramWebviewView: View {
         GeometryReader { proxy in
             ZStack(alignment: .center) {
                 VStack(alignment: .center) {
-                    WebView(
-                        viewModel: .init(
-                            url: URLString,
-                            baseURL: "",
-                            injections: [.colorInversionCss]
-                        ),
-                        isLoading: $isLoading,
-                        refreshCookies: {
-                            await viewModel.updateCookies(
-                                force: true
-                            )
-                        },
-                        navigationDelegate: viewModel,
-                        webViewType: viewType.rawValue
-                    )
-                    .accessibilityIdentifier("program_webview")
+                    if viewModel.cookiesReady {
+                        WebView(
+                            viewModel: .init(
+                                url: URLString,
+                                baseURL: "",
+                                injections: [.colorInversionCss]
+                            ),
+                            isLoading: $isLoading,
+                            refreshCookies: {
+                                await viewModel.updateCookies(
+                                    force: true
+                                )
+                            },
+                            navigationDelegate: viewModel,
+                            webViewType: viewType.rawValue
+                        )
+                        .accessibilityIdentifier("program_webview")
+                    }
                     
                     let shouldShowProgress = (
                         isLoading ||
@@ -118,6 +120,11 @@ public struct ProgramWebviewView: View {
             .onFirstAppear {
                 if let url = URL(string: URLString) {
                     viewModel.request = URLRequest(url: url)
+                }
+            }
+            .onAppear{
+                Task {
+                    await viewModel.updateCookies(force: false)
                 }
             }
         }
