@@ -168,6 +168,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     @objc private func didUserAuthorize() {
         Container.shared.resolve(PushNotificationsManager.self)?.synchronizeToken()
+        Task {
+            try? await Container.shared.resolve(AuthInteractorProtocol.self)?.getCookies(force: false)
+        }
     }
     
     @objc func didUserLogout(_ notification: Notification) {
