@@ -229,13 +229,13 @@ public struct SettingsView: View {
 
                 HStack {
                     SettingsCell(
-                        title: ProfileLocalization.Settings.datadogTrackingTitle,
+                        title: ProfileLocalization.Settings.performanceUsageTrackingTitle,
                         description: nil
                     )
-                    Toggle(isOn: $viewModel.datadogTrackingEnabled, label: {})
+                    Toggle(isOn: $viewModel.performanceUsageTrackingEnabled, label: {})
                         .toggleStyle(SwitchToggleStyle(tint: Theme.Colors.toggleSwitchColor))
                         .frame(width: 50)
-                        .accessibilityIdentifier("datadog_tracking_switch")
+                        .accessibilityIdentifier("performance_usage_tracking_switch")
                 }.foregroundColor(Theme.Colors.textPrimary)
             }
         }
