@@ -55,7 +55,8 @@ public struct ResponsesView: View {
                                     commentID: commentID,
                                     parentComment: parentComment,
                                     page: 1,
-                                    refresh: true
+                                    refresh: true,
+                                    showProgress: false
                                 )
                             }) {
                                 VStack {
