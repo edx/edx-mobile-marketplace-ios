@@ -266,7 +266,7 @@ public class UpgradeInfoViewModel: ObservableObject {
     private func certificatePreviewProps() -> [String: Any] {
         let props: [String: Any] = [
             CertPreviewPropertyKey.courseId.rawValue: courseID,
-            CertPreviewPropertyKey.price.rawValue: lmsPrice,
+            CertPreviewPropertyKey.price.rawValue: String(lmsPrice),
             CertPreviewPropertyKey.showCertificatePreview.rawValue: String(shouldShowCertificatePreview()),
             CertPreviewPropertyKey.certPreviewVariant.rawValue: shouldShowCertificatePreview() ? CertPreviewPropertyKey.treatment.rawValue : CertPreviewPropertyKey.control.rawValue
         ]
