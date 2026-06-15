@@ -37,10 +37,20 @@ public enum CourseLocalization {
     public static func assignmentProgressDetails(_ p1: Any, _ p2: Any, _ p3: Any, _ p4: Any, _ p5: Any) -> String {
       return CourseLocalization.tr("Localizable", "ACCESSIBILITY.ASSIGNMENT_PROGRESS_DETAILS", String(describing: p1), String(describing: p2), String(describing: p3), String(describing: p4), String(describing: p5), fallback: "%@, %@ of %@ complete, %@ out of %@ percent of grade")
     }
+    /// Assignment progress section
+    public static let assignmentProgressSection = CourseLocalization.tr("Localizable", "ACCESSIBILITY.ASSIGNMENT_PROGRESS_SECTION", fallback: "Assignment progress section")
     /// Assignment type column header
     public static let assignmentTypeHeader = CourseLocalization.tr("Localizable", "ACCESSIBILITY.ASSIGNMENT_TYPE_HEADER", fallback: "Assignment type column header")
+    /// Assignments section
+    public static let assignmentsSection = CourseLocalization.tr("Localizable", "ACCESSIBILITY.ASSIGNMENTS_SECTION", fallback: "Assignments section")
     /// Cancel download
     public static let cancelDownload = CourseLocalization.tr("Localizable", "ACCESSIBILITY.CANCEL_DOWNLOAD", fallback: "Cancel download")
+    /// Continue learning section
+    public static let continueLearningSection = CourseLocalization.tr("Localizable", "ACCESSIBILITY.CONTINUE_LEARNING_SECTION", fallback: "Continue learning section")
+    /// Course content section
+    public static let courseContentSection = CourseLocalization.tr("Localizable", "ACCESSIBILITY.COURSE_CONTENT_SECTION", fallback: "Course content section")
+    /// Course progress section
+    public static let courseProgressSection = CourseLocalization.tr("Localizable", "ACCESSIBILITY.COURSE_PROGRESS_SECTION", fallback: "Course progress section")
     /// Current grade: %@ percent
     public static func currentGrade(_ p1: Any) -> String {
       return CourseLocalization.tr("Localizable", "ACCESSIBILITY.CURRENT_GRADE", String(describing: p1), fallback: "Current grade: %@ percent")
@@ -51,6 +61,12 @@ public enum CourseLocalization {
     public static let deleteDownload = CourseLocalization.tr("Localizable", "ACCESSIBILITY.DELETE_DOWNLOAD", fallback: "Delete download")
     /// Download
     public static let download = CourseLocalization.tr("Localizable", "ACCESSIBILITY.DOWNLOAD", fallback: "Download")
+    /// Download section, %@
+    public static func downloadSectionButton(_ p1: Any) -> String {
+      return CourseLocalization.tr("Localizable", "ACCESSIBILITY.DOWNLOAD_SECTION_BUTTON", String(describing: p1), fallback: "Download section, %@")
+    }
+    /// Error message section
+    public static let errorMessageSection = CourseLocalization.tr("Localizable", "ACCESSIBILITY.ERROR_MESSAGE_SECTION", fallback: "Error message section")
     /// Grade details section
     public static let gradeDetailsSection = CourseLocalization.tr("Localizable", "ACCESSIBILITY.GRADE_DETAILS_SECTION", fallback: "Grade details section")
     /// Grade requirement warning: %@ percent required to pass
@@ -59,6 +75,10 @@ public enum CourseLocalization {
     }
     /// Tap to hide completed sections
     public static let hideCompletedSections = CourseLocalization.tr("Localizable", "ACCESSIBILITY.HIDE_COMPLETED_SECTIONS", fallback: "Tap to hide completed sections")
+    /// Loading section
+    public static let loadingSection = CourseLocalization.tr("Localizable", "ACCESSIBILITY.LOADING_SECTION", fallback: "Loading section")
+    /// No content available section
+    public static let noContentSection = CourseLocalization.tr("Localizable", "ACCESSIBILITY.NO_CONTENT_SECTION", fallback: "No content available section")
     /// This course has no graded assignments to display
     public static let noGradedAssignmentsHint = CourseLocalization.tr("Localizable", "ACCESSIBILITY.NO_GRADED_ASSIGNMENTS_HINT", fallback: "This course has no graded assignments to display")
     /// Complete course activities to view your progress here
@@ -103,6 +123,10 @@ public enum CourseLocalization {
     public static func videoProgressSection(_ p1: Any, _ p2: Any) -> String {
       return CourseLocalization.tr("Localizable", "ACCESSIBILITY.VIDEO_PROGRESS_SECTION", String(describing: p1), String(describing: p2), fallback: "Video progress %@ of %@ Completed.")
     }
+    /// %@ section, %@ of %@ videos watched
+    public static func videoSectionHeader(_ p1: Any, _ p2: Any, _ p3: Any) -> String {
+      return CourseLocalization.tr("Localizable", "ACCESSIBILITY.VIDEO_SECTION_HEADER", String(describing: p1), String(describing: p2), String(describing: p3), fallback: "%@ section, %@ of %@ videos watched")
+    }
     /// Video: %@
     public static func videoThumbnail(_ p1: Any) -> String {
       return CourseLocalization.tr("Localizable", "ACCESSIBILITY.VIDEO_THUMBNAIL", String(describing: p1), fallback: "Video: %@")
@@ -121,6 +145,8 @@ public enum CourseLocalization {
     public static func videoThumbnailNotStarted(_ p1: Any) -> String {
       return CourseLocalization.tr("Localizable", "ACCESSIBILITY.VIDEO_THUMBNAIL_NOT_STARTED", String(describing: p1), fallback: "%@, not started")
     }
+    /// Videos section
+    public static let videosSection = CourseLocalization.tr("Localizable", "ACCESSIBILITY.VIDEOS_SECTION", fallback: "Videos section")
     /// Weight: %@ percent of grade
     public static func weightContribution(_ p1: Any) -> String {
       return CourseLocalization.tr("Localizable", "ACCESSIBILITY.WEIGHT_CONTRIBUTION", String(describing: p1), fallback: "Weight: %@ percent of grade")
@@ -151,6 +177,10 @@ public enum CourseLocalization {
     public static let stopDownloading = CourseLocalization.tr("Localizable", "ALERT.STOP_DOWNLOADING", fallback: "Turning off the switch will stop downloading and delete all downloaded videos for")
     /// Warning
     public static let warning = CourseLocalization.tr("Localizable", "ALERT.WARNING", fallback: "Warning")
+  }
+  public enum Assignment {
+    /// Review Course Grading Policy
+    public static let reviewGradingPolicy = CourseLocalization.tr("Localizable", "ASSIGNMENT.REVIEW_GRADING_POLICY", fallback: "Review Course Grading Policy")
   }
   public enum AssignmentStatus {
     /// %@ Complete - %@/%@ points
@@ -201,6 +231,16 @@ public enum CourseLocalization {
     }
     /// Return to Course Home
     public static let returnToHome = CourseLocalization.tr("Localizable", "COURSE.RETURN_TO_HOME", fallback: "Return to Course Home")
+    public enum TotalProgress {
+      /// Available to Download
+      public static let avaliableToDownload = CourseLocalization.tr("Localizable", "COURSE.TOTAL_PROGRESS.AVALIABLE_TO_DOWNLOAD", fallback: "Available to Download")
+      /// Downloaded
+      public static let downloaded = CourseLocalization.tr("Localizable", "COURSE.TOTAL_PROGRESS.DOWNLOADED", fallback: "Downloaded")
+      /// Downloading
+      public static let downloading = CourseLocalization.tr("Localizable", "COURSE.TOTAL_PROGRESS.DOWNLOADING", fallback: "Downloading")
+      /// Ready to Download
+      public static let readyToDownload = CourseLocalization.tr("Localizable", "COURSE.TOTAL_PROGRESS.READY_TO_DOWNLOAD", fallback: "Ready to Download")
+    }
   }
   public enum Courseware {
     /// Back to outline

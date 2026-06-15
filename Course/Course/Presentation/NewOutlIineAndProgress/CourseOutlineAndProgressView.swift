@@ -120,7 +120,9 @@ public struct CourseOutlineAndProgressView: View {
                                     shouldShowUpgradeButton: $viewModelContainer.shouldShowUpgradeButton,
                                     shouldHideMenuBar: $viewModelContainer.shouldHideMenuBar
                                 )
-
+                                
+                                RefreshProgressView(isShowRefresh: $viewModelContainer.isShowRefresh)
+                                
                                 VStack(alignment: .leading) {
 
                                     Spacer()

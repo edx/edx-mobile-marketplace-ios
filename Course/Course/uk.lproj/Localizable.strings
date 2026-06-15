@@ -140,6 +140,8 @@
 "ASSIGNMENT_STATUS.IN_PROGRESS" = "%@ - %@/%@ балів";
 "ASSIGNMENT_STATUS.DUE_WITH_DATE" = "%@ %@";
 
+"ASSIGNMENT.REVIEW_GRADING_POLICY" = "Переглянути політику оцінювання курсу";
+
 "COURSE.RETURN_TO_HOME" = "Повернутися на головну сторінку курсу";
 "COURSE.PROGRESS_COMPLETED" = "%@ з %@ завдань виконано";
 "COURSE.PROGRESS_SECTIONS_COMPLETED" = "%@/%@ розділів завершено";
@@ -205,6 +207,22 @@
 "ACCESSIBILITY.ASSIGNMENT_COMPLETION" = "%@ з %@ завершено";
 "ACCESSIBILITY.ASSIGNMENT_GRADE_EARNED" = "Поточна оцінка: %@ з %@ відсотків";
 "ACCESSIBILITY.ASSIGNMENT_FULL_DETAILS" = "%@ з %@ завершено. Вага: %@ відсотків від оцінки. Поточна оцінка: %@ з %@ відсотків";
+"ACCESSIBILITY.ERROR_MESSAGE_SECTION" = "Розділ повідомлення про помилку";
+"ACCESSIBILITY.LOADING_SECTION" = "Розділ завантаження";
+"ACCESSIBILITY.CONTINUE_LEARNING_SECTION" = "Розділ продовження навчання";
+"ACCESSIBILITY.COURSE_CONTENT_SECTION" = "Розділ вмісту курсу";
+"ACCESSIBILITY.COURSE_PROGRESS_SECTION" = "Розділ прогресу курсу";
+"ACCESSIBILITY.NO_CONTENT_SECTION" = "Розділ без доступного вмісту";
+"ACCESSIBILITY.VIDEO_SECTION_HEADER" = "%@ розділ, %@ з %@ відео переглянуто";
+"ACCESSIBILITY.DOWNLOAD_SECTION_BUTTON" = "Завантажити розділ, %@";
+"ACCESSIBILITY.VIDEOS_SECTION" = "Розділ відео";
+"ACCESSIBILITY.ASSIGNMENT_PROGRESS_SECTION" = "Розділ прогресу завдань";
+"ACCESSIBILITY.ASSIGNMENTS_SECTION" = "Розділ завдань";
+
+"COURSE.TOTAL_PROGRESS.DOWNLOADED" = "Завантажено";
+"COURSE.TOTAL_PROGRESS.DOWNLOADING" = "Завантажується";
+"COURSE.TOTAL_PROGRESS.AVALIABLE_TO_DOWNLOAD" = "Доступно для завантаження";
+"COURSE.TOTAL_PROGRESS.READY_TO_DOWNLOAD" = "Готово до завантаження";
 
 "COURSE_CONTENT.ALL" = "Усе";
 "COURSE_CONTENT.VIDEOS" = "Відео";

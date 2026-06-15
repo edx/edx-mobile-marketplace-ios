@@ -103,6 +103,7 @@ public enum ThemeAssets {
   public static let warningText = ColorAsset(name: "warningText")
   public static let white = ColorAsset(name: "white")
   public static let appLogo = ImageAsset(name: "appLogo")
+  public static let assignmentStroke = ColorAsset(name: "assignmentStroke")
   public static let campaignLaunch = ImageAsset(name: "campaign_launch")
   public static let headerBackground = ImageAsset(name: "headerBackground")
 }

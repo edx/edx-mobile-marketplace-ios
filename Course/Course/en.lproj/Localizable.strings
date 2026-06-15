@@ -140,6 +140,8 @@
 "ASSIGNMENT_STATUS.IN_PROGRESS" = "%@ - %@/%@ points";
 "ASSIGNMENT_STATUS.DUE_WITH_DATE" = "%@ %@";
 
+"ASSIGNMENT.REVIEW_GRADING_POLICY" = "Review Course Grading Policy";
+
 "COURSE.RETURN_TO_HOME" = "Return to Course Home";
 "COURSE.PROGRESS_COMPLETED" = "%@ of %@ assignments complete";
 "COURSE.PROGRESS_SECTIONS_COMPLETED" = "%@/%@ Sections Completed";
@@ -205,6 +207,22 @@
 "ACCESSIBILITY.ASSIGNMENT_COMPLETION" = "%@ of %@ complete";
 "ACCESSIBILITY.ASSIGNMENT_GRADE_EARNED" = "Current grade: %@ out of %@ percent";
 "ACCESSIBILITY.ASSIGNMENT_FULL_DETAILS" = "%@ of %@ complete. Weight: %@ percent of grade. Current grade: %@ out of %@ percent";
+"ACCESSIBILITY.ERROR_MESSAGE_SECTION" = "Error message section";
+"ACCESSIBILITY.LOADING_SECTION" = "Loading section";
+"ACCESSIBILITY.CONTINUE_LEARNING_SECTION" = "Continue learning section";
+"ACCESSIBILITY.COURSE_CONTENT_SECTION" = "Course content section";
+"ACCESSIBILITY.COURSE_PROGRESS_SECTION" = "Course progress section";
+"ACCESSIBILITY.NO_CONTENT_SECTION" = "No content available section";
+"ACCESSIBILITY.VIDEO_SECTION_HEADER" = "%@ section, %@ of %@ videos watched";
+"ACCESSIBILITY.DOWNLOAD_SECTION_BUTTON" = "Download section, %@";
+"ACCESSIBILITY.VIDEOS_SECTION" = "Videos section";
+"ACCESSIBILITY.ASSIGNMENT_PROGRESS_SECTION" = "Assignment progress section";
+"ACCESSIBILITY.ASSIGNMENTS_SECTION" = "Assignments section";
+
+"COURSE.TOTAL_PROGRESS.DOWNLOADED" = "Downloaded";
+"COURSE.TOTAL_PROGRESS.DOWNLOADING" = "Downloading";
+"COURSE.TOTAL_PROGRESS.AVALIABLE_TO_DOWNLOAD" = "Available to Download";
+"COURSE.TOTAL_PROGRESS.READY_TO_DOWNLOAD" = "Ready to Download";
 
 "COURSE_CONTENT.ALL" = "All";
 "COURSE_CONTENT.VIDEOS" = "Videos";

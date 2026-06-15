@@ -91,6 +91,7 @@ public struct Theme {
         public private(set) static var circleProgressBG = ThemeAssets.circleProgressBG.swiftUIColor
         public private(set) static var progressPercentage = ThemeAssets.progressPercentage.swiftUIColor
         public private(set) static var progressLineBG = ThemeAssets.progressLineBG.swiftUIColor
+        public private(set) static var assignmentColor = ThemeAssets.assignmentStroke.swiftUIColor
         
         public static func update(
             accentColor: Color = ThemeAssets.accentColor.swiftUIColor,

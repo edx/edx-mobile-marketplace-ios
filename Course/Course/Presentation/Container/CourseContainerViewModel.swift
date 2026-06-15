@@ -11,28 +11,13 @@ import Core
 import Combine
 
 // swiftlint:disable file_length
-enum ContentTab: CaseIterable {
-    case all
-    case videos
-    case assignments
-    
-    var title: String {
-        switch self {
-        case .all:
-            return CourseLocalization.CourseContent.all
-        case .videos:
-            return CourseLocalization.CourseContent.videos
-        case .assignments:
-            return CourseLocalization.CourseContent.assignments
-        }
-    }
-}
 
 public enum CourseTab: Int, CaseIterable, Identifiable {
     public var id: Int {
         rawValue
     }
     case course
+    case content
     case videos
     case dates
     case discussion
@@ -44,6 +29,8 @@ extension CourseTab {
         switch self {
         case .course:
             return CourseLocalization.CourseContainer.home
+        case .content:
+            return CourseLocalization.CourseContainer.content
         case .videos:
             return CourseLocalization.CourseContainer.videos
         case .dates:
@@ -59,6 +46,8 @@ extension CourseTab {
         switch self {
         case .course:
             return CoreAssets.home.swiftUIImage.renderingMode(.template)
+        case .content:
+            return CoreAssets.content.swiftUIImage.renderingMode(.template)
         case .videos:
             return CoreAssets.videos.swiftUIImage.renderingMode(.template)
         case .dates:
@@ -634,6 +623,8 @@ public class CourseContainerViewModel: BaseCourseViewModel {
         switch selection {
         case .course:
             analytics.courseOutlineCourseTabClicked(courseId: courseId, courseName: courseName)
+        case .content:
+            analytics.courseOutlineContentTabClicked(courseId: courseId, courseName: courseName)
         case .videos:
             analytics.courseOutlineVideosTabClicked(courseId: courseId, courseName: courseName)
         case .dates:
@@ -1135,6 +1126,67 @@ extension CourseContainerViewModel {
     
     func assignmentSections() -> [AssignmentSection] {
         return assignmentSectionsData
+    }
+    
+    func courseProgress() -> CourseProgress? {
+        guard let course = courseStructure else { return nil }
+        let total = course.childs.count
+        guard total > 0 else { return nil }
+        let completed = course.childs.filter { chapterProgress(for: $0) >= 1.0 }.count
+        return CourseProgress(totalAssignmentsCount: total, assignmentsCompleted: completed)
+    }
+    
+    func chapterProgress(for chapter: CourseChapter) -> Double {
+        guard !chapter.childs.isEmpty else { return 0.0 }
+        
+        let totalProgress = chapter.childs.reduce(0.0) { $0 + $1.completion }
+        let averageProgress = totalProgress / Double(chapter.childs.count)
+        
+        return max(0.0, min(1.0, averageProgress))
+    }
+    
+    @MainActor
+    func updateVideoProgress(blockID: String, progress: Double) async {
+        if let courseStructure = courseStructure {
+            let updatedStructure = updateBlockProgress(in: courseStructure, blockID: blockID, progress: progress)
+            self.courseStructure = updatedStructure
+        }
+        
+        if let courseStructure = courseStructure {
+            let videoStructure = await interactor.getCourseVideoBlocks(fullStructure: courseStructure)
+            self.courseVideosStructure = videoStructure
+            self.courseAssignmentsStructure = await interactor.getCourseAssignmentBlocks(fullStructure: courseStructure)
+            updateAssignmentSections()
+        }
+        
+        objectWillChange.send()
+    }
+    
+    private func updateBlockProgress(
+        in structure: CourseStructure,
+        blockID: String,
+        progress: Double
+    ) -> CourseStructure {
+        var updatedStructure = structure
+        
+        for (chapterIndex, chapter) in structure.childs.enumerated() {
+            for (sequentialIndex, sequential) in chapter.childs.enumerated() {
+                for (verticalIndex, vertical) in sequential.childs.enumerated() {
+                    for (blockIndex, block) in vertical.childs.enumerated() where block.id == blockID {
+                        var updatedBlock = block
+                        updatedBlock.localVideoProgress = progress
+                        updatedStructure
+                            .childs[chapterIndex]
+                            .childs[sequentialIndex]
+                            .childs[verticalIndex]
+                            .childs[blockIndex] = updatedBlock
+                        return updatedStructure
+                    }
+                }
+            }
+        }
+        
+        return updatedStructure
     }
     
     // MARK: - Assignment Helper Methods

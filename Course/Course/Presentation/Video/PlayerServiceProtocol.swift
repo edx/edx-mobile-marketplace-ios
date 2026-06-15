@@ -15,6 +15,7 @@ public protocol PlayerServiceProtocol {
     func presentAppReview()
     func presentView(transitionStyle: UIModalTransitionStyle, animated: Bool, content: () -> any View)
     func getSubtitles(url: String, selectedLanguage: String) async throws -> [Subtitle]
+    func updateVideoProgress(progress: Double) async
 }
 
 public class PlayerService: PlayerServiceProtocol {
@@ -58,6 +59,16 @@ public class PlayerService: PlayerServiceProtocol {
         try await interactor.getSubtitles(
             url: url,
             selectedLanguage: selectedLanguage
+        )
+    }
+    
+    public func updateVideoProgress(progress: Double) async {
+        await interactor.updateLocalVideoProgress(blockID: blockID, progress: progress)
+        
+        NotificationCenter.default.post(
+            name: .onVideoProgressUpdated,
+            object: nil,
+            userInfo: ["blockID": blockID, "progress": progress]
         )
     }
 }
