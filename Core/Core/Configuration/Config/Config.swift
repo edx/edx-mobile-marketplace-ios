@@ -36,6 +36,7 @@ public protocol ConfigProtocol {
     var recaptcha: RecaptchaConfig { get }
     var videoPlayer: VideoPlayerConfig { get }
     var dataDog: DatadogConfig { get }
+    var programPurchase: ProgramPurchaseConfig { get }
 }
 
 public enum TokenType: String {

@@ -185,6 +185,7 @@
 		15FA08A62F5012B200E32824 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 15FA08A52F5012B200E32824 /* KeychainSwift */; };
 		15FA08A92F5012CB00E32824 /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = 15FA08A82F5012CB00E32824 /* SwiftUIIntrospect */; };
 		15FA08AF2F50133200E32824 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 15FA08AE2F50133200E32824 /* Swinject */; };
+		566C73D32FDFEFF10067A6C9 /* ProgramPurchaseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566C73D22FDFEFF10067A6C9 /* ProgramPurchaseConfig.swift */; };
 		6A8CE6232F45B82200B3BD5B /* ZoomDisableInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8CE6222F45B81200B3BD5B /* ZoomDisableInjection.swift */; };
 		942A984E2D4B598C00DD8BBC /* PaginationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942A984D2D4B598C00DD8BBC /* PaginationManager.swift */; };
 		942A98552D4BD91700DD8BBC /* PaginationTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942A98542D4BD91700DD8BBC /* PaginationTask.swift */; };
@@ -453,6 +454,7 @@
 		349B90CD6579F7B8D257E515 /* Pods_App_Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_App_Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B74C6685E416657F3C5F5A8 /* Pods-App-Core.releaseprod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Core.releaseprod.xcconfig"; path = "Target Support Files/Pods-App-Core/Pods-App-Core.releaseprod.xcconfig"; sourceTree = "<group>"; };
 		4E457ECBC84FD2E913621312 /* Pods-App-Core-CoreTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Core-CoreTests.debug.xcconfig"; path = "Target Support Files/Pods-App-Core-CoreTests/Pods-App-Core-CoreTests.debug.xcconfig"; sourceTree = "<group>"; };
+		566C73D22FDFEFF10067A6C9 /* ProgramPurchaseConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramPurchaseConfig.swift; sourceTree = "<group>"; };
 		60153262DBC2F9E660D7E11B /* Pods-App-Core.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Core.release.xcconfig"; path = "Target Support Files/Pods-App-Core/Pods-App-Core.release.xcconfig"; sourceTree = "<group>"; };
 		6A8CE6222F45B81200B3BD5B /* ZoomDisableInjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomDisableInjection.swift; sourceTree = "<group>"; };
 		77DCD823305D336646EAE926 /* Pods-App-Core-CoreTests.debugdev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Core-CoreTests.debugdev.xcconfig"; path = "Target Support Files/Pods-App-Core-CoreTests/Pods-App-Core-CoreTests.debugdev.xcconfig"; sourceTree = "<group>"; };
@@ -1188,6 +1190,7 @@
 		DBF6F2422B014AF30098414B /* Config */ = {
 			isa = PBXGroup;
 			children = (
+				566C73D22FDFEFF10067A6C9 /* ProgramPurchaseConfig.swift */,
 				D359C9082F39A0EA0055116E /* DatadogConfig.swift */,
 				0604C9A92B22FACF00AD5DBF /* UIComponentsConfig.swift */,
 				0727876F28D23411002E9142 /* Config.swift */,
@@ -1600,6 +1603,7 @@
 				141DB4662BF4A1F900BDA069 /* EmailTemplates.swift in Sources */,
 				BA8FA6612AD5974300EA029A /* AppleAuthProvider.swift in Sources */,
 				BA8FA6702AD59EA300EA029A /* MicrosoftAuthProvider.swift in Sources */,
+				566C73D32FDFEFF10067A6C9 /* ProgramPurchaseConfig.swift in Sources */,
 				9796D6832E04915700BF6077 /* GatedContentView.swift in Sources */,
 				BA76135C2B21BC7300B599B7 /* SocialAuthResponse.swift in Sources */,
 				020306CC2932C0C4000949EA /* PickerView.swift in Sources */,

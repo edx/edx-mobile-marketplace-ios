@@ -8,7 +8,7 @@
 import Foundation
 
 public struct StoreKitUpgradeResponse {
-    var success: Bool
-    var receipt: String?
-    var error: UpgradeError?
+    public var success: Bool
+    public var receipt: String?
+    public var error: UpgradeError?
 }

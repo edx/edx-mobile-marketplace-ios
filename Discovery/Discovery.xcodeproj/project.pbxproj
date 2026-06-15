@@ -26,6 +26,7 @@
 		072787AD28D34D15002E9142 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072787AC28D34D15002E9142 /* Core.framework */; };
 		1402A0C92B61012F00A0A00B /* ProgramWebviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1402A0C72B61012F00A0A00B /* ProgramWebviewView.swift */; };
 		1402A0CA2B61012F00A0A00B /* ProgramWebviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1402A0C82B61012F00A0A00B /* ProgramWebviewViewModel.swift */; };
+		566C73D52FDFF09B0067A6C9 /* DiscoveryWebPurchaseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566C73D42FDFF09B0067A6C9 /* DiscoveryWebPurchaseHandler.swift */; };
 		63C6E9CBBF5E33B8B9B4DFEC /* Pods_App_Discovery_DiscoveryUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 780FC373E1D479E58870BD85 /* Pods_App_Discovery_DiscoveryUnitTests.framework */; };
 		CFC8494C299A66080055E497 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = CFC8494E299A66080055E497 /* Localizable.stringsdict */; };
 		CFC84950299BE52C0055E497 /* SearchViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC8494F299BE52C0055E497 /* SearchViewModelTests.swift */; };
@@ -84,6 +85,7 @@
 		2760B1F234E01FFCB73F41C2 /* Pods-App-Discovery.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Discovery.debug.xcconfig"; path = "Target Support Files/Pods-App-Discovery/Pods-App-Discovery.debug.xcconfig"; sourceTree = "<group>"; };
 		445F0675BF0E1DEB78F3CE73 /* Pods-App-Discovery-DiscoveryUnitTests.releasedev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Discovery-DiscoveryUnitTests.releasedev.xcconfig"; path = "Target Support Files/Pods-App-Discovery-DiscoveryUnitTests/Pods-App-Discovery-DiscoveryUnitTests.releasedev.xcconfig"; sourceTree = "<group>"; };
 		4786022BA3ED2D55DD0E5C8F /* Pods-App-Discovery.debugdev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Discovery.debugdev.xcconfig"; path = "Target Support Files/Pods-App-Discovery/Pods-App-Discovery.debugdev.xcconfig"; sourceTree = "<group>"; };
+		566C73D42FDFF09B0067A6C9 /* DiscoveryWebPurchaseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryWebPurchaseHandler.swift; sourceTree = "<group>"; };
 		57E62A3FCA858F5A1FF77347 /* Pods-App-Discovery.releaseprod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Discovery.releaseprod.xcconfig"; path = "Target Support Files/Pods-App-Discovery/Pods-App-Discovery.releaseprod.xcconfig"; sourceTree = "<group>"; };
 		617697245CE8F67AF2BBE250 /* Pods-App-Discovery.debugprod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Discovery.debugprod.xcconfig"; path = "Target Support Files/Pods-App-Discovery/Pods-App-Discovery.debugprod.xcconfig"; sourceTree = "<group>"; };
 		69F97EEB323CA56E818CD6C4 /* Pods-App-Discovery-DiscoveryUnitTests.debugprod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Discovery-DiscoveryUnitTests.debugprod.xcconfig"; path = "Target Support Files/Pods-App-Discovery-DiscoveryUnitTests/Pods-App-Discovery-DiscoveryUnitTests.debugprod.xcconfig"; sourceTree = "<group>"; };
@@ -333,6 +335,7 @@
 		E0D5861D2B300095009B4BA7 /* WebDiscovery */ = {
 			isa = PBXGroup;
 			children = (
+				566C73D42FDFF09B0067A6C9 /* DiscoveryWebPurchaseHandler.swift */,
 				E0D5861E2B300095009B4BA7 /* DiscoveryWebviewViewModel.swift */,
 				E0D5861F2B300095009B4BA7 /* DiscoveryWebview.swift */,
 				E0D586222B3000AD009B4BA7 /* DiscoveryURIDetails.swift */,
@@ -504,9 +507,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-App-Discovery-DiscoveryUnitTests/Pods-App-Discovery-DiscoveryUnitTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-App-Discovery-DiscoveryUnitTests/Pods-App-Discovery-DiscoveryUnitTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -560,6 +567,7 @@
 				029242E72AE6978400A940EC /* UpdateRequiredView.swift in Sources */,
 				E0B9F69F2B4D57F800168366 /* SearchViewModel.swift in Sources */,
 				E0B9F69E2B4D57F800168366 /* CourseDetailsView.swift in Sources */,
+				566C73D52FDFF09B0067A6C9 /* DiscoveryWebPurchaseHandler.swift in Sources */,
 				E0D586232B3000AD009B4BA7 /* DiscoveryURIDetails.swift in Sources */,
 				E0B9F69D2B4D57F800168366 /* DiscoveryViewModel.swift in Sources */,
 				0283347728D499BC00C828FC /* DiscoveryInteractor.swift in Sources */,
@@ -1603,7 +1611,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
 
 /* Begin XCVersionGroup section */
 		0297373E2949FB070051696B /* DiscoveryCoreModel.xcdatamodeld */ = {

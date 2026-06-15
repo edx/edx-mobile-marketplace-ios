@@ -37,6 +37,8 @@ public class DiscoveryWebviewViewModel: ObservableObject {
         return storage.user?.username?.isEmpty == false
     }
     private(set) var datadogManager: WebViewTrackingProtocol
+    private let purchaseHandler: DiscoveryWebPurchaseHandler?
+
     public init(
         router: DiscoveryRouter,
         config: ConfigProtocol,
@@ -45,7 +47,8 @@ public class DiscoveryWebviewViewModel: ObservableObject {
         analytics: DiscoveryAnalytics,
         storage: CoreStorage,
         sourceScreen: LogistrationSourceScreen = .default,
-        datadogManager: WebViewTrackingProtocol
+        datadogManager: WebViewTrackingProtocol,
+        purchaseHandler: DiscoveryWebPurchaseHandler? = nil
     ) {
         self.router = router
         self.config = config
@@ -55,6 +58,7 @@ public class DiscoveryWebviewViewModel: ObservableObject {
         self.storage = storage
         self.sourceScreen = sourceScreen
         self.datadogManager = datadogManager
+        self.purchaseHandler = purchaseHandler
     }
     
     @MainActor
@@ -122,7 +126,25 @@ extension DiscoveryWebviewViewModel: WebViewNavigationDelegate {
         navigationAction: WKNavigationAction
     ) async -> Bool {
         guard let URL = request.url else { return false }
-        
+
+        if let handler = purchaseHandler, handler.canHandlePurchase(for: URL) {
+            showProgress = true
+            handler.handlePurchase(for: URL) { [weak self] state in
+                Task { @MainActor in
+                    switch state {
+                    case .processing:
+                        break
+                    case .success:
+                        self?.showProgress = false
+                    case .error(let error):
+                        self?.showProgress = false
+                        self?.errorMessage = error.localizedDescription
+                    }
+                }
+            }
+            return true
+        }
+
         if let urlAction = urlAction(from: URL),
            await handleNavigation(url: URL, urlAction: urlAction) {
             return true

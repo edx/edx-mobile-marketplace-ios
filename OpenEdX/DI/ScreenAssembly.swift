@@ -119,6 +119,13 @@ class ScreenAssembly: Assembly {
             )
         }
         
+        container.register(DiscoveryWebPurchaseHandler.self) { r in
+            ProgramPurchaseHandler(
+                config: r.resolve(ConfigProtocol.self)!,
+                storeKitHandler: r.resolve(StoreKitHandlerProtocol.self)!
+            )
+        }.inObjectScope(.container)
+
         container.register(DiscoveryWebviewViewModel.self) { r, sourceScreen in
             DiscoveryWebviewViewModel(
                 router: r.resolve(DiscoveryRouter.self)!,
@@ -128,7 +135,8 @@ class ScreenAssembly: Assembly {
                 analytics: r.resolve(DiscoveryAnalytics.self)!,
                 storage: r.resolve(CoreStorage.self)!,
                 sourceScreen: sourceScreen,
-                datadogManager: r.resolve(DataDogFeatureManager.self)!
+                datadogManager: r.resolve(DataDogFeatureManager.self)!,
+                purchaseHandler: r.resolve(DiscoveryWebPurchaseHandler.self)
             )
         }
         

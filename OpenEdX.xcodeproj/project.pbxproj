@@ -53,6 +53,7 @@
 		14BAE68E2D0974B700EAF0E4 /* Notifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14BAE68D2D0974B700EAF0E4 /* Notifications.framework */; };
 		14BAE68F2D0974B700EAF0E4 /* Notifications.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 14BAE68D2D0974B700EAF0E4 /* Notifications.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1924EDE8164C7AB17AD4946B /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		566C73D72FDFF1720067A6C9 /* ProgramPurchaseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566C73D62FDFF1720067A6C9 /* ProgramPurchaseHandler.swift */; };
 		6AF862442F5AB0DB001130B1 /* DataDogAnalyticService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF862432F5AB0CB001130B1 /* DataDogAnalyticService.swift */; };
 		9426DE892DB28B3A00230582 /* EDXFeatureManagement in Frameworks */ = {isa = PBXBuildFile; productRef = 9426DE882DB28B3A00230582 /* EDXFeatureManagement */; };
 		94AE32322D8838E400FA048D /* Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AE32312D8838DE00FA048D /* Payload.swift */; };
@@ -150,6 +151,7 @@
 		14BAE68D2D0974B700EAF0E4 /* Notifications.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Notifications.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C3A53FEDB0D2DF323482884 /* Pods-App-OpenEdX.debugstage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-OpenEdX.debugstage.xcconfig"; path = "Target Support Files/Pods-App-OpenEdX/Pods-App-OpenEdX.debugstage.xcconfig"; sourceTree = "<group>"; };
 		4C6133E982A6993F794653B8 /* Pods-App-OpenEdX.debugdev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-OpenEdX.debugdev.xcconfig"; path = "Target Support Files/Pods-App-OpenEdX/Pods-App-OpenEdX.debugdev.xcconfig"; sourceTree = "<group>"; };
+		566C73D62FDFF1720067A6C9 /* ProgramPurchaseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramPurchaseHandler.swift; sourceTree = "<group>"; };
 		5E01E4D206278EB8B8FAC456 /* Pods_App_OpenEdX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_App_OpenEdX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A0D570892EA488D3F101578 /* Pods-App-OpenEdX.releasedev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-OpenEdX.releasedev.xcconfig"; path = "Target Support Files/Pods-App-OpenEdX/Pods-App-OpenEdX.releasedev.xcconfig"; sourceTree = "<group>"; };
 		6AF862432F5AB0CB001130B1 /* DataDogAnalyticService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDogAnalyticService.swift; sourceTree = "<group>"; };
@@ -344,6 +346,7 @@
 		A50066882B613E800024680B /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				566C73D62FDFF1720067A6C9 /* ProgramPurchaseHandler.swift */,
 				D38AD74C2F7D238E0092909E /* CertificatePreviewManager.swift */,
 				D38AD74A2F7D23300092909E /* DataDogFeatureManager.swift */,
 				94AE32312D8838DE00FA048D /* Payload.swift */,
@@ -654,6 +657,7 @@
 				A59568952B61630500ED4F90 /* DeepLinkManager.swift in Sources */,
 				A50066952B614DEF0024680B /* BrazeListener.swift in Sources */,
 				D39950082EDCB82100B81F8A /* FirebaseAnalyticsTracker.swift in Sources */,
+				566C73D72FDFF1720067A6C9 /* ProgramPurchaseHandler.swift in Sources */,
 				071009C928D1DB3F00344290 /* ScreenAssembly.swift in Sources */,
 				A59568972B61653700ED4F90 /* DeepLink.swift in Sources */,
 				A5C10D8F2B861A70008E864D /* SegmentAnalyticsService.swift in Sources */,
