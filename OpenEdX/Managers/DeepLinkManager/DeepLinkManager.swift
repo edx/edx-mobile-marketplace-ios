@@ -547,6 +547,11 @@ public class DeepLinkManager: NotificationsDeepLinkManager {
         }
         router.dismissProgress()
     }
+    
+    // DEMO: Process local notification tap as a deep link
+       func processNotification(userInfo: [AnyHashable: Any]) {
+           processDeepLink(with: userInfo)
+       }
 }
 
 public enum DeepLinkError: Error {

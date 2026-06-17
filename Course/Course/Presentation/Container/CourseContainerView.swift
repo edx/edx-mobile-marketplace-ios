@@ -84,6 +84,18 @@ public struct CourseContainerView: View {
         .onChange(of: viewModel.selection, perform: didSelect)
         .onChange(of: coordinate, perform: collapseHeader)
         .background(Theme.Colors.background)
+        // DEMO: Course reminder notification
+        .onAppear {
+            CourseReminderNotificationManager.shared.cancelReminder(for: courseID)
+        }
+        .onDisappear {
+            CourseReminderNotificationManager.shared.scheduleReminder(
+                courseID: courseID,
+                courseTitle: title,
+                org: org,
+                completionPercentage: viewModel.courseCompletionPercentage
+            )
+        }
     }
     
     @ViewBuilder

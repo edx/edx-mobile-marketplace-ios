@@ -17,6 +17,8 @@ import FirebaseCore
 import FirebaseMessaging
 import Theme
 import EDXFeatureManagement
+import Course
+import Notifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -36,7 +38,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
         initDI()
-        
+        // DEMO: Request local notification permission for course reminders
+        CourseReminderNotificationManager.shared.requestPermissionIfNeeded()
         if let config = Container.shared.resolve(ConfigProtocol.self) {
             Theme.Shapes.isRoundedCorners = config.theme.isRoundedCorners
             Theme.Shapes.buttonCornersRadius = config.theme.buttonCornersRadius

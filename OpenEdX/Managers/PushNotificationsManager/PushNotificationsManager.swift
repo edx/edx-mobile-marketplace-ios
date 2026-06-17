@@ -12,6 +12,7 @@ import UserNotifications
 import FirebaseCore
 import FirebaseMessaging
 import Notifications
+import Course
 
 public protocol PushNotificationsProvider {
     func didRegisterWithDeviceToken(deviceToken: Data)
@@ -168,7 +169,11 @@ extension PushNotificationsManager: UNUserNotificationCenterDelegate {
         if UIApplication.shared.applicationState == .active {
             let userInfo = notification.request.content.userInfo
             let payload = Payload(dictionary: userInfo)
-            trackPushReceived(payload: payload) // For foreground state.
+            // DEMO: Skip analytics tracking for local course reminders
+            if !CourseReminderNotificationManager.isLocalCourseReminder(userInfo) {
+                let payload = Payload(dictionary: userInfo)
+                trackPushReceived(payload: payload)
+            }
         }
         
         return [[.list, .banner, .sound]]
@@ -180,6 +185,11 @@ extension PushNotificationsManager: UNUserNotificationCenterDelegate {
         didReceive response: UNNotificationResponse
     ) async {
         let userInfo = response.notification.request.content.userInfo
+        // DEMO: Handle local course reminder tap via deep link
+        if CourseReminderNotificationManager.isLocalCourseReminder(userInfo) {
+            deepLinkManager.processNotification(userInfo: userInfo)
+            return
+        }
         let payload = Payload(dictionary: userInfo)
         trackPushTapped(payload: payload) // For terminated and background state.
         didReceiveRemoteNotification(userInfo: userInfo)

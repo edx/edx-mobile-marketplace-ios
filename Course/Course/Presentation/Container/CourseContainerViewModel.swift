@@ -629,6 +629,18 @@ public class CourseContainerViewModel: BaseCourseViewModel {
             blockId: blockId
         )
     }
+    
+    // DEMO: Course completion percentage for local notification
+    var courseCompletionPercentage: Int {
+        guard let structure = courseStructure else { return 0 }
+        let allBlocks = structure.childs
+            .flatMap { $0.childs }
+            .flatMap { $0.childs }
+            .flatMap { $0.childs }
+        guard !allBlocks.isEmpty else { return 0 }
+        let completedCount = allBlocks.filter { $0.completion == 1 }.count
+        return Int((Double(completedCount) / Double(allBlocks.count)) * 100)
+    }
 
     func completeBlock(
         chapterID: String,
