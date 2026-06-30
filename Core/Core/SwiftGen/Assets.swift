@@ -152,6 +152,8 @@ public enum CoreAssets {
   public static let notAvaliable = ImageAsset(name: "notAvaliable")
   public static let notificationsIcon = ImageAsset(name: "notifications_icon")
   public static let playVideo = ImageAsset(name: "playVideo")
+  public static let remove = ImageAsset(name: "remove")
+  public static let reportOctagon = ImageAsset(name: "report_octagon")
   public static let resumeCourse = ImageAsset(name: "resumeCourse")
   public static let settings = ImageAsset(name: "settings")
   public static let star = ImageAsset(name: "star")

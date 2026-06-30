@@ -19,29 +19,27 @@ public struct CourseOutlineAndProgressView: View {
     private var carouselSections: [AnyView] {
         var sections: [AnyView] = []
 
-        if viewModelProgress.courseProgress != nil {
-            sections.append(
-                AnyView(
-                    CourseCompletionCarouselSlideView(
-                        viewModelProgress: viewModelProgress,
-                        viewModelContainer: viewModelContainer,
-                        isVideo: isVideo,
-                        idiom: UIDevice.current.userInterfaceIdiom
-                    ) { proxy in
-                        downloadQualityBars(proxy: proxy)
-                    }
+        sections.append(
+            AnyView(
+                CourseCompletionCarouselSlideView(
+                    viewModelProgress: viewModelProgress,
+                    viewModelContainer: viewModelContainer,
+                    isVideo: isVideo,
+                    idiom: UIDevice.current.userInterfaceIdiom
+                ) { proxy in
+                    downloadQualityBars(proxy: proxy)
+                }
+            )
+        )
+        
+        sections.append(
+            AnyView(
+                CourseVideoCarouselSlideView(
+                    viewModelProgress: viewModelProgress,
+                    viewModelContainer: viewModelContainer
                 )
             )
-
-            sections.append(
-                AnyView(
-                    CourseVideoCarouselSlideView(
-                        viewModelProgress: viewModelProgress,
-                        viewModelContainer: viewModelContainer
-                    )
-                )
-            )
-        }
+        )
 
         sections.append(
             AnyView(
@@ -521,7 +519,8 @@ public struct CourseOutlineAndProgressView: View {
         enrollmentEnd: nil,
         lastVisitedBlockID: nil,
         coreAnalytics: CoreAnalyticsMock(),
-        serverConfig: ServerConfigProtocolMock()
+        serverConfig: ServerConfigProtocolMock(),
+        courseHelper: CourseDownloadHelper(courseStructure: nil, manager: DownloadManagerMock())
     )
 
     PreviewContainer(

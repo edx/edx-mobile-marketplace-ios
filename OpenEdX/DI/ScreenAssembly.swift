@@ -394,8 +394,15 @@ class ScreenAssembly: Assembly {
                 coreAnalytics: r.resolve(CoreAnalytics.self)!,
                 selection: selection,
                 showTrackSelection: showTrackSelection,
-                serverConfig: r.resolve(ServerConfigProtocol.self)!
+                serverConfig: r.resolve(ServerConfigProtocol.self)!,
+                courseHelper: r.resolve(CourseDownloadHelperProtocol.self)!
             )
+        }
+        
+        container.register(
+            CourseDownloadHelperProtocol.self
+        ) { r in
+            CourseDownloadHelper(courseStructure: nil, manager: r.resolve(DownloadManagerProtocol.self)!)
         }
         
         container.register(CourseVerticalViewModel.self) { r, chapters, chapterIndex, sequentialIndex, courseStructurePublisher in

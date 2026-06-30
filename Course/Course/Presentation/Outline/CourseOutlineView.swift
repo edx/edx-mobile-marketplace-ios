@@ -370,7 +370,8 @@ struct CourseOutlineView_Previews: PreviewProvider {
             enrollmentEnd: nil,
             lastVisitedBlockID: nil,
             coreAnalytics: CoreAnalyticsMock(),
-            serverConfig: ServerConfigProtocolMock()
+            serverConfig: ServerConfigProtocolMock(),
+            courseHelper: CourseDownloadHelper(courseStructure: nil, manager: DownloadManagerMock())
         )
         Task {
             await withTaskGroup(of: Void.self) { group in

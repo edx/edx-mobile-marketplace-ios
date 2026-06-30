@@ -251,3 +251,13 @@
 "COURSE_CONTAINER.PROGRESS.COMPLETE" = "Завершити";
 "COURSE_CONTAINER.PROGRESS.OF_GRADE" = "від оцінки";
 "COURSE_CONTAINER.PROGRESS.NO_GRADED_ASSIGNMENTS" = "Цей курс не містить оцінюваних завдань.";
+
+"COURSE.OFFLINE.DOWNLOAD_ALL" = "Завантажити все";
+"COURSE.OFFLINE.CANCEL_COURSE_DOWNLOAD" = "Скасувати завантаження курсу";
+"COURSE.OFFLINE.YOU_CAN_DOWNLOAD" = "Ви можете завантажити вміст курсу офлайн, щоб навчатися будь-де без активного підключення до Інтернету або використання мобільних даних.";
+"COURSE.OFFLINE.YOU_CANT_DOWNLOAD" = "Жоден вміст цього курсу наразі недоступний для офлайн-завантаження.";
+
+"COURSE.LARGEST_DOWNLOADS.TITLE" = "Найбільші завантаження";
+"COURSE.LARGEST_DOWNLOADS.DONE" = "Готово";
+"COURSE.LARGEST_DOWNLOADS.EDIT" = "Редагувати";
+"COURSE.LARGEST_DOWNLOADS.REMOVE_DOWNLOADS" = "Видалити всі завантаження";

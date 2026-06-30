@@ -79,6 +79,8 @@ public enum ThemeAssets {
   public static let snackbarWarningColor = ColorAsset(name: "SnackbarWarningColor")
   public static let socialAuthColor = ColorAsset(name: "SocialAuthColor")
   public static let styledButtonText = ColorAsset(name: "StyledButtonText")
+  public static let disabledButton = ColorAsset(name: "disabledButton")
+  public static let disabledButtonText = ColorAsset(name: "disabledButtonText")
   public static let success = ColorAsset(name: "Success")
   public static let tabbarActiveColor = ColorAsset(name: "TabbarActiveColor")
   public static let tabbarBGColor = ColorAsset(name: "TabbarBGColor")

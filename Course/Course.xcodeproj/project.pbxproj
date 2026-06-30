@@ -110,6 +110,10 @@
 		15670FBD2FD7F6D900724946 /* AssignmentDetailCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15670FBA2FD7F6D900724946 /* AssignmentDetailCardView.swift */; };
 		15670FBE2FD7F6D900724946 /* AssignmentCardSmallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15670FB92FD7F6D900724946 /* AssignmentCardSmallView.swift */; };
 		15670FC02FD7F78B00724946 /* ProgressAssignmentTypeSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15670FBF2FD7F78B00724946 /* ProgressAssignmentTypeSection.swift */; };
+		1567120C2FE3C52700724946 /* CourseDownloadHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1567120B2FE3C52700724946 /* CourseDownloadHelper.swift */; };
+		156712102FEA5ECF00724946 /* OfflineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1567120F2FEA5ECF00724946 /* OfflineView.swift */; };
+		156712142FEA5F5200724946 /* TotalDownloadedProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156712122FEA5F5200724946 /* TotalDownloadedProgressView.swift */; };
+		156712152FEA5F5200724946 /* LargestDownloadsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156712112FEA5F5200724946 /* LargestDownloadsView.swift */; };
 		197FB8EA8F92F00A8F383D82 /* Pods_App_Course.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5E795BD160CDA7D9C120DE6 /* Pods_App_Course.framework */; };
 		94521BCF2E2517A70011BAB2 /* VideoPlayerOverlayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94521BCE2E2517A30011BAB2 /* VideoPlayerOverlayViewModel.swift */; };
 		946101042E2149820095846B /* VideoPlayerOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946101032E2149820095846B /* VideoPlayerOverlay.swift */; };
@@ -255,6 +259,10 @@
 		15670FBA2FD7F6D900724946 /* AssignmentDetailCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentDetailCardView.swift; sourceTree = "<group>"; };
 		15670FBB2FD7F6D900724946 /* VideoSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoSectionView.swift; sourceTree = "<group>"; };
 		15670FBF2FD7F78B00724946 /* ProgressAssignmentTypeSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressAssignmentTypeSection.swift; sourceTree = "<group>"; };
+		1567120B2FE3C52700724946 /* CourseDownloadHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDownloadHelper.swift; sourceTree = "<group>"; };
+		1567120F2FEA5ECF00724946 /* OfflineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineView.swift; sourceTree = "<group>"; };
+		156712112FEA5F5200724946 /* LargestDownloadsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargestDownloadsView.swift; sourceTree = "<group>"; };
+		156712122FEA5F5200724946 /* TotalDownloadedProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalDownloadedProgressView.swift; sourceTree = "<group>"; };
 		2A444220A08C5035164B071F /* Pods-App-Course-CourseTests.releasedev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Course-CourseTests.releasedev.xcconfig"; path = "Target Support Files/Pods-App-Course-CourseTests/Pods-App-Course-CourseTests.releasedev.xcconfig"; sourceTree = "<group>"; };
 		3A55620C6018088BFF77F9AE /* Pods-App-CourseDetails.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-CourseDetails.debug.xcconfig"; path = "Target Support Files/Pods-App-CourseDetails/Pods-App-CourseDetails.debug.xcconfig"; sourceTree = "<group>"; };
 		3D506212980347A9D5A70E20 /* Pods-App-Course.debugstage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Course.debugstage.xcconfig"; path = "Target Support Files/Pods-App-Course/Pods-App-Course.debugstage.xcconfig"; sourceTree = "<group>"; };
@@ -481,6 +489,7 @@
 		02EAE2CA28E1F0A700529644 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				1567120E2FEA5EC300724946 /* Offline */,
 				1512469D2FAB6899004787A0 /* NewOutlIineAndProgress */,
 				151246782FA32B12004787A0 /* Progress */,
 				1512466A2FA1F8C2004787A0 /* Content */,
@@ -537,6 +546,7 @@
 		070019A828F6F33600D5FC78 /* Container */ = {
 			isa = PBXGroup;
 			children = (
+				1567120B2FE3C52700724946 /* CourseDownloadHelper.swift */,
 				02F0144E28F46474002E513D /* CourseContainerView.swift */,
 				02F0145628F4A2FF002E513D /* CourseContainerViewModel.swift */,
 				073512E129C0E400005CFA41 /* BaseCourseViewModel.swift */,
@@ -690,6 +700,24 @@
 				15670FB22FD7F69700724946 /* AllContentView.swift */,
 				15670FB32FD7F69700724946 /* AssignmentsContentView.swift */,
 				15670FB42FD7F69700724946 /* VideosContentView.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
+		1567120E2FEA5EC300724946 /* Offline */ = {
+			isa = PBXGroup;
+			children = (
+				1567120F2FEA5ECF00724946 /* OfflineView.swift */,
+				156712132FEA5F5200724946 /* Subviews */,
+			);
+			path = Offline;
+			sourceTree = "<group>";
+		};
+		156712132FEA5F5200724946 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				156712112FEA5F5200724946 /* LargestDownloadsView.swift */,
+				156712122FEA5F5200724946 /* TotalDownloadedProgressView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -1050,6 +1078,7 @@
 				02635AC72A24F181008062F2 /* ContinueWithView.swift in Sources */,
 				068DDA622B1E198700FF8CCB /* CourseUnitDropDownTitle.swift in Sources */,
 				BAD9CA4A2B2C88E000DE790A /* CourseVideoDownloadBarView.swift in Sources */,
+				156712102FEA5ECF00724946 /* OfflineView.swift in Sources */,
 				022C64DE29AD167A000F532B /* HandoutsUpdatesDetailView.swift in Sources */,
 				BA58CF612B471041005B102E /* VideoDownloadQualityBarView.swift in Sources */,
 				0270210328E736E700F54332 /* CourseOutlineView.swift in Sources */,
@@ -1088,9 +1117,12 @@
 				151246962FAB5EE9004787A0 /* AssignmentCarouselDetailCardView.swift in Sources */,
 				151246972FAB5EE9004787A0 /* CourseAssignmentsCarouselSlideView.swift in Sources */,
 				151246982FAB5EE9004787A0 /* CourseGradeCarouselSlideView.swift in Sources */,
+				156712142FEA5F5200724946 /* TotalDownloadedProgressView.swift in Sources */,
+				156712152FEA5F5200724946 /* LargestDownloadsView.swift in Sources */,
 				0231124F28EDA811002588FB /* CourseUnitViewModel.swift in Sources */,
 				02F0144F28F46474002E513D /* CourseContainerView.swift in Sources */,
 				02A8076829474831007F53AB /* CourseVerticalView.swift in Sources */,
+				1567120C2FE3C52700724946 /* CourseDownloadHelper.swift in Sources */,
 				15670FA02FBD966B00724946 /* ContentSegmentedControl.swift in Sources */,
 				15670FA22FBD98DA00724946 /* CourseContentView.swift in Sources */,
 				97E7DF0F2B7C852A00A2A09B /* DatesStatusInfoView.swift in Sources */,

@@ -175,6 +175,40 @@ public class CorePersistence: CorePersistenceProtocol {
             return DownloadDataTask(sourse: downloadData)
         }
     }
+    
+    public func updateTask(task: DownloadDataTask) {
+        let dataId = downloadDataId(from: task.id)
+        let userId = getUserId32()
+
+        context.perform { [context] in
+            guard let data = try? CorePersistenceHelper.fetchCDDownloadData(
+                predicate: .id(dataId),
+                context: context,
+                userId: userId
+            ) else {
+                return
+            }
+
+            guard let dataTask = data.first else { return }
+
+            dataTask.state = task.state.rawValue
+            dataTask.resumeData = task.resumeData
+            dataTask.url = task.url
+            dataTask.fileName = task.fileName
+            dataTask.progress = task.progress
+            dataTask.type = task.type.rawValue
+            dataTask.fileSize = Int32(task.fileSize)
+            dataTask.actualSize = Int64(task.actualSize)
+            
+            if task.state == .finished { dataTask.progress = 1 }
+
+            do {
+                try context.save()
+            } catch {
+                debugLog("⛔️⛔️⛔️⛔️⛔️", error)
+            }
+        }
+    }
 
     public func nextBlockForDownloading() async -> DownloadDataTask? {
         let userId = getUserId32()

@@ -478,7 +478,8 @@ struct CourseUnitView_Previews: PreviewProvider {
                 webUrl: "",
                 encodedVideo: nil,
                 multiDevice: true,
-                authorizationDenialReason: .none
+                authorizationDenialReason: .none,
+                offlineDownload: nil
             ),
             CourseBlock(
                 blockId: "2",
@@ -494,7 +495,8 @@ struct CourseUnitView_Previews: PreviewProvider {
                 webUrl: "2",
                 encodedVideo: nil,
                 multiDevice: false,
-                authorizationDenialReason: .none
+                authorizationDenialReason: .none,
+                offlineDownload: nil
             ),
             CourseBlock(
                 blockId: "3",
@@ -510,7 +512,8 @@ struct CourseUnitView_Previews: PreviewProvider {
                 webUrl: "3",
                 encodedVideo: nil,
                 multiDevice: true,
-                authorizationDenialReason: .none
+                authorizationDenialReason: .none,
+                offlineDownload: nil
             ),
             CourseBlock(
                 blockId: "4",
@@ -526,7 +529,8 @@ struct CourseUnitView_Previews: PreviewProvider {
                 webUrl: "4",
                 encodedVideo: nil,
                 multiDevice: false,
-                authorizationDenialReason: .none
+                authorizationDenialReason: .none,
+                offlineDownload: nil
             ),
         ]
         

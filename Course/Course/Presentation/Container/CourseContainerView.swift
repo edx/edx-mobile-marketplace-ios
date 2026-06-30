@@ -288,6 +288,20 @@ public struct CourseContainerView: View {
                         }
                         .tag(tab)
                         .accentColor(Theme.Colors.accentColor)
+                    case .offline:
+                        OfflineView(
+                            courseID: courseID,
+                            coordinate: $coordinate,
+                            collapsed: $collapsed,
+                            viewHeight: $viewHeight,
+                            viewModel: viewModel
+                        )
+                        .tabItem {
+                            tab.image
+                            Text(tab.title)
+                        }
+                        .tag(tab)
+                        .accentColor(Theme.Colors.accentColor)
                     case .discussion:
                         DiscussionTopicsView(
                             courseID: courseID,
@@ -438,7 +452,8 @@ struct CourseScreensView_Previews: PreviewProvider {
                 enrollmentEnd: nil,
                 lastVisitedBlockID: nil,
                 coreAnalytics: CoreAnalyticsMock(),
-                serverConfig: ServerConfigProtocolMock()
+                serverConfig: ServerConfigProtocolMock(),
+                courseHelper: CourseDownloadHelper(courseStructure: nil, manager: DownloadManagerMock())
             ),
             courseDatesViewModel: CourseDatesViewModel(
                 interactor: CourseInteractor.mock,

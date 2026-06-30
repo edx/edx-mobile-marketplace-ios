@@ -323,7 +323,8 @@ struct CourseCompletionCarouselSlideView<DownloadBarsView: View>: View {
             enrollmentEnd: nil,
             lastVisitedBlockID: nil,
             coreAnalytics: CoreAnalyticsMock(),
-            serverConfig: ServerConfigProtocolMock()
+            serverConfig: ServerConfigProtocolMock(),
+            courseHelper: CourseDownloadHelper(courseStructure: nil, manager: DownloadManagerMock())
         ),
         isVideo: false,
         idiom: .phone,

@@ -27,6 +27,7 @@ public extension Notification.Name {
     static let refreshEnrollments = Notification.Name("refreshEnrollments")
     static let notificationRegistration = Notification.Name("notificationRegistration")
     static let onVideoProgressUpdated = Notification.Name("onVideoProgressUpdated")
+    static let showDownloadFailed = Notification.Name("showDownloadFailed")
 }
 
 public extension Notification {

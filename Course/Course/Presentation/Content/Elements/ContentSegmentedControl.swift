@@ -48,7 +48,7 @@ struct ContentSegmentedControl: View {
                 }) {
                     Text(tab.title)
                         .font(Theme.Fonts.titleSmall)
-                        .foregroundColor(selectedTab == tab ? .white : Theme.Colors.accentColor)
+                        .foregroundColor(selectedTab == tab ? Theme.Colors.background  : Theme.Colors.accentColor)
                         .frame(maxWidth: .infinity)
                         .frame(height: 40)
                         .background(

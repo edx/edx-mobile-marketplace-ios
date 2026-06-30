@@ -231,6 +231,26 @@ public enum CourseLocalization {
     }
     /// Return to Course Home
     public static let returnToHome = CourseLocalization.tr("Localizable", "COURSE.RETURN_TO_HOME", fallback: "Return to Course Home")
+    public enum LargestDownloads {
+      /// Done
+      public static let done = CourseLocalization.tr("Localizable", "COURSE.LARGEST_DOWNLOADS.DONE", fallback: "Done")
+      /// Edit
+      public static let edit = CourseLocalization.tr("Localizable", "COURSE.LARGEST_DOWNLOADS.EDIT", fallback: "Edit")
+      /// Remove all downloads
+      public static let removeDownloads = CourseLocalization.tr("Localizable", "COURSE.LARGEST_DOWNLOADS.REMOVE_DOWNLOADS", fallback: "Remove all downloads")
+      /// Largest Downloads
+      public static let title = CourseLocalization.tr("Localizable", "COURSE.LARGEST_DOWNLOADS.TITLE", fallback: "Largest Downloads")
+    }
+    public enum Offline {
+      /// Cancel Course Download
+      public static let cancelCourseDownload = CourseLocalization.tr("Localizable", "COURSE.OFFLINE.CANCEL_COURSE_DOWNLOAD", fallback: "Cancel Course Download")
+      /// Download all
+      public static let downloadAll = CourseLocalization.tr("Localizable", "COURSE.OFFLINE.DOWNLOAD_ALL", fallback: "Download all")
+      /// You can download course content offline to learn on the go, without requiring an active internet connection or using mobile data.
+      public static let youCanDownload = CourseLocalization.tr("Localizable", "COURSE.OFFLINE.YOU_CAN_DOWNLOAD", fallback: "You can download course content offline to learn on the go, without requiring an active internet connection or using mobile data.")
+      /// None of this course's content is currently available to download offline.
+      public static let youCantDownload = CourseLocalization.tr("Localizable", "COURSE.OFFLINE.YOU_CANT_DOWNLOAD", fallback: "None of this course's content is currently available to download offline.")
+    }
     public enum TotalProgress {
       /// Available to Download
       public static let avaliableToDownload = CourseLocalization.tr("Localizable", "COURSE.TOTAL_PROGRESS.AVALIABLE_TO_DOWNLOAD", fallback: "Available to Download")

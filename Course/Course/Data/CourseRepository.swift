@@ -276,6 +276,20 @@ public class CourseRepository: CourseRepositoryProtocol {
             return SubtitleUrl(language: $0.key, url: url)
         }
         
+        var offlineDownload: OfflineDownload?
+        
+        if let offlineData = block.offlineDownload,
+           let fileUrl = offlineData.fileUrl,
+           let lastModified = offlineData.lastModified,
+           let fileSize = offlineData.fileSize {
+            let fullUrl = fileUrl.starts(with: "http") ? fileUrl : config.baseURL.absoluteString + fileUrl
+            offlineDownload = OfflineDownload(
+                fileUrl: fullUrl,
+                lastModified: lastModified,
+                fileSize: fileSize
+            )
+        }
+        
         return CourseBlock(
             blockId: block.blockId,
             id: block.id,
@@ -318,7 +332,8 @@ public class CourseRepository: CourseRepositoryProtocol {
             multiDevice: block.multiDevice,
             authorizationDenialReason: AuthorizationDenialReason(
                 rawValue: block.authorizationDenialReason ?? AuthorizationDenialReason.none.rawValue
-            ) ?? .none
+            ) ?? .none,
+            offlineDownload: offlineDownload
         )
     }
     
@@ -555,6 +570,19 @@ And there are various ways of describing it-- call it oral poetry or
             let url = $0.value
             return SubtitleUrl(language: $0.key, url: url)
         }
+        
+        var offlineDownload: OfflineDownload?
+        
+        if let offlineData = block.offlineDownload,
+           let fileUrl = offlineData.fileUrl,
+           let lastModified = offlineData.lastModified,
+           let fileSize = offlineData.fileSize {
+            offlineDownload = OfflineDownload(
+                fileUrl: fileUrl,
+                lastModified: lastModified,
+                fileSize: fileSize
+            )
+        }
             
         return CourseBlock(
             blockId: block.blockId,
@@ -596,7 +624,8 @@ And there are various ways of describing it-- call it oral poetry or
             multiDevice: block.multiDevice,
             authorizationDenialReason: AuthorizationDenialReason(
                 rawValue: block.authorizationDenialReason ?? AuthorizationDenialReason.none.rawValue
-            ) ?? .none
+            ) ?? .none,
+            offlineDownload: offlineDownload
         )
     }
 

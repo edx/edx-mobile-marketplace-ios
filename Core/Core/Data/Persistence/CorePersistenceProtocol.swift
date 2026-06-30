@@ -13,6 +13,7 @@ public protocol CorePersistenceProtocol {
     func getUserID() -> Int?
     func publisher() -> AnyPublisher<Int, Never>
     func addToDownloadQueue(blocks: [CourseBlock], downloadQuality: DownloadQuality) async
+    func updateTask(task: DownloadDataTask)
     func nextBlockForDownloading() async -> DownloadDataTask?
     func updateDownloadState(id: String, state: DownloadState, resumeData: Data?)
     func saveDownloadDataTask(_ task: DownloadDataTask)

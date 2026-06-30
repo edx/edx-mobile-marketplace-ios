@@ -439,7 +439,8 @@ struct VideoThumbnailView: View {
                     hls: nil
                 ),
                 multiDevice: true,
-                authorizationDenialReason: .none
+                authorizationDenialReason: .none,
+                offlineDownload: nil
             ),
             chapter: CourseChapter(
                 blockId: "1",

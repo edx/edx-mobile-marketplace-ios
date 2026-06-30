@@ -226,6 +226,10 @@ public struct CourseSequential: Identifiable {
         return childs.first(where: { $0.isDownloadable }) != nil
     }
     
+    public var totalSize: Int {
+        childs.flatMap { $0.childs.filter({ $0.isDownloadable }) }.reduce(0) { $0 + ($1.fileSize ?? 0) }
+    }
+    
     public init(
         blockId: String,
         id: String,
@@ -342,14 +346,33 @@ public struct CourseBlock: Hashable, Identifiable {
     public let multiDevice: Bool?
     /// Authorization Denial Reason if the block content is gated
     public let authorizationDenialReason: AuthorizationDenialReason
+    public var offlineDownload: OfflineDownload?
 
     public var isDownloadable: Bool {
-        encodedVideo?.isDownloadable ?? false
+        encodedVideo?.isDownloadable ?? false || offlineDownload?.isDownloadable ?? false
     }
 
     /// Property to represent gated content
     public var isGated: Bool {
         return authorizationDenialReason == .featureBasedEnrollment
+    }
+    
+    public var fileSize: Int? {
+        if let fileSize = encodedVideo?.desktopMP4?.fileSize {
+            return fileSize
+        } else if let fileSize = encodedVideo?.fallback?.fileSize {
+            return fileSize
+        } else if let fileSize = encodedVideo?.hls?.fileSize {
+            return fileSize
+        } else if let fileSize = encodedVideo?.mobileHigh?.fileSize {
+            return fileSize
+        } else if let fileSize = encodedVideo?.mobileLow?.fileSize {
+            return fileSize
+        } else if let fileSize = offlineDownload?.fileSize {
+            return fileSize
+        } else {
+            return nil
+        }
     }
     
     public init(
@@ -368,7 +391,8 @@ public struct CourseBlock: Hashable, Identifiable {
         subtitles: [SubtitleUrl]? = nil,
         encodedVideo: CourseBlockEncodedVideo?,
         multiDevice: Bool?,
-        authorizationDenialReason: AuthorizationDenialReason
+        authorizationDenialReason: AuthorizationDenialReason,
+        offlineDownload: OfflineDownload?
     ) {
         self.blockId = blockId
         self.id = id
@@ -386,6 +410,23 @@ public struct CourseBlock: Hashable, Identifiable {
         self.encodedVideo = encodedVideo
         self.multiDevice = multiDevice
         self.authorizationDenialReason = authorizationDenialReason
+        self.offlineDownload = offlineDownload
+    }
+}
+
+public struct OfflineDownload {
+    public let fileUrl: String
+    public var lastModified: String
+    public let fileSize: Int
+    
+    public init(fileUrl: String, lastModified: String, fileSize: Int) {
+        self.fileUrl = fileUrl
+        self.lastModified = lastModified
+        self.fileSize = fileSize
+    }
+    
+    public var isDownloadable: Bool {
+        [".zip"].contains(where: { fileUrl.contains($0) == true })
     }
 }
 

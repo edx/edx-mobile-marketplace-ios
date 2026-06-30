@@ -251,3 +251,13 @@
 "COURSE_CONTAINER.PROGRESS.COMPLETE" = "Complete";
 "COURSE_CONTAINER.PROGRESS.OF_GRADE" = "of Grade";
 "COURSE_CONTAINER.PROGRESS.NO_GRADED_ASSIGNMENTS" = "This course does not contain graded assignments.";
+
+"COURSE.OFFLINE.DOWNLOAD_ALL" = "Download all";
+"COURSE.OFFLINE.CANCEL_COURSE_DOWNLOAD" = "Cancel Course Download";
+"COURSE.OFFLINE.YOU_CAN_DOWNLOAD" = "You can download course content offline to learn on the go, without requiring an active internet connection or using mobile data.";
+"COURSE.OFFLINE.YOU_CANT_DOWNLOAD" = "None of this course's content is currently available to download offline.";
+
+"COURSE.LARGEST_DOWNLOADS.TITLE" = "Largest Downloads";
+"COURSE.LARGEST_DOWNLOADS.DONE" = "Done";
+"COURSE.LARGEST_DOWNLOADS.EDIT" = "Edit";
+"COURSE.LARGEST_DOWNLOADS.REMOVE_DOWNLOADS" = "Remove all downloads";

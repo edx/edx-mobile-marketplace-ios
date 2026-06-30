@@ -121,6 +121,7 @@ public extension DataLayer {
         public let multiDevice: Bool?
         public let assignmentProgress: AssignmentProgress?
         public let authorizationDenialReason: String?
+        public let offlineDownload: OfflineDownload?
         
         public init(
             blockId: String,
@@ -137,7 +138,8 @@ public extension DataLayer {
             userViewData: CourseDetailUserViewData?,
             multiDevice: Bool?,
             assignmentProgress: AssignmentProgress?,
-            authorizationDenialReason: String?
+            authorizationDenialReason: String?,
+            offlineDownload: OfflineDownload?
         ) {
             self.blockId = blockId
             self.id = id
@@ -154,6 +156,7 @@ public extension DataLayer {
             self.multiDevice = multiDevice
             self.assignmentProgress = assignmentProgress
             self.authorizationDenialReason = authorizationDenialReason
+            self.offlineDownload = offlineDownload
         }
         
         public enum CodingKeys: String, CodingKey {
@@ -167,6 +170,7 @@ public extension DataLayer {
             case multiDevice = "student_view_multi_device"
             case assignmentProgress = "assignment_progress"
             case authorizationDenialReason = "authorization_denial_reason"
+            case offlineDownload = "offline_download"
         }
     }
     
@@ -192,6 +196,24 @@ public extension DataLayer {
             self.numPointsEarned = numPointsEarned
             self.numPointsPossible = numPointsPossible
             self.shortLabel = shortLabel
+        }
+    }
+    
+    struct OfflineDownload: Codable {
+        public let fileUrl: String?
+        public let lastModified: String?
+        public let fileSize: Int?
+        
+        public enum CodingKeys: String, CodingKey {
+            case fileUrl = "file_url"
+            case lastModified = "last_modified"
+            case fileSize = "file_size"
+        }
+        
+        public init(fileUrl: String?, lastModified: String?, fileSize: Int?) {
+            self.fileUrl = fileUrl
+            self.lastModified = lastModified
+            self.fileSize = fileSize
         }
     }
 

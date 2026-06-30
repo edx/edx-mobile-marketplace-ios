@@ -155,7 +155,12 @@ public class CoursePersistence: CoursePersistenceProtocol {
                         numPointsPossible: $0.numPointsPossible,
                         shortLabel: $0.shortLabel
                     ),
-                    authorizationDenialReason: $0.authorizationDenialReason
+                    authorizationDenialReason: $0.authorizationDenialReason,
+                    offlineDownload: DataLayer.OfflineDownload(
+                        fileUrl: $0.fileUrl,
+                        lastModified: $0.lastModified,
+                        fileSize: Int($0.fileSize)
+                    )
                 )
             }
             
