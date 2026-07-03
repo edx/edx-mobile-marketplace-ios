@@ -145,13 +145,20 @@ public class CourseProgressViewModel: ObservableObject {
             )
         }
 
+        let gradedSubsByKey = courseProgress.sectionScores
+            .flatMap { $0.subsections }
+            .reduce(into: [String: CourseProgressSubsection]()) { dict, sub in
+                dict[sub.blockKey] = sub
+            }
+
         var completed = 0
         var total = 0
 
         for chapter in courseStructure.childs {
             for sequential in chapter.childs where sequential.sequentialProgress?.assignmentType == assignmentType {
                 total += 1
-                if sequential.completion == 1 {
+                let sub = gradedSubsByKey[sequential.blockId] ?? gradedSubsByKey[sequential.id]
+                if let sub, sub.numPointsEarned > 0 {
                     completed += 1
                 }
             }

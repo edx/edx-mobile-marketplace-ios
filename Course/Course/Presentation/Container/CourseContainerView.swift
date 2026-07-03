@@ -252,6 +252,25 @@ public struct CourseContainerView: View {
                         }
                         .tag(tab)
                         .accentColor(Theme.Colors.accentColor)
+                    case .progress:
+                        CourseProgressScreenView(
+                            courseID: courseID,
+                            coordinate: $coordinate,
+                            collapsed: $collapsed,
+                            viewHeight: $viewHeight,
+                            viewModel: courseProgressViewModel,
+                            connectivity: viewModel.connectivity,
+                            courseStructure: viewModel.courseStructure,
+                            shouldShowUpgradeButton: $viewModel.shouldShowUpgradeButton,
+                            shouldHideMenuBar: $viewModel.shouldHideMenuBar
+                        )
+                        .padding(.bottom, 1)
+                        .tabItem {
+                            tab.image
+                            Text(tab.title)
+                        }
+                        .tag(tab)
+                        .accentColor(Theme.Colors.accentColor)
                     case .videos:
                         CourseOutlineView(
                             viewModel: viewModel,

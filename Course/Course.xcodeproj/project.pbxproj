@@ -101,6 +101,9 @@
 		1512469A2FAB651D004787A0 /* SectionProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151246992FAB651D004787A0 /* SectionProgressView.swift */; };
 		1512469F2FAB6899004787A0 /* CourseOutlineAndProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1512469C2FAB6899004787A0 /* CourseOutlineAndProgressView.swift */; };
 		151246A12FAB698D004787A0 /* WhatsNew.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 151246A02FAB698D004787A0 /* WhatsNew.framework */; };
+		154C52342FF4FA00002AFD8D /* CourseProgressScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154C52332FF4FA00002AFD8D /* CourseProgressScreenView.swift */; };
+		154C52372FF4FA59002AFD8D /* GradeDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154C52352FF4FA59002AFD8D /* GradeDetailsView.swift */; };
+		154C52382FF4FA59002AFD8D /* GradeItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154C52362FF4FA59002AFD8D /* GradeItemView.swift */; };
 		15670FA02FBD966B00724946 /* ContentSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15670F9F2FBD966B00724946 /* ContentSegmentedControl.swift */; };
 		15670FA22FBD98DA00724946 /* CourseContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15670FA12FBD98DA00724946 /* CourseContentView.swift */; };
 		15670FB62FD7F69700724946 /* VideosContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15670FB42FD7F69700724946 /* VideosContentView.swift */; };
@@ -250,6 +253,9 @@
 		151246992FAB651D004787A0 /* SectionProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionProgressView.swift; sourceTree = "<group>"; };
 		1512469C2FAB6899004787A0 /* CourseOutlineAndProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseOutlineAndProgressView.swift; sourceTree = "<group>"; };
 		151246A02FAB698D004787A0 /* WhatsNew.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = WhatsNew.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		154C52332FF4FA00002AFD8D /* CourseProgressScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseProgressScreenView.swift; sourceTree = "<group>"; };
+		154C52352FF4FA59002AFD8D /* GradeDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeDetailsView.swift; sourceTree = "<group>"; };
+		154C52362FF4FA59002AFD8D /* GradeItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeItemView.swift; sourceTree = "<group>"; };
 		15670F9F2FBD966B00724946 /* ContentSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSegmentedControl.swift; sourceTree = "<group>"; };
 		15670FA12FBD98DA00724946 /* CourseContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseContentView.swift; sourceTree = "<group>"; };
 		15670FB22FD7F69700724946 /* AllContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllContentView.swift; sourceTree = "<group>"; };
@@ -656,6 +662,7 @@
 		151246782FA32B12004787A0 /* Progress */ = {
 			isa = PBXGroup;
 			children = (
+				154C52332FF4FA00002AFD8D /* CourseProgressScreenView.swift */,
 				1512468C2FA36778004787A0 /* CourseProgressViewModel.swift */,
 				151246792FA32B21004787A0 /* Elements */,
 			);
@@ -670,6 +677,8 @@
 				1512467C2FA32B55004787A0 /* SegmentedProgressView.swift */,
 				151246822FA3529A004787A0 /* GradeItemCarouselView.swift */,
 				151246832FA3529A004787A0 /* ViewAllButton.swift */,
+				154C52352FF4FA59002AFD8D /* GradeDetailsView.swift */,
+				154C52362FF4FA59002AFD8D /* GradeItemView.swift */,
 			);
 			path = Elements;
 			sourceTree = "<group>";
@@ -1100,6 +1109,8 @@
 				DB7D6EB22ADFE9510036BB13 /* Data_CourseDates.swift in Sources */,
 				151246732FA1F990004787A0 /* Data_CourseProgressResponse.swift in Sources */,
 				975F47602B615DA700E5B031 /* CourseStructureMock.swift in Sources */,
+				154C52372FF4FA59002AFD8D /* GradeDetailsView.swift in Sources */,
+				154C52382FF4FA59002AFD8D /* GradeItemView.swift in Sources */,
 				02280F5E294B4FDA0032823A /* CourseCoreModel.xcdatamodeld in Sources */,
 				0766DFCE299AB26D00EBEF6A /* EncodedVideoPlayer.swift in Sources */,
 				0276D75B29DDA3890004CDF8 /* Data_ResumeBlock.swift in Sources */,
@@ -1126,6 +1137,7 @@
 				15670FA02FBD966B00724946 /* ContentSegmentedControl.swift in Sources */,
 				15670FA22FBD98DA00724946 /* CourseContentView.swift in Sources */,
 				97E7DF0F2B7C852A00A2A09B /* DatesStatusInfoView.swift in Sources */,
+				154C52342FF4FA00002AFD8D /* CourseProgressScreenView.swift in Sources */,
 				067B7B4F2BED339200D1768F /* PlayerDelegateProtocol.swift in Sources */,
 				0231124D28EDA804002588FB /* CourseUnitView.swift in Sources */,
 				027020FC28E7362100F54332 /* Data_CourseOutlineResponse.swift in Sources */,

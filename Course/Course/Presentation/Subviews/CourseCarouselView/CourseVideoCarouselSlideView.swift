@@ -204,7 +204,7 @@ struct CourseVideoCarouselSlideView: View {
                         totalAssignmentsCount: total,
                         assignmentsCompleted: completed
                     ),
-                    showCompletedToggle: hasFullyCompletedSections(),
+                    showCompletedToggle: false,
                     isShowingCompleted: !isHidingCompletedSections,
                     onToggleCompleted: { isHidingCompletedSections.toggle() },
                     onShowCompletedAnalytics: { viewModelContainer.trackShowCompletedSubsectionClicked() }

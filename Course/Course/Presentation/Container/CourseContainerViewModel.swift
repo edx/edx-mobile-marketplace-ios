@@ -18,6 +18,7 @@ public enum CourseTab: Int, CaseIterable, Identifiable {
     }
     case course
     case content
+    case progress
     case videos
     case dates
     case offline
@@ -32,6 +33,8 @@ extension CourseTab {
             return CourseLocalization.CourseContainer.home
         case .content:
             return CourseLocalization.CourseContainer.content
+        case .progress:
+            return CourseLocalization.CourseContainer.progress
         case .videos:
             return CourseLocalization.CourseContainer.videos
         case .dates:
@@ -51,6 +54,8 @@ extension CourseTab {
             return CoreAssets.home.swiftUIImage.renderingMode(.template)
         case .content:
             return CoreAssets.content.swiftUIImage.renderingMode(.template)
+        case .progress:
+            return CoreAssets.progress.swiftUIImage.renderingMode(.template)
         case .videos:
             return CoreAssets.videos.swiftUIImage.renderingMode(.template)
         case .dates:
@@ -645,6 +650,9 @@ public class CourseContainerViewModel: BaseCourseViewModel {
             analytics.courseOutlineCourseTabClicked(courseId: courseId, courseName: courseName)
         case .content:
             analytics.courseOutlineContentTabClicked(courseId: courseId, courseName: courseName)
+        case .progress:
+            // analytics
+            break
         case .videos:
             analytics.courseOutlineVideosTabClicked(courseId: courseId, courseName: courseName)
         case .dates:
@@ -1219,12 +1227,22 @@ extension CourseContainerViewModel {
         return updatedStructure
     }
     
+    func applyProgressDetails(_ details: CourseProgressDetails) {
+        courseProgressDetails = details
+        updateAssignmentSections()
+    }
+    
     // MARK: - Assignment Helper Methods
 
     private func createUIModels(from subsections: [CourseProgressSubsection]) -> [CourseProgressSubsectionUI] {
         return subsections.map { subsection in
             let shortLabel = getSequentialShortLabel(for: subsection.blockKey) ?? ""
-            let status = getSequentialAssignmentStatus(for: subsection.blockKey) ?? getAssignmentStatus(for: subsection)
+            let status: AssignmentCardStatus
+            if subsection.numPointsPossible > 0 {
+                status = getAssignmentStatus(for: subsection)
+            } else {
+                status = getSequentialAssignmentStatus(for: subsection.blockKey) ?? getAssignmentStatus(for: subsection)
+            }
             let statusText = computeStatusText(for: subsection, status: status, shortLabel: shortLabel)
             let statusTextForCarousel = computeStatusTextForCarousel(
                 for: subsection,
