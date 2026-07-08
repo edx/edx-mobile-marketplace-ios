@@ -651,15 +651,13 @@ public class CourseContainerViewModel: BaseCourseViewModel {
         case .content:
             analytics.courseOutlineContentTabClicked(courseId: courseId, courseName: courseName)
         case .progress:
-            // analytics
-            break
+            analytics.courseOutlineProgressTabClicked(courseId: courseId, courseName: courseName)
         case .videos:
             analytics.courseOutlineVideosTabClicked(courseId: courseId, courseName: courseName)
         case .dates:
             analytics.courseOutlineDatesTabClicked(courseId: courseId, courseName: courseName)
         case .offline:
-            // analytics.courseOutlineOfflineTabClicked(courseId: courseId, courseName: courseName)
-            break
+             analytics.courseOutlineOfflineTabClicked(courseId: courseId, courseName: courseName)
         case .discussion:
             analytics.courseOutlineDiscussionTabClicked(courseId: courseId, courseName: courseName)
         case .handounds:
