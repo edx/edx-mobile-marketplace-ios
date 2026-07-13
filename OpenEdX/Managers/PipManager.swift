@@ -127,10 +127,7 @@ public class PipManager: PipManagerProtocol {
     private func courseVerticalController(
         for holder: PlayerViewControllerHolderProtocol
     ) async throws -> UIHostingController<CourseVerticalView> {
-        var courseStructure = try await courseInteractor.getLoadedCourseBlocks(courseID: holder.courseID)
-        if holder.selectedCourseTab == CourseTab.videos.rawValue {
-            courseStructure = courseInteractor.getCourseVideoBlocks(fullStructure: courseStructure)
-        }
+        let courseStructure = try await courseInteractor.getLoadedCourseBlocks(courseID: holder.courseID)
         
         if let data = VerticalData.dataFor(blockId: holder.blockID, in: courseStructure.childs) {
             return router.getVerticalController(
@@ -152,10 +149,7 @@ public class PipManager: PipManagerProtocol {
         for holder: PlayerViewControllerHolderProtocol
     ) async throws -> UIHostingController<CourseUnitView> {
 
-        var courseStructure = try await courseInteractor.getLoadedCourseBlocks(courseID: holder.courseID)
-        if holder.selectedCourseTab == CourseTab.videos.rawValue {
-            courseStructure = courseInteractor.getCourseVideoBlocks(fullStructure: courseStructure)
-        }
+        let courseStructure = try await courseInteractor.getLoadedCourseBlocks(courseID: holder.courseID)
         if let data = VerticalData.dataFor(blockId: holder.blockID, in: courseStructure.childs) {
             let chapter = courseStructure.childs[data.chapterIndex]
             let sequential = chapter.childs[data.sequentialIndex]

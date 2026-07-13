@@ -8,7 +8,7 @@
 import SwiftUI
 import Theme
 
-enum ContentTab: CaseIterable {
+public enum ContentTab: CaseIterable {
     case all
     case videos
     case assignments

@@ -19,7 +19,6 @@ public enum CourseTab: Int, CaseIterable, Identifiable {
     case course
     case content
     case progress
-    case videos
     case dates
     case offline
     case discussion
@@ -35,8 +34,6 @@ extension CourseTab {
             return CourseLocalization.CourseContainer.content
         case .progress:
             return CourseLocalization.CourseContainer.progress
-        case .videos:
-            return CourseLocalization.CourseContainer.videos
         case .dates:
             return CourseLocalization.CourseContainer.dates
         case .offline:
@@ -56,8 +53,6 @@ extension CourseTab {
             return CoreAssets.content.swiftUIImage.renderingMode(.template)
         case .progress:
             return CoreAssets.progress.swiftUIImage.renderingMode(.template)
-        case .videos:
-            return CoreAssets.videos.swiftUIImage.renderingMode(.template)
         case .dates:
             return CoreAssets.dates.swiftUIImage.renderingMode(.template)
         case .offline:
@@ -72,12 +67,12 @@ extension CourseTab {
 
 public class CourseContainerViewModel: BaseCourseViewModel {
     
-    @Published var selectedTab: ContentTab = .all
     @Published var tabBarIndex = 0
     @Published var courseAssignmentsStructure: CourseStructure?
     @Published var courseProgressDetails: CourseProgressDetails?
     @Published private(set) var assignmentSectionsData: [AssignmentSection] = []
 
+    @Published public var selectedTab: ContentTab = .all
     @Published public var selection: Int
     @Published var tabs: [CourseTab] = CourseTab.allCases.filter { $0 != .discussion }
     @Published var isShowProgress = true
@@ -652,8 +647,6 @@ public class CourseContainerViewModel: BaseCourseViewModel {
             analytics.courseOutlineContentTabClicked(courseId: courseId, courseName: courseName)
         case .progress:
             analytics.courseOutlineProgressTabClicked(courseId: courseId, courseName: courseName)
-        case .videos:
-            analytics.courseOutlineVideosTabClicked(courseId: courseId, courseName: courseName)
         case .dates:
             analytics.courseOutlineDatesTabClicked(courseId: courseId, courseName: courseName)
         case .offline:
@@ -1538,7 +1531,6 @@ extension CourseContainerViewModel {
 extension CourseContainerViewModel {
     
     private func update(from value: CourseDownloadValue) {
-        print("🔄 update(from:) called — downloaded: \(value.downloadedFilesSize), total: \(value.totalFilesSize), largest: \(value.largestBlocks.count), state: \(value.state), tasks: \(value.courseDownloadTasks.count)")
         downloadableVerticals = value.downloadableVerticals
         downloadAllButtonState = value.state
         courseDownloadTasks = value.courseDownloadTasks
