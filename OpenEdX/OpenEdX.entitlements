@@ -15,5 +15,10 @@
 		<string>applinks:edx.test-app.link</string>
 		<string>applinks:edx-alternate.test-app.link</string>
 	</array>
+    <key>keychain-access-groups</key>
+    <array>
+        <string>$(AppIdentifierPrefix)$(CFBundleIdentifier)</string>
+        <string>$(AppIdentifierPrefix)com.microsoft.adalcache</string>
+    </array>
 </dict>
 </plist>
