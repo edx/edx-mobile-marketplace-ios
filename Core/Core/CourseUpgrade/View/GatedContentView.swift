@@ -7,7 +7,6 @@
 
 import SwiftUI
 import Theme
-import EDXFeatureManagement
 import Swinject
 
 public struct GatedContentView: View {
@@ -229,7 +228,7 @@ public struct GatedContentView: View {
                 handler: CourseUpgradeHandlerProtocolMock(),
                 pacing: "self",
                 analytics: CoreAnalyticsMock(),
-                certificatePreviewExperimentManager: FeatureManagerMock(),
+                certificatePreviewExperimentManager: CertificatePreviewManagingMock(),
                 router: BaseRouterMock(),
                 lmsPrice: .zero
             ),

@@ -67,6 +67,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
             
+            if config.dataDog.enabled {
+                let dataDogFeatureManager = Container.shared.resolve(DataDogFeatureManager.self)
+                dataDogFeatureManager?.trackAutoEvents(Set([config.baseURL.appURLHost]))
+            }
+            
             if pushManager?.hasProviders == true {
                 UIApplication.shared.registerForRemoteNotifications()
             }
@@ -163,6 +168,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     @objc private func didUserAuthorize() {
         Container.shared.resolve(PushNotificationsManager.self)?.synchronizeToken()
+        Task {
+            try? await Container.shared.resolve(AuthInteractorProtocol.self)?.getCookies(force: false)
+        }
     }
     
     @objc func didUserLogout(_ notification: Notification) {

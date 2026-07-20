@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import EDXFeatureManagement
 
 //sourcery: AutoMockable
 public protocol AuthInteractorProtocol {
@@ -24,7 +23,7 @@ public protocol AuthInteractorProtocol {
 
 public class AuthInteractor: AuthInteractorProtocol {
     private let repository: AuthRepositoryProtocol
-    private let featureManager: FeatureManagerProtocol
+    private let featureManager: UserSessionManaging
     private let captchaService: CaptchaService
     
     private enum Constants {
@@ -34,7 +33,7 @@ public class AuthInteractor: AuthInteractorProtocol {
 
     public init(
         repository: AuthRepositoryProtocol,
-        featureManager: FeatureManagerProtocol,
+        featureManager: UserSessionManaging,
         captchaService: CaptchaService
     ) {
         self.repository = repository
@@ -84,8 +83,7 @@ public class AuthInteractor: AuthInteractorProtocol {
             timeout: Constants.captchaTimeout
         )
         return captchaToken
-    }
-    
+    }    
 }
 
 // Mark - For testing and SwiftUI preview
@@ -93,7 +91,7 @@ public class AuthInteractor: AuthInteractorProtocol {
 public extension AuthInteractor {
     static let mock = AuthInteractor(
         repository: AuthRepositoryMock(),
-        featureManager: FeatureManagerMock(),
+        featureManager: UserSessionManagingMock(),
         captchaService: CaptchaServiceMock()
     )
 }

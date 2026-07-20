@@ -38,7 +38,11 @@ class NetworkAssembly: Assembly {
         }.inObjectScope(.container)
         
         container.register(API.self) {r in
-            API(session: r.resolve(Alamofire.Session.self)!, config: r.resolve(ConfigProtocol.self)!)
+            return API(session: r.resolve(Alamofire.Session.self)!, config: r.resolve(ConfigProtocol.self)!)
         }.inObjectScope(.container)
+                
+        if let datadogManager = Container.shared.resolve(DataDogFeatureManager.self) {
+            datadogManager.trackURLSession(Alamofire.SessionDelegate.self)
+        }
     }
 }

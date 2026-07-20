@@ -94,8 +94,14 @@ public final class MicrosoftAuthProvider {
               let clientID =  config.microsoft.clientID else {
             throw SocialAuthError.error(text: "Configuration error")
         }
-        let configuration = MSALPublicClientApplicationConfig(clientId: clientID)
-
+        guard let bundleIdentifier = Bundle.main.bundleIdentifier else {
+            throw SocialAuthError.error(text: "Configuration error")
+        }
+        let redirectUri = "msauth.\(bundleIdentifier)://auth"
+        let configuration = MSALPublicClientApplicationConfig(
+            clientId: clientID,
+            redirectUri: redirectUri,
+            authority: nil)
         do {
             return try MSALPublicClientApplication(configuration: configuration)
         } catch {

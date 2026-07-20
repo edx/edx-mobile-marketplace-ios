@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -33,7 +33,6 @@
 		02635AC72A24F181008062F2 /* ContinueWithView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02635AC62A24F181008062F2 /* ContinueWithView.swift */; };
 		0265B4B728E2141D00E6EAFD /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0265B4B628E2141D00E6EAFD /* Strings.swift */; };
 		027020FC28E7362100F54332 /* Data_CourseOutlineResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027020FB28E7362100F54332 /* Data_CourseOutlineResponse.swift */; };
-		0270210328E736E700F54332 /* CourseOutlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0270210128E736E700F54332 /* CourseOutlineView.swift */; };
 		0276D75B29DDA3890004CDF8 /* Data_ResumeBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0276D75A29DDA3890004CDF8 /* Data_ResumeBlock.swift */; };
 		0276D75D29DDA3F80004CDF8 /* ResumeBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0276D75C29DDA3F80004CDF8 /* ResumeBlock.swift */; };
 		0289F90228E1C3E10064F8F3 /* swiftgen.yml in Resources */ = {isa = PBXBuildFile; fileRef = 0289F90128E1C3E00064F8F3 /* swiftgen.yml */; };
@@ -180,7 +179,6 @@
 		02635AC62A24F181008062F2 /* ContinueWithView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinueWithView.swift; sourceTree = "<group>"; };
 		0265B4B628E2141D00E6EAFD /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		027020FB28E7362100F54332 /* Data_CourseOutlineResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data_CourseOutlineResponse.swift; sourceTree = "<group>"; };
-		0270210128E736E700F54332 /* CourseOutlineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseOutlineView.swift; sourceTree = "<group>"; };
 		0276D75A29DDA3890004CDF8 /* Data_ResumeBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data_ResumeBlock.swift; sourceTree = "<group>"; };
 		0276D75C29DDA3F80004CDF8 /* ResumeBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeBlock.swift; sourceTree = "<group>"; };
 		0289F8EE28E1C3510064F8F3 /* Course.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Course.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -544,7 +542,6 @@
 			children = (
 				BAD9CA462B2C888600DE790A /* CourseVertical */,
 				02635AC62A24F181008062F2 /* ContinueWithView.swift */,
-				0270210128E736E700F54332 /* CourseOutlineView.swift */,
 			);
 			path = Outline;
 			sourceTree = "<group>";
@@ -940,7 +937,6 @@
 			);
 			mainGroup = 0289F8E428E1C3510064F8F3;
 			packageReferences = (
-				D39950092EDCD16D00B81F8A /* XCLocalSwiftPackageReference "../EDXFeatureManagement" */,
 			);
 			productRefGroup = 0289F8EF28E1C3510064F8F3 /* Products */;
 			projectDirPath = "";
@@ -1090,7 +1086,6 @@
 				156712102FEA5ECF00724946 /* OfflineView.swift in Sources */,
 				022C64DE29AD167A000F532B /* HandoutsUpdatesDetailView.swift in Sources */,
 				BA58CF612B471041005B102E /* VideoDownloadQualityBarView.swift in Sources */,
-				0270210328E736E700F54332 /* CourseOutlineView.swift in Sources */,
 				068DDA602B1E198700FF8CCB /* CourseUnitVerticalsDropdownView.swift in Sources */,
 				067B7B512BED339200D1768F /* PipManagerProtocol.swift in Sources */,
 				022C64E029ADEA9B000F532B /* Data_UpdatesResponse.swift in Sources */,
@@ -1236,7 +1231,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = L8PG7LC3Y3;
+				DEVELOPMENT_TEAM = 9G78FK843Y;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MACOSX_DEPLOYMENT_TARGET = 12.6;
@@ -1257,7 +1252,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = L8PG7LC3Y3;
+				DEVELOPMENT_TEAM = 9G78FK843Y;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MACOSX_DEPLOYMENT_TARGET = 12.6;
@@ -1278,7 +1273,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = L8PG7LC3Y3;
+				DEVELOPMENT_TEAM = 9G78FK843Y;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MACOSX_DEPLOYMENT_TARGET = 12.6;
@@ -1299,7 +1294,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = L8PG7LC3Y3;
+				DEVELOPMENT_TEAM = 9G78FK843Y;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MACOSX_DEPLOYMENT_TARGET = 12.6;
@@ -1320,7 +1315,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = L8PG7LC3Y3;
+				DEVELOPMENT_TEAM = 9G78FK843Y;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MACOSX_DEPLOYMENT_TARGET = 12.6;
@@ -1341,7 +1336,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = L8PG7LC3Y3;
+				DEVELOPMENT_TEAM = 9G78FK843Y;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MACOSX_DEPLOYMENT_TARGET = 12.6;
@@ -1486,7 +1481,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = L8PG7LC3Y3;
+				DEVELOPMENT_TEAM = 9G78FK843Y;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1521,7 +1516,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = L8PG7LC3Y3;
+				DEVELOPMENT_TEAM = 9G78FK843Y;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1619,7 +1614,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = L8PG7LC3Y3;
+				DEVELOPMENT_TEAM = 9G78FK843Y;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1718,7 +1713,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = L8PG7LC3Y3;
+				DEVELOPMENT_TEAM = 9G78FK843Y;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1811,7 +1806,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = L8PG7LC3Y3;
+				DEVELOPMENT_TEAM = 9G78FK843Y;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1903,7 +1898,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = L8PG7LC3Y3;
+				DEVELOPMENT_TEAM = 9G78FK843Y;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -2001,7 +1996,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = L8PG7LC3Y3;
+				DEVELOPMENT_TEAM = 9G78FK843Y;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -2034,7 +2029,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = L8PG7LC3Y3;
+				DEVELOPMENT_TEAM = 9G78FK843Y;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MACOSX_DEPLOYMENT_TARGET = 12.6;
@@ -2115,7 +2110,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = L8PG7LC3Y3;
+				DEVELOPMENT_TEAM = 9G78FK843Y;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -2147,7 +2142,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = L8PG7LC3Y3;
+				DEVELOPMENT_TEAM = 9G78FK843Y;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MACOSX_DEPLOYMENT_TARGET = 12.6;
@@ -2211,13 +2206,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCLocalSwiftPackageReference section */
-		D39950092EDCD16D00B81F8A /* XCLocalSwiftPackageReference "../EDXFeatureManagement" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../EDXFeatureManagement;
-		};
-/* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
 		D399500A2EDCD16D00B81F8A /* EDXFeatureManagement */ = {

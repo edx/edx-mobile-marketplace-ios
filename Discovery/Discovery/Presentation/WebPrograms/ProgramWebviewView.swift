@@ -52,22 +52,24 @@ public struct ProgramWebviewView: View {
         GeometryReader { proxy in
             ZStack(alignment: .center) {
                 VStack(alignment: .center) {
-                    WebView(
-                        viewModel: .init(
-                            url: URLString,
-                            baseURL: "",
-                            injections: [.colorInversionCss]
-                        ),
-                        isLoading: $isLoading,
-                        refreshCookies: {
-                            await viewModel.updateCookies(
-                                force: true
-                            )
-                        },
-                        navigationDelegate: viewModel,
-                        webViewType: viewType.rawValue
-                    )
-                    .accessibilityIdentifier("program_webview")
+                    if viewModel.cookiesReady {
+                        WebView(
+                            viewModel: .init(
+                                url: URLString,
+                                baseURL: "",
+                                injections: [.colorInversionCss]
+                            ),
+                            isLoading: $isLoading,
+                            refreshCookies: {
+                                await viewModel.updateCookies(
+                                    force: true
+                                )
+                            },
+                            navigationDelegate: viewModel,
+                            webViewType: viewType.rawValue
+                        )
+                        .accessibilityIdentifier("program_webview")
+                    }
                     
                     let shouldShowProgress = (
                         isLoading ||
@@ -120,6 +122,11 @@ public struct ProgramWebviewView: View {
                     viewModel.request = URLRequest(url: url)
                 }
             }
+            .onAppear{
+                Task {
+                    await viewModel.updateCookies(force: false)
+                }
+            }
         }
         .hideNavigationBar(viewType == .program)
         .navigationTitle(CoreLocalization.Mainscreen.programs)
@@ -138,7 +145,8 @@ struct ProgramWebviewView_Previews: PreviewProvider {
                 interactor: DiscoveryInteractor.mock,
                 connectivity: Connectivity(),
                 analytics: DiscoveryAnalyticsMock(),
-                authInteractor: AuthInteractor.mock
+                authInteractor: AuthInteractor.mock,
+                datadogManager: WebViewTrackingMock()
             ),
             router: DiscoveryRouterMock(),
             viewType: .program,

@@ -7,7 +7,6 @@
 
 import Foundation
 import Combine
-import EDXFeatureManagement
 
 public final class TrackSelectionViewModel: ObservableObject {
     typealias Cards = KeyValuePairs<TrackCardKey, TrackCardInfo>
@@ -36,7 +35,7 @@ public final class TrackSelectionViewModel: ObservableObject {
         accessExpires: Date,
         handler: CourseUpgradeHandlerProtocol,
         analytics: CoreAnalytics,
-        certificatePreviewExperimentManager: FeatureManagerProtocol,
+        certificatePreviewExperimentManager: CertificatePreviewManaging,
         router: BaseRouter
     ) {
         self.accessExpires = accessExpires

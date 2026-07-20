@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import EDXFeatureManagement
 
 public class UpgradeInfoViewModel: ObservableObject {
     let productName: String
@@ -17,9 +16,11 @@ public class UpgradeInfoViewModel: ObservableObject {
     let handler: CourseUpgradeHandlerProtocol
     let pacing: String
     let analytics: CoreAnalytics
-    let certificatePreviewExperimentManager: FeatureManagerProtocol
+    let certificatePreviewExperimentManager: CertificatePreviewManaging
     let router: BaseRouter
     let lmsPrice: Double
+    private let productCacheService: ProductCacheServiceProtocol
+    private static let sharedProductCacheService: ProductCacheServiceProtocol = ProductCacheService()
 
     private var mode: UpgradeMode = .userInitiated
 
@@ -41,7 +42,7 @@ public class UpgradeInfoViewModel: ObservableObject {
         handler: CourseUpgradeHandlerProtocol,
         pacing: String,
         analytics: CoreAnalytics,
-        certificatePreviewExperimentManager: FeatureManagerProtocol,
+        certificatePreviewExperimentManager: CertificatePreviewManaging,
         router: BaseRouter,
         lmsPrice: Double
     ) {
@@ -56,6 +57,41 @@ public class UpgradeInfoViewModel: ObservableObject {
         self.router = router
         self.message = message
         self.lmsPrice = lmsPrice
+        self.productCacheService = Self.sharedProductCacheService
+        
+        // Listen for app resume to refresh product with updated price
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(appDidBecomeActive),
+            name: UIApplication.didBecomeActiveNotification,
+            object: nil
+        )
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    @objc private func appDidBecomeActive() {
+        Task { @MainActor in
+            // Clear stale product and re-fetch with fresh price
+            self.product = nil
+            await self.fetchProduct()
+        }
+    }
+    
+    static func clearSharedProductCache() async {
+        await sharedProductCacheService.clearCache()
+    }
+    
+    // Synchronous wrapper for testing (uses semaphore to block until async operation completes)
+    static func clearSharedProductCacheSync() {
+        let semaphore = DispatchSemaphore(value: 0)
+        Task {
+            await sharedProductCacheService.clearCache()
+            semaphore.signal()
+        }
+        semaphore.wait()
     }
     
     @MainActor
@@ -66,7 +102,7 @@ public class UpgradeInfoViewModel: ObservableObject {
         }
         do {
             isLoading = true
-            product = try await handler.fetchProduct(sku: sku)
+            product = try await productCacheService.getProduct(sku: sku, using: handler)
             isLoading = false
         } catch let error {
             showPriceLoadError(error: error)
@@ -224,7 +260,7 @@ public class UpgradeInfoViewModel: ObservableObject {
     }
     
     func shouldShowCertificatePreview() -> Bool {
-        return certificatePreviewExperimentManager.decision(forKey: FeatureKeys.showCertificatePreview)?.boolValue ?? false
+        return certificatePreviewExperimentManager.shouldShowCertificatePreview()
     }
     
     private func certificatePreviewProps() -> [String: Any] {

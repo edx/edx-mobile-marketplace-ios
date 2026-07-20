@@ -52,7 +52,8 @@
 		149FF39E2B9F1AB50034B33F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 149FF39C2B9F1AB50034B33F /* LaunchScreen.storyboard */; };
 		14BAE68E2D0974B700EAF0E4 /* Notifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14BAE68D2D0974B700EAF0E4 /* Notifications.framework */; };
 		14BAE68F2D0974B700EAF0E4 /* Notifications.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 14BAE68D2D0974B700EAF0E4 /* Notifications.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		1924EDE8164C7AB17AD4946B /* Pods_App_OpenEdX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC49621A0942E5EE74BDC895 /* Pods_App_OpenEdX.framework */; };
+		1924EDE8164C7AB17AD4946B /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		6AF862442F5AB0DB001130B1 /* DataDogAnalyticService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF862432F5AB0CB001130B1 /* DataDogAnalyticService.swift */; };
 		9426DE892DB28B3A00230582 /* EDXFeatureManagement in Frameworks */ = {isa = PBXBuildFile; productRef = 9426DE882DB28B3A00230582 /* EDXFeatureManagement */; };
 		94AE32322D8838E400FA048D /* Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AE32312D8838DE00FA048D /* Payload.swift */; };
 		94F4AC6C2DAD398200D50B61 /* FirebasePerformance in Frameworks */ = {isa = PBXBuildFile; productRef = 94F4AC6B2DAD398200D50B61 /* FirebasePerformance */; };
@@ -73,6 +74,9 @@
 		A5C10D8F2B861A70008E864D /* SegmentAnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C10D8E2B861A70008E864D /* SegmentAnalyticsService.swift */; };
 		BA3042792B1F7147009B64B7 /* MSAL in Frameworks */ = {isa = PBXBuildFile; productRef = BA3042782B1F7147009B64B7 /* MSAL */; };
 		BA7468762B96201D00793145 /* DeepLinkRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7468752B96201D00793145 /* DeepLinkRouter.swift */; };
+		CC11CB182E3D08D760DE6283 /* Pods_App_OpenEdX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E01E4D206278EB8B8FAC456 /* Pods_App_OpenEdX.framework */; };
+		D38AD74B2F7D23300092909E /* DataDogFeatureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38AD74A2F7D23300092909E /* DataDogFeatureManager.swift */; };
+		D38AD74D2F7D238E0092909E /* CertificatePreviewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38AD74C2F7D238E0092909E /* CertificatePreviewManager.swift */; };
 		D39950082EDCB82100B81F8A /* FirebaseAnalyticsTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39950072EDCB81800B81F8A /* FirebaseAnalyticsTracker.swift */; };
 		E0D6E6A32B1626B10089F9C9 /* Theme.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0D6E6A22B1626B10089F9C9 /* Theme.framework */; };
 		E0D6E6A42B1626D60089F9C9 /* Theme.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E0D6E6A22B1626B10089F9C9 /* Theme.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -144,8 +148,13 @@
 		146CF94B2D0C0248000955B2 /* NotificationsPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsPersistence.swift; sourceTree = "<group>"; };
 		149FF39D2B9F1AB50034B33F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		14BAE68D2D0974B700EAF0E4 /* Notifications.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Notifications.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1BB1F1D0FABF8788646FBAF2 /* Pods-App-OpenEdX.debugstage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-OpenEdX.debugstage.xcconfig"; path = "Target Support Files/Pods-App-OpenEdX/Pods-App-OpenEdX.debugstage.xcconfig"; sourceTree = "<group>"; };
-		37C50995093E34142FDE0ED9 /* Pods-App-OpenEdX.releasedev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-OpenEdX.releasedev.xcconfig"; path = "Target Support Files/Pods-App-OpenEdX/Pods-App-OpenEdX.releasedev.xcconfig"; sourceTree = "<group>"; };
+		4C3A53FEDB0D2DF323482884 /* Pods-App-OpenEdX.debugstage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-OpenEdX.debugstage.xcconfig"; path = "Target Support Files/Pods-App-OpenEdX/Pods-App-OpenEdX.debugstage.xcconfig"; sourceTree = "<group>"; };
+		4C6133E982A6993F794653B8 /* Pods-App-OpenEdX.debugdev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-OpenEdX.debugdev.xcconfig"; path = "Target Support Files/Pods-App-OpenEdX/Pods-App-OpenEdX.debugdev.xcconfig"; sourceTree = "<group>"; };
+		5E01E4D206278EB8B8FAC456 /* Pods_App_OpenEdX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_App_OpenEdX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A0D570892EA488D3F101578 /* Pods-App-OpenEdX.releasedev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-OpenEdX.releasedev.xcconfig"; path = "Target Support Files/Pods-App-OpenEdX/Pods-App-OpenEdX.releasedev.xcconfig"; sourceTree = "<group>"; };
+		6AF862432F5AB0CB001130B1 /* DataDogAnalyticService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDogAnalyticService.swift; sourceTree = "<group>"; };
+		7DD63F5F443CB960BB0FBCC3 /* Pods-App-OpenEdX.releasestage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-OpenEdX.releasestage.xcconfig"; path = "Target Support Files/Pods-App-OpenEdX/Pods-App-OpenEdX.releasestage.xcconfig"; sourceTree = "<group>"; };
+		8FDCD9153AD2CA7B6E5B10A7 /* Pods-App-OpenEdX.debugprod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-OpenEdX.debugprod.xcconfig"; path = "Target Support Files/Pods-App-OpenEdX/Pods-App-OpenEdX.debugprod.xcconfig"; sourceTree = "<group>"; };
 		94AE32312D8838DE00FA048D /* Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payload.swift; sourceTree = "<group>"; };
 		A500668A2B613ED10024680B /* PushNotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationsManager.swift; sourceTree = "<group>"; };
 		A500668C2B6143000024680B /* FCMProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMProvider.swift; sourceTree = "<group>"; };
@@ -158,14 +167,12 @@
 		A59568982B616D9400ED4F90 /* PushLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushLink.swift; sourceTree = "<group>"; };
 		A59702282B83C87900CA064C /* FirebaseAnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAnalyticsService.swift; sourceTree = "<group>"; };
 		A5C10D8E2B861A70008E864D /* SegmentAnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentAnalyticsService.swift; sourceTree = "<group>"; };
-		A681C3929FC384F83BCB6648 /* Pods-App-OpenEdX.debugprod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-OpenEdX.debugprod.xcconfig"; path = "Target Support Files/Pods-App-OpenEdX/Pods-App-OpenEdX.debugprod.xcconfig"; sourceTree = "<group>"; };
-		AA8BE99557031F3F33F8037C /* Pods-App-OpenEdX.releasestage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-OpenEdX.releasestage.xcconfig"; path = "Target Support Files/Pods-App-OpenEdX/Pods-App-OpenEdX.releasestage.xcconfig"; sourceTree = "<group>"; };
 		BA7468752B96201D00793145 /* DeepLinkRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkRouter.swift; sourceTree = "<group>"; };
+		D38AD74A2F7D23300092909E /* DataDogFeatureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDogFeatureManager.swift; sourceTree = "<group>"; };
+		D38AD74C2F7D238E0092909E /* CertificatePreviewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificatePreviewManager.swift; sourceTree = "<group>"; };
 		D39950072EDCB81800B81F8A /* FirebaseAnalyticsTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAnalyticsTracker.swift; sourceTree = "<group>"; };
-		DAD1882A21DDAF1F67E4C546 /* Pods-App-OpenEdX.debugdev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-OpenEdX.debugdev.xcconfig"; path = "Target Support Files/Pods-App-OpenEdX/Pods-App-OpenEdX.debugdev.xcconfig"; sourceTree = "<group>"; };
 		E0D6E6A22B1626B10089F9C9 /* Theme.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Theme.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		FC49621A0942E5EE74BDC895 /* Pods_App_OpenEdX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_App_OpenEdX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		FC8F87F82A110A0F7A1B0725 /* Pods-App-OpenEdX.releaseprod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-OpenEdX.releaseprod.xcconfig"; path = "Target Support Files/Pods-App-OpenEdX/Pods-App-OpenEdX.releaseprod.xcconfig"; sourceTree = "<group>"; };
+		FC2B987A8D9A198BFFC4A85D /* Pods-App-OpenEdX.releaseprod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-OpenEdX.releaseprod.xcconfig"; path = "Target Support Files/Pods-App-OpenEdX/Pods-App-OpenEdX.releaseprod.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,7 +200,8 @@
 				149B52D92C5FE5AB00C7BF5D /* FirebaseCrashlytics in Frameworks */,
 				A51CDBED2B6D2BEE009B6D4E /* SegmentBraze in Frameworks */,
 				A51CDBEF2B6D2BEE009B6D4E /* SegmentBrazeUI in Frameworks */,
-				1924EDE8164C7AB17AD4946B /* Pods_App_OpenEdX.framework in Frameworks */,
+				1924EDE8164C7AB17AD4946B /* (null) in Frameworks */,
+				CC11CB182E3D08D760DE6283 /* Pods_App_OpenEdX.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,7 +305,7 @@
 				072787B028D34D83002E9142 /* Discovery.framework */,
 				0770DE4A28D0A462006D8A5D /* Authorization.framework */,
 				0770DE1228D07845006D8A5D /* Core.framework */,
-				FC49621A0942E5EE74BDC895 /* Pods_App_OpenEdX.framework */,
+				5E01E4D206278EB8B8FAC456 /* Pods_App_OpenEdX.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -305,14 +313,22 @@
 		55A895025FB07897BA68E063 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				A681C3929FC384F83BCB6648 /* Pods-App-OpenEdX.debugprod.xcconfig */,
-				1BB1F1D0FABF8788646FBAF2 /* Pods-App-OpenEdX.debugstage.xcconfig */,
-				DAD1882A21DDAF1F67E4C546 /* Pods-App-OpenEdX.debugdev.xcconfig */,
-				FC8F87F82A110A0F7A1B0725 /* Pods-App-OpenEdX.releaseprod.xcconfig */,
-				AA8BE99557031F3F33F8037C /* Pods-App-OpenEdX.releasestage.xcconfig */,
-				37C50995093E34142FDE0ED9 /* Pods-App-OpenEdX.releasedev.xcconfig */,
+				8FDCD9153AD2CA7B6E5B10A7 /* Pods-App-OpenEdX.debugprod.xcconfig */,
+				4C3A53FEDB0D2DF323482884 /* Pods-App-OpenEdX.debugstage.xcconfig */,
+				4C6133E982A6993F794653B8 /* Pods-App-OpenEdX.debugdev.xcconfig */,
+				FC2B987A8D9A198BFFC4A85D /* Pods-App-OpenEdX.releaseprod.xcconfig */,
+				7DD63F5F443CB960BB0FBCC3 /* Pods-App-OpenEdX.releasestage.xcconfig */,
+				6A0D570892EA488D3F101578 /* Pods-App-OpenEdX.releasedev.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		6AF862422F5AB09E001130B1 /* DataDogAnalyticsService */ = {
+			isa = PBXGroup;
+			children = (
+				6AF862432F5AB0CB001130B1 /* DataDogAnalyticService.swift */,
+			);
+			path = DataDogAnalyticsService;
 			sourceTree = "<group>";
 		};
 		A50066872B613E4B0024680B /* PushNotificationsManager */ = {
@@ -328,6 +344,8 @@
 		A50066882B613E800024680B /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				D38AD74C2F7D238E0092909E /* CertificatePreviewManager.swift */,
+				D38AD74A2F7D23300092909E /* DataDogFeatureManager.swift */,
 				94AE32312D8838DE00FA048D /* Payload.swift */,
 				065275362BB1B4070093BCCA /* PipManager.swift */,
 				A59568932B6162E400ED4F90 /* DeepLinkManager */,
@@ -335,6 +353,7 @@
 				A50066892B613E990024680B /* AnalyticsManager */,
 				A59702272B83C84800CA064C /* FirebaseAnalyticsService */,
 				A5C10D8D2B861A56008E864D /* SegmentAnalyticsService */,
+				6AF862422F5AB09E001130B1 /* DataDogAnalyticsService */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -426,7 +445,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 07D5DA4528D075AB00752FD9 /* Build configuration list for PBXNativeTarget "OpenEdX" */;
 			buildPhases = (
-				B9442FD26CE9A85A43FC2CFA /* [CP] Check Pods Manifest.lock */,
+				6C0FAC3EA3FE3822D734E0BB /* [CP] Check Pods Manifest.lock */,
 				0770DE2328D08647006D8A5D /* SwiftLint */,
 				07D5DA2D28D075AA00752FD9 /* Sources */,
 				07D5DA2E28D075AA00752FD9 /* Frameworks */,
@@ -555,7 +574,7 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 		};
-		B9442FD26CE9A85A43FC2CFA /* [CP] Check Pods Manifest.lock */ = {
+		6C0FAC3EA3FE3822D734E0BB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -619,11 +638,14 @@
 				0770DE1E28D084E8006D8A5D /* AppAssembly.swift in Sources */,
 				A5462D9C2B864AE0003B96A5 /* BranchService.swift in Sources */,
 				94AE32322D8838E400FA048D /* Payload.swift in Sources */,
+				D38AD74B2F7D23300092909E /* DataDogFeatureManager.swift in Sources */,
 				A50066932B614DCD0024680B /* FCMListener.swift in Sources */,
 				A59702292B83C87900CA064C /* FirebaseAnalyticsService.swift in Sources */,
 				A500668D2B6143000024680B /* FCMProvider.swift in Sources */,
 				025AD4AC2A6FB95C00AB8FA7 /* DatabaseManager.swift in Sources */,
+				D38AD74D2F7D238E0092909E /* CertificatePreviewManager.swift in Sources */,
 				024E69202AEFC3FB00FA0B59 /* MainScreenViewModel.swift in Sources */,
+				6AF862442F5AB0DB001130B1 /* DataDogAnalyticService.swift in Sources */,
 				065275372BB1B4070093BCCA /* PipManager.swift in Sources */,
 				0770DE2028D0858A006D8A5D /* Router.swift in Sources */,
 				0293A2092A6FCDE50090A336 /* DashboardPersistence.swift in Sources */,
@@ -742,14 +764,14 @@
 		};
 		02DD1C9629E80CC200F35DCE /* DebugStage */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1BB1F1D0FABF8788646FBAF2 /* Pods-App-OpenEdX.debugstage.xcconfig */;
+			baseConfigurationReference = 4C3A53FEDB0D2DF323482884 /* Pods-App-OpenEdX.debugstage.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = OpenEdX/OpenEdX.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = L8PG7LC3Y3;
+				DEVELOPMENT_TEAM = 9G78FK843Y;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OpenEdX/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
@@ -830,14 +852,14 @@
 		};
 		02DD1C9829E80CCB00F35DCE /* ReleaseStage */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AA8BE99557031F3F33F8037C /* Pods-App-OpenEdX.releasestage.xcconfig */;
+			baseConfigurationReference = 7DD63F5F443CB960BB0FBCC3 /* Pods-App-OpenEdX.releasestage.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = OpenEdX/OpenEdX.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = L8PG7LC3Y3;
+				DEVELOPMENT_TEAM = 9G78FK843Y;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OpenEdX/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
@@ -925,14 +947,14 @@
 		};
 		0727875928D231FD002E9142 /* DebugDev */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DAD1882A21DDAF1F67E4C546 /* Pods-App-OpenEdX.debugdev.xcconfig */;
+			baseConfigurationReference = 4C6133E982A6993F794653B8 /* Pods-App-OpenEdX.debugdev.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = OpenEdX/OpenEdX.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = L8PG7LC3Y3;
+				DEVELOPMENT_TEAM = 9G78FK843Y;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OpenEdX/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
@@ -1013,14 +1035,14 @@
 		};
 		0727875B28D23204002E9142 /* ReleaseDev */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 37C50995093E34142FDE0ED9 /* Pods-App-OpenEdX.releasedev.xcconfig */;
+			baseConfigurationReference = 6A0D570892EA488D3F101578 /* Pods-App-OpenEdX.releasedev.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = OpenEdX/OpenEdX.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = L8PG7LC3Y3;
+				DEVELOPMENT_TEAM = 9G78FK843Y;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OpenEdX/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
@@ -1162,14 +1184,14 @@
 		};
 		07D5DA4628D075AB00752FD9 /* DebugProd */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A681C3929FC384F83BCB6648 /* Pods-App-OpenEdX.debugprod.xcconfig */;
+			baseConfigurationReference = 8FDCD9153AD2CA7B6E5B10A7 /* Pods-App-OpenEdX.debugprod.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = OpenEdX/OpenEdX.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = L8PG7LC3Y3;
+				DEVELOPMENT_TEAM = 9G78FK843Y;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OpenEdX/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
@@ -1196,14 +1218,14 @@
 		};
 		07D5DA4728D075AB00752FD9 /* ReleaseProd */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FC8F87F82A110A0F7A1B0725 /* Pods-App-OpenEdX.releaseprod.xcconfig */;
+			baseConfigurationReference = FC2B987A8D9A198BFFC4A85D /* Pods-App-OpenEdX.releaseprod.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = OpenEdX/OpenEdX.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = L8PG7LC3Y3;
+				DEVELOPMENT_TEAM = 9G78FK843Y;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OpenEdX/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";

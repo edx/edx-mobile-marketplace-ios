@@ -266,6 +266,8 @@ public enum ProfileLocalization {
     public static let appearanceMatchesDeviceSettings = ProfileLocalization.tr("Localizable", "SETTINGS.APPEARANCE_MATCHES_DEVICE_SETTINGS", fallback: "Matches your device settings automatically.")
     /// Appearance
     public static let appearanceSettingsTitle = ProfileLocalization.tr("Localizable", "SETTINGS.APPEARANCE_SETTINGS_TITLE", fallback: "Appearance")
+    /// Performance and Usage tracking
+    public static let performanceUsageTrackingTitle = ProfileLocalization.tr("Localizable", "SETTINGS.PERFORMANCE_USAGE_TRACKING_TITLE", fallback: "Performance and Usage tracking")
     /// Push notifications
     public static let pushSettingsTitle = ProfileLocalization.tr("Localizable", "SETTINGS.PUSH_SETTINGS_TITLE", fallback: "Push notifications")
     /// Lower data usage

@@ -134,6 +134,11 @@ public struct CourseUnitView: View {
             viewModel.router.back()
         }
         .onAppear {
+            viewModel.trackVerticalClicked(
+                courseId: viewModel.courseID,
+                courseName: viewModel.courseName,
+                vertical: viewModel.verticals[viewModel.verticalIndex]
+            )
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 showDiscussion = viewModel.selectedLesson().type == .discussion
             }
@@ -171,6 +176,7 @@ public struct CourseUnitView: View {
     // swiftlint:disable function_body_length
     @ViewBuilder
     private func content(reader: GeometryProxy) -> some View {
+        let orientationKey = isHorizontal ? "landscape" : "portrait"        
         let alignment = UnitAlignment(horizontalAlignment: .top, verticalAlignment: .leading)
         let offset = viewOffset(for: viewModel.index, with: reader.size, insets: reader.safeAreaInsets)
         UnitStack(isVerticalNavigation: !isHorizontalNavigation, alignment: alignment, spacing: 0) {
@@ -261,7 +267,8 @@ public struct CourseUnitView: View {
                                         injections: injections,
                                         roundedBackgroundEnabled: !viewModel.courseUnitProgressEnabled
                                     )
-                                    // not need to add frame limit there because we did that with injection
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                    .frameLimit(width: reader.size.width)
                                 } else {
                                     FullScreenErrorView(type: .noInternet)
                                 }
@@ -319,6 +326,7 @@ public struct CourseUnitView: View {
                 .id(index)
             }
         }
+        .id("unitstack-\(orientationKey)")
         .offset(x: offset.x, y: offset.y)
         .animation(.easeInOut(duration: 0.2), value: viewModel.index)
         .clipped()

@@ -228,13 +228,27 @@ class AppAssembly: Assembly {
         }
         .inObjectScope(.container)
         
-        container.register(FeatureManagerProtocol.self) { r in
-            let store = r.resolve(ExperimentAssignmentStore.self)!
-            let tracker = r.resolve(AnalyticsTracking.self)!
-            return CertificatePreviewExperimentManager(
-                assignmentStore: store,
-                analytics: tracker
+        container.register(CertificatePreviewExperimentManager.self) { r in
+            CertificatePreviewExperimentManager(
+                assignmentStore: r.resolve(ExperimentAssignmentStore.self)!,
+                analytics: r.resolve(AnalyticsTracking.self)!
             )
+        }.inObjectScope(.container)
+
+        container.register(FeatureManagerProtocol.self) { r in
+            r.resolve(CertificatePreviewExperimentManager.self)!
+        }.inObjectScope(.container)
+
+        container.register(CertificatePreviewManager.self) { r in
+            CertificatePreviewManager(r.resolve(CertificatePreviewExperimentManager.self)!)
+        }.inObjectScope(.container)
+
+        container.register(CertificatePreviewManaging.self) { r in
+            r.resolve(CertificatePreviewManager.self)!
+        }.inObjectScope(.container)
+
+        container.register(UserSessionManaging.self) { r in
+            r.resolve(CertificatePreviewManager.self)!
         }.inObjectScope(.container)
         
         container.register(CaptchaService.self) { r in
@@ -259,8 +273,20 @@ class AppAssembly: Assembly {
             )
         }.inObjectScope(.container)
 
-        // Initialize Feature Manager...
-        container.resolve(FeatureManagerProtocol.self)
+        container.register(DataDogFeatureManager.self) { r in
+            return DataDogFeatureManager(r.resolve(ConfigProtocol.self)!, storage: r.resolve(CoreStorage.self)!)
+        }.inObjectScope(.container)
+
+        container.register(TrackingConsentManaging.self) { r in
+            r.resolve(DataDogFeatureManager.self)!
+        }.inObjectScope(.container)
+        
+        // Register DataDogAnalyticsService
+        container.register(DataDogAnalyticsService.self) { resolver in
+            let config = resolver.resolve(ConfigProtocol.self)!
+            let dataDogManager = config.dataDog.enabled ? resolver.resolve(DataDogFeatureManager.self) : nil
+            return DataDogAnalyticsService(dataDogManager: dataDogManager)
+        }
     }
 }
 // swiftlint:enable function_body_length
