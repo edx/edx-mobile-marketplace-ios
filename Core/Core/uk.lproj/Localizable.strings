@@ -38,9 +38,13 @@
 "COURSEWARE.GOOD_WORK" = "Гарна робота!";
 "COURSEWARE.BACK_TO_OUTLINE" = "Повернутись до модуля";
 "COURSEWARE.SECTION_COMPLETED" = "Ви завершили “%@”.";
+"COURSEWARE.SECTION_WELLDONE" = "Молодець, що успішно завершив(-ла) “%@”.";
+"COURSEWARE.STARTED_OFFICIALLY" = "Ви офіційно почали %@. удачі!";
 "COURSEWARE.CONTINUE" = "Продовжити";
 "COURSEWARE.RESUME" = "Resume";
 "COURSEWARE.RESUME_WITH" = "Продовжити далі:";
+"COURSEWARE.CONGRATULATIONS" = "Congratulations!";
+"COURSEWARE.ONYOURWAY" = "You're on your way!";
 "COURSEWARE.NEXT_SECTION" = "Наступний розділ";
 
 "COURSEWARE.NEXT_SECTION_DESCRIPTION_FIRST" = "Щоб перейти до “";

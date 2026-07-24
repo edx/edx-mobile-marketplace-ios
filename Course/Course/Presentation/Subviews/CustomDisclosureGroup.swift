@@ -102,7 +102,13 @@ struct CustomDisclosureGroup: View {
                                                     viewModel.router.showGatedContentError(url: courseVertical.webUrl)
                                                     return
                                                 }
-
+                                                if viewModel.continueWith == nil {
+                                                    let courseName = viewModel.courseStructure?.displayName ?? "this course"
+                                                    LocalNotificationManager.send(
+                                                        title: CoreLocalization.Courseware.onyourway,
+                                                        body: CoreLocalization.Courseware.startedOfficially(courseName)
+                                                    )
+                                                }
                                                 viewModel.trackSequentialClicked(sequential)
                                                 if viewModel.config.uiComponents.courseDropDownNavigationEnabled {
                                                     viewModel.router.showCourseUnit(
