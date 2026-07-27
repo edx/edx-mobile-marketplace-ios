@@ -23,9 +23,13 @@ final class CourseContainerViewModelTests: XCTestCase {
         let analytics = CourseAnalyticsMock()
         let config = ConfigMock()
         let connectivity = ConnectivityProtocolMock()
+        let courseHelper = CourseDownloadHelperProtocolMock()
         
         Given(connectivity, .isInternetAvaliable(getter: true))
         Given(connectivity, .internetReachableSubject(getter: .init(.reachable)))
+        
+        Given(courseHelper, .publisher(willReturn: Just(.empty).eraseToAnyPublisher()))
+        Given(courseHelper, .progressPublisher(willReturn: Empty().eraseToAnyPublisher()))
 
         let viewModel = CourseContainerViewModel(
             interactor: interactor,
@@ -44,7 +48,8 @@ final class CourseContainerViewModelTests: XCTestCase {
             enrollmentEnd: nil,
             lastVisitedBlockID: nil,
             coreAnalytics: CoreAnalyticsMock(),
-            serverConfig: ServerConfigProtocolMock()
+            serverConfig: ServerConfigProtocolMock(),
+            courseHelper: courseHelper
         )
         
         let block = CourseBlock(
@@ -61,7 +66,8 @@ final class CourseContainerViewModelTests: XCTestCase {
             webUrl: "",
             encodedVideo: nil,
             multiDevice: true,
-            authorizationDenialReason: .none
+            authorizationDenialReason: .none,
+            offlineDownload: nil
         )
         let vertical = CourseVertical(
             blockId: "",
@@ -125,6 +131,16 @@ final class CourseContainerViewModelTests: XCTestCase {
                                        willReturn: resumeBlock))
         Given(interactor, .getCourseVideoBlocks(fullStructure: .any,
                                                 willReturn: courseStructure))
+        Given(interactor, .getCourseAssignmentBlocks(fullStructure: .any, willReturn: courseStructure))
+        Given(interactor, .getCourseProgress(courseID: .any, willReturn: CourseProgressDetails(
+            verifiedMode: nil, accessExpiration: nil,
+            certificateData: CourseProgressCertificateData(certStatus: nil, certWebViewUrl: nil, downloadUrl: nil, certificateAvailableDate: nil),
+            completionSummary: CourseProgressCompletionSummary(completeCount: 0, incompleteCount: 0, lockedCount: 0),
+            courseGrade: CourseProgressGrade(letterGrade: nil, percent: 0.0, isPassing: false),
+            creditCourseRequirements: nil, end: nil, enrollmentMode: "audit",
+            gradingPolicy: CourseProgressGradingPolicy(assignmentPolicies: [], gradeRange: [:], assignmentColors: []),
+            hasScheduledContent: false, sectionScores: [], verificationData: nil
+        )))
         
         await viewModel.getCourseBlocks(courseID: "123")
         
@@ -145,9 +161,13 @@ final class CourseContainerViewModelTests: XCTestCase {
         let analytics = CourseAnalyticsMock()
         let config = ConfigMock()
         let connectivity = ConnectivityProtocolMock()
+        let courseHelper = CourseDownloadHelperProtocolMock()
         
         Given(connectivity, .isInternetAvaliable(getter: false))
         Given(connectivity, .internetReachableSubject(getter: .init(.reachable)))
+        
+        Given(courseHelper, .publisher(willReturn: Just(.empty).eraseToAnyPublisher()))
+        Given(courseHelper, .progressPublisher(willReturn: Empty().eraseToAnyPublisher()))
 
         let viewModel = CourseContainerViewModel(
             interactor: interactor,
@@ -166,7 +186,8 @@ final class CourseContainerViewModelTests: XCTestCase {
             enrollmentEnd: nil,
             lastVisitedBlockID: nil,
             coreAnalytics: CoreAnalyticsMock(),
-            serverConfig: ServerConfigProtocolMock()
+            serverConfig: ServerConfigProtocolMock(),
+            courseHelper: courseHelper
         )
         
         let courseStructure = CourseStructure(
@@ -194,6 +215,16 @@ final class CourseContainerViewModelTests: XCTestCase {
         Given(interactor, .getLoadedCourseBlocks(courseID: .any, willReturn: courseStructure))
         Given(interactor, .getCourseVideoBlocks(fullStructure: .any,
                                                 willReturn: courseStructure))
+        Given(interactor, .getCourseAssignmentBlocks(fullStructure: .any, willReturn: courseStructure))
+        Given(interactor, .getCourseProgressOffline(courseID: .any, willReturn: CourseProgressDetails(
+            verifiedMode: nil, accessExpiration: nil,
+            certificateData: CourseProgressCertificateData(certStatus: nil, certWebViewUrl: nil, downloadUrl: nil, certificateAvailableDate: nil),
+            completionSummary: CourseProgressCompletionSummary(completeCount: 0, incompleteCount: 0, lockedCount: 0),
+            courseGrade: CourseProgressGrade(letterGrade: nil, percent: 0.0, isPassing: false),
+            creditCourseRequirements: nil, end: nil, enrollmentMode: "audit",
+            gradingPolicy: CourseProgressGradingPolicy(assignmentPolicies: [], gradeRange: [:], assignmentColors: []),
+            hasScheduledContent: false, sectionScores: [], verificationData: nil
+        )))
         
         await viewModel.getCourseBlocks(courseID: "123")
         
@@ -213,9 +244,13 @@ final class CourseContainerViewModelTests: XCTestCase {
         let analytics = CourseAnalyticsMock()
         let config = ConfigMock()
         let connectivity = ConnectivityProtocolMock()
+        let courseHelper = CourseDownloadHelperProtocolMock()
         
         Given(connectivity, .isInternetAvaliable(getter: true))
         Given(connectivity, .internetReachableSubject(getter: .init(.reachable)))
+        
+        Given(courseHelper, .publisher(willReturn: Just(.empty).eraseToAnyPublisher()))
+        Given(courseHelper, .progressPublisher(willReturn: Empty().eraseToAnyPublisher()))
 
         let viewModel = CourseContainerViewModel(
             interactor: interactor,
@@ -234,7 +269,8 @@ final class CourseContainerViewModelTests: XCTestCase {
             enrollmentEnd: nil,
             lastVisitedBlockID: nil,
             coreAnalytics: CoreAnalyticsMock(),
-            serverConfig: ServerConfigProtocolMock()
+            serverConfig: ServerConfigProtocolMock(),
+            courseHelper: courseHelper
         )
         
         let noInternetError = AFError.sessionInvalidated(error: URLError(.notConnectedToInternet))
@@ -242,6 +278,27 @@ final class CourseContainerViewModelTests: XCTestCase {
         
         Given(interactor, .getCourseBlocks(courseID: "123",
                                            willThrow: noInternetError))
+        
+        let emptyStructure = CourseStructure(
+            id: "123", graded: true, completion: 0,
+            viewYouTubeUrl: "", encodedVideo: "", displayName: "",
+            topicID: nil, childs: [],
+            media: DataLayer.CourseMedia(image: DataLayer.Image(raw: "", small: "", large: "")),
+            certificate: nil, org: "", isSelfPaced: true,
+            isUpgradeable: false, sku: nil, coursewareAccessDetails: nil,
+            courseProgress: nil, lmsPrice: .zero
+        )
+        let emptyProgress = CourseProgressDetails(
+            verifiedMode: nil, accessExpiration: nil,
+            certificateData: CourseProgressCertificateData(certStatus: nil, certWebViewUrl: nil, downloadUrl: nil, certificateAvailableDate: nil),
+            completionSummary: CourseProgressCompletionSummary(completeCount: 0, incompleteCount: 0, lockedCount: 0),
+            courseGrade: CourseProgressGrade(letterGrade: nil, percent: 0.0, isPassing: false),
+            creditCourseRequirements: nil, end: nil, enrollmentMode: "audit",
+            gradingPolicy: CourseProgressGradingPolicy(assignmentPolicies: [], gradeRange: [:], assignmentColors: []),
+            hasScheduledContent: false, sectionScores: [], verificationData: nil
+        )
+        Given(interactor, .getCourseAssignmentBlocks(fullStructure: .any, willReturn: emptyStructure))
+        Given(interactor, .getCourseProgress(courseID: .any, willReturn: emptyProgress))
         
         await viewModel.getCourseBlocks(courseID: "123")
         
@@ -259,9 +316,13 @@ final class CourseContainerViewModelTests: XCTestCase {
         let analytics = CourseAnalyticsMock()
         let config = ConfigMock()
         let connectivity = ConnectivityProtocolMock()
+        let courseHelper = CourseDownloadHelperProtocolMock()
         
         Given(connectivity, .isInternetAvaliable(getter: true))
         Given(connectivity, .internetReachableSubject(getter: .init(.reachable)))
+        
+        Given(courseHelper, .publisher(willReturn: Just(.empty).eraseToAnyPublisher()))
+        Given(courseHelper, .progressPublisher(willReturn: Empty().eraseToAnyPublisher()))
 
         let viewModel = CourseContainerViewModel(
             interactor: interactor,
@@ -280,11 +341,33 @@ final class CourseContainerViewModelTests: XCTestCase {
             enrollmentEnd: nil,
             lastVisitedBlockID: nil,
             coreAnalytics: CoreAnalyticsMock(),
-            serverConfig: ServerConfigProtocolMock()
+            serverConfig: ServerConfigProtocolMock(),
+            courseHelper: courseHelper
         )
         
         Given(interactor, .getCourseBlocks(courseID: "123",
                                            willThrow: NoCachedDataError()))
+        
+        let emptyStructure = CourseStructure(
+            id: "123", graded: true, completion: 0,
+            viewYouTubeUrl: "", encodedVideo: "", displayName: "",
+            topicID: nil, childs: [],
+            media: DataLayer.CourseMedia(image: DataLayer.Image(raw: "", small: "", large: "")),
+            certificate: nil, org: "", isSelfPaced: true,
+            isUpgradeable: false, sku: nil, coursewareAccessDetails: nil,
+            courseProgress: nil, lmsPrice: .zero
+        )
+        let emptyProgress = CourseProgressDetails(
+            verifiedMode: nil, accessExpiration: nil,
+            certificateData: CourseProgressCertificateData(certStatus: nil, certWebViewUrl: nil, downloadUrl: nil, certificateAvailableDate: nil),
+            completionSummary: CourseProgressCompletionSummary(completeCount: 0, incompleteCount: 0, lockedCount: 0),
+            courseGrade: CourseProgressGrade(letterGrade: nil, percent: 0.0, isPassing: false),
+            creditCourseRequirements: nil, end: nil, enrollmentMode: "audit",
+            gradingPolicy: CourseProgressGradingPolicy(assignmentPolicies: [], gradeRange: [:], assignmentColors: []),
+            hasScheduledContent: false, sectionScores: [], verificationData: nil
+        )
+        Given(interactor, .getCourseAssignmentBlocks(fullStructure: .any, willReturn: emptyStructure))
+        Given(interactor, .getCourseProgress(courseID: .any, willReturn: emptyProgress))
         
         await viewModel.getCourseBlocks(courseID: "123")
         
@@ -302,9 +385,13 @@ final class CourseContainerViewModelTests: XCTestCase {
         let analytics = CourseAnalyticsMock()
         let config = ConfigMock()
         let connectivity = ConnectivityProtocolMock()
+        let courseHelper = CourseDownloadHelperProtocolMock()
         
         Given(connectivity, .isInternetAvaliable(getter: true))
         Given(connectivity, .internetReachableSubject(getter: .init(.reachable)))
+        
+        Given(courseHelper, .publisher(willReturn: Just(.empty).eraseToAnyPublisher()))
+        Given(courseHelper, .progressPublisher(willReturn: Empty().eraseToAnyPublisher()))
 
         let viewModel = CourseContainerViewModel(
             interactor: interactor,
@@ -323,11 +410,33 @@ final class CourseContainerViewModelTests: XCTestCase {
             enrollmentEnd: nil,
             lastVisitedBlockID: nil,
             coreAnalytics: CoreAnalyticsMock(),
-            serverConfig: ServerConfigProtocolMock()
+            serverConfig: ServerConfigProtocolMock(),
+            courseHelper: courseHelper
         )
         
         Given(interactor, .getCourseBlocks(courseID: "123",
                                            willThrow: NSError(domain: "error", code: -1, userInfo: nil)))
+        
+        let emptyStructure = CourseStructure(
+            id: "123", graded: true, completion: 0,
+            viewYouTubeUrl: "", encodedVideo: "", displayName: "",
+            topicID: nil, childs: [],
+            media: DataLayer.CourseMedia(image: DataLayer.Image(raw: "", small: "", large: "")),
+            certificate: nil, org: "", isSelfPaced: true,
+            isUpgradeable: false, sku: nil, coursewareAccessDetails: nil,
+            courseProgress: nil, lmsPrice: .zero
+        )
+        let emptyProgress = CourseProgressDetails(
+            verifiedMode: nil, accessExpiration: nil,
+            certificateData: CourseProgressCertificateData(certStatus: nil, certWebViewUrl: nil, downloadUrl: nil, certificateAvailableDate: nil),
+            completionSummary: CourseProgressCompletionSummary(completeCount: 0, incompleteCount: 0, lockedCount: 0),
+            courseGrade: CourseProgressGrade(letterGrade: nil, percent: 0.0, isPassing: false),
+            creditCourseRequirements: nil, end: nil, enrollmentMode: "audit",
+            gradingPolicy: CourseProgressGradingPolicy(assignmentPolicies: [], gradeRange: [:], assignmentColors: []),
+            hasScheduledContent: false, sectionScores: [], verificationData: nil
+        )
+        Given(interactor, .getCourseAssignmentBlocks(fullStructure: .any, willReturn: emptyStructure))
+        Given(interactor, .getCourseProgress(courseID: .any, willReturn: emptyProgress))
         
         await viewModel.getCourseBlocks(courseID: "123")
         
@@ -345,9 +454,13 @@ final class CourseContainerViewModelTests: XCTestCase {
         let analytics = CourseAnalyticsMock()
         let config = ConfigMock()
         let connectivity = ConnectivityProtocolMock()
+        let courseHelper = CourseDownloadHelperProtocolMock()
         
         Given(connectivity, .isInternetAvaliable(getter: true))
         Given(connectivity, .internetReachableSubject(getter: .init(.reachable)))
+        
+        Given(courseHelper, .publisher(willReturn: Just(.empty).eraseToAnyPublisher()))
+        Given(courseHelper, .progressPublisher(willReturn: Empty().eraseToAnyPublisher()))
 
         let viewModel = CourseContainerViewModel(
             interactor: interactor,
@@ -366,17 +479,24 @@ final class CourseContainerViewModelTests: XCTestCase {
             enrollmentEnd: nil,
             lastVisitedBlockID: nil,
             coreAnalytics: CoreAnalyticsMock(),
-            serverConfig: ServerConfigProtocolMock()
+            serverConfig: ServerConfigProtocolMock(),
+            courseHelper: courseHelper
         )
         
         viewModel.trackSelectedTab(selection: .course, courseId: "1", courseName: "name")
         Verify(analytics, .courseOutlineCourseTabClicked(courseId: .value("1"), courseName: .value("name")))
         
-        viewModel.trackSelectedTab(selection: .videos, courseId: "1", courseName: "name")
-        Verify(analytics, .courseOutlineVideosTabClicked(courseId: .value("1"), courseName: .value("name")))
+        viewModel.trackSelectedTab(selection: .content, courseId: "1", courseName: "name")
+        Verify(analytics, .courseOutlineContentTabClicked(courseId: .value("1"), courseName: .value("name")))
+
+        viewModel.trackSelectedTab(selection: .progress, courseId: "1", courseName: "name")
+        Verify(analytics, .courseOutlineProgressTabClicked(courseId: .value("1"), courseName: .value("name")))
         
         viewModel.trackSelectedTab(selection: .discussion, courseId: "1", courseName: "name")
         Verify(analytics, .courseOutlineDiscussionTabClicked(courseId: .value("1"), courseName: .value("name")))
+        
+        viewModel.trackSelectedTab(selection: .offline, courseId: "1", courseName: "name")
+        Verify(analytics, .courseOutlineOfflineTabClicked(courseId: .value("1"), courseName: .value("name")))
         
         viewModel.trackSelectedTab(selection: .handounds, courseId: "1", courseName: "name")
         Verify(analytics, .courseOutlineHandoutsTabClicked(courseId: .value("1"), courseName: .value("name")))
@@ -391,6 +511,7 @@ final class CourseContainerViewModelTests: XCTestCase {
         let config = ConfigMock()
         let connectivity = ConnectivityProtocolMock()
         let downloadManager = DownloadManagerProtocolMock()
+        let courseHelper = CourseDownloadHelperProtocolMock()
 
         let blockId = "chapter:block:1"
 
@@ -415,8 +536,8 @@ final class CourseContainerViewModelTests: XCTestCase {
                 hls: nil
             ),
             multiDevice: true,
-            authorizationDenialReason: .none
-
+            authorizationDenialReason: .none,
+            offlineDownload: nil
         )
 
         let vertical = CourseVertical(
@@ -494,6 +615,9 @@ final class CourseContainerViewModelTests: XCTestCase {
         Given(downloadManager, .publisher(willReturn: Empty().eraseToAnyPublisher()))
         Given(downloadManager, .eventPublisher(willReturn: Just(.added).eraseToAnyPublisher()))
         Given(downloadManager, .getDownloadTasksForCourse(.any, willReturn: [downloadData]))
+        
+        Given(courseHelper, .publisher(willReturn: Just(.empty).eraseToAnyPublisher()))
+        Given(courseHelper, .progressPublisher(willReturn: Empty().eraseToAnyPublisher()))
 
         let viewModel = CourseContainerViewModel(
             interactor: interactor,
@@ -512,7 +636,8 @@ final class CourseContainerViewModelTests: XCTestCase {
             enrollmentEnd: nil,
             lastVisitedBlockID: nil,
             coreAnalytics: CoreAnalyticsMock(),
-            serverConfig: ServerConfigProtocolMock()
+            serverConfig: ServerConfigProtocolMock(),
+            courseHelper: courseHelper
         )
         viewModel.courseStructure = courseStructure
         await viewModel.setDownloadsStates(courseStructure: courseStructure)
@@ -541,6 +666,7 @@ final class CourseContainerViewModelTests: XCTestCase {
         let config = ConfigMock()
         let connectivity = ConnectivityProtocolMock()
         let downloadManager = DownloadManagerProtocolMock()
+        let courseHelper = CourseDownloadHelperProtocolMock()
         
         let blockId = "chapter:block:1"
 
@@ -565,7 +691,8 @@ final class CourseContainerViewModelTests: XCTestCase {
                 hls: nil
             ),
             multiDevice: true,
-            authorizationDenialReason: .none
+            authorizationDenialReason: .none,
+            offlineDownload: nil
         )
 
         let vertical = CourseVertical(
@@ -628,6 +755,9 @@ final class CourseContainerViewModelTests: XCTestCase {
         Given(downloadManager, .publisher(willReturn: Empty().eraseToAnyPublisher()))
         Given(downloadManager, .eventPublisher(willReturn: Just(.added).eraseToAnyPublisher()))
         Given(downloadManager, .getDownloadTasksForCourse(.any, willReturn: []))
+        
+        Given(courseHelper, .publisher(willReturn: Just(.empty).eraseToAnyPublisher()))
+        Given(courseHelper, .progressPublisher(willReturn: Empty().eraseToAnyPublisher()))
 
         let viewModel = CourseContainerViewModel(
             interactor: interactor,
@@ -646,7 +776,8 @@ final class CourseContainerViewModelTests: XCTestCase {
             enrollmentEnd: nil,
             lastVisitedBlockID: nil,
             coreAnalytics: CoreAnalyticsMock(),
-            serverConfig: ServerConfigProtocolMock()
+            serverConfig: ServerConfigProtocolMock(),
+            courseHelper: courseHelper
         )
         viewModel.courseStructure = courseStructure
         await viewModel.setDownloadsStates(courseStructure: courseStructure)
@@ -675,6 +806,7 @@ final class CourseContainerViewModelTests: XCTestCase {
         let config = ConfigMock()
         let connectivity = ConnectivityProtocolMock()
         let downloadManager = DownloadManagerProtocolMock()
+        let courseHelper = CourseDownloadHelperProtocolMock()
         
         let blockId = "chapter:block:1"
 
@@ -699,7 +831,8 @@ final class CourseContainerViewModelTests: XCTestCase {
                 hls: nil
             ),
             multiDevice: true,
-            authorizationDenialReason: .none
+            authorizationDenialReason: .none,
+            offlineDownload: nil
         )
 
         let vertical = CourseVertical(
@@ -762,6 +895,9 @@ final class CourseContainerViewModelTests: XCTestCase {
         Given(downloadManager, .publisher(willReturn: Empty().eraseToAnyPublisher()))
         Given(downloadManager, .eventPublisher(willReturn: Just(.added).eraseToAnyPublisher()))
         Given(downloadManager, .getDownloadTasksForCourse(.any, willReturn: []))
+        
+        Given(courseHelper, .publisher(willReturn: Just(.empty).eraseToAnyPublisher()))
+        Given(courseHelper, .progressPublisher(willReturn: Empty().eraseToAnyPublisher()))
 
         let viewModel = CourseContainerViewModel(
             interactor: interactor,
@@ -780,7 +916,8 @@ final class CourseContainerViewModelTests: XCTestCase {
             enrollmentEnd: nil,
             lastVisitedBlockID: nil,
             coreAnalytics: CoreAnalyticsMock(),
-            serverConfig: ServerConfigProtocolMock()
+            serverConfig: ServerConfigProtocolMock(),
+            courseHelper: courseHelper
         )
         viewModel.courseStructure = courseStructure
         await viewModel.setDownloadsStates(courseStructure: courseStructure)
@@ -810,6 +947,7 @@ final class CourseContainerViewModelTests: XCTestCase {
         let config = ConfigMock()
         let connectivity = ConnectivityProtocolMock()
         let downloadManager = DownloadManagerProtocolMock()
+        let courseHelper = CourseDownloadHelperProtocolMock()
         
         let blockId = "chapter:block:1"
 
@@ -834,7 +972,8 @@ final class CourseContainerViewModelTests: XCTestCase {
                 hls: nil
             ),
             multiDevice: true,
-            authorizationDenialReason: .none
+            authorizationDenialReason: .none,
+            offlineDownload: nil
         )
 
         let vertical = CourseVertical(
@@ -897,6 +1036,9 @@ final class CourseContainerViewModelTests: XCTestCase {
         Given(downloadManager, .publisher(willReturn: Empty().eraseToAnyPublisher()))
         Given(downloadManager, .eventPublisher(willReturn: Just(.added).eraseToAnyPublisher()))
         Given(downloadManager, .getDownloadTasksForCourse(.any, willReturn: []))
+        
+        Given(courseHelper, .publisher(willReturn: Just(.empty).eraseToAnyPublisher()))
+        Given(courseHelper, .progressPublisher(willReturn: Empty().eraseToAnyPublisher()))
 
         let viewModel = CourseContainerViewModel(
             interactor: interactor,
@@ -915,7 +1057,8 @@ final class CourseContainerViewModelTests: XCTestCase {
             enrollmentEnd: nil,
             lastVisitedBlockID: nil,
             coreAnalytics: CoreAnalyticsMock(),
-            serverConfig: ServerConfigProtocolMock()
+            serverConfig: ServerConfigProtocolMock(),
+            courseHelper: courseHelper
         )
         viewModel.courseStructure = courseStructure
         await viewModel.setDownloadsStates(courseStructure: courseStructure)
@@ -939,6 +1082,7 @@ final class CourseContainerViewModelTests: XCTestCase {
         let config = ConfigMock()
         let connectivity = ConnectivityProtocolMock()
         let downloadManager = DownloadManagerProtocolMock()
+        let courseHelper = CourseDownloadHelperProtocolMock()
 
         let blockId = "chapter:block:1"
 
@@ -963,7 +1107,8 @@ final class CourseContainerViewModelTests: XCTestCase {
                 hls: nil
             ),
             multiDevice: true,
-            authorizationDenialReason: .none
+            authorizationDenialReason: .none,
+            offlineDownload: nil
         )
 
         let vertical = CourseVertical(
@@ -1041,6 +1186,9 @@ final class CourseContainerViewModelTests: XCTestCase {
         Given(downloadManager, .publisher(willReturn: Empty().eraseToAnyPublisher()))
         Given(downloadManager, .eventPublisher(willReturn: Just(.added).eraseToAnyPublisher()))
         Given(downloadManager, .getDownloadTasksForCourse(.any, willReturn: [downloadData]))
+        
+        Given(courseHelper, .publisher(willReturn: Just(.empty).eraseToAnyPublisher()))
+        Given(courseHelper, .progressPublisher(willReturn: Empty().eraseToAnyPublisher()))
 
         let viewModel = CourseContainerViewModel(
             interactor: interactor,
@@ -1059,7 +1207,8 @@ final class CourseContainerViewModelTests: XCTestCase {
             enrollmentEnd: nil,
             lastVisitedBlockID: nil,
             coreAnalytics: CoreAnalyticsMock(),
-            serverConfig: ServerConfigProtocolMock()
+            serverConfig: ServerConfigProtocolMock(),
+            courseHelper: courseHelper
         )
         viewModel.courseStructure = courseStructure
         await viewModel.setDownloadsStates(courseStructure: courseStructure)
@@ -1083,6 +1232,7 @@ final class CourseContainerViewModelTests: XCTestCase {
         let config = ConfigMock()
         let connectivity = ConnectivityProtocolMock()
         let downloadManager = DownloadManagerProtocolMock()
+        let courseHelper = CourseDownloadHelperProtocolMock()
 
         let blockId = "chapter:block:1"
 
@@ -1107,7 +1257,8 @@ final class CourseContainerViewModelTests: XCTestCase {
                 hls: nil
             ),
             multiDevice: true,
-            authorizationDenialReason: .none
+            authorizationDenialReason: .none,
+            offlineDownload: nil
         )
 
         let vertical = CourseVertical(
@@ -1185,6 +1336,9 @@ final class CourseContainerViewModelTests: XCTestCase {
         Given(downloadManager, .publisher(willReturn: Empty().eraseToAnyPublisher()))
         Given(downloadManager, .eventPublisher(willReturn: Just(.added).eraseToAnyPublisher()))
         Given(downloadManager, .getDownloadTasksForCourse(.any, willReturn: [downloadData]))
+        
+        Given(courseHelper, .publisher(willReturn: Just(.empty).eraseToAnyPublisher()))
+        Given(courseHelper, .progressPublisher(willReturn: Empty().eraseToAnyPublisher()))
 
         let viewModel = CourseContainerViewModel(
             interactor: interactor,
@@ -1203,7 +1357,8 @@ final class CourseContainerViewModelTests: XCTestCase {
             enrollmentEnd: nil,
             lastVisitedBlockID: nil,
             coreAnalytics: CoreAnalyticsMock(),
-            serverConfig: ServerConfigProtocolMock()
+            serverConfig: ServerConfigProtocolMock(),
+            courseHelper: courseHelper
         )
         viewModel.courseStructure = courseStructure
         await viewModel.setDownloadsStates(courseStructure: courseStructure)
@@ -1226,6 +1381,7 @@ final class CourseContainerViewModelTests: XCTestCase {
         let config = ConfigMock()
         let connectivity = ConnectivityProtocolMock()
         let downloadManager = DownloadManagerProtocolMock()
+        let courseHelper = CourseDownloadHelperProtocolMock()
 
         let blockId = "chapter:block:1"
 
@@ -1250,7 +1406,8 @@ final class CourseContainerViewModelTests: XCTestCase {
                 hls: nil
             ),
             multiDevice: true,
-            authorizationDenialReason: .none
+            authorizationDenialReason: .none,
+            offlineDownload: nil
         )
         let block2 = CourseBlock(
             blockId: "123",
@@ -1273,7 +1430,8 @@ final class CourseContainerViewModelTests: XCTestCase {
                 hls: nil
             ),
             multiDevice: true,
-            authorizationDenialReason: .none
+            authorizationDenialReason: .none,
+            offlineDownload: nil
         )
 
         let vertical = CourseVertical(
@@ -1351,6 +1509,9 @@ final class CourseContainerViewModelTests: XCTestCase {
         Given(downloadManager, .publisher(willReturn: Empty().eraseToAnyPublisher()))
         Given(downloadManager, .eventPublisher(willReturn: Just(.added).eraseToAnyPublisher()))
         Given(downloadManager, .getDownloadTasksForCourse(.any, willReturn: [downloadData]))
+        
+        Given(courseHelper, .publisher(willReturn: Just(.empty).eraseToAnyPublisher()))
+        Given(courseHelper, .progressPublisher(willReturn: Empty().eraseToAnyPublisher()))
 
         let viewModel = CourseContainerViewModel(
             interactor: interactor,
@@ -1369,7 +1530,8 @@ final class CourseContainerViewModelTests: XCTestCase {
             enrollmentEnd: nil,
             lastVisitedBlockID: nil,
             coreAnalytics: CoreAnalyticsMock(),
-            serverConfig: ServerConfigProtocolMock()
+            serverConfig: ServerConfigProtocolMock(),
+            courseHelper: courseHelper
         )
         viewModel.courseStructure = courseStructure
         await viewModel.setDownloadsStates(courseStructure: courseStructure)
