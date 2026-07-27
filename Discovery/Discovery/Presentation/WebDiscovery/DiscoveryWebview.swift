@@ -36,6 +36,7 @@ public struct DiscoveryWebview: View {
     private var supportsElevatedTabBar: Bool
     private var discoveryType: DiscoveryWebviewType
     public var pathID: String
+    private let subscriptionBannerViewModel: SubscriptionAlertBannerViewModel
     
     private var URLString: String {
         switch discoveryType {
@@ -81,7 +82,8 @@ public struct DiscoveryWebview: View {
         supportsElevatedTabBar: Bool,
         searchQuery: String? = nil,
         discoveryType: DiscoveryWebviewType = .discovery,
-        pathID: String = ""
+        pathID: String = "",
+        subscriptionBannerViewModel: SubscriptionAlertBannerViewModel
     ) {
         self._viewModel = .init(wrappedValue: viewModel)
         self.router = router
@@ -89,11 +91,12 @@ public struct DiscoveryWebview: View {
         self._searchQuery = State<String>(initialValue: searchQuery ?? "")
         self.discoveryType = discoveryType
         self.pathID = pathID
+        self.subscriptionBannerViewModel = subscriptionBannerViewModel
     }
     
     public var body: some View {
         GeometryReader { proxy in
-            ZStack(alignment: .center) {
+            ZStack(alignment: .top) {
                 VStack(alignment: .center) {
                     WebView(
                         viewModel: .init(
@@ -158,6 +161,16 @@ public struct DiscoveryWebview: View {
                             )
                         }
                     }
+                }
+
+                // MARK: - Subscription banner
+                if discoveryType == .discovery {
+                    SubscriptionAlertBannerView(
+                        viewModel: subscriptionBannerViewModel,
+                        onLinkTap: { url in
+                            router.showWebBrowser(title: "", url: url)
+                        }
+                    )
                 }
             }
             .onFirstAppear {

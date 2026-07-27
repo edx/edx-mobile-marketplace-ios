@@ -14,13 +14,16 @@ public struct ProfileView: View {
     
     @StateObject private var viewModel: ProfileViewModel
     private var supportsElevatedTabBar: Bool
-    
+    private let subscriptionBannerViewModel: SubscriptionAlertBannerViewModel
+
     public init(
         viewModel: ProfileViewModel,
-        supportsElevatedTabBar: Bool = false
+        supportsElevatedTabBar: Bool = false,
+        subscriptionBannerViewModel: SubscriptionAlertBannerViewModel
     ) {
         self._viewModel = StateObject(wrappedValue: { viewModel }())
         self.supportsElevatedTabBar = supportsElevatedTabBar
+        self.subscriptionBannerViewModel = subscriptionBannerViewModel
     }
     
     public var body: some View {
@@ -49,7 +52,15 @@ public struct ProfileView: View {
                         await viewModel.getMyProfile(withProgress: false)
                     }
                 )
-                
+
+                // MARK: - Subscription banner
+                SubscriptionAlertBannerView(
+                    viewModel: subscriptionBannerViewModel,
+                    onLinkTap: { url in
+                        viewModel.router.showWebBrowser(title: "", url: url)
+                    }
+                )
+
                 // MARK: - Error Alert
                 if viewModel.showError {
                     VStack {
@@ -189,13 +200,19 @@ struct ProfileView_Previews: PreviewProvider {
             config: ConfigMock(),
             connectivity: Connectivity()
         )
-        
-        ProfileView(viewModel: vm)
+        let subscriptionBannerViewModel = SubscriptionAlertBannerViewModel(
+            screen: .profile,
+            storage: SubscriptionBannerStorageMock(),
+            sessionTracker: AppSessionTrackerMock(),
+            serverConfig: ServerConfigProtocolMock()
+        )
+
+        ProfileView(viewModel: vm, subscriptionBannerViewModel: subscriptionBannerViewModel)
             .preferredColorScheme(.light)
             .previewDisplayName("DiscoveryView Light")
             .loadFonts()
-        
-        ProfileView(viewModel: vm)
+
+        ProfileView(viewModel: vm, subscriptionBannerViewModel: subscriptionBannerViewModel)
             .preferredColorScheme(.dark)
             .previewDisplayName("DiscoveryView Dark")
             .loadFonts()

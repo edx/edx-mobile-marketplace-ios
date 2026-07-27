@@ -17,6 +17,7 @@ public protocol ServerConfigProtocol {
     var iapConfig: IAPConfig { get }
     func initialize(serverConfig: String?)
     var feedbackURL: URL? { get }
+    var subscriptionBannerConfig: SubscriptionBannerConfig { get }
 }
 
 public class ServerConfig: ServerConfigProtocol {
@@ -47,8 +48,8 @@ public class ServerConfig: ServerConfigProtocol {
 #if DEBUG
 public class ServerConfigProtocolMock: ServerConfigProtocol {
     
-    let configString = "{\"iap_config\":{\"enabled\":true,\"experiment_enabled\":false,\"restore_enabled\":true,\"android_product_prefix\":\"mobile.android.usd\",\"ios_product_prefix\":\"mobile.ios.usd\",\"allowed_users\":[\"all_users\"]},\"value_prop_enabled\":true,\"feedback_form_url\":\"https://bit.ly/edx-apps-feedback\",\"disabled_countries\":[\"RU\"],\"course_dates_calendar_sync\":{\"ios\":{\"enabled\":true,\"self_paced_enabled\":true,\"instructor_paced_enabled\":true,\"deep_links_enabled\":true},\"android\":{\"enabled\":true,\"self_paced_enabled\":true,\"instructor_paced_enabled\":true,\"deep_links_enabled\":true}}}"
-    
+    let configString = "{\"iap_config\":{\"enabled\":true,\"experiment_enabled\":false,\"restore_enabled\":true,\"android_product_prefix\":\"mobile.android.usd\",\"ios_product_prefix\":\"mobile.ios.usd\",\"allowed_users\":[\"all_users\"]},\"value_prop_enabled\":true,\"feedback_form_url\":\"https://bit.ly/edx-apps-feedback\",\"disabled_countries\":[\"RU\"],\"course_dates_calendar_sync\":{\"ios\":{\"enabled\":true,\"self_paced_enabled\":true,\"instructor_paced_enabled\":true,\"deep_links_enabled\":true},\"android\":{\"enabled\":true,\"self_paced_enabled\":true,\"instructor_paced_enabled\":true,\"deep_links_enabled\":true}},\"subscription_banner\":{\"max_sessions\":4,\"link\":\"https://bit.ly/edx-apps-subscriptions\"}}"
+
     var config: [String: Any] = [:]
     
     public var valuePropEnabled: Bool
@@ -60,10 +61,15 @@ public class ServerConfigProtocolMock: ServerConfigProtocol {
     }
     
     public var feedbackURL: URL?
-    
+
+    public var subscriptionBannerConfig: SubscriptionBannerConfig
+
     public init() {
         valuePropEnabled = false
         iapConfig = IAPConfig(dictionary: ["enabled": true, "restore_enabled": true, "ios_product_prefix": "mobile.ios.usd"])
+        subscriptionBannerConfig = SubscriptionBannerConfig(
+            dictionary: ["max_sessions": 4, "link": "https://bit.ly/edx-apps-subscriptions"]
+        )
         initialize(serverConfig: configString)
     }
 }
