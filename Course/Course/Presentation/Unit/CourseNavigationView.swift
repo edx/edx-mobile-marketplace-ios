@@ -136,7 +136,7 @@ struct CourseNavigationView: View {
                 )
                 LocalNotificationManager.send(
                                     title: CoreLocalization.Courseware.congratulations,
-                                    body: CoreLocalization.Courseware.sectionWelldone(currentVertical.displayName)
+                                    body: CoreLocalization.Courseware.sectionWellDone(currentVertical.displayName)
                                 )
                 playerStateSubject.send(VideoPlayerState.pause)
                 viewModel.analytics.finishVerticalClicked(

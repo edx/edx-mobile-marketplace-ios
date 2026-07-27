@@ -53,8 +53,6 @@ public enum CourseLocalization {
   public enum Courseware {
     /// Back to outline
     public static let backToOutline = CourseLocalization.tr("Localizable", "COURSEWARE.BACK_TO_OUTLINE", fallback: "Back to outline")
-    /// Congratulations!
-    public static let congratulations = CourseLocalization.tr("Localizable", "COURSEWARE.CONGRATULATIONS", fallback: "Congratulations!")
     /// Continue
     public static let `continue` = CourseLocalization.tr("Localizable", "COURSEWARE.CONTINUE", fallback: "Continue")
     /// Course content
@@ -69,8 +67,6 @@ public enum CourseLocalization {
     public static let isFinished = CourseLocalization.tr("Localizable", "COURSEWARE.IS_FINISHED", fallback: "“.")
     /// Next
     public static let next = CourseLocalization.tr("Localizable", "COURSEWARE.NEXT", fallback: "Next")
-    /// You're on your way!
-    public static let onyourway = CourseLocalization.tr("Localizable", "COURSEWARE.ONYOURWAY", fallback: "You're on your way!")
     /// Prev
     public static let previous = CourseLocalization.tr("Localizable", "COURSEWARE.PREVIOUS", fallback: "Prev")
     /// Resume with:

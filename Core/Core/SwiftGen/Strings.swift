@@ -134,7 +134,7 @@ public enum CoreLocalization {
     /// ” press “Next section”.
     public static let nextSectionDescriptionLast = CoreLocalization.tr("Localizable", "COURSEWARE.NEXT_SECTION_DESCRIPTION_LAST", fallback: "” press “Next section”.")
     /// You're on your way!
-    public static let onyourway = CoreLocalization.tr("Localizable", "COURSEWARE.ONYOURWAY", fallback: "You're on your way!")
+    public static let onYourWay = CoreLocalization.tr("Localizable", "COURSEWARE.ON_YOUR_WAY", fallback: "You're on your way!")
     /// Prev
     public static let previous = CoreLocalization.tr("Localizable", "COURSEWARE.PREVIOUS", fallback: "Prev")
     /// Resume
@@ -146,13 +146,15 @@ public enum CoreLocalization {
       return CoreLocalization.tr("Localizable", "COURSEWARE.SECTION_COMPLETED", String(describing: p1), fallback: "You've completed “%@”.")
     }
     /// Well done on successfully completing “%@”.
-    public static func sectionWelldone(_ p1: Any) -> String {
-      return CoreLocalization.tr("Localizable", "COURSEWARE.SECTION_WELLDONE", String(describing: p1), fallback: "Well done on successfully completing “%@”.")
+    public static func sectionWellDone(_ p1: Any) -> String {
+      return CoreLocalization.tr("Localizable", "COURSEWARE.SECTION_WELL_DONE", String(describing: p1), fallback: "Well done on successfully completing “%@”.")
     }
     /// You've officially started %@. Good luck!
     public static func startedOfficially(_ p1: Any) -> String {
       return CoreLocalization.tr("Localizable", "COURSEWARE.STARTED_OFFICIALLY", String(describing: p1), fallback: "You've officially started %@. Good luck!")
     }
+    /// this course
+    public static let thisCourse = CoreLocalization.tr("Localizable", "COURSEWARE.THIS_COURSE", fallback: "this course")
   }
   public enum CourseUpgrade {
     /// Your email is not set up on this device. Please reach out to {email} for support processing your payment.

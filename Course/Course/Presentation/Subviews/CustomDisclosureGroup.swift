@@ -103,9 +103,9 @@ struct CustomDisclosureGroup: View {
                                                     return
                                                 }
                                                 if viewModel.continueWith == nil {
-                                                    let courseName = viewModel.courseStructure?.displayName ?? "this course"
+                                                    let courseName = viewModel.courseStructure?.displayName ?? CoreLocalization.Courseware.thisCourse
                                                     LocalNotificationManager.send(
-                                                        title: CoreLocalization.Courseware.onyourway,
+                                                        title: CoreLocalization.Courseware.onYourWay,
                                                         body: CoreLocalization.Courseware.startedOfficially(courseName)
                                                     )
                                                 }

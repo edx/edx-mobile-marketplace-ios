@@ -22,8 +22,6 @@
 "COURSEWARE.IS_FINISHED" = "“ завершена.";
 "COURSEWARE.CONTINUE" = "Продовжити";
 "COURSEWARE.RESUME_WITH" = "Продовжити далі:";
-"COURSEWARE.CONGRATULATIONS" = "Вітаю!";
-"COURSEWARE.ONYOURWAY" = "Ви вже в дорозі!";
 
 "ERROR.NO_INTERNET" = "Ви не підключені до Інтернету. Перевірте підключення до Інтернету і спробуйте ще.";
 "ERROR.RELOAD" = "Перезавантажити";
