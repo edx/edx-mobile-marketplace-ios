@@ -8,8 +8,15 @@
 import Foundation
 import UserNotifications
 
-public struct LocalNotificationManager {
-    public static func send(title: String, body: String, delay: TimeInterval = 1) {
+//sourcery: AutoMockable
+public protocol LocalNotificationManagerProtocol {
+    func send(title: String, body: String, delay: TimeInterval)
+}
+
+public struct LocalNotificationManager: LocalNotificationManagerProtocol {
+    public init() {}
+    
+    public func send(title: String, body: String, delay: TimeInterval) {
         let content = UNMutableNotificationContent()
         content.title = title
         content.body = body

@@ -134,9 +134,10 @@ struct CourseNavigationView: View {
                         )
                     }
                 )
-                LocalNotificationManager.send(
+                viewModel.localNotificationManager.send(
                                     title: CoreLocalization.Courseware.congratulations,
-                                    body: CoreLocalization.Courseware.sectionWellDone(currentVertical.displayName)
+                                    body: CoreLocalization.Courseware.sectionWellDone(currentVertical.displayName),
+                                    delay: 1
                                 )
                 playerStateSubject.send(VideoPlayerState.pause)
                 viewModel.analytics.finishVerticalClicked(
@@ -162,6 +163,7 @@ struct CourseNavigationView_Previews: PreviewProvider {
             sequentialIndex: 1,
             verticalIndex: 1,
             interactor: CourseInteractor.mock,
+            localNotificationManager: LocalNotificationManager(),
             config: ConfigMock(),
             router: CourseRouterMock(),
             analytics: CourseAnalyticsMock(),

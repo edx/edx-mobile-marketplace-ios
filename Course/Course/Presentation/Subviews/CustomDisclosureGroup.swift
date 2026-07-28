@@ -104,9 +104,10 @@ struct CustomDisclosureGroup: View {
                                                 }
                                                 if viewModel.continueWith == nil {
                                                     let courseName = viewModel.courseStructure?.displayName ?? CoreLocalization.Courseware.thisCourse
-                                                    LocalNotificationManager.send(
+                                                    viewModel.localNotificationManager.send(
                                                         title: CoreLocalization.Courseware.onYourWay,
-                                                        body: CoreLocalization.Courseware.startedOfficially(courseName)
+                                                        body: CoreLocalization.Courseware.startedOfficially(courseName),
+                                                        delay: 1
                                                     )
                                                 }
                                                 viewModel.trackSequentialClicked(sequential)
@@ -405,7 +406,7 @@ struct CustomDisclosureGroup_Previews: PreviewProvider {
             config: ConfigMock(),
             connectivity: Connectivity(),
             manager: DownloadManagerMock(),
-            storage: CourseStorageMock(),
+            storage: CourseStorageMock(), localNotificationManager: LocalNotificationManager(),
             isActive: true,
             courseStart: Date(),
             courseEnd: nil,

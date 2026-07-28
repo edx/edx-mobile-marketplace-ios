@@ -617,6 +617,7 @@ struct CourseUnitView_Previews: PreviewProvider {
             sequentialIndex: 0,
             verticalIndex: 0,
             interactor: CourseInteractor.mock,
+            localNotificationManager: LocalNotificationManager(),
             config: ConfigMock(),
             router: CourseRouterMock(),
             analytics: CourseAnalyticsMock(),
