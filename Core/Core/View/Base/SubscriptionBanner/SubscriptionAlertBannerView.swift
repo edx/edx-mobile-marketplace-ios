@@ -22,9 +22,8 @@ public struct SubscriptionAlertBannerView: View {
         static let shadowRadius: CGFloat = 2
         static let shadowYOffset: CGFloat = 1
 
-        static let backgroundColor = Color(red: 0.94, green: 0.96, blue: 0.98)
+        static let backgroundColor = Theme.Colors.subscriptionBannerBG
         static let borderColor = Color(red: 0.75, green: 0.86, blue: 0.92)
-        static let descriptionColor = Color(red: 0.27, green: 0.27, blue: 0.27)
 
         static let entryAnimationResponse: Double = 0.5
         static let entryAnimationDampingFraction: Double = 0.6
@@ -67,9 +66,9 @@ public struct SubscriptionAlertBannerView: View {
         ) else {
             return Text(plainMessage)
         }
-        attributed.foregroundColor = Constants.descriptionColor
+        attributed.foregroundColor = Theme.Colors.textPrimary
         for run in attributed.runs where run.link != nil {
-            attributed[run.range].foregroundColor = Theme.Colors.accentColor
+            attributed[run.range].foregroundColor = Theme.Colors.infoColor
             attributed[run.range].underlineStyle = .single
         }
         return Text(attributed)
@@ -128,7 +127,6 @@ public struct SubscriptionAlertBannerView: View {
                 .accessibilityIdentifier("subscription_banner_title")
             messageText
                 .font(Theme.Fonts.bodyMedium)
-                .foregroundColor(Constants.descriptionColor)
                 .accessibilityIdentifier("subscription_banner_message")
                 .environment(\.openURL, OpenURLAction { url in
                     onLinkTap(url)
@@ -143,7 +141,7 @@ public struct SubscriptionAlertBannerView: View {
         }) {
             Text(CoreLocalization.SubscriptionBanner.dismiss)
                 .font(Theme.Fonts.labelLarge)
-                .foregroundColor(Constants.descriptionColor)
+                .foregroundColor(Theme.Colors.textPrimary)
         }
         .padding(EdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12))
         .accessibilityIdentifier("subscription_banner_dismiss_button")

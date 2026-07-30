@@ -98,6 +98,16 @@ public struct DiscoveryWebview: View {
         GeometryReader { proxy in
             ZStack(alignment: .top) {
                 VStack(alignment: .center) {
+                    // MARK: - Subscription banner
+                    if discoveryType == .discovery && !isLoading {
+                        SubscriptionAlertBannerView(
+                            viewModel: subscriptionBannerViewModel,
+                            onLinkTap: { url in
+                                router.showWebBrowser(title: "", url: url)
+                            }
+                        )
+                        Spacer(minLength: 20.0)
+                    }
                     WebView(
                         viewModel: .init(
                             url: URLString,
@@ -161,16 +171,6 @@ public struct DiscoveryWebview: View {
                             )
                         }
                     }
-                }
-
-                // MARK: - Subscription banner
-                if discoveryType == .discovery {
-                    SubscriptionAlertBannerView(
-                        viewModel: subscriptionBannerViewModel,
-                        onLinkTap: { url in
-                            router.showWebBrowser(title: "", url: url)
-                        }
-                    )
                 }
             }
             .onFirstAppear {

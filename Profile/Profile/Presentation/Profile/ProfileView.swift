@@ -35,6 +35,13 @@ public struct ProfileView: View {
                         await viewModel.getMyProfile(withProgress: false)
                     },
                     content: {
+                        // MARK: - Subscription banner
+                        SubscriptionAlertBannerView(
+                            viewModel: subscriptionBannerViewModel,
+                            onLinkTap: { url in
+                                viewModel.router.showWebBrowser(title: "", url: url)
+                            }
+                        )
                         content
                             .frameLimit(width: proxy.size.width)
                     }
@@ -50,14 +57,6 @@ public struct ProfileView: View {
                     connectivity: viewModel.connectivity,
                     reloadAction: {
                         await viewModel.getMyProfile(withProgress: false)
-                    }
-                )
-
-                // MARK: - Subscription banner
-                SubscriptionAlertBannerView(
-                    viewModel: subscriptionBannerViewModel,
-                    onLinkTap: { url in
-                        viewModel.router.showWebBrowser(title: "", url: url)
                     }
                 )
 
