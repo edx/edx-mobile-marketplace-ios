@@ -87,6 +87,7 @@ public struct Theme {
         public private(set) static var certificateTitleTextColor = ThemeAssets.certificateTitleTextColor.swiftUIColor
         public private(set) static var certificateTextGrey = ThemeAssets.certificateTextGrey.swiftUIColor
         public private(set) static var subscriptionBannerBG = ThemeAssets.subscriptionBannerBG.swiftUIColor
+        public private(set) static var subscriptionBannerText = ThemeAssets.subscriptionBannerText.swiftUIColor
         public static func update(
             accentColor: Color = ThemeAssets.accentColor.swiftUIColor,
             accentXColor: Color = ThemeAssets.accentXColor.swiftUIColor,

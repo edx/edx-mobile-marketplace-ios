@@ -66,7 +66,7 @@ public struct SubscriptionAlertBannerView: View {
         ) else {
             return Text(plainMessage)
         }
-        attributed.foregroundColor = Theme.Colors.textPrimary
+        attributed.foregroundColor = Theme.Colors.subscriptionBannerText
         for run in attributed.runs where run.link != nil {
             attributed[run.range].foregroundColor = Theme.Colors.infoColor
             attributed[run.range].underlineStyle = .single
@@ -123,7 +123,7 @@ public struct SubscriptionAlertBannerView: View {
         VStack(alignment: .leading, spacing: 8) {
             Text(CoreLocalization.SubscriptionBanner.title)
                 .font(Theme.Fonts.titleMedium)
-                .foregroundColor(Theme.Colors.textPrimary)
+                .foregroundColor(Theme.Colors.subscriptionBannerText)
                 .accessibilityIdentifier("subscription_banner_title")
             messageText
                 .font(Theme.Fonts.bodyMedium)
@@ -141,7 +141,7 @@ public struct SubscriptionAlertBannerView: View {
         }) {
             Text(CoreLocalization.SubscriptionBanner.dismiss)
                 .font(Theme.Fonts.labelLarge)
-                .foregroundColor(Theme.Colors.textPrimary)
+                .foregroundColor(Theme.Colors.subscriptionBannerText)
         }
         .padding(EdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12))
         .accessibilityIdentifier("subscription_banner_dismiss_button")
