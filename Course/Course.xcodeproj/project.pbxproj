@@ -103,6 +103,8 @@
 		154C52342FF4FA00002AFD8D /* CourseProgressScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154C52332FF4FA00002AFD8D /* CourseProgressScreenView.swift */; };
 		154C52372FF4FA59002AFD8D /* GradeDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154C52352FF4FA59002AFD8D /* GradeDetailsView.swift */; };
 		154C52382FF4FA59002AFD8D /* GradeItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154C52362FF4FA59002AFD8D /* GradeItemView.swift */; };
+		154C53A33019DBCE002AFD8D /* CourseProgressViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154C53A23019DBCE002AFD8D /* CourseProgressViewModelTests.swift */; };
+		154C53A53019E10E002AFD8D /* CourseDownloadHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154C53A43019E10E002AFD8D /* CourseDownloadHelperTests.swift */; };
 		15670FA02FBD966B00724946 /* ContentSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15670F9F2FBD966B00724946 /* ContentSegmentedControl.swift */; };
 		15670FA22FBD98DA00724946 /* CourseContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15670FA12FBD98DA00724946 /* CourseContentView.swift */; };
 		15670FB62FD7F69700724946 /* VideosContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15670FB42FD7F69700724946 /* VideosContentView.swift */; };
@@ -254,6 +256,8 @@
 		154C52332FF4FA00002AFD8D /* CourseProgressScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseProgressScreenView.swift; sourceTree = "<group>"; };
 		154C52352FF4FA59002AFD8D /* GradeDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeDetailsView.swift; sourceTree = "<group>"; };
 		154C52362FF4FA59002AFD8D /* GradeItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeItemView.swift; sourceTree = "<group>"; };
+		154C53A23019DBCE002AFD8D /* CourseProgressViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseProgressViewModelTests.swift; sourceTree = "<group>"; };
+		154C53A43019E10E002AFD8D /* CourseDownloadHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDownloadHelperTests.swift; sourceTree = "<group>"; };
 		15670F9F2FBD966B00724946 /* ContentSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSegmentedControl.swift; sourceTree = "<group>"; };
 		15670FA12FBD98DA00724946 /* CourseContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseContentView.swift; sourceTree = "<group>"; };
 		15670FB22FD7F69700724946 /* AllContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllContentView.swift; sourceTree = "<group>"; };
@@ -606,6 +610,7 @@
 				06C022C32C0626C20046ABD3 /* UpgradeInfoViewModelTests.swift */,
 				02F78AEA29E6BCA20038DE30 /* VideoPlayerViewModelTests.swift */,
 				022EA8CA297AD63B0014A8F7 /* CourseContainerViewModelTests.swift */,
+				154C53A43019E10E002AFD8D /* CourseDownloadHelperTests.swift */,
 			);
 			path = Container;
 			sourceTree = "<group>";
@@ -616,6 +621,7 @@
 				0262148E29AE17C4008BD75A /* HandoutsViewModelTests.swift */,
 				0295B1D8297E6DF8003B0C65 /* CourseUnitViewModelTests.swift */,
 				DB205BFA2AE81B1200136EC2 /* CourseDateViewModelTests.swift */,
+				154C53A23019DBCE002AFD8D /* CourseProgressViewModelTests.swift */,
 			);
 			path = Unit;
 			sourceTree = "<group>";
@@ -1061,9 +1067,11 @@
 			files = (
 				0295B1D9297E6DF8003B0C65 /* CourseUnitViewModelTests.swift in Sources */,
 				02F78AEB29E6BCA20038DE30 /* VideoPlayerViewModelTests.swift in Sources */,
+				154C53A33019DBCE002AFD8D /* CourseProgressViewModelTests.swift in Sources */,
 				023812F3297AC9ED0087098F /* CourseMock.generated.swift in Sources */,
 				DB205BFB2AE81B1200136EC2 /* CourseDateViewModelTests.swift in Sources */,
 				022EA8CB297AD63B0014A8F7 /* CourseContainerViewModelTests.swift in Sources */,
+				154C53A53019E10E002AFD8D /* CourseDownloadHelperTests.swift in Sources */,
 				0262148F29AE17C4008BD75A /* HandoutsViewModelTests.swift in Sources */,
 				06C022C42C0626C20046ABD3 /* UpgradeInfoViewModelTests.swift in Sources */,
 			);
