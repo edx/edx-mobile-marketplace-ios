@@ -56,10 +56,10 @@ public struct SubscriptionAlertBannerView: View {
     }
 
     private var messageText: Text {
-        guard let link = viewModel.link else {
+        guard let url = viewModel.url else {
             return Text(plainMessage)
         }
-        let markdown = CoreLocalization.SubscriptionBanner.message(link.absoluteString)
+        let markdown = CoreLocalization.SubscriptionBanner.message(url.absoluteString)
         guard var attributed = try? AttributedString(
             markdown: markdown,
             options: AttributedString.MarkdownParsingOptions(interpretedSyntax: .inlineOnlyPreservingWhitespace)

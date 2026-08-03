@@ -10,19 +10,23 @@ public class SubscriptionBannerConfig: NSObject {
 
     enum Keys: String, RawStringExtractable {
         case maxSessions = "max_sessions"
-        case link = "link"
+        case url = "url"
+        case enabled = "subscription_banner_enabled"
     }
 
     private enum Defaults {
         static let maxSessions = 4
+        static let enabled = false
     }
 
     public let maxSessions: Int
-    public let link: URL?
+    public let url: URL?
+    public let enabled: Bool
 
     init(dictionary: [String: Any]) {
         maxSessions = dictionary[Keys.maxSessions] as? Int ?? Defaults.maxSessions
-        link = (dictionary[Keys.link] as? String).flatMap { URL(string: $0) }
+        url = (dictionary[Keys.url] as? String).flatMap { URL(string: $0) }
+        enabled = dictionary[Keys.enabled] as? Bool ?? Defaults.enabled
     }
 }
 

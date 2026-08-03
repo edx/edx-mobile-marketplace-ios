@@ -10,8 +10,8 @@ public final class SubscriptionAlertBannerViewModel: ObservableObject {
 
     @Published public private(set) var isVisible: Bool = true
 
-    public var link: URL? {
-        serverConfig.subscriptionBannerConfig.link ?? URL(string: "https://edx.org")
+    public var url: URL? {
+        serverConfig.subscriptionBannerConfig.url ?? URL(string: "https://edx.org")
     }
 
     private let screen: SubscriptionBannerScreen
@@ -32,6 +32,11 @@ public final class SubscriptionAlertBannerViewModel: ObservableObject {
     }
 
     public func evaluateVisibility() {
+        guard serverConfig.subscriptionBannerConfig.enabled else {
+            isVisible = false
+            return
+        }
+
         guard !storage.isSubscriptionBannerDismissed(for: screen) else {
             isVisible = false
             return
