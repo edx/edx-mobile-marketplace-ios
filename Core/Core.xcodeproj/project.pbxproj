@@ -2805,7 +2805,7 @@
 			repositoryURL = "https://github.com/GoogleCloudPlatform/recaptcha-enterprise-mobile-sdk";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 18.4.0;
+				minimumVersion = 18.9.1;
 			};
 		};
 		BA8FA65E2AD574D700EA029A /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
