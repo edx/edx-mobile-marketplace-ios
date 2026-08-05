@@ -98,6 +98,9 @@ public struct SubscriptionAlertBannerView: View {
         .onAppear {
             viewModel.evaluateVisibility()
         }
+        .onForeground {
+            viewModel.evaluateVisibility()
+        }
     }
 
     @ViewBuilder

@@ -8,7 +8,7 @@ import Foundation
 
 public final class SubscriptionAlertBannerViewModel: ObservableObject {
 
-    @Published public private(set) var isVisible: Bool = true
+    @Published public private(set) var isVisible: Bool = false
 
     public var url: URL? {
         serverConfig.subscriptionBannerConfig.url ?? URL(string: "https://edx.org")

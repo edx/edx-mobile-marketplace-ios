@@ -208,12 +208,12 @@ struct ProfileView_Previews: PreviewProvider {
 
         ProfileView(viewModel: vm, subscriptionBannerViewModel: subscriptionBannerViewModel)
             .preferredColorScheme(.light)
-            .previewDisplayName("DiscoveryView Light")
+            .previewDisplayName("ProfileView Light")
             .loadFonts()
 
         ProfileView(viewModel: vm, subscriptionBannerViewModel: subscriptionBannerViewModel)
             .preferredColorScheme(.dark)
-            .previewDisplayName("DiscoveryView Dark")
+            .previewDisplayName("ProfileView Dark")
             .loadFonts()
     }
 }
