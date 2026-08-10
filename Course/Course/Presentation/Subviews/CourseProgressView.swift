@@ -19,6 +19,12 @@ public struct CourseProgressView: View {
     private var progressPercentageCount = 0
     private var fromAllContentTab = false
     
+    private var percentageCompleted: Int {
+        guard let total = progress.totalAssignmentsCount, total > 0 else { return 0 }
+        let completed = progress.assignmentsCompleted ?? 0
+        return Int((Double(completed) / Double(total) * 100).rounded())
+    }
+    
     public init(
         progress: CourseProgress,
         showCompletedToggle: Bool = false,
@@ -45,7 +51,7 @@ public struct CourseProgressView: View {
                         .fill(Theme.Colors.courseProgressBG)
                         .frame(width: geometry.size.width, height: 4)
                     
-                    if let total = progress.totalAssignmentsCount,
+                    if let total = progress.totalAssignmentsCount, total > 0,
                        let completed = progress.assignmentsCompleted {
                         RoundedCorners(tl: 2, tr: 0, bl: 2, br: 0)
                             .fill(Theme.Colors.accentColor)
@@ -56,18 +62,9 @@ public struct CourseProgressView: View {
             }
             .cornerRadius(2)
             .accessibilityLabel(
-                CourseLocalization.Accessibility
-                    .videoPercentageCompleted(
-                        String(
-                            Int(
-                                Double(
-                                    progress.assignmentsCompleted ?? 0
-                                )/Double(
-                                    progress.totalAssignmentsCount ?? 0
-                                ) * 100
-                            )
-                        )
-                    )
+                CourseLocalization.Accessibility.videoPercentageCompleted(
+                    String(percentageCompleted)
+                )
             )
             
             HStack {

@@ -16,6 +16,10 @@ public struct CourseOutlineAndProgressView: View {
     private let dateTabIndex: Int
     private let connectivity: ConnectivityProtocol
     
+    private var isCourseContentUnavailable: Bool {
+        !viewModelContainer.isShowProgress && viewModelContainer.courseStructure == nil
+    }
+    
     private var carouselSections: [AnyView] {
         var sections: [AnyView] = []
         
@@ -122,43 +126,46 @@ public struct CourseOutlineAndProgressView: View {
                             RefreshProgressView(isShowRefresh: $viewModelContainer.isShowRefresh)
                             
                             VStack(alignment: .leading) {
-                                
-                                Spacer()
-                                
-                                certificateView
-                                
-                                if let continueWith = viewModelContainer.continueWith,
-                                   let courseStructure = viewModelContainer.courseStructure {
-                                    let chapter = courseStructure.childs[continueWith.chapterIndex]
-                                    let sequential = chapter.childs[continueWith.sequentialIndex]
-                                    let continueUnit = sequential.childs[continueWith.verticalIndex]
+                                if isCourseContentUnavailable {
+                                    FullScreenErrorView(
+                                        type: .noContent(
+                                            CourseLocalization.Error.coursewareUnavailable,
+                                            image: CoreAssets.information.swiftUIImage
+                                        )
+                                    )
+                                    .frame(maxWidth: .infinity)
+                                    .frame(minHeight: 300)
+                                } else {
+                                    Spacer()
                                     
-                                    UnitButtonView(
-                                        type: .customContinueLesson(
-                                            continueUnit.displayName
-                                        ),
-                                        action: {
-                                            viewModelContainer.openLastVisitedBlock()
-                                        })
-                                    .padding(.horizontal, 24)
-                                    .padding(.top, 16)
+                                    certificateView
                                     
-                                }
-                                
-                                //                                    if let courseDeadlineInfo = viewModelContainer.courseDeadlineInfo,
-                                //                                    let verifiedUpgradeLink = courseDeadlineInfo.datesBannerInfo.verifiedUpgradeLink {
-                                //                                        upgradeNowBanner(url: verifiedUpgradeLink)
-                                //                                            .padding(.horizontal, 24)
-                                //                                            .padding(.bottom, 16)
-                                //                                    }
-                                
-                                ZStack {
-                                    carouselContent
-                                }
-                                .frame(maxWidth: .infinity)
-                                .hidden()
-                                .overlay {
-                                    carouselTabView
+                                    if let continueWith = viewModelContainer.continueWith,
+                                       let courseStructure = viewModelContainer.courseStructure {
+                                        let chapter = courseStructure.childs[continueWith.chapterIndex]
+                                        let sequential = chapter.childs[continueWith.sequentialIndex]
+                                        let continueUnit = sequential.childs[continueWith.verticalIndex]
+                                        
+                                        UnitButtonView(
+                                            type: .customContinueLesson(
+                                                continueUnit.displayName
+                                            ),
+                                            action: {
+                                                viewModelContainer.openLastVisitedBlock()
+                                            })
+                                        .padding(.horizontal, 24)
+                                        .padding(.top, 16)
+                                        
+                                    }
+                                    
+                                    ZStack {
+                                        carouselContent
+                                    }
+                                    .frame(maxWidth: .infinity)
+                                    .hidden()
+                                    .overlay {
+                                        carouselTabView
+                                    }
                                 }
                                 
                             }
@@ -204,7 +211,7 @@ public struct CourseOutlineAndProgressView: View {
                     pageControlView
                         .padding(.bottom, 10)
                         .frame(alignment: .bottom)
-                        .opacity(viewModelContainer.isShowProgress ? 0 : 1)
+                        .opacity(viewModelContainer.isShowProgress || isCourseContentUnavailable ? 0 : 1)
                     
                         .onRightSwipeGesture {
                             viewModelContainer.router.back()
@@ -463,40 +470,6 @@ public struct CourseOutlineAndProgressView: View {
             }
         }
     }
-    
-    // MARK: - Upgrade Now Banner
-    //    private func upgradeNowBanner(url: String) -> some View {
-    //        VStack(alignment: .leading) {
-    //            HStack(alignment: .top) {
-    //                CoreAssets.lockIcon.swiftUIImage
-    //                    .renderingMode(.template)
-    //                    .foregroundStyle(Theme.Colors.textPrimary)
-    //                    .padding(.trailing, 8)
-    //
-    //                VStack(alignment: .leading) {
-    //                    Text(CourseLocalization.CourseCarousel.upgradeNowBody)
-    //                        .font(Theme.Fonts.bodySmall)
-    //                        .foregroundStyle(Theme.Colors.textPrimary)
-    //
-    //                    if let url = URL(string: url) {
-    //                        Link(destination: url) {
-    //                            Text(CourseLocalization.CourseCarousel.upgradeNowButton)
-    //                                .underline()
-    //                                .font(Theme.Fonts.bodySmall)
-    //                                .foregroundStyle(Theme.Colors.textPrimary)
-    //                        }
-    //                        .buttonStyle(.plain)
-    //                    }
-    //                }
-    //            }
-    //        }
-    //        .padding(16)
-    //        .overlay(
-    //            RoundedRectangle(cornerRadius: 8)
-    //                .stroke(style: .init(lineWidth: 1, lineCap: .round, lineJoin: .round, miterLimit: 1))
-    //                .foregroundColor(Theme.Colors.cardViewStroke)
-    //        )
-    //    }
 }
 
 // MARK: - Preview

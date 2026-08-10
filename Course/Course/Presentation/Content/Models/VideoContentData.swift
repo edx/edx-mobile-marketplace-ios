@@ -37,5 +37,5 @@ struct VideoThumbnailData {
     let video: CourseBlock
     var chapter: CourseChapter?
     let courseStructure: CourseStructure?
-    let onVideoTap: (CourseBlock, CourseChapter?) -> Void?
+    let onVideoTap: (CourseBlock, CourseChapter?) -> Void
 }

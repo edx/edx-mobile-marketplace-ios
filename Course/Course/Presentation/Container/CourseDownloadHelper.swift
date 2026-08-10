@@ -189,7 +189,10 @@ public final class CourseDownloadHelper: CourseDownloadHelperProtocol, @unchecke
                                     if let newDateOfLastModified = block.offlineDownload?.lastModified,
                                        let oldDateOfLastModified = download.lastModified {
                                         if Date(iso8601: newDateOfLastModified) > Date(iso8601: oldDateOfLastModified) {
-                                            guard isEnoughSpace(for: sizeFor(block: block) ?? 0) else { return }
+                                            guard isEnoughSpace(for: sizeFor(block: block) ?? 0) else {
+                                                continuation.resume()
+                                                return
+                                            }
                                             download.lastModified = newDateOfLastModified
                                             sequentialsChilds.append(.available)
                                             verticalsChilds.append(.available)

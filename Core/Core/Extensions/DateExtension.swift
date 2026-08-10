@@ -249,7 +249,7 @@ public extension Date {
             let days = Calendar.current.dateComponents([.day], from: self, to: Date())
             if let day = days.day {
                 if day < 2 {
-                    return timeAgoDisplay()
+                    return timeAgoDisplay(dueIn: dueIn)
                 } else {
                     return date
                 }
@@ -338,7 +338,7 @@ public extension Date {
         }
     }
     
-    func timeAgoDisplay(dueIn: Bool = false) -> String {
+    func timeAgoDisplay(dueIn: Bool) -> String {
         let currentDate = Date()
         let calendar = Calendar.current
         

@@ -18,7 +18,7 @@ public actor VideoThumbnailService: VideoThumbnailServiceProtocol {
     public init() {}
     
     public func generateVideoThumbnailIfNeeded(from url: URL) async -> UIImage? {
-        let cacheKey = "video_thumbnail_\(url.absoluteString.hash)"
+        let cacheKey = "video_thumbnail_\(url.absoluteString)"
         
         // Check if thumbnail is already cached (both memory and disk)
         do {
