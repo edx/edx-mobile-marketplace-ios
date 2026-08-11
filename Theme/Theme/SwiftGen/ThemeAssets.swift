@@ -55,6 +55,8 @@ public enum ThemeAssets {
   public static let irreversibleAlert = ColorAsset(name: "IrreversibleAlert")
   public static let loginBackground = ColorAsset(name: "LoginBackground")
   public static let loginNavigationText = ColorAsset(name: "LoginNavigationText")
+  public static let cancelButtonTextColor = ColorAsset(name: "CancelButtonTextColor")
+  public static let removeAllButtonTextColor = ColorAsset(name: "RemoveAllButtonTextColor")
   public static let primaryButtonTextColor = ColorAsset(name: "PrimaryButtonTextColor")
   public static let primaryCardCautionBG = ColorAsset(name: "PrimaryCardCautionBG")
   public static let primaryCardCourseUpgradeBG = ColorAsset(name: "PrimaryCardCourseUpgradeBG")

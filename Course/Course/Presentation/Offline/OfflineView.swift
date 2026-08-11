@@ -20,7 +20,7 @@ struct OfflineView: View {
             case .start:
                 Theme.Colors.accentColor
             case .cancel:
-                Theme.Colors.snackbarErrorColor
+                Theme.Colors.cancelButtonTextColor
             }
         }
         
@@ -47,7 +47,7 @@ struct OfflineView: View {
             case .start:
                 Theme.Colors.background
             case .cancel:
-                Theme.Colors.snackbarErrorColor
+                Theme.Colors.cancelButtonTextColor
             }
         }
     }
@@ -226,14 +226,14 @@ struct OfflineView: View {
                         Text(CourseLocalization.Course.LargestDownloads.removeDownloads)
                             .font(Theme.Fonts.bodyMedium)
                     }
-                    .foregroundStyle(Theme.Colors.snackbarErrorColor)
+                    .foregroundStyle(Theme.Colors.removeAllButtonTextColor)
                     .frame(maxWidth: .infinity)
                     .frame(height: 42)
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
-                            .stroke(Theme.Colors.snackbarErrorColor, lineWidth: 2)
+                            .stroke(Theme.Colors.removeAllButtonTextColor, lineWidth: 2)
                     )
-                    .background(Theme.Colors.background)
+                    .background(Color.white)
                     .cornerRadius(8)
                 }
             }

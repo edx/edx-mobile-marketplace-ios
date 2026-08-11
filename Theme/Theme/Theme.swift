@@ -94,6 +94,8 @@ public struct Theme {
         public private(set) static var assignmentColor = ThemeAssets.assignmentStroke.swiftUIColor
         public private(set) static var disabledButton = ThemeAssets.disabledButton.swiftUIColor
         public private(set) static var disabledButtonText = ThemeAssets.disabledButtonText.swiftUIColor
+        public private(set) static var removeAllButtonTextColor = ThemeAssets.removeAllButtonTextColor.swiftUIColor
+        public private(set) static var cancelButtonTextColor = ThemeAssets.cancelButtonTextColor.swiftUIColor
         
         public static func update(
             accentColor: Color = ThemeAssets.accentColor.swiftUIColor,
