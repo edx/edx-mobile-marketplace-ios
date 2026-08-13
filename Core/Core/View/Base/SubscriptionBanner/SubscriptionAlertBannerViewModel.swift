@@ -18,17 +18,20 @@ public final class SubscriptionAlertBannerViewModel: ObservableObject {
     private let storage: SubscriptionBannerStorage
     private let sessionTracker: AppSessionTracking
     private let serverConfig: ServerConfigProtocol
+    private let analytics: CoreAnalytics
 
     public init(
         screen: SubscriptionBannerScreen,
         storage: SubscriptionBannerStorage,
         sessionTracker: AppSessionTracking,
-        serverConfig: ServerConfigProtocol
+        serverConfig: ServerConfigProtocol,
+        analytics: CoreAnalytics
     ) {
         self.screen = screen
         self.storage = storage
         self.sessionTracker = sessionTracker
         self.serverConfig = serverConfig
+        self.analytics = analytics
     }
 
     public func evaluateVisibility() {
@@ -56,10 +59,38 @@ public final class SubscriptionAlertBannerViewModel: ObservableObject {
             storage.recordSubscriptionBannerShown(for: screen, sessionID: currentSessionID)
             isVisible = true
         }
+        analytics.trackEvent(
+            .subscriptionBannerViewed,
+            biValue: .subscriptionBannerViewed,
+            parameters: [
+                EventParamKey.screenName: screen.rawValue,
+                EventParamKey.sessionCount: storage.subscriptionBannerShownSessionCount(for: screen),
+                EventParamKey.maxSessions: maxSessions
+            ]
+        )
     }
 
     public func dismiss() {
+        analytics.trackEvent(
+            .subscriptionBannerDismissed,
+            biValue: .subscriptionBannerDismissed,
+            parameters: [
+                EventParamKey.screenName: screen.rawValue,
+                EventParamKey.sessionCount: storage.subscriptionBannerShownSessionCount(for: screen)
+            ]
+        )
         storage.setSubscriptionBannerDismissed(for: screen)
         isVisible = false
+    }
+
+    public func trackCTAClick(url: URL) {
+        analytics.trackEvent(
+            .subscriptionBannerCTAClicked,
+            biValue: .subscriptionBannerCTAClicked,
+            parameters: [
+                EventParamKey.screenName: screen.rawValue,
+                EventParamKey.url: url.absoluteString
+            ]
+        )
     }
 }

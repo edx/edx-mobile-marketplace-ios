@@ -249,7 +249,8 @@ final class ProfileViewModelTests: XCTestCase {
             screen: .profile,
             storage: storage,
             sessionTracker: sessionTracker,
-            serverConfig: serverConfig
+            serverConfig: serverConfig,
+            analytics: CoreAnalyticsMock()
         )
 
         sessionTracker.currentSessionID = 1
