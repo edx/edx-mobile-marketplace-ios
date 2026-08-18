@@ -134,11 +134,20 @@ struct CourseNavigationView: View {
                         )
                     }
                 )
-                viewModel.localNotificationManager.send(
-                                    title: CoreLocalization.Courseware.congratulations,
-                                    body: CoreLocalization.Courseware.sectionWellDone(currentVertical.displayName),
-                                    delay: 1
-                                )
+                if !viewModel.storage.isVerticalFinishNotified(
+                    courseID: viewModel.courseID,
+                    verticalID: currentVertical.id
+                ) {
+                    viewModel.localNotificationManager.send(
+                        title: CoreLocalization.Courseware.congratulations,
+                        body: CoreLocalization.Courseware.sectionWellDone(currentVertical.displayName),
+                        delay: 1
+                    )
+                    viewModel.storage.markVerticalFinishNotified(
+                        courseID: viewModel.courseID,
+                        verticalID: currentVertical.id
+                    )
+                }
                 playerStateSubject.send(VideoPlayerState.pause)
                 viewModel.analytics.finishVerticalClicked(
                     courseId: viewModel.courseID,
