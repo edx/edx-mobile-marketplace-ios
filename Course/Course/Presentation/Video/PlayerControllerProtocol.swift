@@ -11,5 +11,6 @@ public protocol PlayerControllerProtocol {
     func play()
     func pause()
     func seekTo(to date: Date)
+    func seek(to time: TimeInterval)
     func stop()
 }

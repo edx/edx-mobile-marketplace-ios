@@ -267,6 +267,10 @@ class AppAssembly: Assembly {
             )
         }.inObjectScope(.container)
 
+        container.register(NowPlayingManagerProtocol.self) { _ in
+            NowPlayingManager()
+        }.inObjectScope(.container)
+
         container.register(ThemeManagerProtocol.self) { r in
             ThemeManager(
                 storage: r.resolve(CoreStorage.self)!

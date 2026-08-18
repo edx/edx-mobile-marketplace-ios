@@ -25,11 +25,14 @@ public protocol PlayerViewControllerHolderProtocol: AnyObject {
         blockID: String,
         courseID: String,
         selectedCourseTab: Int,
+        title: String,
+        artworkURL: URL?,
         pipManager: PipManagerProtocol,
         playerTracker: any PlayerTrackerProtocol,
         playerDelegate: PlayerDelegateProtocol?,
         playerService: PlayerServiceProtocol,
-        appStorage: CoreStorage?
+        appStorage: CoreStorage?,
+        nowPlayingManager: NowPlayingManagerProtocol
     )
     func getTimePublisher() -> AnyPublisher<Double, Never>
     func getErrorPublisher() -> AnyPublisher<Error, Never>
@@ -38,6 +41,8 @@ public protocol PlayerViewControllerHolderProtocol: AnyObject {
     func getFinishPublisher() -> AnyPublisher<Void, Never>
     func getService() -> PlayerServiceProtocol
     func sendCompletion() async
+    func stop()
+    func updateMetadata(title: String, artworkURL: URL?)
 }
 
 public class PlayerViewControllerHolder: PlayerViewControllerHolderProtocol {
@@ -45,7 +50,9 @@ public class PlayerViewControllerHolder: PlayerViewControllerHolderProtocol {
     public let blockID: String
     public let courseID: String
     public let selectedCourseTab: Int
-    
+    public private(set) var title: String
+    public private(set) var artworkURL: URL?
+
     public var isPlaying: Bool {
         playerTracker.isPlaying
     }
@@ -76,6 +83,10 @@ public class PlayerViewControllerHolder: PlayerViewControllerHolderProtocol {
     private var isViewedOnce: Bool = false
     private var cancellations: [AnyCancellable] = []
     private var appStorage: CoreStorage?
+    private let nowPlayingManager: NowPlayingManagerProtocol
+    private var lastKnownTime: Double = 0
+    private var lastKnownRate: Float = 0
+    private var lastPushedDuration: Double = .nan
 
     let pipManager: PipManagerProtocol
 
@@ -84,6 +95,7 @@ public class PlayerViewControllerHolder: PlayerViewControllerHolderProtocol {
         playerController.modalPresentationStyle = .fullScreen
         playerController.allowsPictureInPicturePlayback = true
         playerController.canStartPictureInPictureAutomaticallyFromInline = true
+        playerController.updatesNowPlayingInfoCenter = false
         playerController.delegate = playerDelegate
         playerController.player = playerTracker.player as? AVPlayer
         playerController.player?.currentItem?.preferredMaximumResolution = (
@@ -109,28 +121,43 @@ public class PlayerViewControllerHolder: PlayerViewControllerHolderProtocol {
         blockID: String,
         courseID: String,
         selectedCourseTab: Int,
+        title: String = "",
+        artworkURL: URL? = nil,
         pipManager: PipManagerProtocol,
         playerTracker: any PlayerTrackerProtocol,
         playerDelegate: PlayerDelegateProtocol?,
         playerService: PlayerServiceProtocol,
-        appStorage: CoreStorage?
+        appStorage: CoreStorage?,
+        nowPlayingManager: NowPlayingManagerProtocol
     ) {
         self.url = url
         self.blockID = blockID
         self.courseID = courseID
         self.selectedCourseTab = selectedCourseTab
+        self.title = title
+        self.artworkURL = artworkURL
         self.pipManager = pipManager
         self.playerTracker = playerTracker
         self.playerDelegate = playerDelegate
         self.playerService = playerService
         self.appStorage = appStorage
+        self.nowPlayingManager = nowPlayingManager
         addObservers()
     }
-    
+
     private func addObservers() {
         timePublisher
-            .sink {[weak self] _ in
+            .sink {[weak self] time in
                 guard let strongSelf = self else { return }
+                strongSelf.lastKnownTime = time
+                if strongSelf.duration.isFinite && strongSelf.duration != strongSelf.lastPushedDuration {
+                    strongSelf.lastPushedDuration = strongSelf.duration
+                    strongSelf.nowPlayingManager.updatePlaybackState(
+                        elapsedTime: time,
+                        duration: strongSelf.duration,
+                        rate: strongSelf.lastKnownRate
+                    )
+                }
                 if strongSelf.playerTracker.progress > 0.8 && !strongSelf.isViewedOnce {
                     strongSelf.isViewedOnce = true
                     Task {
@@ -146,9 +173,28 @@ public class PlayerViewControllerHolder: PlayerViewControllerHolderProtocol {
             .store(in: &cancellations)
         playerTracker.getRatePublisher()
             .sink {[weak self] rate in
+                guard let self else { return }
+                self.lastKnownRate = rate
+                self.lastPushedDuration = self.duration
+                self.nowPlayingManager.updatePlaybackState(
+                    elapsedTime: self.lastKnownTime,
+                    duration: self.duration,
+                    rate: rate
+                )
                 guard rate > 0 else { return }
-                self?.pausePipIfNeed()
-                self?.saveSelectedRate(rate: rate)
+                self.pausePipIfNeed()
+                self.saveSelectedRate(rate: rate)
+            }
+            .store(in: &cancellations)
+        playerTracker.getReadyPublisher()
+            .sink { [weak self] isReady in
+                guard let self, isReady else { return }
+                self.nowPlayingManager.setMetadata(
+                    title: self.title,
+                    artworkURL: self.artworkURL,
+                    duration: self.duration
+                )
+                self.nowPlayingManager.setActivePlayer(self.playerController)
             }
             .store(in: &cancellations)
         pipManager.pipRatePublisher()?
@@ -205,6 +251,18 @@ public class PlayerViewControllerHolder: PlayerViewControllerHolderProtocol {
             errorPublisher.send(error)
         }
     }
+
+    public func stop() {
+        playerController?.stop()
+        nowPlayingManager.clear()
+    }
+
+    public func updateMetadata(title: String, artworkURL: URL?) {
+        self.title = title
+        self.artworkURL = artworkURL
+        guard playerTracker.isReady else { return }
+        nowPlayingManager.setMetadata(title: title, artworkURL: artworkURL, duration: duration)
+    }
 }
 
 extension AVPlayerViewController: PlayerControllerProtocol {
@@ -219,7 +277,11 @@ extension AVPlayerViewController: PlayerControllerProtocol {
     public func seekTo(to date: Date) {
         player?.seek(to: date)
     }
-    
+
+    public func seek(to time: TimeInterval) {
+        player?.seek(to: CMTime(seconds: time, preferredTimescale: 600))
+    }
+
     public func stop() {
         player?.replaceCurrentItem(with: nil)
     }
@@ -242,7 +304,8 @@ extension PlayerViewControllerHolder {
                 interactor: CourseInteractor.mock,
                 router: CourseRouterMock()
             ),
-            appStorage: CoreStorageMock()
+            appStorage: CoreStorageMock(),
+            nowPlayingManager: NowPlayingManagerProtocolMock()
         )
     }
 }
