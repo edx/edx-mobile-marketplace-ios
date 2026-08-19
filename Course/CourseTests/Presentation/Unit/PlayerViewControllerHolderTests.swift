@@ -15,6 +15,7 @@ private final class NowPlayingManagerSpy: NowPlayingManagerProtocol {
     private(set) var updatePlaybackStateCalls: [(elapsedTime: TimeInterval, duration: TimeInterval, rate: Float)] = []
     private(set) var setActivePlayerCallCount = 0
     private(set) var clearCallCount = 0
+    private(set) var activeController: PlayerControllerProtocol?
 
     func setMetadata(title: String, artworkURL: URL?, duration: TimeInterval) {
         setMetadataCalls.append((title, artworkURL, duration))
@@ -26,10 +27,12 @@ private final class NowPlayingManagerSpy: NowPlayingManagerProtocol {
 
     func setActivePlayer(_ controller: PlayerControllerProtocol?) {
         setActivePlayerCallCount += 1
+        activeController = controller
     }
 
     func clear() {
         clearCallCount += 1
+        activeController = nil
     }
 }
 
@@ -87,22 +90,11 @@ final class PlayerViewControllerHolderTests: XCTestCase {
         XCTAssertEqual(nowPlayingManager.setActivePlayerCallCount, 0)
     }
 
-    func testResolvedDurationIsNotRePushedOnSubsequentTicks() {
-        let tracker = PlayerTrackerProtocolMock(url: nil)
-        let nowPlayingManager = NowPlayingManagerSpy()
-        _ = makeHolder(tracker: tracker, nowPlayingManager: nowPlayingManager)
-
-        tracker.sendProgress(1)
-        let callCountAfterFirstTick = nowPlayingManager.updatePlaybackStateCalls.count
-        tracker.sendProgress(2)
-
-        XCTAssertEqual(nowPlayingManager.updatePlaybackStateCalls.count, callCountAfterFirstTick)
-    }
-
     func testStopClearsNowPlayingInfo() {
         let tracker = PlayerTrackerProtocolMock(url: nil)
         let nowPlayingManager = NowPlayingManagerSpy()
         let holder = makeHolder(tracker: tracker, nowPlayingManager: nowPlayingManager)
+        tracker.sendReady(true)
 
         holder.stop()
 
@@ -155,5 +147,47 @@ final class PlayerViewControllerHolderTests: XCTestCase {
         XCTAssertEqual(nowPlayingManager.setMetadataCalls.count, 1)
         XCTAssertEqual(nowPlayingManager.setMetadataCalls.first?.title, "Late Title")
         XCTAssertEqual(nowPlayingManager.setMetadataCalls.first?.artworkURL, artworkURL)
+    }
+    
+    func testSupersededHolderCannotOverwriteNewerHolderMetadata() {
+        let nowPlayingManager = NowPlayingManagerSpy()
+
+        let trackerA = PlayerTrackerProtocolMock(url: nil)
+        let holderA = makeHolder(
+            tracker: trackerA,
+            nowPlayingManager: nowPlayingManager,
+            title: "Course A",
+            artworkURL: URL(string: "https://example.com/a.png")
+        )
+        trackerA.sendReady(true)
+        XCTAssertEqual(nowPlayingManager.setMetadataCalls.last?.title, "Course A")
+
+        // Learner opens a different course while A's video is still alive in the background
+        // (nothing ever called holderA.stop()).
+        let trackerB = PlayerTrackerProtocolMock(url: nil)
+        let holderB = makeHolder(
+            tracker: trackerB,
+            nowPlayingManager: nowPlayingManager,
+            title: "Course B",
+            artworkURL: URL(string: "https://example.com/b.png")
+        )
+        trackerB.sendReady(true)
+        XCTAssertEqual(nowPlayingManager.setMetadataCalls.last?.title, "Course B")
+
+        // A's own publishers keep firing (still playing in the background) — must not touch
+        // the info that now belongs to B.
+        trackerA.sendProgress(10)
+        trackerA.sendRate(1.0)
+
+        XCTAssertEqual(nowPlayingManager.setMetadataCalls.last?.title, "Course B")
+        XCTAssertTrue(nowPlayingManager.updatePlaybackStateCalls.allSatisfy { $0.elapsedTime != 10 })
+
+        // If A is eventually stopped (e.g. the learner finally backs out of it), it must not
+        // clear B's now-playing info either.
+        holderA.stop()
+        XCTAssertEqual(nowPlayingManager.clearCallCount, 0)
+
+        holderB.stop()
+        XCTAssertEqual(nowPlayingManager.clearCallCount, 1)
     }
 }

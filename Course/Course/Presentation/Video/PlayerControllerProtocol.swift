@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol PlayerControllerProtocol {
+public protocol PlayerControllerProtocol: AnyObject {
     func play()
     func pause()
     func seekTo(to date: Date)

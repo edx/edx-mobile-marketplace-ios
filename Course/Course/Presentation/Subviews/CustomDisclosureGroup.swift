@@ -8,6 +8,7 @@
 import SwiftUI
 import Core
 import Theme
+import Combine
 
 struct CustomDisclosureGroup: View {
     @State private var expandedSections: [String: Bool] = [:]
@@ -114,7 +115,7 @@ struct CustomDisclosureGroup: View {
                                                         chapterIndex: chapterIndex,
                                                         sequentialIndex: sequentialIndex,
                                                         courseStructurePublisher: self.isVideo
-                                                        ? nil
+                                                        ? Just(course).map{Optional($0)}.eraseToAnyPublisher()
                                                         : viewModel.courseStructurePublisher
                                                     )
                                                 } else {
@@ -126,7 +127,7 @@ struct CustomDisclosureGroup: View {
                                                         chapterIndex: chapterIndex,
                                                         sequentialIndex: sequentialIndex,
                                                         courseStructurePublisher: self.isVideo
-                                                        ? nil
+                                                        ? Just(course).map { Optional($0)}.eraseToAnyPublisher()
                                                         : viewModel.courseStructurePublisher
                                                     )
                                                 }

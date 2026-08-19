@@ -10,6 +10,7 @@ import MediaPlayer
 import Kingfisher
 
 public protocol NowPlayingManagerProtocol: AnyObject {
+    var activeController: PlayerControllerProtocol? { get }
     func setMetadata(title: String, artworkURL: URL?, duration: TimeInterval)
     func updatePlaybackState(elapsedTime: TimeInterval, duration: TimeInterval, rate: Float)
     func setActivePlayer(_ controller: PlayerControllerProtocol?)
@@ -17,7 +18,7 @@ public protocol NowPlayingManagerProtocol: AnyObject {
 }
 
 public final class NowPlayingManager: NowPlayingManagerProtocol {
-    private var activeController: PlayerControllerProtocol?
+    public private(set) var activeController: PlayerControllerProtocol?
     private let nowPlayingInfoCenter: MPNowPlayingInfoCenter
     private let commandCenter: MPRemoteCommandCenter
     private var artworkDownloadTask: DownloadTask?
@@ -121,10 +122,15 @@ public final class NowPlayingManager: NowPlayingManagerProtocol {
 
 #if DEBUG
 public final class NowPlayingManagerProtocolMock: NowPlayingManagerProtocol {
+    public private(set) var activeController: PlayerControllerProtocol?
     public init() {}
     public func setMetadata(title: String, artworkURL: URL?, duration: TimeInterval) {}
     public func updatePlaybackState(elapsedTime: TimeInterval, duration: TimeInterval, rate: Float) {}
-    public func setActivePlayer(_ controller: PlayerControllerProtocol?) {}
-    public func clear() {}
+    public func setActivePlayer(_ controller: PlayerControllerProtocol?) {
+        activeController = controller
+    }
+    public func clear() {
+        activeController = nil
+    }
 }
 #endif

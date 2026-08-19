@@ -156,4 +156,19 @@ final class NowPlayingManagerTests: XCTestCase {
         XCTAssertEqual(manager.handlePlayCommand(), .noActionableNowPlayingItem)
         XCTAssertEqual(controller.playCallCount, 0)
     }
+
+    func testActiveControllerReflectsSetActivePlayerAndClear() {
+        let manager = NowPlayingManager()
+        let controllerA = PlayerControllerProtocolSpy()
+        let controllerB = PlayerControllerProtocolSpy()
+
+        manager.setActivePlayer(controllerA)
+        XCTAssertTrue(manager.activeController === controllerA)
+
+        manager.setActivePlayer(controllerB)
+        XCTAssertTrue(manager.activeController === controllerB)
+
+        manager.clear()
+        XCTAssertNil(manager.activeController)
+    }
 }

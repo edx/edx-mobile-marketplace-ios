@@ -145,12 +145,18 @@ public class PlayerViewControllerHolder: PlayerViewControllerHolderProtocol {
         addObservers()
     }
 
+    private var isActiveNowPlayingSource: Bool {
+        nowPlayingManager.activeController != nil && nowPlayingManager.activeController === playerController
+    }
+
     private func addObservers() {
         timePublisher
             .sink {[weak self] time in
                 guard let strongSelf = self else { return }
                 strongSelf.lastKnownTime = time
-                if strongSelf.duration.isFinite && strongSelf.duration != strongSelf.lastPushedDuration {
+                if strongSelf.duration.isFinite
+                    && strongSelf.duration != strongSelf.lastPushedDuration
+                    && strongSelf.isActiveNowPlayingSource {
                     strongSelf.lastPushedDuration = strongSelf.duration
                     strongSelf.nowPlayingManager.updatePlaybackState(
                         elapsedTime: time,
@@ -175,12 +181,14 @@ public class PlayerViewControllerHolder: PlayerViewControllerHolderProtocol {
             .sink {[weak self] rate in
                 guard let self else { return }
                 self.lastKnownRate = rate
-                self.lastPushedDuration = self.duration
-                self.nowPlayingManager.updatePlaybackState(
-                    elapsedTime: self.lastKnownTime,
-                    duration: self.duration,
-                    rate: rate
-                )
+                if self.isActiveNowPlayingSource {
+                    self.lastPushedDuration = self.duration
+                    self.nowPlayingManager.updatePlaybackState(
+                        elapsedTime: self.lastKnownTime,
+                        duration: self.duration,
+                        rate: rate
+                    )
+                }
                 guard rate > 0 else { return }
                 self.pausePipIfNeed()
                 self.saveSelectedRate(rate: rate)
@@ -254,13 +262,15 @@ public class PlayerViewControllerHolder: PlayerViewControllerHolderProtocol {
 
     public func stop() {
         playerController?.stop()
-        nowPlayingManager.clear()
+        if isActiveNowPlayingSource {
+            nowPlayingManager.clear()
+        }
     }
 
     public func updateMetadata(title: String, artworkURL: URL?) {
         self.title = title
         self.artworkURL = artworkURL
-        guard playerTracker.isReady else { return }
+        guard playerTracker.isReady, isActiveNowPlayingSource else { return }
         nowPlayingManager.setMetadata(title: title, artworkURL: artworkURL, duration: duration)
     }
 }
