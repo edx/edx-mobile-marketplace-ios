@@ -10,7 +10,7 @@ import Core
 import SwiftUI
 import WebKit
 
-public class ProgramWebviewViewModel: ObservableObject, WebviewCookiesUpdateProtocol {
+public class ProgramWebviewViewModel: ObservableObject, WebviewCookiesUpdateProtocol, WebViewTrustedHostsProtocol {
     @Published var courseDetails: CourseDetails?
     @Published private(set) var showProgress = false
     @Published var showError: Bool = false
@@ -25,7 +25,7 @@ public class ProgramWebviewViewModel: ObservableObject, WebviewCookiesUpdateProt
     }
     
     let router: DiscoveryRouter
-    let config: ConfigProtocol
+    public let config: ConfigProtocol
     let connectivity: ConnectivityProtocol
     private let interactor: DiscoveryInteractorProtocol
     private let analytics: DiscoveryAnalytics
@@ -117,18 +117,30 @@ extension ProgramWebviewViewModel: WebViewNavigationDelegate {
            await handleNavigation(url: URL, urlAction: urlAction) {
             return true
         }
-        
-        let capturedLink = navigationAction.navigationType == .linkActivated
-        let outsideLink = (request.mainDocumentURL?.host != self.request?.url?.host)
+
         var externalLink = false
-        
         if let queryParameters = request.url?.queryParameters,
-            let externalLinkValue = queryParameters["external_link"] as? String,
+           let externalLinkValue = queryParameters["external_link"] as? String,
            externalLinkValue.caseInsensitiveCompare("true") == .orderedSame {
             externalLink = true
         }
         
-        if let url = request.url, outsideLink || capturedLink || externalLink, UIApplication.shared.canOpenURL(url) {
+        var outsideLink = navigationAction.navigationType == .linkActivated
+        if !outsideLink && !externalLink {
+            switch classifyNavigation(
+                destinationHost: request.mainDocumentURL?.host,
+                originHost: self.request?.url?.host
+            ) {
+            case .silentCancel:
+                return true
+            case .outsideLink:
+                outsideLink = true
+            case .allow:
+                break
+            }
+        }
+        
+        if let url = request.url, outsideLink || externalLink, UIApplication.shared.canOpenURL(url) {
             router.presentAlert(
                 alertTitle: DiscoveryLocalization.Alert.leavingAppTitle,
                 alertMessage: DiscoveryLocalization.Alert.leavingAppMessage,
