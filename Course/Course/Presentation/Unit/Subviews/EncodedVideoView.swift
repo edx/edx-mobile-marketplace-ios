@@ -2,7 +2,7 @@
 //  EncodedVideoView.swift
 //  Course
 //
-//  Created by  Stepanok Ivan on 30.05.2023.
+//  Created by Stepanok Ivan on 30.05.2023.
 //
 
 import SwiftUI
@@ -19,16 +19,38 @@ struct EncodedVideoView: View {
     let playerStateSubject: CurrentValueSubject<VideoPlayerState?, Never>
     let languages: [SubtitleUrl]
     let isOnScreen: Bool
+    
+    @StateObject private var viewModel: EncodedVideoPlayerViewModel
+
+    init(
+        name: String,
+        url: URL?,
+        courseID: String,
+        blockID: String,
+        playerStateSubject: CurrentValueSubject<VideoPlayerState?, Never>,
+        languages: [SubtitleUrl],
+        isOnScreen: Bool
+    ) {
+        self.name = name
+        self.url = url
+        self.courseID = courseID
+        self.blockID = blockID
+        self.playerStateSubject = playerStateSubject
+        self.languages = languages
+        self.isOnScreen = isOnScreen
+        self._viewModel = StateObject(wrappedValue: {
+            Container.shared.resolve(
+                EncodedVideoPlayerViewModel.self,
+                arguments: url,
+                blockID,
+                courseID,
+                languages,
+                playerStateSubject
+            )!
+        }())
+    }
 
     var body: some View {
-        let vm = Container.shared.resolve(
-            EncodedVideoPlayerViewModel.self,
-            arguments: url,
-            blockID,
-            courseID,
-            languages,
-            playerStateSubject
-        )!
-        EncodedVideoPlayer(viewModel: vm, isOnScreen: isOnScreen)
+        EncodedVideoPlayer(viewModel: viewModel, isOnScreen: isOnScreen)
     }
 }

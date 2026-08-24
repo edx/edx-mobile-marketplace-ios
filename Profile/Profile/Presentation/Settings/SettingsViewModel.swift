@@ -14,10 +14,10 @@ public class SettingsViewModel: ObservableObject {
     
     @Published private(set) var isShowProgress = false
     @Published var showError: Bool = false
-    @Published var datadogTrackingEnabled: Bool {
+    @Published var performanceUsageTrackingEnabled: Bool {
         willSet {
-            if newValue != datadogTrackingEnabled {
-                storage.datadogTrackingEnabled = newValue
+            if newValue != performanceUsageTrackingEnabled {
+                storage.performanceUsageTrackingEnabled = newValue
                 trackingConsentManager.setTrackingConsent(granted: newValue)
             }
         }
@@ -112,8 +112,8 @@ public class SettingsViewModel: ObservableObject {
 
         let userSettings = interactor.getSettings()
         self.userSettings = userSettings
-        let trackingGranted = storage.datadogTrackingEnabled ?? true
-        self.datadogTrackingEnabled = trackingGranted
+        let trackingGranted = storage.performanceUsageTrackingEnabled ?? true
+        self.performanceUsageTrackingEnabled = trackingGranted
         trackingConsentManager.setTrackingConsent(granted: trackingGranted)
         self.wifiOnly = userSettings.wifiOnly
         self.selectedQuality = userSettings.streamingQuality
