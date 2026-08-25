@@ -17,6 +17,8 @@ public struct CourseContainerView: View {
     public var viewModel: CourseContainerViewModel
     @ObservedObject
     public var courseDatesViewModel: CourseDatesViewModel
+    @ObservedObject
+    public var courseProgressViewModel: CourseProgressViewModel
     @State private var isAnimatingForTap: Bool = false
     public var courseID: String
     private var title: String
@@ -56,6 +58,7 @@ public struct CourseContainerView: View {
     public init(
         viewModel: CourseContainerViewModel,
         courseDatesViewModel: CourseDatesViewModel,
+        courseProgressViewModel: CourseProgressViewModel,
         courseID: String,
         title: String,
         org: String?,
@@ -69,6 +72,7 @@ public struct CourseContainerView: View {
         self.courseRawImage = courseRawImage
         self.org = org
         self.coursewareAccess = coursewareAccess
+        self.courseProgressViewModel = courseProgressViewModel
         Task {
             await viewModel.reload(courseID: courseID)
         }
@@ -207,7 +211,30 @@ public struct CourseContainerView: View {
                 ForEach(viewModel.tabs) { tab in
                     switch tab {
                     case .course:
-                        CourseOutlineView(
+                        VStack {
+                            CourseOutlineAndProgressView(
+                                viewModelContainer: viewModel,
+                                viewModelProgress: courseProgressViewModel,
+                                title: title,
+                                courseID: courseID,
+                                isVideo: false,
+                                selection: $viewModel.selection,
+                                coordinate: $coordinate,
+                                collapsed: $collapsed,
+                                viewHeight: $viewHeight,
+                                dateTabIndex: CourseTab.dates.rawValue,
+                                connectivity: viewModel.connectivity
+                            )
+                        }
+                        .padding(.bottom, 1)
+                        .tabItem {
+                            tab.image
+                            Text(tab.title)
+                        }
+                        .tag(tab)
+                        .accentColor(Theme.Colors.accentColor)
+                    case .content:
+                        CourseContentView(
                             viewModel: viewModel,
                             title: title,
                             courseID: courseID,
@@ -216,26 +243,26 @@ public struct CourseContainerView: View {
                             coordinate: $coordinate,
                             collapsed: $collapsed,
                             viewHeight: $viewHeight,
-                            dateTabIndex: CourseTab.dates.rawValue
+                            shouldShowUpgradeButton: $viewModel.shouldShowUpgradeButton,
+                            shouldHideMenuBar: $viewModel.shouldHideMenuBar
                         )
-                        .padding(.bottom, 1)
                         .tabItem {
                             tab.image
                             Text(tab.title)
                         }
                         .tag(tab)
                         .accentColor(Theme.Colors.accentColor)
-                    case .videos:
-                        CourseOutlineView(
-                            viewModel: viewModel,
-                            title: title,
+                    case .progress:
+                        CourseProgressScreenView(
                             courseID: courseID,
-                            isVideo: true,
-                            selection: $viewModel.selection,
                             coordinate: $coordinate,
                             collapsed: $collapsed,
                             viewHeight: $viewHeight,
-                            dateTabIndex: CourseTab.dates.rawValue
+                            viewModel: courseProgressViewModel,
+                            connectivity: viewModel.connectivity,
+                            courseStructure: viewModel.courseStructure,
+                            shouldShowUpgradeButton: $viewModel.shouldShowUpgradeButton,
+                            shouldHideMenuBar: $viewModel.shouldHideMenuBar
                         )
                         .padding(.bottom, 1)
                         .tabItem {
@@ -255,6 +282,20 @@ public struct CourseContainerView: View {
                             shouldHideMenuBar: $viewModel.shouldHideMenuBar
                         )
                         .padding(.bottom, 1)
+                        .tabItem {
+                            tab.image
+                            Text(tab.title)
+                        }
+                        .tag(tab)
+                        .accentColor(Theme.Colors.accentColor)
+                    case .offline:
+                        OfflineView(
+                            courseID: courseID,
+                            coordinate: $coordinate,
+                            collapsed: $collapsed,
+                            viewHeight: $viewHeight,
+                            viewModel: viewModel
+                        )
                         .tabItem {
                             tab.image
                             Text(tab.title)
@@ -411,7 +452,8 @@ struct CourseScreensView_Previews: PreviewProvider {
                 enrollmentEnd: nil,
                 lastVisitedBlockID: nil,
                 coreAnalytics: CoreAnalyticsMock(),
-                serverConfig: ServerConfigProtocolMock()
+                serverConfig: ServerConfigProtocolMock(),
+                courseHelper: CourseDownloadHelper(courseStructure: nil, manager: DownloadManagerMock())
             ),
             courseDatesViewModel: CourseDatesViewModel(
                 interactor: CourseInteractor.mock,
@@ -422,6 +464,12 @@ struct CourseScreensView_Previews: PreviewProvider {
                 courseID: "1",
                 courseName: "a",
                 analytics: CourseAnalyticsMock()
+            ),
+            courseProgressViewModel: CourseProgressViewModel(
+                interactor: CourseInteractor.mock,
+                router: CourseRouterMock(),
+                analytics: CourseAnalyticsMock(),
+                connectivity: Connectivity(),
             ),
             courseID: "",
             title: "Title of Course",

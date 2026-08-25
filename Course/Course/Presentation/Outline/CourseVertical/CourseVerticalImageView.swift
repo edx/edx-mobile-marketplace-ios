@@ -43,7 +43,8 @@ struct CourseVerticalImageView_Previews: PreviewProvider {
                 webUrl: "",
                 encodedVideo: nil,
                 multiDevice: true,
-                authorizationDenialReason: .none
+                authorizationDenialReason: .none,
+                offlineDownload: nil
             )
         ]
         
@@ -62,7 +63,8 @@ struct CourseVerticalImageView_Previews: PreviewProvider {
                 webUrl: "",
                 encodedVideo: nil,
                 multiDevice: false,
-                authorizationDenialReason: .none
+                authorizationDenialReason: .none,
+                offlineDownload: nil
             )
         ]
         let blocks3 = [
@@ -80,7 +82,8 @@ struct CourseVerticalImageView_Previews: PreviewProvider {
                 webUrl: "",
                 encodedVideo: nil,
                 multiDevice: true,
-                authorizationDenialReason: .none
+                authorizationDenialReason: .none,
+                offlineDownload: nil
             )
         ]
         let blocks4 = [
@@ -98,7 +101,8 @@ struct CourseVerticalImageView_Previews: PreviewProvider {
                 webUrl: "",
                 encodedVideo: nil,
                 multiDevice: false,
-                authorizationDenialReason: .none
+                authorizationDenialReason: .none,
+                offlineDownload: nil
             )
         ]
         let blocks5 = [
@@ -116,7 +120,8 @@ struct CourseVerticalImageView_Previews: PreviewProvider {
                 webUrl: "",
                 encodedVideo: nil,
                 multiDevice: true,
-                authorizationDenialReason: .none
+                authorizationDenialReason: .none,
+                offlineDownload: nil
             )
         ]
         HStack {

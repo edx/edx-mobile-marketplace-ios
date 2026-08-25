@@ -20,6 +20,10 @@ public protocol CourseRepositoryProtocol {
     func getCourseDatesOffline(courseID: String) async throws -> CourseDates
     func getCourseDeadlineInfo(courseID: String) async throws -> CourseDateBanner
     func shiftDueDates(courseID: String) async throws
+    func getCourseProgress(courseID: String) async throws -> CourseProgressDetails
+    func getCourseProgressOffline(courseID: String) async throws -> CourseProgressDetails
+    func updateLocalVideoProgress(blockID: String, progress: Double) async
+    func loadLocalVideoProgress(blockID: String) async -> Double?
 }
 
 public class CourseRepository: CourseRepositoryProtocol {
@@ -120,6 +124,28 @@ public class CourseRepository: CourseRepositoryProtocol {
         return try persistence.loadCourseDates(courseID: courseID)
     }
     
+    public func getCourseProgress(courseID: String) async throws -> CourseProgressDetails {
+        let courseProgress = try await api.requestData(
+            CourseEndpoint.getCourseProgress(courseID: courseID)
+        ).mapResponse(DataLayer.CourseProgressResponse.self)
+        let domainProgress = courseProgress.domain()
+        await persistence.saveCourseProgress(courseID: courseID, courseProgress: domainProgress)
+        return domainProgress
+    }
+    
+    public func getCourseProgressOffline(courseID: String) async throws -> CourseProgressDetails {
+        return try await persistence.loadCourseProgress(courseID: courseID)
+    }
+    
+    public func updateLocalVideoProgress(blockID: String, progress: Double) async {
+        await persistence.updateLocalVideoProgress(blockID: blockID, progress: progress)
+    }
+    
+    public func loadLocalVideoProgress(blockID: String) async -> Double? {
+        let progress = await persistence.loadLocalVideoProgress(blockID: blockID)
+        return progress
+    }
+    
     private func parseCourseStructure(course: DataLayer.CourseStructure) -> CourseStructure {
         let blocks = Array(course.dict.values)
         let courseBlock = blocks.first(where: {$0.type == BlockType.course.rawValue })!
@@ -214,7 +240,8 @@ public class CourseRepository: CourseRepositoryProtocol {
             sequentialProgress: SequentialProgress(
                 assignmentType: sequential.assignmentProgress?.assignmentType,
                 numPointsEarned: Int(sequential.assignmentProgress?.numPointsEarned ?? 0),
-                numPointsPossible: Int(sequential.assignmentProgress?.numPointsPossible ?? 0)
+                numPointsPossible: Int(sequential.assignmentProgress?.numPointsPossible ?? 0),
+                shortLabel: sequential.assignmentProgress?.shortLabel
             ),
             due: sequential.due == nil ? nil : Date(iso8601: sequential.due!)
         )
@@ -247,6 +274,20 @@ public class CourseRepository: CourseRepositoryProtocol {
                 .replacingOccurrences(of: config.baseURL.absoluteString, with: "")
                 .replacingOccurrences(of: "?lang=\($0.key)", with: "")
             return SubtitleUrl(language: $0.key, url: url)
+        }
+        
+        var offlineDownload: OfflineDownload?
+        
+        if let offlineData = block.offlineDownload,
+           let fileUrl = offlineData.fileUrl,
+           let lastModified = offlineData.lastModified,
+           let fileSize = offlineData.fileSize {
+            let fullUrl = fileUrl.starts(with: "http") ? fileUrl : config.baseURL.absoluteString + fileUrl
+            offlineDownload = OfflineDownload(
+                fileUrl: fullUrl,
+                lastModified: lastModified,
+                fileSize: fileSize
+            )
         }
         
         return CourseBlock(
@@ -291,7 +332,8 @@ public class CourseRepository: CourseRepositoryProtocol {
             multiDevice: block.multiDevice,
             authorizationDenialReason: AuthorizationDenialReason(
                 rawValue: block.authorizationDenialReason ?? AuthorizationDenialReason.none.rawValue
-            ) ?? .none
+            ) ?? .none,
+            offlineDownload: offlineDownload
         )
     }
     
@@ -495,7 +537,8 @@ And there are various ways of describing it-- call it oral poetry or
             sequentialProgress: SequentialProgress(
                 assignmentType: sequential.assignmentProgress?.assignmentType,
                 numPointsEarned: Int(sequential.assignmentProgress?.numPointsEarned ?? 0),
-                numPointsPossible: Int(sequential.assignmentProgress?.numPointsPossible ?? 0)
+                numPointsPossible: Int(sequential.assignmentProgress?.numPointsPossible ?? 0),
+                shortLabel: sequential.assignmentProgress?.shortLabel
             ),
             due: sequential.due == nil ? nil : Date(iso8601: sequential.due!)
         )
@@ -526,6 +569,19 @@ And there are various ways of describing it-- call it oral poetry or
         let subtitles = block.userViewData?.transcripts?.map {
             let url = $0.value
             return SubtitleUrl(language: $0.key, url: url)
+        }
+        
+        var offlineDownload: OfflineDownload?
+        
+        if let offlineData = block.offlineDownload,
+           let fileUrl = offlineData.fileUrl,
+           let lastModified = offlineData.lastModified,
+           let fileSize = offlineData.fileSize {
+            offlineDownload = OfflineDownload(
+                fileUrl: fileUrl,
+                lastModified: lastModified,
+                fileSize: fileSize
+            )
         }
             
         return CourseBlock(
@@ -568,7 +624,8 @@ And there are various ways of describing it-- call it oral poetry or
             multiDevice: block.multiDevice,
             authorizationDenialReason: AuthorizationDenialReason(
                 rawValue: block.authorizationDenialReason ?? AuthorizationDenialReason.none.rawValue
-            ) ?? .none
+            ) ?? .none,
+            offlineDownload: offlineDownload
         )
     }
 
@@ -586,6 +643,18 @@ And there are various ways of describing it-- call it oral poetry or
             type: type
         )
     }
+    
+    func getCourseProgress(courseID: String) async throws -> CourseProgressDetails {
+        throw NoCachedDataError()
+    }
+
+    func getCourseProgressOffline(courseID: String) async throws -> CourseProgressDetails {
+        throw NoCachedDataError()
+    }
+    
+    func updateLocalVideoProgress(blockID: String, progress: Double) async {}
+
+    func loadLocalVideoProgress(blockID: String) async -> Double? {nil}
 }
 #endif
 // swiftlint:enable all

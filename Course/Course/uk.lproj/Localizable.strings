@@ -31,6 +31,7 @@
 "ERROR.VIDEOS_UNAVAILABLE" = "There are currently no vidoes for this course.";
 "ERROR.COURSE_DATE_UNAVAILABLE" = "Course dates are not currently available.";
 "ERROR.COURSEWARE_UNAVAILABLE" = "No course content is currently available.";
+"ERROR.ASSIGNMENTS_UNAVAILABLE" = "Для цього курсу немає доступних завдань.";
 
 "ALERT.ROTATE_DEVICE" = "Поверніть пристрій, щоб переглянути це відео на весь екран.";
 "ALERT.ACCEPT" = "Accept";
@@ -40,8 +41,12 @@
 "ALERT.WARNING" = "Warning";
 
 "COURSE_CONTAINER.COURSE" =  "Курс";
-"COURSE_CONTAINER.VIDEOS" =  "Всі відео";
-"COURSE_CONTAINER.DATES" =  "Dates";
+"COURSE_CONTAINER.HOME" =  "Головна";
+"COURSE_CONTAINER.CONTENT" =  "Вміст";
+"COURSE_CONTAINER.PROGRESS" =  "Прогрес";
+"COURSE_CONTAINER.VIDEOS" =  "Відео";
+"COURSE_CONTAINER.OFFLINE" =  "Офлайн";
+"COURSE_CONTAINER.DATES" =  "Дати";
 "COURSE_CONTAINER.DISCUSSIONS" =  "Дискусії";
 "COURSE_CONTAINER.HANDOUTS" =  "Матеріали";
 "COURSE_CONTAINER.HANDOUTS_IN_DEVELOPING" =  "Матеріали в процесі розробки";
@@ -128,4 +133,131 @@
 "COURSE.DUE_TODAY" = "Закінчується сьогодні";
 "COURSE.DUE_TOMORROW" = "Закінчується завтра";
 
+// MARK: - Assignment Status
+"ASSIGNMENT_STATUS.COMPLETE" = "%@ Завершено - %@/%@ балів";
+"ASSIGNMENT_STATUS.PAST_DUE" = "%@ Прострочено - %@/%@ балів";
+"ASSIGNMENT_STATUS.NOT_YET_AVAILABLE" = "%@ Ще не доступно";
+"ASSIGNMENT_STATUS.IN_PROGRESS" = "%@ - %@/%@ балів";
+"ASSIGNMENT_STATUS.DUE_WITH_DATE" = "%@ %@";
+
+"ASSIGNMENT.REVIEW_GRADING_POLICY" = "Переглянути політику оцінювання курсу";
+
+"COURSE.RETURN_TO_HOME" = "Повернутися на головну сторінку курсу";
 "COURSE.PROGRESS_COMPLETED" = "%@ з %@ завдань виконано";
+"COURSE.PROGRESS_SECTIONS_COMPLETED" = "%@/%@ розділів завершено";
+"COURSE.PROGRESS_VIDEOS_COMPLETED" = "%@/%@ завершено";
+"COURSE.PROGRESS_WATCHED" = "%@/%@ переглянуто";
+"COURSE.PROGRESS_VIEW_COMPLETED" = "Переглянути завершені";
+"COURSE.PROGRESS_HIDE_COMPLETED" = "Приховати завершені";
+
+"COURSE_CAROUSEL.PROGRESS_COMPLETION" = "Ви завершили %@%% прогресу курсу";
+"COURSE_CAROUSEL.GRADES" = "Оцінки";
+"COURSE_CAROUSEL.GRADES_DESCRIPTION" = "Це ваша зважена оцінка порівняно з оцінкою, необхідною для проходження цього курсу.";
+"COURSE_CAROUSEL.ALL_CONTENT" = "Весь вміст";
+"COURSE_CAROUSEL.UPGRADE_NOW_BODY" = "Ви зараз проходите цей курс як слухач і маєте обмежений доступ до матеріалів курсу.";
+"COURSE_CAROUSEL.UPGRADE_NOW_BUTTON" = "Оновити зараз";
+"COURSE_CAROUSEL.ALL_VIDEOS_COMPLETED" = "Ви переглянули всі відео!";
+"COURSE_CAROUSEL.ALL_ASSIGNMENTS_COMPLETED" = "Ви виконали всі завдання!";
+"COURSE_CAROUSEL.VIDEOS_COMPLETED" = "Відео\nзавершено";
+"COURSE_CAROUSEL.ASSIGMENTS_COMPLETED" = "Завдання\nзавершено";
+"COURSE_CAROUSEL.CONTINUE_WATCHING" = "Продовжити перегляд";
+"COURSE_CAROUSEL.NEXT_VIDEO" = "Наступне відео";
+"COURSE_CAROUSEL.VIEW_ALL_VIDEOS" = "Усі відео";
+"COURSE_CAROUSEL.VIEW_ALL_ASSIGNMENTS" = "Усі завдання";
+"COURSE_CAROUSEL.NEXT_ASSIGNMENTS" = "Наступне завдання";
+
+"ACCESSIBILITY.HIDE_COMPLETED_SECTIONS" = "Натисніть, щоб приховати завершені розділи";
+"ACCESSIBILITY.SHOW_COMPLETED_SECTIONS" = "Натисніть, щоб показати завершені розділи";
+
+"ACCESSIBILITY.CAROUSEL.NEXT_SLIDE_BUTTON" = "Наступна сторінка";
+"ACCESSIBILITY.CAROUSEL.LAST_SLIDE_BUTTON" = "Остання сторінка";
+"ACCESSIBILITY.CAROUSEL.PREVIOUS_SLIDE_BUTTON" = "Попередня сторінка";
+"ACCESSIBILITY.CAROUSEL.ASSIGNMENTS_COMPLETED" = "%@ з %@ завдань завершено";
+
+"ACCESSIBILITY.VIDEO_THUMBNAIL" = "Відео: %@";
+"ACCESSIBILITY.VIDEO_THUMBNAIL_COMPLETED" = "%@, завершено";
+"ACCESSIBILITY.VIDEO_THUMBNAIL_IN_PROGRESS" = "%@, переглянуто %@%%";
+"ACCESSIBILITY.VIDEO_THUMBNAIL_NOT_STARTED" = "%@, не розпочато";
+"ACCESSIBILITY.VIDEO_THUMBNAIL_HINT" = "Натисніть, щоб відтворити відео";
+"ACCESSIBILITY.VIDEO_PERCENTAGE_COMPLETED" = "%@ відсотків завершено";
+"ACCESSIBILITY.VIDEO_NAVIGATION_COUNT" = "Відео %@ з %@";
+"ACCESSIBILITY.VIDEO_NAVIGATION" = "Навігація по відео";
+
+"VIDEO_NAVIGATION.NO_VIDEO_TITLE" = "Без назви відео";
+
+"ACCESSIBILITY.VIDEO_PROGRESS_SECTION" = "Прогрес відео: %@ з %@ завершено.";
+"ACCESSIBILITY.PROGRESS_RING" = "Кільце прогресу завершення курсу";
+"ACCESSIBILITY.OVERALL_GRADE_SECTION" = "Розділ загальної оцінки";
+"ACCESSIBILITY.GRADE_DETAILS_SECTION" = "Розділ деталей оцінок";
+"ACCESSIBILITY.ASSIGNMENT_ITEM" = "Елемент завдання";
+"ACCESSIBILITY.REQUIRED_GRADE_INDICATOR" = "Індикатор необхідної оцінки для проходження";
+"ACCESSIBILITY.PROGRESS_PERCENTAGE_COMPLETED" = "%@ відсотків завершено";
+"ACCESSIBILITY.REQUIRED_GRADE_TO_PASS" = "%@ відсотків необхідно для проходження";
+"ACCESSIBILITY.ASSIGNMENT_PROGRESS_DETAILS" = "%@, %@ з %@ завершено, %@ з %@ відсотків оцінки";
+"ACCESSIBILITY.CURRENT_GRADE" = "Поточна оцінка: %@ відсотків";
+"ACCESSIBILITY.GRADE_REQUIREMENT_WARNING" = "Попередження про вимогу до оцінки: необхідно %@ відсотків для проходження";
+"ACCESSIBILITY.PROGRESS_VISUALIZATION" = "Візуалізація прогресу, що показує %@ категорій завдань";
+"ACCESSIBILITY.OVERALL_PROGRESS_VALUE" = "Загальний прогрес: %@ відсотків";
+"ACCESSIBILITY.PROGRESS_HINT" = "Показує розбивку прогресу за типом завдання";
+"ACCESSIBILITY.NO_GRADED_ASSIGNMENTS_HINT" = "Цей курс не має оцінюваних завдань для відображення";
+"ACCESSIBILITY.NO_PROGRESS_HINT" = "Завершіть заходи курсу, щоб переглянути свій прогрес тут";
+"ACCESSIBILITY.ASSIGNMENT_TYPE_HEADER" = "Заголовок стовпця типу завдання";
+"ACCESSIBILITY.CURRENT_MAX_PERCENT_HEADER" = "Заголовок стовпця поточного та максимального відсотка";
+"ACCESSIBILITY.WEIGHT_CONTRIBUTION" = "Вага: %@ відсотків від оцінки";
+"ACCESSIBILITY.ASSIGNMENT_COMPLETION" = "%@ з %@ завершено";
+"ACCESSIBILITY.ASSIGNMENT_GRADE_EARNED" = "Поточна оцінка: %@ з %@ відсотків";
+"ACCESSIBILITY.ASSIGNMENT_FULL_DETAILS" = "%@ з %@ завершено. Вага: %@ відсотків від оцінки. Поточна оцінка: %@ з %@ відсотків";
+"ACCESSIBILITY.ERROR_MESSAGE_SECTION" = "Розділ повідомлення про помилку";
+"ACCESSIBILITY.LOADING_SECTION" = "Розділ завантаження";
+"ACCESSIBILITY.CONTINUE_LEARNING_SECTION" = "Розділ продовження навчання";
+"ACCESSIBILITY.COURSE_CONTENT_SECTION" = "Розділ вмісту курсу";
+"ACCESSIBILITY.COURSE_PROGRESS_SECTION" = "Розділ прогресу курсу";
+"ACCESSIBILITY.NO_CONTENT_SECTION" = "Розділ без доступного вмісту";
+"ACCESSIBILITY.VIDEO_SECTION_HEADER" = "%@ розділ, %@ з %@ відео переглянуто";
+"ACCESSIBILITY.DOWNLOAD_SECTION_BUTTON" = "Завантажити розділ, %@";
+"ACCESSIBILITY.VIDEOS_SECTION" = "Розділ відео";
+"ACCESSIBILITY.ASSIGNMENT_PROGRESS_SECTION" = "Розділ прогресу завдань";
+"ACCESSIBILITY.ASSIGNMENTS_SECTION" = "Розділ завдань";
+
+"COURSE.TOTAL_PROGRESS.DOWNLOADED" = "Завантажено";
+"COURSE.TOTAL_PROGRESS.DOWNLOADING" = "Завантажується";
+"COURSE.TOTAL_PROGRESS.AVALIABLE_TO_DOWNLOAD" = "Доступно для завантаження";
+"COURSE.TOTAL_PROGRESS.READY_TO_DOWNLOAD" = "Готово до завантаження";
+
+"COURSE_CONTENT.ALL" = "Усе";
+"COURSE_CONTENT.VIDEOS" = "Відео";
+"COURSE_CONTENT.ASSIGNMENTS" = "Завдання";
+"COURSE_CONTAINER.PROGRESS.TITLE" = "Завершення курсу";
+"COURSE_CONTAINER.PROGRESS.DESCRIPTION" = "Це відображає, яку частину вмісту курсу ви завершили. Зауважте, що деякий вміст може ще не бути доступним.";
+"COURSE_CONTAINER.PROGRESS.COMPLETED" = "Завершено";
+"COURSE_CONTAINER.PROGRESS.OVERALL_PROGRESS" = "Загальний прогрес";
+"COURSE_CONTAINER.PROGRESS.REMAINING" = "Залишилося";
+"COURSE_CONTAINER.PROGRESS.LOCKED" = "Заблоковано";
+"COURSE_CONTAINER.PROGRESS.GRADE_PROGRESS" = "Прогрес оцінок";
+"COURSE_CONTAINER.PROGRESS.PASSING" = "Успішно";
+"COURSE_CONTAINER.PROGRESS.NOT_PASSING" = "Не успішно";
+"COURSE_CONTAINER.PROGRESS.VIEW_CERTIFICATE" = "Переглянути сертифікат";
+"COURSE_CONTAINER.PROGRESS.SECTIONS_PROGRESS" = "Прогрес розділів";
+"COURSE_CONTAINER.PROGRESS.NO_PROGRESS_AVAILABLE" = "Прогрес недоступний";
+"COURSE_CONTAINER.PROGRESS.START_LEARNING" = "Почніть навчання, щоб побачити свій прогрес тут";
+"COURSE_CONTAINER.PROGRESS.OVERALL_GRADE" = "Загальна оцінка";
+"COURSE_CONTAINER.PROGRESS.OVERALL_GRADE_DESCRIPTION" = "Це ваша зважена оцінка порівняно з оцінкою, необхідною для проходження цього курсу.";
+"COURSE_CONTAINER.PROGRESS.CURRENT_OVERALL_WEIGHTED_GRADE" = "Поточна загальна зважена оцінка:";
+"COURSE_CONTAINER.PROGRESS.WEIGHTED_GRADE_REQUIRED" = "Для проходження цього курсу необхідна зважена оцінка %@%%";
+"COURSE_CONTAINER.PROGRESS.REQUIRED" = "Необхідно";
+"COURSE_CONTAINER.PROGRESS.GRADE_DETAILS" = "Деталі оцінок";
+"COURSE_CONTAINER.PROGRESS.ASSIGNMENT_TYPE" = "Тип завдання";
+"COURSE_CONTAINER.PROGRESS.CURRENT_MAX_PERCENT" = "Поточний / Максимальний %%";
+"COURSE_CONTAINER.PROGRESS.COMPLETE" = "Завершити";
+"COURSE_CONTAINER.PROGRESS.OF_GRADE" = "від оцінки";
+"COURSE_CONTAINER.PROGRESS.NO_GRADED_ASSIGNMENTS" = "Цей курс не містить оцінюваних завдань.";
+
+"COURSE.OFFLINE.DOWNLOAD_ALL" = "Завантажити все";
+"COURSE.OFFLINE.CANCEL_COURSE_DOWNLOAD" = "Скасувати завантаження курсу";
+"COURSE.OFFLINE.YOU_CAN_DOWNLOAD" = "Ви можете завантажити вміст курсу офлайн, щоб навчатися будь-де без активного підключення до Інтернету або використання мобільних даних.";
+"COURSE.OFFLINE.YOU_CANT_DOWNLOAD" = "Жоден вміст цього курсу наразі недоступний для офлайн-завантаження.";
+
+"COURSE.LARGEST_DOWNLOADS.TITLE" = "Найбільші завантаження";
+"COURSE.LARGEST_DOWNLOADS.DONE" = "Готово";
+"COURSE.LARGEST_DOWNLOADS.EDIT" = "Редагувати";
+"COURSE.LARGEST_DOWNLOADS.REMOVE_DOWNLOADS" = "Видалити всі завантаження";

@@ -52,6 +52,15 @@
 "DATE.START" = "Початок";
 "DATE.STARTED" = "Почався";
 "DATE.JUST_NOW" = "Прямо зараз";
+"DATE.TODAY" = "Сьогодні";
+"DATE.NEXT" = "Наступний %@";
+"DATE.DAYS_AGO" = "%@ днів тому";
+"DATE.DUE" = "Термін ";
+"DATE.DUE_IN" = "Термін через ";
+"DATE.DUE_IN_DAYS" = "Термін через %@ днів";
+"DATE.DUE_TODAY" = "Термін сьогодні: %@";
+"DATE.DUE_DATE_PAST" = "Прострочено на %@ днів: %@";
+"DATE.DUE_IN_LEFT" = "Термін через %@ днів: %@";
 
 "ALERT.ACCEPT" = "ТАК";
 "ALERT.CANCEL" = "СКАСУВАТИ";
@@ -169,6 +178,37 @@
 "COURSE_UPGRADE.VIEW.START_DATE_MESSAGE" = "This course will begin on #####. Come back then to start learning!";
 "COURSE_UPGRADE.VIEW.END_DATE_MESSAGE" = "Your free audit access to this course expired on #####.";
 
+"COURSE_DATES.TODAY" = "Today";
+"COURSE_DATES.COMPLETED" = "Completed";
+"COURSE_DATES.PAST_DUE" = "Past due";
+"COURSE_DATES.THIS_WEEK" = "This week";
+"COURSE_DATES.NEXT_WEEK" = "Next week";
+"COURSE_DATES.UPCOMING" = "Upcoming";
+
+"COURSE.STORAGE_ALERT.TITLE" = "Сховище пристрою заповнено";
+"COURSE.STORAGE_ALERT.DESCRIPTION" = "На вашому пристрої недостатньо вільного місця для завантаження цього вмісту. Будь ласка, звільніть місце і спробуйте ще раз.";
+"COURSE.STORAGE_ALERT.USED_AND_FREE" = "%@ використано, %@ вільно";
+
+"COURSE.ALERT.CANCEL" = "Скасувати";
+"COURSE.ALERT.CLOSE" = "Закрити";
+"COURSE.ALERT.REMOVE" = "Видалити";
+"COURSE.ALERT.DOWNLOAD" = "Завантажити";
+"COURSE.ALERT.TRY_AGAIN" = "Спробувати ще раз";
+
+"COURSE.ALERT.REMOVE_TITLE" = "Видалити офлайн-вміст?";
+"COURSE.ALERT.CONFIRM_DOWNLOAD_TITLE" = "Підтвердити завантаження";
+"COURSE.ALERT.CONFIRM_DOWNLOAD_CELLULAR_TITLE" = "Завантажити через мобільні дані?";
+
+"COURSE.ALERT.REMOVE_DESCRIPTION" = "Видалення цього вмісту звільнить %@.";
+"COURSE.ALERT.CONFIRM_DOWNLOAD_DESCRIPTION" = "Завантаження %@ вмісту збереже доступні блоки офлайн.";
+"COURSE.ALERT.CONFIRM_DOWNLOAD_CELLULAR_DESCRIPTION" = "Завантаження цього вмісту використає %@ мобільних даних.";
+
+"COURSE.ERROR.DOWNLOAD_FAILED_TITLE" = "Помилка завантаження";
+"COURSE.ERROR.DOWNLOAD_FAILED_DESCRIPTION" = "Щось пішло не так. Будь ласка, спробуйте ще раз.";
+"COURSE.ERROR.NO_INTERNET_CONNECTION_TITLE" = "Немає підключення до Інтернету";
+"COURSE.ERROR.NO_INTERNET_CONNECTION_DESCRIPTION" = "Будь ласка, підключіться до Інтернету, щоб завантажити вміст.";
+"COURSE.ERROR.WIFI_REQUIRED_TITLE" = "Потрібне Wi-Fi підключення";
+"COURSE.ERROR.WIFI_REQUIRED_DESCRIPTION" = "Ваші поточні налаштування дозволяють завантаження лише через Wi-Fi. Підключіться до мережі Wi-Fi або змініть налаштування.";
 
 "TRACK_SELECTION.VIEW.TITLE" = "Choose a path.";
 "TRACK_SELECTION.CARD.EARN_CERTIFICATE_HEADING" = "Earn a certificate";

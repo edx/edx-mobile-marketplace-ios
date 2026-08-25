@@ -23,6 +23,11 @@ public protocol CourseInteractorProtocol {
     func shiftDueDates(courseID: String) async throws
     func canShowBanner(_ bannerType: CourseBannerType?, forCourse courseID: String) -> Bool
     func markBannerDismissed(_ bannerType: CourseBannerType, forCourse courseID: String)
+    func getCourseProgress(courseID: String) async throws -> CourseProgressDetails
+    func getCourseProgressOffline(courseID: String) async throws -> CourseProgressDetails
+    func updateLocalVideoProgress(blockID: String, progress: Double) async
+    func loadLocalVideoProgress(blockID: String) async -> Double?
+    func getCourseAssignmentBlocks(fullStructure: CourseStructure) async -> CourseStructure
 }
 
 public class CourseInteractor: CourseInteractorProtocol {
@@ -224,6 +229,67 @@ public class CourseInteractor: CourseInteractorProtocol {
         }
         return subtitles
     }
+    
+    private func filterAssignmentChapter(chapter: CourseChapter) -> CourseChapter {
+        var newChilds = [CourseSequential]()
+        for sequential in chapter.childs {
+            let newSequential = filterAssignmentSequential(sequential: sequential)
+            if !newSequential.childs.isEmpty {
+                newChilds.append(newSequential)
+            }
+        }
+        return CourseChapter(
+            blockId: chapter.blockId,
+            id: chapter.id,
+            displayName: chapter.displayName,
+            type: chapter.type,
+            childs: newChilds
+        )
+    }
+    
+    private func filterAssignmentSequential(sequential: CourseSequential) -> CourseSequential {
+        var newChilds = [CourseVertical]()
+        for vertical in sequential.childs {
+            let newVertical = filterAssignmentVertical(vertical: vertical)
+            if !newVertical.childs.isEmpty {
+                newChilds.append(newVertical)
+            }
+        }
+        return CourseSequential(
+            blockId: sequential.blockId,
+            id: sequential.id,
+            displayName: sequential.displayName,
+            type: sequential.type,
+            completion: sequential.completion,
+            childs: newChilds,
+            sequentialProgress: sequential.sequentialProgress,
+            due: sequential.due
+        )
+    }
+    
+    private func filterAssignmentVertical(vertical: CourseVertical) -> CourseVertical {
+        let newChilds = vertical.childs.filter { $0.graded }
+        return CourseVertical(
+            blockId: vertical.blockId,
+            id: vertical.id,
+            courseId: vertical.courseId,
+            displayName: vertical.displayName,
+            type: vertical.type,
+            completion: vertical.completion,
+            childs: newChilds,
+            webUrl: vertical.webUrl
+        )
+    }
+    
+    private func getAllAssignmentsFromStructure(childs: [CourseChapter]) -> [CourseBlock] {
+        return childs.flatMap { chapter in
+            chapter.childs.flatMap { sequential in
+                sequential.childs.flatMap { vertical in
+                    vertical.childs.filter { $0.graded }
+                }
+            }
+        }
+    }
 
     public func canShowBanner(_ bannerType: CourseBannerType?, forCourse courseID: String) -> Bool {
         guard let bannerType else {
@@ -245,6 +311,62 @@ public class CourseInteractor: CourseInteractorProtocol {
 
     public func markBannerDismissed(_ bannerType: CourseBannerType, forCourse courseID: String) {
         storage.setDismissalDate(for: bannerType, courseID: courseID, to: Date())
+    }
+    
+    public func getCourseProgress(courseID: String) async throws -> CourseProgressDetails {
+        return try await repository.getCourseProgress(courseID: courseID)
+    }
+    
+    public func getCourseProgressOffline(courseID: String) async throws -> CourseProgressDetails {
+        return try await repository.getCourseProgressOffline(courseID: courseID)
+    }
+    
+    public func updateLocalVideoProgress(blockID: String, progress: Double) async {
+        await repository.updateLocalVideoProgress(blockID: blockID, progress: progress)
+    }
+    
+    public func loadLocalVideoProgress(blockID: String) async -> Double? {
+        let progress = await repository.loadLocalVideoProgress(blockID: blockID)
+        return progress
+    }
+    
+    public func getCourseAssignmentBlocks(fullStructure course: CourseStructure) async -> CourseStructure {
+        var newChilds = [CourseChapter]()
+        for chapter in course.childs {
+            let newChapter = filterAssignmentChapter(chapter: chapter)
+            if !newChapter.childs.isEmpty {
+                newChilds.append(newChapter)
+            }
+        }
+        
+        let allAssignments = getAllAssignmentsFromStructure(childs: newChilds)
+        let completedAssignments = allAssignments.filter { $0.completion >= 1.0 }
+        let assignmentProgress = allAssignments.isEmpty ? nil : CourseProgress(
+            totalAssignmentsCount: allAssignments.count,
+            assignmentsCompleted: completedAssignments.count
+        )
+        
+        let filteredStructure = CourseStructure(
+            id: course.id,
+            graded: course.graded,
+            completion: course.completion,
+            viewYouTubeUrl: course.viewYouTubeUrl,
+            encodedVideo: course.encodedVideo,
+            displayName: course.displayName,
+            topicID: course.topicID,
+            childs: newChilds,
+            media: course.media,
+            certificate: course.certificate,
+            org: course.org,
+            isSelfPaced: course.isSelfPaced,
+            isUpgradeable: course.isUpgradeable,
+            sku: course.sku,
+            coursewareAccessDetails: course.coursewareAccessDetails,
+            courseProgress: assignmentProgress,
+            lmsPrice: course.lmsPrice
+        )
+        
+        return filteredStructure
     }
 }
 

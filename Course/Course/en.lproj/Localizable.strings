@@ -32,6 +32,7 @@
 "ERROR.VIDEOS_UNAVAILABLE" = "There are currently no vidoes for this course.";
 "ERROR.COURSE_DATE_UNAVAILABLE" = "Course dates are not currently available.";
 "ERROR.COURSEWARE_UNAVAILABLE" = "No course content is currently available.";
+"ERROR.ASSIGNMENTS_UNAVAILABLE" = "No assignments available for this course.";
 
 "ALERT.ROTATE_DEVICE" = "Rotate your device to view this video in full screen.";
 "ALERT.ACCEPT" = "Accept";
@@ -41,7 +42,10 @@
 "ALERT.WARNING" = "Warning";
 
 "COURSE_CONTAINER.HOME" =  "Home";
+"COURSE_CONTAINER.CONTENT" =  "Content";
+"COURSE_CONTAINER.PROGRESS" =  "Progress";
 "COURSE_CONTAINER.VIDEOS" =  "Videos";
+"COURSE_CONTAINER.OFFLINE" =  "Offline";
 "COURSE_CONTAINER.DATES" =  "Dates";
 "COURSE_CONTAINER.DISCUSSIONS" =  "Discussions";
 "COURSE_CONTAINER.HANDOUTS" =  "More";
@@ -129,4 +133,131 @@
 "COURSE.DUE_TODAY" = "Due Today";
 "COURSE.DUE_TOMORROW" = "Due Tomorrow";
 
+// MARK: - Assignment Status
+"ASSIGNMENT_STATUS.COMPLETE" = "%@ Complete - %@/%@ points";
+"ASSIGNMENT_STATUS.PAST_DUE" = "%@ Past Due - %@/%@ points";
+"ASSIGNMENT_STATUS.NOT_YET_AVAILABLE" = "%@ Not Yet Available";
+"ASSIGNMENT_STATUS.IN_PROGRESS" = "%@ - %@/%@ points";
+"ASSIGNMENT_STATUS.DUE_WITH_DATE" = "%@ %@";
+
+"ASSIGNMENT.REVIEW_GRADING_POLICY" = "Review Course Grading Policy";
+
+"COURSE.RETURN_TO_HOME" = "Return to Course Home";
 "COURSE.PROGRESS_COMPLETED" = "%@ of %@ assignments complete";
+"COURSE.PROGRESS_SECTIONS_COMPLETED" = "%@/%@ Sections Completed";
+"COURSE.PROGRESS_VIDEOS_COMPLETED" = "%@/%@ Completed";
+"COURSE.PROGRESS_WATCHED" = "%@/%@ Watched";
+"COURSE.PROGRESS_VIEW_COMPLETED" = "View Completed";
+"COURSE.PROGRESS_HIDE_COMPLETED" = "Hide Completed";
+
+"COURSE_CAROUSEL.PROGRESS_COMPLETION" = "You have completed %@%% of the course progress";
+"COURSE_CAROUSEL.GRADES" = "Grades";
+"COURSE_CAROUSEL.GRADES_DESCRIPTION" = "This represents your weighted grade against the grade needed to pass this course.";
+"COURSE_CAROUSEL.ALL_CONTENT" = "All Content";
+"COURSE_CAROUSEL.UPGRADE_NOW_BODY" = "You're auditing this course now and have limited access to course material.";
+"COURSE_CAROUSEL.UPGRADE_NOW_BUTTON" = "Upgrade now";
+"COURSE_CAROUSEL.ALL_VIDEOS_COMPLETED" = "You're all caught up on videos!";
+"COURSE_CAROUSEL.ALL_ASSIGNMENTS_COMPLETED" = "You're all caught up on assignments!";
+"COURSE_CAROUSEL.VIDEOS_COMPLETED" = "Videos\ncompleted";
+"COURSE_CAROUSEL.ASSIGMENTS_COMPLETED" = "Assignments\ncompleted";
+"COURSE_CAROUSEL.CONTINUE_WATCHING" = "Continue Watching";
+"COURSE_CAROUSEL.NEXT_VIDEO" = "Next Video";
+"COURSE_CAROUSEL.VIEW_ALL_VIDEOS" = "All Videos";
+"COURSE_CAROUSEL.VIEW_ALL_ASSIGNMENTS" = "All Assignments";
+"COURSE_CAROUSEL.NEXT_ASSIGNMENTS" = "Next Assignment";
+
+"ACCESSIBILITY.HIDE_COMPLETED_SECTIONS" = "Tap to hide completed sections";
+"ACCESSIBILITY.SHOW_COMPLETED_SECTIONS" = "Tap to show completed sections";
+
+"ACCESSIBILITY.CAROUSEL.NEXT_SLIDE_BUTTON" = "Next Page";
+"ACCESSIBILITY.CAROUSEL.LAST_SLIDE_BUTTON" = "Last Page";
+"ACCESSIBILITY.CAROUSEL.PREVIOUS_SLIDE_BUTTON" = "Previous Page";
+"ACCESSIBILITY.CAROUSEL.ASSIGNMENTS_COMPLETED" = "%@ of %@ assignments completed";
+
+"ACCESSIBILITY.VIDEO_THUMBNAIL" = "Video: %@";
+"ACCESSIBILITY.VIDEO_THUMBNAIL_COMPLETED" = "%@, completed";
+"ACCESSIBILITY.VIDEO_THUMBNAIL_IN_PROGRESS" = "%@, %@%% watched";
+"ACCESSIBILITY.VIDEO_THUMBNAIL_NOT_STARTED" = "%@, not started";
+"ACCESSIBILITY.VIDEO_THUMBNAIL_HINT" = "Tap to play video";
+"ACCESSIBILITY.VIDEO_PERCENTAGE_COMPLETED" = "%@ percent completed";
+"ACCESSIBILITY.VIDEO_NAVIGATION_COUNT" = "Video %@ from %@";
+"ACCESSIBILITY.VIDEO_NAVIGATION" = "Video Navigation";
+
+"VIDEO_NAVIGATION.NO_VIDEO_TITLE" = "No Video Title";
+
+"ACCESSIBILITY.VIDEO_PROGRESS_SECTION" = "Video progress %@ of %@ Completed.";
+"ACCESSIBILITY.PROGRESS_RING" = "Course completion progress ring";
+"ACCESSIBILITY.OVERALL_GRADE_SECTION" = "Overall grade section";
+"ACCESSIBILITY.GRADE_DETAILS_SECTION" = "Grade details section";
+"ACCESSIBILITY.ASSIGNMENT_ITEM" = "Assignment item";
+"ACCESSIBILITY.REQUIRED_GRADE_INDICATOR" = "Required grade to pass indicator";
+"ACCESSIBILITY.PROGRESS_PERCENTAGE_COMPLETED" = "%@ percent completed";
+"ACCESSIBILITY.REQUIRED_GRADE_TO_PASS" = "%@ percent required to pass";
+"ACCESSIBILITY.ASSIGNMENT_PROGRESS_DETAILS" = "%@, %@ of %@ complete, %@ out of %@ percent of grade";
+"ACCESSIBILITY.CURRENT_GRADE" = "Current grade: %@ percent";
+"ACCESSIBILITY.GRADE_REQUIREMENT_WARNING" = "Grade requirement warning: %@ percent required to pass";
+"ACCESSIBILITY.PROGRESS_VISUALIZATION" = "Progress visualization showing %@ assignment categories";
+"ACCESSIBILITY.OVERALL_PROGRESS_VALUE" = "Overall progress: %@ percent";
+"ACCESSIBILITY.PROGRESS_HINT" = "Shows progress breakdown by assignment type";
+"ACCESSIBILITY.NO_GRADED_ASSIGNMENTS_HINT" = "This course has no graded assignments to display";
+"ACCESSIBILITY.NO_PROGRESS_HINT" = "Complete course activities to view your progress here";
+"ACCESSIBILITY.ASSIGNMENT_TYPE_HEADER" = "Assignment type column header";
+"ACCESSIBILITY.CURRENT_MAX_PERCENT_HEADER" = "Current and maximum percent column header";
+"ACCESSIBILITY.WEIGHT_CONTRIBUTION" = "Weight: %@ percent of grade";
+"ACCESSIBILITY.ASSIGNMENT_COMPLETION" = "%@ of %@ complete";
+"ACCESSIBILITY.ASSIGNMENT_GRADE_EARNED" = "Current grade: %@ out of %@ percent";
+"ACCESSIBILITY.ASSIGNMENT_FULL_DETAILS" = "%@ of %@ complete. Weight: %@ percent of grade. Current grade: %@ out of %@ percent";
+"ACCESSIBILITY.ERROR_MESSAGE_SECTION" = "Error message section";
+"ACCESSIBILITY.LOADING_SECTION" = "Loading section";
+"ACCESSIBILITY.CONTINUE_LEARNING_SECTION" = "Continue learning section";
+"ACCESSIBILITY.COURSE_CONTENT_SECTION" = "Course content section";
+"ACCESSIBILITY.COURSE_PROGRESS_SECTION" = "Course progress section";
+"ACCESSIBILITY.NO_CONTENT_SECTION" = "No content available section";
+"ACCESSIBILITY.VIDEO_SECTION_HEADER" = "%@ section, %@ of %@ videos watched";
+"ACCESSIBILITY.DOWNLOAD_SECTION_BUTTON" = "Download section, %@";
+"ACCESSIBILITY.VIDEOS_SECTION" = "Videos section";
+"ACCESSIBILITY.ASSIGNMENT_PROGRESS_SECTION" = "Assignment progress section";
+"ACCESSIBILITY.ASSIGNMENTS_SECTION" = "Assignments section";
+
+"COURSE.TOTAL_PROGRESS.DOWNLOADED" = "Downloaded";
+"COURSE.TOTAL_PROGRESS.DOWNLOADING" = "Downloading";
+"COURSE.TOTAL_PROGRESS.AVALIABLE_TO_DOWNLOAD" = "Available to Download";
+"COURSE.TOTAL_PROGRESS.READY_TO_DOWNLOAD" = "Ready to Download";
+
+"COURSE_CONTENT.ALL" = "All";
+"COURSE_CONTENT.VIDEOS" = "Videos";
+"COURSE_CONTENT.ASSIGNMENTS" = "Assignments";
+"COURSE_CONTAINER.PROGRESS.TITLE" = "Course Completion";
+"COURSE_CONTAINER.PROGRESS.DESCRIPTION" = "This represents how much of the course content you have completed. Note that some content may not yet be released.";
+"COURSE_CONTAINER.PROGRESS.COMPLETED" = "Completed";
+"COURSE_CONTAINER.PROGRESS.OVERALL_PROGRESS" = "Overall Progress";
+"COURSE_CONTAINER.PROGRESS.REMAINING" = "Remaining";
+"COURSE_CONTAINER.PROGRESS.LOCKED" = "Locked";
+"COURSE_CONTAINER.PROGRESS.GRADE_PROGRESS" = "Grade Progress";
+"COURSE_CONTAINER.PROGRESS.PASSING" = "Passing";
+"COURSE_CONTAINER.PROGRESS.NOT_PASSING" = "Not Passing";
+"COURSE_CONTAINER.PROGRESS.VIEW_CERTIFICATE" = "View Certificate";
+"COURSE_CONTAINER.PROGRESS.SECTIONS_PROGRESS" = "Sections Progress";
+"COURSE_CONTAINER.PROGRESS.NO_PROGRESS_AVAILABLE" = "No progress available";
+"COURSE_CONTAINER.PROGRESS.START_LEARNING" = "Start learning to see your progress here";
+"COURSE_CONTAINER.PROGRESS.OVERALL_GRADE" = "Overall Grade";
+"COURSE_CONTAINER.PROGRESS.OVERALL_GRADE_DESCRIPTION" = "This represents your weighted grade against the grade needed to pass this course.";
+"COURSE_CONTAINER.PROGRESS.CURRENT_OVERALL_WEIGHTED_GRADE" = "Current Overall Weighted Grade:";
+"COURSE_CONTAINER.PROGRESS.WEIGHTED_GRADE_REQUIRED" = "A weighted grade of %@%% is required to pass this course";
+"COURSE_CONTAINER.PROGRESS.REQUIRED" = "Required";
+"COURSE_CONTAINER.PROGRESS.GRADE_DETAILS" = "Grade Details";
+"COURSE_CONTAINER.PROGRESS.ASSIGNMENT_TYPE" = "Assignment Type";
+"COURSE_CONTAINER.PROGRESS.CURRENT_MAX_PERCENT" = "Current / Max %%";
+"COURSE_CONTAINER.PROGRESS.COMPLETE" = "Complete";
+"COURSE_CONTAINER.PROGRESS.OF_GRADE" = "of Grade";
+"COURSE_CONTAINER.PROGRESS.NO_GRADED_ASSIGNMENTS" = "This course does not contain graded assignments.";
+
+"COURSE.OFFLINE.DOWNLOAD_ALL" = "Download all";
+"COURSE.OFFLINE.CANCEL_COURSE_DOWNLOAD" = "Cancel Course Download";
+"COURSE.OFFLINE.YOU_CAN_DOWNLOAD" = "You can download course content offline to learn on the go, without requiring an active internet connection or using mobile data.";
+"COURSE.OFFLINE.YOU_CANT_DOWNLOAD" = "None of this course's content is currently available to download offline.";
+
+"COURSE.LARGEST_DOWNLOADS.TITLE" = "Largest Downloads";
+"COURSE.LARGEST_DOWNLOADS.DONE" = "Done";
+"COURSE.LARGEST_DOWNLOADS.EDIT" = "Edit";
+"COURSE.LARGEST_DOWNLOADS.REMOVE_DOWNLOADS" = "Remove all downloads";

@@ -57,6 +57,15 @@
 "DATE.START" = "Start";
 "DATE.STARTED" = "Started";
 "DATE.JUST_NOW" = "Just now";
+"DATE.TODAY" = "Today";
+"DATE.NEXT" = "Next %@";
+"DATE.DAYS_AGO" = "%@ Days Ago";
+"DATE.DUE" = "Due ";
+"DATE.DUE_IN" = "Due in ";
+"DATE.DUE_IN_DAYS" = "Due in %@ Days";
+"DATE.DUE_TODAY" = "Due Today: %@";
+"DATE.DUE_DATE_PAST" = "%@ Days Past Due: %@";
+"DATE.DUE_IN_LEFT" = "Due in %@ Days: %@";
 
 "ALERT.ACCEPT" = "Accept";
 "ALERT.CANCEL" = "Cancel";
@@ -184,6 +193,38 @@
 "COURSE.AUDIT.EXPIRED_AGO" = "Access expired %@";
 "COURSE.AUDIT.EXPIRED_ON" = "Expired on %@";
 "COURSE.SOON" = "Soon";
+
+"COURSE_DATES.TODAY" = "Today";
+"COURSE_DATES.COMPLETED" = "Completed";
+"COURSE_DATES.PAST_DUE" = "Past due";
+"COURSE_DATES.THIS_WEEK" = "This week";
+"COURSE_DATES.NEXT_WEEK" = "Next week";
+"COURSE_DATES.UPCOMING" = "Upcoming";
+
+"COURSE.STORAGE_ALERT.TITLE" = "Device Storage Full";
+"COURSE.STORAGE_ALERT.DESCRIPTION" = "Your device does not have enough free space to download this content. Please free up some space and try again.";
+"COURSE.STORAGE_ALERT.USED_AND_FREE" = "%@ used, %@ free";
+
+"COURSE.ALERT.CANCEL" = "Cancel";
+"COURSE.ALERT.CLOSE" = "Close";
+"COURSE.ALERT.REMOVE" = "Remove";
+"COURSE.ALERT.DOWNLOAD" = "Download";
+"COURSE.ALERT.TRY_AGAIN" = "Try again";
+
+"COURSE.ALERT.REMOVE_TITLE" = "Remove Offline Content?";
+"COURSE.ALERT.CONFIRM_DOWNLOAD_TITLE" = "Confirm Download";
+"COURSE.ALERT.CONFIRM_DOWNLOAD_CELLULAR_TITLE" = "Download on Cellular?";
+
+"COURSE.ALERT.REMOVE_DESCRIPTION" = "Removing this content will free up %@.";
+"COURSE.ALERT.CONFIRM_DOWNLOAD_DESCRIPTION" = "Downloading this %@ of content will save available blocks offline.";
+"COURSE.ALERT.CONFIRM_DOWNLOAD_CELLULAR_DESCRIPTION" = "Downloading this content will use %@ of cellular data.";
+
+"COURSE.ERROR.DOWNLOAD_FAILED_TITLE" = "Download Failed";
+"COURSE.ERROR.DOWNLOAD_FAILED_DESCRIPTION" = "Something went wrong. Please try again.";
+"COURSE.ERROR.NO_INTERNET_CONNECTION_TITLE" = "No Internet Connection";
+"COURSE.ERROR.NO_INTERNET_CONNECTION_DESCRIPTION" = "Please connect to the internet to download content.";
+"COURSE.ERROR.WIFI_REQUIRED_TITLE" = "Wi-Fi Required";
+"COURSE.ERROR.WIFI_REQUIRED_DESCRIPTION" = "Your current settings only allow downloads over Wi-Fi. Connect to a Wi-Fi network or change your settings.";
 
 "TRACK_SELECTION.VIEW.TITLE" = "Choose a path.";
 "TRACK_SELECTION.CARD.EARN_CERTIFICATE_HEADING" = "Earn a certificate";

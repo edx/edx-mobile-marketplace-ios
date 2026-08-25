@@ -85,6 +85,36 @@ public enum CoreLocalization {
     public static func starting(_ p1: Any) -> String {
       return CoreLocalization.tr("Localizable", "COURSE.STARTING", String(describing: p1), fallback: "Starts %@")
     }
+    public enum Alert {
+      /// Cancel
+      public static let cancel = CoreLocalization.tr("Localizable", "COURSE.ALERT.CANCEL", fallback: "Cancel")
+      /// Close
+      public static let close = CoreLocalization.tr("Localizable", "COURSE.ALERT.CLOSE", fallback: "Close")
+      /// Downloading this content will use %@ of cellular data.
+      public static func confirmDownloadCellularDescription(_ p1: Any) -> String {
+        return CoreLocalization.tr("Localizable", "COURSE.ALERT.CONFIRM_DOWNLOAD_CELLULAR_DESCRIPTION", String(describing: p1), fallback: "Downloading this content will use %@ of cellular data.")
+      }
+      /// Download on Cellular?
+      public static let confirmDownloadCellularTitle = CoreLocalization.tr("Localizable", "COURSE.ALERT.CONFIRM_DOWNLOAD_CELLULAR_TITLE", fallback: "Download on Cellular?")
+      /// Downloading this %@ of content will save available blocks offline.
+      public static func confirmDownloadDescription(_ p1: Any) -> String {
+        return CoreLocalization.tr("Localizable", "COURSE.ALERT.CONFIRM_DOWNLOAD_DESCRIPTION", String(describing: p1), fallback: "Downloading this %@ of content will save available blocks offline.")
+      }
+      /// Confirm Download
+      public static let confirmDownloadTitle = CoreLocalization.tr("Localizable", "COURSE.ALERT.CONFIRM_DOWNLOAD_TITLE", fallback: "Confirm Download")
+      /// Download
+      public static let download = CoreLocalization.tr("Localizable", "COURSE.ALERT.DOWNLOAD", fallback: "Download")
+      /// Remove
+      public static let remove = CoreLocalization.tr("Localizable", "COURSE.ALERT.REMOVE", fallback: "Remove")
+      /// Removing this content will free up %@.
+      public static func removeDescription(_ p1: Any) -> String {
+        return CoreLocalization.tr("Localizable", "COURSE.ALERT.REMOVE_DESCRIPTION", String(describing: p1), fallback: "Removing this content will free up %@.")
+      }
+      /// Remove Offline Content?
+      public static let removeTitle = CoreLocalization.tr("Localizable", "COURSE.ALERT.REMOVE_TITLE", fallback: "Remove Offline Content?")
+      /// Try again
+      public static let tryAgain = CoreLocalization.tr("Localizable", "COURSE.ALERT.TRY_AGAIN", fallback: "Try again")
+    }
     public enum Audit {
       /// Access expired %@
       public static func expiredAgo(_ p1: Any) -> String {
@@ -105,6 +135,30 @@ public enum CoreLocalization {
       /// Access expires %@
       public static func expiresOn(_ p1: Any) -> String {
         return CoreLocalization.tr("Localizable", "COURSE.AUDIT.EXPIRES_ON", String(describing: p1), fallback: "Access expires %@")
+      }
+    }
+    public enum Error {
+      /// Something went wrong. Please try again.
+      public static let downloadFailedDescription = CoreLocalization.tr("Localizable", "COURSE.ERROR.DOWNLOAD_FAILED_DESCRIPTION", fallback: "Something went wrong. Please try again.")
+      /// Download Failed
+      public static let downloadFailedTitle = CoreLocalization.tr("Localizable", "COURSE.ERROR.DOWNLOAD_FAILED_TITLE", fallback: "Download Failed")
+      /// Please connect to the internet to download content.
+      public static let noInternetConnectionDescription = CoreLocalization.tr("Localizable", "COURSE.ERROR.NO_INTERNET_CONNECTION_DESCRIPTION", fallback: "Please connect to the internet to download content.")
+      /// No Internet Connection
+      public static let noInternetConnectionTitle = CoreLocalization.tr("Localizable", "COURSE.ERROR.NO_INTERNET_CONNECTION_TITLE", fallback: "No Internet Connection")
+      /// Your current settings only allow downloads over Wi-Fi. Connect to a Wi-Fi network or change your settings.
+      public static let wifiRequiredDescription = CoreLocalization.tr("Localizable", "COURSE.ERROR.WIFI_REQUIRED_DESCRIPTION", fallback: "Your current settings only allow downloads over Wi-Fi. Connect to a Wi-Fi network or change your settings.")
+      /// Wi-Fi Required
+      public static let wifiRequiredTitle = CoreLocalization.tr("Localizable", "COURSE.ERROR.WIFI_REQUIRED_TITLE", fallback: "Wi-Fi Required")
+    }
+    public enum StorageAlert {
+      /// Your device does not have enough free space to download this content. Please free up some space and try again.
+      public static let description = CoreLocalization.tr("Localizable", "COURSE.STORAGE_ALERT.DESCRIPTION", fallback: "Your device does not have enough free space to download this content. Please free up some space and try again.")
+      /// Device Storage Full
+      public static let title = CoreLocalization.tr("Localizable", "COURSE.STORAGE_ALERT.TITLE", fallback: "Device Storage Full")
+      /// %@ used, %@ free
+      public static func usedAndFree(_ p1: Any, _ p2: Any) -> String {
+        return CoreLocalization.tr("Localizable", "COURSE.STORAGE_ALERT.USED_AND_FREE", String(describing: p1), String(describing: p2), fallback: "%@ used, %@ free")
       }
     }
   }
@@ -141,6 +195,20 @@ public enum CoreLocalization {
     public static func sectionCompleted(_ p1: Any) -> String {
       return CoreLocalization.tr("Localizable", "COURSEWARE.SECTION_COMPLETED", String(describing: p1), fallback: "You've completed “%@”.")
     }
+  }
+  public enum CourseDates {
+    /// Completed
+    public static let completed = CoreLocalization.tr("Localizable", "COURSE_DATES.COMPLETED", fallback: "Completed")
+    /// Next week
+    public static let nextWeek = CoreLocalization.tr("Localizable", "COURSE_DATES.NEXT_WEEK", fallback: "Next week")
+    /// Past due
+    public static let pastDue = CoreLocalization.tr("Localizable", "COURSE_DATES.PAST_DUE", fallback: "Past due")
+    /// This week
+    public static let thisWeek = CoreLocalization.tr("Localizable", "COURSE_DATES.THIS_WEEK", fallback: "This week")
+    /// Today
+    public static let today = CoreLocalization.tr("Localizable", "COURSE_DATES.TODAY", fallback: "Today")
+    /// Upcoming
+    public static let upcoming = CoreLocalization.tr("Localizable", "COURSE_DATES.UPCOMING", fallback: "Upcoming")
   }
   public enum CourseUpgrade {
     /// Your email is not set up on this device. Please reach out to {email} for support processing your payment.
@@ -255,14 +323,44 @@ public enum CoreLocalization {
     public static let courseEnds = CoreLocalization.tr("Localizable", "DATE.COURSE_ENDS", fallback: "Course Ends")
     /// Course Starts
     public static let courseStarts = CoreLocalization.tr("Localizable", "DATE.COURSE_STARTS", fallback: "Course Starts")
+    /// %@ Days Ago
+    public static func daysAgo(_ p1: Any) -> String {
+      return CoreLocalization.tr("Localizable", "DATE.DAYS_AGO", String(describing: p1), fallback: "%@ Days Ago")
+    }
+    /// Due 
+    public static let due = CoreLocalization.tr("Localizable", "DATE.DUE", fallback: "Due ")
+    /// %@ Days Past Due: %@
+    public static func dueDatePast(_ p1: Any, _ p2: Any) -> String {
+      return CoreLocalization.tr("Localizable", "DATE.DUE_DATE_PAST", String(describing: p1), String(describing: p2), fallback: "%@ Days Past Due: %@")
+    }
+    /// Due in 
+    public static let dueIn = CoreLocalization.tr("Localizable", "DATE.DUE_IN", fallback: "Due in ")
+    /// Due in %@ Days
+    public static func dueInDays(_ p1: Any) -> String {
+      return CoreLocalization.tr("Localizable", "DATE.DUE_IN_DAYS", String(describing: p1), fallback: "Due in %@ Days")
+    }
+    /// Due in %@ Days: %@
+    public static func dueInLeft(_ p1: Any, _ p2: Any) -> String {
+      return CoreLocalization.tr("Localizable", "DATE.DUE_IN_LEFT", String(describing: p1), String(describing: p2), fallback: "Due in %@ Days: %@")
+    }
+    /// Due Today: %@
+    public static func dueToday(_ p1: Any) -> String {
+      return CoreLocalization.tr("Localizable", "DATE.DUE_TODAY", String(describing: p1), fallback: "Due Today: %@")
+    }
     /// Ended
     public static let ended = CoreLocalization.tr("Localizable", "DATE.ENDED", fallback: "Ended")
     /// Just now
     public static let justNow = CoreLocalization.tr("Localizable", "DATE.JUST_NOW", fallback: "Just now")
+    /// Next %@
+    public static func next(_ p1: Any) -> String {
+      return CoreLocalization.tr("Localizable", "DATE.NEXT", String(describing: p1), fallback: "Next %@")
+    }
     /// Start
     public static let start = CoreLocalization.tr("Localizable", "DATE.START", fallback: "Start")
     /// Started
     public static let started = CoreLocalization.tr("Localizable", "DATE.STARTED", fallback: "Started")
+    /// Today
+    public static let today = CoreLocalization.tr("Localizable", "DATE.TODAY", fallback: "Today")
   }
   public enum DateFormat {
     /// MMM dd, yyyy

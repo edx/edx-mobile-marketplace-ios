@@ -735,6 +735,15 @@ class AnalyticsManager: AuthorizationAnalytics,
         logScreenEvent(.courseOutlineCourseTabClicked, parameters: parameters)
     }
     
+    public func courseOutlineContentTabClicked(courseId: String, courseName: String) {
+        let parameters = [
+            EventParamKey.courseID: courseId,
+            EventParamKey.courseName: courseName,
+            EventParamKey.name: EventBIValue.courseOutlineContentTabClicked.rawValue
+        ]
+        logScreenEvent(.courseOutlineContentTabClicked, parameters: parameters)
+    }
+    
     public func courseOutlineVideosTabClicked(courseId: String, courseName: String) {
         let parameters = [
             EventParamKey.courseID: courseId,
@@ -751,6 +760,15 @@ class AnalyticsManager: AuthorizationAnalytics,
             EventParamKey.name: EventBIValue.courseOutlineDatesTabClicked.rawValue
         ]
         logScreenEvent(.courseOutlineDatesTabClicked, parameters: parameters)
+    }
+    
+    func courseOutlineOfflineTabClicked(courseId: String, courseName: String) {
+        let parameters = [
+            EventParamKey.courseID: courseId,
+            EventParamKey.courseName: courseName,
+            EventParamKey.name: EventBIValue.courseOutlineOfflineTabClicked.rawValue
+        ]
+        logScreenEvent(.courseOutlineOfflineTabClicked, parameters: parameters)
     }
     
     public func courseOutlineDiscussionTabClicked(courseId: String, courseName: String) {
@@ -1064,6 +1082,147 @@ class AnalyticsManager: AuthorizationAnalytics,
         ]
         
         logEvent(.videoCompleted, parameters: parameters)
+    }
+    
+    func courseHomeGradesViewProgressClicked(courseId: String, courseName: String) {
+        let parameters = [
+            EventParamKey.courseID: courseId,
+            EventParamKey.courseName: courseName,
+            EventParamKey.name: EventBIValue.courseHomeGradesViewProgressClicked.rawValue
+        ]
+        logEvent(.courseHomeGradesViewProgressClicked, parameters: parameters)
+    }
+    
+    func courseHomeViewAllContentClicked(courseId: String, courseName: String) {
+        let parameters = [
+            EventParamKey.courseID: courseId,
+            EventParamKey.courseName: courseName,
+            EventParamKey.name: EventBIValue.courseHomeViewAllContentClicked.rawValue
+        ]
+        logEvent(.courseHomeViewAllContentClicked, parameters: parameters)
+    }
+    
+    func courseHomeAssignmentClicked(courseId: String, courseName: String, blockId: String, blockName: String) {
+        let parameters = [
+            EventParamKey.courseID: courseId,
+            EventParamKey.courseName: courseName,
+            EventParamKey.blockID: blockId,
+            EventParamKey.blockName: blockName,
+            EventParamKey.name: EventBIValue.courseHomeAssignmentClicked.rawValue
+        ]
+        logEvent(.courseHomeAssignmentClicked, parameters: parameters)
+    }
+    
+    func courseHomeViewAllVideosClicked(courseId: String, courseName: String) {
+        let parameters = [
+            EventParamKey.courseID: courseId,
+            EventParamKey.courseName: courseName,
+            EventParamKey.name: EventBIValue.courseHomeViewAllVideosClicked.rawValue
+        ]
+        logEvent(.courseHomeViewAllVideosClicked, parameters: parameters)
+    }
+    
+    func courseHomeViewAllAssignmentsClicked(courseId: String, courseName: String) {
+        let parameters = [
+            EventParamKey.courseID: courseId,
+            EventParamKey.courseName: courseName,
+            EventParamKey.name: EventBIValue.courseHomeViewAllAssignmentsClicked.rawValue
+        ]
+        logEvent(.courseHomeViewAllAssignmentsClicked, parameters: parameters)
+    }
+    
+    func contentPageShowCompletedSubsectionClicked(courseId: String, courseName: String) {
+        let parameters = [
+            EventParamKey.courseID: courseId,
+            EventParamKey.courseName: courseName,
+            EventParamKey.name: EventBIValue.contentPageShowCompletedSubsectionClicked.rawValue
+        ]
+        logEvent(.contentPageShowCompletedSubsectionClicked, parameters: parameters)
+    }
+    
+    func courseHomeVideoClicked(courseId: String, courseName: String, blockId: String, blockName: String) {
+        let parameters = [
+            EventParamKey.courseID: courseId,
+            EventParamKey.courseName: courseName,
+            EventParamKey.blockID: blockId,
+            EventParamKey.blockName: blockName,
+            EventParamKey.name: EventBIValue.courseHomeVideoClicked.rawValue
+        ]
+        logEvent(.courseHomeVideoClicked, parameters: parameters)
+    }
+    
+    public func courseVideoClicked(courseId: String, courseName: String, blockId: String, blockName: String) {
+        let parameters = [
+            EventParamKey.courseID: courseId,
+            EventParamKey.courseName: courseName,
+            EventParamKey.blockID: blockId,
+            EventParamKey.blockName: blockName,
+            EventParamKey.name: EventBIValue.courseVideoClicked.rawValue
+        ]
+        logEvent(.courseVideoClicked, parameters: parameters)
+    }
+    
+    func courseHomeSectionSubsectionClick(
+        courseId: String,
+        courseName: String,
+        courseSection: String,
+        courseSubsection: String
+    ) {
+        let parameters = [
+            EventParamKey.courseID: courseId,
+            EventParamKey.courseName: courseName,
+            EventParamKey.courseSection: courseSection,
+            EventParamKey.courseSubsection: courseSubsection,
+            EventParamKey.name: EventBIValue.courseHomeSectionSubsectionClick.rawValue
+        ]
+        logEvent(.courseHomeSectionSubsectionClicked, parameters: parameters)
+    }
+    
+    func courseOutlineProgressTabClicked(courseId: String, courseName: String) {
+        let parameters = [
+            EventParamKey.courseID: courseId,
+            EventParamKey.courseName: courseName,
+            EventParamKey.name: EventBIValue.courseOutlineProgressTabClicked.rawValue
+        ]
+        logScreenEvent(.courseOutlineProgressTabClicked, parameters: parameters)
+    }
+    
+    public func courseAssignmentClicked(courseId: String, courseName: String, blockId: String, blockName: String) {
+        let parameters = [
+            EventParamKey.courseID: courseId,
+            EventParamKey.courseName: courseName,
+            EventParamKey.blockID: blockId,
+            EventParamKey.blockName: blockName,
+            EventParamKey.name: EventBIValue.courseAssignmentClicked.rawValue
+        ]
+        logEvent(.courseAssignmentClicked, parameters: parameters)
+    }
+    
+    public func courseContentAllTabClicked(courseId: String, courseName: String) {
+        let parameters = [
+            EventParamKey.courseID: courseId,
+            EventParamKey.courseName: courseName,
+            EventParamKey.name: EventBIValue.courseContentAllTabClicked.rawValue
+        ]
+        logScreenEvent(.courseContentAllTabClicked, parameters: parameters)
+    }
+    
+    public func courseContentVideosTabClicked(courseId: String, courseName: String) {
+        let parameters = [
+            EventParamKey.courseID: courseId,
+            EventParamKey.courseName: courseName,
+            EventParamKey.name: EventBIValue.courseContentVideosTabClicked.rawValue
+        ]
+        logScreenEvent(.courseContentVideosTabClicked, parameters: parameters)
+    }
+    
+    public func courseContentAssignmentsTabClicked(courseId: String, courseName: String) {
+        let parameters = [
+            EventParamKey.courseID: courseId,
+            EventParamKey.courseName: courseName,
+            EventParamKey.name: EventBIValue.courseContentAssignmentsTabClicked.rawValue
+        ]
+        logScreenEvent(.courseContentAssignmentsTabClicked, parameters: parameters)
     }
     
     // MARK: Discussion

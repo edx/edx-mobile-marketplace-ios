@@ -85,7 +85,8 @@ struct CourseUnitDropDownCell_Previews: PreviewProvider {
                     webUrl: "",
                     encodedVideo: nil,
                     multiDevice: true,
-                    authorizationDenialReason: .none
+                    authorizationDenialReason: .none,
+                    offlineDownload: nil
                 )
             ],
             webUrl: ""
