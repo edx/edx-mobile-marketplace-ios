@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UserNotifications
 
 public extension Notification.Name {
     static let userAuthorized = Notification.Name("userAuthorized")
@@ -34,3 +35,4 @@ public extension Notification {
         case status
     }
 }
+

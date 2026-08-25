@@ -102,7 +102,14 @@ struct CustomDisclosureGroup: View {
                                                     viewModel.router.showGatedContentError(url: courseVertical.webUrl)
                                                     return
                                                 }
-
+                                                if viewModel.continueWith == nil {
+                                                    let courseName = viewModel.courseStructure?.displayName ?? CoreLocalization.Courseware.thisCourse
+                                                    viewModel.localNotificationManager.send(
+                                                        title: CoreLocalization.Courseware.onYourWay,
+                                                        body: CoreLocalization.Courseware.startedOfficially(courseName),
+                                                        delay: 1
+                                                    )
+                                                }
                                                 viewModel.trackSequentialClicked(sequential)
                                                 if viewModel.config.uiComponents.courseDropDownNavigationEnabled {
                                                     viewModel.router.showCourseUnit(
@@ -400,6 +407,7 @@ struct CustomDisclosureGroup_Previews: PreviewProvider {
             connectivity: Connectivity(),
             manager: DownloadManagerMock(),
             storage: CourseStorageMock(),
+            localNotificationManager: LocalNotificationManager(),
             isActive: true,
             courseStart: Date(),
             courseEnd: nil,

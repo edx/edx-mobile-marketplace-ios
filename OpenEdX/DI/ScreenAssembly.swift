@@ -353,6 +353,9 @@ class ScreenAssembly: Assembly {
                 storage: r.resolve(CourseStorage.self)!
             )
         }
+        container.register(LocalNotificationManagerProtocol.self) { _ in
+            LocalNotificationManager()
+        }
         container.register(EnrollmentInteractorProtocol.self) { r in
             EnrollmentInteractor(
                 repository: r.resolve(EnrollmentRepositoryProtocol.self)!
@@ -384,6 +387,7 @@ class ScreenAssembly: Assembly {
                 connectivity: r.resolve(ConnectivityProtocol.self)!,
                 manager: r.resolve(DownloadManagerProtocol.self)!,
                 storage: r.resolve(CourseStorage.self)!,
+                localNotificationManager: r.resolve(LocalNotificationManagerProtocol.self)!,
                 isActive: isActive,
                 courseStart: courseStart,
                 courseEnd: courseEnd,
@@ -422,6 +426,7 @@ class ScreenAssembly: Assembly {
                 sequentialIndex: sequentialIndex,
                 verticalIndex: verticalIndex,
                 interactor: r.resolve(CourseInteractorProtocol.self)!,
+                localNotificationManager: r.resolve(LocalNotificationManagerProtocol.self)!,
                 config: r.resolve(ConfigProtocol.self)!,
                 router: r.resolve(CourseRouter.self)!,
                 analytics: r.resolve(CourseAnalytics.self)!,

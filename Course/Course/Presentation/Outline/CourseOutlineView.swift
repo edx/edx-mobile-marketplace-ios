@@ -363,6 +363,7 @@ struct CourseOutlineView_Previews: PreviewProvider {
             connectivity: Connectivity(),
             manager: DownloadManagerMock(),
             storage: CourseStorageMock(),
+            localNotificationManager: LocalNotificationManager(),
             isActive: true,
             courseStart: Date(),
             courseEnd: nil,

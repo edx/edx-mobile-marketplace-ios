@@ -134,6 +134,20 @@ struct CourseNavigationView: View {
                         )
                     }
                 )
+                if !viewModel.storage.isVerticalFinishNotified(
+                    courseID: viewModel.courseID,
+                    verticalID: currentVertical.id
+                ) {
+                    viewModel.localNotificationManager.send(
+                        title: CoreLocalization.Courseware.congratulations,
+                        body: CoreLocalization.Courseware.sectionWellDone(currentVertical.displayName),
+                        delay: 1
+                    )
+                    viewModel.storage.markVerticalFinishNotified(
+                        courseID: viewModel.courseID,
+                        verticalID: currentVertical.id
+                    )
+                }
                 playerStateSubject.send(VideoPlayerState.pause)
                 viewModel.analytics.finishVerticalClicked(
                     courseId: viewModel.courseID,
@@ -158,6 +172,7 @@ struct CourseNavigationView_Previews: PreviewProvider {
             sequentialIndex: 1,
             verticalIndex: 1,
             interactor: CourseInteractor.mock,
+            localNotificationManager: LocalNotificationManager(),
             config: ConfigMock(),
             router: CourseRouterMock(),
             analytics: CourseAnalyticsMock(),

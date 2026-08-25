@@ -121,7 +121,7 @@ public class CourseUnitViewModel: ObservableObject {
     
     var lessonID: String
     var courseID: String
-    
+    let localNotificationManager: LocalNotificationManagerProtocol
     private let interactor: CourseInteractorProtocol
     let router: CourseRouter
     let config: ConfigProtocol
@@ -169,6 +169,7 @@ public class CourseUnitViewModel: ObservableObject {
         sequentialIndex: Int,
         verticalIndex: Int,
         interactor: CourseInteractorProtocol,
+        localNotificationManager: LocalNotificationManagerProtocol,
         config: ConfigProtocol,
         router: CourseRouter,
         analytics: CourseAnalytics,
@@ -195,6 +196,7 @@ public class CourseUnitViewModel: ObservableObject {
         self.verticalIndex = verticalIndex
         self.verticals = chapters[chapterIndex].childs[sequentialIndex].childs
         self.interactor = interactor
+        self.localNotificationManager = localNotificationManager
         self.config = config
         self.router = router
         self.analytics = analytics

@@ -78,6 +78,7 @@
 		0766DFD0299AB29000EBEF6A /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0766DFCF299AB29000EBEF6A /* PlayerViewController.swift */; };
 		07DE59862BECB868001CBFBC /* CourseAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DE59852BECB868001CBFBC /* CourseAnalytics.swift */; };
 		197FB8EA8F92F00A8F383D82 /* Pods_App_Course.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5E795BD160CDA7D9C120DE6 /* Pods_App_Course.framework */; };
+		6AA09C2030188A1900FB3C7B /* LocalNotfifcationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA09C1F30188A1900FB3C7B /* LocalNotfifcationManager.swift */; };
 		94521BCF2E2517A70011BAB2 /* VideoPlayerOverlayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94521BCE2E2517A30011BAB2 /* VideoPlayerOverlayViewModel.swift */; };
 		946101042E2149820095846B /* VideoPlayerOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946101032E2149820095846B /* VideoPlayerOverlay.swift */; };
 		975F475E2B6151FD00E5B031 /* CourseDatesMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975F475D2B6151FD00E5B031 /* CourseDatesMock.swift */; };
@@ -198,6 +199,7 @@
 		51A3A7BA0FC6386531BE678A /* Pods-App-CourseDetails.debugdev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-CourseDetails.debugdev.xcconfig"; path = "Target Support Files/Pods-App-CourseDetails/Pods-App-CourseDetails.debugdev.xcconfig"; sourceTree = "<group>"; };
 		600A464AEDA7BEFEC1A7FE99 /* Pods-App-Course-CourseTests.debugdev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Course-CourseTests.debugdev.xcconfig"; path = "Target Support Files/Pods-App-Course-CourseTests/Pods-App-Course-CourseTests.debugdev.xcconfig"; sourceTree = "<group>"; };
 		69A261790A0B4C724CCFA4F2 /* Pods-App-CourseDetails.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-CourseDetails.release.xcconfig"; path = "Target Support Files/Pods-App-CourseDetails/Pods-App-CourseDetails.release.xcconfig"; sourceTree = "<group>"; };
+		6AA09C1F30188A1900FB3C7B /* LocalNotfifcationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotfifcationManager.swift; sourceTree = "<group>"; };
 		831B08139890634968EDD44D /* Pods-App-Course-CourseTests.debugstage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Course-CourseTests.debugstage.xcconfig"; path = "Target Support Files/Pods-App-Course-CourseTests/Pods-App-Course-CourseTests.debugstage.xcconfig"; sourceTree = "<group>"; };
 		94521BCE2E2517A30011BAB2 /* VideoPlayerOverlayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerOverlayViewModel.swift; sourceTree = "<group>"; };
 		946101032E2149820095846B /* VideoPlayerOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerOverlay.swift; sourceTree = "<group>"; };
@@ -559,6 +561,7 @@
 			isa = PBXGroup;
 			children = (
 				97EA4D852B85034D00663F58 /* CalendarManager.swift */,
+				6AA09C1F30188A1900FB3C7B /* LocalNotfifcationManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -737,8 +740,6 @@
 				uk,
 			);
 			mainGroup = 0289F8E428E1C3510064F8F3;
-			packageReferences = (
-			);
 			productRefGroup = 0289F8EF28E1C3510064F8F3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -942,6 +943,7 @@
 				02454CA82A2619890043052A /* DiscussionView.swift in Sources */,
 				0265B4B728E2141D00E6EAFD /* Strings.swift in Sources */,
 				946101042E2149820095846B /* VideoPlayerOverlay.swift in Sources */,
+				6AA09C2030188A1900FB3C7B /* LocalNotfifcationManager.swift in Sources */,
 				97C99C362B9A08FE004EEDE2 /* CalendarSyncProgressView.swift in Sources */,
 				BAC0E0D82B32EF03006B68A9 /* DownloadsView.swift in Sources */,
 				97CA95252B875EE200A9EDEA /* DatesSuccessView.swift in Sources */,

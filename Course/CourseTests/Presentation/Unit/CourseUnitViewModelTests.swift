@@ -144,6 +144,7 @@ final class CourseUnitViewModelTests: XCTestCase {
         let router = CourseRouterMock()
         let connectivity = ConnectivityProtocolMock()
         let analytics = CourseAnalyticsMock()
+        let localNotification = LocalNotificationManagerProtocolMock()
         
         let viewModel = CourseUnitViewModel(
             lessonID: "123",
@@ -154,6 +155,7 @@ final class CourseUnitViewModelTests: XCTestCase {
             sequentialIndex: 0,
             verticalIndex: 0,
             interactor: interactor,
+            localNotificationManager: localNotification,
             config: config,
             router: router,
             analytics: analytics,
@@ -179,7 +181,8 @@ final class CourseUnitViewModelTests: XCTestCase {
         let router = CourseRouterMock()
         let connectivity = ConnectivityProtocolMock()
         let analytics = CourseAnalyticsMock()
-        
+        let localNotification = LocalNotificationManagerProtocolMock()
+
         let viewModel = CourseUnitViewModel(
             lessonID: "123",
             courseID: "456",
@@ -189,6 +192,7 @@ final class CourseUnitViewModelTests: XCTestCase {
             sequentialIndex: 0,
             verticalIndex: 0,
             interactor: interactor,
+            localNotificationManager: localNotification,
             config: config,
             router: router,
             analytics: analytics,
@@ -219,7 +223,8 @@ final class CourseUnitViewModelTests: XCTestCase {
         let router = CourseRouterMock()
         let connectivity = ConnectivityProtocolMock()
         let analytics = CourseAnalyticsMock()
-        
+        let localNotification = LocalNotificationManagerProtocolMock()
+
         let viewModel = CourseUnitViewModel(
             lessonID: "123",
             courseID: "456",
@@ -229,6 +234,7 @@ final class CourseUnitViewModelTests: XCTestCase {
             sequentialIndex: 0,
             verticalIndex: 0,
             interactor: interactor,
+            localNotificationManager: localNotification,
             config: config,
             router: router,
             analytics: analytics,
@@ -261,7 +267,8 @@ final class CourseUnitViewModelTests: XCTestCase {
         let router = CourseRouterMock()
         let connectivity = ConnectivityProtocolMock()
         let analytics = CourseAnalyticsMock()
-        
+        let localNotification = LocalNotificationManagerProtocolMock()
+
         let viewModel = CourseUnitViewModel(
             lessonID: "123",
             courseID: "456",
@@ -271,6 +278,7 @@ final class CourseUnitViewModelTests: XCTestCase {
             sequentialIndex: 0,
             verticalIndex: 0,
             interactor: interactor,
+            localNotificationManager: localNotification,
             config: config,
             router: router,
             analytics: analytics,
@@ -302,7 +310,8 @@ final class CourseUnitViewModelTests: XCTestCase {
         let router = CourseRouterMock()
         let connectivity = ConnectivityProtocolMock()
         let analytics = CourseAnalyticsMock()
-        
+        let localNotification = LocalNotificationManagerProtocolMock()
+
         let viewModel = CourseUnitViewModel(
             lessonID: "123",
             courseID: "456",
@@ -312,6 +321,7 @@ final class CourseUnitViewModelTests: XCTestCase {
             sequentialIndex: 0,
             verticalIndex: 0,
             interactor: interactor,
+            localNotificationManager: localNotification,
             config: config,
             router: router,
             analytics: analytics,
