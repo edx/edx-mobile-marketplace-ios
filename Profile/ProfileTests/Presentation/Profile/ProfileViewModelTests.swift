@@ -231,4 +231,52 @@ final class ProfileViewModelTests: XCTestCase {
         XCTAssertFalse(viewModel.isShowProgress)
         XCTAssertTrue(viewModel.showError)
     }
+
+    func testSubscriptionAlertBannerEvaluateVisibilityRespectsMaxSessionsAcrossSessions() {
+        let storage = SubscriptionBannerStorageMock()
+        let sessionTracker = AppSessionTrackerMock()
+        let serverConfig = ServerConfigProtocolMock()
+
+        serverConfig.subscriptionBannerConfig = SubscriptionBannerConfig(
+            dictionary: [
+                "max_sessions": 4,
+                "url": "https://bit.ly/edx-apps-subscriptions",
+                "subscription_banner_enabled": true
+            ]
+        )
+
+        let viewModel = SubscriptionAlertBannerViewModel(
+            screen: .profile,
+            storage: storage,
+            sessionTracker: sessionTracker,
+            serverConfig: serverConfig
+        )
+
+        sessionTracker.currentSessionID = 1
+        viewModel.evaluateVisibility()
+        XCTAssertTrue(viewModel.isVisible)
+        XCTAssertEqual(storage.subscriptionBannerShownSessionCount(for: .profile), 1)
+
+        viewModel.evaluateVisibility()
+        XCTAssertTrue(viewModel.isVisible)
+        XCTAssertEqual(storage.subscriptionBannerShownSessionCount(for: .profile), 1)
+
+        sessionTracker.currentSessionID = 2
+        viewModel.evaluateVisibility()
+        XCTAssertTrue(viewModel.isVisible)
+
+        sessionTracker.currentSessionID = 3
+        viewModel.evaluateVisibility()
+        XCTAssertTrue(viewModel.isVisible)
+
+        sessionTracker.currentSessionID = 4
+        viewModel.evaluateVisibility()
+        XCTAssertTrue(viewModel.isVisible)
+        XCTAssertEqual(storage.subscriptionBannerShownSessionCount(for: .profile), 4)
+
+        sessionTracker.currentSessionID = 5
+        viewModel.evaluateVisibility()
+        XCTAssertFalse(viewModel.isVisible)
+        XCTAssertEqual(storage.subscriptionBannerShownSessionCount(for: .profile), 4)
+    }
 }
