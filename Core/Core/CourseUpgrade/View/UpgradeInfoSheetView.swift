@@ -58,7 +58,7 @@ public struct UpgradeInfoSheetView: View {
             handler: CourseUpgradeHandlerProtocolMock(),
             pacing: "self",
             analytics: CoreAnalyticsMock(),
-            certificatePreviewExperimentManager: CertificatePreviewManagingMock(),
+            certificatePreviewFeatureManager: CertificatePreviewFeatureManagingMock(),
             router: BaseRouterMock(),
             lmsPrice: .zero
         )
