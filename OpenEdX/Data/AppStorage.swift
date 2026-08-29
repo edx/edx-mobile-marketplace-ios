@@ -13,7 +13,8 @@ import WhatsNew
 import Course
 import Notifications
 
-public class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, CourseStorage, NotificationsStorage {
+public class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, CourseStorage, NotificationsStorage,
+                            SubscriptionBannerStorage {
 
     private let keychain: KeychainSwift
     private let userDefaults: UserDefaults
@@ -350,12 +351,63 @@ public class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, CourseSto
         }
     }
     
+    public var subscriptionBannerCurrentSessionID: Int {
+        get {
+            return userDefaults.integer(forKey: KEY_SUBSCRIPTION_BANNER_SESSION_ID)
+        }
+        set(newValue) {
+            userDefaults.set(newValue, forKey: KEY_SUBSCRIPTION_BANNER_SESSION_ID)
+        }
+    }
+
+    public func isSubscriptionBannerDismissed(for screen: SubscriptionBannerScreen) -> Bool {
+        return userDefaults.bool(forKey: makeSubscriptionBannerKey(KEY_PREFIX_SUBSCRIPTION_BANNER_DISMISSED, screen: screen))
+    }
+
+    public func setSubscriptionBannerDismissed(for screen: SubscriptionBannerScreen) {
+        userDefaults.set(true, forKey: makeSubscriptionBannerKey(KEY_PREFIX_SUBSCRIPTION_BANNER_DISMISSED, screen: screen))
+    }
+
+    public func subscriptionBannerLastCountedSession(for screen: SubscriptionBannerScreen) -> Int? {
+        let key = makeSubscriptionBannerKey(KEY_PREFIX_SUBSCRIPTION_BANNER_LAST_SESSION, screen: screen)
+        guard userDefaults.object(forKey: key) != nil else { return nil }
+        return userDefaults.integer(forKey: key)
+    }
+
+    public func subscriptionBannerShownSessionCount(for screen: SubscriptionBannerScreen) -> Int {
+        return userDefaults.integer(forKey: makeSubscriptionBannerKey(KEY_PREFIX_SUBSCRIPTION_BANNER_SHOWN_COUNT, screen: screen))
+    }
+
+    public func recordSubscriptionBannerShown(for screen: SubscriptionBannerScreen, sessionID: Int) {
+        userDefaults.set(
+            sessionID,
+            forKey: makeSubscriptionBannerKey(KEY_PREFIX_SUBSCRIPTION_BANNER_LAST_SESSION, screen: screen)
+        )
+        let countKey = makeSubscriptionBannerKey(KEY_PREFIX_SUBSCRIPTION_BANNER_SHOWN_COUNT, screen: screen)
+        userDefaults.set(userDefaults.integer(forKey: countKey) + 1, forKey: countKey)
+    }
+
     public func clear() {
         accessToken = nil
         refreshToken = nil
         cookiesDate = nil
         user = nil
         userProfile = nil
+        
+        userDefaults.removeObject(forKey: KEY_SUBSCRIPTION_BANNER_SESSION_ID)
+        
+        let screens: [SubscriptionBannerScreen] = [.discovery, .profile]
+        for screen in screens {
+            userDefaults.removeObject(
+                forKey: makeSubscriptionBannerKey(KEY_PREFIX_SUBSCRIPTION_BANNER_DISMISSED, screen: screen)
+            )
+            userDefaults.removeObject(
+                forKey: makeSubscriptionBannerKey(KEY_PREFIX_SUBSCRIPTION_BANNER_LAST_SESSION, screen: screen)
+            )
+            userDefaults.removeObject(
+                forKey: makeSubscriptionBannerKey(KEY_PREFIX_SUBSCRIPTION_BANNER_SHOWN_COUNT, screen: screen)
+            )
+        }
         // delete all cookies
         if  let cookies = HTTPCookieStorage.shared.cookies {
             for cookie in cookies {
@@ -385,8 +437,16 @@ public class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, CourseSto
     private let KEY_PERFORMANCE_USAGE_TRACKING_ENABLED = "performanceUsageTrackingEnabled"
     private let KEY_NOTIFICATIONS_PRIMER_DISMISSAL_COUNT = "notificationsPrimerDismissalCount"
     private let KEY_NOTIFICATIONS_PRIMER_LAST_SHOWN_DATE = "notificationsPrimerLastShownDate"
+    private let KEY_PREFIX_SUBSCRIPTION_BANNER_DISMISSED = "subscriptionBannerDismissed"
+    private let KEY_PREFIX_SUBSCRIPTION_BANNER_LAST_SESSION = "subscriptionBannerLastCountedSession"
+    private let KEY_PREFIX_SUBSCRIPTION_BANNER_SHOWN_COUNT = "subscriptionBannerShownSessionCount"
+    private let KEY_SUBSCRIPTION_BANNER_SESSION_ID = "subscriptionBannerCurrentSessionID"
 
     private func makeKey(bannerType: CourseBannerType, courseID: String) -> String {
         return "\(KEY_PREFIX_COURSE_BANNER_DISMISSAL_DATE).\(bannerType.rawValue).\(courseID)"
+    }
+
+    private func makeSubscriptionBannerKey(_ prefix: String, screen: SubscriptionBannerScreen) -> String {
+        return "\(prefix).\(screen.rawValue)"
     }
 }
