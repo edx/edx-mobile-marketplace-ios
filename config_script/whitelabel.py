@@ -90,6 +90,9 @@ class WhitelabelApp:
             logging.debug("Project settings config not found")
     
     def whitelabel(self):
+        # Sync local default_config before applying any whitelabel updates.
+        self.update_default_config_from_mobile_config()
+
         # Update the properties, resources, and configuration of the current app.
         self.copy_assets()
         self.copy_font()
@@ -525,6 +528,13 @@ class WhitelabelApp:
     CONFIG_DIRECTORY_NAME = 'config_directory'
     CONFIG_MAPPINGS = 'config_mapping'
     MAPPINGS_FILENAME = 'file_mappings.yaml'
+    MOBILE_CONFIG_ROOT_RELATIVE = '../../edx-mobile-config'
+    DEFAULT_CONFIG_ROOT_RELATIVE = '../default_config'
+    DEFAULT_CONFIG_SYNC_MAP = {
+        'prod': 'prod',
+        'prod_test': 'dev',
+        'stage': 'stage'
+    }
 
     def parse_yaml(self, file_path):
         try:
@@ -533,6 +543,35 @@ class WhitelabelApp:
         except Exception as e:
             logging.error(f"Unable to open or read the file '{file_path}': {e}")
             return None
+
+    def update_default_config_from_mobile_config(self):
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        source_root = os.path.normpath(os.path.join(script_dir, self.MOBILE_CONFIG_ROOT_RELATIVE))
+        target_root = os.path.normpath(os.path.join(script_dir, self.DEFAULT_CONFIG_ROOT_RELATIVE))
+
+        if not os.path.isdir(source_root):
+            logging.error("Mobile config source directory not found: " + source_root)
+            return
+
+        if not os.path.isdir(target_root):
+            logging.error("Default config directory not found: " + target_root)
+            return
+
+        for source_folder, target_folder in self.DEFAULT_CONFIG_SYNC_MAP.items():
+            src = os.path.join(source_root, source_folder)
+            dst = os.path.join(target_root, target_folder)
+
+            if not os.path.isdir(src):
+                logging.error("Source config folder not found: " + src)
+                continue
+
+            try:
+                if os.path.exists(dst):
+                    shutil.rmtree(dst)
+                shutil.copytree(src, dst)
+                logging.debug("Updated default_config/" + target_folder + " from " + src)
+            except Exception as e:
+                logging.error("Failed to sync " + src + " to " + dst + ": " + str(e))
 
     def get_mobile_config(self, config_directory,  config_folder, errors_texts):
         # get path to mappings file
