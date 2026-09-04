@@ -110,6 +110,16 @@ public class CourseUnitViewModel: ObservableObject {
     @Published var index: Int = 0
     private(set) var courseStructure: CourseStructure?
     var courseStructurePublisher: AnyPublisher<CourseStructure?, Never>?
+    var courseArtworkURL: URL? {
+        guard let raw = courseStructure?.media.image.raw,
+              let path = raw.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
+            return nil
+        }
+        if path.contains("http://") || path.contains("https://") {
+            return URL(string: path)
+        }
+        return URL(string: config.baseURL.absoluteString + path)
+    }
     var previousLesson: String = ""
     var nextLesson: String = ""
     @Published var showError: Bool = false

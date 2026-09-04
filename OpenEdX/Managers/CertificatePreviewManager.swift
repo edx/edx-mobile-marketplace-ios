@@ -12,39 +12,39 @@ import WebKit
 
 // MARK: - Adapter
 
-final class CertificatePreviewManager: CertificatePreviewManaging, UserSessionManaging {
-    private let experimentManager: CertificatePreviewExperimentManager
+final class CertificatePreviewManager: CertificatePreviewFeatureManaging, UserSessionManaging {
+    private let featureManager: CertificatePreviewFeatureManager
 
-    init(_ experimentManager: CertificatePreviewExperimentManager) {
-        self.experimentManager = experimentManager
+    init(_ featureManager: CertificatePreviewFeatureManager) {
+        self.featureManager = featureManager
     }
 
-    // MARK: CertificatePreviewManaging
+    // MARK: CertificatePreviewFeatureManaging
 
     func shouldShowCertificatePreview() -> Bool {
-        experimentManager.decision(forKey: FeatureKeys.showCertificatePreview)?.boolValue ?? false
+        featureManager.decision(forKey: FeatureKeys.showCertificatePreview)?.boolValue ?? false
     }
 
     func recordCertificatePreviewShownAttempt(forCourseId courseId: String) {
-        experimentManager.recordCertificatePreviewShownAttempt(forCourseId: courseId)
+        featureManager.recordCertificatePreviewShownAttempt(forCourseId: courseId)
     }
 
     func attemptsSinceLastCertificatePreviewAndReset(forCourseId courseId: String) -> Int {
-        experimentManager.attemptsSinceLastCertificatePreviewAndReset(forCourseId: courseId)
+        featureManager.attemptsSinceLastCertificatePreviewAndReset(forCourseId: courseId)
     }
 
     func trackEvent(_ name: String, properties: [String: Any]?) {
-        experimentManager.trackEvent(name, properties: properties)
+        featureManager.trackEvent(name, properties: properties)
     }
 
     // MARK: UserSessionManaging
 
     func identifyUser(id: String) {
-        experimentManager.identifyUser(id: id, attributes: nil)
+        featureManager.identifyUser(id: id, attributes: nil)
     }
 
     func resetUser() {
-        experimentManager.resetUser()
+        featureManager.resetUser()
     }
 }
 

@@ -219,8 +219,8 @@ class AppAssembly: Assembly {
             FirebaseAnalyticsService()
         }.inObjectScope(.container)
 
-        container.register(ExperimentAssignmentStore.self) { _ in
-            CertificateExperimentAssignmentStore()
+        container.register(CertificatePreviewFeatureStore.self) { _ in
+            CertificatePreviewUserDefaultsStore()
         }.inObjectScope(.container)
         
         container.register(AnalyticsTracking.self) { _ in
@@ -228,22 +228,22 @@ class AppAssembly: Assembly {
         }
         .inObjectScope(.container)
         
-        container.register(CertificatePreviewExperimentManager.self) { r in
-            CertificatePreviewExperimentManager(
-                assignmentStore: r.resolve(ExperimentAssignmentStore.self)!,
+        container.register(CertificatePreviewFeatureManager.self) { r in
+            CertificatePreviewFeatureManager(
+                featureStore: r.resolve(CertificatePreviewFeatureStore.self)!,
                 analytics: r.resolve(AnalyticsTracking.self)!
             )
         }.inObjectScope(.container)
 
         container.register(FeatureManagerProtocol.self) { r in
-            r.resolve(CertificatePreviewExperimentManager.self)!
+            r.resolve(CertificatePreviewFeatureManager.self)!
         }.inObjectScope(.container)
 
         container.register(CertificatePreviewManager.self) { r in
-            CertificatePreviewManager(r.resolve(CertificatePreviewExperimentManager.self)!)
+            CertificatePreviewManager(r.resolve(CertificatePreviewFeatureManager.self)!)
         }.inObjectScope(.container)
 
-        container.register(CertificatePreviewManaging.self) { r in
+        container.register(CertificatePreviewFeatureManaging.self) { r in
             r.resolve(CertificatePreviewManager.self)!
         }.inObjectScope(.container)
 
@@ -265,6 +265,10 @@ class AppAssembly: Assembly {
                 courseInteractor: r.resolve(CourseInteractorProtocol.self)!,
                 courseDropDownNavigationEnabled: config.uiComponents.courseDropDownNavigationEnabled
             )
+        }.inObjectScope(.container)
+
+        container.register(NowPlayingManagerProtocol.self) { _ in
+            NowPlayingManager()
         }.inObjectScope(.container)
 
         container.register(ThemeManagerProtocol.self) { r in

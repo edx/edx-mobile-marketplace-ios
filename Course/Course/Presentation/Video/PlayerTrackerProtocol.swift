@@ -27,14 +27,12 @@ public protocol PlayerTrackerProtocol {
 #if DEBUG
 class PlayerTrackerProtocolMock: PlayerTrackerProtocol {
     let player: AVPlayer?
-    var duration: Double {
-        1
-    }
+    var duration: Double = 1
     var progress: Double {
         0
     }
     let isPlaying = false
-    let isReady = false
+    private(set) var isReady = false
     private let timePublisher: CurrentValueSubject<Double, Never>
     private let ratePublisher: CurrentValueSubject<Float, Never>
     private let finishPublisher: PassthroughSubject<Void, Never>
@@ -71,9 +69,18 @@ class PlayerTrackerProtocolMock: PlayerTrackerProtocol {
     func sendProgress(_ progress: Double) {
         timePublisher.send(progress)
     }
-    
+
     func sendFinish() {
         finishPublisher.send()
+    }
+
+    func sendRate(_ rate: Float) {
+        ratePublisher.send(rate)
+    }
+
+    func sendReady(_ isReady: Bool) {
+        self.isReady = isReady
+        readyPublisher.send(isReady)
     }
 }
 #endif

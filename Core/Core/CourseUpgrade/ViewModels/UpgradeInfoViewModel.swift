@@ -16,7 +16,7 @@ public class UpgradeInfoViewModel: ObservableObject {
     let handler: CourseUpgradeHandlerProtocol
     let pacing: String
     let analytics: CoreAnalytics
-    let certificatePreviewExperimentManager: CertificatePreviewManaging
+    let certificatePreviewFeatureManager: CertificatePreviewFeatureManaging
     let router: BaseRouter
     let lmsPrice: Double
     private let productCacheService: ProductCacheServiceProtocol
@@ -42,7 +42,7 @@ public class UpgradeInfoViewModel: ObservableObject {
         handler: CourseUpgradeHandlerProtocol,
         pacing: String,
         analytics: CoreAnalytics,
-        certificatePreviewExperimentManager: CertificatePreviewManaging,
+        certificatePreviewFeatureManager: CertificatePreviewFeatureManaging,
         router: BaseRouter,
         lmsPrice: Double
     ) {
@@ -53,7 +53,7 @@ public class UpgradeInfoViewModel: ObservableObject {
         self.handler = handler
         self.pacing = pacing
         self.analytics = analytics
-        self.certificatePreviewExperimentManager = certificatePreviewExperimentManager
+        self.certificatePreviewFeatureManager = certificatePreviewFeatureManager
         self.router = router
         self.message = message
         self.lmsPrice = lmsPrice
@@ -102,7 +102,8 @@ public class UpgradeInfoViewModel: ObservableObject {
         }
         do {
             isLoading = true
-            product = try await productCacheService.getProduct(sku: sku, using: handler)
+            product = try await productCacheService.getProduct(sku: sku,
+                                                               using: handler)
             isLoading = false
         } catch let error {
             showPriceLoadError(error: error)
@@ -236,15 +237,15 @@ public class UpgradeInfoViewModel: ObservableObject {
     }
     
     func trackCertificateShown() {
-        certificatePreviewExperimentManager.recordCertificatePreviewShownAttempt(forCourseId: courseID)
-        certificatePreviewExperimentManager.trackEvent(
+        certificatePreviewFeatureManager.recordCertificatePreviewShownAttempt(forCourseId: courseID)
+        certificatePreviewFeatureManager.trackEvent(
             CertPreviewEventKey.certPreviewShown.rawValue,
             properties: certificatePreviewProps()
        )
     }
  
     func trackOnCertificatePreviewUpgradeClick() {
-        certificatePreviewExperimentManager.trackEvent(
+        certificatePreviewFeatureManager.trackEvent(
             CertPreviewEventKey.certUpgradeNowClicked.rawValue,
             properties: certificatePreviewProps()
         )
@@ -252,15 +253,15 @@ public class UpgradeInfoViewModel: ObservableObject {
     
     func trackOnCertificatePreviewPurchased() {
         var props = certificatePreviewProps()
-        props[CertPreviewPropertyKey.attemptsToPurchase.rawValue] = "\(certificatePreviewExperimentManager.attemptsSinceLastCertificatePreviewAndReset(forCourseId: courseID))"
-        certificatePreviewExperimentManager.trackEvent(
+        props[CertPreviewPropertyKey.attemptsToPurchase.rawValue] = "\(certificatePreviewFeatureManager.attemptsSinceLastCertificatePreviewAndReset(forCourseId: courseID))"
+        certificatePreviewFeatureManager.trackEvent(
             CertPreviewEventKey.certPreviewPurchased.rawValue,
             properties: props
         )
     }
     
     func shouldShowCertificatePreview() -> Bool {
-        return certificatePreviewExperimentManager.shouldShowCertificatePreview()
+        return certificatePreviewFeatureManager.shouldShowCertificatePreview()
     }
     
     private func certificatePreviewProps() -> [String: Any] {

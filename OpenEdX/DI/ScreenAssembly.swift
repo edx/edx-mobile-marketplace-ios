@@ -464,7 +464,10 @@ class ScreenAssembly: Assembly {
             )
         }
         
-        container.register(EncodedVideoPlayerViewModel.self) { (r, url: URL?, blockID: String, courseID: String, languages: [SubtitleUrl], playerStateSubject: CurrentValueSubject<VideoPlayerState?, Never>) in
+        container.register(
+            EncodedVideoPlayerViewModel.self
+        ) { (r, url: URL?, blockID: String, courseID: String, languages: [SubtitleUrl], playerStateSubject: CurrentValueSubject<VideoPlayerState?, Never>, title: String, artworkURL: URL?
+        ) in
             let router: Router = r.resolve(Router.self)!
 
             let holder = r.resolve(
@@ -472,7 +475,9 @@ class ScreenAssembly: Assembly {
                 arguments: url,
                 blockID,
                 courseID,
-                router.currentCourseTabSelection
+                router.currentCourseTabSelection,
+                title,
+                artworkURL
             )!
             return EncodedVideoPlayerViewModel(
                 languages: languages,
@@ -508,13 +513,15 @@ class ScreenAssembly: Assembly {
                 playerTracker: r.resolve(YoutubePlayerTracker.self, argument: url)!,
                 playerDelegate: nil,
                 playerService: r.resolve(PlayerServiceProtocol.self, arguments: courseID, blockID)!,
-                appStorage: nil
+                appStorage: nil,
+                nowPlayingManager: r.resolve(NowPlayingManagerProtocol.self)!
             )
         }
 
         container.register(
             PlayerViewControllerHolder.self
-        ) { (r, url: URL?, blockID: String, courseID: String, selectedCourseTab: Int) in
+        ) { (r, url: URL?, blockID: String, courseID: String, selectedCourseTab: Int, title: String, artworkURL: URL?
+        ) in
             let pipManager = r.resolve(PipManagerProtocol.self)!
             if let holder = pipManager.holder(
                 for: url,
@@ -532,11 +539,14 @@ class ScreenAssembly: Assembly {
                 blockID: blockID,
                 courseID: courseID,
                 selectedCourseTab: selectedCourseTab,
+                title: title,
+                artworkURL: artworkURL,
                 pipManager: pipManager,
                 playerTracker: tracker,
                 playerDelegate: delegate,
                 playerService: r.resolve(PlayerServiceProtocol.self, arguments: courseID, blockID)!,
-                appStorage: r.resolve(CoreStorage.self)!
+                appStorage: r.resolve(CoreStorage.self)!,
+                nowPlayingManager: r.resolve(NowPlayingManagerProtocol.self)!
             )
             delegate.playerHolder = holder
             return holder
@@ -703,7 +713,7 @@ class ScreenAssembly: Assembly {
                 accessExpires: accessExpires,
                 handler: r.resolve(CourseUpgradeHandlerProtocol.self)!,
                 analytics: r.resolve(CoreAnalytics.self)!,
-                certificatePreviewExperimentManager: r.resolve(CertificatePreviewManaging.self)!,
+                certificatePreviewFeatureManager: r.resolve(CertificatePreviewFeatureManaging.self)!,
                 router: r.resolve(CourseRouter.self)!
             )
         }
@@ -721,7 +731,7 @@ class ScreenAssembly: Assembly {
                 handler: r.resolve(CourseUpgradeHandlerProtocol.self)!,
                 pacing: pacing,
                 analytics: r.resolve(CoreAnalytics.self)!,
-                certificatePreviewExperimentManager: r.resolve(CertificatePreviewManaging.self)!,
+                certificatePreviewFeatureManager: r.resolve(CertificatePreviewFeatureManaging.self)!,
                 router: r.resolve(CourseRouter.self)!,
                 lmsPrice: lmsPrice
             )
