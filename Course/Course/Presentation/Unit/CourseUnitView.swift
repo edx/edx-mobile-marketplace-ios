@@ -246,7 +246,8 @@ public struct CourseUnitView: View {
                                         blockID: blockID,
                                         playerStateSubject: playerStateSubject,
                                         languages: block.subtitles ?? [],
-                                        isOnScreen: index == viewModel.index
+                                        isOnScreen: index == viewModel.index,
+                                        artworkURL: viewModel.courseArtworkURL
                                     )
                                     .padding(.top, 5)
                                     .frameLimit(width: reader.size.width)

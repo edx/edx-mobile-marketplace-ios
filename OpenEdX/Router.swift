@@ -583,7 +583,7 @@ public class Router: AuthorizationRouter,
                         chapters: courseStructure.childs,
                         chapterIndex: chapterPosition ?? 0,
                         sequentialIndex: sequentialPosition ?? 0,
-                        courseStructurePublisher: courseStructurePublisher
+                        courseStructurePublisher: courseStructurePublisher ?? Just(courseStructure).map {Optional($0)}.eraseToAnyPublisher()
                     )
                 }
             } else if !blockLink.isEmpty, let blockURL = URL(string: blockLink) {

@@ -69,7 +69,7 @@ public class VideoPlayerViewModel: ObservableObject {
                 }
             case .kill:
                 if self?.playerHolder.isPlayingInPip != true {
-                    self?.playerHolder.playerController?.stop()
+                    self?.playerHolder.stop()
                 }
             case .none:
                 break

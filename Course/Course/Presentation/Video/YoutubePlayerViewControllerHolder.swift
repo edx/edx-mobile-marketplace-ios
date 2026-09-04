@@ -15,7 +15,7 @@ public class YoutubePlayerViewControllerHolder: PlayerViewControllerHolderProtoc
     public let blockID: String
     public let courseID: String
     public let selectedCourseTab: Int
-    
+
     public var isPlaying: Bool {
         playerTracker.isPlaying
     }
@@ -49,12 +49,17 @@ public class YoutubePlayerViewControllerHolder: PlayerViewControllerHolderProtoc
         blockID: String,
         courseID: String,
         selectedCourseTab: Int,
+        title: String = "",
+        artworkURL: URL? = nil,
         pipManager: PipManagerProtocol,
         playerTracker: any PlayerTrackerProtocol,
         playerDelegate: PlayerDelegateProtocol?,
         playerService: PlayerServiceProtocol,
-        appStorage: CoreStorage?
+        appStorage: CoreStorage?,
+        nowPlayingManager: NowPlayingManagerProtocol
     ) {
+        // YouTube playback is not backed by a native AVPlayer, so lock-screen
+        // Now Playing integration is intentionally not wired for this holder.
         self.url = url
         self.blockID = blockID
         self.courseID = courseID
@@ -144,6 +149,12 @@ public class YoutubePlayerViewControllerHolder: PlayerViewControllerHolderProtoc
             errorPublisher.send(error)
         }
     }
+
+    public func stop() {
+        playerController?.stop()
+    }
+
+    public func updateMetadata(title: String, artworkURL: URL?) {}
 }
 
 extension YouTubePlayer: PlayerControllerProtocol {
@@ -161,7 +172,11 @@ extension YouTubePlayer: PlayerControllerProtocol {
             allowSeekAhead: true
         )
     }
-    
+
+    public func seek(to time: TimeInterval) {
+        self.seek(to: Measurement(value: time, unit: UnitDuration.seconds), allowSeekAhead: true)
+    }
+
     public func stop() {
         self.stop(completion: nil)
     }
@@ -184,7 +199,8 @@ extension YoutubePlayerViewControllerHolder {
                 interactor: CourseInteractor.mock,
                 router: CourseRouterMock()
             ),
-            appStorage: nil
+            appStorage: nil,
+            nowPlayingManager: NowPlayingManagerProtocolMock()
         )
     }
 }
