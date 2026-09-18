@@ -387,7 +387,7 @@ public class CourseContainerViewModel: BaseCourseViewModel {
         guard let access, !access.hasAccess else { return nil }
         
         if let courseEnd, courseEnd.isInPast() {
-            if courseStructure?.isUpgradeable == true {
+            if courseStructure?.isUpgradeable == true, serverConfig.iapConfig.enabled {
                 guard let courseStructure, let courseID else { return nil }
                 return .upgradeable(
                     date: courseEnd,
@@ -487,6 +487,7 @@ public class CourseContainerViewModel: BaseCourseViewModel {
 
     @MainActor
     func showTrackSelection() {
+        guard serverConfig.iapConfig.enabled else { return }
         guard let structure = courseStructure,
               let sku = courseStructure?.sku,
               let lmsPrice = courseStructure?.lmsPrice,
