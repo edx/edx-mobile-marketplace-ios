@@ -69,6 +69,16 @@ final class MainScreenViewModel: ObservableObject {
             select(tab: .programs)
         }
     }
+    
+    func showCourses() {
+        switch config.dashboard.type {
+        case .gallery:
+            select(tab: .dashboard)
+            dashboardMenu = .courses
+        case .list:
+            select(tab: .dashboard)
+        }
+    }
 
     func trackMainDiscoveryTabClicked() {
         analytics.mainDiscoveryTabClicked()
