@@ -246,6 +246,11 @@
 		C8C446EF233F81B9FABB77D2 /* Pods_App_Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 349B90CD6579F7B8D257E515 /* Pods_App_Core.framework */; };
 		CFC84952299F8B890055E497 /* Debounce.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC84951299F8B890055E497 /* Debounce.swift */; };
 		D32270422FB6F8230020D1CF /* ProductCacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32270412FB6F8230020D1CF /* ProductCacheService.swift */; };
+		D32FD07E3016E91E00CE60A3 /* SubscriptionBannerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32FD07D3016E91E00CE60A3 /* SubscriptionBannerConfig.swift */; };
+		D32FD0823016E99900CE60A3 /* SubscriptionAlertBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32FD07F3016E99900CE60A3 /* SubscriptionAlertBannerView.swift */; };
+		D32FD0833016E99900CE60A3 /* SubscriptionAlertBannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32FD0803016E99900CE60A3 /* SubscriptionAlertBannerViewModel.swift */; };
+		D32FD0863016E9D200CE60A3 /* SubscriptionBannerStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32FD0853016E9D200CE60A3 /* SubscriptionBannerStorage.swift */; };
+		D32FD0873016E9D200CE60A3 /* AppSessionTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32FD0843016E9D200CE60A3 /* AppSessionTracker.swift */; };
 		D359C9092F39A0F00055116E /* DatadogConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D359C9082F39A0EA0055116E /* DatadogConfig.swift */; };
 		D3AA00012F600001AA000001 /* CertificatePreviewManaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AA00002F600001AA000001 /* CertificatePreviewManaging.swift */; };
 		D3AA00032F600001AA000003 /* UserSessionManaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AA00022F600001AA000002 /* UserSessionManaging.swift */; };
@@ -515,6 +520,11 @@
 		C7E5BCE79CE297B20777B27A /* Pods-App-Core.debugprod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Core.debugprod.xcconfig"; path = "Target Support Files/Pods-App-Core/Pods-App-Core.debugprod.xcconfig"; sourceTree = "<group>"; };
 		CFC84951299F8B890055E497 /* Debounce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debounce.swift; sourceTree = "<group>"; };
 		D32270412FB6F8230020D1CF /* ProductCacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCacheService.swift; sourceTree = "<group>"; };
+		D32FD07D3016E91E00CE60A3 /* SubscriptionBannerConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionBannerConfig.swift; sourceTree = "<group>"; };
+		D32FD07F3016E99900CE60A3 /* SubscriptionAlertBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionAlertBannerView.swift; sourceTree = "<group>"; };
+		D32FD0803016E99900CE60A3 /* SubscriptionAlertBannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionAlertBannerViewModel.swift; sourceTree = "<group>"; };
+		D32FD0843016E9D200CE60A3 /* AppSessionTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSessionTracker.swift; sourceTree = "<group>"; };
+		D32FD0853016E9D200CE60A3 /* SubscriptionBannerStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionBannerStorage.swift; sourceTree = "<group>"; };
 		D359C9082F39A0EA0055116E /* DatadogConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatadogConfig.swift; sourceTree = "<group>"; };
 		D3AA00002F600001AA000001 /* CertificatePreviewManaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificatePreviewManaging.swift; sourceTree = "<group>"; };
 		D3AA00022F600001AA000002 /* UserSessionManaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSessionManaging.swift; sourceTree = "<group>"; };
@@ -802,6 +812,8 @@
 		0727877428D23838002E9142 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				D32FD0843016E9D200CE60A3 /* AppSessionTracker.swift */,
+				D32FD0853016E9D200CE60A3 /* SubscriptionBannerStorage.swift */,
 				02CF46C92954A42100A698EE /* Persistence */,
 				0236961728F9A21600EEF206 /* Repository */,
 				0727877528D2383C002E9142 /* Model */,
@@ -948,6 +960,7 @@
 		0770DE7728D0C49E006D8A5D /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				D32FD0813016E99900CE60A3 /* SubscriptionBanner */,
 				973CCD7A2D3660D100949756 /* AttributedText */,
 				9784D47C2BF7761F00AFEFFF /* FullScreenErrorView */,
 				064987882B4D69FE0071642A /* Webview */,
@@ -1053,6 +1066,7 @@
 		14DE13D82BDF7E4E0059168F /* ServerConfig */ = {
 			isa = PBXGroup;
 			children = (
+				D32FD07D3016E91E00CE60A3 /* SubscriptionBannerConfig.swift */,
 				14DE13D92BDF7E5E0059168F /* IAPConfig.swift */,
 				14DE13DB2BDF83350059168F /* ServerConfig.swift */,
 			);
@@ -1183,6 +1197,15 @@
 				CFC84951299F8B890055E497 /* Debounce.swift */,
 			);
 			path = Combine;
+			sourceTree = "<group>";
+		};
+		D32FD0813016E99900CE60A3 /* SubscriptionBanner */ = {
+			isa = PBXGroup;
+			children = (
+				D32FD07F3016E99900CE60A3 /* SubscriptionAlertBannerView.swift */,
+				D32FD0803016E99900CE60A3 /* SubscriptionAlertBannerViewModel.swift */,
+			);
+			path = SubscriptionBanner;
 			sourceTree = "<group>";
 		};
 		DBF6F2422B014AF30098414B /* Config */ = {
@@ -1523,6 +1546,7 @@
 				BAD9CA332B28A8F300DE790A /* AjaxProvider.swift in Sources */,
 				0295C885299B99DD00ABE571 /* RefreshableScrollView.swift in Sources */,
 				A51CDBE72B6D21F2009B6D4E /* SegmentConfig.swift in Sources */,
+				D32FD07E3016E91E00CE60A3 /* SubscriptionBannerConfig.swift in Sources */,
 				94747BAB2E3362F900F4E2C3 /* CaptchaService.swift in Sources */,
 				06EA8A4F2BFDFF8F005DFB90 /* StoreProductInfo.swift in Sources */,
 				0282DA7328F98CC9003C3F07 /* WebUnitView.swift in Sources */,
@@ -1681,6 +1705,10 @@
 				02F6EF3B28D9B8EC00835477 /* CourseCellView.swift in Sources */,
 				023A1138291432FD00D0D354 /* FieldConfiguration.swift in Sources */,
 				06C022C22C05F2E40046ABD3 /* CourseUpgradeHelperProtocol.swift in Sources */,
+				D32FD0863016E9D200CE60A3 /* SubscriptionBannerStorage.swift in Sources */,
+				D32FD0873016E9D200CE60A3 /* AppSessionTracker.swift in Sources */,
+				D32FD0823016E99900CE60A3 /* SubscriptionAlertBannerView.swift in Sources */,
+				D32FD0833016E99900CE60A3 /* SubscriptionAlertBannerViewModel.swift in Sources */,
 				DBF6F24A2B0380E00098414B /* FeaturesConfig.swift in Sources */,
 				02F164372902A9EB0090DDEF /* StringExtension.swift in Sources */,
 				0231CDBE2922422D00032416 /* CSSInjector.swift in Sources */,
