@@ -181,7 +181,15 @@ class AppAssembly: Assembly {
         container.register(ProfileStorage.self) { r in
             r.resolve(AppStorage.self)!
         }.inObjectScope(.container)
-        
+
+        container.register(SubscriptionBannerStorage.self) { r in
+            r.resolve(AppStorage.self)!
+        }.inObjectScope(.container)
+
+        container.register(AppSessionTracking.self) { r in
+            AppSessionTracker(storage: r.resolve(SubscriptionBannerStorage.self)!)
+        }.inObjectScope(.container)
+
         container.register(Validator.self) { _ in
             Validator()
         }.inObjectScope(.container)

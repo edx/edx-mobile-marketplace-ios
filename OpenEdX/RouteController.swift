@@ -57,6 +57,7 @@ class RouteController: UIViewController {
         
         resetAppSupportDirectoryUserData()
         coreAnalytics.trackEvent(.launch, biValue: .launch)
+        diContainer.resolve(AppSessionTracking.self)?.registerAppLaunch()
     }
     
     private func showStartupScreen() {

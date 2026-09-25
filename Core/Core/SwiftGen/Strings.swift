@@ -403,6 +403,16 @@ public enum CoreLocalization {
     /// Sign in
     public static let logInBtn = CoreLocalization.tr("Localizable", "SIGN_IN.LOG_IN_BTN", fallback: "Sign in")
   }
+  public enum SubscriptionBanner {
+    /// Dismiss
+    public static let dismiss = CoreLocalization.tr("Localizable", "SUBSCRIPTION_BANNER.DISMISS", fallback: "Dismiss")
+    /// Subscription features aren't supported in the mobile app just yet. To access your subscription, please log in to your account via a desktop or [mobile web browser](%@)
+    public static func message(_ p1: Any) -> String {
+      return CoreLocalization.tr("Localizable", "SUBSCRIPTION_BANNER.MESSAGE", String(describing: p1), fallback: "Subscription features aren't supported in the mobile app just yet. To access your subscription, please log in to your account via a desktop or [mobile web browser](%@)")
+    }
+    /// Looking for subscriptions?
+    public static let title = CoreLocalization.tr("Localizable", "SUBSCRIPTION_BANNER.TITLE", fallback: "Looking for subscriptions?")
+  }
   public enum TrackSelection {
     public enum Button {
       /// Continue to payment (%@)
