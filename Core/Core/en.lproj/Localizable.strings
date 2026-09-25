@@ -39,10 +39,15 @@
 "COURSEWARE.GOOD_WORK" = "Good job!";
 "COURSEWARE.BACK_TO_OUTLINE" = "Back to outline";
 "COURSEWARE.SECTION_COMPLETED" = "You've completed “%@”.";
+"COURSEWARE.SECTION_WELL_DONE" = "Well done on successfully completing “%@”.";
+"COURSEWARE.STARTED_OFFICIALLY" = "You've officially started %@. Good luck!";
 "COURSEWARE.CONTINUE" = "Continue";
 "COURSEWARE.RESUME" = "Resume";
 "COURSEWARE.RESUME_WITH" = "Resume with:";
+"COURSEWARE.CONGRATULATIONS" = "Congratulations!";
+"COURSEWARE.ON_YOUR_WAY" = "You're on your way!";
 "COURSEWARE.NEXT_SECTION" = "Next section";
+"COURSEWARE.THIS_COURSE" = "this course";
 
 "COURSEWARE.NEXT_SECTION_DESCRIPTION_FIRST" = "To proceed with “";
 "COURSEWARE.NEXT_SECTION_DESCRIPTION_LAST" = "” press “Next section”.";

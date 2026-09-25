@@ -21,10 +21,17 @@ public protocol CourseStorage {
 
     func dismissalDate(for bannerType: CourseBannerType, courseID: String) -> Date?
     func setDismissalDate(for bannerType: CourseBannerType, courseID: String, to date: Date?)
+    
+    func isVerticalFinishNotified(courseID: String, verticalID: String) -> Bool
+    func markVerticalFinishNotified(courseID: String, verticalID: String)
 }
 
 #if DEBUG
 public class CourseStorageMock: CourseStorage {
+    public func isVerticalFinishNotified(courseID: String, verticalID: String) -> Bool { false }
+    
+    public func markVerticalFinishNotified(courseID: String, verticalID: String) {}
+    
     
     public var userSettings: UserSettings?
 

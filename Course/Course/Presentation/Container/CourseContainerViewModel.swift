@@ -119,6 +119,7 @@ public class CourseContainerViewModel: BaseCourseViewModel {
     let analytics: CourseAnalytics
     let coreAnalytics: CoreAnalytics
     private(set) var storage: CourseStorage
+    let localNotificationManager: LocalNotificationManagerProtocol
     private var courseID: String?
     private var canShowTrackSelection: Bool
     let serverConfig: ServerConfigProtocol
@@ -134,6 +135,7 @@ public class CourseContainerViewModel: BaseCourseViewModel {
         connectivity: ConnectivityProtocol,
         manager: DownloadManagerProtocol,
         storage: CourseStorage,
+        localNotificationManager: LocalNotificationManagerProtocol,
         isActive: Bool?,
         courseStart: Date?,
         courseEnd: Date?,
@@ -158,6 +160,7 @@ public class CourseContainerViewModel: BaseCourseViewModel {
         self.enrollmentStart = enrollmentStart
         self.enrollmentEnd = enrollmentEnd
         self.storage = storage
+        self.localNotificationManager = localNotificationManager
         self.userSettings = storage.userSettings
         self.isInternetAvaliable = connectivity.isInternetAvaliable
         self.lastVisitedBlockID = lastVisitedBlockID

@@ -1281,7 +1281,6 @@
 				0770DE0428D07831006D8A5D /* Sources */,
 				0770DE0528D07831006D8A5D /* Frameworks */,
 				0770DE0628D07831006D8A5D /* Resources */,
-				812E0FFD8BBD67CDA4F22738 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1342,7 +1341,7 @@
 				BA8FA6712AD6ABA300EA029A /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
 				142EDD6A2B831D1400F9F320 /* XCRemoteSwiftPackageReference "ios-branch-sdk-spm" */,
 				14A832532BD753F800E5654D /* XCRemoteSwiftPackageReference "SwiftyStoreKit" */,
-				94D1FC462DA6AF44000A904F /* XCLocalSwiftPackageReference "EDXFeatureManagement" */,
+				94D1FC462DA6AF44000A904F /* XCLocalSwiftPackageReference "../EDXFeatureManagement" */,
 				94747BA62E3362DD00F4E2C3 /* XCRemoteSwiftPackageReference "recaptcha-enterprise-mobile-sdk" */,
 				15FA08A12F50127A00E32824 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				15FA08A42F5012B200E32824 /* XCRemoteSwiftPackageReference "keychain-swift" */,
@@ -2734,7 +2733,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		94D1FC462DA6AF44000A904F /* XCLocalSwiftPackageReference "EDXFeatureManagement" */ = {
+		94D1FC462DA6AF44000A904F /* XCLocalSwiftPackageReference "../EDXFeatureManagement" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../EDXFeatureManagement;
 		};

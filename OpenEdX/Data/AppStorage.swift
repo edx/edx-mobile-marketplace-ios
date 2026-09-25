@@ -246,6 +246,31 @@ public class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, CourseSto
             userDefaults.removeObject(forKey: key)
         }
     }
+    
+    public func isVerticalFinishNotified(courseID: String, verticalID: String) -> Bool {
+        finishedVerticalIDs(for: courseID).contains(verticalID)
+    }
+
+    public func markVerticalFinishNotified(courseID: String, verticalID: String) {
+        var ids = finishedVerticalIDs(for: courseID)
+        guard !ids.contains(verticalID) else { return }
+        ids.insert(verticalID)
+        userDefaults.set(Array(ids), forKey: makeFinishedVerticalsKey(courseID: courseID))
+    }
+
+    private func finishedVerticalIDs(for courseID: String) -> Set<String> {
+        Set(userDefaults.array(forKey: makeFinishedVerticalsKey(courseID: courseID)) as? [String] ?? [])
+    }
+
+    private func makeFinishedVerticalsKey(courseID: String) -> String {
+        "\(KEY_PREFIX_FINISHED_VERTICALS).\(courseID)"
+    }
+
+    private func clearFinishedVerticalIDs() {
+        let keys = userDefaults.dictionaryRepresentation().keys
+            .filter { $0.hasPrefix(KEY_PREFIX_FINISHED_VERTICALS) }
+        keys.forEach { userDefaults.removeObject(forKey: $0) }
+    }
 
     public var resetAppSupportDirectoryUserData: Bool? {
         get {
@@ -356,6 +381,7 @@ public class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, CourseSto
         cookiesDate = nil
         user = nil
         userProfile = nil
+        clearFinishedVerticalIDs()
         // delete all cookies
         if  let cookies = HTTPCookieStorage.shared.cookies {
             for cookie in cookies {
@@ -385,6 +411,7 @@ public class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, CourseSto
     private let KEY_PERFORMANCE_USAGE_TRACKING_ENABLED = "performanceUsageTrackingEnabled"
     private let KEY_NOTIFICATIONS_PRIMER_DISMISSAL_COUNT = "notificationsPrimerDismissalCount"
     private let KEY_NOTIFICATIONS_PRIMER_LAST_SHOWN_DATE = "notificationsPrimerLastShownDate"
+    private let KEY_PREFIX_FINISHED_VERTICALS = "finishedVerticalIDs"
 
     private func makeKey(bannerType: CourseBannerType, courseID: String) -> String {
         return "\(KEY_PREFIX_COURSE_BANNER_DISMISSAL_DATE).\(bannerType.rawValue).\(courseID)"

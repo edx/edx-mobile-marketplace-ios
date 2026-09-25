@@ -404,6 +404,7 @@ struct CourseScreensView_Previews: PreviewProvider {
                 connectivity: Connectivity(),
                 manager: DownloadManagerMock(),
                 storage: CourseStorageMock(),
+                localNotificationManager: LocalNotificationManager(),
                 isActive: true,
                 courseStart: nil,
                 courseEnd: nil,
