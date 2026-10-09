@@ -15,7 +15,9 @@ public class DiscoveryWebviewViewModel: ObservableObject {
     @Published private(set) var showProgress = false
     @Published var showError: Bool = false
     @Published var webViewError: Bool = false
-    
+
+    private weak var xpertChatbotWebView: WKWebView?
+
     var errorMessage: String? {
         didSet {
             withAnimation {
@@ -56,7 +58,17 @@ public class DiscoveryWebviewViewModel: ObservableObject {
         self.sourceScreen = sourceScreen
         self.datadogManager = datadogManager
     }
-    
+
+    func xpertChatbotInjection() -> WebviewInjection {
+        .xpertChatbot(onReady: { [weak self] webView in
+            self?.xpertChatbotWebView = webView
+        })
+    }
+
+    public func openXpertChatbot() {
+        xpertChatbotWebView?.evaluateJavaScript("window.__triggerXpertChatbotAction()")
+    }
+
     @MainActor
     func getCourseDetail(courseID: String) async throws -> CourseDetails? {
         return try await interactor.getCourseDetails(courseID: courseID)

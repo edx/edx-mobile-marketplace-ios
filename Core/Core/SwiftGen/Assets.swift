@@ -148,6 +148,7 @@ public enum CoreAssets {
   public static let viewAll = ImageAsset(name: "viewAll")
   public static let warning = ImageAsset(name: "warning")
   public static let warningFilled = ImageAsset(name: "warning_filled")
+  public static let xpertLogo = ImageAsset(name: "xpert-logo")
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
 

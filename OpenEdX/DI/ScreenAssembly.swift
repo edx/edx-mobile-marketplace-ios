@@ -45,6 +45,7 @@ class ScreenAssembly: Assembly {
                 config: r.resolve(ConfigProtocol.self)!,
                 notificationsInteractor: r.resolve(NotificationsInteractorProtocol.self)!,
                 profileInteractor: r.resolve(ProfileInteractorProtocol.self)!,
+                discoveryWebviewViewModel: r.resolve(DiscoveryWebviewViewModel.self, argument: sourceScreen)!,
                 sourceScreen: sourceScreen,
                 postLoginData: postLoginData
             )
