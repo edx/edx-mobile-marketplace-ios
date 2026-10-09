@@ -413,6 +413,7 @@ public class CourseContainerViewModel: BaseCourseViewModel {
                     let dateString = courseStructure.coursewareAccessDetails?.auditAccessExpires,
                     let date = date(from: dateString)
                 else { return nil }
+                guard serverConfig.iapConfig.enabled else {return .isEndDateOld(date: date)}
                 return .auditExpired(
                     date: date,
                     sku: courseStructure.sku ?? "",
