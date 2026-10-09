@@ -62,10 +62,6 @@ public struct DiscoveryWebview: View {
         }
     }
     
-    private var isNavigationBarHidden: Bool {
-        supportsElevatedTabBar ? false : (viewModel.sourceScreen == .default && discoveryType == .discovery)
-    }
-
     private func buildQuery(baseURL: String, params: [String: String]) -> String {
         var query = baseURL
         for param in params {
@@ -170,23 +166,11 @@ public struct DiscoveryWebview: View {
                 }
             }
         }
-        .hideNavigationBar(isNavigationBarHidden)
+        .hideNavigationBar(
+            supportsElevatedTabBar ? false :
+                (viewModel.sourceScreen == .default && discoveryType == .discovery)
+        )
         .navigationTitle(supportsElevatedTabBar ? "" : CoreLocalization.Mainscreen.discovery)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: {
-                    viewModel.openXpertChatbot()
-                }, label: {
-                    CoreAssets.xpertLogo.swiftUIImage
-                        .renderingMode(.original)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 24)
-                })
-                .buttonStyle(.plain)
-                .accessibilityIdentifier("xpert_chatbot_button")
-            }
-        }
         .background(Theme.Colors.background.ignoresSafeArea())
         .onFirstAppear {
             if case let .courseDetail(pathID, _) = viewModel.sourceScreen {
