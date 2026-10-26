@@ -112,7 +112,7 @@ public struct DiscoveryWebview: View {
                         viewModel: .init(
                             url: URLString,
                             baseURL: "",
-                            injections: [.discoveryInputZoomFix]
+                            injections: [.discoveryInputZoomFix, viewModel.xpertChatbotInjection()]
                         ),
                         isLoading: $isLoading,
                         refreshCookies: {},
@@ -120,7 +120,7 @@ public struct DiscoveryWebview: View {
                         webViewType: discoveryType.rawValue
                     )
                     .accessibilityIdentifier("discovery_webview")
-                    
+
                     if isLoading || viewModel.showProgress {
                         HStack(alignment: .center) {
                             ProgressBar(
@@ -132,7 +132,7 @@ public struct DiscoveryWebview: View {
                         }
                         .frame(width: proxy.size.width, height: proxy.size.height)
                     }
-                    
+
                     // MARK: - Show Error
                     if viewModel.showError {
                         VStack {
@@ -146,7 +146,7 @@ public struct DiscoveryWebview: View {
                             }
                         }
                     }
-                    
+
                     if !viewModel.userloggedIn, !isLoading {
                         LogistrationBottomView { buttonAction in
                             switch buttonAction {
@@ -158,7 +158,7 @@ public struct DiscoveryWebview: View {
                         }
                     }
                 }
-                
+
                 if viewModel.webViewError {
                     FullScreenErrorView(
                         type: viewModel.connectivity.isInternetAvaliable ? .generic : .noInternetWithReload

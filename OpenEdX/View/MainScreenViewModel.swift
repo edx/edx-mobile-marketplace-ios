@@ -8,6 +8,7 @@
 import Foundation
 import Core
 import Dashboard
+import Discovery
 import Notifications
 import Profile
 import Combine
@@ -20,9 +21,10 @@ final class MainScreenViewModel: ObservableObject {
     let config: ConfigProtocol
     let notificationsInteractor: NotificationsInteractorProtocol
     let profileInteractor: ProfileInteractorProtocol
+    let discoveryWebviewViewModel: DiscoveryWebviewViewModel
     var sourceScreen: LogistrationSourceScreen
     private var postLoginData: PostLoginData?
-    
+
     @Published var selection: MainTab = .dashboard
     @Published var dashboardMenu: Dashboard.MenuOption = .courses
     @Published var showRegisterBanner: Bool = false
@@ -32,6 +34,7 @@ final class MainScreenViewModel: ObservableObject {
          config: ConfigProtocol,
          notificationsInteractor: NotificationsInteractorProtocol,
          profileInteractor: ProfileInteractorProtocol,
+         discoveryWebviewViewModel: DiscoveryWebviewViewModel,
          sourceScreen: LogistrationSourceScreen = .default,
          postLoginData: PostLoginData? = nil
     ) {
@@ -39,6 +42,7 @@ final class MainScreenViewModel: ObservableObject {
         self.config = config
         self.notificationsInteractor = notificationsInteractor
         self.profileInteractor = profileInteractor
+        self.discoveryWebviewViewModel = discoveryWebviewViewModel
         self.sourceScreen = sourceScreen
         self.postLoginData = postLoginData
         trackSettingPermissionStatus()
