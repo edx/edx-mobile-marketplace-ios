@@ -30,6 +30,7 @@ public enum DiscoveryWebviewType: Equatable {
 public struct DiscoveryWebview: View {
     @State private var searchQuery: String = ""
     @State private var isLoading: Bool = true
+    @State private var currentURL: URL?
     
     @StateObject private var viewModel: DiscoveryWebviewViewModel
     private var router: DiscoveryRouter
@@ -117,7 +118,8 @@ public struct DiscoveryWebview: View {
                         isLoading: $isLoading,
                         refreshCookies: {},
                         navigationDelegate: viewModel,
-                        webViewType: discoveryType.rawValue
+                        webViewType: discoveryType.rawValue,
+                        onURLChange: { currentURL = $0 }
                     )
                     .accessibilityIdentifier("discovery_webview")
 
@@ -186,17 +188,19 @@ public struct DiscoveryWebview: View {
         .navigationTitle(supportsElevatedTabBar ? "" : CoreLocalization.Mainscreen.discovery)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: {
-                    viewModel.openXpertChatbot()
-                }, label: {
-                    CoreAssets.xpertLogo.swiftUIImage
-                        .renderingMode(.original)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 24)
-                })
-                .buttonStyle(.plain)
-                .accessibilityIdentifier("xpert_chatbot_button")
+                if discoveryType == .discovery {
+                    Button(action: {
+                        viewModel.openXpertChatbot()
+                    }, label: {
+                        CoreAssets.xpertLogo.swiftUIImage
+                            .renderingMode(.original)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 24)
+                    })
+                    .buttonStyle(.plain)
+                    .accessibilityIdentifier("xpert_chatbot_button")
+                }
             }
         }
         .background(Theme.Colors.background.ignoresSafeArea())
