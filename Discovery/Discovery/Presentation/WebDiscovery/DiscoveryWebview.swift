@@ -171,6 +171,21 @@ public struct DiscoveryWebview: View {
                 (viewModel.sourceScreen == .default && discoveryType == .discovery)
         )
         .navigationTitle(supportsElevatedTabBar ? "" : CoreLocalization.Mainscreen.discovery)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    viewModel.openXpertChatbot()
+                }, label: {
+                    CoreAssets.xpertLogo.swiftUIImage
+                        .renderingMode(.original)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 24)
+                })
+                .buttonStyle(.plain)
+                .accessibilityIdentifier("xpert_chatbot_button")
+            }
+        }
         .background(Theme.Colors.background.ignoresSafeArea())
         .onFirstAppear {
             if case let .courseDetail(pathID, _) = viewModel.sourceScreen {
