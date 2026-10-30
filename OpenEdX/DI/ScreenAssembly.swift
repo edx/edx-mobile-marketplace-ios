@@ -96,7 +96,8 @@ class ScreenAssembly: Assembly {
                 screen: screen,
                 storage: r.resolve(SubscriptionBannerStorage.self)!,
                 sessionTracker: r.resolve(AppSessionTracking.self)!,
-                serverConfig: r.resolve(ServerConfigProtocol.self)!
+                serverConfig: r.resolve(ServerConfigProtocol.self)!,
+                analytics: r.resolve(CoreAnalytics.self)!
             )
         }
 

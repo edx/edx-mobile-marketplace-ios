@@ -13,8 +13,7 @@ import WhatsNew
 import Course
 import Notifications
 
-public class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, CourseStorage, NotificationsStorage,
-                          SubscriptionBannerStorage {
+public class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, CourseStorage, NotificationsStorage, SubscriptionBannerStorage {
 
     private let keychain: KeychainSwift
     private let userDefaults: UserDefaults
@@ -393,6 +392,21 @@ public class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, CourseSto
         cookiesDate = nil
         user = nil
         userProfile = nil
+        
+        userDefaults.removeObject(forKey: KEY_SUBSCRIPTION_BANNER_SESSION_ID)
+        
+        let screens: [SubscriptionBannerScreen] = [.discovery, .profile]
+        for screen in screens {
+            userDefaults.removeObject(
+                forKey: makeSubscriptionBannerKey(KEY_PREFIX_SUBSCRIPTION_BANNER_DISMISSED, screen: screen)
+            )
+            userDefaults.removeObject(
+                forKey: makeSubscriptionBannerKey(KEY_PREFIX_SUBSCRIPTION_BANNER_LAST_SESSION, screen: screen)
+            )
+            userDefaults.removeObject(
+                forKey: makeSubscriptionBannerKey(KEY_PREFIX_SUBSCRIPTION_BANNER_SHOWN_COUNT, screen: screen)
+            )
+        }
         // delete all cookies
         if  let cookies = HTTPCookieStorage.shared.cookies {
             for cookie in cookies {

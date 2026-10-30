@@ -132,6 +132,7 @@ public struct SubscriptionAlertBannerView: View {
                 .font(Theme.Fonts.bodyMedium)
                 .accessibilityIdentifier("subscription_banner_message")
                 .environment(\.openURL, OpenURLAction { url in
+                    viewModel.trackCTAClick(url: url)
                     onLinkTap(url)
                     return .handled
                 })
@@ -170,7 +171,8 @@ struct SubscriptionAlertBannerView_Previews: PreviewProvider {
                 screen: .discovery,
                 storage: SubscriptionBannerStorageMock(),
                 sessionTracker: AppSessionTrackerMock(),
-                serverConfig: ServerConfigProtocolMock()
+                serverConfig: ServerConfigProtocolMock(),
+                analytics: CoreAnalyticsMock()
             ),
             onLinkTap: { _ in }
         )

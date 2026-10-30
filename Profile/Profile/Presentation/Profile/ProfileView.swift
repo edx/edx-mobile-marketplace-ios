@@ -203,7 +203,8 @@ struct ProfileView_Previews: PreviewProvider {
             screen: .profile,
             storage: SubscriptionBannerStorageMock(),
             sessionTracker: AppSessionTrackerMock(),
-            serverConfig: ServerConfigProtocolMock()
+            serverConfig: ServerConfigProtocolMock(),
+            analytics: CoreAnalyticsMock()
         )
 
         ProfileView(viewModel: vm, subscriptionBannerViewModel: subscriptionBannerViewModel)

@@ -99,7 +99,7 @@ public struct DiscoveryWebview: View {
             ZStack(alignment: .top) {
                 VStack(alignment: .center) {
                     // MARK: - Subscription banner
-                    if discoveryType == .discovery && !isLoading {
+                    if canShowSubscriptionBanner() {
                         SubscriptionAlertBannerView(
                             viewModel: subscriptionBannerViewModel,
                             onLinkTap: { url in
@@ -214,6 +214,10 @@ public struct DiscoveryWebview: View {
         case .programDetail(let pathID):
             return .programDetails(pathID)
         }
+    }
+    
+    private func canShowSubscriptionBanner() -> Bool {
+        return discoveryType == .discovery && !isLoading && viewModel.userloggedIn
     }
 }
 
