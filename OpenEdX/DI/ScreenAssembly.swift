@@ -45,6 +45,7 @@ class ScreenAssembly: Assembly {
                 config: r.resolve(ConfigProtocol.self)!,
                 notificationsInteractor: r.resolve(NotificationsInteractorProtocol.self)!,
                 profileInteractor: r.resolve(ProfileInteractorProtocol.self)!,
+                discoveryWebviewViewModel: r.resolve(DiscoveryWebviewViewModel.self, argument: sourceScreen)!,
                 sourceScreen: sourceScreen,
                 postLoginData: postLoginData
             )
@@ -90,6 +91,17 @@ class ScreenAssembly: Assembly {
             )
         }
         
+        // MARK: Subscription banner
+        container.register(SubscriptionAlertBannerViewModel.self) { r, screen in
+            SubscriptionAlertBannerViewModel(
+                screen: screen,
+                storage: r.resolve(SubscriptionBannerStorage.self)!,
+                sessionTracker: r.resolve(AppSessionTracking.self)!,
+                serverConfig: r.resolve(ServerConfigProtocol.self)!,
+                analytics: r.resolve(CoreAnalytics.self)!
+            )
+        }
+
         // MARK: Discovery
         container.register(DiscoveryPersistenceProtocol.self) { r in
             DiscoveryPersistence(context: r.resolve(DatabaseManager.self)!.context)

@@ -144,11 +144,13 @@ struct MainScreenView: View {
                     } else if viewModel.config.discovery.type == .webview {
                         mainTab(
                             DiscoveryWebview(
-                                viewModel: Container.shared.resolve(
-                                    DiscoveryWebviewViewModel.self,
-                                    argument: viewModel.sourceScreen)!,
+                                viewModel: viewModel.discoveryWebviewViewModel,
                                 router: Container.shared.resolve(DiscoveryRouter.self)!,
-                                supportsElevatedTabBar: supportsElevatedTabBar
+                                supportsElevatedTabBar: supportsElevatedTabBar,
+                                subscriptionBannerViewModel: Container.shared.resolve(
+                                    SubscriptionAlertBannerViewModel.self,
+                                    argument: SubscriptionBannerScreen.discovery
+                                )!
                             )
                         )
                     }
@@ -169,7 +171,11 @@ struct MainScreenView: View {
                 mainTab(
                     ProfileView(
                         viewModel: Container.shared.resolve(ProfileViewModel.self)!,
-                        supportsElevatedTabBar: supportsElevatedTabBar
+                        supportsElevatedTabBar: supportsElevatedTabBar,
+                        subscriptionBannerViewModel: Container.shared.resolve(
+                            SubscriptionAlertBannerViewModel.self,
+                            argument: SubscriptionBannerScreen.profile
+                        )!
                     )
                 )
             }
@@ -264,6 +270,21 @@ struct MainScreenView: View {
             switch viewModel.selection {
             case .dashboard:
                 notificationBell
+            case .discovery:
+                if viewModel.config.discovery.type == .webview {
+                    Button(action: {
+                        viewModel.discoveryWebviewViewModel.openXpertChatbot()
+                    }, label: {
+                        CoreAssets.xpertLogo.swiftUIImage
+                            .renderingMode(.original)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 24)
+                    })
+                    .buttonStyle(.plain)
+                    .accessibilityIdentifier("xpert_chatbot_button")
+                    .foregroundColor(Theme.Colors.accentColor)
+                }
             case .profile:
                 Button(action: {
                     let router = Container.shared.resolve(ProfileRouter.self)!

@@ -36,6 +36,7 @@ public struct DiscoveryWebview: View {
     private var supportsElevatedTabBar: Bool
     private var discoveryType: DiscoveryWebviewType
     public var pathID: String
+    private let subscriptionBannerViewModel: SubscriptionAlertBannerViewModel
     
     private var URLString: String {
         switch discoveryType {
@@ -81,7 +82,8 @@ public struct DiscoveryWebview: View {
         supportsElevatedTabBar: Bool,
         searchQuery: String? = nil,
         discoveryType: DiscoveryWebviewType = .discovery,
-        pathID: String = ""
+        pathID: String = "",
+        subscriptionBannerViewModel: SubscriptionAlertBannerViewModel
     ) {
         self._viewModel = .init(wrappedValue: viewModel)
         self.router = router
@@ -89,17 +91,28 @@ public struct DiscoveryWebview: View {
         self._searchQuery = State<String>(initialValue: searchQuery ?? "")
         self.discoveryType = discoveryType
         self.pathID = pathID
+        self.subscriptionBannerViewModel = subscriptionBannerViewModel
     }
     
     public var body: some View {
         GeometryReader { proxy in
-            ZStack(alignment: .center) {
+            ZStack(alignment: .top) {
                 VStack(alignment: .center) {
+                    // MARK: - Subscription banner
+                    if canShowSubscriptionBanner() {
+                        SubscriptionAlertBannerView(
+                            viewModel: subscriptionBannerViewModel,
+                            onLinkTap: { url in
+                                router.showWebBrowser(title: "", url: url)
+                            }
+                        )
+                        Spacer(minLength: 20.0)
+                    }
                     WebView(
                         viewModel: .init(
                             url: URLString,
                             baseURL: "",
-                            injections: [.discoveryInputZoomFix]
+                            injections: [.discoveryInputZoomFix, viewModel.xpertChatbotInjection()]
                         ),
                         isLoading: $isLoading,
                         refreshCookies: {},
@@ -107,7 +120,7 @@ public struct DiscoveryWebview: View {
                         webViewType: discoveryType.rawValue
                     )
                     .accessibilityIdentifier("discovery_webview")
-                    
+
                     if isLoading || viewModel.showProgress {
                         HStack(alignment: .center) {
                             ProgressBar(
@@ -119,7 +132,7 @@ public struct DiscoveryWebview: View {
                         }
                         .frame(width: proxy.size.width, height: proxy.size.height)
                     }
-                    
+
                     // MARK: - Show Error
                     if viewModel.showError {
                         VStack {
@@ -133,7 +146,7 @@ public struct DiscoveryWebview: View {
                             }
                         }
                     }
-                    
+
                     if !viewModel.userloggedIn, !isLoading {
                         LogistrationBottomView { buttonAction in
                             switch buttonAction {
@@ -145,7 +158,7 @@ public struct DiscoveryWebview: View {
                         }
                     }
                 }
-                
+
                 if viewModel.webViewError {
                     FullScreenErrorView(
                         type: viewModel.connectivity.isInternetAvaliable ? .generic : .noInternetWithReload
@@ -171,6 +184,21 @@ public struct DiscoveryWebview: View {
                 (viewModel.sourceScreen == .default && discoveryType == .discovery)
         )
         .navigationTitle(supportsElevatedTabBar ? "" : CoreLocalization.Mainscreen.discovery)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    viewModel.openXpertChatbot()
+                }, label: {
+                    CoreAssets.xpertLogo.swiftUIImage
+                        .renderingMode(.original)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 24)
+                })
+                .buttonStyle(.plain)
+                .accessibilityIdentifier("xpert_chatbot_button")
+            }
+        }
         .background(Theme.Colors.background.ignoresSafeArea())
         .onFirstAppear {
             if case let .courseDetail(pathID, _) = viewModel.sourceScreen {
@@ -201,6 +229,10 @@ public struct DiscoveryWebview: View {
         case .programDetail(let pathID):
             return .programDetails(pathID)
         }
+    }
+    
+    private func canShowSubscriptionBanner() -> Bool {
+        return discoveryType == .discovery && !isLoading && viewModel.userloggedIn
     }
 }
 
