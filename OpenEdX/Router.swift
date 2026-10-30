@@ -268,7 +268,11 @@ public class Router: AuthorizationRouter,
             router: Container.shared.resolve(DiscoveryRouter.self)!,
             supportsElevatedTabBar: false,
             discoveryType: discoveryType,
-            pathID: pathID
+            pathID: pathID,
+            subscriptionBannerViewModel: Container.shared.resolve(
+                SubscriptionAlertBannerViewModel.self,
+                argument: SubscriptionBannerScreen.discovery
+            )!
         )
         
         DispatchQueue.main.async { [weak self] in
@@ -318,7 +322,11 @@ public class Router: AuthorizationRouter,
                 )!,
                 router: Container.shared.resolve(DiscoveryRouter.self)!,
                 supportsElevatedTabBar: false,
-                searchQuery: searchQuery
+                searchQuery: searchQuery,
+                subscriptionBannerViewModel: Container.shared.resolve(
+                    SubscriptionAlertBannerViewModel.self,
+                    argument: SubscriptionBannerScreen.discovery
+                )!
             )
             
             let controller = UIHostingController(rootView: view)

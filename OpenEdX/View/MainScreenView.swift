@@ -148,7 +148,11 @@ struct MainScreenView: View {
                                     DiscoveryWebviewViewModel.self,
                                     argument: viewModel.sourceScreen)!,
                                 router: Container.shared.resolve(DiscoveryRouter.self)!,
-                                supportsElevatedTabBar: supportsElevatedTabBar
+                                supportsElevatedTabBar: supportsElevatedTabBar,
+                                subscriptionBannerViewModel: Container.shared.resolve(
+                                    SubscriptionAlertBannerViewModel.self,
+                                    argument: SubscriptionBannerScreen.discovery
+                                )!
                             )
                         )
                     }
@@ -169,7 +173,11 @@ struct MainScreenView: View {
                 mainTab(
                     ProfileView(
                         viewModel: Container.shared.resolve(ProfileViewModel.self)!,
-                        supportsElevatedTabBar: supportsElevatedTabBar
+                        supportsElevatedTabBar: supportsElevatedTabBar,
+                        subscriptionBannerViewModel: Container.shared.resolve(
+                            SubscriptionAlertBannerViewModel.self,
+                            argument: SubscriptionBannerScreen.profile
+                        )!
                     )
                 )
             }
