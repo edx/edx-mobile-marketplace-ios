@@ -70,4 +70,8 @@ public extension WebviewInjection {
     static var discoveryInputZoomFix: WebviewInjection {
         ZoomDisableInjection().webviewInjection()
     }
+
+    static func xpertChatbot(onReady: @escaping (WKWebView) -> Void) -> WebviewInjection {
+        XpertChatbotInjection(onReady: onReady).webviewInjection()
+    }
 }
