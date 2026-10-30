@@ -1,11 +1,11 @@
 //
-//  CertificatePreviewManaging.swift
+//  CertificatePreviewFeatureManaging.swift
 //  Core
 //
 
 import Foundation
 
-public protocol CertificatePreviewManaging {
+public protocol CertificatePreviewFeatureManaging {
     func shouldShowCertificatePreview() -> Bool
     func recordCertificatePreviewShownAttempt(forCourseId courseId: String)
     func attemptsSinceLastCertificatePreviewAndReset(forCourseId courseId: String) -> Int
@@ -13,7 +13,7 @@ public protocol CertificatePreviewManaging {
 }
 
 #if DEBUG
-public struct CertificatePreviewManagingMock: CertificatePreviewManaging {
+public struct CertificatePreviewFeatureManagingMock: CertificatePreviewFeatureManaging {
     public init() {}
     public func shouldShowCertificatePreview() -> Bool { false }
     public func recordCertificatePreviewShownAttempt(forCourseId courseId: String) {}

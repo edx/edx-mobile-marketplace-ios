@@ -13,8 +13,7 @@ import WhatsNew
 import Course
 import Notifications
 
-public class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, CourseStorage, NotificationsStorage,
-                            SubscriptionBannerStorage {
+public class AppStorage: CoreStorage, ProfileStorage, WhatsNewStorage, CourseStorage, NotificationsStorage, SubscriptionBannerStorage {
 
     private let keychain: KeychainSwift
     private let userDefaults: UserDefaults

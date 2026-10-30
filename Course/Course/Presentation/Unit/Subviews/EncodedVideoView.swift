@@ -19,7 +19,8 @@ struct EncodedVideoView: View {
     let playerStateSubject: CurrentValueSubject<VideoPlayerState?, Never>
     let languages: [SubtitleUrl]
     let isOnScreen: Bool
-    
+    let artworkURL: URL?
+
     @StateObject private var viewModel: EncodedVideoPlayerViewModel
 
     init(
@@ -29,7 +30,8 @@ struct EncodedVideoView: View {
         blockID: String,
         playerStateSubject: CurrentValueSubject<VideoPlayerState?, Never>,
         languages: [SubtitleUrl],
-        isOnScreen: Bool
+        isOnScreen: Bool,
+        artworkURL: URL? = nil
     ) {
         self.name = name
         self.url = url
@@ -38,6 +40,7 @@ struct EncodedVideoView: View {
         self.playerStateSubject = playerStateSubject
         self.languages = languages
         self.isOnScreen = isOnScreen
+        self.artworkURL = artworkURL
         self._viewModel = StateObject(wrappedValue: {
             Container.shared.resolve(
                 EncodedVideoPlayerViewModel.self,
@@ -45,12 +48,20 @@ struct EncodedVideoView: View {
                 blockID,
                 courseID,
                 languages,
-                playerStateSubject
+                playerStateSubject,
+                name,
+                artworkURL
             )!
         }())
     }
 
     var body: some View {
         EncodedVideoPlayer(viewModel: viewModel, isOnScreen: isOnScreen)
+            .onChange(of: name) { newValue in
+                viewModel.playerHolder.updateMetadata(title: newValue, artworkURL: artworkURL)
+            }
+            .onChange(of: artworkURL) { newValue in
+                viewModel.playerHolder.updateMetadata(title: name, artworkURL: newValue)
+            }
     }
 }

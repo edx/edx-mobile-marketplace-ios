@@ -77,6 +77,32 @@ public extension DataLayer {
             case hasEndorsed = "has_endorsed"
             case users
         }
+        
+        public init(from decoder: Decoder) throws {
+                  let container = try decoder.container(keyedBy: CodingKeys.self)
+                  id = try container.decode(String.self, forKey: .id)
+                  author = try container.decodeIfPresent(String.self, forKey: .author)
+                  authorLabel = try container.decodeIfPresent(String.self, forKey: .authorLabel)
+                  createdAt = try container.decode(String.self, forKey: .createdAt)
+                  updatedAt = try container.decode(String.self, forKey: .updatedAt)
+                  rawBody = try container.decode(String.self, forKey: .rawBody)
+                  renderedBody = try container.decode(String.self, forKey: .renderedBody)
+                  abuseFlagged = try container.decode(Bool.self, forKey: .abuseFlagged)
+                  voted = try container.decode(Bool.self, forKey: .voted)
+                  voteCount = try container.decode(Int.self, forKey: .voteCount)
+                  courseID = try container.decode(String.self, forKey: .courseID)
+                  topicID = try container.decode(String.self, forKey: .topicID)
+                  type = try container.decode(PostType.self, forKey: .type)
+                  title = try container.decode(String.self, forKey: .title)
+                  pinned = try container.decode(Bool.self, forKey: .pinned)
+                  closed = try container.decode(Bool.self, forKey: .closed)
+                  following = try container.decode(Bool.self, forKey: .following)
+                  commentCount = try container.decode(Int.self, forKey: .commentCount)
+                  unreadCommentCount = try container.decodeIfPresent(Int.self, forKey: .unreadCommentCount) ?? 0
+                  read = try container.decodeIfPresent(Bool.self, forKey: .read) ?? false
+                  hasEndorsed = try container.decode(Bool.self, forKey: .hasEndorsed)
+                  users = try container.decodeIfPresent(Users.self, forKey: .users)
+              }
     }
     
     // MARK: - Users

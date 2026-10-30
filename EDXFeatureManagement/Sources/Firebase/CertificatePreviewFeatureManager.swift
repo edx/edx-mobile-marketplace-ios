@@ -1,5 +1,5 @@
 //
-//  CertificatePreviewExperimentManager.swift
+//  CertificatePreviewFeatureManager.swift
 //  EDXFeatureManagement
 //
 //  Created by Sumanta Roy on 30/11/25.
@@ -11,20 +11,20 @@ public protocol AnalyticsTracking {
     func logEvent(_ name: String, parameters: [String: Any]?)
 }
 
-public protocol ExperimentAssignmentStore {
-    var showCertificatePreview: Bool { get  set}
+public protocol CertificatePreviewFeatureStore {
+    var isCertificatePreviewEnabled: Bool { get set }
     func incrementAttempts(forCourseId courseId: String)
     func takeAndResetAttempts(forCourseId courseId: String) -> Int
     func resetAllCertificatePreviewAttempts()
 }
 
-public final class CertificateExperimentAssignmentStore: ExperimentAssignmentStore {
-    private let key = "exp.show_certificate_preview"
-    private let attemptsRegistryKey = "exp.show_certificate_preview.attempts.registry"
+public final class CertificatePreviewUserDefaultsStore: CertificatePreviewFeatureStore {
+    private let enabledKey = "feature.certificate_preview.enabled"
+    private let attemptsRegistryKey = "feature.certificate_preview.attempts.registry"
     public init() {}
-    public var showCertificatePreview: Bool {
-        get { UserDefaults.standard.bool(forKey: key) }
-        set { UserDefaults.standard.set(newValue, forKey: key) }
+    public var isCertificatePreviewEnabled: Bool {
+        get { UserDefaults.standard.bool(forKey: enabledKey) }
+        set { UserDefaults.standard.set(newValue, forKey: enabledKey) }
     }
 
     // MARK: - Per-course attempts
@@ -56,7 +56,7 @@ public final class CertificateExperimentAssignmentStore: ExperimentAssignmentSto
     // MARK: - Private
 
     private func attemptsKey(courseId: String) -> String {
-        return "\(key).attempts.\(courseId)"
+        return "feature.certificate_preview.attempts.\(courseId)"
     }
 
     // Maintain a registry of course IDs that have attempts counters
@@ -80,33 +80,31 @@ public struct FirebaseFeatureDecision: FeatureDecision {
     public let metadata: [String: Any]
 }
 
-public final class CertificatePreviewExperimentManager: FeatureManagerProtocol {
+public final class CertificatePreviewFeatureManager: FeatureManagerProtocol {
     public func identify(id: String, username: String?, email: String?) {
     }
 
-    private var assignmentStore: ExperimentAssignmentStore
+    private var featureStore: CertificatePreviewFeatureStore
     private var analytics: AnalyticsTracking
 
-    public init(assignmentStore: ExperimentAssignmentStore, analytics: AnalyticsTracking) {
-        self.assignmentStore = assignmentStore
+    public init(featureStore: CertificatePreviewFeatureStore, analytics: AnalyticsTracking) {
+        self.featureStore = featureStore
         self.analytics = analytics
     }
 
     public func identifyUser(id: String, attributes: [String: Any]?) {
-        guard let intId = Int(id) else { return }
-        let inTreatment = intId % 2 != 0
-        assignmentStore.showCertificatePreview = inTreatment
+        featureStore.isCertificatePreviewEnabled = true
     }
 
     public func resetUser() {
-        assignmentStore.showCertificatePreview = false
-        assignmentStore.resetAllCertificatePreviewAttempts()
+        featureStore.isCertificatePreviewEnabled = false
+        featureStore.resetAllCertificatePreviewAttempts()
     }
 
     public func decision(forKey key: String) -> FeatureDecision? {
         switch key {
         case FeatureKeys.showCertificatePreview:
-            let value = assignmentStore.showCertificatePreview
+            let value = featureStore.isCertificatePreviewEnabled
             return FirebaseFeatureDecision(
                 key: key,
                 value: value,
@@ -122,10 +120,10 @@ public final class CertificatePreviewExperimentManager: FeatureManagerProtocol {
     }
 
     public func recordCertificatePreviewShownAttempt(forCourseId courseId: String) {
-        assignmentStore.incrementAttempts(forCourseId: courseId)
+        featureStore.incrementAttempts(forCourseId: courseId)
     }
 
     public func attemptsSinceLastCertificatePreviewAndReset(forCourseId courseId: String) -> Int {
-        assignmentStore.takeAndResetAttempts(forCourseId: courseId)
+        featureStore.takeAndResetAttempts(forCourseId: courseId)
     }
 }

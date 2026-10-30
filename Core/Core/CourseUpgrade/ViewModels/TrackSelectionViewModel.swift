@@ -35,7 +35,7 @@ public final class TrackSelectionViewModel: ObservableObject {
         accessExpires: Date,
         handler: CourseUpgradeHandlerProtocol,
         analytics: CoreAnalytics,
-        certificatePreviewExperimentManager: CertificatePreviewManaging,
+        certificatePreviewFeatureManager: CertificatePreviewFeatureManaging,
         router: BaseRouter
     ) {
         self.accessExpires = accessExpires
@@ -50,7 +50,7 @@ public final class TrackSelectionViewModel: ObservableObject {
             handler: handler,
             pacing: pacing,
             analytics: analytics,
-            certificatePreviewExperimentManager: certificatePreviewExperimentManager,
+            certificatePreviewFeatureManager: certificatePreviewFeatureManager,
             router: router,
             lmsPrice: lmsPrice
         )

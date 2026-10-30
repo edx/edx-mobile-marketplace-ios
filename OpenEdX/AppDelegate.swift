@@ -5,6 +5,7 @@
 //  Created by Vladimir Chekyrta on 13.09.2022.
 //
 
+import AVFoundation
 import UIKit
 import Core
 import Swinject
@@ -36,7 +37,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
         initDI()
-        
+        configureAudioSession()
+
         if let config = Container.shared.resolve(ConfigProtocol.self) {
             Theme.Shapes.isRoundedCorners = config.theme.isRoundedCorners
             Theme.Shapes.buttonCornersRadius = config.theme.buttonCornersRadius
@@ -158,6 +160,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         )
     }
 
+    private func configureAudioSession() {
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .moviePlayback)
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch {
+            debugLog("AVAudioSession setup failed: \(error)")
+        }
+    }
+
     private func applyTheme() {
         guard let themeManager = Container.shared.resolve(ThemeManagerProtocol.self) else {
             return
@@ -179,7 +190,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         if let userInfo = notification.userInfo,
            userInfo[Notification.UserInfoKey.isForced] as? Bool == true {
-            let featureManager = Container.shared.resolve(FeatureManagerProtocol.self) as? CertificatePreviewExperimentManager
+            let featureManager = Container.shared.resolve(FeatureManagerProtocol.self) as? CertificatePreviewFeatureManager
             featureManager?.resetUser()
 
             let analyticsManager = Container.shared.resolve(AnalyticsManager.self)

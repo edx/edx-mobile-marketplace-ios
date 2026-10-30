@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC0B00000000000000000002 /* NowPlayingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0B00000000000000000001 /* NowPlayingManager.swift */; };
+		AC0B00000000000000000004 /* NowPlayingManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0B00000000000000000003 /* NowPlayingManagerTests.swift */; };
+		AC0B00000000000000000006 /* PlayerViewControllerHolderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0B00000000000000000005 /* PlayerViewControllerHolderTests.swift */; };
 		02280F5E294B4FDA0032823A /* CourseCoreModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 02280F5C294B4FDA0032823A /* CourseCoreModel.xcdatamodeld */; };
 		02280F60294B50030032823A /* CoursePersistenceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02280F5F294B50030032823A /* CoursePersistenceProtocol.swift */; };
 		022C64D829ACEC48000F532B /* HandoutsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022C64D729ACEC48000F532B /* HandoutsView.swift */; };
@@ -114,6 +117,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AC0B00000000000000000001 /* NowPlayingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingManager.swift; sourceTree = "<group>"; };
+		AC0B00000000000000000003 /* NowPlayingManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NowPlayingManagerTests.swift; path = CourseTests/Presentation/Unit/NowPlayingManagerTests.swift; sourceTree = SOURCE_ROOT; };
+		AC0B00000000000000000005 /* PlayerViewControllerHolderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlayerViewControllerHolderTests.swift; path = CourseTests/Presentation/Unit/PlayerViewControllerHolderTests.swift; sourceTree = SOURCE_ROOT; };
 		02280F5D294B4FDA0032823A /* CourseCoreModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CourseCoreModel.xcdatamodel; sourceTree = "<group>"; };
 		02280F5F294B50030032823A /* CoursePersistenceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursePersistenceProtocol.swift; sourceTree = "<group>"; };
 		022C64D729ACEC48000F532B /* HandoutsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandoutsView.swift; sourceTree = "<group>"; };
@@ -497,6 +503,7 @@
 				02FFAD0C29E4347300140E46 /* VideoPlayerViewModel.swift */,
 				946101032E2149820095846B /* VideoPlayerOverlay.swift */,
 				94521BCE2E2517A30011BAB2 /* VideoPlayerOverlayViewModel.swift */,
+				AC0B00000000000000000001 /* NowPlayingManager.swift */,
 			);
 			path = Video;
 			sourceTree = "<group>";
@@ -526,6 +533,8 @@
 				0262148E29AE17C4008BD75A /* HandoutsViewModelTests.swift */,
 				0295B1D8297E6DF8003B0C65 /* CourseUnitViewModelTests.swift */,
 				DB205BFA2AE81B1200136EC2 /* CourseDateViewModelTests.swift */,
+				AC0B00000000000000000003 /* NowPlayingManagerTests.swift */,
+				AC0B00000000000000000005 /* PlayerViewControllerHolderTests.swift */,
 			);
 			path = Unit;
 			sourceTree = "<group>";
@@ -737,8 +746,6 @@
 				uk,
 			);
 			mainGroup = 0289F8E428E1C3510064F8F3;
-			packageReferences = (
-			);
 			productRefGroup = 0289F8EF28E1C3510064F8F3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -796,13 +803,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-App-Course-CourseTests/Pods-App-Course-CourseTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-App-Course-CourseTests/Pods-App-Course-CourseTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -867,6 +870,8 @@
 				022EA8CB297AD63B0014A8F7 /* CourseContainerViewModelTests.swift in Sources */,
 				0262148F29AE17C4008BD75A /* HandoutsViewModelTests.swift in Sources */,
 				06C022C42C0626C20046ABD3 /* UpgradeInfoViewModelTests.swift in Sources */,
+				AC0B00000000000000000004 /* NowPlayingManagerTests.swift in Sources */,
+				AC0B00000000000000000006 /* PlayerViewControllerHolderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -874,6 +879,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC0B00000000000000000002 /* NowPlayingManager.swift in Sources */,
 				06FD7EE32B1F3FF6008D632B /* DropdownAnimationModifier.swift in Sources */,
 				067B7B542BED339200D1768F /* YoutubePlayerViewControllerHolder.swift in Sources */,
 				02FFAD0D29E4347300140E46 /* VideoPlayerViewModel.swift in Sources */,

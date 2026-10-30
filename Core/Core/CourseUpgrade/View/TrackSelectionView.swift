@@ -141,7 +141,7 @@ public struct TrackSelectionView: View {
             accessExpires: Date(),
             handler: CourseUpgradeHandlerProtocolMock(),
             analytics: CoreAnalyticsMock(),
-            certificatePreviewExperimentManager: CertificatePreviewManagingMock(),
+            certificatePreviewFeatureManager: CertificatePreviewFeatureManagingMock(),
             router: BaseRouterMock()
         )
     )

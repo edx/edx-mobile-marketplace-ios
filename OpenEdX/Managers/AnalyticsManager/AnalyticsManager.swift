@@ -1330,7 +1330,7 @@ class AnalyticsManager: AuthorizationAnalytics,
             EventParamKey.name: biValue.rawValue
         ]
         
-        parameters.setObjectOrNil(localizedPrice, forKey: EventParamKey.localizedPrice)
+        parameters.setObjectOrNil(localizedPrice?.stringValue, forKey: EventParamKey.localizedPrice)
         parameters.setObjectOrNil(localizedCurrencyCode, forKey: EventParamKey.localizedCurrencyCode)
         parameters.setObjectOrNil(lmsPrice, forKey: EventParamKey.lmsPrice)
         parameters.setObjectOrNil(blockID, forKey: EventParamKey.blockID)
@@ -1360,7 +1360,7 @@ class AnalyticsManager: AuthorizationAnalytics,
         ]
         
         parameters.setObjectOrNil(blockID, forKey: EventParamKey.blockID)
-        parameters.setObjectOrNil(localizedPrice, forKey: EventParamKey.localizedPrice)
+        parameters.setObjectOrNil(localizedPrice?.stringValue, forKey: EventParamKey.localizedPrice)
         parameters.setObjectOrNil(localizedCurrencyCode, forKey: EventParamKey.localizedCurrencyCode)
         parameters.setObjectOrNil(lmsPrice, forKey: EventParamKey.lmsPrice)
         
@@ -1393,7 +1393,7 @@ class AnalyticsManager: AuthorizationAnalytics,
         ]
         
         parameters.setObjectOrNil(blockID, forKey: EventParamKey.blockID)
-        parameters.setObjectOrNil(localizedPrice, forKey: EventParamKey.localizedPrice)
+        parameters.setObjectOrNil(localizedPrice?.stringValue, forKey: EventParamKey.localizedPrice)
         parameters.setObjectOrNil(localizedCurrencyCode, forKey: EventParamKey.localizedCurrencyCode)
         parameters.setObjectOrNil(lmsPrice, forKey: EventParamKey.lmsPrice)
         
@@ -1419,7 +1419,7 @@ class AnalyticsManager: AuthorizationAnalytics,
             EventParamKey.category: EventCategory.inAppPurchases
         ]
         
-        parameters.setObjectOrNil(localizedPrice, forKey: EventParamKey.localizedPrice)
+        parameters.setObjectOrNil(localizedPrice?.stringValue, forKey: EventParamKey.localizedPrice)
         parameters.setObjectOrNil(localizedCurrencyCode, forKey: EventParamKey.localizedCurrencyCode)
         parameters.setObjectOrNil(lmsPrice, forKey: EventParamKey.lmsPrice)
         parameters.setObjectOrNil(blockID, forKey: EventParamKey.blockID)
@@ -1444,7 +1444,7 @@ class AnalyticsManager: AuthorizationAnalytics,
             EventParamKey.category: EventCategory.inAppPurchases
         ]
         
-        parameters.setObjectOrNil(localizedPrice, forKey: EventParamKey.localizedPrice)
+        parameters.setObjectOrNil(localizedPrice?.stringValue, forKey: EventParamKey.localizedPrice)
         parameters.setObjectOrNil(localizedCurrencyCode, forKey: EventParamKey.localizedCurrencyCode)
         parameters.setObjectOrNil(lmsPrice, forKey: EventParamKey.lmsPrice)
         parameters.setObjectOrNil(blockID, forKey: EventParamKey.blockID)

@@ -16,13 +16,7 @@ struct PlayerViewController: UIViewControllerRepresentable {
     @Binding var subtitleText: String
 
     func makeUIViewController(context: Context) -> CustomAVPlayerViewController {
-        do {
-            try AVAudioSession.sharedInstance().setCategory(.playback)
-        } catch {
-            print(error.localizedDescription)
-        }
-        
-        return playerController
+        playerController
     }
     
     func updateUIViewController(_ playerController: CustomAVPlayerViewController, context: Context) {

@@ -140,7 +140,7 @@ public class PipManager: PipManagerProtocol {
                 chapters: courseStructure.childs,
                 chapterIndex: data.chapterIndex,
                 sequentialIndex: data.sequentialIndex,
-                courseStructurePublisher: nil
+                courseStructurePublisher: Just(courseStructure).map { Optional($0)}.eraseToAnyPublisher()
             )
         }
        
@@ -169,7 +169,7 @@ public class PipManager: PipManagerProtocol {
                 chapters: courseStructure.childs,
                 chapterIndex: data.chapterIndex,
                 sequentialIndex: data.sequentialIndex,
-                courseStructurePublisher: nil
+                courseStructurePublisher: Just(courseStructure).map {Optional($0)}.eraseToAnyPublisher()
             )
         }
        
