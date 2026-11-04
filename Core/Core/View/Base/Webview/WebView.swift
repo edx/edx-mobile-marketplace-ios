@@ -42,19 +42,23 @@ public struct WebView: UIViewRepresentable {
     
     var refreshCookies: () async -> Void
     var webViewType: String?
+    private var scrollingHeader: AnyView?
 
+    /// `scrollingHeader` adds native content above the webpage in the same scroll view.
     public init(
         viewModel: ViewModel,
         isLoading: Binding<Bool>,
         refreshCookies: @escaping () async -> Void,
         navigationDelegate: WebViewNavigationDelegate? = nil,
-        webViewType: String? = nil
+        webViewType: String? = nil,
+        scrollingHeader: AnyView? = nil
     ) {
         self.viewModel = viewModel
         self._isLoading = isLoading
         self.refreshCookies = refreshCookies
         self.webViewNavDelegate = navigationDelegate
         self.webViewType = webViewType
+        self.scrollingHeader = scrollingHeader
     }
 
     public class Coordinator: NSObject, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler {
@@ -253,7 +257,7 @@ public struct WebView: UIViewRepresentable {
     public func makeUIView(context: UIViewRepresentableContext<WebView>) -> WKWebView {
         let webViewConfig = WKWebViewConfiguration()
         
-        let webView = WKWebView(frame: .zero, configuration: webViewConfig)
+        let webView = ScrollingHeaderWebView(frame: .zero, configuration: webViewConfig)
         #if DEBUG
         if #available(iOS 16.4, *) {
             webView.isInspectable = true
@@ -285,6 +289,9 @@ public struct WebView: UIViewRepresentable {
     }
 
     public func updateUIView(_ webview: WKWebView, context: UIViewRepresentableContext<WebView>) {
+        if let headerWebView = webview as? ScrollingHeaderWebView {
+            headerWebView.updateHeader(scrollingHeader, environment: context.environment)
+        }
         if let url = URL(string: viewModel.url) {
             if context.coordinator.url?.absoluteString != url.absoluteString {
                 DispatchQueue.main.async {
@@ -298,7 +305,119 @@ public struct WebView: UIViewRepresentable {
     }
 
     public static func dismantleUIView(_ uiView: WKWebView, coordinator: Coordinator) {
+        (uiView as? ScrollingHeaderWebView)?.removeHeader()
         uiView.clear()
+    }
+}
+
+private final class ScrollingHeaderWebView: WKWebView {
+    private var headerController: UIHostingController<AnyView>?
+    private var headerHeight: CGFloat = 0
+
+    func updateHeader(_ content: AnyView?, environment: EnvironmentValues) {
+        guard let content else {
+            removeHeader()
+            return
+        }
+
+        let rootView = AnyView(
+            content
+                .fixedSize(horizontal: false, vertical: true)
+                .ignoresSafeArea()
+                .environment(\.self, environment)
+        )
+        if let headerController {
+            headerController.rootView = rootView
+        } else {
+            let controller = UIHostingController(rootView: rootView)
+            controller.view.backgroundColor = .clear
+            controller.view.clipsToBounds = true
+            headerController = controller
+        }
+        attachHeader()
+        setNeedsLayout()
+    }
+
+    override func didMoveToWindow() {
+        super.didMoveToWindow()
+        if window == nil {
+            detachHeader()
+        } else {
+            attachHeader()
+        }
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        attachHeader()
+        guard let headerController, headerController.parent != nil else { return }
+        let insets = scrollView.adjustedContentInset
+        let width = max(0, bounds.width - insets.left - insets.right)
+        guard width > 0 else { return }
+
+        // Measure independently of the current frame, which starts with zero height.
+        let size = headerController.sizeThatFits(
+            in: CGSize(width: width, height: .greatestFiniteMagnitude)
+        )
+        updateHeaderHeight(size.height)
+        headerController.view.frame = CGRect(
+            x: insets.left,
+            y: -headerHeight,
+            width: width,
+            height: headerHeight
+        )
+    }
+
+    private func attachHeader() {
+        guard window != nil, let headerController, headerController.parent == nil else { return }
+        var responder: UIResponder? = next
+        while let current = responder {
+            if let parent = current as? UIViewController {
+                parent.addChild(headerController)
+                scrollView.addSubview(headerController.view)
+                headerController.didMove(toParent: parent)
+                setNeedsLayout()
+                return
+            }
+            responder = current.next
+        }
+    }
+
+    private func detachHeader() {
+        guard let headerController, headerController.parent != nil else { return }
+        headerController.willMove(toParent: nil)
+        headerController.view.removeFromSuperview()
+        headerController.removeFromParent()
+    }
+
+    func removeHeader() {
+        guard headerController != nil else { return }
+        detachHeader()
+        headerController = nil
+        updateHeaderHeight(0)
+    }
+
+    private func updateHeaderHeight(_ height: CGFloat) {
+        let height = ceil(height)
+        guard height != headerHeight else { return }
+        let previousOffset = scrollView.contentOffset
+        let wasAtTop = previousOffset.y <= -scrollView.adjustedContentInset.top + 1
+
+        // Reserve space above the HTML without changing WebKit's content size.
+        var insets = scrollView.contentInset
+        insets.top += height - headerHeight
+        headerHeight = height
+        scrollView.contentInset = insets
+
+        let minimumOffset = -scrollView.adjustedContentInset.top
+        let maximumOffset = max(
+            minimumOffset,
+            scrollView.contentSize.height - scrollView.bounds.height + scrollView.adjustedContentInset.bottom
+        )
+        let shouldResetToTop = wasAtTop || height == 0
+        let offset = shouldResetToTop ? minimumOffset : min(maximumOffset, max(minimumOffset, previousOffset.y))
+        scrollView.setContentOffset(CGPoint(x: previousOffset.x, y: offset), animated: false)
+        setNeedsLayout()
     }
 }
 

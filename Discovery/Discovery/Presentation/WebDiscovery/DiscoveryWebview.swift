@@ -36,7 +36,7 @@ public struct DiscoveryWebview: View {
     private var supportsElevatedTabBar: Bool
     private var discoveryType: DiscoveryWebviewType
     public var pathID: String
-    private let subscriptionBannerViewModel: SubscriptionAlertBannerViewModel
+    @ObservedObject private var subscriptionBannerViewModel: SubscriptionAlertBannerViewModel
     
     private var URLString: String {
         switch discoveryType {
@@ -98,16 +98,6 @@ public struct DiscoveryWebview: View {
         GeometryReader { proxy in
             ZStack(alignment: .top) {
                 VStack(alignment: .center) {
-                    // MARK: - Subscription banner
-                    if canShowSubscriptionBanner() {
-                        SubscriptionAlertBannerView(
-                            viewModel: subscriptionBannerViewModel,
-                            onLinkTap: { url in
-                                router.showWebBrowser(title: "", url: url)
-                            }
-                        )
-                        Spacer(minLength: 20.0)
-                    }
                     WebView(
                         viewModel: .init(
                             url: URLString,
@@ -117,7 +107,8 @@ public struct DiscoveryWebview: View {
                         isLoading: $isLoading,
                         refreshCookies: {},
                         navigationDelegate: viewModel,
-                        webViewType: discoveryType.rawValue
+                        webViewType: discoveryType.rawValue,
+                        scrollingHeader: canShowSubscriptionBanner() ? AnyView(subscriptionBanner) : nil
                     )
                     .accessibilityIdentifier("discovery_webview")
 
@@ -231,6 +222,18 @@ public struct DiscoveryWebview: View {
         }
     }
     
+    private var subscriptionBanner: some View {
+        SubscriptionAlertBannerView(
+            viewModel: subscriptionBannerViewModel,
+            onLinkTap: { url in
+                router.showWebBrowser(title: "", url: url)
+            }
+        )
+        .padding(.bottom, 20)
+        .frame(height: subscriptionBannerViewModel.isVisible ? nil : 0, alignment: .top)
+        .clipped()
+    }
+
     private func canShowSubscriptionBanner() -> Bool {
         return discoveryType == .discovery && !isLoading && viewModel.userloggedIn
     }
