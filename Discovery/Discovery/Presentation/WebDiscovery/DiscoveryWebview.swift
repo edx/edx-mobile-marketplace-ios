@@ -177,17 +177,21 @@ public struct DiscoveryWebview: View {
         .navigationTitle(supportsElevatedTabBar ? "" : CoreLocalization.Mainscreen.discovery)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: {
-                    viewModel.openXpertChatbot()
-                }, label: {
-                    CoreAssets.xpertLogo.swiftUIImage
-                        .renderingMode(.original)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 24)
-                })
-                .buttonStyle(.plain)
-                .accessibilityIdentifier("xpert_chatbot_button")
+                if !supportsElevatedTabBar,
+                   discoveryType == .discovery,
+                   viewModel.config.discovery.type == .webview {
+                    Button(action: {
+                        viewModel.openXpertChatbot()
+                    }, label: {
+                        CoreAssets.xpertLogo.swiftUIImage
+                            .renderingMode(.original)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 24)
+                    })
+                    .buttonStyle(.plain)
+                    .accessibilityIdentifier("xpert_chatbot_button")
+                }
             }
         }
         .background(Theme.Colors.background.ignoresSafeArea())
