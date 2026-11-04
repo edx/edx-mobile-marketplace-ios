@@ -186,7 +186,9 @@ public struct DiscoveryWebview: View {
         .navigationTitle(supportsElevatedTabBar ? "" : CoreLocalization.Mainscreen.discovery)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                if !supportsElevatedTabBar {
+                if !supportsElevatedTabBar,
+                   discoveryType == .discovery,
+                   viewModel.config.discovery.type == .webview {
                     Button(action: {
                         viewModel.openXpertChatbot()
                     }, label: {
