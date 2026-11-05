@@ -25,10 +25,10 @@ public struct XpertChatbotInjection: WebViewScriptInjectionProtocol {
     public var script: String {
         """
         (function() {
-            // The native toolbar button replaces the widget's floating button, so hide it.
-            // A hidden element still responds to programmatic click().
+            // The native toolbar button replaces the widget's floating button and proactive
+            // message bubble, so hide both. A hidden element still responds to programmatic click().
             var style = document.createElement('style');
-            style.textContent = '#xpert_chatbot__floating-action-btn { display: none !important; }';
+            style.textContent = '#xpert_chatbot__floating-action-btn, .xpert_chatbot__proactive-message { display: none !important; }';
             (document.head || document.documentElement).appendChild(style);
 
             // The widget injects its floating button asynchronously, so it's looked up
