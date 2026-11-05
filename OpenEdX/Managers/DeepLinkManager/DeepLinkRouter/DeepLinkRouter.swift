@@ -61,6 +61,7 @@ public protocol DeepLinkRouter: BaseRouter {
     func showProgram(
         pathID: String
     )
+    func showCourses()
     func showUserProfile(userProfile: UserProfile)
     func dismissPresentedViewController()
     func showProgress()
@@ -80,6 +81,11 @@ extension Router: DeepLinkRouter {
     public func showPrograms() {
         dismiss()
         hostMainScreen?.rootView.viewModel.showPrograms()
+    }
+    
+    public func showCourses() {
+        dismiss()
+        hostMainScreen?.rootView.viewModel.showCourses()
     }
 
     public func showDiscoveryDetails(
@@ -119,7 +125,7 @@ extension Router: DeepLinkRouter {
         let isCourseOpened = hostCourseContainerView?.rootView.courseID == courseDetails.courseID
 
         if !isCourseOpened {
-            showTabScreen(tab: .dashboard)
+            showCourses()
 
             if courseDetails.isEnrolled {
                 showCourseScreens(
@@ -365,6 +371,7 @@ public class DeepLinkRouterMock: BaseRouterMock, DeepLinkRouter {
     public override init() {}
     public func showTabScreen(tab: MainTab) {}
     public func showPrograms() {}
+    public func showCourses() {}
     public func showDiscovery() {}
     public func showDiscoveryDetails(
         link: DeepLink,
